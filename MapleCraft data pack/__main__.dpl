@@ -1,12 +1,15 @@
 import random
 import loop
-# from <module name> import <namespace1>[, <namespace2>[, ...]]
+import number_display
 
 description = "MapleCraft data pack"
 
 namespace main()
 {
-	
+	func install()
+	{
+		function number_display:install
+	}
 }
 
 
