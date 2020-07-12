@@ -31,7 +31,9 @@ namespace number_display()
 		
 		data modify storage number:main display prepend value 0
 		execute store result storage number:main display[0] int 1 run scoreboard players get #GLOBAL display_number
-		data modify storage number:main display prepend value 6
+		# larger overlap on crit numbers
+		execute unless score @s display_num_type matches 1 run data modify storage number:main display prepend value 6
+		execute if score @s display_num_type matches 1 run data modify storage number:main display prepend value 7
 		
 		scoreboard players operation @s display_number /= #10 const
 		execute if score @s display_number matches 1.. run function ARG(_PATH)insert_digit
