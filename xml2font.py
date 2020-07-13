@@ -39,6 +39,9 @@ def generateFont(resourcepack_path, xml_files):
 		image_heights = []
 		for i in range(len(root)):
 			child_of_root = root[i]
+			if child_of_root.tag != "canvas":
+				continue
+			
 			size = (int(child_of_root.attrib["width"]), int(child_of_root.attrib["height"]))
 			for vec in child_of_root.findall("vector"):
 				if vec.attrib["name"] == "origin":
@@ -74,7 +77,12 @@ def generateFont(resourcepack_path, xml_files):
 			draw = PIL.ImageDraw.Draw(new_img)
 			draw.point([new_size[0] - 1, new_size[1] - 1], (255, 255, 255, 12))
 			
-			image_heights.append(new_img.size[1])
+			image_heights.append(new_size[1])
+			resize_scale = min(256 / new_size[0], 256 / new_size[1])
+			if resize_scale < 1:
+				scaled_size = (math.floor(new_size[0] * resize_scale), math.floor(new_size[1] * resize_scale))
+				new_img = new_img.resize(scaled_size)
+			
 			parent_path = f"{resourcepack_path}/assets/skill/textures/font/{folder}"
 			mkdir(parent_path)
 			new_img.save(f"{parent_path}/{i}.png")

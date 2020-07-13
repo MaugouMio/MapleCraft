@@ -49,7 +49,7 @@ namespace skill()
 	
 	func test_summon()
 	{
-		execute positioned ^ ^ ^3 run function ARG(_PATH)summon_font_effect/2001005hit
+		execute positioned ^ ^ ^3 run function ARG(_PATH)summon_font_effect/2321008effect0
 		scoreboard players reset @s temp
 	}
 }
