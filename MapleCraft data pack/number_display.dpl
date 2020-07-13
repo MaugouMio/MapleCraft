@@ -4,10 +4,6 @@ namespace number_display()
 	{	
 		scoreboard objectives add display_number dummy
 		scoreboard objectives add display_num_type dummy
-		
-		forceload add 0 0
-		fill -1 0 -1 1 1 1 minecraft:bedrock
-		setblock 0 0 0 minecraft:acacia_wall_sign
 	}
 	
 	func show()

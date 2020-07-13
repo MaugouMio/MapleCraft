@@ -1,6 +1,7 @@
 import random
 import loop
 import number_display
+import skill
 
 description = "MapleCraft data pack"
 
@@ -14,12 +15,23 @@ namespace main()
 	func install()
 	{
 		scoreboard objectives add const dummy
+		scoreboard objectives add type dummy
+		scoreboard objectives add temp dummy
 		```
 		for i in constants:
 			print("scoreboard players set #{0} const {0}".format(i))
 		```
 		
+		forceload add 0 0
+		fill -1 0 -1 1 1 1 minecraft:bedrock
+		setblock 0 0 0 minecraft:acacia_wall_sign
+		
 		function number_display:install
+	}
+	
+	func main()
+	{
+		function skill:main
 	}
 }
 
@@ -27,7 +39,7 @@ namespace main()
 
 tag tick
 {
-	# samp:samp_folder/samp_function
+	main:main
 }
 
 tag load	

@@ -1,0 +1,55 @@
+namespace skill()
+{
+	func install()
+	{
+		
+	}
+	
+	func main()
+	{
+		execute as @e[type=area_effect_cloud,scores={type=1}] run function ARG(_PATH)font_effect_update
+		
+		# summon font effect
+		execute as @a[scores={temp=1..}] at @s run function ARG(_PATH)test_summon
+	}
+	
+	func font_effect_update()
+	{
+		execute store result score #GLOBAL temp run data get entity @s Age
+		scoreboard players operation #GLOBAL temp %= #10 const
+		execute if score #GLOBAL temp matches 0 run data remove entity @s Tags[0]
+		
+		data modify storage skill:main effect_font set from entity @s Tags[0]
+		data modify block 0 0 0 Text1 set value '[{"nbt":"effect_font","storage":"skill:main","interpret":true},{"text":"F","font":"space:default"},{"score":{"name":"#GLOBAL","objective":"temp"}},{"text":"F","font":"space:default"}]'
+		data modify entity @s CustomName set from block 0 0 0 Text1
+	}
+	
+	folder summon_font_effect()
+	{
+		```
+		font_root_path = os.path.dirname(os.path.abspath(PROJ_DIR)) + "/MapleCraft resource pack/assets/skill/font"
+		for root, dirs, files in os.walk(font_root_path):
+			for name in files:
+				if name == "summon.txt":
+					func_name = ""
+					recursive_path = root
+					for i in range(3):
+						func_name = os.path.basename(recursive_path) + func_name
+						recursive_path = os.path.dirname(recursive_path)
+						
+					print(f"func {func_name}()")
+					print("{")
+					with open(os.path.join(root, name), "r") as f:
+						print(f.read())
+					print("}")
+					
+					break
+		```
+	}
+	
+	func test_summon()
+	{
+		execute positioned ^ ^ ^3 run function ARG(_PATH)summon_font_effect/2001005hit
+		scoreboard players reset @s temp
+	}
+}
