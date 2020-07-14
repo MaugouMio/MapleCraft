@@ -1,3 +1,0 @@
-summon minecraft:area_effect_cloud ~ ~ ~ {CustomName:'[{"text":"F","font":"space:default"},{"text":"0","font":"skill:232/1008/effect0/3"},{"text":"F","font":"space:default"}]',CustomNameVisible:1,Duration:53,Tags:['{"text":"","font":"skill:232/1008/effect0/3"}', '{"text":"","font":"skill:232/1008/effect0/4"}', '{"text":"","font":"skill:232/1008/effect0/1"}', '{"text":"","font":"skill:232/1008/effect0/2"}', '{"text":"","font":"skill:232/1008/effect0/0"}', '{"text":"","font":"skill:232/1008/effect0/5"}', 'new']}
-scoreboard players set @e[type=area_effect_cloud,tag=new,limit=1] type 1
-tag @e[type=area_effect_cloud,tag=new,limit=1] remove new

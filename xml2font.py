@@ -6,6 +6,7 @@ from subprocess import Popen, PIPE, STDOUT
 from tkinter import filedialog, messagebox
 from tkinter import *
 from tkinter.ttk import *
+from tkinter import Scale
 
 def mkdir(path):
 	if os.path.exists(path):
@@ -24,7 +25,7 @@ def getJavaSetOrder(str_list):
 
 #################################################################
 
-def generateFont(resourcepack_path, xml_files):
+def generateFont(resourcepack_path, xml_files, anchor):
 	if len(xml_files) == 0:
 		return
 	
@@ -37,6 +38,7 @@ def generateFont(resourcepack_path, xml_files):
 
 		delays = []
 		image_heights = []
+		images = []
 		for i in range(len(root)):
 			child_of_root = root[i]
 			if child_of_root.tag != "canvas":
@@ -74,18 +76,46 @@ def generateFont(resourcepack_path, xml_files):
 			new_img = PIL.Image.new(img.mode, new_size)
 			
 			new_img.paste(img, (offset[0], offset[1], offset[0] + size[0], offset[1] + size[1]))
-			draw = PIL.ImageDraw.Draw(new_img)
-			draw.point([new_size[0] - 1, new_size[1] - 1], (255, 255, 255, 12))
 			
 			image_heights.append(new_size[1])
-			resize_scale = min(256 / new_size[0], 256 / new_size[1])
+			
+			images.append(new_img)
+		
+		anchor_required_height = round(float(np.array(image_heights).max() * abs(anchor - 0.5) * 2))
+		ascents = []
+		for i in range(len(images)):
+			img = images[i]
+			if img.size[1] < anchor_required_height:
+				new_size = (img.size[0], anchor_required_height)
+				height_offset = (anchor_required_height - img.size[1]) // 2
+				
+				new_img = PIL.Image.new(img.mode, new_size)
+				new_img.paste(img, (0, height_offset, img.size[0], height_offset + img.size[1]))
+				img = new_img
+				
+				image_heights[i] = anchor_required_height
+				if anchor < 0.5:
+					ascents.append(0)
+				else:
+					ascents.append(anchor_required_height)
+			else:
+				ascent = (img.size[1] - anchor_required_height) // 2
+				if anchor < 0.5:
+					ascents.append(ascent)
+				else:
+					ascents.append(img.size[1] - ascent)
+					
+			resize_scale = min(256 / img.size[0], 256 / img.size[1])
 			if resize_scale < 1:
-				scaled_size = (math.floor(new_size[0] * resize_scale), math.floor(new_size[1] * resize_scale))
-				new_img = new_img.resize(scaled_size)
+				scaled_size = (math.floor(img.size[0] * resize_scale), math.floor(img.size[1] * resize_scale))
+				img = img.resize(scaled_size)
+			
+			draw = PIL.ImageDraw.Draw(img)
+			draw.point([img.size[0] - 1, img.size[1] - 1], (255, 255, 255, 12))
 			
 			parent_path = f"{resourcepack_path}/assets/skill/textures/font/{folder}"
 			mkdir(parent_path)
-			new_img.save(f"{parent_path}/{i}.png")
+			img.save(f"{parent_path}/{i}.png")
 
 		delays = np.array(delays, dtype=int)
 		effect_life = math.ceil(delays.sum() / 50)
@@ -114,7 +144,7 @@ def generateFont(resourcepack_path, xml_files):
 			word_info = {
 				"type": "bitmap",
 				"file": f"skill:font/{folder}/{delay_index}.png",
-				"ascent": image_heights[delay_index] // 4,
+				"ascent": ascents[delay_index] // 2,
 				"height": image_heights[delay_index] // 2,
 				"chars": [str(sub_num)]
 			}
@@ -142,13 +172,13 @@ win = Tk()
 win.title("xml2font")
 screenwidth = win.winfo_screenwidth()
 screenheight = win.winfo_screenheight()
-window_width, window_height = (600, 90)
+window_width, window_height = (600, 220)
 size = "%dx%d+%d+%d" % (window_width, window_height, (screenwidth - window_width)/2, (screenheight - window_height)/2)
 win.geometry(size)
 win.resizable(0, 0)
 
-resourcepack_path = StringVar()
-resourcepack_path.set(os.path.abspath(os.path.expandvars("%HOMEPATH%/Desktop")) + r"\MapleCraft\MapleCraft resource pack")
+resourcepack_path = StringVar(win, os.path.abspath(os.path.expandvars("%HOMEPATH%/Desktop")) + r"\MapleCraft\MapleCraft resource pack")
+anchor_value = DoubleVar(win, 0.5)
 
 ##### Resource Pack Directory Frame #####
 # Frame of widgets
@@ -164,9 +194,21 @@ build_dest_entry.pack(side=LEFT, padx=10)
 select_folder_btn = Button(set_dir_frame, text="...", width=3, command = lambda entry=resourcepack_path: entry.set(filedialog.askdirectory()))
 select_folder_btn.pack(side=LEFT)
 
-##### Generate Button #####
-generate_font_btn = Button(win, text="從xml檔建立", command = lambda rp=resourcepack_path: generateFont(rp.get(), filedialog.askopenfilenames(initialdir=os.path.expandvars("%HOMEPATH%/Desktop"), filetypes=[('xml檔', '.xml'), ('all files', '.*'),])))
-generate_font_btn.pack()
+##### Main Frame #####
+# Frame of widgets
+main_frame = Frame(win)
+main_frame.pack(side=TOP)
+
+# Frame of Options
+option_frame = Frame(main_frame)
+option_frame.pack(side=TOP)
+# Anchor Slider
+Label(option_frame, text="圖片錨點(旋轉中心)").pack(side=TOP)
+anchor_scale = Scale(option_frame, orient="vertical", from_=0, to=1, resolution=0.05, variable=anchor_value)
+anchor_scale.pack(side=TOP)
+# Generate Button
+generate_font_btn = Button(main_frame, text="從xml檔建立", command = lambda rp=resourcepack_path, anchor=anchor_value: generateFont(rp.get(), filedialog.askopenfilenames(initialdir=os.path.expandvars("%HOMEPATH%/Desktop"), filetypes=[('xml檔', '.xml'), ('all files', '.*'),]), anchor.get()))
+generate_font_btn.pack(side=TOP, pady=10)
 
 #########################################
 
