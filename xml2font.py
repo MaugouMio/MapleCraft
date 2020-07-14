@@ -25,7 +25,65 @@ def getJavaSetOrder(str_list):
 
 #################################################################
 
-def generateFont(resourcepack_path, xml_files, anchor):
+def getPageInfo(effect_life, folder):
+	page_amount = effect_life // 10 + 1
+	page_names = [f'{{"text":"","font":"skill:{folder}/{i}"}}' for i in range(page_amount)]
+
+	page_file_names = dict()
+	for i in range(page_amount):
+		page_file_names[page_names[i]] = f"{folder}/{i}.json"
+	page_order = getJavaSetOrder(" ".join(page_names))
+	
+	return page_file_names, page_order
+	
+def insertWordInfo(font_files, frame, page_file_names, page_order, folder, delay_index, ascents, image_heights):
+	sub_num = frame % 10
+	page = frame // 10
+	
+	page_file_name = page_file_names[page_order[page]]
+	if page_file_name not in font_files:
+		font_files[page_file_name] = {"providers": []}
+	
+	word_info = {
+		"type": "bitmap",
+		"file": f"skill:font/{folder}/{delay_index}.png",
+		"ascent": ascents[delay_index] // 2,
+		"height": image_heights[delay_index] // 2,
+		"chars": [str(sub_num)]
+	}
+	font_files[page_file_name]["providers"].append(word_info)
+
+def generateThresholdDelay(delays, folder, image_heights, ascents):
+	font_files = dict()
+	delays = np.array(delays, dtype=int)
+	effect_life = math.ceil(delays.sum() / 50)
+	page_file_names, page_order = getPageInfo(effect_life, folder)
+
+	delay_index = 0
+	for i in range(effect_life):
+		if i * 50 >= delays[:(delay_index + 1)].sum():
+			delay_index += 1
+			
+		insertWordInfo(font_files, i, page_file_names, page_order, folder, delay_index, ascents, image_heights)
+	
+	return page_order, effect_life, font_files
+
+def generateMinDistDelay(delays, folder, image_heights, ascents):
+	font_files = dict()
+	frame_amounts = np.array([round(delay / 50) for delay in delays], dtype=int)
+	effect_life = frame_amounts.sum()
+	page_file_names, page_order = getPageInfo(effect_life, folder)
+	
+	delay_index = 0
+	for i in range(effect_life):
+		if i == frame_amounts[:(delay_index + 1)].sum():
+			delay_index += 1
+		
+		insertWordInfo(font_files, i, page_file_names, page_order, folder, delay_index, ascents, image_heights)
+	
+	return page_order, effect_life, font_files
+
+def generateFont(resourcepack_path, xml_files, anchor, formula):
 	if len(xml_files) == 0:
 		return
 	
@@ -117,38 +175,10 @@ def generateFont(resourcepack_path, xml_files, anchor):
 			mkdir(parent_path)
 			img.save(f"{parent_path}/{i}.png")
 
-		delays = np.array(delays, dtype=int)
-		effect_life = math.ceil(delays.sum() / 50)
-
-		page_amount = effect_life // 10 + 1
-		page_names = [f'{{"text":"","font":"skill:{folder}/{i}"}}' for i in range(page_amount)]
-
-		page_file_names = dict()
-		for i in range(page_amount):
-			page_file_names[page_names[i]] = f"{folder}/{i}.json"
-		page_order = getJavaSetOrder(" ".join(page_names))
-
-		font_files = dict()
-		delay_index = 0
-		for i in range(effect_life):
-			sub_num = i % 10
-			page = i // 10
-			
-			if i * 50 > delays[:(delay_index + 1)].sum():
-				delay_index += 1
-			
-			page_file_name = page_file_names[page_order[page]]
-			if page_file_name not in font_files:
-				font_files[page_file_name] = {"providers": []}
-			
-			word_info = {
-				"type": "bitmap",
-				"file": f"skill:font/{folder}/{delay_index}.png",
-				"ascent": ascents[delay_index] // 2,
-				"height": image_heights[delay_index] // 2,
-				"chars": [str(sub_num)]
-			}
-			font_files[page_file_name]["providers"].append(word_info)
+		if formula == 0:
+			page_order, effect_life, font_files = generateThresholdDelay(delays, folder, image_heights, ascents)
+		elif formula == 1:
+			page_order, effect_life, font_files = generateMinDistDelay(delays, folder, image_heights, ascents)
 
 		font_directory = f"{resourcepack_path}/assets/skill/font/{folder}"
 		mkdir(font_directory)
@@ -172,13 +202,14 @@ win = Tk()
 win.title("xml2font")
 screenwidth = win.winfo_screenwidth()
 screenheight = win.winfo_screenheight()
-window_width, window_height = (600, 220)
+window_width, window_height = (600, 240)
 size = "%dx%d+%d+%d" % (window_width, window_height, (screenwidth - window_width)/2, (screenheight - window_height)/2)
 win.geometry(size)
 win.resizable(0, 0)
 
 resourcepack_path = StringVar(win, os.path.abspath(os.path.expandvars("%HOMEPATH%/Desktop")) + r"\MapleCraft\MapleCraft resource pack")
 anchor_value = DoubleVar(win, 0.5)
+formula_value = IntVar(win, 0)
 
 ##### Resource Pack Directory Frame #####
 # Frame of widgets
@@ -201,13 +232,30 @@ main_frame.pack(side=TOP)
 
 # Frame of Options
 option_frame = Frame(main_frame)
-option_frame.pack(side=TOP)
+option_frame.pack(side=TOP, pady=10)
 # Anchor Slider
-Label(option_frame, text="圖片錨點(旋轉中心)").pack(side=TOP)
-anchor_scale = Scale(option_frame, orient="vertical", from_=0, to=1, resolution=0.05, variable=anchor_value)
+anchor_frame = Frame(option_frame)
+anchor_frame.pack(side=LEFT, padx=50)
+Label(anchor_frame, text="圖片錨點(旋轉中心)").pack(side=TOP)
+anchor_scale = Scale(anchor_frame, orient="vertical", from_=0, to=1, resolution=0.05, variable=anchor_value)
 anchor_scale.pack(side=TOP)
+# Formula selection
+formula_frame = Frame(option_frame)
+formula_frame.pack(side=RIGHT, padx=100)
+Label(formula_frame, text="幀分割公式").pack(side=TOP, pady=10)
+Radiobutton(formula_frame, text="時間門檻法", variable=formula_value, value=0).pack(side=TOP, anchor="w")
+Radiobutton(formula_frame, text="最小間距差法", variable=formula_value, value=1).pack(side=TOP, anchor="w")
+
 # Generate Button
-generate_font_btn = Button(main_frame, text="從xml檔建立", command = lambda rp=resourcepack_path, anchor=anchor_value: generateFont(rp.get(), filedialog.askopenfilenames(initialdir=os.path.expandvars("%HOMEPATH%/Desktop"), filetypes=[('xml檔', '.xml'), ('all files', '.*'),]), anchor.get()))
+generate_font_btn = Button(main_frame, text="從xml檔建立",
+	command = lambda rp=resourcepack_path, anchor=anchor_value: generateFont(
+		rp.get(),
+		filedialog.askopenfilenames(initialdir=os.path.expandvars("%HOMEPATH%/Desktop"),
+		filetypes=[('xml檔', '.xml'), ('all files', '.*'),]),
+		anchor.get(),
+		formula_value.get()
+	)
+)
 generate_font_btn.pack(side=TOP, pady=10)
 
 #########################################
