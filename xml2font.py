@@ -59,14 +59,16 @@ def generateThresholdDelay(delays, folder, image_heights, ascents):
 	effect_life = math.ceil(delays.sum() / 50)
 	page_file_names, page_order = getPageInfo(effect_life, folder)
 
+	used_imgs = set()
 	delay_index = 0
 	for i in range(effect_life):
 		while i * 50 >= delays[:(delay_index + 1)].sum():
 			delay_index += 1
 			
+		used_imgs.add(delay_index)
 		insertWordInfo(font_files, i, page_file_names, page_order, folder, delay_index, ascents, image_heights)
 	
-	return page_order, effect_life, font_files
+	return page_order, effect_life, font_files, used_imgs
 
 def generateMinDistDelay(delays, folder, image_heights, ascents):
 	font_files = dict()
@@ -181,12 +183,17 @@ def generateFont(resourcepack_path, xml_files, anchor, formula):
 			draw = PIL.ImageDraw.Draw(img)
 			draw.point([img.size[0] - 1, img.size[1] - 1], (255, 255, 255, 12))
 			
-			img.save(f"{texture_path}/{i}.png")
+			images[i] = img
 
 		if formula == 0:
-			page_order, effect_life, font_files = generateThresholdDelay(delays, folder, image_heights, ascents)
+			page_order, effect_life, font_files, used_imgs = generateThresholdDelay(delays, folder, image_heights, ascents)
+			for i in range(len(images)):
+				if i in used_imgs:
+					images[i].save(f"{texture_path}/{i}.png")
 		elif formula == 1:
 			page_order, effect_life, font_files = generateMinDistDelay(delays, folder, image_heights, ascents)
+			for i in range(len(images)):
+				images[i].save(f"{font_texture_path}/{i}.png")
 
 		with open(font_directory + "/summon.txt", "w") as f:
 			page_order.append("new")
