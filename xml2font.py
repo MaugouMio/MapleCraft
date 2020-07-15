@@ -70,7 +70,7 @@ def generateThresholdDelay(delays, folder, image_heights, ascents):
 
 def generateMinDistDelay(delays, folder, image_heights, ascents):
 	font_files = dict()
-	frame_amounts = np.array([round(delay / 50) for delay in delays], dtype=int)
+	frame_amounts = np.array([max(round(delay / 50), 1) for delay in delays], dtype=int)
 	effect_life = frame_amounts.sum()
 	page_file_names, page_order = getPageInfo(effect_life, folder)
 	
