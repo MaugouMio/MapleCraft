@@ -1,6 +1,6 @@
 import xml.etree.cElementTree as ET
 import PIL.Image, PIL.ImageDraw
-import base64, io, math, os, json
+import base64, io, math, os, json, shutil
 import numpy as np
 from subprocess import Popen, PIPE, STDOUT
 from tkinter import filedialog, messagebox
@@ -90,6 +90,16 @@ def generateFont(resourcepack_path, xml_files, anchor, formula):
 	for xml_file in xml_files:
 		file_name = os.path.basename(xml_file)
 		folder = file_name[:3] + '/' + file_name[3:7] + '/' + file_name[7:file_name.find('.')]
+		
+		texture_path = f"{resourcepack_path}/assets/skill/textures/font/{folder}"
+		if os.path.exists(texture_path):
+			shutil.rmtree(texture_path)
+		mkdir(texture_path)
+		
+		font_directory = f"{resourcepack_path}/assets/skill/font/{folder}"
+		if os.path.exists(font_directory):
+			shutil.rmtree(font_directory)
+		mkdir(font_directory)
 
 		tree = ET.ElementTree(file = xml_file)
 		root = tree.getroot()[0]
@@ -171,17 +181,13 @@ def generateFont(resourcepack_path, xml_files, anchor, formula):
 			draw = PIL.ImageDraw.Draw(img)
 			draw.point([img.size[0] - 1, img.size[1] - 1], (255, 255, 255, 12))
 			
-			parent_path = f"{resourcepack_path}/assets/skill/textures/font/{folder}"
-			mkdir(parent_path)
-			img.save(f"{parent_path}/{i}.png")
+			img.save(f"{texture_path}/{i}.png")
 
 		if formula == 0:
 			page_order, effect_life, font_files = generateThresholdDelay(delays, folder, image_heights, ascents)
 		elif formula == 1:
 			page_order, effect_life, font_files = generateMinDistDelay(delays, folder, image_heights, ascents)
 
-		font_directory = f"{resourcepack_path}/assets/skill/font/{folder}"
-		mkdir(font_directory)
 		with open(font_directory + "/summon.txt", "w") as f:
 			page_order.append("new")
 			initial_name = page_order[0].replace('"text":""', '"text":"0"')
