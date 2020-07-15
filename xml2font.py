@@ -61,7 +61,7 @@ def generateThresholdDelay(delays, folder, image_heights, ascents):
 
 	delay_index = 0
 	for i in range(effect_life):
-		if i * 50 >= delays[:(delay_index + 1)].sum():
+		while i * 50 >= delays[:(delay_index + 1)].sum():
 			delay_index += 1
 			
 		insertWordInfo(font_files, i, page_file_names, page_order, folder, delay_index, ascents, image_heights)
