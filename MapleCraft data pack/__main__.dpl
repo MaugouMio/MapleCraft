@@ -1,12 +1,13 @@
 import random
 import loop
 import number_display
+import bar_display
 import skill
 
 description = "MapleCraft data pack"
 
 ```
-constants = [10]
+constants = [0, 10, 100]
 constants = set(constants)
 ```
 
@@ -15,23 +16,65 @@ namespace main()
 	func install()
 	{
 		scoreboard objectives add const dummy
+		scoreboard objectives add number dummy
 		scoreboard objectives add type dummy
 		scoreboard objectives add temp dummy
 		```
 		for i in constants:
 			print("scoreboard players set #{0} const {0}".format(i))
 		```
+		scoreboard players set #GLOBAL number 0
 		
 		forceload add 0 0
 		fill -1 0 -1 1 1 1 minecraft:bedrock
 		setblock 0 0 0 minecraft:acacia_wall_sign
 		
 		function number_display:install
+		function bar_display:install
+		
+		function loop:schedule_1s/run
+		function loop:schedule_1d/run
 	}
 	
 	func main()
 	{
 		function skill:main
+		function bar_display:main
+	}
+	
+	func new_player()
+	{
+		execute store result score @s number run scoreboard players add #GLOBAL number 1
+		
+		scoreboard players set @s display_num_type 2
+		
+		scoreboard players set @s hp_max 50
+		scoreboard players set @s hp 50
+		scoreboard players set @s display_hp 100
+		scoreboard players set @s mp_max 5
+		scoreboard players set @s mp 5
+		scoreboard players set @s display_mp 100
+		
+		effect give @s minecraft:absorption 1000000 255 true
+	}
+}
+
+namespace loop()
+{
+	folder schedule_1s() from schedule_loop(1s, "")
+	{
+		func execute()
+		{
+			function bar_display:loop/schedule_1s
+		}
+	}
+	
+	folder schedule_1d() from schedule_loop(1d, "")
+	{
+		func execute()
+		{
+			function bar_display:loop/schedule_1d
+		}
 	}
 }
 

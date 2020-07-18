@@ -8,6 +8,15 @@
 	},
 	"providers": [
 		{
+            "type": "bitmap",
+            "file": "space:font/space_split.png",
+            "ascent": -32768,
+            "height": -2,
+            "chars": [
+                "_"
+            ]
+        },
+		{
 			"type": "bitmap",
 			"file": "space:font/space_split.png",
 			"ascent": -32768,

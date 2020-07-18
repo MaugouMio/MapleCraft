@@ -1,0 +1,153 @@
+namespace bar_display()
+{
+	func install()
+	{
+		scoreboard objectives add hp dummy
+		scoreboard objectives add mp dummy
+		scoreboard objectives add hp_max dummy
+		scoreboard objectives add mp_max dummy
+		
+		scoreboard objectives add display_hp dummy
+		scoreboard objectives add display_mp dummy
+		scoreboard objectives add target_hp dummy
+		scoreboard objectives add target_mp dummy
+		
+		scoreboard objectives add hp_mp_varying dummy
+		scoreboard objectives add hp_vary_time dummy
+		scoreboard objectives add mp_vary_time dummy
+		
+		scoreboard objectives add damage_taken minecraft.custom:minecraft.damage_absorbed
+		
+		function loop:schedule_5t/run
+		function loop:schedule_1s/run
+		function loop:schedule_1d/run
+	}
+	
+	func main()
+	{
+		execute as @a[scores={damage_taken=1..}] at @s run function ARG(_PATH)take_damage
+		execute as @a[scores={hp_mp_varying=1}] run function ARG(_PATH)bar_vary/check
+	}
+	
+	func take_damage()
+	{
+		scoreboard players operation @s display_number = @s damage_taken
+		function number_display:show
+		
+		scoreboard players operation @s hp -= @s damage_taken
+		execute if score @s hp matches ..0 run function ARG(_PATH)die
+		function ARG(_PATH)hp_changed
+		
+		effect give @s minecraft:absorption 1000000 255 true
+		scoreboard players reset @s damage_taken
+	}
+	
+	func die()
+	{
+		scoreboard players set @s hp 0
+		say dead
+	}
+	
+	func hp_changed()
+	{
+		scoreboard players operation @s target_hp = @s hp
+		scoreboard players operation @s target_hp *= #100 const
+		scoreboard players operation @s target_hp /= @s hp_max
+		
+		scoreboard players set @s hp_vary_time 20
+		scoreboard players set @s hp_mp_varying 1
+	}
+	
+	func mp_changed()
+	{
+		scoreboard players operation @s target_mp = @s mp
+		scoreboard players operation @s target_mp *= #100 const
+		scoreboard players operation @s target_mp /= @s mp_max
+		
+		scoreboard players set @s mp_vary_time 20
+		scoreboard players set @s hp_mp_varying 1
+	}
+	
+	folder bar_vary()
+	{
+		func check()
+		{
+			execute if score @s hp_vary_time matches 1.. run function ARG(_PATH)hp_vary
+			execute if score @s mp_vary_time matches 1.. run function ARG(_PATH)mp_vary
+			
+			function ARG(__PATH)update_bar/run
+			execute unless score @s hp_vary_time matches 1.. unless score @s mp_vary_time matches 1.. run scoreboard players reset @s hp_mp_varying
+		}
+		
+		func hp_vary()
+		{
+			scoreboard players operation #GLOBAL temp = @s target_hp
+			scoreboard players operation #GLOBAL temp -= @s display_hp
+			scoreboard players operation #GLOBAL temp /= @s hp_vary_time
+			scoreboard players operation @s display_hp += #GLOBAL temp
+			
+			scoreboard players remove @s hp_vary_time 1
+			scoreboard players reset @s[scores={hp_vary_time=0}] hp_vary_time
+		}
+		
+		func mp_vary()
+		{
+			scoreboard players operation #GLOBAL temp = @s target_mp
+			scoreboard players operation #GLOBAL temp -= @s display_mp
+			scoreboard players operation #GLOBAL temp /= @s mp_vary_time
+			scoreboard players operation @s display_mp += #GLOBAL temp
+			
+			scoreboard players remove @s mp_vary_time 1
+			scoreboard players reset @s[scores={mp_vary_time=0}] mp_vary_time
+		}
+	}
+	
+	folder update_bar()
+	{
+		func run()
+		{
+			data modify storage bar:main hp set value []
+			scoreboard players operation #VALUE_TO_INSERT temp = @s display_hp
+			function ARG(_PATH)insert_hp_digit
+			data modify storage bar:main mp set value []
+			scoreboard players operation #VALUE_TO_INSERT temp = @s display_mp
+			function ARG(_PATH)insert_mp_digit
+			
+			title @s actionbar [{"text":"0","font":"ui:hp_mp"},{"text":"CA86","font":"space:default"},{"nbt":"hp[0]","storage":"bar:main","font":"ui:hp1"},{"text":"1","font":"space:default"},{"nbt":"hp[1]","storage":"bar:main","font":"ui:hp10"},{"nbt":"hp[2]","storage":"bar:main","font":"ui:hp100"},{"nbt":"hp[0]","storage":"bar:main","font":"ui:bar_back1"},{"nbt":"hp[1]","storage":"bar:main","font":"ui:bar_back10"},{"nbt":"hp[2]","storage":"bar:main","font":"ui:bar_back100"},{"text":"\uF828\uF827","font":"space:default"},[{"text":"[","font":"ui:bar_num"},{"score":{"name":"@s","objective":"hp"}},"/",{"score":{"name":"@s","objective":"hp_max"}},"]"],{"text":"87","font":"space:default"},[{"text":"[","font":"ui:bar_num_back"},{"score":{"name":"@s","objective":"hp"}},"/",{"score":{"name":"@s","objective":"hp_max"}},"]"],{"text":"\uF82B\uF829\uF828\uF821","font":"space:default"},{"nbt":"mp[0]","storage":"bar:main","font":"ui:mp1"},{"text":"1","font":"space:default"},{"nbt":"mp[1]","storage":"bar:main","font":"ui:mp10"},{"nbt":"mp[2]","storage":"bar:main","font":"ui:mp100"},{"nbt":"mp[0]","storage":"bar:main","font":"ui:bar_back1"},{"nbt":"mp[1]","storage":"bar:main","font":"ui:bar_back10"},{"nbt":"mp[2]","storage":"bar:main","font":"ui:bar_back100"},{"text":"\uF829\uF822","font":"space:default"},[{"text":"[","font":"ui:bar_num"},{"score":{"name":"@s","objective":"mp"}},"/",{"score":{"name":"@s","objective":"mp_max"}},"]"],{"text":"92","font":"space:default"},[{"text":"[","font":"ui:bar_num_back"},{"score":{"name":"@s","objective":"mp"}},"/",{"score":{"name":"@s","objective":"mp_max"}},"]"],{"text":"B97","font":"space:default"},{"text":"1","font":"ui:hp_mp"}]
+		}
+		
+		func insert_hp_digit()
+		{
+			data modify storage bar:main hp append value 0
+			scoreboard players operation #GLOBAL temp = #VALUE_TO_INSERT temp
+			execute store result storage bar:main hp[-1] int 1 run scoreboard players operation #GLOBAL temp %= #10 const
+			
+			scoreboard players operation #VALUE_TO_INSERT temp /= #10 const
+			execute if score #VALUE_TO_INSERT temp matches 1.. run function ARG(_PATH)insert_hp_digit
+		}
+		
+		func insert_mp_digit()
+		{
+			data modify storage bar:main mp append value 0
+			scoreboard players operation #GLOBAL temp = #VALUE_TO_INSERT temp
+			execute store result storage bar:main mp[-1] int 1 run scoreboard players operation #GLOBAL temp %= #10 const
+			
+			scoreboard players operation #VALUE_TO_INSERT temp /= #10 const
+			execute if score #VALUE_TO_INSERT temp matches 1.. run function ARG(_PATH)insert_mp_digit
+		}
+	}
+	
+	folder loop()
+	{
+		
+		func schedule_1s()
+		{
+			execute as @a unless score @s hp_mp_varying matches 1 run function ARG(__PATH)update_bar/run
+		}
+		
+		func schedule_1d()
+		{
+			effect give @a minecraft:absorption 1000000 255 true
+		}
+	}
+}

@@ -1,0 +1,22 @@
+{
+	"providers": [
+		{
+			"type": "bitmap",
+			"file": "ui:font/stats_bar.png",
+			"ascent": -13,
+			"height": 25,
+			"chars": [
+				"0"
+			]
+		},
+		{
+			"type": "bitmap",
+			"file": "ui:font/stats_bar_mask.png",
+			"ascent": -13,
+			"height": 25,
+			"chars": [
+				"1"
+			]
+		}
+	]
+}
