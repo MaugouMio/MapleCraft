@@ -17,10 +17,6 @@ namespace bar_display()
 		scoreboard objectives add mp_vary_time dummy
 		
 		scoreboard objectives add damage_taken minecraft.custom:minecraft.damage_absorbed
-		
-		function loop:schedule_5t/run
-		function loop:schedule_1s/run
-		function loop:schedule_1d/run
 	}
 	
 	func main()
