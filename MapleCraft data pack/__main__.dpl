@@ -1,25 +1,52 @@
 import random
 import loop
-import number_display
-import bar_display
-import skill
 
 description = "MapleCraft data pack"
 
 ```
-constants = [0, 10, 100]
-constants = set(constants)
+constants = [0, 2, 5, 10, 50, 100, 150]
 ```
+
+import math
+import number_display
+import bar_display
+import skill
 
 namespace main()
 {
 	func install()
 	{
+		gamerule commandBlockOutput false
+		gamerule disableRaids true
+		gamerule doDaylightCycle false
+		gamerule doEntityDrops false
+		gamerule doFireTick false
+		gamerule doInsomnia false
+		gamerule doMobLoot false
+		gamerule doMobSpawning false
+		gamerule doPatrolSpawning false
+		gamerule doTileDrops false
+		gamerule doTraderSpawning false
+		gamerule doWeatherCycle false
+		gamerule drowningDamage false
+		gamerule fallDamage false
+		gamerule fireDamage false
+		gamerule forgiveDeadPlayers true
+		gamerule keepInventory true
+		gamerule logAdminCommands false
+		gamerule mobGriefing false
+		gamerule naturalRegeneration false
+		# gamerule sendCommandFeedback false
+		gamerule showDeathMessages false
+		gamerule spawnRadius 0
+		gamerule universalAnger false
+		
 		scoreboard objectives add const dummy
 		scoreboard objectives add number dummy
 		scoreboard objectives add type dummy
 		scoreboard objectives add temp dummy
 		```
+		constants = set(constants)
 		for i in constants:
 			print("scoreboard players set #{0} const {0}".format(i))
 		```
@@ -29,6 +56,7 @@ namespace main()
 		fill -1 0 -1 1 1 1 minecraft:bedrock
 		setblock 0 0 0 minecraft:acacia_wall_sign
 		
+		function skill:install
 		function number_display:install
 		function bar_display:install
 		
@@ -39,6 +67,7 @@ namespace main()
 	func main()
 	{
 		function skill:main
+		function number_display:main
 		function bar_display:main
 	}
 	
@@ -48,6 +77,8 @@ namespace main()
 		
 		scoreboard players set @s display_num_type 2
 		
+		scoreboard players set @s level 1
+		
 		scoreboard players set @s hp_max 50
 		scoreboard players set @s hp 50
 		scoreboard players set @s display_hp 100
@@ -56,6 +87,7 @@ namespace main()
 		scoreboard players set @s display_mp 100
 		
 		effect give @s minecraft:absorption 1000000 255 true
+		effect give @s minecraft:weakness 1000000 255 true
 	}
 }
 
@@ -73,6 +105,7 @@ namespace loop()
 	{
 		func execute()
 		{
+			effect give @a minecraft:weakness 1000000 255 true
 			function bar_display:loop/schedule_1d
 		}
 	}

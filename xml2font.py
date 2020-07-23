@@ -47,8 +47,8 @@ def insertWordInfo(font_files, frame, page_file_names, page_order, folder, delay
 	word_info = {
 		"type": "bitmap",
 		"file": f"skill:font/{folder}/{delay_index}.png",
-		"ascent": ascents[delay_index] // 2,
-		"height": image_heights[delay_index] // 2,
+		"ascent": int(ascents[delay_index] / 1.2),
+		"height": int(image_heights[delay_index] / 1.2),
 		"chars": [str(sub_num)]
 	}
 	font_files[page_file_name]["providers"].append(word_info)

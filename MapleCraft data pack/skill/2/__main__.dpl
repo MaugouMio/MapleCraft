@@ -1,0 +1,72 @@
+# import 21 as virtual
+# import 22 as virtual
+# import 23 as virtual
+
+namespace 2() as virtual
+{
+	# folder 1() from 21();
+	# folder 2() from 22();
+	# folder 3() from 23();
+	
+	folder 0()
+	{
+		folder 0()
+		{
+			folder 1005() from attack_skill_template(2001005)
+			{
+				func check()
+				{
+					```
+					raise Warning("TODO: check weapon type")
+					```
+					execute unless score @s action_time matches 0.. if score @s 2001005_level matches 1.. run function ARG(_PATH)run
+				}
+				
+				func mark_target()
+				{
+					scoreboard players set #DISTANCE temp 5
+					scoreboard players set #MAX_ENEMY temp 1
+					function enemy_search:search_front/search
+				}
+				
+				func cast_effect()
+				{
+					function skill:summon_font_effect/2001005effect
+					```
+					raise Warning("TODO: 2001005 cast sound")
+					```
+				}
+				
+				func set_numeric()
+				{
+					data modify storage skill:main damage set value [{info:{min_damage:85,max_damage:170,sqrt_accuracy:10,player_level:20,crit_rate:0,crit_damage:0,base_percent:350,attribute:1},delay:8}]
+					
+					execute store result storage skill:main damage[0].info.player_level int 1 run scoreboard players get @s level
+					execute store result storage skill:main damage[0].info.crit_damage int 1 run scoreboard players get @s addi_crit_damage
+					execute store result storage skill:main damage[0].info.crit_damage int 1 run scoreboard players get @s addi_crit_damage
+					
+					data modify storage skill:main damage append from storage skill:main damage[0]
+					data modify storage skill:main damage[1].delay set value 11
+					
+					scoreboard players set @s action_time 16
+				}
+				
+				func effect()
+				{
+					execute if score @s 2001005_enum matches 1.. run function skill:summon_font_effect/2001005hit
+					```
+					raise Warning("TODO: 2001005 hit sound")
+					```
+				}
+				
+				func append_scheduler()
+				{
+					data modify storage skill:main new_schedule append value 0
+					execute store result storage skill:main new_schedule[-1] int 1 run schedule function ARG(_PATH)hit_effect 8t append
+					data modify storage skill:main new_schedule append value 0
+					execute store result storage skill:main new_schedule[-1] int 1 run schedule function ARG(_PATH)hit_effect 11t append
+				}
+			}
+		}
+	}
+}

@@ -4,9 +4,29 @@ namespace number_display()
 	{	
 		scoreboard objectives add display_number dummy
 		scoreboard objectives add display_num_type dummy
+		scoreboard objectives add display_delay dummy
+	}
+	
+	func main()
+	{
+		execute as @e[type=item,tag=display_number,scores={display_delay=0..}] run function ARG(_PATH)appear_check
 	}
 	
 	func show()
+	{
+		summon item ~ ~1 ~ {Tags:["display_number","new"],Item:{id:"minecraft:flint_and_steel",Count:1b,tag:{CustomModelData:1}},NoGravity:1,Invulnerable:1,Age:0,PickupDelay:-32768,CustomName:''}
+		execute if score @s display_number matches 0 run function ARG(_PATH)show_miss
+		execute if score @s display_number matches 1.. run function ARG(_PATH)show_number
+		execute as @e[type=item,tag=new,limit=1] run function ARG(_PATH)set_display
+	}
+	
+	func show_miss()
+	{
+		execute unless score @s display_num_type matches 1.. run data modify block 0 0 0 Text1 set value '[{"text":"F","font":"space:default"},{"text":"m","font":"number:red"},{"text":"F","font":"space:default"}]'
+		execute if score @s display_num_type matches 2 run data modify block 0 0 0 Text1 set value '[{"text":"F","font":"space:default"},{"text":"m","font":"number:violet"},{"text":"F","font":"space:default"}]'
+	}
+	
+	func show_number()
 	{
 		data modify storage number:main display set value []
 		function ARG(_PATH)insert_digit
@@ -17,9 +37,18 @@ namespace number_display()
 		execute if score @s display_num_type matches 1 run data modify block 0 0 0 Text1 set value '["",{"text":"F","font":"space:default"},{"text":"-","font":"number:crit_head"},{"text":"9","font":"space:default"},{"nbt":"display[1]","storage":"number:main","font":"number:crit_head"},{"nbt":"display[2]","storage":"number:main","font":"space:default"},{"nbt":"display[3]","storage":"number:main","font":"number:crit_lower"},{"nbt":"display[4]","storage":"number:main","font":"space:default"},{"nbt":"display[5]","storage":"number:main","font":"number:crit"},{"nbt":"display[6]","storage":"number:main","font":"space:default"},{"nbt":"display[7]","storage":"number:main","font":"number:crit_lower"},{"nbt":"display[8]","storage":"number:main","font":"space:default"},{"nbt":"display[9]","storage":"number:main","font":"number:crit"},{"text":"F","font":"space:default"}]'
 		execute if score @s display_num_type matches 2 run data modify block 0 0 0 Text1 set value '["",{"text":"F","font":"space:default"},{"nbt":"display[1]","storage":"number:main","font":"number:violet_head"},{"nbt":"display[2]","storage":"number:main","font":"space:default"},{"nbt":"display[3]","storage":"number:main","font":"number:violet_lower"},{"nbt":"display[4]","storage":"number:main","font":"space:default"},{"nbt":"display[5]","storage":"number:main","font":"number:violet"},{"nbt":"display[6]","storage":"number:main","font":"space:default"},{"nbt":"display[7]","storage":"number:main","font":"number:violet_lower"},{"nbt":"display[8]","storage":"number:main","font":"space:default"},{"nbt":"display[9]","storage":"number:main","font":"number:violet"},{"text":"F","font":"space:default"}]'
 		execute if score @s display_num_type matches 3 run data modify block 0 0 0 Text1 set value '["",{"text":"F","font":"space:default"},{"nbt":"display[1]","storage":"number:main","font":"number:blue_head"},{"nbt":"display[2]","storage":"number:main","font":"space:default"},{"nbt":"display[3]","storage":"number:main","font":"number:blue_lower"},{"nbt":"display[4]","storage":"number:main","font":"space:default"},{"nbt":"display[5]","storage":"number:main","font":"number:blue"},{"nbt":"display[6]","storage":"number:main","font":"space:default"},{"nbt":"display[7]","storage":"number:main","font":"number:blue_lower"},{"nbt":"display[8]","storage":"number:main","font":"space:default"},{"nbt":"display[9]","storage":"number:main","font":"number:blue"},{"text":"F","font":"space:default"}]'
-		
-		summon item ~ ~1 ~ {Tags:["red_number","new"],Motion:[0.0,0.03,0.0],Item:{id:"minecraft:flint_and_steel",Count:1b,tag:{CustomModelData:1}},NoGravity:1,Invulnerable:1,Age:5980,PickupDelay:-32768,CustomName:'',CustomNameVisible:1}
-		execute as @e[type=item,tag=new,limit=1] run function ARG(_PATH)set_display
+	}
+	
+	func appear_check()
+	{
+		scoreboard players remove @s display_delay 1
+		execute if score @s display_delay matches -1 run function ARG(_PATH)appear
+	}
+	
+	func appear()
+	{
+		data merge entity @s {CustomNameVisible:1,Motion:[0.0,0.03,0.0],Age:5980}
+		scoreboard players reset @s display_delay
 	}
 	
 	func insert_digit()
@@ -40,6 +69,9 @@ namespace number_display()
 	func set_display()
 	{
 		data modify entity @s CustomName set from block 0 0 0 Text1
+		scoreboard players operation @s display_delay = #GLOBAL display_delay
+		scoreboard players set #GLOBAL display_delay 0
+		
 		tag @s remove new
 	}
 }

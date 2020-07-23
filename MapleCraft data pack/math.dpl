@@ -1,0 +1,24 @@
+namespace math() as virtual
+{
+	folder sqrt(source_score, target_score) as virtual
+	{
+		func run()
+		{
+			scoreboard players set #Xn temp 1
+			execute unless score ARG(source_score) matches 0 run function ARG(_PATH)approach/run
+			scoreboard players operation ARG(target_score) = #Xn temp
+		}
+	
+		folder approach() from for_loop().for(5, "")
+		{
+			func execute()
+			{
+				scoreboard players operation #S temp = ARG(source_score)
+				scoreboard players operation #S temp /= #Xn temp
+				scoreboard players operation #S temp += #Xn temp
+				scoreboard players operation #S temp /= #2 const
+				scoreboard players operation #Xn temp = #S temp
+			}
+		}
+	}
+}
