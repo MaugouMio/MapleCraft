@@ -25,6 +25,13 @@ namespace attack_skill_template(skill_id) as virtual
 		function ARG(_PATH)cast_effect
 		function ARG(_PATH)set_numeric
 		
+		data modify storage skill:main damage_info.attacker set from entity @s UUID
+		execute store result storage skill:main damage_info.attacker_id int 1 run scoreboard players get @s number
+		
+		execute positioned 0.0 0.0 0.0 rotated ~ 0 run summon area_effect_cloud ^ ^ ^0.2 {Duration:0,Tags:["knockback_motion"]}
+		data modify storage skill:main damage_info.knock_back set from entity @e[type=area_effect_cloud,tag=knockback_motion,limit=1] Pos
+		kill @e[type=area_effect_cloud,tag=knockback_motion,limit=1]
+		
 		data modify storage skill:main new_schedule set value []
 		function ARG(_PATH)append_scheduler
 		
@@ -39,12 +46,15 @@ namespace attack_skill_template(skill_id) as virtual
 	
 	func perform_effect()
 	{
-		function ARG(_PATH)effect
+		data modify entity @s AngryAt set from entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].attacker
 		execute unless score @s pushed_time matches 0.. if score @s kb <= @s ARG(skill_id)_enum run function ARG(_PATH)knock_back
+		data remove entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0]
+		
+		function ARG(_PATH)effect
 		
 		scoreboard players reset @s ARG(skill_id)_eid
-		execute if score @s hp matches ..0 unless data entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0] run function ARG(_PATH)dead_event
-		execute if data entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0] run function ARG(_PATH)pop_schedule
+		execute if score @s hp matches ..0 unless data entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0] run function skill:mob_dead_event
+		execute if data entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0] run function ARG(_PATH)peek_schedule
 	}
 	
 	func knock_back()
@@ -53,39 +63,31 @@ namespace attack_skill_template(skill_id) as virtual
 		```
 		raise Warning("TODO: change model to kb status")
 		```
-		execute store result entity @s Motion[0] double -0.004 run data get entity @s Motion[0] 1000
-		execute store result entity @s Motion[2] double -0.004 run data get entity @s Motion[2] 1000
+		execute store result score #GLOBAL temp run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].attacker_id
+		execute as @a if score @s number = #GLOBAL temp run tag @s add face_target
+		tp @s ~ ~ ~ facing entity @a[tag=face_target,limit=1]
+		tag @a[tag=face_target] remove face_target
+		
+		data modify entity @s Motion set from entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].knock_back
+		
 		data modify entity @s ArmorItems[3].tag.AttributeModifiers[{Name:"move_control"}].Amount set value -1.0
-		```
-		raise Warning("TODO: set AngryAt to the player who used the skill")
-		```
 	}
 	
-	func dead_event()
-	{
-		```
-		raise Warning("TODO: play dead sound")
-		```
-		kill @s
-	}
-	
-	func pop_schedule()
+	func peek_schedule()
 	{
 		execute store result score @s ARG(skill_id)_eid run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].time
 		execute store result score @s ARG(skill_id)_enum run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].damage
-		data remove entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0]
 	}
 	
 	func hit()
 	{
 		function skill:calculate_damage/run
 		
-		execute if score @s ARG(skill_id)_eid matches 0.. run function ARG(_PATH)push_schedule
 		data modify storage skill:main new_queue set value []
 		data modify storage skill:main temp set from storage skill:main new_schedule
 		function ARG(_PATH)merge_schedule/run
 		data modify entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue prepend from storage skill:main new_queue[]
-		function ARG(_PATH)pop_schedule
+		function ARG(_PATH)peek_schedule
 		
 		tag @s remove target
 	}
@@ -98,9 +100,12 @@ namespace attack_skill_template(skill_id) as virtual
 			execute store result score #RIGHT temp run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].time
 			function ARG(__PATH)merge_ori_schedule/run
 			
-			data modify storage skill:main new_queue append value {time:0,damage:0}
+			data modify storage skill:main new_queue append value {time:0,damage:0,attacker:[I;0,0,0,0],knock_back:[]}
 			execute store result storage skill:main new_queue[-1].time int 1 run scoreboard players get #LEFT temp
 			data modify storage skill:main new_queue[-1].damage set from entity @s ArmorItems[3].tag.damage_record[0]
+			data modify storage skill:main new_queue[-1].attacker set from storage skill:main damage_info.attacker
+			data modify storage skill:main new_queue[-1].attacker_id set from storage skill:main damage_info.attacker_id
+			data modify storage skill:main new_queue[-1].knock_back set from storage skill:main damage_info.knock_back
 			
 			data remove storage skill:main temp[0]
 			data remove entity @s ArmorItems[3].tag.damage_record[0]
@@ -115,13 +120,6 @@ namespace attack_skill_template(skill_id) as virtual
 			data remove entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0]
 			execute store result score #RIGHT temp run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].time
 		}
-	}
-	
-	func push_schedule()
-	{
-		data modify entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue prepend value {time:0, damage:0}
-		execute store result entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].time int 1 run scoreboard players get @s ARG(skill_id)_eid
-		execute store result entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].damage int 1 run scoreboard players get @s ARG(skill_id)_enum
 	}
 	
 	func append_scheduler_sample() as virtual
@@ -445,6 +443,14 @@ namespace skill()
 			
 			func rand_damage() from random().generate("#MIN_DAMAGE temp", "#MAX_DAMAGE temp", "@s display_number");
 		}
+	}
+	
+	func mob_dead_event()
+	{
+		```
+		raise Warning("TODO: play dead sound")
+		```
+		kill @s
 	}
 	
 	func font_effect_update()
