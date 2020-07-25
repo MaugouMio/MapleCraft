@@ -285,9 +285,9 @@ namespace skill()
 	
 	func push_countdown()
 	{
-		scoreboard players remove @s push_countdown 1
-		execute if score @s push_countdown matches 0 run data modify entity @s ArmorItems[3].tag.AttributeModifiers[{Name:"move_control"}].Amount set value 0.0
-		scoreboard players reset @s[scores={push_countdown=0}] push_countdown
+		scoreboard players remove @s pushed_time 1
+		execute if score @s pushed_time matches 0 run data modify entity @s ArmorItems[3].tag.AttributeModifiers[{Name:"move_control"}].Amount set value 0.0
+		scoreboard players reset @s[scores={pushed_time=0}] pushed_time
 	}
 	
 	folder calculate_damage()
@@ -323,7 +323,8 @@ namespace skill()
 				
 				data modify entity @s ArmorItems[3].tag.damage_record append value 0
 				
-				function ARG(_PATH)rand_hit_rate
+				function main:rand_rate
+				scoreboard players set @s display_num_type 0
 				execute if score #HIT_RATE temp <= #RAND_RESULT temp run scoreboard players set @s display_number 0
 				execute if score #HIT_RATE temp > #RAND_RESULT temp run function ARG(_PATH)deal_damage
 				function number_display:show
@@ -362,8 +363,7 @@ namespace skill()
 				function ARG(_PATH)rand_damage
 				scoreboard players add @s display_number 1
 				
-				scoreboard players set @s display_num_type 0
-				execute if score #CRIT_RATE temp matches 1.. run function ARG(_PATH)rand_crit_rate
+				execute if score #CRIT_RATE temp matches 1.. run function main:rand_rate
 				execute if score #CRIT_RATE temp > #RAND_RESULT temp run function ARG(_PATH)crit_multiply
 				
 				# ATTRIBUTE 0 = weapon attack; 1 = magic attack; 2 = fire; 3 = poison; 4 = ice; 5 = lightning; 6 = holy
@@ -443,9 +443,7 @@ namespace skill()
 				scoreboard players set @s display_num_type 1
 			}
 			
-			func rand_hit_rate() from random().generate(0, 100, "#RAND_RESULT temp");
 			func rand_damage() from random().generate("#MIN_DAMAGE temp", "#MAX_DAMAGE temp", "@s display_number");
-			func rand_crit_rate() from random().generate(0, 100, "#RAND_RESULT temp");
 		}
 	}
 	
@@ -494,6 +492,7 @@ namespace skill()
 		scoreboard players set @e[type=zombified_piglin,tag=new] avoidability 8
 		scoreboard players set @e[type=zombified_piglin,tag=new] weapon_defense 20
 		scoreboard players set @e[type=zombified_piglin,tag=new] magic_defense 30
+		scoreboard players set @e[type=zombified_piglin,tag=new] kb 1
 		tag @e[type=zombified_piglin,tag=new] remove new
 	}
 }

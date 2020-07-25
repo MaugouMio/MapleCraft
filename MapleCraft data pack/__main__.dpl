@@ -53,8 +53,9 @@ namespace main()
 		scoreboard players set #GLOBAL number 0
 		
 		setworldspawn 0 2 0
-		fill -1 0 -1 1 1 1 minecraft:bedrock
+		fill -1 0 -1 1 2 1 minecraft:bedrock
 		setblock 0 0 0 minecraft:acacia_wall_sign
+		setblock 0 1 0 minecraft:chest
 		
 		function skill:install
 		function number_display:install
@@ -88,6 +89,12 @@ namespace main()
 		
 		effect give @s minecraft:absorption 1000000 255 true
 		effect give @s minecraft:weakness 1000000 255 true
+	}
+	
+	func rand_rate()
+	{
+		loot replace block 0 1 0 container.0 loot main:percent_rate
+		execute store result score #RAND_RESULT temp run data get block 0 1 0 Items[0].tag.Damage
 	}
 }
 
