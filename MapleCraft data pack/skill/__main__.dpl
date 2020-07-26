@@ -311,7 +311,7 @@ namespace skill()
 			tag @s remove enemy
 		}
 		
-		folder traverse_damages() from while_loop("if data storage skill:main damage_copy[0] positioned ~ ~0.5 ~")
+		folder traverse_damages() from while_loop("if data storage skill:main damage_copy[0] positioned ~ ~0.4 ~")
 		{
 			func execute()
 			{
