@@ -332,28 +332,61 @@ namespace skill()
 			{
 				execute store result score #MIN_DAMAGE temp run data get storage skill:main damage_copy[0].info.min_damage
 				execute store result score #MAX_DAMAGE temp run data get storage skill:main damage_copy[0].info.max_damage
-				execute store result score #SQRT_ACCURACY temp run data get storage skill:main damage_copy[0].info.sqrt_accuracy
-				execute store result score #PLAYER_LEVEL temp run data get storage skill:main damage_copy[0].info.player_level
 				execute store result score #CRIT_RATE temp run data get storage skill:main damage_copy[0].info.crit_rate
 				execute store result score #CRIT_DAMAGE temp run data get storage skill:main damage_copy[0].info.crit_damage
 				execute store result score #BASE_PERCENT temp run data get storage skill:main damage_copy[0].info.base_percent
+				execute store result score #LEVEL_DIFFERENCE temp run data get storage skill:main damage_copy[0].info.player_level -1
+				scoreboard players operation #LEVEL_DIFFERENCE temp += @s level
+				scoreboard players operation #LEVEL_DIFFERENCE temp > #0 const
 				execute store result score #ATTRIBUTE temp run data get storage skill:main damage_copy[0].info.attribute
 				execute if score #ATTRIBUTE temp matches 2.. run function ARG(_PATH)attribute_multiply/run
 				
 				execute store success score #SAME_DAMAGE temp run data modify storage skill:main damage_copy[0].info set from storage skill:main damage_copy[1].info
 				
-				scoreboard players set #HIT_RATE temp 100
-				execute if score #PLAYER_LEVEL temp < @s level run function ARG(_PATH)level_punishment
-				
-				scoreboard players operation #HIT_RATE temp += #SQRT_ACCURACY temp
-				scoreboard players operation #HIT_RATE temp -= @s avoidability
+				execute if score #ATTRIBUTE temp matches 0 run function ARG(_PATH)weapon_hit_rate
+				execute if score #ATTRIBUTE temp matches 1.. run function ARG(_PATH)magic_hit_rate
 			}
 			
-			func level_punishment()
+			func weapon_hit_rate()
 			{
-				scoreboard players operation #PLAYER_LEVEL temp -= @s level
-				scoreboard players operation #PLAYER_LEVEL temp *= #5 const
-				scoreboard players operation #HIT_RATE temp += #PLAYER_LEVEL temp
+				execute store result score #HIT_RATE temp run data get storage skill:main damage_copy[0].info.accuracy 100000
+				scoreboard players operation #LEVEL_DIFFERENCE temp *= #66 const
+				scoreboard players add #LEVEL_DIFFERENCE temp 1835
+				scoreboard players operation #LEVEL_DIFFERENCE temp *= @s avoidability
+				scoreboard players operation #HIT_RATE temp /= #LEVEL_DIFFERENCE temp
+				scoreboard players remove #HIT_RATE temp 100
+			}
+			
+			func magic_hit_rate()
+			{
+				scoreboard players operation #LEVEL_DIFFERENCE temp *= #4 const
+				scoreboard players add #LEVEL_DIFFERENCE temp 100
+				scoreboard players operation #MAX_ACCURACY temp = @s avoidability
+				scoreboard players add #MAX_ACCURACY temp 1
+				scoreboard players operation #MAX_ACCURACY temp *= #LEVEL_DIFFERENCE temp
+				scoreboard players operation #MAX_ACCURACY temp /= #100 const
+				
+				scoreboard players operation #MIN_ACCURACY temp = #MAX_ACCURACY temp
+				scoreboard players operation #MIN_ACCURACY temp *= #41 const
+				scoreboard players operation #MIN_ACCURACY temp /= #100 const
+				
+				execute store result score #ACCURACY temp run data get storage skill:main damage_copy[0].info.accuracy
+				scoreboard players operation #ACCURACY temp -= #MIN_ACCURACY temp
+				scoreboard players add #ACCURACY temp 1
+				scoreboard players operation #ACCURACY temp *= #100 const
+				
+				scoreboard players operation #MAX_ACCURACY temp -= #MIN_ACCURACY temp
+				scoreboard players add #MAX_ACCURACY temp 1
+				
+				execute store result score #HIT_RATE temp run scoreboard players operation #ACCURACY temp /= #MAX_ACCURACY temp
+				scoreboard players operation #HIT_RATE temp *= #HIT_RATE temp
+				scoreboard players operation #HIT_RATE temp *= #-7 const
+				scoreboard players operation #HIT_RATE temp /= #1000 const
+				
+				scoreboard players operation #ACCURACY temp *= #17 const
+				scoreboard players operation #ACCURACY temp /= #10 const
+				
+				scoreboard players operation #HIT_RATE temp += #ACCURACY temp
 			}
 			
 			func deal_damage()
