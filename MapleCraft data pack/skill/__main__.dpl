@@ -332,23 +332,42 @@ namespace skill()
 			{
 				execute store result score #MIN_DAMAGE temp run data get storage skill:main damage_copy[0].info.min_damage
 				execute store result score #MAX_DAMAGE temp run data get storage skill:main damage_copy[0].info.max_damage
+				execute store result score #BASE_PERCENT temp run data get storage skill:main damage_copy[0].info.base_percent
 				execute store result score #CRIT_RATE temp run data get storage skill:main damage_copy[0].info.crit_rate
 				execute store result score #CRIT_DAMAGE temp run data get storage skill:main damage_copy[0].info.crit_damage
-				execute store result score #BASE_PERCENT temp run data get storage skill:main damage_copy[0].info.base_percent
+				scoreboard players operation #CRIT_DAMAGE temp += #BASE_PERCENT temp
 				execute store result score #LEVEL_DIFFERENCE temp run data get storage skill:main damage_copy[0].info.player_level -1
 				scoreboard players operation #LEVEL_DIFFERENCE temp += @s level
 				scoreboard players operation #LEVEL_DIFFERENCE temp > #0 const
+				# ATTRIBUTE 0 = weapon attack; 1 = magic attack; 2 = fire; 3 = poison; 4 = ice; 5 = lightning; 6 = holy
 				execute store result score #ATTRIBUTE temp run data get storage skill:main damage_copy[0].info.attribute
 				execute if score #ATTRIBUTE temp matches 2.. run function ARG(_PATH)attribute_multiply/run
+				# Calculate defense and hit rate
+				execute if score #ATTRIBUTE temp matches 0 run function ARG(_PATH)weapon_formula
+				execute if score #ATTRIBUTE temp matches 1.. run function ARG(_PATH)magic_formula
 				
 				execute store success score #SAME_DAMAGE temp run data modify storage skill:main damage_copy[0].info set from storage skill:main damage_copy[1].info
-				
-				execute if score #ATTRIBUTE temp matches 0 run function ARG(_PATH)weapon_hit_rate
-				execute if score #ATTRIBUTE temp matches 1.. run function ARG(_PATH)magic_hit_rate
 			}
 			
-			func weapon_hit_rate()
+			func weapon_formula()
 			{
+				# defense
+				scoreboard players operation #DEFENSE temp = @s weapon_defense
+				scoreboard players operation #DEFENSE temp /= #2 const
+				
+				scoreboard players set #LEVEL_PUNISH temp 100
+				scoreboard players operation #LEVEL_PUNISH temp -= #LEVEL_DIFFERENCE temp
+				scoreboard players operation #MAX_DAMAGE temp *= #LEVEL_PUNISH temp
+				scoreboard players operation #MAX_DAMAGE temp /= #100 const
+				scoreboard players operation #MAX_DAMAGE temp -= #DEFENSE temp
+				
+				scoreboard players operation #MIN_DAMAGE temp *= #LEVEL_PUNISH temp
+				scoreboard players operation #MIN_DAMAGE temp /= #100 const
+				scoreboard players operation #DEFENSE temp *= #6 const
+				scoreboard players operation #DEFENSE temp /= #5 const
+				scoreboard players operation #MIN_DAMAGE temp -= #DEFENSE temp
+				
+				# hit rate
 				execute store result score #HIT_RATE temp run data get storage skill:main damage_copy[0].info.accuracy 100000
 				scoreboard players operation #LEVEL_DIFFERENCE temp *= #66 const
 				scoreboard players add #LEVEL_DIFFERENCE temp 1835
@@ -357,8 +376,23 @@ namespace skill()
 				scoreboard players remove #HIT_RATE temp 100
 			}
 			
-			func magic_hit_rate()
+			func magic_formula()
 			{
+				# defense
+				scoreboard players operation #DEFENSE temp = @s magic_defense
+				scoreboard players operation #DEFENSE temp /= #2 const
+				
+				scoreboard players set #LEVEL_PUNISH temp 100
+				scoreboard players operation #LEVEL_PUNISH temp += #LEVEL_DIFFERENCE temp
+				scoreboard players operation #DEFENSE temp *= #LEVEL_PUNISH temp
+				scoreboard players operation #DEFENSE temp /= #100 const
+				scoreboard players operation #MAX_DAMAGE temp -= #DEFENSE temp
+				
+				scoreboard players operation #DEFENSE temp *= #6 const
+				scoreboard players operation #DEFENSE temp /= #5 const
+				scoreboard players operation #MIN_DAMAGE temp -= #DEFENSE temp
+				
+				# hit rate
 				scoreboard players operation #LEVEL_DIFFERENCE temp *= #4 const
 				scoreboard players add #LEVEL_DIFFERENCE temp 100
 				scoreboard players operation #MAX_ACCURACY temp = @s avoidability
@@ -391,15 +425,18 @@ namespace skill()
 			
 			func deal_damage()
 			{
-				function ARG(_PATH)rand_damage
-				scoreboard players add @s display_number 1
+				scoreboard players operation #MAX_DAMAGE_FINAL temp = #MAX_DAMAGE temp
+				scoreboard players operation #MIN_DAMAGE_FINAL temp = #MIN_DAMAGE temp
 				
 				execute if score #CRIT_RATE temp matches 1.. run function main:rand_rate
 				execute if score #CRIT_RATE temp > #RAND_RESULT temp run function ARG(_PATH)crit_multiply
+				execute unless score #CRIT_RATE temp > #RAND_RESULT temp run function ARG(_PATH)skill_multiply
 				
-				# ATTRIBUTE 0 = weapon attack; 1 = magic attack; 2 = fire; 3 = poison; 4 = ice; 5 = lightning; 6 = holy
-				execute if score #ATTRIBUTE temp matches 0 run scoreboard players operation @s display_number -= @s weapon_defense
-				execute if score #ATTRIBUTE temp matches 1.. run scoreboard players operation @s display_number -= @s magic_defense
+				scoreboard players set @s display_number 0
+				execute unless score #MAX_DAMAGE_FINAL temp = #MIN_DAMAGE_FINAL temp run function ARG(_PATH)rand_damage
+				scoreboard players add @s display_number 1
+				scoreboard players operation @s display_number < #99999 const
+				scoreboard players operation @s display_number > #1 const
 				
 				scoreboard players operation @s hp -= @s display_number
 				execute store result entity @s ArmorItems[3].tag.damage_record[-1] int 1 run scoreboard players get @s display_number
@@ -468,13 +505,22 @@ namespace skill()
 			
 			func crit_multiply()
 			{
-				scoreboard players operation #CRIT_DAMAGE temp += #BASE_PERCENT temp
-				scoreboard players operation @s display_number *= #CRIT_DAMAGE temp
-				scoreboard players operation @s display_number /= #BASE_PERCENT temp
+				scoreboard players operation #MAX_DAMAGE_FINAL temp *= #CRIT_DAMAGE temp
+				scoreboard players operation #MAX_DAMAGE_FINAL temp /= #100 const
+				scoreboard players operation #MIN_DAMAGE_FINAL temp *= #CRIT_DAMAGE temp
+				scoreboard players operation #MIN_DAMAGE_FINAL temp /= #100 const
 				scoreboard players set @s display_num_type 1
 			}
 			
-			func rand_damage() from random().generate("#MIN_DAMAGE temp", "#MAX_DAMAGE temp", "@s display_number");
+			func skill_multiply()
+			{
+				scoreboard players operation #MAX_DAMAGE_FINAL temp *= #BASE_PERCENT temp
+				scoreboard players operation #MAX_DAMAGE_FINAL temp /= #100 const
+				scoreboard players operation #MIN_DAMAGE_FINAL temp *= #BASE_PERCENT temp
+				scoreboard players operation #MIN_DAMAGE_FINAL temp /= #100 const
+			}
+			
+			func rand_damage() from random().generate("#MIN_DAMAGE_FINAL temp", "#MAX_DAMAGE_FINAL temp", "@s display_number");
 		}
 	}
 	

@@ -37,7 +37,7 @@ namespace 2() as virtual
 				
 				func set_numeric()
 				{
-					data modify storage skill:main damage set value [{info:{min_damage:85,max_damage:170,accuracy:5,player_level:20,crit_rate:0,crit_damage:0,base_percent:350,attribute:1},delay:8}]
+					data modify storage skill:main damage set value [{info:{min_damage:85,max_damage:170,accuracy:10,player_level:20,crit_rate:0,crit_damage:0,base_percent:100,attribute:1},delay:8}]
 					
 					execute store result storage skill:main damage[0].info.player_level int 1 run scoreboard players get @s level
 					execute store result storage skill:main damage[0].info.crit_rate int 1 run scoreboard players get @s addi_crit_rate
