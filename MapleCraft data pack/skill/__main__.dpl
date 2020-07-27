@@ -202,12 +202,20 @@ namespace skill()
 		scoreboard objectives add pushed_time dummy
 		scoreboard objectives add action_time dummy
 		scoreboard objectives add attack_times dummy
+		
+		scoreboard objectives add hurt_sound dummy
+		scoreboard objectives add die_sound dummy
 		```
 		for skill in skill_ids:
 			print(f"scoreboard objectives add {skill}_level dummy")
 			print(f"scoreboard objectives add {skill}_eid dummy")
 			print(f"scoreboard objectives add {skill}_enum dummy")
 		```
+		# function ARG(_PATH)1/install
+		function ARG(_PATH)2/install
+		# function ARG(_PATH)3/install
+		# function ARG(_PATH)4/install
+		# function ARG(_PATH)5/install
 	}
 	
 	func main()
@@ -526,10 +534,98 @@ namespace skill()
 	
 	func mob_dead_event()
 	{
-		```
-		raise Warning("TODO: play dead sound")
-		```
+		function skill:play_die_sound/run
 		kill @s
+	}
+	
+	folder play_hurt_sound()
+	{
+		```
+		def bs_hurt_sound(sound_list, start, end):
+			if len(sound_list) == 1:
+				print("func run()")
+				print("{")
+				print(f"\texecute if score @s hurt_sound matches {sound_list[0][1]} run playsound minecraft:mob.hurt.{sound_list[0][0]} hostile @a ~ ~ ~ 1 1 0")
+				print("}")
+				return
+			
+			if start == end:
+				return
+			
+			mid = (start + end) // 2
+			mid_right = mid + 1
+			
+			if start == 0 and end == len(sound_list) - 1:
+				print("func run()")
+			else:
+				print(f"func {start}_{end}()")
+			print("{")
+			if start == mid:
+				print(f"\texecute if score @s hurt_sound matches {sound_list[start][1]} run playsound minecraft:mob.hurt.{sound_list[start][0]} hostile @a ~ ~ ~ 1 1 0")
+			else:
+				print(f"\texecute if score @s hurt_sound matches {sound_list[start][1]}..{sound_list[mid][1]} run function ARG(_PATH){start}_{mid}")
+			if mid_right == end:
+				print(f"\texecute if score @s hurt_sound matches {sound_list[end][1]} run playsound minecraft:mob.hurt.{sound_list[end][0]} hostile @a ~ ~ ~ 1 1 0")
+			else:
+				print(f"\texecute if score @s hurt_sound matches {sound_list[mid_right][1]}..{sound_list[end][1]} run function ARG(_PATH){mid_right}_{end}")
+			print("}")
+			
+			bs_hurt_sound(sound_list, start, mid)
+			bs_hurt_sound(sound_list, mid_right, end)
+		
+		with open(PROJ_DIR + "/../hurt_sounds.csv") as f:
+			hurt_sounds = f.read().split("\n")
+			for i in range(len(hurt_sounds)):
+				hurt_sounds[i] = hurt_sounds[i].split(",")
+				hurt_sounds[i][1] = int(hurt_sounds[i][1])
+		
+		bs_hurt_sound(hurt_sounds, 0, len(hurt_sounds) - 1)
+		```
+	}
+	
+	folder play_die_sound()
+	{
+		```
+		def bs_die_sound(sound_list, start, end):
+			if len(sound_list) == 1:
+				print("func run()")
+				print("{")
+				print(f"\texecute if score @s die_sound matches {sound_list[0][1]} run playsound minecraft:mob.die.{sound_list[0][0]} hostile @a ~ ~ ~ 1 1 0")
+				print("}")
+				return
+			
+			if start == end:
+				return
+			
+			mid = (start + end) // 2
+			mid_right = mid + 1
+			
+			if start == 0 and end == len(sound_list) - 1:
+				print("func run()")
+			else:
+				print(f"func {start}_{end}()")
+			print("{")
+			if start == mid:
+				print(f"\texecute if score @s die_sound matches {sound_list[start][1]} run playsound minecraft:mob.die.{sound_list[start][0]} hostile @a ~ ~ ~ 1 1 0")
+			else:
+				print(f"\texecute if score @s die_sound matches {sound_list[start][1]}..{sound_list[mid][1]} run function ARG(_PATH){start}_{mid}")
+			if mid_right == end:
+				print(f"\texecute if score @s die_sound matches {sound_list[end][1]} run playsound minecraft:mob.die.{sound_list[end][0]} hostile @a ~ ~ ~ 1 1 0")
+			else:
+				print(f"\texecute if score @s die_sound matches {sound_list[mid_right][1]}..{sound_list[end][1]} run function ARG(_PATH){mid_right}_{end}")
+			print("}")
+			
+			bs_die_sound(sound_list, start, mid)
+			bs_die_sound(sound_list, mid_right, end)
+		
+		with open(PROJ_DIR + "/../die_sounds.csv") as f:
+			die_sounds = f.read().split("\n")
+			for i in range(len(die_sounds)):
+				die_sounds[i] = die_sounds[i].split(",")
+				die_sounds[i][1] = int(die_sounds[i][1])
+		
+		bs_die_sound(die_sounds, 0, len(die_sounds) - 1)
+		```
 	}
 	
 	func font_effect_update()
@@ -578,6 +674,8 @@ namespace skill()
 		scoreboard players set @e[type=zombified_piglin,tag=new] weapon_defense 20
 		scoreboard players set @e[type=zombified_piglin,tag=new] magic_defense 30
 		scoreboard players set @e[type=zombified_piglin,tag=new] kb 1
+		scoreboard players set @e[type=zombified_piglin,tag=new] hurt_sound 1
+		scoreboard players set @e[type=zombified_piglin,tag=new] die_sound 1
 		tag @e[type=zombified_piglin,tag=new] remove new
 	}
 }

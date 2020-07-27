@@ -8,6 +8,15 @@ namespace 2() as virtual
 	# folder 2() from 22();
 	# folder 3() from 23();
 	
+	func install()
+	{
+		scoreboard objectives add 2001005_mp dummy
+		
+		# function ARG(_PATH)1/install
+		# function ARG(_PATH)2/install
+		# function ARG(_PATH)3/install
+	}
+	
 	folder 0()
 	{
 		folder 0()
@@ -16,10 +25,16 @@ namespace 2() as virtual
 			{
 				func check()
 				{
+					execute unless score @s action_time matches 0.. if score @s 2001005_level matches 1.. run function ARG(_PATH)other_check
+				}
+				
+				func other_check()
+				{
 					```
-					raise Warning("TODO: check weapon type, MP")
+					raise Warning("TODO: check weapon type")
 					```
-					execute unless score @s action_time matches 0.. if score @s 2001005_level matches 1.. run function ARG(_PATH)run
+					execute if score @s mp < @s 2001005_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
+					execute if score @s mp >= @s 2001005_mp run function ARG(_PATH)run
 				}
 				
 				func mark_target()
@@ -46,15 +61,16 @@ namespace 2() as virtual
 					data modify storage skill:main damage append from storage skill:main damage[0]
 					data modify storage skill:main damage[1].delay set value 11
 					
+					scoreboard players operation @s mp -= @s 2001005_mp
+					function bar_display:mp_changed
+					
 					scoreboard players set @s action_time 16
 				}
 				
 				func effect()
 				{
 					execute if score @s 2001005_enum matches 1.. run function skill:summon_font_effect/2001005hit
-					```
-					raise Warning("TODO: 2001005 hit sound")
-					```
+					function skill:play_hurt_sound/run
 				}
 				
 				func append_scheduler()
