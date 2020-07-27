@@ -199,7 +199,7 @@ def generateFont(resourcepack_path, xml_files, anchor, formula):
 			page_order.append("new")
 			initial_name = page_order[0].replace('"text":""', '"text":"0"')
 			initial_name = f'[{{"text":"F","font":"space:default"}},{initial_name},{{"text":"F","font":"space:default"}}]'
-			f.write(f'summon minecraft:area_effect_cloud ~ ~ ~ {{CustomName:\'{initial_name}\',CustomNameVisible:1,Duration:{effect_life},Tags:{page_order}}}\n')
+			f.write(f'summon minecraft:area_effect_cloud ~ ~ ~ {{CustomName:\'{initial_name}\',CustomNameVisible:1,Radius:0.2,Particle:"block air",Duration:{effect_life},Tags:{page_order}}}\n')
 			f.write("scoreboard players set @e[type=area_effect_cloud,tag=new,limit=1] type 1\n")
 			f.write("tag @e[type=area_effect_cloud,tag=new,limit=1] remove new\n")
 
