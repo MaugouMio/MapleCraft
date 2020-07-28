@@ -62,7 +62,7 @@ namespace 2() as virtual
 					data modify storage skill:main damage[1].delay set value 11
 					
 					scoreboard players operation @s mp -= @s 2001005_mp
-					function bar_display:mp_changed
+					function bar_display:change/mp/dropped
 					
 					scoreboard players set @s action_time 16
 				}

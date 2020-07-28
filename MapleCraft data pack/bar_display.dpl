@@ -15,6 +15,10 @@ namespace bar_display()
 		scoreboard objectives add hp_mp_varying dummy
 		scoreboard objectives add hp_vary_time dummy
 		scoreboard objectives add mp_vary_time dummy
+		scoreboard objectives add hp_flash dummy
+		scoreboard objectives add mp_flash dummy
+		scoreboard objectives add hp_warning trigger
+		scoreboard objectives add mp_warning trigger
 		
 		scoreboard objectives add damage_taken minecraft.custom:minecraft.damage_absorbed
 	}
@@ -32,7 +36,7 @@ namespace bar_display()
 		
 		scoreboard players operation @s hp -= @s damage_taken
 		execute if score @s hp matches ..0 run function ARG(_PATH)die
-		function ARG(_PATH)hp_changed
+		function ARG(_PATH)change/hp/dropped
 		
 		effect give @s minecraft:absorption 1000000 255 true
 		scoreboard players reset @s damage_taken
@@ -44,24 +48,60 @@ namespace bar_display()
 		say dead
 	}
 	
-	func hp_changed()
+	folder change()
 	{
-		scoreboard players operation @s target_hp = @s hp
-		scoreboard players operation @s target_hp *= #100 const
-		scoreboard players operation @s target_hp /= @s hp_max
+		folder hp()
+		{
+			func dropped()
+			{
+				scoreboard players set #HP_DROPPED temp 1
+				function ARG(_PATH)set
+			}
+			
+			func recovered()
+			{
+				scoreboard players set #HP_DROPPED temp 0
+				function ARG(_PATH)set
+			}
 		
-		scoreboard players set @s hp_vary_time 20
-		scoreboard players set @s hp_mp_varying 1
-	}
-	
-	func mp_changed()
-	{
-		scoreboard players operation @s target_mp = @s mp
-		scoreboard players operation @s target_mp *= #100 const
-		scoreboard players operation @s target_mp /= @s mp_max
+			func set()
+			{
+				scoreboard players operation @s target_hp = @s hp
+				scoreboard players operation @s target_hp *= #100 const
+				scoreboard players operation @s target_hp /= @s hp_max
+				
+				scoreboard players set @s hp_vary_time 20
+				scoreboard players set @s hp_mp_varying 1
+				execute if score #HP_DROPPED temp matches 1 if score @s target_hp < @s hp_warning run scoreboard players set @s hp_flash 10
+			}
+		}
 		
-		scoreboard players set @s mp_vary_time 20
-		scoreboard players set @s hp_mp_varying 1
+		folder mp()
+		{
+			func dropped()
+			{
+				scoreboard players set #MP_DROPPED temp 1
+				function ARG(_PATH)set
+			}
+			
+			func recovered()
+			{
+				scoreboard players set #MP_DROPPED temp 0
+				function ARG(_PATH)set
+			}
+			
+			func set()
+			{
+				scoreboard players operation @s target_mp = @s mp
+				scoreboard players operation @s target_mp *= #100 const
+				scoreboard players operation @s target_mp /= @s mp_max
+				
+				scoreboard players set @s mp_vary_time 20
+				scoreboard players set @s hp_mp_varying 1
+				execute if score #MP_DROPPED temp matches 1 if score @s target_mp < @s mp_warning run scoreboard players set @s mp_flash 10
+			}
+		}
+		
 	}
 	
 	folder bar_vary()
@@ -82,6 +122,7 @@ namespace bar_display()
 			scoreboard players operation #GLOBAL temp /= @s hp_vary_time
 			scoreboard players operation @s display_hp += #GLOBAL temp
 			
+			scoreboard players remove @s[scores={hp_flash=0..}] hp_flash 1
 			scoreboard players remove @s hp_vary_time 1
 			scoreboard players reset @s[scores={hp_vary_time=0}] hp_vary_time
 		}
@@ -93,6 +134,7 @@ namespace bar_display()
 			scoreboard players operation #GLOBAL temp /= @s mp_vary_time
 			scoreboard players operation @s display_mp += #GLOBAL temp
 			
+			scoreboard players remove @s[scores={mp_flash=0..}] mp_flash 1
 			scoreboard players remove @s mp_vary_time 1
 			scoreboard players reset @s[scores={mp_vary_time=0}] mp_vary_time
 		}
@@ -109,7 +151,12 @@ namespace bar_display()
 			scoreboard players operation #VALUE_TO_INSERT temp = @s display_mp
 			function ARG(_PATH)insert_mp_digit
 			
-			title @s actionbar [{"text":"0","font":"ui:hp_mp"},{"text":"CA86","font":"space:default"},{"nbt":"hp[0]","storage":"bar:main","font":"ui:hp1"},{"text":"1","font":"space:default"},{"nbt":"hp[1]","storage":"bar:main","font":"ui:hp10"},{"nbt":"hp[2]","storage":"bar:main","font":"ui:hp100"},{"nbt":"hp[0]","storage":"bar:main","font":"ui:bar_back1"},{"nbt":"hp[1]","storage":"bar:main","font":"ui:bar_back10"},{"nbt":"hp[2]","storage":"bar:main","font":"ui:bar_back100"},{"text":"\uF828\uF827","font":"space:default"},[{"text":"[","font":"ui:bar_num"},{"score":{"name":"@s","objective":"hp"}},"/",{"score":{"name":"@s","objective":"hp_max"}},"]"],{"text":"87","font":"space:default"},[{"text":"[","font":"ui:bar_num_back"},{"score":{"name":"@s","objective":"hp"}},"/",{"score":{"name":"@s","objective":"hp_max"}},"]"],{"text":"\uF82B\uF829\uF828\uF821","font":"space:default"},{"nbt":"mp[0]","storage":"bar:main","font":"ui:mp1"},{"text":"1","font":"space:default"},{"nbt":"mp[1]","storage":"bar:main","font":"ui:mp10"},{"nbt":"mp[2]","storage":"bar:main","font":"ui:mp100"},{"nbt":"mp[0]","storage":"bar:main","font":"ui:bar_back1"},{"nbt":"mp[1]","storage":"bar:main","font":"ui:bar_back10"},{"nbt":"mp[2]","storage":"bar:main","font":"ui:bar_back100"},{"text":"\uF829\uF822","font":"space:default"},[{"text":"[","font":"ui:bar_num"},{"score":{"name":"@s","objective":"mp"}},"/",{"score":{"name":"@s","objective":"mp_max"}},"]"],{"text":"92","font":"space:default"},[{"text":"[","font":"ui:bar_num_back"},{"score":{"name":"@s","objective":"mp"}},"/",{"score":{"name":"@s","objective":"mp_max"}},"]"],{"text":"B97","font":"space:default"},{"text":"1","font":"ui:hp_mp"}]
+			execute unless score @s hp_flash matches 0.. run data modify storage bar:main hp_flash set value "-"
+			execute unless score @s mp_flash matches 0.. run data modify storage bar:main mp_flash set value "-"
+			execute if score @s hp_flash matches 0.. run execute store result storage bar:main hp_flash int 1 run scoreboard players get @s hp_flash
+			execute if score @s mp_flash matches 0.. run execute store result storage bar:main mp_flash int 1 run scoreboard players get @s mp_flash
+			
+			title @s actionbar [{"text":"0","font":"ui:hp_mp"},{"text":"CA86","font":"space:default"},{"nbt":"hp[0]","storage":"bar:main","font":"ui:hp1"},{"text":"1","font":"space:default"},{"nbt":"hp[1]","storage":"bar:main","font":"ui:hp10"},{"nbt":"hp[2]","storage":"bar:main","font":"ui:hp100"},{"nbt":"hp[0]","storage":"bar:main","font":"ui:bar_back1"},{"nbt":"hp[1]","storage":"bar:main","font":"ui:bar_back10"},{"nbt":"hp[2]","storage":"bar:main","font":"ui:bar_back100"},{"text":"\uF828\uF827","font":"space:default"},[{"text":"[","font":"ui:bar_num"},{"score":{"name":"@s","objective":"hp"}},"/",{"score":{"name":"@s","objective":"hp_max"}},"]"],{"text":"87","font":"space:default"},[{"text":"[","font":"ui:bar_num_back"},{"score":{"name":"@s","objective":"hp"}},"/",{"score":{"name":"@s","objective":"hp_max"}},"]"],{"text":"\uF82B\uF829\uF828\uF821","font":"space:default"},{"nbt":"mp[0]","storage":"bar:main","font":"ui:mp1"},{"text":"1","font":"space:default"},{"nbt":"mp[1]","storage":"bar:main","font":"ui:mp10"},{"nbt":"mp[2]","storage":"bar:main","font":"ui:mp100"},{"nbt":"mp[0]","storage":"bar:main","font":"ui:bar_back1"},{"nbt":"mp[1]","storage":"bar:main","font":"ui:bar_back10"},{"nbt":"mp[2]","storage":"bar:main","font":"ui:bar_back100"},{"text":"\uF829\uF822","font":"space:default"},[{"text":"[","font":"ui:bar_num"},{"score":{"name":"@s","objective":"mp"}},"/",{"score":{"name":"@s","objective":"mp_max"}},"]"],{"text":"92","font":"space:default"},[{"text":"[","font":"ui:bar_num_back"},{"score":{"name":"@s","objective":"mp"}},"/",{"score":{"name":"@s","objective":"mp_max"}},"]"],{"text":"B97","font":"space:default"},{"text":"1","font":"ui:hp_mp"},{"text":"CA9","font":"space:default"},{"nbt":"hp_flash","storage":"bar:main","font":"ui:bar_flash"},{"text":"2","font":"space:default"},{"nbt":"mp_flash","storage":"bar:main","font":"ui:bar_flash"}]
 		}
 		
 		func insert_hp_digit()
