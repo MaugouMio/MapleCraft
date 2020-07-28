@@ -12,49 +12,11 @@ for f in files:
 		
 		with open(f"MapleCraft resource pack/assets/minecraft/models/item/skill/icon/{name}.json", "w") as model:
 			model_dict = {
-				"parent": "item/generated",
+				"parent": "item/skill/icon",
 				"textures": {
-					"layer0": ""
-				},
-				"display": {
-					"gui": {
-						"rotation": [ 0, 0, 0 ],
-						"translation": [ 0, 0, 0 ],
-						"scale":[ 1, 1, 1 ]
-					},
-					"ground": {
-						"rotation": [ 0, 0, 0 ],
-						"translation": [ 0, 0, 0],
-						"scale":[ 0, 0, 0 ]
-					},
-					"head": {
-						"rotation": [ 0, 0, 0 ],
-						"translation": [ 0, 0, 0],
-						"scale":[ 0, 0, 0 ]
-					},
-					"thirdperson_righthand": {
-						"rotation": [ 0, 0, 0 ],
-						"translation": [ 0, 0, 0 ],
-						"scale": [ 0, 0, 0 ]
-					},
-					"thirdperson_lefthand": {
-						"rotation": [ 0, 0, 0 ],
-						"translation": [ 0, 0, 0 ],
-						"scale": [ 0, 0, 0 ]
-					},
-					"firstperson_righthand": {
-						"rotation": [ 0, 0, 0 ],
-						"translation": [ 0, 0, 0 ],
-						"scale": [ 0, 0, 0 ]
-					},
-					"firstperson_lefthand": {
-						"rotation": [ 0, 0, 0 ],
-						"translation": [ 0, 0, 0 ],
-						"scale": [ 0, 0, 0 ]
-					}
+					"layer0": f"skill/icon/{name}"
 				}
 			}
-			model_dict["textures"]["layer0"] = f"skill/icon/{name}"
 			model.write(json.dumps(model_dict))
 
 with open("MapleCraft resource pack/assets/minecraft/models/item/carrot_on_a_stick.json", "r") as f:

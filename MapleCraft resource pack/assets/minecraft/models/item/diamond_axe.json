@@ -1,0 +1,23 @@
+{
+    "parent": "item/handheld",
+    "textures": {
+        "layer0": "item/diamond_hoe"
+    },
+	"overrides": [
+		{"predicate": {"custom_model_data": 1},"model": "item/weapon/staff/10"},
+		{"predicate": {"custom_model_data": 2},"model": "item/weapon/staff/15"},
+		{"predicate": {"custom_model_data": 3},"model": "item/weapon/staff/20"},
+		{"predicate": {"custom_model_data": 4},"model": "item/weapon/staff/25"},
+		{"predicate": {"custom_model_data": 5},"model": "item/weapon/staff/30"},
+		{"predicate": {"custom_model_data": 6},"model": "item/weapon/staff/35"},
+		{"predicate": {"custom_model_data": 7},"model": "item/weapon/staff/40"},
+		{"predicate": {"custom_model_data": 8},"model": "item/weapon/staff/45"},
+		{"predicate": {"custom_model_data": 9},"model": "item/weapon/staff/55"},
+		{"predicate": {"custom_model_data": 10},"model": "item/weapon/staff/65"},
+		{"predicate": {"custom_model_data": 11},"model": "item/weapon/staff/75"},
+		{"predicate": {"custom_model_data": 12},"model": "item/weapon/staff/85"},
+		{"predicate": {"custom_model_data": 27},"model": "item/weapon/staff/maple35"},
+		{"predicate": {"custom_model_data": 28},"model": "item/weapon/staff/maple43"},
+		{"predicate": {"custom_model_data": 29},"model": "item/weapon/staff/maple64"}
+	]
+}

@@ -14,7 +14,7 @@ namespace number_display()
 	
 	func show()
 	{
-		summon item ~ ~1 ~ {Tags:["display_number","new"],Item:{id:"minecraft:flint_and_steel",Count:1b,tag:{CustomModelData:1}},NoGravity:1,Invulnerable:1,Age:0,PickupDelay:-32768,CustomName:''}
+		summon item ~ ~1 ~ {Tags:["display_number","new"],Item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:1}},NoGravity:1,Invulnerable:1,Age:0,PickupDelay:-32768,CustomName:''}
 		execute if score @s display_number matches 0 run function ARG(_PATH)show_miss
 		execute if score @s display_number matches 1.. run function ARG(_PATH)show_number
 		execute as @e[type=item,tag=new,limit=1] run function ARG(_PATH)set_display
