@@ -4,7 +4,7 @@ import loop
 description = "MapleCraft data pack"
 
 ```
-constants = [-7, 0, 1, 2, 4, 5, 6, 10, 17, 41, 50, 66, 100, 150, 1000, 99999]
+constants = [-7, 0, 1, 2, 4, 5, 6, 9, 10, 17, 30, 41, 50, 66, 100, 150, 1000, 99999]
 ```
 
 import math
@@ -60,6 +60,7 @@ namespace main()
 		function skill:install
 		function number_display:install
 		function bar_display:install
+		function stat:install
 		
 		function loop:schedule_1s/run
 		function loop:schedule_1d/run
@@ -88,6 +89,11 @@ namespace main()
 		scoreboard players set @s mp 5
 		scoreboard players set @s display_mp 100
 		scoreboard players set @s mp_warning 30
+		
+		scoreboard players set @s STR 4
+		scoreboard players set @s DEX 4
+		scoreboard players set @s INT 4
+		scoreboard players set @s LUK 4
 		
 		effect give @s minecraft:absorption 1000000 255 true
 		effect give @s minecraft:weakness 1000000 255 true

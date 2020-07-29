@@ -11,6 +11,8 @@ namespace 2() as virtual
 	func install()
 	{
 		scoreboard objectives add 2001005_mp dummy
+		scoreboard objectives add 2001005_mastery dummy
+		scoreboard objectives add 2001005_attack dummy
 		
 		# function ARG(_PATH)1/install
 		# function ARG(_PATH)2/install
@@ -52,11 +54,10 @@ namespace 2() as virtual
 				
 				func set_numeric()
 				{
-					data modify storage skill:main damage set value [{info:{min_damage:85,max_damage:170,accuracy:10,player_level:20,crit_rate:0,crit_damage:0,base_percent:100,attribute:1},delay:8}]
-					
-					execute store result storage skill:main damage[0].info.player_level int 1 run scoreboard players get @s level
-					execute store result storage skill:main damage[0].info.crit_rate int 1 run scoreboard players get @s addi_crit_rate
-					execute store result storage skill:main damage[0].info.crit_damage int 1 run scoreboard players get @s addi_crit_damage
+					data modify storage skill:main damage set value [{info:{min_damage:0,max_damage:0,accuracy:0,player_level:0,crit_rate:0,crit_damage:0,base_percent:100,attribute:1},delay:8}]
+					scoreboard players operation #SKILL_MASTERY temp = @s 2001005_mastery
+					scoreboard players operation #SPELL_ATTACK temp = @s 2001005_attack
+					function damage_formula:spell
 					
 					data modify storage skill:main damage append from storage skill:main damage[0]
 					data modify storage skill:main damage[1].delay set value 11

@@ -168,6 +168,54 @@ namespace enemy_search()
 	}
 }
 
+namespace damage_formula()
+{
+	func spell()
+	{
+		# magic attack
+		execute store result score #MAGIC_ATTACK temp run data get entity @s Inventory[{Slot:-106b}].tag.magic_attack
+		scoreboard players operation #MAGIC_ATTACK temp += @s INT
+		scoreboard players operation #INT temp = @s INT
+		scoreboard players operation #INT temp *= #5 const
+		
+		scoreboard players operation #MAX_DAMAGE temp = #MAGIC_ATTACK temp
+		scoreboard players operation #MAX_DAMAGE temp *= #MAGIC_ATTACK temp
+		scoreboard players operation #MAGIC_ATTACK temp *= #1000 const
+		scoreboard players operation #MAX_DAMAGE temp += #MAGIC_ATTACK temp
+		
+		scoreboard players operation #MIN_DAMAGE temp = #MAX_DAMAGE temp
+		scoreboard players operation #MIN_DAMAGE temp *= #9 const
+		scoreboard players operation #MIN_DAMAGE temp /= #10 const
+		scoreboard players add #SKILL_MASTERY temp 25
+		scoreboard players operation #MIN_DAMAGE temp *= #SKILL_MASTERY temp
+		scoreboard players operation #MIN_DAMAGE temp /= #100 const
+		
+		scoreboard players operation #MAX_DAMAGE temp /= #30 const
+		scoreboard players operation #MAX_DAMAGE temp += #INT temp
+		scoreboard players operation #MAX_DAMAGE temp *= #SPELL_ATTACK temp
+		scoreboard players operation #MAX_DAMAGE temp /= #1000 const
+		
+		scoreboard players operation #MIN_DAMAGE temp /= #30 const
+		scoreboard players operation #MIN_DAMAGE temp += #INT temp
+		scoreboard players operation #MIN_DAMAGE temp *= #SPELL_ATTACK temp
+		scoreboard players operation #MIN_DAMAGE temp /= #1000 const
+		
+		# accuracy
+		scoreboard players operation #INT temp /= #50 const
+		scoreboard players operation #ACCURACY temp = @s LUK
+		scoreboard players operation #ACCURACY temp /= #10 const
+		scoreboard players operation #ACCURACY temp += #INT temp
+		
+		# write values
+		execute store result storage skill:main damage[0].info.max_damage int 1 run scoreboard players get #MAX_DAMAGE temp
+		execute store result storage skill:main damage[0].info.min_damage int 1 run scoreboard players get #MIN_DAMAGE temp
+		execute store result storage skill:main damage[0].info.accuracy int 1 run scoreboard players get #ACCURACY temp
+		execute store result storage skill:main damage[0].info.player_level int 1 run scoreboard players get @s level
+		execute store result storage skill:main damage[0].info.crit_rate int 1 run scoreboard players get @s addi_crit_rate
+		execute store result storage skill:main damage[0].info.crit_damage int 1 run scoreboard players get @s addi_crit_damage
+	}
+}
+
 
 
 # import 1 as virtual
@@ -413,6 +461,13 @@ namespace skill()
 				scoreboard players operation #MIN_ACCURACY temp /= #100 const
 				
 				execute store result score #ACCURACY temp run data get storage skill:main damage_copy[0].info.accuracy
+				scoreboard players set #HIT_RATE temp 0
+				execute if score #ACCURACY temp >= #MAX_ACCURACY temp run scoreboard players set #HIT_RATE temp 100
+				execute if score #ACCURACY temp < #MAX_ACCURACY temp if score #ACCURACY temp >= #MIN_ACCURACY temp run function ARG(_PATH)magic_hit_rate
+			}
+			
+			func magic_hit_rate()
+			{
 				scoreboard players operation #ACCURACY temp -= #MIN_ACCURACY temp
 				scoreboard players add #ACCURACY temp 1
 				scoreboard players operation #ACCURACY temp *= #100 const

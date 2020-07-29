@@ -1,0 +1,10 @@
+namespace stat()
+{
+	func install()
+	{
+		scoreboard objectives add STR dummy
+		scoreboard objectives add DEX dummy
+		scoreboard objectives add INT dummy
+		scoreboard objectives add LUK dummy
+	}
+}
