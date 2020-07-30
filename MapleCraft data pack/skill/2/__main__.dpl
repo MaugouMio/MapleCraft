@@ -32,11 +32,9 @@ namespace 2() as virtual
 				
 				func other_check()
 				{
-					```
-					raise Warning("TODO: check weapon type")
-					```
-					execute if score @s mp < @s 2001005_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
-					execute if score @s mp >= @s 2001005_mp run function ARG(_PATH)run
+					function check_weapon:single_hand/run
+					execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 2001005_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
+					execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp >= @s 2001005_mp run function ARG(_PATH)run
 				}
 				
 				func mark_target()

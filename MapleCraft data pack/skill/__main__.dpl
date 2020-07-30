@@ -216,6 +216,33 @@ namespace damage_formula()
 	}
 }
 
+namespace check_weapon()
+{
+	func check_empty()
+	{
+		scoreboard players set #ACCEPTED_WEAPON temp 0
+		
+		execute store result score #USED_WEAPON temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_type
+		execute if score #USED_WEAPON temp matches 0 run tellraw @s {"translate":"warning.skill.no_weapon","color":"red"}
+	}
+	
+	folder single_hand()
+	{
+		func run()
+		{
+			function ARG(__PATH)check_empty
+			execute if score #USED_WEAPON temp matches 1.. run function ARG(_PATH)check
+		}
+		
+		func check()
+		{
+			scoreboard players operation #ACCEPTED_WEAPON temp = #USED_WEAPON temp
+			scoreboard players operation #ACCEPTED_WEAPON temp %= #2 const
+			execute if score #ACCEPTED_WEAPON temp matches 0 run tellraw @s {"translate":"warning.skill.wrong_weapon","color":"red"}
+		}
+	}
+}
+
 
 
 # import 1 as virtual
