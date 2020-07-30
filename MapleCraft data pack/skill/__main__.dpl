@@ -21,6 +21,8 @@ namespace attack_skill_template(skill_id) as virtual
 	
 	func run()
 	{
+		scoreboard players set @s hp_recover_time 10
+		
 		function ARG(_PATH)mark_target
 		function ARG(_PATH)cast_effect
 		function ARG(_PATH)set_numeric

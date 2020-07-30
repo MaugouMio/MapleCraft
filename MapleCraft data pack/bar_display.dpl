@@ -20,6 +20,7 @@ namespace bar_display()
 		scoreboard objectives add hp_warning trigger
 		scoreboard objectives add mp_warning trigger
 		
+		scoreboard objectives add hp_recover_time dummy
 		scoreboard objectives add hp_recovery dummy
 		scoreboard objectives add mp_recovery dummy
 		
@@ -34,6 +35,9 @@ namespace bar_display()
 	
 	func take_damage()
 	{
+		scoreboard players set @s hp_recover_time 10
+		
+		scoreboard players set @s display_num_type 2
 		scoreboard players operation @s display_number = @s damage_taken
 		function number_display:show
 		
@@ -191,6 +195,25 @@ namespace bar_display()
 			scoreboard players operation @s mp < @s mp_max
 			function ARG(__PATH)change/mp/recovered
 		}
+		
+		func hp()
+		{
+			scoreboard players remove @s hp_recover_time 1
+			execute if score @s hp_recover_time matches 0 at @s run function ARG(_PATH)do_recover_hp
+		}
+		
+		func do_recover_hp()
+		{
+			scoreboard players set @s hp_recover_time 10
+			scoreboard players operation @s hp += @s hp_recovery
+			scoreboard players operation @s hp < @s hp_max
+			
+			scoreboard players set @s display_num_type 3
+			scoreboard players operation @s display_number = @s hp_recovery
+			function number_display:show
+			
+			function ARG(__PATH)change/hp/recovered
+		}
 	}
 	
 	folder loop()
@@ -198,6 +221,7 @@ namespace bar_display()
 		func schedule_1s()
 		{
 			execute as @a unless score @s hp_mp_varying matches 1 run function ARG(__PATH)update_bar/run
+			execute as @a if score @s hp < @s hp_max run function ARG(__PATH)recover/hp
 		}
 		
 		func schedule_10s()

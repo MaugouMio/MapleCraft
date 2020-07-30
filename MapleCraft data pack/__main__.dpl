@@ -90,6 +90,8 @@ namespace main()
 		scoreboard players set @s mp 5
 		scoreboard players set @s display_mp 100
 		scoreboard players set @s mp_warning 30
+		
+		scoreboard players set @s hp_recover_time 10
 		scoreboard players set @s hp_recovery 10
 		scoreboard players set @s mp_recovery 3
 		
