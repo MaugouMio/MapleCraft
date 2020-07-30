@@ -63,6 +63,7 @@ namespace main()
 		function stat:install
 		
 		function loop:schedule_1s/run
+		function loop:schedule_10s/run
 		function loop:schedule_1d/run
 	}
 	
@@ -89,6 +90,8 @@ namespace main()
 		scoreboard players set @s mp 5
 		scoreboard players set @s display_mp 100
 		scoreboard players set @s mp_warning 30
+		scoreboard players set @s hp_recovery 10
+		scoreboard players set @s mp_recovery 3
 		
 		scoreboard players set @s STR 4
 		scoreboard players set @s DEX 4
@@ -113,6 +116,14 @@ namespace loop()
 		func execute()
 		{
 			function bar_display:loop/schedule_1s
+		}
+	}
+	
+	folder schedule_10s() from schedule_loop(10s, "")
+	{
+		func execute()
+		{
+			function bar_display:loop/schedule_10s
 		}
 	}
 	

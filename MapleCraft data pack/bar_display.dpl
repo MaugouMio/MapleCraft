@@ -20,6 +20,9 @@ namespace bar_display()
 		scoreboard objectives add hp_warning trigger
 		scoreboard objectives add mp_warning trigger
 		
+		scoreboard objectives add hp_recovery dummy
+		scoreboard objectives add mp_recovery dummy
+		
 		scoreboard objectives add damage_taken minecraft.custom:minecraft.damage_absorbed
 	}
 	
@@ -180,12 +183,26 @@ namespace bar_display()
 		}
 	}
 	
+	folder recover()
+	{
+		func mp()
+		{
+			scoreboard players operation @s mp += @s mp_recovery
+			scoreboard players operation @s mp < @s mp_max
+			function ARG(__PATH)change/mp/recovered
+		}
+	}
+	
 	folder loop()
 	{
-		
 		func schedule_1s()
 		{
 			execute as @a unless score @s hp_mp_varying matches 1 run function ARG(__PATH)update_bar/run
+		}
+		
+		func schedule_10s()
+		{
+			execute as @a if score @s mp < @s mp_max run function ARG(__PATH)recover/mp
 		}
 		
 		func schedule_1d()
