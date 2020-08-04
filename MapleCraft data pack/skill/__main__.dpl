@@ -501,6 +501,11 @@ namespace skill()
 		func append_scheduler()
 		{
 			scoreboard players operation #BULLET_ID temp = @s number
+			execute as @e[type=item,tag=display_number] if score @s number = #BULLET_ID temp run tag @s add bullet_number
+			scoreboard players operation #LIFE_LEFT temp = @e[type=item,tag=bullet_number,limit=1] display_delay
+			scoreboard players remove #LIFE_LEFT temp 1
+			execute as @e[type=item,tag=bullet_number] run scoreboard players operation @s display_delay -= #LIFE_LEFT temp
+			
 			data modify storage skill:main new_schedule set value []
 			function ARG(_PATH)find_parent_skill/run
 		}
@@ -663,6 +668,7 @@ namespace skill()
 			{
 				execute unless score #SAME_DAMAGE temp matches 1 run function ARG(_PATH)record_value
 				execute store result score #GLOBAL display_delay run data get storage skill:main damage_copy[0].delay
+				scoreboard players operation #NUM_BULLET_ID temp = #BULLET_ID number
 				data remove storage skill:main damage_copy[0]
 				
 				data modify entity @s ArmorItems[3].tag.damage_record append value 0
@@ -879,6 +885,9 @@ namespace skill()
 	
 	func mob_dead_event()
 	{
+		scoreboard players operation #GLOBAL temp = @s number
+		execute as @e[type=armor_stand,tag=bullet] if score @s target_id = #GLOBAL temp run kill @s
+		
 		function skill:play_die_sound/run
 		```
 		raise Warning("TODO: mob dead animation")
