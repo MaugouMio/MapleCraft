@@ -46,6 +46,7 @@ namespace main()
 		scoreboard objectives add type dummy
 		scoreboard objectives add temp dummy
 		scoreboard objectives add life dummy
+		scoreboard objectives add max_life dummy
 		```
 		constants = set(constants)
 		for i in constants:

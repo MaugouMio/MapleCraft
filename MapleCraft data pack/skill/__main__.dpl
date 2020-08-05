@@ -43,7 +43,7 @@ namespace attack_skill_template(skill_id) as virtual
 	func hit_effect()
 	{
 		execute store result score #GLOBAL ARG(skill_id)_eid run time query gametime
-		execute as @e if score @s ARG(skill_id)_eid = #GLOBAL ARG(skill_id)_eid at @s run function ARG(_PATH)perform_effect
+		execute as @e[type=zombified_piglin,tag=enemy] if score @s ARG(skill_id)_eid = #GLOBAL ARG(skill_id)_eid at @s run function ARG(_PATH)perform_effect
 	}
 	
 	func perform_effect()
@@ -163,14 +163,16 @@ namespace bullet_skill_template(skill_id) as virtual
 		data modify storage skill:main damage_info.knock_back set from entity @e[type=area_effect_cloud,tag=knockback_motion,limit=1] Pos
 		kill @e[type=area_effect_cloud,tag=knockback_motion,limit=1]
 		
+		scoreboard players set #DID_HIT_ENEMY temp 0
 		scoreboard players add #BULLET_ID number 1
 		execute as @e[type=zombified_piglin,tag=target] at @s run function skill:bullet_skill_hit
+		execute if score #DID_HIT_ENEMY temp matches 0 as @e[type=armor_stand,tag=new_bullet] run function skill:bullet/no_target_setting
 	}
 	
 	func hit_effect()
 	{
 		execute store result score #GLOBAL ARG(skill_id)_eid run time query gametime
-		execute as @e if score @s ARG(skill_id)_eid = #GLOBAL ARG(skill_id)_eid at @s run function ARG(_PATH)perform_effect
+		execute as @e[type=zombified_piglin,tag=enemy] if score @s ARG(skill_id)_eid = #GLOBAL ARG(skill_id)_eid at @s run function ARG(_PATH)perform_effect
 	}
 	
 	func perform_effect()
@@ -218,18 +220,23 @@ namespace bullet_skill_template(skill_id) as virtual
 			data modify storage skill:main new_queue set value []
 			function ARG(__PATH)merge_schedule/run
 			data modify entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue prepend from storage skill:main new_queue[]
-			function ARG(_PATH)peek_schedule
+			function ARG(__PATH)peek_schedule
 			
+			data remove entity @s ArmorItems[3].tag.bullet_list[0]
 			data modify entity @s ArmorItems[3].tag.bullet_list prepend from storage skill:main temp[]
 		}
 		
 		func pop_bullet_list()
 		{
 			execute store result score #CUR_BULLET_ID temp run data get entity @s ArmorItems[3].tag.bullet_list[0].bullet_id
-			
-			execute unless score #CUR_BULLET_ID temp = #BULLET_ID temp run data modify storage skill:main temp append from entity @s ArmorItems[3].tag.bullet_list[0]
+			execute unless score #CUR_BULLET_ID temp = #BULLET_ID temp run function ARG(_PATH)check_next
+		}
+		
+		func check_next()
+		{
+			data modify storage skill:main temp append from entity @s ArmorItems[3].tag.bullet_list[0]
 			data remove entity @s ArmorItems[3].tag.bullet_list[0]
-			execute unless score #CUR_BULLET_ID temp = #BULLET_ID temp run function ARG(_PATH)pop_bullet_list
+			function ARG(_PATH)pop_bullet_list
 		}
 	}
 	
@@ -265,8 +272,8 @@ namespace bullet_skill_template(skill_id) as virtual
 	
 	func summon_bullet_template() as virtual
 	{
-		summon minecraft:armor_stand ~ ~ ~ {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:16,skill_id:1,bullet_model:123,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
-		summon minecraft:armor_stand ~ ~ ~ {Tags:["new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:19,skill_id:1,bullet_model:123,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
+		summon minecraft:armor_stand ~ ~ ~ {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:16,max_distance:5,skill_id:1,bullet_model:123,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
+		summon minecraft:armor_stand ~ ~ ~ {Tags:["new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:19,max_distance:5,skill_id:1,bullet_model:123,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
 	}
 }
 
@@ -422,6 +429,7 @@ namespace skill()
 		
 		scoreboard objectives add target_id dummy
 		scoreboard objectives add skill_id dummy
+		scoreboard objectives add bullet_targeted dummy
 		```
 		for skill in skill_ids:
 			print(f"scoreboard objectives add {skill}_level dummy")
@@ -438,7 +446,7 @@ namespace skill()
 	func main()
 	{
 		execute as @e[type=area_effect_cloud,scores={type=1}] run function ARG(_PATH)font_effect_update
-		execute as @e[type=armor_stand,tag=bullet,scores={life=..-1}] run function ARG(_PATH)bullet/check
+		execute as @e[type=armor_stand,tag=bullet] run function ARG(_PATH)bullet/check
 		execute as @e[type=zombified_piglin,tag=enemy] run function ARG(_PATH)enemy_main
 		execute as @a[scores={action_time=1..}] run function ARG(_PATH)action_countdown
 		
@@ -458,7 +466,8 @@ namespace skill()
 		data modify entity @s ArmorItems[3].tag.bullet_list[-1].damage_info set from storage skill:main damage_info
 		
 		tag @s remove target
-		tag @s add bullet_targeted
+		scoreboard players add @s bullet_targeted 1
+		scoreboard players set #DID_HIT_ENEMY temp 1
 	}
 	
 	folder bullet()
@@ -474,10 +483,20 @@ namespace skill()
 			tag @s remove new_bullet
 		}
 		
+		func no_target_setting()
+		{
+			tp @s ~ ~ ~ ~ 0
+			execute store result score @s life run data get entity @s ArmorItems[3].tag.appear_delay -1
+			execute store result score @s max_life run data get entity @s ArmorItems[3].tag.max_distance
+			tag @s remove new_bullet
+		}
+		
 		func check()
 		{
 			scoreboard players add @s life 1
 			execute if score @s life matches 0 run function ARG(_PATH)appear
+			# no target bullet
+			execute if score @s life matches 0.. unless score @s target_id matches -2147483648.. at @s run function ARG(_PATH)wander
 		}
 		
 		func appear()
@@ -486,15 +505,22 @@ namespace skill()
 			data modify entity @s CustomNameVisible set value 1
 		}
 		
+		func wander()
+		{
+			execute if score @s life > @s max_life run kill @s
+			tp @s ^ ^ ^1
+		}
+		
 		func move()
 		{
 			execute facing entity @s eyes positioned as @s run tp @s ^ ^ ^-1
-			execute if entity @s[distance=..0.8] run function ARG(_PATH)hit
+			execute if entity @s[distance=..0.7] run function ARG(_PATH)hit
 		}
 		
 		func hit()
 		{
 			execute if entity @s[tag=first_bullet] run function ARG(_PATH)append_scheduler
+			execute if entity @s[tag=last_bullet] as @e[type=zombified_piglin,tag=enemy] if score @s number = #GLOBAL temp run scoreboard players remove @s bullet_targeted 1
 			kill @s
 		}
 		
@@ -504,10 +530,16 @@ namespace skill()
 			execute as @e[type=item,tag=display_number] if score @s number = #BULLET_ID temp run tag @s add bullet_number
 			scoreboard players operation #LIFE_LEFT temp = @e[type=item,tag=bullet_number,limit=1] display_delay
 			scoreboard players remove #LIFE_LEFT temp 1
-			execute as @e[type=item,tag=bullet_number] run scoreboard players operation @s display_delay -= #LIFE_LEFT temp
+			execute as @e[type=item,tag=bullet_number] run function ARG(_PATH)activate_number
 			
 			data modify storage skill:main new_schedule set value []
 			function ARG(_PATH)find_parent_skill/run
+		}
+		
+		func activate_number()
+		{
+			scoreboard players operation @s display_delay -= #LIFE_LEFT temp
+			tag @s remove bullet_number
 		}
 		
 		folder find_parent_skill()
@@ -562,13 +594,13 @@ namespace skill()
 	func enemy_main()
 	{
 		execute if score @s[tag=!dead] pushed_time matches 1.. run function ARG(_PATH)push_countdown
-		execute if entity @s[tag=bullet_targeted] at @s run function ARG(_PATH)move_bullets
+		execute if score @s bullet_targeted matches 1.. at @s run function ARG(_PATH)move_bullets
 	}
 	
 	func move_bullets()
 	{
 		scoreboard players operation #GLOBAL temp = @s number
-		execute as @e[type=armor_stand,tag=bullet,scores={life=0}] if score @s target_id = #GLOBAL temp run function ARG(_PATH)bullet/move
+		execute as @e[type=armor_stand,tag=bullet,scores={life=0..}] if score @s target_id = #GLOBAL temp run function ARG(_PATH)bullet/move
 	}
 	
 	folder check_skill()
