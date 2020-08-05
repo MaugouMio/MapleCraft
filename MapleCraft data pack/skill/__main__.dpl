@@ -12,7 +12,7 @@ namespace attack_skill_template(skill_id) as virtual
 	#	mark_target => tag all target
 	#	cast_effect => visual and audio effects on casting skill
 	#	set_numeric => calculate all numbers related to damage and write to global storage
-	#	effect => visual and audio effects with ARG(skill_id)_enum as damage
+	#	effect => visual and audio effects with display_number as damage
 	#	append_scheduler => see "append_scheduler_sample"
 	
 	```
@@ -48,15 +48,20 @@ namespace attack_skill_template(skill_id) as virtual
 	
 	func perform_effect()
 	{
+		execute store result score @s display_number run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].damage.number
+		execute store result score @s display_num_type run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].damage.crit
+		execute store result score #NUMBER_HEIGHT temp run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].damage.height
 		data modify entity @s AngryAt set from entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].attacker
-		execute unless score @s pushed_time matches 0.. if score @s kb <= @s ARG(skill_id)_enum run function ARG(_PATH)knock_back
+		
+		execute unless score @s pushed_time matches 0.. if score @s kb <= @s display_number run function ARG(_PATH)knock_back
 		data remove entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0]
 		
 		function ARG(_PATH)effect
+		function skill:show_num_at_height
 		
 		scoreboard players reset @s ARG(skill_id)_eid
 		execute if score @s hp matches ..0 unless data entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0] run function skill:mob_dead_event
-		execute if data entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0] run function ARG(_PATH)peek_schedule
+		execute if data entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0] store result score @s ARG(skill_id)_eid run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].time
 	}
 	
 	func knock_back()
@@ -75,12 +80,6 @@ namespace attack_skill_template(skill_id) as virtual
 		data modify entity @s ArmorItems[3].tag.AttributeModifiers[{Name:"move_control"}].Amount set value -1.0
 	}
 	
-	func peek_schedule()
-	{
-		execute store result score @s ARG(skill_id)_eid run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].time
-		execute store result score @s ARG(skill_id)_enum run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].damage
-	}
-	
 	func hit()
 	{
 		function skill:calculate_damage/run
@@ -89,7 +88,7 @@ namespace attack_skill_template(skill_id) as virtual
 		data modify storage skill:main temp set from storage skill:main new_schedule
 		function ARG(_PATH)merge_schedule/run
 		data modify entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue prepend from storage skill:main new_queue[]
-		function ARG(_PATH)peek_schedule
+		execute store result score @s ARG(skill_id)_eid run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].time
 		
 		tag @s remove target
 	}
@@ -102,7 +101,7 @@ namespace attack_skill_template(skill_id) as virtual
 			execute store result score #RIGHT temp run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].time
 			function ARG(__PATH)merge_ori_schedule/run
 			
-			data modify storage skill:main new_queue append value {time:0,damage:0,attacker:[I;0,0,0,0],knock_back:[]}
+			data modify storage skill:main new_queue append value {}
 			execute store result storage skill:main new_queue[-1].time int 1 run scoreboard players get #LEFT temp
 			data modify storage skill:main new_queue[-1].damage set from entity @s ArmorItems[3].tag.damage_record[0]
 			data modify storage skill:main new_queue[-1].attacker set from storage skill:main damage_info.attacker
@@ -140,7 +139,7 @@ namespace bullet_skill_template(skill_id) as virtual
 	#	mark_target => tag all target
 	#	cast_effect => visual and audio effects on casting skill
 	#	set_numeric => calculate all numbers related to damage and write to global storage
-	#	effect => visual and audio effects with ARG(skill_id)_enum as damage
+	#	effect => visual and audio effects with display_number as damage
 	#	append_scheduler => see "append_scheduler_sample"
 	
 	```
@@ -177,15 +176,20 @@ namespace bullet_skill_template(skill_id) as virtual
 	
 	func perform_effect()
 	{
+		execute store result score @s display_number run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].damage.number
+		execute store result score @s display_num_type run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].damage.crit
+		execute store result score #NUMBER_HEIGHT temp run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].damage.height
 		data modify entity @s AngryAt set from entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].attacker
-		execute unless score @s pushed_time matches 0.. if score @s kb <= @s ARG(skill_id)_enum run function ARG(_PATH)knock_back
+		
+		execute unless score @s pushed_time matches 0.. if score @s kb <= @s display_number run function ARG(_PATH)knock_back
 		data remove entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0]
 		
 		function ARG(_PATH)effect
+		function skill:show_num_at_height
 		
 		scoreboard players reset @s ARG(skill_id)_eid
 		execute if score @s hp matches ..0 unless data entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0] run function skill:mob_dead_event
-		execute if data entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0] run function ARG(_PATH)peek_schedule
+		execute if data entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0] store result score @s ARG(skill_id)_eid run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].time
 	}
 	
 	func knock_back()
@@ -204,12 +208,6 @@ namespace bullet_skill_template(skill_id) as virtual
 		data modify entity @s ArmorItems[3].tag.AttributeModifiers[{Name:"move_control"}].Amount set value -1.0
 	}
 	
-	func peek_schedule()
-	{
-		execute store result score @s ARG(skill_id)_eid run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].time
-		execute store result score @s ARG(skill_id)_enum run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].damage
-	}
-	
 	folder bullet_hit()
 	{
 		func run()
@@ -220,7 +218,7 @@ namespace bullet_skill_template(skill_id) as virtual
 			data modify storage skill:main new_queue set value []
 			function ARG(__PATH)merge_schedule/run
 			data modify entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue prepend from storage skill:main new_queue[]
-			function ARG(__PATH)peek_schedule
+			execute store result score @s ARG(skill_id)_eid run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].time
 			
 			data remove entity @s ArmorItems[3].tag.bullet_list[0]
 			data modify entity @s ArmorItems[3].tag.bullet_list prepend from storage skill:main temp[]
@@ -434,7 +432,6 @@ namespace skill()
 		for skill in skill_ids:
 			print(f"scoreboard objectives add {skill}_level dummy")
 			print(f"scoreboard objectives add {skill}_eid dummy")
-			print(f"scoreboard objectives add {skill}_enum dummy")
 		```
 		# function ARG(_PATH)1/install
 		function ARG(_PATH)2/install
@@ -466,10 +463,7 @@ namespace skill()
 	{
 		scoreboard players operation #GLOBAL temp = @s number
 		execute as @e[type=armor_stand,tag=new_bullet] run function skill:bullet/setting
-		
-		scoreboard players operation #NUM_BULLET_ID temp = #BULLET_ID number
 		function skill:calculate_damage/run
-		scoreboard players set #NUM_BULLET_ID temp 0
 		
 		data modify entity @s ArmorItems[3].tag.bullet_list append value {}
 		execute store result entity @s ArmorItems[3].tag.bullet_list[-1].bullet_id int 1 run scoreboard players get #BULLET_ID number
@@ -538,19 +532,8 @@ namespace skill()
 		func append_scheduler()
 		{
 			scoreboard players operation #BULLET_ID temp = @s number
-			execute as @e[type=item,tag=display_number] if score @s number = #BULLET_ID temp run tag @s add bullet_number
-			scoreboard players operation #LIFE_LEFT temp = @e[type=item,tag=bullet_number,limit=1] display_delay
-			scoreboard players remove #LIFE_LEFT temp 1
-			execute as @e[type=item,tag=bullet_number] run function ARG(_PATH)activate_number
-			
 			data modify storage skill:main new_schedule set value []
 			function ARG(_PATH)find_parent_skill/run
-		}
-		
-		func activate_number()
-		{
-			scoreboard players operation @s display_delay -= #LIFE_LEFT temp
-			tag @s remove bullet_number
 		}
 		
 		folder find_parent_skill()
@@ -690,6 +673,7 @@ namespace skill()
 			# copy damage list
 			data modify storage skill:main damage_copy set from storage skill:main damage
 			scoreboard players set #SAME_DAMAGE temp 0
+			scoreboard players set #NUMBER_HEIGHT temp 0
 			function ARG(_PATH)traverse_damages/run
 			
 			execute if score @s hp matches ..0 run function ARG(_PATH)record_dead
@@ -705,7 +689,7 @@ namespace skill()
 			tag @s add dead
 		}
 		
-		folder traverse_damages() from while_loop("if data storage skill:main damage_copy[0] positioned ~ ~0.4 ~")
+		folder traverse_damages() from while_loop("if data storage skill:main damage_copy[0]")
 		{
 			func execute()
 			{
@@ -713,13 +697,11 @@ namespace skill()
 				execute store result score #GLOBAL display_delay run data get storage skill:main damage_copy[0].delay
 				data remove storage skill:main damage_copy[0]
 				
-				data modify entity @s ArmorItems[3].tag.damage_record append value 0
+				data modify entity @s ArmorItems[3].tag.damage_record append value {number:0,crit:0}
+				execute store result entity @s ArmorItems[3].tag.damage_record[-1].height int 1 run scoreboard players add #NUMBER_HEIGHT temp 1
 				
 				function main:rand_rate
-				scoreboard players set @s display_num_type 0
-				execute if score #HIT_RATE temp <= #RAND_RESULT temp run scoreboard players set @s display_number 0
 				execute if score #HIT_RATE temp > #RAND_RESULT temp run function ARG(_PATH)deal_damage
-				function number_display:show
 			}
 			
 			func record_value()
@@ -840,7 +822,7 @@ namespace skill()
 				scoreboard players operation @s display_number > #1 const
 				
 				scoreboard players operation @s hp -= @s display_number
-				execute store result entity @s ArmorItems[3].tag.damage_record[-1] int 1 run scoreboard players get @s display_number
+				execute store result entity @s ArmorItems[3].tag.damage_record[-1].number int 1 run scoreboard players get @s display_number
 			}
 			
 			folder attribute_multiply()
@@ -910,7 +892,7 @@ namespace skill()
 				scoreboard players operation #MAX_DAMAGE_FINAL temp /= #100 const
 				scoreboard players operation #MIN_DAMAGE_FINAL temp *= #CRIT_DAMAGE temp
 				scoreboard players operation #MIN_DAMAGE_FINAL temp /= #100 const
-				scoreboard players set @s display_num_type 1
+				data modify entity @s ArmorItems[3].tag.damage_record[-1].crit set value 1
 			}
 			
 			func skill_multiply()
@@ -1059,6 +1041,13 @@ namespace skill()
 					
 					break
 		```
+	}
+	
+	func show_num_at_height()
+	{
+		scoreboard players remove #NUMBER_HEIGHT temp 1
+		execute if score #NUMBER_HEIGHT temp matches -1 run function number_display:show
+		execute if score #NUMBER_HEIGHT temp matches 0.. positioned ~ ~0.4 ~ run function ARG(_PATH)show_num_at_height
 	}
 	
 	func test_mob()

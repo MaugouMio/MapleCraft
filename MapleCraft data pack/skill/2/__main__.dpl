@@ -74,7 +74,7 @@ namespace 2() as virtual
 				
 				func effect()
 				{
-					execute if score @s 2001004_enum matches 1.. run function skill:summon_font_effect/2001004hit
+					execute if score @s display_number matches 1.. run function skill:summon_font_effect/2001004hit
 					function skill:play_hurt_sound/run
 				}
 				
@@ -130,7 +130,7 @@ namespace 2() as virtual
 				
 				func effect()
 				{
-					execute if score @s 2001005_enum matches 1.. run function skill:summon_font_effect/2001005hit
+					execute if score @s display_number matches 1.. run function skill:summon_font_effect/2001005hit
 					function skill:play_hurt_sound/run
 				}
 				
