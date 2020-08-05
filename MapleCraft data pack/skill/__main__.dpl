@@ -351,12 +351,12 @@ namespace damage_formula()
 		scoreboard players operation #ACCURACY temp += #INT temp
 		
 		# write values
-		execute store result storage skill:main damage[0].info.max_damage int 1 run scoreboard players get #MAX_DAMAGE temp
-		execute store result storage skill:main damage[0].info.min_damage int 1 run scoreboard players get #MIN_DAMAGE temp
-		execute store result storage skill:main damage[0].info.accuracy int 1 run scoreboard players get #ACCURACY temp
-		execute store result storage skill:main damage[0].info.player_level int 1 run scoreboard players get @s level
-		execute store result storage skill:main damage[0].info.crit_rate int 1 run scoreboard players get @s addi_crit_rate
-		execute store result storage skill:main damage[0].info.crit_damage int 1 run scoreboard players get @s addi_crit_damage
+		execute store result storage skill:main damage[0].max_damage int 1 run scoreboard players get #MAX_DAMAGE temp
+		execute store result storage skill:main damage[0].min_damage int 1 run scoreboard players get #MIN_DAMAGE temp
+		execute store result storage skill:main damage[0].accuracy int 1 run scoreboard players get #ACCURACY temp
+		execute store result storage skill:main damage[0].player_level int 1 run scoreboard players get @s level
+		execute store result storage skill:main damage[0].crit_rate int 1 run scoreboard players get @s addi_crit_rate
+		execute store result storage skill:main damage[0].crit_damage int 1 run scoreboard players get @s addi_crit_damage
 	}
 }
 
@@ -694,7 +694,6 @@ namespace skill()
 			func execute()
 			{
 				execute unless score #SAME_DAMAGE temp matches 1 run function ARG(_PATH)record_value
-				execute store result score #GLOBAL display_delay run data get storage skill:main damage_copy[0].delay
 				data remove storage skill:main damage_copy[0]
 				
 				data modify entity @s ArmorItems[3].tag.damage_record append value {number:0,crit:0}
@@ -706,23 +705,23 @@ namespace skill()
 			
 			func record_value()
 			{
-				execute store result score #MIN_DAMAGE temp run data get storage skill:main damage_copy[0].info.min_damage
-				execute store result score #MAX_DAMAGE temp run data get storage skill:main damage_copy[0].info.max_damage
-				execute store result score #BASE_PERCENT temp run data get storage skill:main damage_copy[0].info.base_percent
-				execute store result score #CRIT_RATE temp run data get storage skill:main damage_copy[0].info.crit_rate
-				execute store result score #CRIT_DAMAGE temp run data get storage skill:main damage_copy[0].info.crit_damage
+				execute store result score #MIN_DAMAGE temp run data get storage skill:main damage_copy[0].min_damage
+				execute store result score #MAX_DAMAGE temp run data get storage skill:main damage_copy[0].max_damage
+				execute store result score #BASE_PERCENT temp run data get storage skill:main damage_copy[0].base_percent
+				execute store result score #CRIT_RATE temp run data get storage skill:main damage_copy[0].crit_rate
+				execute store result score #CRIT_DAMAGE temp run data get storage skill:main damage_copy[0].crit_damage
 				scoreboard players operation #CRIT_DAMAGE temp += #BASE_PERCENT temp
-				execute store result score #LEVEL_DIFFERENCE temp run data get storage skill:main damage_copy[0].info.player_level -1
+				execute store result score #LEVEL_DIFFERENCE temp run data get storage skill:main damage_copy[0].player_level -1
 				scoreboard players operation #LEVEL_DIFFERENCE temp += @s level
 				scoreboard players operation #LEVEL_DIFFERENCE temp > #0 const
 				# ATTRIBUTE 0 = weapon attack; 1 = magic attack; 2 = fire; 3 = poison; 4 = ice; 5 = lightning; 6 = holy
-				execute store result score #ATTRIBUTE temp run data get storage skill:main damage_copy[0].info.attribute
+				execute store result score #ATTRIBUTE temp run data get storage skill:main damage_copy[0].attribute
 				execute if score #ATTRIBUTE temp matches 2.. run function ARG(_PATH)attribute_multiply/run
 				# Calculate defense and hit rate
 				execute if score #ATTRIBUTE temp matches 0 run function ARG(_PATH)weapon_formula
 				execute if score #ATTRIBUTE temp matches 1.. run function ARG(_PATH)magic_formula
 				
-				execute store success score #SAME_DAMAGE temp run data modify storage skill:main damage_copy[0].info set from storage skill:main damage_copy[1].info
+				execute store success score #SAME_DAMAGE temp run data modify storage skill:main damage_copy[0] set from storage skill:main damage_copy[1]
 			}
 			
 			func weapon_formula()
@@ -744,7 +743,7 @@ namespace skill()
 				scoreboard players operation #MIN_DAMAGE temp -= #DEFENSE temp
 				
 				# hit rate
-				execute store result score #HIT_RATE temp run data get storage skill:main damage_copy[0].info.accuracy 100000
+				execute store result score #HIT_RATE temp run data get storage skill:main damage_copy[0].accuracy 100000
 				scoreboard players operation #LEVEL_DIFFERENCE temp *= #66 const
 				scoreboard players add #LEVEL_DIFFERENCE temp 1835
 				scoreboard players operation #LEVEL_DIFFERENCE temp *= @s avoidability
@@ -780,7 +779,7 @@ namespace skill()
 				scoreboard players operation #MIN_ACCURACY temp *= #41 const
 				scoreboard players operation #MIN_ACCURACY temp /= #100 const
 				
-				execute store result score #ACCURACY temp run data get storage skill:main damage_copy[0].info.accuracy
+				execute store result score #ACCURACY temp run data get storage skill:main damage_copy[0].accuracy
 				scoreboard players set #HIT_RATE temp 0
 				execute if score #ACCURACY temp >= #MAX_ACCURACY temp run scoreboard players set #HIT_RATE temp 100
 				execute if score #ACCURACY temp < #MAX_ACCURACY temp if score #ACCURACY temp >= #MIN_ACCURACY temp run function ARG(_PATH)magic_hit_rate

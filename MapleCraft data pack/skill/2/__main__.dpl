@@ -61,7 +61,7 @@ namespace 2() as virtual
 				
 				func set_numeric()
 				{
-					data modify storage skill:main damage set value [{info:{min_damage:0,max_damage:0,accuracy:0,player_level:0,crit_rate:0,crit_damage:0,base_percent:100,attribute:1},delay:1001}]
+					data modify storage skill:main damage set value [{min_damage:0,max_damage:0,accuracy:0,player_level:0,crit_rate:0,crit_damage:0,base_percent:100,attribute:1}]
 					scoreboard players operation #SKILL_MASTERY temp = @s 2001004_mastery
 					scoreboard players operation #SPELL_ATTACK temp = @s 2001004_attack
 					function damage_formula:spell
@@ -114,13 +114,12 @@ namespace 2() as virtual
 				
 				func set_numeric()
 				{
-					data modify storage skill:main damage set value [{info:{min_damage:0,max_damage:0,accuracy:0,player_level:0,crit_rate:0,crit_damage:0,base_percent:100,attribute:1},delay:8}]
+					data modify storage skill:main damage set value [{min_damage:0,max_damage:0,accuracy:0,player_level:0,crit_rate:0,crit_damage:0,base_percent:100,attribute:1}]
 					scoreboard players operation #SKILL_MASTERY temp = @s 2001005_mastery
 					scoreboard players operation #SPELL_ATTACK temp = @s 2001005_attack
 					function damage_formula:spell
 					
 					data modify storage skill:main damage append from storage skill:main damage[0]
-					data modify storage skill:main damage[1].delay set value 11
 					
 					scoreboard players operation @s mp -= @s 2001005_mp
 					function bar_display:change/mp/dropped
