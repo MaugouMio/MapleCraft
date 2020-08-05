@@ -273,7 +273,7 @@ namespace bullet_skill_template(skill_id) as virtual
 	func summon_bullet_template() as virtual
 	{
 		summon minecraft:armor_stand ~ ~ ~ {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:16,max_distance:5,skill_id:1,bullet_model:123,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
-		summon minecraft:armor_stand ~ ~ ~ {Tags:["new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:19,max_distance:5,skill_id:1,bullet_model:123,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
+		summon minecraft:armor_stand ~ ~ ~ {Tags:["last_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:19,max_distance:5,skill_id:1,bullet_model:123,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
 	}
 }
 
@@ -443,6 +443,14 @@ namespace skill()
 		# function ARG(_PATH)5/install
 	}
 	
+	folder loop()
+	{
+		func schedule_1d()
+		{
+			scoreboard players set #BULLET_ID number 1
+		}
+	}
+	
 	func main()
 	{
 		execute as @e[type=area_effect_cloud,scores={type=1}] run function ARG(_PATH)font_effect_update
@@ -458,7 +466,10 @@ namespace skill()
 	{
 		scoreboard players operation #GLOBAL temp = @s number
 		execute as @e[type=armor_stand,tag=new_bullet] run function skill:bullet/setting
+		
+		scoreboard players operation #NUM_BULLET_ID temp = #BULLET_ID number
 		function skill:calculate_damage/run
+		scoreboard players set #NUM_BULLET_ID temp 0
 		
 		data modify entity @s ArmorItems[3].tag.bullet_list append value {}
 		execute store result entity @s ArmorItems[3].tag.bullet_list[-1].bullet_id int 1 run scoreboard players get #BULLET_ID number
@@ -700,7 +711,6 @@ namespace skill()
 			{
 				execute unless score #SAME_DAMAGE temp matches 1 run function ARG(_PATH)record_value
 				execute store result score #GLOBAL display_delay run data get storage skill:main damage_copy[0].delay
-				scoreboard players operation #NUM_BULLET_ID temp = #BULLET_ID number
 				data remove storage skill:main damage_copy[0]
 				
 				data modify entity @s ArmorItems[3].tag.damage_record append value 0

@@ -137,6 +137,7 @@ namespace loop()
 		{
 			effect give @a minecraft:weakness 1000000 255 true
 			function bar_display:loop/schedule_1d
+			function skill:loop/schedule_1d
 		}
 	}
 }

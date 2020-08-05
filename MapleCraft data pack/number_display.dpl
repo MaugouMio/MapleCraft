@@ -72,7 +72,6 @@ namespace number_display()
 		scoreboard players operation @s display_delay = #GLOBAL display_delay
 		scoreboard players set #GLOBAL display_delay 0
 		scoreboard players operation @s number = #NUM_BULLET_ID temp
-		scoreboard players set #NUM_BULLET_ID temp 0
 		
 		tag @s remove new
 	}
