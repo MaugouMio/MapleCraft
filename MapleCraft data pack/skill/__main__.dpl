@@ -268,8 +268,10 @@ namespace bullet_skill_template(skill_id) as virtual
 		}
 	}
 	
-	func summon_bullet_template() as virtual
+	func summon_bullet_sample() as virtual
 	{
+		# first bullet should have "first_bullet" tag
+		# last bullet should have "last_bullet" tag
 		summon minecraft:armor_stand ~ ~ ~ {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:16,max_distance:5,skill_id:1,bullet_model:123,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
 		summon minecraft:armor_stand ~ ~ ~ {Tags:["last_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:19,max_distance:5,skill_id:1,bullet_model:123,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
 	}
