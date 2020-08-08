@@ -137,10 +137,12 @@ def generateFont(resourcepack_path, xml_files, anchor, formula):
 					offset = (offset_x, offset_y)
 					break
 					
+			img_delay = 100
 			for c in child_of_root.findall("int"):
 				if c.attrib["name"] == "delay":
-					delays.append(int(c.attrib["value"]))
+					img_delay = int(c.attrib["value"])
 					break
+			delays.append(img_delay)
 			
 			img = PIL.Image.open(io.BytesIO(base64.b64decode(child_of_root.attrib["basedata"])))
 			new_img = PIL.Image.new(img.mode, new_size)
