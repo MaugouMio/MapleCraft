@@ -478,7 +478,7 @@ namespace afterimage()
 	
 	func summon_model()
 	{
-		execute rotated ~ 0 run summon minecraft:armor_stand ^ ^ ^1 {Tags:["afterimage","new"],Invisible:1,Invulnerable:1,NoGravity:1,Marker:1,Fire:32767s,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:1}}]}
+		execute rotated ~ 0 run summon minecraft:armor_stand ^ ^ ^0.7 {Tags:["afterimage","new"],Invisible:1,Invulnerable:1,NoGravity:1,Marker:1,Fire:32767s,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:1}}]}
 		execute as @e[type=armor_stand,tag=new] run function ARG(_PATH)model_set
 	}
 	
@@ -1176,18 +1176,18 @@ namespace skill()
 	
 	func test_mob()
 	{
-		execute rotated ~ 0 run summon zombified_piglin ^ ^ ^5 {Tags:["new","enemy"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:1,Unbreakable:1,AttributeModifiers:[{Name:"move_control",AttributeName:"generic.movement_speed",Amount:0.0,Operation:0,UUID:[I;0,1,0,1]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:1.2}]}
-		execute rotated ~ 0 run summon zombified_piglin ^ ^ ^5 {Tags:["new","enemy"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:1,Unbreakable:1,AttributeModifiers:[{Name:"move_control",AttributeName:"generic.movement_speed",Amount:0.0,Operation:0,UUID:[I;0,1,0,1]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:1.2}]}
-		execute rotated ~ 0 run summon zombified_piglin ^ ^ ^5 {Tags:["new","enemy"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:1,Unbreakable:1,AttributeModifiers:[{Name:"move_control",AttributeName:"generic.movement_speed",Amount:0.0,Operation:0,UUID:[I;0,1,0,1]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:1.2}]}
+		execute rotated ~ 0 run summon zombified_piglin ^ ^ ^5 {Tags:["new","enemy"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:10000,Unbreakable:1,AttributeModifiers:[{Name:"move_control",AttributeName:"generic.movement_speed",Amount:0.0,Operation:0,UUID:[I;0,1,0,1]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:9.5}]}
+		execute rotated ~ 0 run summon zombified_piglin ^ ^ ^5 {Tags:["new","enemy"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:10000,Unbreakable:1,AttributeModifiers:[{Name:"move_control",AttributeName:"generic.movement_speed",Amount:0.0,Operation:0,UUID:[I;0,1,0,1]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:9.5}]}
+		execute rotated ~ 0 run summon zombified_piglin ^ ^ ^5 {Tags:["new","enemy"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:10000,Unbreakable:1,AttributeModifiers:[{Name:"move_control",AttributeName:"generic.movement_speed",Amount:0.0,Operation:0,UUID:[I;0,1,0,1]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:9.5}]}
 		
-		scoreboard players set @e[type=zombified_piglin,tag=new] level 25
-		scoreboard players set @e[type=zombified_piglin,tag=new] hp 550
-		scoreboard players set @e[type=zombified_piglin,tag=new] avoidability 8
+		scoreboard players set @e[type=zombified_piglin,tag=new] level 24
+		scoreboard players set @e[type=zombified_piglin,tag=new] hp 500
+		scoreboard players set @e[type=zombified_piglin,tag=new] avoidability 7
 		scoreboard players set @e[type=zombified_piglin,tag=new] weapon_defense 20
 		scoreboard players set @e[type=zombified_piglin,tag=new] magic_defense 30
 		scoreboard players set @e[type=zombified_piglin,tag=new] kb 1
 		scoreboard players set @e[type=zombified_piglin,tag=new] hurt_sound 1
-		scoreboard players set @e[type=zombified_piglin,tag=new] die_sound 1
+		scoreboard players set @e[type=zombified_piglin,tag=new] die_sound 2
 		
 		execute as @e[type=zombified_piglin,tag=new] store result score @s number run scoreboard players add #MOB_ID number 1
 		tag @e[type=zombified_piglin,tag=new] remove new

@@ -42,7 +42,7 @@ namespace 4() as virtual
 				
 				func cast_effect()
 				{
-					execute rotated ~ 0 run summon minecraft:armor_stand ^ ^ ^1 {Tags:["model_animation","new"],Invisible:1,Invulnerable:1,NoGravity:1,Marker:1,Fire:32767s,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:400000}}]}
+					execute rotated ~ 0 run summon minecraft:armor_stand ^ ^ ^1.7 {Tags:["model_animation","new"],Invisible:1,Invulnerable:1,NoGravity:1,Marker:1,Fire:32767s,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:400000}}]}
 					execute as @e[type=armor_stand,tag=new,limit=1] run function ARG(_PATH)effect_model_set
 					function afterimage:claw/swing
 					playsound minecraft:skill.4001344 player @a ~ ~ ~ 1 1 0
@@ -82,7 +82,9 @@ namespace 4() as virtual
 					
 					scoreboard players operation @s mp -= @s 4001344_mp
 					function bar_display:change/mp/dropped
-					
+					```
+					raise Warning("TODO: change action_time according to attack speed")
+					```
 					scoreboard players set @s action_time 16
 				}
 				
