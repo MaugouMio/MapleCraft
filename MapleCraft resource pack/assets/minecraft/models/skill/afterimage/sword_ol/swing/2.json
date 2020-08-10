@@ -1,0 +1,28 @@
+{
+	"__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
+	"textures": {
+		"texture": "skill/afterimage/sword_ol/swing/2"
+	},
+	"elements": [
+		{
+			"name": "Cube",
+			"from": [ -8.5, 0, -2 ], 
+			"to": [ 24.5, 0.1, 18 ], 
+			"faces": {
+				"north": { "texture": "#texture", "uv": [ 0, 0, 0, 0 ] },
+				"east": { "texture": "#texture", "uv": [ 0, 0, 0, 0 ] },
+				"south": { "texture": "#texture", "uv": [ 0, 0, 0, 0 ] },
+				"west": { "texture": "#texture", "uv": [ 0, 0, 0, 0 ] },
+				"up": { "texture": "#texture", "uv": [ 0, 0, 16, 16 ] },
+				"down": { "texture": "#texture", "uv": [ 0, 16, 16, 0 ] }
+			}
+		}
+	],
+	"display": {
+		"head": {
+			"rotation": [ 0, -90, 0 ],
+			"translation": [ 0, 0, 0 ],
+			"scale": [ 3, 3, 3 ]
+		}
+	}
+}

@@ -5,6 +5,22 @@
         "layer1": "item/potion"
 	},
 	"overrides": [
-		{"predicate": {"custom_model_data": 1},"model": "item/empty"}
+		{"predicate": {"custom_model_data": 1},"model": "item/empty"},
+		{"predicate": {"custom_model_data": 4000},"model": "item/skill/throwing_star/subi"},
+		{"predicate": {"custom_model_data": 4001},"model": "item/skill/throwing_star/wolbi"},
+		{"predicate": {"custom_model_data": 4002},"model": "item/skill/throwing_star/mokbi"},
+		{"predicate": {"custom_model_data": 4003},"model": "item/skill/throwing_star/kumbi"},
+		{"predicate": {"custom_model_data": 4004},"model": "item/skill/throwing_star/tobi"},
+		{"predicate": {"custom_model_data": 4005},"model": "item/skill/throwing_star/steely"},
+		{"predicate": {"custom_model_data": 4006},"model": "item/skill/throwing_star/ilbi"},
+		{"predicate": {"custom_model_data": 400000},"model": "item/empty"},
+		{"predicate": {"custom_model_data": 400009},"model": "skill/400/1344/effect/1"},
+		{"predicate": {"custom_model_data": 400012},"model": "skill/400/1344/effect/2"},
+		{"predicate": {"custom_model_data": 400014},"model": "skill/400/1344/effect/3"},
+		{"predicate": {"custom_model_data": 400017},"model": "skill/400/1344/effect/4"},
+		{"predicate": {"custom_model_data": 400019},"model": "skill/400/1344/effect/5"},
+		{"predicate": {"custom_model_data": 1000000},"model": "skill/afterimage/sword_ol/swing/0"},
+		{"predicate": {"custom_model_data": 1000001},"model": "skill/afterimage/sword_ol/swing/1"},
+		{"predicate": {"custom_model_data": 1000002},"model": "skill/afterimage/sword_ol/swing/2"}
 	]
 }

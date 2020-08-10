@@ -26,7 +26,9 @@ def getJavaSetOrder(str_list):
 #################################################################
 
 def getPageInfo(effect_life, folder):
-	page_amount = effect_life // 10 + 1
+	page_amount = effect_life // 10
+	if effect_life % 10 > 0:
+		page_amount += 1
 	page_names = [f'{{"text":"","font":"skill:{folder}/{i}"}}' for i in range(page_amount)]
 
 	page_file_names = dict()
@@ -237,7 +239,7 @@ build_description.pack(side=LEFT)
 build_dest_entry = Entry(set_dir_frame, textvariable = resourcepack_path, width=60)
 build_dest_entry.pack(side=LEFT, padx=10)
 # Select Button
-select_folder_btn = Button(set_dir_frame, text="...", width=3, command = lambda entry=resourcepack_path: entry.set(filedialog.askdirectory()))
+select_folder_btn = Button(set_dir_frame, text="...", width=3, command = lambda entry=resourcepack_path: entry.set(filedialog.askdirectory(initialdir=os.path.abspath(os.path.expandvars("%APPDATA%\\.minecraft\\resourcepacks")))))
 select_folder_btn.pack(side=LEFT)
 
 ##### Main Frame #####

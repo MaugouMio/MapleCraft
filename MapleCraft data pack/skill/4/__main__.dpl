@@ -1,0 +1,105 @@
+# import 41 as virtual
+# import 42 as virtual
+
+namespace 4() as virtual
+{
+	# folder 1() from 41();
+	# folder 2() from 42();
+	
+	func install()
+	{
+		scoreboard objectives add 4001344_mp dummy
+		scoreboard objectives add 4001344_attack dummy
+		
+		# function ARG(_PATH)1/install
+		# function ARG(_PATH)2/install
+	}
+	
+	folder 0()
+	{
+		folder 0()
+		{
+			folder 1344() from bullet_skill_template(4001344)
+			{
+				func check()
+				{
+					execute unless score @s action_time matches 0.. if score @s 4001344_level matches 1.. run function ARG(_PATH)other_check
+				}
+				
+				func other_check()
+				{
+					function check_weapon:claw/run
+					execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 4001344_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
+					execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp >= @s 4001344_mp run function ARG(_PATH)run
+				}
+				
+				func mark_target()
+				{
+					scoreboard players set #DISTANCE temp 8
+					scoreboard players set #MAX_ENEMY temp 1
+					function enemy_search:search_front/search
+				}
+				
+				func cast_effect()
+				{
+					execute rotated ~ 0 run summon minecraft:armor_stand ^ ^ ^1 {Tags:["model_animation","new"],Invisible:1,Invulnerable:1,NoGravity:1,Marker:1,Fire:32767s,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:400000}}]}
+					execute as @e[type=armor_stand,tag=new,limit=1] run function ARG(_PATH)effect_model_set
+					function afterimage:claw/swing
+					playsound minecraft:skill.4001344 player @a ~ ~ ~ 1 1 0
+				}
+				
+				func effect_model_set()
+				{
+					execute positioned as @s run tp @s ~ ~ ~ ~ ~
+					scoreboard players set @s max_life 21
+					scoreboard players set @s base_model 400000
+					tag @s remove new
+				}
+				
+				func summon_bullet()
+				{
+					# max_distance should be set to (#DISTANCE temp + 3)
+					summon minecraft:armor_stand ~ ~0.2 ~ {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:6,max_distance:11,skill_id:2,bullet_model:4005,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
+					summon minecraft:armor_stand ~ ~-0.2 ~ {Tags:["last_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:8,max_distance:11,skill_id:2,bullet_model:4005,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
+					```
+					raise Warning("TODO: set throwing star model")
+					```
+					# scoreboard players operation #GLOBAL temp = @s using_bullet
+					# execute as @e[tag=new_bullet] store result entity @s ArmorItems[3].tag.bullet_model int 1 run scoreboard players get #GLOBAL temp
+				}
+				
+				func set_numeric()
+				{
+					data modify storage skill:main damage set value [{min_damage:0,max_damage:0,accuracy:0,player_level:0,crit_rate:0,crit_damage:0,base_percent:100,attribute:0}]
+					execute store result storage skill:main damage[0].base_percent int 1 run scoreboard players get @s 4001344_attack
+					```
+					raise Warning("TODO: set throwing star damage")
+					```
+					scoreboard players set #BULLET_DAMAGE temp 25
+					function damage_formula:claw/lucky_seven
+					
+					data modify storage skill:main damage append from storage skill:main damage[0]
+					
+					scoreboard players operation @s mp -= @s 4001344_mp
+					function bar_display:change/mp/dropped
+					
+					scoreboard players set @s action_time 16
+				}
+				
+				func effect()
+				{
+					execute if score @s display_number matches 1.. run function skill:summon_font_effect/4001344hit
+					function skill:play_hurt_sound/run
+				}
+				
+				func append_scheduler()
+				{
+					data modify storage skill:main new_schedule append value 0
+					execute store result storage skill:main new_schedule[-1] int 1 run schedule function ARG(_PATH)hit_effect 1t append
+					data modify storage skill:main new_schedule append value 0
+					execute store result storage skill:main new_schedule[-1] int 1 run schedule function ARG(_PATH)hit_effect 3t append
+				}
+			}
+		}
+	}
+}

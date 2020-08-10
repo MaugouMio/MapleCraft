@@ -360,6 +360,65 @@ namespace damage_formula()
 		execute store result storage skill:main damage[0].crit_rate int 1 run scoreboard players get @s addi_crit_rate
 		execute store result storage skill:main damage[0].crit_damage int 1 run scoreboard players get @s addi_crit_damage
 	}
+	
+	folder claw()
+	{
+		func normal()
+		{
+			```
+			raise Warning("TODO: normal claw damage calculation")
+			```
+			function ARG(_PATH)other_formula
+		}
+		
+		func lucky_seven()
+		{
+			# weapon attack
+			execute store result score #MAX_DAMAGE temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_attack
+			scoreboard players operation #MAX_DAMAGE temp += #BULLET_DAMAGE temp
+			scoreboard players operation #MAX_DAMAGE temp *= @s LUK
+			scoreboard players operation #MAX_DAMAGE temp /= #20 const
+			
+			scoreboard players operation #MIN_DAMAGE temp = #MAX_DAMAGE temp
+			scoreboard players operation #MIN_DAMAGE temp /= #2 const
+			
+			function ARG(_PATH)other_formula
+		}
+		
+		func other_formula()
+		{
+			# accuracy
+			scoreboard players operation #LUK temp = @s LUK
+			scoreboard players operation #LUK temp *= #3 const
+			scoreboard players operation #LUK temp /= #10 const
+			scoreboard players operation #ACCURACY temp = @s DEX
+			scoreboard players operation #ACCURACY temp *= #3 const
+			scoreboard players operation #ACCURACY temp /= #5 const
+			scoreboard players operation #ACCURACY temp += #LUK temp
+			scoreboard players operation #ACCURACY temp += @s base_accuracy
+			scoreboard players operation #ACCURACY temp += @s claw_accuracy
+			
+			# crit
+			scoreboard players operation #CRIT_RATE temp = @s crit_rate
+			scoreboard players operation #CRIT_DAMAGE temp = @s crit_damage
+			execute if score @s addi_crit_rate matches 1.. run function ARG(_PATH)addi_crit
+			
+			# write values
+			execute store result storage skill:main damage[0].max_damage int 1 run scoreboard players get #MAX_DAMAGE temp
+			execute store result storage skill:main damage[0].min_damage int 1 run scoreboard players get #MIN_DAMAGE temp
+			execute store result storage skill:main damage[0].accuracy int 1 run scoreboard players get #ACCURACY temp
+			execute store result storage skill:main damage[0].player_level int 1 run scoreboard players get @s level
+			execute store result storage skill:main damage[0].crit_rate int 1 run scoreboard players get #CRIT_RATE temp
+			execute store result storage skill:main damage[0].crit_damage int 1 run scoreboard players get #CRIT_DAMAGE temp
+		}
+		
+		func addi_crit()
+		{
+			scoreboard players operation #CRIT_RATE temp += @s addi_crit_rate
+			scoreboard players operation #CRIT_DAMAGE temp += @s addi_crit_damage
+			scoreboard players add #CRIT_DAMAGE temp 100
+		}
+	}
 }
 
 namespace check_weapon()
@@ -387,14 +446,58 @@ namespace check_weapon()
 			execute if score #ACCEPTED_WEAPON temp matches 0 run tellraw @s {"translate":"warning.skill.wrong_weapon","color":"red"}
 		}
 	}
+	
+	folder claw()
+	{
+		func run()
+		{
+			function ARG(__PATH)check_empty
+			execute if score #USED_WEAPON temp matches 1.. run function ARG(_PATH)check
+		}
+		
+		func check()
+		{
+			execute store success score #ACCEPTED_WEAPON temp if score #USED_WEAPON temp matches 24
+			execute if score #ACCEPTED_WEAPON temp matches 0 run tellraw @s {"translate":"warning.skill.wrong_weapon","color":"red"}
+		}
+	}
 }
 
+namespace afterimage()
+{
+	folder claw()
+	{
+		func swing()
+		{
+			scoreboard players set #MODEL_ID_AMOUNT temp 3
+			function ARG(__PATH)rand_model
+			scoreboard players add #SWING_TYPE temp 1000000
+			function ARG(__PATH)summon_model
+		}
+	}
+	
+	func summon_model()
+	{
+		execute rotated ~ 0 run summon minecraft:armor_stand ^ ^ ^1 {Tags:["afterimage","new"],Invisible:1,Invulnerable:1,NoGravity:1,Marker:1,Fire:32767s,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:1}}]}
+		execute as @e[type=armor_stand,tag=new] run function ARG(_PATH)model_set
+	}
+	
+	func model_set()
+	{
+		execute positioned as @s run tp @s ~ ~ ~ ~ ~
+		scoreboard players set @s life 8
+		scoreboard players operation @s base_model = #SWING_TYPE temp
+		tag @s remove new
+	}
+	
+	func rand_model() from random().generate("#0 const", "#MODEL_ID_AMOUNT temp", "#SWING_TYPE temp");
+}
 
 
 # import 1 as virtual
 import 2 as virtual
 # import 3 as virtual
-# import 4 as virtual
+import 4 as virtual
 # import 5 as virtual
 
 namespace skill()
@@ -402,17 +505,20 @@ namespace skill()
 	# folder 1() from 1();
 	folder 2() from 2();
 	# folder 3() from 3();
-	# folder 4() from 4();
+	folder 4() from 4();
 	# folder 5() from 5();
 	
 	func install()
 	{
 		scoreboard objectives add right_click minecraft.used:minecraft.carrot_on_a_stick
+		scoreboard objectives add base_model dummy
 		
 		scoreboard objectives add level dummy
 		scoreboard objectives add avoidability dummy
 		scoreboard objectives add weapon_defense dummy
 		scoreboard objectives add magic_defense dummy
+		scoreboard objectives add base_accuracy dummy
+		scoreboard objectives add claw_accuracy dummy
 		
 		scoreboard objectives add crit_rate dummy
 		scoreboard objectives add crit_damage dummy
@@ -454,6 +560,8 @@ namespace skill()
 	{
 		execute as @e[type=area_effect_cloud,scores={type=1}] run function ARG(_PATH)font_effect_update
 		execute as @e[type=armor_stand,tag=bullet] run function ARG(_PATH)bullet/check
+		execute as @e[type=armor_stand,tag=model_animation] run function ARG(_PATH)model_animation_update
+		execute as @e[type=armor_stand,tag=afterimage] run function ARG(_PATH)afterimage_update
 		execute as @e[type=zombified_piglin,tag=enemy] run function ARG(_PATH)enemy_main
 		execute as @a[scores={action_time=1..}] run function ARG(_PATH)action_countdown
 		
@@ -520,8 +628,8 @@ namespace skill()
 		
 		func move()
 		{
-			execute facing entity @s eyes positioned as @s run tp @s ^ ^ ^-1
 			execute if entity @s[distance=..0.7] run function ARG(_PATH)hit
+			execute facing entity @s eyes positioned as @s run tp @s ^ ^ ^-1
 		}
 		
 		func hit()
@@ -1042,6 +1150,21 @@ namespace skill()
 					
 					break
 		```
+	}
+	
+	func model_animation_update()
+	{
+		execute store result score #GLOBAL temp run scoreboard players add @s life 1
+		execute store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players operation #GLOBAL temp += @s base_model
+		
+		execute if score @s life = @s max_life run kill @s
+	}
+	
+	func afterimage_update()
+	{
+		scoreboard players remove @s life 1
+		execute if score @s life matches 0 store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players get @s base_model
+		kill @s[scores={life=-4}]
 	}
 	
 	func show_num_at_height()

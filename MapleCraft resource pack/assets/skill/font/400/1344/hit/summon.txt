@@ -1,0 +1,3 @@
+summon minecraft:area_effect_cloud ~ ~ ~ {CustomName:'[{"text":"F","font":"space:default"},{"text":"0","font":"skill:400/1344/hit/0"},{"text":"F","font":"space:default"}]',CustomNameVisible:1,Radius:0.2,Particle:"block air",Duration:8,Tags:['{"text":"","font":"skill:400/1344/hit/0"}', 'new']}
+scoreboard players set @e[type=area_effect_cloud,tag=new,limit=1] type 1
+tag @e[type=area_effect_cloud,tag=new,limit=1] remove new

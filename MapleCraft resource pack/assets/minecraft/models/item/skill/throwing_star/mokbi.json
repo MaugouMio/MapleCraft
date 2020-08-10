@@ -1,0 +1,29 @@
+{
+	"__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
+	"textures": {
+		"texture": "skill/throwing_stars"
+	},
+	"elements": [
+		{
+			"name": "Cube",
+			"from": [ -3, 0, -3 ], 
+			"to": [ 19, 0.1, 19 ], 
+			"rotation": { "origin": [ 8.0, 0.0, 8.0 ], "axis": "z", "angle": 22.5 },
+			"faces": {
+				"north": { "texture": "#texture", "uv": [ 0, 0, 0, 0 ] },
+				"east": { "texture": "#texture", "uv": [ 0, 0, 0, 0 ] },
+				"south": { "texture": "#texture", "uv": [ 0, 0, 0, 0 ] },
+				"west": { "texture": "#texture", "uv": [ 0, 0, 0, 0 ] },
+				"up": { "texture": "#texture", "uv": [ 2.25, 0, 7.75, 5.5 ] },
+				"down": { "texture": "#texture", "uv": [ 2.25, 0, 7.75, 5.5 ] }
+			}
+		}
+	],
+	"display": {
+		"head": {
+			"rotation": [ 0, 180, 0 ],
+			"translation": [ 0, -14, 0 ],
+			"scale": [ 0.6, 0.6, 0.6 ]
+		}
+	}
+}
