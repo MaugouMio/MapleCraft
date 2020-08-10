@@ -15,7 +15,10 @@
 		{"predicate": {"custom_model_data": 4005},"model": "item/skill/throwing_star/steely"},
 		{"predicate": {"custom_model_data": 4006},"model": "item/skill/throwing_star/ilbi"},
 		
-		{"predicate": {"custom_model_data": 10000},"model": "mob/zombie_mushroom/stand"},
+		{"predicate": {"custom_model_data": 10000},"model": "mob/zombie_mushroom/move"},
+		{"predicate": {"custom_model_data": 10001},"model": "mob/zombie_mushroom/stand"},
+		{"predicate": {"custom_model_data": 10002},"model": "mob/zombie_mushroom/hit"},
+		{"predicate": {"custom_model_data": 10003},"model": "mob/zombie_mushroom/jump"},
 		
 		{"predicate": {"custom_model_data": 400000},"model": "item/empty"},
 		{"predicate": {"custom_model_data": 400009},"model": "skill/400/1344/effect/1"},
