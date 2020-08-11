@@ -1,0 +1,80 @@
+# import 221 as virtual
+# import 222 as virtual
+
+namespace 22() as virtual
+{
+	# folder 1() from 221();
+	# folder 2() from 222();
+	
+	func install()
+	{
+		scoreboard objectives add 2201004_mp dummy
+		scoreboard objectives add 2201004_mastery dummy
+		scoreboard objectives add 2201004_attack dummy
+		# freeze time should be (second * 20)
+		# 2/4/6 seconds for different level intervals
+		scoreboard objectives add 2201004_freeze dummy
+		
+		# function ARG(_PATH)1/install
+		# function ARG(_PATH)2/install
+	}
+	
+	folder 0()
+	{
+		folder 1004() from attack_skill_template(2201004)
+		{
+			func check()
+			{
+				execute unless score @s action_time matches 0.. if score @s 2201004_level matches 1.. run function ARG(_PATH)other_check
+			}
+			
+			func other_check()
+			{
+				execute store result score #USED_WEAPON temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_type
+				execute if score #USED_WEAPON temp matches 0 run tellraw @s {"translate":"warning.skill.no_weapon","color":"red"}
+				
+				execute if score #USED_WEAPON temp matches 1.. if score @s mp < @s 2201004_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
+				execute if score #USED_WEAPON temp matches 1.. if score @s mp >= @s 2201004_mp run function ARG(_PATH)run
+			}
+			
+			func mark_target()
+			{
+				scoreboard players set #DISTANCE temp 4
+				scoreboard players set #MAX_ENEMY temp 1
+				function enemy_search:search_front/search
+			}
+			
+			func cast_effect()
+			{
+				execute rotated ~ 0 positioned ^ ^0.2 ^0.5 run function skill:summon_font_effect/2201004effect
+				playsound minecraft:skill.2201004 player @a ~ ~ ~ 1 1 0
+			}
+			
+			func set_numeric()
+			{
+				data modify storage skill:main damage set value [{min_damage:0,max_damage:0,accuracy:0,player_level:0,crit_rate:0,crit_damage:0,base_percent:100,attribute:4}]
+				scoreboard players operation #SKILL_MASTERY temp = @s 2201004_mastery
+				scoreboard players operation #SPELL_ATTACK temp = @s 2201004_attack
+				scoreboard players operation #FREEZE_TIME temp = @s 2201004_freeze
+				function damage_formula:spell
+				
+				scoreboard players operation @s mp -= @s 2201004_mp
+				function bar_display:change/mp/dropped
+				
+				scoreboard players set @s action_time 16
+			}
+			
+			func effect()
+			{
+				execute if score @s display_number matches 1.. run function skill:summon_font_effect/2201004hit
+				function skill:play_hurt_sound/run
+			}
+			
+			func append_scheduler()
+			{
+				data modify storage skill:main new_schedule append value 0
+				execute store result storage skill:main new_schedule[-1] int 1 run schedule function ARG(_PATH)hit_effect 8t append
+			}
+		}
+	}
+}

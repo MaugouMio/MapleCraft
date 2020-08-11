@@ -67,6 +67,7 @@ namespace attack_skill_template(skill_id) as virtual
 	func knock_back()
 	{
 		scoreboard players set @s pushed_time 12
+		scoreboard players operation @s kb_time > @s pushed_time
 		execute store result score #GLOBAL temp run scoreboard players set @s status 2
 		execute store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players operation #GLOBAL temp += @s base_model
 		
@@ -195,6 +196,7 @@ namespace bullet_skill_template(skill_id) as virtual
 	func knock_back()
 	{
 		scoreboard players set @s pushed_time 12
+		scoreboard players operation @s kb_time > @s pushed_time
 		execute store result score #GLOBAL temp run scoreboard players set @s status 2
 		execute store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players operation #GLOBAL temp += @s base_model
 		
@@ -529,7 +531,9 @@ namespace skill()
 		scoreboard objectives add addi_crit_damage dummy
 		
 		scoreboard objectives add kb dummy
+		scoreboard objectives add kb_time dummy
 		scoreboard objectives add pushed_time dummy
+		scoreboard objectives add freeze_time dummy
 		scoreboard objectives add action_time dummy
 		scoreboard objectives add attack_times dummy
 		
@@ -700,9 +704,11 @@ namespace skill()
 	
 	func enemy_main()
 	{
-		execute unless score @s[tag=!dead] pushed_time matches 1.. run function ARG(_PATH)enemy_status_change/run
+		execute unless score @s[tag=!dead] kb_time matches 1.. run function ARG(_PATH)enemy_status_change/run
+		execute if entity @s[tag=color_changed] run function ARG(_PATH)enemy_status_change/color/check
 		
-		execute if score @s[tag=!dead] pushed_time matches 1.. run function ARG(_PATH)push_countdown
+		execute if score @s kb_time matches 1.. run function ARG(_PATH)kb_countdown
+		execute if score @s pushed_time matches 1.. run function ARG(_PATH)push_countdown
 		execute if score @s bullet_targeted matches 1.. at @s run function ARG(_PATH)move_bullets
 	}
 	
@@ -728,6 +734,35 @@ namespace skill()
 		{
 			execute store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players operation #GLOBAL temp += @s base_model
 			scoreboard players operation @s status = #GLOBAL temp
+		}
+		
+		folder color()
+		{
+			func check()
+			{
+				execute if score @s freeze_time matches 1.. run function ARG(_PATH)freeze/run
+			}
+			
+			folder freeze()
+			{
+				func run()
+				{
+					scoreboard players remove @s freeze_time 1
+					execute if score @s freeze_time matches 0 run function ARG(_PATH)end
+				}
+				
+				func end()
+				{
+					```
+					raise Warning("TODO: check all other color change effects")
+					```
+					# execute unless score @s poison_time matches 1.. unless score @s burn_time matches 1.. run tag @s remove color_changed
+					tag @s remove color_changed
+					
+					execute if entity @s[tag=!color_changed] run data modify entity @s ArmorItems[3].tag.CustomPotionColor set value -1
+					scoreboard players reset @s freeze_time
+				}
+			}
 		}
 	}
 	
@@ -798,10 +833,22 @@ namespace skill()
 		scoreboard players reset @s[scores={action_time=0}] action_time
 	}
 	
+	func kb_countdown()
+	{
+		scoreboard players remove @s kb_time 1
+		execute if score @s kb_time matches 0 run function ARG(_PATH)kb_reset
+	}
+	
+	func kb_reset()
+	{
+		function ARG(_PATH)enemy_status_change/run
+		data modify entity @s[tag=!dead] ArmorItems[3].tag.AttributeModifiers[{Name:"move_control"}].Amount set value 0.0
+		scoreboard players reset @s kb_time
+	}
+	
 	func push_countdown()
 	{
 		scoreboard players remove @s pushed_time 1
-		execute if score @s pushed_time matches 0 run data modify entity @s ArmorItems[3].tag.AttributeModifiers[{Name:"move_control"}].Amount set value 0.0
 		scoreboard players reset @s[scores={pushed_time=0}] pushed_time
 	}
 	
@@ -973,7 +1020,6 @@ namespace skill()
 					execute if score #ATTRIBUTE temp matches 4 run function ARG(_PATH)ice
 					execute if score #ATTRIBUTE temp matches 5 run function ARG(_PATH)lightning
 					execute if score #ATTRIBUTE temp matches 6 run function ARG(_PATH)holy
-					execute if score #ATTRIBUTE temp matches 2.. run function ARG(_PATH)divide_back
 				}
 				
 				func fire()
@@ -992,6 +1038,7 @@ namespace skill()
 				{
 					execute if entity @s[tag=ice_resist] run function ARG(_PATH)resist
 					execute if entity @s[tag=ice_weakness] run function ARG(_PATH)weakness
+					execute if entity @s[tag=!freeze_imune] run function ARG(_PATH)status/freeze
 				}
 				
 				func lightning()
@@ -1010,18 +1057,37 @@ namespace skill()
 				{
 					scoreboard players operation #MIN_DAMAGE temp *= #50 const
 					scoreboard players operation #MAX_DAMAGE temp *= #50 const
+					function ARG(_PATH)divide_back
 				}
 				
 				func weakness()
 				{
 					scoreboard players operation #MIN_DAMAGE temp *= #150 const
 					scoreboard players operation #MAX_DAMAGE temp *= #150 const
+					function ARG(_PATH)divide_back
 				}
 				
 				func divide_back()
 				{
 					scoreboard players operation #MIN_DAMAGE temp /= #100 const
 					scoreboard players operation #MAX_DAMAGE temp /= #100 const
+				}
+				
+				folder status()
+				{
+					func freeze()
+					{
+						tag @s add color_changed
+						execute store result score @s kb_time run scoreboard players operation @s freeze_time = #FREEZE_TIME temp
+						scoreboard players add @s kb_time 12
+						
+						data modify entity @s ArmorItems[3].tag.CustomPotionColor set value 12580095
+						
+						execute store result score #GLOBAL temp run scoreboard players set @s status 2
+						execute store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players operation #GLOBAL temp += @s base_model
+						
+						data modify entity @s ArmorItems[3].tag.AttributeModifiers[{Name:"move_control"}].Amount set value -1.0
+					}
 				}
 			}
 			
@@ -1052,9 +1118,6 @@ namespace skill()
 		execute as @e[type=armor_stand,tag=bullet] if score @s target_id = #GLOBAL temp run kill @s
 		
 		function skill:play_die_sound/run
-		```
-		raise Warning("TODO: mob dead animation")
-		```
 		kill @s
 	}
 	
