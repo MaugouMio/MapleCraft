@@ -333,10 +333,8 @@ namespace damage_formula()
 		
 		scoreboard players operation #MIN_DAMAGE temp = #MAX_DAMAGE temp
 		scoreboard players operation #MIN_DAMAGE temp *= #9 const
-		scoreboard players operation #MIN_DAMAGE temp /= #10 const
-		scoreboard players add #SKILL_MASTERY temp 25
 		scoreboard players operation #MIN_DAMAGE temp *= #SKILL_MASTERY temp
-		scoreboard players operation #MIN_DAMAGE temp /= #100 const
+		scoreboard players operation #MIN_DAMAGE temp /= #1000 const
 		
 		scoreboard players operation #MAX_DAMAGE temp /= #30 const
 		scoreboard players operation #MAX_DAMAGE temp += #INT temp
@@ -361,6 +359,65 @@ namespace damage_formula()
 		execute store result storage skill:main damage[0].player_level int 1 run scoreboard players get @s level
 		execute store result storage skill:main damage[0].crit_rate int 1 run scoreboard players get @s addi_crit_rate
 		execute store result storage skill:main damage[0].crit_damage int 1 run scoreboard players get @s addi_crit_damage
+	}
+	
+	folder accuracy()
+	{
+		# warrior / magician / beginner
+		func war_mag_beg()
+		{
+			scoreboard players operation #LUK temp = @s LUK
+			scoreboard players operation #LUK temp *= #5 const
+			scoreboard players operation #ACCURACY temp = @s DEX
+			scoreboard players operation #ACCURACY temp *= #8 const
+			scoreboard players operation #ACCURACY temp += #LUK temp
+			scoreboard players operation #ACCURACY temp /= #10 const
+			
+			scoreboard players operation #ACCURACY temp += @s base_accuracy
+		}
+		
+		# one punch
+		func brawler()
+		{
+			scoreboard players operation #LUK temp = @s LUK
+			scoreboard players operation #LUK temp *= #5 const
+			scoreboard players operation #ACCURACY temp = @s DEX
+			scoreboard players operation #ACCURACY temp *= #9 const
+			scoreboard players operation #ACCURACY temp += #LUK temp
+			scoreboard players operation #ACCURACY temp /= #10 const
+			
+			scoreboard players operation #ACCURACY temp += @s base_accuracy
+		}
+		
+		# include gunslingers
+		func bow_thief_pirate()
+		{
+			scoreboard players operation #LUK temp = @s LUK
+			scoreboard players operation #LUK temp *= #3 const
+			scoreboard players operation #ACCURACY temp = @s DEX
+			scoreboard players operation #ACCURACY temp *= #6 const
+			scoreboard players operation #ACCURACY temp += #LUK temp
+			scoreboard players operation #ACCURACY temp /= #10 const
+			
+			scoreboard players operation #ACCURACY temp += @s base_accuracy
+		}
+	}
+	
+	func addi_crit()
+	{
+		scoreboard players operation #CRIT_RATE temp += @s addi_crit_rate
+		scoreboard players operation #CRIT_DAMAGE temp += @s addi_crit_damage
+		scoreboard players add #CRIT_DAMAGE temp 100
+	}
+	
+	func write_values()
+	{
+		execute store result storage skill:main damage[0].max_damage int 1 run scoreboard players get #MAX_DAMAGE temp
+		execute store result storage skill:main damage[0].min_damage int 1 run scoreboard players get #MIN_DAMAGE temp
+		execute store result storage skill:main damage[0].accuracy int 1 run scoreboard players get #ACCURACY temp
+		execute store result storage skill:main damage[0].player_level int 1 run scoreboard players get @s level
+		execute store result storage skill:main damage[0].crit_rate int 1 run scoreboard players get #CRIT_RATE temp
+		execute store result storage skill:main damage[0].crit_damage int 1 run scoreboard players get #CRIT_DAMAGE temp
 	}
 	
 	folder claw()
@@ -390,35 +447,81 @@ namespace damage_formula()
 		func other_formula()
 		{
 			# accuracy
-			scoreboard players operation #LUK temp = @s LUK
-			scoreboard players operation #LUK temp *= #3 const
-			scoreboard players operation #LUK temp /= #10 const
-			scoreboard players operation #ACCURACY temp = @s DEX
-			scoreboard players operation #ACCURACY temp *= #3 const
-			scoreboard players operation #ACCURACY temp /= #5 const
-			scoreboard players operation #ACCURACY temp += #LUK temp
-			scoreboard players operation #ACCURACY temp += @s base_accuracy
+			function ARG(__PATH)accuracy/bow_thief_pirate
 			scoreboard players operation #ACCURACY temp += @s claw_accuracy
 			
 			# crit
 			scoreboard players operation #CRIT_RATE temp = @s crit_rate
 			scoreboard players operation #CRIT_DAMAGE temp = @s crit_damage
-			execute if score @s addi_crit_rate matches 1.. run function ARG(_PATH)addi_crit
+			execute if score @s addi_crit_rate matches 1.. run function ARG(__PATH)addi_crit
 			
-			# write values
-			execute store result storage skill:main damage[0].max_damage int 1 run scoreboard players get #MAX_DAMAGE temp
-			execute store result storage skill:main damage[0].min_damage int 1 run scoreboard players get #MIN_DAMAGE temp
-			execute store result storage skill:main damage[0].accuracy int 1 run scoreboard players get #ACCURACY temp
-			execute store result storage skill:main damage[0].player_level int 1 run scoreboard players get @s level
-			execute store result storage skill:main damage[0].crit_rate int 1 run scoreboard players get #CRIT_RATE temp
-			execute store result storage skill:main damage[0].crit_damage int 1 run scoreboard players get #CRIT_DAMAGE temp
+			function ARG(__PATH)write_values
+		}
+	}
+	
+	folder dagger()
+	{
+		func thief()
+		{
+			# weapon attack
+			execute store result score #WEAPON_ATTACK temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_attack
+			
+			scoreboard players operation #MAX_DAMAGE temp = @s LUK
+			scoreboard players operation #MAX_DAMAGE temp *= #36 const
+			scoreboard players operation #MAX_DAMAGE temp /= #10 const
+			
+			scoreboard players operation #MIN_DAMAGE temp = #MAX_DAMAGE temp
+			scoreboard players operation #MIN_DAMAGE temp *= #9 const
+			scoreboard players operation @s dagger_mastery > #10 const
+			scoreboard players operation #MIN_DAMAGE temp *= @s dagger_mastery
+			scoreboard players operation #MIN_DAMAGE temp /= #1000 const
+			
+			scoreboard players operation #MAX_DAMAGE temp += @s DEX
+			scoreboard players operation #MAX_DAMAGE temp += @s STR
+			scoreboard players operation #MAX_DAMAGE temp *= #WEAPON_ATTACK temp
+			scoreboard players operation #MAX_DAMAGE temp /= #100 const
+			
+			scoreboard players operation #MIN_DAMAGE temp += @s DEX
+			scoreboard players operation #MIN_DAMAGE temp += @s STR
+			scoreboard players operation #MIN_DAMAGE temp *= #WEAPON_ATTACK temp
+			scoreboard players operation #MIN_DAMAGE temp /= #100 const
+			
+			function ARG(_PATH)other_formula
 		}
 		
-		func addi_crit()
+		func non_thief()
 		{
-			scoreboard players operation #CRIT_RATE temp += @s addi_crit_rate
-			scoreboard players operation #CRIT_DAMAGE temp += @s addi_crit_damage
-			scoreboard players add #CRIT_DAMAGE temp 100
+			# weapon attack
+			execute store result score #WEAPON_ATTACK temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_attack
+			
+			scoreboard players operation #MAX_DAMAGE temp = @s STR
+			scoreboard players operation #MAX_DAMAGE temp *= #4 const
+			
+			scoreboard players operation #MIN_DAMAGE temp = #MAX_DAMAGE temp
+			scoreboard players operation #MIN_DAMAGE temp *= #9 const
+			scoreboard players operation #MIN_DAMAGE temp /= #1000 const
+			
+			scoreboard players operation #MAX_DAMAGE temp += @s DEX
+			scoreboard players operation #MAX_DAMAGE temp += @s STR
+			scoreboard players operation #MAX_DAMAGE temp *= #WEAPON_ATTACK temp
+			scoreboard players operation #MAX_DAMAGE temp /= #100 const
+			
+			scoreboard players operation #MIN_DAMAGE temp += @s DEX
+			scoreboard players operation #MIN_DAMAGE temp += @s STR
+			scoreboard players operation #MIN_DAMAGE temp *= #WEAPON_ATTACK temp
+			scoreboard players operation #MIN_DAMAGE temp /= #100 const
+			
+			function ARG(_PATH)other_formula
+		}
+		
+		func other_formula()
+		{
+			function ARG(__PATH)accuracy/bow_thief_pirate
+			scoreboard players operation #ACCURACY temp += @s dagger_accuracy
+			
+			execute if score @s addi_crit_rate matches 1.. run function ARG(__PATH)addi_crit
+			
+			function ARG(__PATH)write_values
 		}
 	}
 }
@@ -449,19 +552,34 @@ namespace check_weapon()
 		}
 	}
 	
-	folder claw()
-	{
+	```
+	def check_weapon_range(range_string):
+		print(f'''
 		func run()
-		{
+		{{
 			function ARG(__PATH)check_empty
 			execute if score #USED_WEAPON temp matches 1.. run function ARG(_PATH)check
-		}
+		}}
 		
 		func check()
-		{
-			execute store success score #ACCEPTED_WEAPON temp if score #USED_WEAPON temp matches 24
-			execute if score #ACCEPTED_WEAPON temp matches 0 run tellraw @s {"translate":"warning.skill.wrong_weapon","color":"red"}
-		}
+		{{
+			execute store success score #ACCEPTED_WEAPON temp if score #USED_WEAPON temp matches {range_string}
+			execute if score #ACCEPTED_WEAPON temp matches 0 run tellraw @s {{"translate":"warning.skill.wrong_weapon","color":"red"}}
+		}}''')
+	```
+	
+	folder dagger()
+	{
+		```
+		check_weapon_range("23")
+		```
+	}
+	
+	folder claw()
+	{
+		```
+		check_weapon_range("24")
+		```
 	}
 }
 
@@ -471,9 +589,9 @@ namespace afterimage()
 	{
 		func swing()
 		{
-			scoreboard players set #MODEL_ID_AMOUNT temp 3
-			function ARG(__PATH)rand_model
-			scoreboard players add #SWING_TYPE temp 1000000
+			scoreboard players set #RANGE_MAX temp 3
+			function main:rand_range
+			scoreboard players add #RAND_RANGE_RESULT temp 1000000
 			function ARG(__PATH)summon_model
 		}
 	}
@@ -488,11 +606,9 @@ namespace afterimage()
 	{
 		execute positioned as @s run tp @s ~ ~ ~ ~ ~
 		scoreboard players set @s life 8
-		scoreboard players operation @s base_model = #SWING_TYPE temp
+		scoreboard players operation @s base_model = #RAND_RANGE_RESULT temp
 		tag @s remove new
 	}
-	
-	func rand_model() from random().generate("#0 const", "#MODEL_ID_AMOUNT temp", "#SWING_TYPE temp");
 }
 
 
@@ -523,7 +639,6 @@ namespace skill()
 		scoreboard objectives add weapon_defense dummy
 		scoreboard objectives add magic_defense dummy
 		scoreboard objectives add base_accuracy dummy
-		scoreboard objectives add claw_accuracy dummy
 		
 		scoreboard objectives add crit_rate dummy
 		scoreboard objectives add crit_damage dummy
@@ -543,6 +658,12 @@ namespace skill()
 		scoreboard objectives add target_id dummy
 		scoreboard objectives add skill_id dummy
 		scoreboard objectives add bullet_targeted dummy
+		
+		scoreboard objectives add claw_mastery dummy
+		scoreboard objectives add dagger_mastery dummy
+		
+		scoreboard objectives add claw_accuracy dummy
+		scoreboard objectives add dagger_accuracy dummy
 		```
 		for skill in skill_ids:
 			print(f"scoreboard objectives add {skill}_level dummy")

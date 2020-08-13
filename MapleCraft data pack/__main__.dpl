@@ -4,7 +4,7 @@ import loop
 description = "MapleCraft data pack"
 
 ```
-constants = [-7, 0, 1, 2, 3, 4, 5, 6, 9, 10, 17, 20, 30, 41, 50, 66, 100, 150, 1000, 99999]
+constants = [-7, 0, 1, 2, 3, 4, 5, 6, 8, 9, 10, 17, 20, 30, 36, 41, 50, 66, 100, 150, 1000, 99999]
 ```
 
 import math
@@ -114,6 +114,8 @@ namespace main()
 		loot replace block 0 1 0 container.0 loot main:percent_rate
 		execute store result score #RAND_RESULT temp run data get block 0 1 0 Items[0].tag.Damage
 	}
+	
+	func rand_range() from random().generate("#0 const", "#RANGE_MAX temp", "#RAND_RANGE_RESULT temp");
 }
 
 namespace loop()
