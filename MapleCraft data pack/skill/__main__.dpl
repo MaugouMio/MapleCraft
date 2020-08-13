@@ -486,6 +486,10 @@ namespace damage_formula()
 			scoreboard players operation #MIN_DAMAGE temp *= #WEAPON_ATTACK temp
 			scoreboard players operation #MIN_DAMAGE temp /= #100 const
 			
+			# accuracy
+			function ARG(__PATH)accuracy/bow_thief_pirate
+			scoreboard players operation #ACCURACY temp += @s dagger_accuracy
+			
 			function ARG(_PATH)other_formula
 		}
 		
@@ -511,14 +515,16 @@ namespace damage_formula()
 			scoreboard players operation #MIN_DAMAGE temp *= #WEAPON_ATTACK temp
 			scoreboard players operation #MIN_DAMAGE temp /= #100 const
 			
+			# accuracy
+			execute if entity @s[tag=!archer,tag=!pirate] run function ARG(__PATH)accuracy/war_mag_beg
+			execute if entity @s[tag=brawler] run function ARG(__PATH)accuracy/brawler
+			execute unless entity @s[tag=!archer,tag=!pirate] if entity @s[tag=!brawler] run function ARG(__PATH)accuracy/bow_thief_pirate
+			
 			function ARG(_PATH)other_formula
 		}
 		
 		func other_formula()
 		{
-			function ARG(__PATH)accuracy/bow_thief_pirate
-			scoreboard players operation #ACCURACY temp += @s dagger_accuracy
-			
 			execute if score @s addi_crit_rate matches 1.. run function ARG(__PATH)addi_crit
 			
 			function ARG(__PATH)write_values
