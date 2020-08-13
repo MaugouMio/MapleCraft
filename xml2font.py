@@ -197,7 +197,7 @@ def generateFont(resourcepack_path, xml_files, anchor, formula):
 		elif formula == 1:
 			page_order, effect_life, font_files = generateMinDistDelay(delays, folder, image_heights, ascents)
 			for i in range(len(images)):
-				images[i].save(f"{font_texture_path}/{i}.png")
+				images[i].save(f"{texture_path}/{i}.png")
 
 		with open(font_directory + "/summon.txt", "w") as f:
 			page_order.append("new")
