@@ -40,7 +40,7 @@ namespace 42() as virtual
 			
 			func cast_effect()
 			{
-				function skill:summon_font_effect/4201005effect
+				execute positioned ~ ~0.3 ~ run function skill:summon_font_effect/4201005effect
 				playsound minecraft:skill.4201005_use player @a ~ ~ ~ 1 1 0
 			}
 			
@@ -82,16 +82,16 @@ namespace 42() as virtual
 			func append_scheduler()
 			{
 				data modify storage skill:main new_schedule append value 0
-				execute store result storage skill:main new_schedule[-1] int 1 run schedule function ARG(_PATH)hit_effect 8t append
+				execute store result storage skill:main new_schedule[-1] int 1 run schedule function ARG(_PATH)hit_effect 7t append
 				data modify storage skill:main new_schedule append value 0
-				execute store result storage skill:main new_schedule[-1] int 1 run schedule function ARG(_PATH)hit_effect 10t append
+				execute store result storage skill:main new_schedule[-1] int 1 run schedule function ARG(_PATH)hit_effect 9t append
 				data modify storage skill:main new_schedule append value 0
-				execute store result storage skill:main new_schedule[-1] int 1 run schedule function ARG(_PATH)hit_effect 12t append
+				execute store result storage skill:main new_schedule[-1] int 1 run schedule function ARG(_PATH)hit_effect 11t append
 				data modify storage skill:main new_schedule append value 0
-				execute store result storage skill:main new_schedule[-1] int 1 run schedule function ARG(_PATH)hit_effect 14t append
+				execute store result storage skill:main new_schedule[-1] int 1 run schedule function ARG(_PATH)hit_effect 13t append
 				
 				execute if score @s 4201005_level matches 11.. run data modify storage skill:main new_schedule append value 0
-				execute if score @s 4201005_level matches 11.. run execute store result storage skill:main new_schedule[-1] int 1 run schedule function ARG(_PATH)hit_effect 16t append
+				execute if score @s 4201005_level matches 11.. run execute store result storage skill:main new_schedule[-1] int 1 run schedule function ARG(_PATH)hit_effect 15t append
 				execute if score @s 4201005_level matches 21.. run data modify storage skill:main new_schedule append value 0
 				execute if score @s 4201005_level matches 21.. run execute store result storage skill:main new_schedule[-1] int 1 run schedule function ARG(_PATH)hit_effect 18t append
 			}

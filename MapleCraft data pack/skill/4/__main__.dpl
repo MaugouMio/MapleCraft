@@ -1,10 +1,10 @@
 # import 41 as virtual
-# import 42 as virtual
+import 42 as virtual
 
 namespace 4() as virtual
 {
 	# folder 1() from 41();
-	# folder 2() from 42();
+	folder 2() from 42();
 	
 	func install()
 	{
@@ -12,7 +12,7 @@ namespace 4() as virtual
 		scoreboard objectives add 4001344_attack dummy
 		
 		# function ARG(_PATH)1/install
-		# function ARG(_PATH)2/install
+		function ARG(_PATH)2/install
 	}
 	
 	folder 0()
