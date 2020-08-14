@@ -824,6 +824,13 @@ namespace skill()
 		
 		folder accuracy()
 		{
+			func job_check()
+			{
+				execute if entity @s[tag=!archer,tag=!thief,tag=!pirate] run function ARG(_PATH)war_mag_beg
+				execute if entity @s[tag=brawler] run function ARG(_PATH)brawler
+				execute unless entity @s[tag=!archer,tag=!thief,tag=!pirate] if entity @s[tag=!brawler] run function ARG(_PATH)bow_thief_pirate
+			}
+			
 			# warrior / magician / beginner
 			func war_mag_beg()
 			{
