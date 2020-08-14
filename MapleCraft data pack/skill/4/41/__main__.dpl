@@ -1,0 +1,41 @@
+# import 411 as virtual
+# import 412 as virtual
+
+namespace 41() as virtual
+{
+	# folder 1() from 411();
+	# folder 2() from 412();
+	
+	func install()
+	{
+		# function ARG(_PATH)1/install
+		# function ARG(_PATH)2/install
+	}
+	
+	folder 0()
+	{
+		folder 1003()
+		{
+			func check()
+			{
+				
+			}
+		}
+		
+		folder 1004()
+		{
+			func check()
+			{
+				
+			}
+		}
+		
+		folder 1005()
+		{
+			func check()
+			{
+				
+			}
+		}
+	}
+}

@@ -1,9 +1,9 @@
-# import 41 as virtual
+import 41 as virtual
 import 42 as virtual
 
 namespace 4() as virtual
 {
-	# folder 1() from 41();
+	folder 1() from 41();
 	folder 2() from 42();
 	
 	func install()
@@ -11,7 +11,7 @@ namespace 4() as virtual
 		scoreboard objectives add 4001344_mp dummy
 		scoreboard objectives add 4001344_attack dummy
 		
-		# function ARG(_PATH)1/install
+		function ARG(_PATH)1/install
 		function ARG(_PATH)2/install
 	}
 	
@@ -19,6 +19,30 @@ namespace 4() as virtual
 	{
 		folder 0()
 		{
+			folder 1002()
+			{
+				func check()
+				{
+					
+				}
+			}
+			
+			folder 1003()
+			{
+				func check()
+				{
+					
+				}
+			}
+			
+			folder 1334()
+			{
+				func check()
+				{
+					
+				}
+			}
+			
 			folder 1344() from bullet_skill_template(4001344)
 			{
 				func check()

@@ -1,0 +1,47 @@
+import 11 as virtual
+import 12 as virtual
+import 13 as virtual
+
+namespace 1() as virtual
+{
+	folder 1() from 11();
+	folder 2() from 12();
+	folder 3() from 13();
+	
+	func install()
+	{
+		function ARG(_PATH)1/install
+		function ARG(_PATH)2/install
+		function ARG(_PATH)3/install
+	}
+	
+	folder 0()
+	{
+		folder 0()
+		{
+			folder 1003()
+			{
+				func check()
+				{
+					
+				}
+			}
+			
+			folder 1004()
+			{
+				func check()
+				{
+					
+				}
+			}
+			
+			folder 1005()
+			{
+				func check()
+				{
+					
+				}
+			}
+		}
+	}
+}

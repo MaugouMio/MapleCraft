@@ -1,12 +1,12 @@
-# import 21 as virtual
+import 21 as virtual
 import 22 as virtual
-# import 23 as virtual
+import 23 as virtual
 
 namespace 2() as virtual
 {
-	# folder 1() from 21();
+	folder 1() from 21();
 	folder 2() from 22();
-	# folder 3() from 23();
+	folder 3() from 23();
 	
 	func install()
 	{
@@ -18,15 +18,31 @@ namespace 2() as virtual
 		scoreboard objectives add 2001005_mastery dummy
 		scoreboard objectives add 2001005_attack dummy
 		
-		# function ARG(_PATH)1/install
+		function ARG(_PATH)1/install
 		function ARG(_PATH)2/install
-		# function ARG(_PATH)3/install
+		function ARG(_PATH)3/install
 	}
 	
 	folder 0()
 	{
 		folder 0()
 		{
+			folder 1002()
+			{
+				func check()
+				{
+					
+				}
+			}
+			
+			folder 1003()
+			{
+				func check()
+				{
+					
+				}
+			}
+			
 			folder 1004() from bullet_skill_template(2001004)
 			{
 				func check()
