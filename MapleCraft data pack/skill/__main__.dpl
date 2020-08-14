@@ -885,9 +885,29 @@ namespace skill()
 		{
 			func normal()
 			{
-				```
-				raise Warning("TODO: normal claw damage calculation")
-				```
+				# weapon attack
+				execute store result score #WEAPON_ATTACK temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_attack
+				
+				scoreboard players operation #MAX_DAMAGE temp = @s LUK
+				scoreboard players operation #MAX_DAMAGE temp *= #36 const
+				scoreboard players operation #MAX_DAMAGE temp /= #10 const
+				
+				scoreboard players operation #MIN_DAMAGE temp = #MAX_DAMAGE temp
+				scoreboard players operation #MIN_DAMAGE temp *= #9 const
+				scoreboard players operation @s claw_mastery > #10 const
+				scoreboard players operation #MIN_DAMAGE temp *= @s claw_mastery
+				scoreboard players operation #MIN_DAMAGE temp /= #1000 const
+				
+				scoreboard players operation #MAX_DAMAGE temp += @s DEX
+				scoreboard players operation #MAX_DAMAGE temp += @s STR
+				scoreboard players operation #MAX_DAMAGE temp *= #WEAPON_ATTACK temp
+				scoreboard players operation #MAX_DAMAGE temp /= #100 const
+				
+				scoreboard players operation #MIN_DAMAGE temp += @s DEX
+				scoreboard players operation #MIN_DAMAGE temp += @s STR
+				scoreboard players operation #MIN_DAMAGE temp *= #WEAPON_ATTACK temp
+				scoreboard players operation #MIN_DAMAGE temp /= #100 const
+				
 				function ARG(_PATH)other_formula
 			}
 			
