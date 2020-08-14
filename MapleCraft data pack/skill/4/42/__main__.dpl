@@ -26,7 +26,7 @@ namespace 42() as virtual
 			
 			func other_check()
 			{
-				function check_weapon:dagger/run
+				function skill:check_weapon/dagger/run
 				execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 4201005_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
 				execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp >= @s 4201005_mp run function ARG(_PATH)run
 			}
@@ -35,7 +35,7 @@ namespace 42() as virtual
 			{
 				scoreboard players set #DISTANCE temp 1
 				scoreboard players set #MAX_ENEMY temp 1
-				function enemy_search:search_front/search
+				function skill:enemy_search/search_front/search
 			}
 			
 			func cast_effect()
@@ -48,7 +48,7 @@ namespace 42() as virtual
 			{
 				data modify storage skill:main damage set value [{min_damage:0,max_damage:0,accuracy:0,player_level:0,crit_rate:0,crit_damage:0,base_percent:100,attribute:0}]
 				execute store result storage skill:main damage[0].base_percent int 1 run scoreboard players get @s 4201005_attack
-				function damage_formula:dagger/thief
+				function skill:damage_formula/dagger/thief
 				
 				# 2 times
 				data modify storage skill:main damage append from storage skill:main damage[0]

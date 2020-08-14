@@ -28,7 +28,7 @@ namespace 4() as virtual
 				
 				func other_check()
 				{
-					function check_weapon:claw/run
+					function skill:check_weapon/claw/run
 					execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 4001344_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
 					execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp >= @s 4001344_mp run function ARG(_PATH)run
 				}
@@ -37,14 +37,14 @@ namespace 4() as virtual
 				{
 					scoreboard players set #DISTANCE temp 8
 					scoreboard players set #MAX_ENEMY temp 1
-					function enemy_search:search_front/search
+					function skill:enemy_search/search_front/search
 				}
 				
 				func cast_effect()
 				{
 					execute rotated ~ 0 run summon minecraft:armor_stand ^ ^ ^1.7 {Tags:["model_animation","new"],Invisible:1,Invulnerable:1,NoGravity:1,Marker:1,Fire:32767s,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:400000}}]}
 					execute as @e[type=armor_stand,tag=new,limit=1] run function ARG(_PATH)effect_model_set
-					function afterimage:claw/swing
+					function skill:afterimage/claw/swing
 					playsound minecraft:skill.4001344 player @a ~ ~ ~ 1 1 0
 				}
 				
@@ -76,7 +76,7 @@ namespace 4() as virtual
 					raise Warning("TODO: set throwing star damage")
 					```
 					scoreboard players set #BULLET_DAMAGE temp 25
-					function damage_formula:claw/lucky_seven
+					function skill:damage_formula/claw/lucky_seven
 					
 					data modify storage skill:main damage append from storage skill:main damage[0]
 					
@@ -91,7 +91,7 @@ namespace 4() as virtual
 				func effect()
 				{
 					execute if score @s display_number matches 1.. run function skill:summon_font_effect/4001344hit
-					function skill:play_hurt_sound/run
+					function skill:mob_effect/play_hurt_sound/run
 				}
 				
 				func append_scheduler()

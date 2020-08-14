@@ -41,7 +41,7 @@ namespace 22() as virtual
 			{
 				scoreboard players set #DISTANCE temp 4
 				scoreboard players set #MAX_ENEMY temp 1
-				function enemy_search:search_front/search
+				function skill:enemy_search/search_front/search
 			}
 			
 			func cast_effect()
@@ -56,7 +56,7 @@ namespace 22() as virtual
 				scoreboard players operation #SKILL_MASTERY temp = @s 2201004_mastery
 				scoreboard players operation #SPELL_ATTACK temp = @s 2201004_attack
 				scoreboard players operation #FREEZE_TIME temp = @s 2201004_freeze
-				function damage_formula:spell
+				function skill:damage_formula/spell
 				
 				scoreboard players operation @s mp -= @s 2201004_mp
 				function bar_display:change/mp/dropped
@@ -67,7 +67,7 @@ namespace 22() as virtual
 			func effect()
 			{
 				execute if score @s display_number matches 1.. run function skill:summon_font_effect/2201004hit
-				function skill:play_hurt_sound/run
+				function skill:mob_effect/play_hurt_sound/run
 			}
 			
 			func append_scheduler()

@@ -60,7 +60,7 @@ namespace attack_skill_template(skill_id) as virtual
 		function skill:show_num_at_height
 		
 		scoreboard players reset @s ARG(skill_id)_eid
-		execute if score @s hp matches ..0 unless data entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0] run function skill:mob_dead_event
+		execute if score @s hp matches ..0 unless data entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0] run function skill:mob_effect/dead
 		execute if data entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0] store result score @s ARG(skill_id)_eid run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].time
 	}
 	
@@ -165,7 +165,7 @@ namespace bullet_skill_template(skill_id) as virtual
 		
 		scoreboard players set #DID_HIT_ENEMY temp 0
 		scoreboard players add #BULLET_ID number 1
-		execute as @e[type=zombified_piglin,tag=target] at @s run function skill:bullet_skill_hit
+		execute as @e[type=zombified_piglin,tag=target] at @s run function skill:bullet/skill_hit
 		execute if score #DID_HIT_ENEMY temp matches 0 as @e[type=armor_stand,tag=new_bullet] run function skill:bullet/no_target_setting
 	}
 	
@@ -189,7 +189,7 @@ namespace bullet_skill_template(skill_id) as virtual
 		function skill:show_num_at_height
 		
 		scoreboard players reset @s ARG(skill_id)_eid
-		execute if score @s hp matches ..0 unless data entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0] run function skill:mob_dead_event
+		execute if score @s hp matches ..0 unless data entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0] run function skill:mob_effect/dead
 		execute if data entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0] store result score @s ARG(skill_id)_eid run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].time
 	}
 	
@@ -279,343 +279,6 @@ namespace bullet_skill_template(skill_id) as virtual
 	}
 }
 
-namespace enemy_search()
-{
-	folder search_front() from for_loop().for("#DISTANCE temp", "if score #FOUND_ENEMY temp < #MAX_ENEMY temp positioned ^ ^ ^1")
-	{
-		func search()
-		{
-			scoreboard players set #FOUND_ENEMY temp 0
-			execute at @s rotated ~ 0 positioned ^ ^ ^1 run function ARG(_PATH)run
-		}
-		
-		func execute()
-		{
-			execute as @e[type=minecraft:zombified_piglin,tag=enemy,tag=!dead,distance=..2] run function ARG(_PATH)pre_mark
-			execute if score #FOUND_ENEMY temp >= #MAX_ENEMY temp run function ARG(_PATH)order_mark
-		}
-		
-		func pre_mark()
-		{
-			scoreboard players add #FOUND_ENEMY temp 1
-			tag @s add temp_mark
-		}
-		
-		func order_mark()
-		{
-			scoreboard players set #FOUND_ENEMY temp 0
-			execute at @s as @e[type=zombified_piglin,tag=temp_mark,sort=nearest] run function ARG(_PATH)try_mark
-			tag @e[type=zombified_piglin,tag=temp_mark] remove temp_mark
-		}
-		
-		func try_mark()
-		{
-			execute if score #FOUND_ENEMY temp < #MAX_ENEMY temp run tag @s add target
-			scoreboard players add #FOUND_ENEMY temp 1
-		}
-	}
-}
-
-namespace damage_formula()
-{
-	func spell()
-	{
-		# magic attack
-		execute store result score #MAGIC_ATTACK temp run data get entity @s Inventory[{Slot:-106b}].tag.magic_attack
-		scoreboard players operation #MAGIC_ATTACK temp += @s INT
-		scoreboard players operation #INT temp = @s INT
-		scoreboard players operation #INT temp *= #5 const
-		
-		scoreboard players operation #MAX_DAMAGE temp = #MAGIC_ATTACK temp
-		scoreboard players operation #MAX_DAMAGE temp *= #MAGIC_ATTACK temp
-		scoreboard players operation #MAGIC_ATTACK temp *= #1000 const
-		scoreboard players operation #MAX_DAMAGE temp += #MAGIC_ATTACK temp
-		
-		scoreboard players operation #MIN_DAMAGE temp = #MAX_DAMAGE temp
-		scoreboard players operation #MIN_DAMAGE temp *= #9 const
-		scoreboard players operation #MIN_DAMAGE temp *= #SKILL_MASTERY temp
-		scoreboard players operation #MIN_DAMAGE temp /= #1000 const
-		
-		scoreboard players operation #MAX_DAMAGE temp /= #30 const
-		scoreboard players operation #MAX_DAMAGE temp += #INT temp
-		scoreboard players operation #MAX_DAMAGE temp *= #SPELL_ATTACK temp
-		scoreboard players operation #MAX_DAMAGE temp /= #1000 const
-		
-		scoreboard players operation #MIN_DAMAGE temp /= #30 const
-		scoreboard players operation #MIN_DAMAGE temp += #INT temp
-		scoreboard players operation #MIN_DAMAGE temp *= #SPELL_ATTACK temp
-		scoreboard players operation #MIN_DAMAGE temp /= #1000 const
-		
-		# accuracy
-		scoreboard players operation #INT temp /= #50 const
-		scoreboard players operation #ACCURACY temp = @s LUK
-		scoreboard players operation #ACCURACY temp /= #10 const
-		scoreboard players operation #ACCURACY temp += #INT temp
-		
-		# write values
-		execute store result storage skill:main damage[0].max_damage int 1 run scoreboard players get #MAX_DAMAGE temp
-		execute store result storage skill:main damage[0].min_damage int 1 run scoreboard players get #MIN_DAMAGE temp
-		execute store result storage skill:main damage[0].accuracy int 1 run scoreboard players get #ACCURACY temp
-		execute store result storage skill:main damage[0].player_level int 1 run scoreboard players get @s level
-		execute store result storage skill:main damage[0].crit_rate int 1 run scoreboard players get @s addi_crit_rate
-		execute store result storage skill:main damage[0].crit_damage int 1 run scoreboard players get @s addi_crit_damage
-	}
-	
-	folder accuracy()
-	{
-		# warrior / magician / beginner
-		func war_mag_beg()
-		{
-			scoreboard players operation #LUK temp = @s LUK
-			scoreboard players operation #LUK temp *= #5 const
-			scoreboard players operation #ACCURACY temp = @s DEX
-			scoreboard players operation #ACCURACY temp *= #8 const
-			scoreboard players operation #ACCURACY temp += #LUK temp
-			scoreboard players operation #ACCURACY temp /= #10 const
-			
-			scoreboard players operation #ACCURACY temp += @s base_accuracy
-		}
-		
-		# one punch
-		func brawler()
-		{
-			scoreboard players operation #LUK temp = @s LUK
-			scoreboard players operation #LUK temp *= #5 const
-			scoreboard players operation #ACCURACY temp = @s DEX
-			scoreboard players operation #ACCURACY temp *= #9 const
-			scoreboard players operation #ACCURACY temp += #LUK temp
-			scoreboard players operation #ACCURACY temp /= #10 const
-			
-			scoreboard players operation #ACCURACY temp += @s base_accuracy
-		}
-		
-		# include gunslingers
-		func bow_thief_pirate()
-		{
-			scoreboard players operation #LUK temp = @s LUK
-			scoreboard players operation #LUK temp *= #3 const
-			scoreboard players operation #ACCURACY temp = @s DEX
-			scoreboard players operation #ACCURACY temp *= #6 const
-			scoreboard players operation #ACCURACY temp += #LUK temp
-			scoreboard players operation #ACCURACY temp /= #10 const
-			
-			scoreboard players operation #ACCURACY temp += @s base_accuracy
-		}
-	}
-	
-	func addi_crit()
-	{
-		scoreboard players operation #CRIT_RATE temp += @s addi_crit_rate
-		scoreboard players operation #CRIT_DAMAGE temp += @s addi_crit_damage
-		scoreboard players add #CRIT_DAMAGE temp 100
-	}
-	
-	func write_values()
-	{
-		execute store result storage skill:main damage[0].max_damage int 1 run scoreboard players get #MAX_DAMAGE temp
-		execute store result storage skill:main damage[0].min_damage int 1 run scoreboard players get #MIN_DAMAGE temp
-		execute store result storage skill:main damage[0].accuracy int 1 run scoreboard players get #ACCURACY temp
-		execute store result storage skill:main damage[0].player_level int 1 run scoreboard players get @s level
-		execute store result storage skill:main damage[0].crit_rate int 1 run scoreboard players get #CRIT_RATE temp
-		execute store result storage skill:main damage[0].crit_damage int 1 run scoreboard players get #CRIT_DAMAGE temp
-	}
-	
-	folder claw()
-	{
-		func normal()
-		{
-			```
-			raise Warning("TODO: normal claw damage calculation")
-			```
-			function ARG(_PATH)other_formula
-		}
-		
-		func lucky_seven()
-		{
-			# weapon attack
-			execute store result score #MAX_DAMAGE temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_attack
-			scoreboard players operation #MAX_DAMAGE temp += #BULLET_DAMAGE temp
-			scoreboard players operation #MAX_DAMAGE temp *= @s LUK
-			scoreboard players operation #MAX_DAMAGE temp /= #20 const
-			
-			scoreboard players operation #MIN_DAMAGE temp = #MAX_DAMAGE temp
-			scoreboard players operation #MIN_DAMAGE temp /= #2 const
-			
-			function ARG(_PATH)other_formula
-		}
-		
-		func other_formula()
-		{
-			# accuracy
-			function ARG(__PATH)accuracy/bow_thief_pirate
-			scoreboard players operation #ACCURACY temp += @s claw_accuracy
-			
-			# crit
-			scoreboard players operation #CRIT_RATE temp = @s crit_rate
-			scoreboard players operation #CRIT_DAMAGE temp = @s crit_damage
-			execute if score @s addi_crit_rate matches 1.. run function ARG(__PATH)addi_crit
-			
-			function ARG(__PATH)write_values
-		}
-	}
-	
-	folder dagger()
-	{
-		func thief()
-		{
-			# weapon attack
-			execute store result score #WEAPON_ATTACK temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_attack
-			
-			scoreboard players operation #MAX_DAMAGE temp = @s LUK
-			scoreboard players operation #MAX_DAMAGE temp *= #36 const
-			scoreboard players operation #MAX_DAMAGE temp /= #10 const
-			
-			scoreboard players operation #MIN_DAMAGE temp = #MAX_DAMAGE temp
-			scoreboard players operation #MIN_DAMAGE temp *= #9 const
-			scoreboard players operation @s dagger_mastery > #10 const
-			scoreboard players operation #MIN_DAMAGE temp *= @s dagger_mastery
-			scoreboard players operation #MIN_DAMAGE temp /= #1000 const
-			
-			scoreboard players operation #MAX_DAMAGE temp += @s DEX
-			scoreboard players operation #MAX_DAMAGE temp += @s STR
-			scoreboard players operation #MAX_DAMAGE temp *= #WEAPON_ATTACK temp
-			scoreboard players operation #MAX_DAMAGE temp /= #100 const
-			
-			scoreboard players operation #MIN_DAMAGE temp += @s DEX
-			scoreboard players operation #MIN_DAMAGE temp += @s STR
-			scoreboard players operation #MIN_DAMAGE temp *= #WEAPON_ATTACK temp
-			scoreboard players operation #MIN_DAMAGE temp /= #100 const
-			
-			# accuracy
-			function ARG(__PATH)accuracy/bow_thief_pirate
-			scoreboard players operation #ACCURACY temp += @s dagger_accuracy
-			
-			function ARG(_PATH)other_formula
-		}
-		
-		func non_thief()
-		{
-			# weapon attack
-			execute store result score #WEAPON_ATTACK temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_attack
-			
-			scoreboard players operation #MAX_DAMAGE temp = @s STR
-			scoreboard players operation #MAX_DAMAGE temp *= #4 const
-			
-			scoreboard players operation #MIN_DAMAGE temp = #MAX_DAMAGE temp
-			scoreboard players operation #MIN_DAMAGE temp *= #9 const
-			scoreboard players operation #MIN_DAMAGE temp /= #1000 const
-			
-			scoreboard players operation #MAX_DAMAGE temp += @s DEX
-			scoreboard players operation #MAX_DAMAGE temp += @s STR
-			scoreboard players operation #MAX_DAMAGE temp *= #WEAPON_ATTACK temp
-			scoreboard players operation #MAX_DAMAGE temp /= #100 const
-			
-			scoreboard players operation #MIN_DAMAGE temp += @s DEX
-			scoreboard players operation #MIN_DAMAGE temp += @s STR
-			scoreboard players operation #MIN_DAMAGE temp *= #WEAPON_ATTACK temp
-			scoreboard players operation #MIN_DAMAGE temp /= #100 const
-			
-			# accuracy
-			execute if entity @s[tag=!archer,tag=!pirate] run function ARG(__PATH)accuracy/war_mag_beg
-			execute if entity @s[tag=brawler] run function ARG(__PATH)accuracy/brawler
-			execute unless entity @s[tag=!archer,tag=!pirate] if entity @s[tag=!brawler] run function ARG(__PATH)accuracy/bow_thief_pirate
-			
-			function ARG(_PATH)other_formula
-		}
-		
-		func other_formula()
-		{
-			execute if score @s addi_crit_rate matches 1.. run function ARG(__PATH)addi_crit
-			
-			function ARG(__PATH)write_values
-		}
-	}
-}
-
-namespace check_weapon()
-{
-	func check_empty()
-	{
-		scoreboard players set #ACCEPTED_WEAPON temp 0
-		
-		execute store result score #USED_WEAPON temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_type
-		execute if score #USED_WEAPON temp matches 0 run tellraw @s {"translate":"warning.skill.no_weapon","color":"red"}
-	}
-	
-	folder single_hand()
-	{
-		func run()
-		{
-			function ARG(__PATH)check_empty
-			execute if score #USED_WEAPON temp matches 1.. run function ARG(_PATH)check
-		}
-		
-		func check()
-		{
-			scoreboard players operation #ACCEPTED_WEAPON temp = #USED_WEAPON temp
-			scoreboard players operation #ACCEPTED_WEAPON temp %= #2 const
-			execute if score #ACCEPTED_WEAPON temp matches 0 run tellraw @s {"translate":"warning.skill.wrong_weapon","color":"red"}
-		}
-	}
-	
-	```
-	def check_weapon_range(range_string):
-		print(f'''
-		func run()
-		{{
-			function ARG(__PATH)check_empty
-			execute if score #USED_WEAPON temp matches 1.. run function ARG(_PATH)check
-		}}
-		
-		func check()
-		{{
-			execute store success score #ACCEPTED_WEAPON temp if score #USED_WEAPON temp matches {range_string}
-			execute if score #ACCEPTED_WEAPON temp matches 0 run tellraw @s {{"translate":"warning.skill.wrong_weapon","color":"red"}}
-		}}''')
-	```
-	
-	folder dagger()
-	{
-		```
-		check_weapon_range("23")
-		```
-	}
-	
-	folder claw()
-	{
-		```
-		check_weapon_range("24")
-		```
-	}
-}
-
-namespace afterimage()
-{
-	folder claw()
-	{
-		func swing()
-		{
-			scoreboard players set #RANGE_MAX temp 3
-			function main:rand_range
-			scoreboard players add #RAND_RANGE_RESULT temp 1000000
-			function ARG(__PATH)summon_model
-		}
-	}
-	
-	func summon_model()
-	{
-		execute rotated ~ 0 run summon minecraft:armor_stand ^ ^ ^0.7 {Tags:["afterimage","new"],Invisible:1,Invulnerable:1,NoGravity:1,Marker:1,Fire:32767s,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:1}}]}
-		execute as @e[type=armor_stand,tag=new] run function ARG(_PATH)model_set
-	}
-	
-	func model_set()
-	{
-		execute positioned as @s run tp @s ~ ~ ~ ~ ~
-		scoreboard players set @s life 8
-		scoreboard players operation @s base_model = #RAND_RANGE_RESULT temp
-		tag @s remove new
-	}
-}
 
 
 # import 1 as virtual
@@ -690,37 +353,160 @@ namespace skill()
 		}
 	}
 	
-	func main()
+	folder main()
 	{
-		execute as @e[type=area_effect_cloud,scores={type=1}] run function ARG(_PATH)font_effect_update
-		execute as @e[type=armor_stand,tag=bullet] run function ARG(_PATH)bullet/check
-		execute as @e[type=armor_stand,tag=model_animation] run function ARG(_PATH)model_animation_update
-		execute as @e[type=armor_stand,tag=afterimage] run function ARG(_PATH)afterimage_update
-		execute as @e[type=zombified_piglin,tag=enemy] run function ARG(_PATH)enemy_main
-		execute as @a[scores={action_time=1..}] run function ARG(_PATH)action_countdown
+		func run()
+		{
+			execute as @e[type=area_effect_cloud,scores={type=1}] run function ARG(_PATH)font_effect_update
+			execute as @e[type=armor_stand,tag=bullet] run function skill:bullet/check
+			execute as @e[type=armor_stand,tag=model_animation] run function ARG(_PATH)model_animation_update
+			execute as @e[type=armor_stand,tag=afterimage] run function skill:afterimage/update
+			execute as @e[type=zombified_piglin,tag=enemy] run function ARG(_PATH)enemy/run
+			execute as @a[scores={action_time=1..}] run function ARG(_PATH)action_countdown
+			
+			# used skill check
+			execute as @a[scores={right_click=1..}] at @s run function skill:check_skill/run
+		}
 		
-		# used skill check
-		execute as @a[scores={right_click=1..}] at @s run function ARG(_PATH)check_skill/run
-	}
-	
-	func bullet_skill_hit()
-	{
-		scoreboard players operation #GLOBAL temp = @s number
-		execute as @e[type=armor_stand,tag=new_bullet] run function skill:bullet/setting
-		function skill:calculate_damage/run
+		func font_effect_update()
+		{
+			execute store result score #GLOBAL temp run data get entity @s Age
+			scoreboard players operation #GLOBAL temp %= #10 const
+			execute if score #GLOBAL temp matches 0 run data remove entity @s Tags[0]
+			
+			data modify storage skill:main effect_font set from entity @s Tags[0]
+			data modify block 0 0 0 Text1 set value '[{"nbt":"effect_font","storage":"skill:main","interpret":true},{"text":"F","font":"space:default"},{"score":{"name":"#GLOBAL","objective":"temp"}},{"text":"F","font":"space:default"}]'
+			data modify entity @s CustomName set from block 0 0 0 Text1
+		}
 		
-		data modify entity @s ArmorItems[3].tag.bullet_list append value {}
-		execute store result entity @s ArmorItems[3].tag.bullet_list[-1].bullet_id int 1 run scoreboard players get #BULLET_ID number
-		data modify entity @s ArmorItems[3].tag.bullet_list[-1].damage_record set from entity @s ArmorItems[3].tag.damage_record
-		data modify entity @s ArmorItems[3].tag.bullet_list[-1].damage_info set from storage skill:main damage_info
+		func model_animation_update()
+		{
+			execute store result score #GLOBAL temp run scoreboard players add @s life 1
+			execute store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players operation #GLOBAL temp += @s base_model
+			
+			execute if score @s life = @s max_life run kill @s
+		}
 		
-		tag @s remove target
-		scoreboard players add @s bullet_targeted 1
-		scoreboard players set #DID_HIT_ENEMY temp 1
+		folder enemy()
+		{
+			func run()
+			{
+				execute unless score @s[tag=!dead] kb_time matches 1.. run function ARG(_PATH)status_change/run
+				execute if entity @s[tag=color_changed] run function ARG(_PATH)status_change/color/check
+				
+				execute if score @s kb_time matches 1.. run function ARG(_PATH)kb/countdown
+				execute if score @s pushed_time matches 1.. run function ARG(_PATH)push_countdown
+				execute if score @s bullet_targeted matches 1.. at @s run function ARG(_PATH)move_bullets
+			}
+			
+			folder status_change()
+			{
+				func run()
+				{
+					scoreboard players set #GLOBAL temp 0
+					execute if data entity @s {OnGround:0b} run scoreboard players set #GLOBAL temp 3
+					execute if score #GLOBAL temp matches 0 run function ARG(_PATH)check_motion
+					
+					execute unless score @s status = #GLOBAL temp run function ARG(_PATH)change
+				}
+				
+				func check_motion()
+				{
+					execute store result score @s motion_x run data get entity @s Motion[0] 100
+					execute store result score @s motion_z run data get entity @s Motion[2] 100
+					execute store success score #GLOBAL temp if score @s motion_x matches 0 if score @s motion_z matches 0
+				}
+				
+				func change()
+				{
+					execute store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players operation #GLOBAL temp += @s base_model
+					scoreboard players operation @s status = #GLOBAL temp
+				}
+				
+				folder color()
+				{
+					func check()
+					{
+						execute if score @s freeze_time matches 1.. run function ARG(_PATH)freeze/run
+					}
+					
+					folder freeze()
+					{
+						func run()
+						{
+							scoreboard players remove @s freeze_time 1
+							execute if score @s freeze_time matches 0 run function ARG(_PATH)end
+						}
+						
+						func end()
+						{
+							```
+							raise Warning("TODO: check all other color change effects")
+							```
+							# execute unless score @s poison_time matches 1.. unless score @s burn_time matches 1.. run tag @s remove color_changed
+							tag @s remove color_changed
+							
+							execute if entity @s[tag=!color_changed] run data modify entity @s ArmorItems[3].tag.CustomPotionColor set value -1
+							scoreboard players reset @s freeze_time
+						}
+					}
+				}
+			}
+			
+			folder kb()
+			{
+				func countdown()
+				{
+					scoreboard players remove @s kb_time 1
+					execute if score @s kb_time matches 0 run function ARG(_PATH)reset
+				}
+			
+				func reset()
+				{
+					function ARG(__PATH)status_change/run
+					data modify entity @s[tag=!dead] ArmorItems[3].tag.AttributeModifiers[{Name:"move_control"}].Amount set value 0.0
+					scoreboard players reset @s kb_time
+				}
+			}
+			
+			func push_countdown()
+			{
+				scoreboard players remove @s pushed_time 1
+				scoreboard players reset @s[scores={pushed_time=0}] pushed_time
+			}
+			
+			func move_bullets()
+			{
+				scoreboard players operation #GLOBAL temp = @s number
+				execute as @e[type=armor_stand,tag=bullet,scores={life=0..}] if score @s target_id = #GLOBAL temp run function skill:bullet/move
+			}
+		}
+		
+		func action_countdown()
+		{
+			scoreboard players remove @s action_time 1
+			scoreboard players reset @s[scores={action_time=0}] action_time
+		}
 	}
 	
 	folder bullet()
 	{
+		func skill_hit()
+		{
+			scoreboard players operation #GLOBAL temp = @s number
+			execute as @e[type=armor_stand,tag=new_bullet] run function skill:bullet/setting
+			function skill:calculate_damage/run
+			
+			data modify entity @s ArmorItems[3].tag.bullet_list append value {}
+			execute store result entity @s ArmorItems[3].tag.bullet_list[-1].bullet_id int 1 run scoreboard players get #BULLET_ID number
+			data modify entity @s ArmorItems[3].tag.bullet_list[-1].damage_record set from entity @s ArmorItems[3].tag.damage_record
+			data modify entity @s ArmorItems[3].tag.bullet_list[-1].damage_info set from storage skill:main damage_info
+			
+			tag @s remove target
+			scoreboard players add @s bullet_targeted 1
+			scoreboard players set #DID_HIT_ENEMY temp 1
+		}
+		
 		func setting()
 		{
 			execute facing entity @s eyes positioned as @s run tp @s ~ ~ ~ ~180 0
@@ -829,76 +615,6 @@ namespace skill()
 		}
 	}
 	
-	func enemy_main()
-	{
-		execute unless score @s[tag=!dead] kb_time matches 1.. run function ARG(_PATH)enemy_status_change/run
-		execute if entity @s[tag=color_changed] run function ARG(_PATH)enemy_status_change/color/check
-		
-		execute if score @s kb_time matches 1.. run function ARG(_PATH)kb_countdown
-		execute if score @s pushed_time matches 1.. run function ARG(_PATH)push_countdown
-		execute if score @s bullet_targeted matches 1.. at @s run function ARG(_PATH)move_bullets
-	}
-	
-	folder enemy_status_change()
-	{
-		func run()
-		{
-			scoreboard players set #GLOBAL temp 0
-			execute if data entity @s {OnGround:0b} run scoreboard players set #GLOBAL temp 3
-			execute if score #GLOBAL temp matches 0 run function ARG(_PATH)check_motion
-			
-			execute unless score @s status = #GLOBAL temp run function ARG(_PATH)change
-		}
-		
-		func check_motion()
-		{
-			execute store result score @s motion_x run data get entity @s Motion[0] 100
-			execute store result score @s motion_z run data get entity @s Motion[2] 100
-			execute store success score #GLOBAL temp if score @s motion_x matches 0 if score @s motion_z matches 0
-		}
-		
-		func change()
-		{
-			execute store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players operation #GLOBAL temp += @s base_model
-			scoreboard players operation @s status = #GLOBAL temp
-		}
-		
-		folder color()
-		{
-			func check()
-			{
-				execute if score @s freeze_time matches 1.. run function ARG(_PATH)freeze/run
-			}
-			
-			folder freeze()
-			{
-				func run()
-				{
-					scoreboard players remove @s freeze_time 1
-					execute if score @s freeze_time matches 0 run function ARG(_PATH)end
-				}
-				
-				func end()
-				{
-					```
-					raise Warning("TODO: check all other color change effects")
-					```
-					# execute unless score @s poison_time matches 1.. unless score @s burn_time matches 1.. run tag @s remove color_changed
-					tag @s remove color_changed
-					
-					execute if entity @s[tag=!color_changed] run data modify entity @s ArmorItems[3].tag.CustomPotionColor set value -1
-					scoreboard players reset @s freeze_time
-				}
-			}
-		}
-	}
-	
-	func move_bullets()
-	{
-		scoreboard players operation #GLOBAL temp = @s number
-		execute as @e[type=armor_stand,tag=bullet,scores={life=0..}] if score @s target_id = #GLOBAL temp run function ARG(_PATH)bullet/move
-	}
-	
 	folder check_skill()
 	{
 		func run()
@@ -954,31 +670,316 @@ namespace skill()
 		}
 	}
 	
-	func action_countdown()
+	folder check_weapon()
 	{
-		scoreboard players remove @s action_time 1
-		scoreboard players reset @s[scores={action_time=0}] action_time
+		func check_empty()
+		{
+			scoreboard players set #ACCEPTED_WEAPON temp 0
+			
+			execute store result score #USED_WEAPON temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_type
+			execute if score #USED_WEAPON temp matches 0 run tellraw @s {"translate":"warning.skill.no_weapon","color":"red"}
+		}
+		
+		folder single_hand()
+		{
+			func run()
+			{
+				function ARG(__PATH)check_empty
+				execute if score #USED_WEAPON temp matches 1.. run function ARG(_PATH)check
+			}
+			
+			func check()
+			{
+				scoreboard players operation #ACCEPTED_WEAPON temp = #USED_WEAPON temp
+				scoreboard players operation #ACCEPTED_WEAPON temp %= #2 const
+				execute if score #ACCEPTED_WEAPON temp matches 0 run tellraw @s {"translate":"warning.skill.wrong_weapon","color":"red"}
+			}
+		}
+		
+		```
+		def check_weapon_range(range_string):
+			print(f'''
+			func run()
+			{{
+				function ARG(__PATH)check_empty
+				execute if score #USED_WEAPON temp matches 1.. run function ARG(_PATH)check
+			}}
+			
+			func check()
+			{{
+				execute store success score #ACCEPTED_WEAPON temp if score #USED_WEAPON temp matches {range_string}
+				execute if score #ACCEPTED_WEAPON temp matches 0 run tellraw @s {{"translate":"warning.skill.wrong_weapon","color":"red"}}
+			}}''')
+		```
+		
+		folder dagger()
+		{
+			```
+			check_weapon_range("23")
+			```
+		}
+		
+		folder claw()
+		{
+			```
+			check_weapon_range("24")
+			```
+		}
+	}
+
+	folder enemy_search()
+	{
+		folder search_front() from for_loop().for("#DISTANCE temp", "if score #FOUND_ENEMY temp < #MAX_ENEMY temp positioned ^ ^ ^1")
+		{
+			func search()
+			{
+				scoreboard players set #FOUND_ENEMY temp 0
+				execute at @s rotated ~ 0 positioned ^ ^ ^1 run function ARG(_PATH)run
+			}
+			
+			func execute()
+			{
+				execute as @e[type=minecraft:zombified_piglin,tag=enemy,tag=!dead,distance=..2] run function ARG(_PATH)pre_mark
+				execute if score #FOUND_ENEMY temp >= #MAX_ENEMY temp run function ARG(_PATH)order_mark
+			}
+			
+			func pre_mark()
+			{
+				scoreboard players add #FOUND_ENEMY temp 1
+				tag @s add temp_mark
+			}
+			
+			func order_mark()
+			{
+				scoreboard players set #FOUND_ENEMY temp 0
+				execute at @s as @e[type=zombified_piglin,tag=temp_mark,sort=nearest] run function ARG(_PATH)try_mark
+				tag @e[type=zombified_piglin,tag=temp_mark] remove temp_mark
+			}
+			
+			func try_mark()
+			{
+				execute if score #FOUND_ENEMY temp < #MAX_ENEMY temp run tag @s add target
+				scoreboard players add #FOUND_ENEMY temp 1
+			}
+		}
 	}
 	
-	func kb_countdown()
+	folder damage_formula()
 	{
-		scoreboard players remove @s kb_time 1
-		execute if score @s kb_time matches 0 run function ARG(_PATH)kb_reset
+		func spell()
+		{
+			# magic attack
+			execute store result score #MAGIC_ATTACK temp run data get entity @s Inventory[{Slot:-106b}].tag.magic_attack
+			scoreboard players operation #MAGIC_ATTACK temp += @s INT
+			scoreboard players operation #INT temp = @s INT
+			scoreboard players operation #INT temp *= #5 const
+			
+			scoreboard players operation #MAX_DAMAGE temp = #MAGIC_ATTACK temp
+			scoreboard players operation #MAX_DAMAGE temp *= #MAGIC_ATTACK temp
+			scoreboard players operation #MAGIC_ATTACK temp *= #1000 const
+			scoreboard players operation #MAX_DAMAGE temp += #MAGIC_ATTACK temp
+			
+			scoreboard players operation #MIN_DAMAGE temp = #MAX_DAMAGE temp
+			scoreboard players operation #MIN_DAMAGE temp *= #9 const
+			scoreboard players operation #MIN_DAMAGE temp *= #SKILL_MASTERY temp
+			scoreboard players operation #MIN_DAMAGE temp /= #1000 const
+			
+			scoreboard players operation #MAX_DAMAGE temp /= #30 const
+			scoreboard players operation #MAX_DAMAGE temp += #INT temp
+			scoreboard players operation #MAX_DAMAGE temp *= #SPELL_ATTACK temp
+			scoreboard players operation #MAX_DAMAGE temp /= #1000 const
+			
+			scoreboard players operation #MIN_DAMAGE temp /= #30 const
+			scoreboard players operation #MIN_DAMAGE temp += #INT temp
+			scoreboard players operation #MIN_DAMAGE temp *= #SPELL_ATTACK temp
+			scoreboard players operation #MIN_DAMAGE temp /= #1000 const
+			
+			# accuracy
+			scoreboard players operation #INT temp /= #50 const
+			scoreboard players operation #ACCURACY temp = @s LUK
+			scoreboard players operation #ACCURACY temp /= #10 const
+			scoreboard players operation #ACCURACY temp += #INT temp
+			
+			# write values
+			execute store result storage skill:main damage[0].max_damage int 1 run scoreboard players get #MAX_DAMAGE temp
+			execute store result storage skill:main damage[0].min_damage int 1 run scoreboard players get #MIN_DAMAGE temp
+			execute store result storage skill:main damage[0].accuracy int 1 run scoreboard players get #ACCURACY temp
+			execute store result storage skill:main damage[0].player_level int 1 run scoreboard players get @s level
+			execute store result storage skill:main damage[0].crit_rate int 1 run scoreboard players get @s addi_crit_rate
+			execute store result storage skill:main damage[0].crit_damage int 1 run scoreboard players get @s addi_crit_damage
+		}
+		
+		folder accuracy()
+		{
+			# warrior / magician / beginner
+			func war_mag_beg()
+			{
+				scoreboard players operation #LUK temp = @s LUK
+				scoreboard players operation #LUK temp *= #5 const
+				scoreboard players operation #ACCURACY temp = @s DEX
+				scoreboard players operation #ACCURACY temp *= #8 const
+				scoreboard players operation #ACCURACY temp += #LUK temp
+				scoreboard players operation #ACCURACY temp /= #10 const
+				
+				scoreboard players operation #ACCURACY temp += @s base_accuracy
+			}
+			
+			# one punch
+			func brawler()
+			{
+				scoreboard players operation #LUK temp = @s LUK
+				scoreboard players operation #LUK temp *= #5 const
+				scoreboard players operation #ACCURACY temp = @s DEX
+				scoreboard players operation #ACCURACY temp *= #9 const
+				scoreboard players operation #ACCURACY temp += #LUK temp
+				scoreboard players operation #ACCURACY temp /= #10 const
+				
+				scoreboard players operation #ACCURACY temp += @s base_accuracy
+			}
+			
+			# include gunslingers
+			func bow_thief_pirate()
+			{
+				scoreboard players operation #LUK temp = @s LUK
+				scoreboard players operation #LUK temp *= #3 const
+				scoreboard players operation #ACCURACY temp = @s DEX
+				scoreboard players operation #ACCURACY temp *= #6 const
+				scoreboard players operation #ACCURACY temp += #LUK temp
+				scoreboard players operation #ACCURACY temp /= #10 const
+				
+				scoreboard players operation #ACCURACY temp += @s base_accuracy
+			}
+		}
+		
+		func addi_crit()
+		{
+			scoreboard players operation #CRIT_RATE temp += @s addi_crit_rate
+			scoreboard players operation #CRIT_DAMAGE temp += @s addi_crit_damage
+			scoreboard players add #CRIT_DAMAGE temp 100
+		}
+		
+		func write_values()
+		{
+			execute store result storage skill:main damage[0].max_damage int 1 run scoreboard players get #MAX_DAMAGE temp
+			execute store result storage skill:main damage[0].min_damage int 1 run scoreboard players get #MIN_DAMAGE temp
+			execute store result storage skill:main damage[0].accuracy int 1 run scoreboard players get #ACCURACY temp
+			execute store result storage skill:main damage[0].player_level int 1 run scoreboard players get @s level
+			execute store result storage skill:main damage[0].crit_rate int 1 run scoreboard players get #CRIT_RATE temp
+			execute store result storage skill:main damage[0].crit_damage int 1 run scoreboard players get #CRIT_DAMAGE temp
+		}
+		
+		folder claw()
+		{
+			func normal()
+			{
+				```
+				raise Warning("TODO: normal claw damage calculation")
+				```
+				function ARG(_PATH)other_formula
+			}
+			
+			func lucky_seven()
+			{
+				# weapon attack
+				execute store result score #MAX_DAMAGE temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_attack
+				scoreboard players operation #MAX_DAMAGE temp += #BULLET_DAMAGE temp
+				scoreboard players operation #MAX_DAMAGE temp *= @s LUK
+				scoreboard players operation #MAX_DAMAGE temp /= #20 const
+				
+				scoreboard players operation #MIN_DAMAGE temp = #MAX_DAMAGE temp
+				scoreboard players operation #MIN_DAMAGE temp /= #2 const
+				
+				function ARG(_PATH)other_formula
+			}
+			
+			func other_formula()
+			{
+				# accuracy
+				function ARG(__PATH)accuracy/bow_thief_pirate
+				scoreboard players operation #ACCURACY temp += @s claw_accuracy
+				
+				# crit
+				scoreboard players operation #CRIT_RATE temp = @s crit_rate
+				scoreboard players operation #CRIT_DAMAGE temp = @s crit_damage
+				execute if score @s addi_crit_rate matches 1.. run function ARG(__PATH)addi_crit
+				
+				function ARG(__PATH)write_values
+			}
+		}
+		
+		folder dagger()
+		{
+			func thief()
+			{
+				# weapon attack
+				execute store result score #WEAPON_ATTACK temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_attack
+				
+				scoreboard players operation #MAX_DAMAGE temp = @s LUK
+				scoreboard players operation #MAX_DAMAGE temp *= #36 const
+				scoreboard players operation #MAX_DAMAGE temp /= #10 const
+				
+				scoreboard players operation #MIN_DAMAGE temp = #MAX_DAMAGE temp
+				scoreboard players operation #MIN_DAMAGE temp *= #9 const
+				scoreboard players operation @s dagger_mastery > #10 const
+				scoreboard players operation #MIN_DAMAGE temp *= @s dagger_mastery
+				scoreboard players operation #MIN_DAMAGE temp /= #1000 const
+				
+				scoreboard players operation #MAX_DAMAGE temp += @s DEX
+				scoreboard players operation #MAX_DAMAGE temp += @s STR
+				scoreboard players operation #MAX_DAMAGE temp *= #WEAPON_ATTACK temp
+				scoreboard players operation #MAX_DAMAGE temp /= #100 const
+				
+				scoreboard players operation #MIN_DAMAGE temp += @s DEX
+				scoreboard players operation #MIN_DAMAGE temp += @s STR
+				scoreboard players operation #MIN_DAMAGE temp *= #WEAPON_ATTACK temp
+				scoreboard players operation #MIN_DAMAGE temp /= #100 const
+				
+				# accuracy
+				function ARG(__PATH)accuracy/bow_thief_pirate
+				scoreboard players operation #ACCURACY temp += @s dagger_accuracy
+				
+				function ARG(_PATH)other_formula
+			}
+			
+			func non_thief()
+			{
+				# weapon attack
+				execute store result score #WEAPON_ATTACK temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_attack
+				
+				scoreboard players operation #MAX_DAMAGE temp = @s STR
+				scoreboard players operation #MAX_DAMAGE temp *= #4 const
+				
+				scoreboard players operation #MIN_DAMAGE temp = #MAX_DAMAGE temp
+				scoreboard players operation #MIN_DAMAGE temp *= #9 const
+				scoreboard players operation #MIN_DAMAGE temp /= #1000 const
+				
+				scoreboard players operation #MAX_DAMAGE temp += @s DEX
+				scoreboard players operation #MAX_DAMAGE temp += @s STR
+				scoreboard players operation #MAX_DAMAGE temp *= #WEAPON_ATTACK temp
+				scoreboard players operation #MAX_DAMAGE temp /= #100 const
+				
+				scoreboard players operation #MIN_DAMAGE temp += @s DEX
+				scoreboard players operation #MIN_DAMAGE temp += @s STR
+				scoreboard players operation #MIN_DAMAGE temp *= #WEAPON_ATTACK temp
+				scoreboard players operation #MIN_DAMAGE temp /= #100 const
+				
+				# accuracy
+				execute if entity @s[tag=!archer,tag=!pirate] run function ARG(__PATH)accuracy/war_mag_beg
+				execute if entity @s[tag=brawler] run function ARG(__PATH)accuracy/brawler
+				execute unless entity @s[tag=!archer,tag=!pirate] if entity @s[tag=!brawler] run function ARG(__PATH)accuracy/bow_thief_pirate
+				
+				function ARG(_PATH)other_formula
+			}
+			
+			func other_formula()
+			{
+				execute if score @s addi_crit_rate matches 1.. run function ARG(__PATH)addi_crit
+				
+				function ARG(__PATH)write_values
+			}
+		}
 	}
-	
-	func kb_reset()
-	{
-		function ARG(_PATH)enemy_status_change/run
-		data modify entity @s[tag=!dead] ArmorItems[3].tag.AttributeModifiers[{Name:"move_control"}].Amount set value 0.0
-		scoreboard players reset @s kb_time
-	}
-	
-	func push_countdown()
-	{
-		scoreboard players remove @s pushed_time 1
-		scoreboard players reset @s[scores={pushed_time=0}] pushed_time
-	}
-	
+
 	folder calculate_damage()
 	{
 		func run()
@@ -1239,116 +1240,108 @@ namespace skill()
 		}
 	}
 	
-	func mob_dead_event()
+	folder mob_effect()
 	{
-		scoreboard players operation #GLOBAL temp = @s number
-		execute as @e[type=armor_stand,tag=bullet] if score @s target_id = #GLOBAL temp run kill @s
+		func dead()
+		{
+			scoreboard players operation #GLOBAL temp = @s number
+			execute as @e[type=armor_stand,tag=bullet] if score @s target_id = #GLOBAL temp run kill @s
+			
+			function ARG(_PATH)play_die_sound/run
+			kill @s
+		}
 		
-		function skill:play_die_sound/run
-		kill @s
-	}
-	
-	folder play_hurt_sound()
-	{
-		```
-		def bs_hurt_sound(sound_list, start, end):
-			if len(sound_list) == 1:
-				print("func run()")
+		folder play_hurt_sound()
+		{
+			```
+			def bs_hurt_sound(sound_list, start, end):
+				if len(sound_list) == 1:
+					print("func run()")
+					print("{")
+					print(f"\texecute if score @s hurt_sound matches {sound_list[0][1]} run playsound minecraft:mob.hurt.{sound_list[0][0]} hostile @a ~ ~ ~ 1 1 0")
+					print("}")
+					return
+				
+				if start == end:
+					return
+				
+				mid = (start + end) // 2
+				mid_right = mid + 1
+				
+				if start == 0 and end == len(sound_list) - 1:
+					print("func run()")
+				else:
+					print(f"func {start}_{end}()")
 				print("{")
-				print(f"\texecute if score @s hurt_sound matches {sound_list[0][1]} run playsound minecraft:mob.hurt.{sound_list[0][0]} hostile @a ~ ~ ~ 1 1 0")
+				if start == mid:
+					print(f"\texecute if score @s hurt_sound matches {sound_list[start][1]} run playsound minecraft:mob.hurt.{sound_list[start][0]} hostile @a ~ ~ ~ 1 1 0")
+				else:
+					print(f"\texecute if score @s hurt_sound matches {sound_list[start][1]}..{sound_list[mid][1]} run function ARG(_PATH){start}_{mid}")
+				if mid_right == end:
+					print(f"\texecute if score @s hurt_sound matches {sound_list[end][1]} run playsound minecraft:mob.hurt.{sound_list[end][0]} hostile @a ~ ~ ~ 1 1 0")
+				else:
+					print(f"\texecute if score @s hurt_sound matches {sound_list[mid_right][1]}..{sound_list[end][1]} run function ARG(_PATH){mid_right}_{end}")
 				print("}")
-				return
+				
+				bs_hurt_sound(sound_list, start, mid)
+				bs_hurt_sound(sound_list, mid_right, end)
 			
-			if start == end:
-				return
+			with open(PROJ_DIR + "/../hurt_sounds.csv") as f:
+				hurt_sounds = f.read().split("\n")
+				for i in range(len(hurt_sounds)):
+					hurt_sounds[i] = hurt_sounds[i].split(",")
+					hurt_sounds[i][1] = int(hurt_sounds[i][1])
 			
-			mid = (start + end) // 2
-			mid_right = mid + 1
-			
-			if start == 0 and end == len(sound_list) - 1:
-				print("func run()")
-			else:
-				print(f"func {start}_{end}()")
-			print("{")
-			if start == mid:
-				print(f"\texecute if score @s hurt_sound matches {sound_list[start][1]} run playsound minecraft:mob.hurt.{sound_list[start][0]} hostile @a ~ ~ ~ 1 1 0")
-			else:
-				print(f"\texecute if score @s hurt_sound matches {sound_list[start][1]}..{sound_list[mid][1]} run function ARG(_PATH){start}_{mid}")
-			if mid_right == end:
-				print(f"\texecute if score @s hurt_sound matches {sound_list[end][1]} run playsound minecraft:mob.hurt.{sound_list[end][0]} hostile @a ~ ~ ~ 1 1 0")
-			else:
-				print(f"\texecute if score @s hurt_sound matches {sound_list[mid_right][1]}..{sound_list[end][1]} run function ARG(_PATH){mid_right}_{end}")
-			print("}")
-			
-			bs_hurt_sound(sound_list, start, mid)
-			bs_hurt_sound(sound_list, mid_right, end)
+			bs_hurt_sound(hurt_sounds, 0, len(hurt_sounds) - 1)
+			```
+		}
 		
-		with open(PROJ_DIR + "/../hurt_sounds.csv") as f:
-			hurt_sounds = f.read().split("\n")
-			for i in range(len(hurt_sounds)):
-				hurt_sounds[i] = hurt_sounds[i].split(",")
-				hurt_sounds[i][1] = int(hurt_sounds[i][1])
-		
-		bs_hurt_sound(hurt_sounds, 0, len(hurt_sounds) - 1)
-		```
-	}
-	
-	folder play_die_sound()
-	{
-		```
-		def bs_die_sound(sound_list, start, end):
-			if len(sound_list) == 1:
-				print("func run()")
+		folder play_die_sound()
+		{
+			```
+			def bs_die_sound(sound_list, start, end):
+				if len(sound_list) == 1:
+					print("func run()")
+					print("{")
+					print(f"\texecute if score @s die_sound matches {sound_list[0][1]} run playsound minecraft:mob.die.{sound_list[0][0]} hostile @a ~ ~ ~ 1 1 0")
+					print("}")
+					return
+				
+				if start == end:
+					return
+				
+				mid = (start + end) // 2
+				mid_right = mid + 1
+				
+				if start == 0 and end == len(sound_list) - 1:
+					print("func run()")
+				else:
+					print(f"func {start}_{end}()")
 				print("{")
-				print(f"\texecute if score @s die_sound matches {sound_list[0][1]} run playsound minecraft:mob.die.{sound_list[0][0]} hostile @a ~ ~ ~ 1 1 0")
+				if start == mid:
+					print(f"\texecute if score @s die_sound matches {sound_list[start][1]} run playsound minecraft:mob.die.{sound_list[start][0]} hostile @a ~ ~ ~ 1 1 0")
+				else:
+					print(f"\texecute if score @s die_sound matches {sound_list[start][1]}..{sound_list[mid][1]} run function ARG(_PATH){start}_{mid}")
+				if mid_right == end:
+					print(f"\texecute if score @s die_sound matches {sound_list[end][1]} run playsound minecraft:mob.die.{sound_list[end][0]} hostile @a ~ ~ ~ 1 1 0")
+				else:
+					print(f"\texecute if score @s die_sound matches {sound_list[mid_right][1]}..{sound_list[end][1]} run function ARG(_PATH){mid_right}_{end}")
 				print("}")
-				return
+				
+				bs_die_sound(sound_list, start, mid)
+				bs_die_sound(sound_list, mid_right, end)
 			
-			if start == end:
-				return
+			with open(PROJ_DIR + "/../die_sounds.csv") as f:
+				die_sounds = f.read().split("\n")
+				for i in range(len(die_sounds)):
+					die_sounds[i] = die_sounds[i].split(",")
+					die_sounds[i][1] = int(die_sounds[i][1])
 			
-			mid = (start + end) // 2
-			mid_right = mid + 1
-			
-			if start == 0 and end == len(sound_list) - 1:
-				print("func run()")
-			else:
-				print(f"func {start}_{end}()")
-			print("{")
-			if start == mid:
-				print(f"\texecute if score @s die_sound matches {sound_list[start][1]} run playsound minecraft:mob.die.{sound_list[start][0]} hostile @a ~ ~ ~ 1 1 0")
-			else:
-				print(f"\texecute if score @s die_sound matches {sound_list[start][1]}..{sound_list[mid][1]} run function ARG(_PATH){start}_{mid}")
-			if mid_right == end:
-				print(f"\texecute if score @s die_sound matches {sound_list[end][1]} run playsound minecraft:mob.die.{sound_list[end][0]} hostile @a ~ ~ ~ 1 1 0")
-			else:
-				print(f"\texecute if score @s die_sound matches {sound_list[mid_right][1]}..{sound_list[end][1]} run function ARG(_PATH){mid_right}_{end}")
-			print("}")
-			
-			bs_die_sound(sound_list, start, mid)
-			bs_die_sound(sound_list, mid_right, end)
-		
-		with open(PROJ_DIR + "/../die_sounds.csv") as f:
-			die_sounds = f.read().split("\n")
-			for i in range(len(die_sounds)):
-				die_sounds[i] = die_sounds[i].split(",")
-				die_sounds[i][1] = int(die_sounds[i][1])
-		
-		bs_die_sound(die_sounds, 0, len(die_sounds) - 1)
-		```
+			bs_die_sound(die_sounds, 0, len(die_sounds) - 1)
+			```
+		}
 	}
-	
-	func font_effect_update()
-	{
-		execute store result score #GLOBAL temp run data get entity @s Age
-		scoreboard players operation #GLOBAL temp %= #10 const
-		execute if score #GLOBAL temp matches 0 run data remove entity @s Tags[0]
 		
-		data modify storage skill:main effect_font set from entity @s Tags[0]
-		data modify block 0 0 0 Text1 set value '[{"nbt":"effect_font","storage":"skill:main","interpret":true},{"text":"F","font":"space:default"},{"score":{"name":"#GLOBAL","objective":"temp"}},{"text":"F","font":"space:default"}]'
-		data modify entity @s CustomName set from block 0 0 0 Text1
-	}
-	
 	folder summon_font_effect()
 	{
 		```
@@ -1372,19 +1365,39 @@ namespace skill()
 		```
 	}
 	
-	func model_animation_update()
+	folder afterimage()
 	{
-		execute store result score #GLOBAL temp run scoreboard players add @s life 1
-		execute store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players operation #GLOBAL temp += @s base_model
+		folder claw()
+		{
+			func swing()
+			{
+				scoreboard players set #RANGE_MAX temp 3
+				function main:rand_range
+				scoreboard players add #RAND_RANGE_RESULT temp 1000000
+				function ARG(__PATH)summon_model
+			}
+		}
 		
-		execute if score @s life = @s max_life run kill @s
-	}
-	
-	func afterimage_update()
-	{
-		scoreboard players remove @s life 1
-		execute if score @s life matches 0 store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players get @s base_model
-		kill @s[scores={life=-4}]
+		func summon_model()
+		{
+			execute rotated ~ 0 run summon minecraft:armor_stand ^ ^ ^0.7 {Tags:["afterimage","new"],Invisible:1,Invulnerable:1,NoGravity:1,Marker:1,Fire:32767s,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:1}}]}
+			execute as @e[type=armor_stand,tag=new] run function ARG(_PATH)model_set
+		}
+		
+		func model_set()
+		{
+			execute positioned as @s run tp @s ~ ~ ~ ~ ~
+			scoreboard players set @s life 8
+			scoreboard players operation @s base_model = #RAND_RANGE_RESULT temp
+			tag @s remove new
+		}
+
+		func update()
+		{
+			scoreboard players remove @s life 1
+			execute if score @s life matches 0 store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players get @s base_model
+			kill @s[scores={life=-4}]
+		}
 	}
 	
 	func show_num_at_height()
@@ -1393,6 +1406,8 @@ namespace skill()
 		execute if score #NUMBER_HEIGHT temp matches -1 run function number_display:show
 		execute if score #NUMBER_HEIGHT temp matches 0.. positioned ~ ~0.4 ~ run function ARG(_PATH)show_num_at_height
 	}
+	
+	
 	
 	func test_mob()
 	{
