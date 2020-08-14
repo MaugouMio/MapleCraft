@@ -82,9 +82,7 @@ namespace 4() as virtual
 					
 					scoreboard players operation @s mp -= @s 4001344_mp
 					function bar_display:change/mp/dropped
-					```
-					raise Warning("TODO: change action_time according to attack speed")
-					```
+					
 					scoreboard players set @s action_time 16
 				}
 				

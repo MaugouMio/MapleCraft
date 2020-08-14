@@ -106,7 +106,7 @@ namespace main()
 		scoreboard players set @s LUK 4
 		
 		effect give @s minecraft:absorption 1000000 255 true
-		effect give @s minecraft:weakness 1000000 255 true
+		attribute @s minecraft:generic.attack_damage base set -100.0
 	}
 	
 	func rand_rate()
@@ -140,7 +140,6 @@ namespace loop()
 	{
 		func execute()
 		{
-			effect give @a minecraft:weakness 1000000 255 true
 			function bar_display:loop/schedule_1d
 			function skill:loop/schedule_1d
 		}
