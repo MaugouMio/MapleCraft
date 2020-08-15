@@ -64,6 +64,11 @@ namespace 22() as virtual
 				scoreboard players set @s action_time 16
 			}
 			
+			func add_debuff()
+			{
+				execute if entity @s[tag=!freeze_imune] run function skill:mob_effect/debuff/freeze
+			}
+			
 			func effect()
 			{
 				execute if score @s display_number matches 1.. run function skill:summon_font_effect/2201004hit

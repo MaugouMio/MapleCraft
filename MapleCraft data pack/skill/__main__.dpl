@@ -12,6 +12,7 @@ namespace attack_skill_template(skill_id) as virtual
 	#	mark_target => tag all target
 	#	cast_effect => visual and audio effects on casting skill
 	#	set_numeric => calculate all numbers related to damage and write to global storage
+	#	add_debuff => set all debuff numbers as the hit mob
 	#	effect => visual and audio effects with display_number as damage
 	#	append_scheduler => see "append_scheduler_sample"
 	
@@ -93,6 +94,8 @@ namespace attack_skill_template(skill_id) as virtual
 		data modify entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue prepend from storage skill:main new_queue[]
 		execute store result score @s ARG(skill_id)_eid run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].time
 		
+		execute if score #DID_HIT temp matches 1 run function ARG(_PATH)add_debuff
+		
 		tag @s remove target
 	}
 	
@@ -126,6 +129,7 @@ namespace attack_skill_template(skill_id) as virtual
 		}
 	}
 	
+	func add_debuff();
 	func append_scheduler_sample() as virtual
 	{
 		data modify storage skill:main new_schedule append value 0
@@ -142,6 +146,7 @@ namespace bullet_skill_template(skill_id) as virtual
 	#	mark_target => tag all target
 	#	cast_effect => visual and audio effects on casting skill
 	#	set_numeric => calculate all numbers related to damage and write to global storage
+	#	add_debuff => set all debuff numbers as the hit mob (optional)
 	#	effect => visual and audio effects with display_number as damage
 	#	append_scheduler => see "append_scheduler_sample"
 	
@@ -169,7 +174,7 @@ namespace bullet_skill_template(skill_id) as virtual
 		
 		scoreboard players set #DID_HIT_ENEMY temp 0
 		scoreboard players add #BULLET_ID number 1
-		execute as @e[type=zombified_piglin,tag=target] at @s run function skill:bullet/skill_hit
+		execute as @e[type=zombified_piglin,tag=target] at @s run function ARG(_PATH)hit
 		execute if score #DID_HIT_ENEMY temp matches 0 as @e[type=armor_stand,tag=new_bullet] run function skill:bullet/no_target_setting
 	}
 	
@@ -212,6 +217,24 @@ namespace bullet_skill_template(skill_id) as virtual
 		data modify entity @s Motion set from entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].knock_back
 		
 		data modify entity @s ArmorItems[3].tag.AttributeModifiers[{Name:"move_control"}].Amount set value -1.0
+	}
+	
+	func hit()
+	{
+		scoreboard players operation #GLOBAL temp = @s number
+		execute as @e[type=armor_stand,tag=new_bullet] run function skill:bullet/setting
+		function skill:calculate_damage/run
+		
+		data modify entity @s ArmorItems[3].tag.bullet_list append value {}
+		execute store result entity @s ArmorItems[3].tag.bullet_list[-1].bullet_id int 1 run scoreboard players get #BULLET_ID number
+		data modify entity @s ArmorItems[3].tag.bullet_list[-1].damage_record set from entity @s ArmorItems[3].tag.damage_record
+		data modify entity @s ArmorItems[3].tag.bullet_list[-1].damage_info set from storage skill:main damage_info
+	
+		execute if score #DID_HIT temp matches 1 run function ARG(_PATH)add_debuff
+		
+		tag @s remove target
+		scoreboard players add @s bullet_targeted 1
+		scoreboard players set #DID_HIT_ENEMY temp 1
 	}
 	
 	folder bullet_hit()
@@ -274,6 +297,7 @@ namespace bullet_skill_template(skill_id) as virtual
 		}
 	}
 	
+	func add_debuff();
 	func summon_bullet_sample() as virtual
 	{
 		# first bullet should have "first_bullet" tag
@@ -498,22 +522,6 @@ namespace skill()
 	
 	folder bullet()
 	{
-		func skill_hit()
-		{
-			scoreboard players operation #GLOBAL temp = @s number
-			execute as @e[type=armor_stand,tag=new_bullet] run function skill:bullet/setting
-			function skill:calculate_damage/run
-			
-			data modify entity @s ArmorItems[3].tag.bullet_list append value {}
-			execute store result entity @s ArmorItems[3].tag.bullet_list[-1].bullet_id int 1 run scoreboard players get #BULLET_ID number
-			data modify entity @s ArmorItems[3].tag.bullet_list[-1].damage_record set from entity @s ArmorItems[3].tag.damage_record
-			data modify entity @s ArmorItems[3].tag.bullet_list[-1].damage_info set from storage skill:main damage_info
-			
-			tag @s remove target
-			scoreboard players add @s bullet_targeted 1
-			scoreboard players set #DID_HIT_ENEMY temp 1
-		}
-		
 		func setting()
 		{
 			execute facing entity @s eyes positioned as @s run tp @s ~ ~ ~ ~180 0
@@ -1023,6 +1031,7 @@ namespace skill()
 			data modify storage skill:main damage_copy set from storage skill:main damage
 			scoreboard players set #SAME_DAMAGE temp 0
 			scoreboard players set #NUMBER_HEIGHT temp 0
+			scoreboard players set #DID_HIT temp 0
 			function ARG(_PATH)traverse_damages/run
 			
 			execute if score @s hp matches ..0 run function ARG(_PATH)record_dead
@@ -1171,6 +1180,8 @@ namespace skill()
 				
 				scoreboard players operation @s hp -= @s display_number
 				execute store result entity @s ArmorItems[3].tag.damage_record[-1].number int 1 run scoreboard players get @s display_number
+				
+				scoreboard players set #DID_HIT temp 1
 			}
 			
 			folder attribute_multiply()
@@ -1200,7 +1211,6 @@ namespace skill()
 				{
 					execute if entity @s[tag=ice_resist] run function ARG(_PATH)resist
 					execute if entity @s[tag=ice_weakness] run function ARG(_PATH)weakness
-					execute if entity @s[tag=!freeze_imune] run function ARG(_PATH)status/freeze
 				}
 				
 				func lightning()
@@ -1234,23 +1244,6 @@ namespace skill()
 					scoreboard players operation #MIN_DAMAGE temp /= #100 const
 					scoreboard players operation #MAX_DAMAGE temp /= #100 const
 				}
-				
-				folder status()
-				{
-					func freeze()
-					{
-						tag @s add color_changed
-						execute store result score @s kb_time run scoreboard players operation @s freeze_time = #FREEZE_TIME temp
-						scoreboard players add @s kb_time 12
-						
-						data modify entity @s ArmorItems[3].tag.CustomPotionColor set value 12580095
-						
-						execute store result score #GLOBAL temp run scoreboard players set @s status 2
-						execute store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players operation #GLOBAL temp += @s base_model
-						
-						data modify entity @s ArmorItems[3].tag.AttributeModifiers[{Name:"move_control"}].Amount set value -1.0
-					}
-				}
 			}
 			
 			func crit_multiply()
@@ -1276,6 +1269,23 @@ namespace skill()
 	
 	folder mob_effect()
 	{
+		folder debuff()
+		{
+			func freeze()
+			{
+				tag @s add color_changed
+				execute store result score @s kb_time run scoreboard players operation @s freeze_time = #FREEZE_TIME temp
+				scoreboard players add @s kb_time 12
+				
+				data modify entity @s ArmorItems[3].tag.CustomPotionColor set value 12580095
+				
+				execute store result score #GLOBAL temp run scoreboard players set @s status 2
+				execute store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players operation #GLOBAL temp += @s base_model
+				
+				data modify entity @s ArmorItems[3].tag.AttributeModifiers[{Name:"move_control"}].Amount set value -1.0
+			}
+		}
+		
 		func dead()
 		{
 			scoreboard players operation #GLOBAL temp = @s number
@@ -1451,7 +1461,7 @@ namespace skill()
 		
 		scoreboard players set @e[type=zombified_piglin,tag=new] level 24
 		scoreboard players set @e[type=zombified_piglin,tag=new] hp 500
-		scoreboard players set @e[type=zombified_piglin,tag=new] avoidability 7
+		scoreboard players set @e[type=zombified_piglin,tag=new] avoidability 8
 		scoreboard players set @e[type=zombified_piglin,tag=new] weapon_defense 20
 		scoreboard players set @e[type=zombified_piglin,tag=new] magic_defense 30
 		scoreboard players set @e[type=zombified_piglin,tag=new] kb 1
