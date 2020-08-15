@@ -433,28 +433,20 @@ namespace skill()
 				{
 					func check()
 					{
-						execute if score @s freeze_time matches 1.. run function ARG(_PATH)freeze/run
+						execute if score @s freeze_time matches 1.. run function ARG(_PATH)freeze
+						
+						```
+						raise Warning("TODO: check all other color change effects")
+						```
+						# execute unless score @s freeze_time matches 1.. unless score @s poison_time matches 1.. unless score @s burn_time matches 1.. run tag @s remove color_changed
+						execute unless score @s freeze_time matches 1.. run tag @s remove color_changed
+						execute if entity @s[tag=!color_changed] run data modify entity @s ArmorItems[3].tag.CustomPotionColor set value -1
 					}
 					
-					folder freeze()
+					func freeze()
 					{
-						func run()
-						{
-							scoreboard players remove @s freeze_time 1
-							execute if score @s freeze_time matches 0 run function ARG(_PATH)end
-						}
-						
-						func end()
-						{
-							```
-							raise Warning("TODO: check all other color change effects")
-							```
-							# execute unless score @s poison_time matches 1.. unless score @s burn_time matches 1.. run tag @s remove color_changed
-							tag @s remove color_changed
-							
-							execute if entity @s[tag=!color_changed] run data modify entity @s ArmorItems[3].tag.CustomPotionColor set value -1
-							scoreboard players reset @s freeze_time
-						}
+						scoreboard players remove @s freeze_time 1
+						scoreboard players reset @s[scores={freeze_time=0}] freeze_time
 					}
 				}
 			}
