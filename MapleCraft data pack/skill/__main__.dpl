@@ -290,7 +290,7 @@ import 1 as virtual
 import 2 as virtual
 import 3 as virtual
 import 4 as virtual
-import 5 as virtual
+# import 5 as virtual
 
 namespace skill()
 {
@@ -299,7 +299,7 @@ namespace skill()
 	folder 2() from 2();
 	folder 3() from 3();
 	folder 4() from 4();
-	folder 5() from 5();
+	# folder 5() from 5();
 	
 	func install()
 	{

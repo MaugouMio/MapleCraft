@@ -1,15 +1,15 @@
-# import 231 as virtual
-# import 232 as virtual
+import 231 as virtual
+import 232 as virtual
 
 namespace 23() as virtual
 {
-	# folder 1() from 231();
-	# folder 2() from 232();
+	folder 1() from 231();
+	folder 2() from 232();
 	
 	func install()
 	{
-		# function ARG(_PATH)1/install
-		# function ARG(_PATH)2/install
+		function ARG(_PATH)1/install
+		function ARG(_PATH)2/install
 	}
 	
 	folder 0()

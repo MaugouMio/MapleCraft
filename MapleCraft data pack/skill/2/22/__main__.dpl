@@ -1,10 +1,10 @@
-# import 221 as virtual
-# import 222 as virtual
+import 221 as virtual
+import 222 as virtual
 
 namespace 22() as virtual
 {
-	# folder 1() from 221();
-	# folder 2() from 222();
+	folder 1() from 221();
+	folder 2() from 222();
 	
 	func install()
 	{
@@ -15,8 +15,8 @@ namespace 22() as virtual
 		# 2/4/6 seconds for different level intervals
 		scoreboard objectives add 2201004_freeze dummy
 		
-		# function ARG(_PATH)1/install
-		# function ARG(_PATH)2/install
+		function ARG(_PATH)1/install
+		function ARG(_PATH)2/install
 	}
 	
 	folder 0()

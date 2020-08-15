@@ -1,15 +1,15 @@
-# import 121 as virtual
-# import 122 as virtual
+import 121 as virtual
+import 122 as virtual
 
 namespace 12() as virtual
 {
-	# folder 1() from 121();
-	# folder 2() from 122();
+	folder 1() from 121();
+	folder 2() from 122();
 	
 	func install()
 	{
-		# function ARG(_PATH)1/install
-		# function ARG(_PATH)2/install
+		function ARG(_PATH)1/install
+		function ARG(_PATH)2/install
 	}
 	
 	folder 0()

@@ -1,18 +1,18 @@
-# import 421 as virtual
-# import 422 as virtual
+import 421 as virtual
+import 422 as virtual
 
 namespace 42() as virtual
 {
-	# folder 1() from 421();
-	# folder 2() from 422();
+	folder 1() from 421();
+	folder 2() from 422();
 	
 	func install()
 	{
 		scoreboard objectives add 4201005_mp dummy
 		scoreboard objectives add 4201005_attack dummy
 		
-		# function ARG(_PATH)1/install
-		# function ARG(_PATH)2/install
+		function ARG(_PATH)1/install
+		function ARG(_PATH)2/install
 	}
 	
 	folder 0()
