@@ -348,6 +348,10 @@ namespace skill()
 		scoreboard objectives add kb_time dummy
 		scoreboard objectives add pushed_time dummy
 		scoreboard objectives add freeze_time dummy
+		scoreboard objectives add poison_time dummy
+		scoreboard objectives add next_poison dummy
+		scoreboard objectives add poison_damage dummy
+		scoreboard objectives add poison_particle dummy
 		scoreboard objectives add action_time dummy
 		scoreboard objectives add attack_times dummy
 		
@@ -457,20 +461,85 @@ namespace skill()
 				{
 					func check()
 					{
-						execute if score @s freeze_time matches 1.. run function ARG(_PATH)freeze
+						execute if score @s freeze_time matches 1.. run function ARG(_PATH)freeze/run
+						execute if score @s poison_time matches 1.. at @s run function ARG(_PATH)poison/run
 						
 						```
 						raise Warning("TODO: check all other color change effects")
 						```
 						# execute unless score @s freeze_time matches 1.. unless score @s poison_time matches 1.. unless score @s burn_time matches 1.. run tag @s remove color_changed
-						execute unless score @s freeze_time matches 1.. run tag @s remove color_changed
+						execute unless score @s freeze_time matches 1.. unless score @s poison_time matches 1.. run tag @s remove color_changed
 						execute if entity @s[tag=!color_changed] run data modify entity @s ArmorItems[3].tag.CustomPotionColor set value -1
 					}
 					
-					func freeze()
+					func other_color_check()
 					{
-						scoreboard players remove @s freeze_time 1
-						scoreboard players reset @s[scores={freeze_time=0}] freeze_time
+						data modify entity @s[scores={freeze_time=1..}] ArmorItems[3].tag.CustomPotionColor set value 12580095
+						data modify entity @s[scores={poison_time=1..}] ArmorItems[3].tag.CustomPotionColor set value 2779438
+					}
+					
+					folder freeze()
+					{
+						func run()
+						{
+							scoreboard players remove @s freeze_time 1
+							execute if score @s freeze_time matches 0 run function ARG(_PATH)reset
+							
+						}
+						
+						func reset()
+						{
+							scoreboard players reset @s freeze_time
+							function ARG(__PATH)other_color_check
+						}
+					}
+					
+					folder poison()
+					{
+						func run()
+						{
+							scoreboard players remove @s next_poison 1
+							scoreboard players remove @s poison_particle 1
+							execute if score @s poison_particle matches 0 run function ARG(_PATH)show_particle
+							execute if score @s next_poison matches 0 run function ARG(_PATH)next
+						}
+						
+						func show_particle()
+						{
+							execute positioned ~ ~0.8 ~ run function skill:summon_font_effect/2101005mob
+							scoreboard players set @s poison_particle 7
+						}
+						
+						func next()
+						{
+							scoreboard players remove @s poison_time 1
+							scoreboard players set @s next_poison 20
+							
+							execute if entity @s[tag=!dead] run function ARG(_PATH)damage
+							
+							execute if score @s poison_time matches 0 run function ARG(_PATH)reset
+						}
+						
+						func damage()
+						{
+							function skill:mob_effect/play_hurt_sound/run
+							
+							scoreboard players operation @s hp -= @s poison_damage
+							scoreboard players operation @s hp > #1 const
+							
+							scoreboard players operation @s display_number = @s poison_damage
+							scoreboard players set @s display_num_type 0
+							execute positioned ~ ~0.4 ~ run function number_display:show
+							
+							scoreboard players set @s[scores={hp=1}] poison_time 0
+						}
+						
+						func reset()
+						{
+							scoreboard players reset @s next_poison
+							scoreboard players reset @s poison_time
+							function ARG(__PATH)other_color_check
+						}
 					}
 				}
 			}
@@ -1284,6 +1353,19 @@ namespace skill()
 				
 				data modify entity @s ArmorItems[3].tag.AttributeModifiers[{Name:"move_control"}].Amount set value -1.0
 			}
+			
+			func poison()
+			{
+				tag @s add color_changed
+				scoreboard players operation @s poison_time = #POISON_TIME temp
+				scoreboard players operation @s poison_damage = @s hp_max
+				scoreboard players operation @s poison_damage /= #POISON_HP_RATE temp
+				
+				execute unless score @s next_poison matches 1.. run scoreboard players set @s poison_particle 7
+				execute unless score @s next_poison matches 1.. run scoreboard players set @s next_poison 20
+				
+				data modify entity @s ArmorItems[3].tag.CustomPotionColor set value 2779438
+			}
 		}
 		
 		func dead()
@@ -1460,6 +1542,7 @@ namespace skill()
 		execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["new","enemy"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:10000,CustomPotionColor:-1,Unbreakable:1,AttributeModifiers:[{Name:"move_control",AttributeName:"generic.movement_speed",Amount:0.0,Operation:0,UUID:[I;0,1,0,1]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:9.5}],OnGround:1b,Team:"enemy"}
 		
 		scoreboard players set @e[type=zombified_piglin,tag=new] level 24
+		scoreboard players set @e[type=zombified_piglin,tag=new] hp_max 500
 		scoreboard players set @e[type=zombified_piglin,tag=new] hp 500
 		scoreboard players set @e[type=zombified_piglin,tag=new] avoidability 8
 		scoreboard players set @e[type=zombified_piglin,tag=new] weapon_defense 20

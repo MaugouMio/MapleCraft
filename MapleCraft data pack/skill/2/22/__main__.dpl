@@ -66,7 +66,7 @@ namespace 22() as virtual
 			
 			func add_debuff()
 			{
-				execute if entity @s[tag=!freeze_imune] run function skill:mob_effect/debuff/freeze
+				execute if entity @s[tag=!freeze_immune] run function skill:mob_effect/debuff/freeze
 			}
 			
 			func effect()

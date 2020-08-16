@@ -8,6 +8,13 @@ namespace 21() as virtual
 	
 	func install()
 	{
+		scoreboard objectives add 2101005_mp dummy
+		scoreboard objectives add 2101005_mastery dummy
+		scoreboard objectives add 2101005_attack dummy
+		# poison time should be (sec)
+		scoreboard objectives add 2101005_rate dummy
+		scoreboard objectives add 2101005_poison dummy
+		
 		function ARG(_PATH)1/install
 		function ARG(_PATH)2/install
 	}
@@ -46,11 +53,81 @@ namespace 21() as virtual
 			}
 		}
 		
-		folder 1005()
+		folder 1005() from bullet_skill_template(2101005)
 		{
 			func check()
 			{
+				execute unless score @s action_time matches 0.. if score @s[nbt={OnGround:1b}] 2101005_level matches 1.. run function ARG(_PATH)other_check
+			}
+			
+			func other_check()
+			{
+				execute store result score #USED_WEAPON temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_type
+				execute if score #USED_WEAPON temp matches 0 run tellraw @s {"translate":"warning.skill.no_weapon","color":"red"}
 				
+				execute if score #USED_WEAPON temp matches 1.. if score @s mp < @s 2101005_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
+				execute if score #USED_WEAPON temp matches 1.. if score @s mp >= @s 2101005_mp run function ARG(_PATH)run
+			}
+			
+			func mark_target()
+			{
+				scoreboard players set #DISTANCE temp 4
+				scoreboard players set #MAX_ENEMY temp 1
+				function skill:enemy_search/search_front/search
+			}
+			
+			func cast_effect()
+			{
+				execute positioned ~ ~0.3 ~ run function skill:summon_font_effect/2101005effect
+				playsound minecraft:skill.2101005_use player @a ~ ~ ~ 1 1 0
+			}
+			
+			func summon_bullet()
+			{
+				# max_distance should be set to (#DISTANCE temp + 3)
+				summon minecraft:armor_stand ~ ~ ~ {Tags:["first_bullet","last_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:10,max_distance:7,skill_id:3,bullet_model:2100,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
+			}
+			
+			func set_numeric()
+			{
+				data modify storage skill:main damage set value [{min_damage:0,max_damage:0,accuracy:0,player_level:0,crit_rate:0,crit_damage:0,base_percent:100,attribute:3}]
+				scoreboard players operation #SKILL_MASTERY temp = @s 2101005_mastery
+				scoreboard players operation #SPELL_ATTACK temp = @s 2101005_attack
+				
+				scoreboard players operation #POISON_RATE temp = @s 2101005_rate
+				scoreboard players set #POISON_HP_RATE temp 70
+				scoreboard players operation #POISON_HP_RATE temp -= @s 2101005_level
+				scoreboard players operation #POISON_TIME temp = @s 2101005_poison
+				
+				function skill:damage_formula/spell
+				
+				scoreboard players operation @s mp -= @s 2101005_mp
+				function bar_display:change/mp/dropped
+				
+				scoreboard players set @s action_time 16
+			}
+			
+			func add_debuff()
+			{
+				execute if entity @s[tag=!dead,tag=!poison_immune] run function ARG(_PATH)try_poison
+			}
+			
+			func try_poison()
+			{
+				function main:rand_rate
+				execute if score #RAND_RESULT temp < #POISON_RATE temp run function skill:mob_effect/debuff/poison
+			}
+			
+			func effect()
+			{
+				execute if score @s display_number matches 1.. run function skill:summon_font_effect/2101005hit
+				playsound minecraft:skill.2101005_hit hostile @a ~ ~ ~ 1 1 0
+			}
+			
+			func append_scheduler()
+			{
+				data modify storage skill:main new_schedule append value 0
+				execute store result storage skill:main new_schedule[-1] int 1 run schedule function ARG(_PATH)hit_effect 1t append
 			}
 		}
 	}

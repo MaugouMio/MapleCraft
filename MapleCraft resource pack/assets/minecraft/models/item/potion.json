@@ -7,13 +7,14 @@
 	"overrides": [
 		{"predicate": {"custom_model_data": 1},"model": "item/empty"},
 		
-		{"predicate": {"custom_model_data": 4000},"model": "item/skill/throwing_star/subi"},
-		{"predicate": {"custom_model_data": 4001},"model": "item/skill/throwing_star/wolbi"},
-		{"predicate": {"custom_model_data": 4002},"model": "item/skill/throwing_star/mokbi"},
-		{"predicate": {"custom_model_data": 4003},"model": "item/skill/throwing_star/kumbi"},
-		{"predicate": {"custom_model_data": 4004},"model": "item/skill/throwing_star/tobi"},
-		{"predicate": {"custom_model_data": 4005},"model": "item/skill/throwing_star/steely"},
-		{"predicate": {"custom_model_data": 4006},"model": "item/skill/throwing_star/ilbi"},
+		{"predicate": {"custom_model_data": 2100},"model": "skill/210/1005/ball"},
+		{"predicate": {"custom_model_data": 4000},"model": "skill/throwing_star/subi"},
+		{"predicate": {"custom_model_data": 4001},"model": "skill/throwing_star/wolbi"},
+		{"predicate": {"custom_model_data": 4002},"model": "skill/throwing_star/mokbi"},
+		{"predicate": {"custom_model_data": 4003},"model": "skill/throwing_star/kumbi"},
+		{"predicate": {"custom_model_data": 4004},"model": "skill/throwing_star/tobi"},
+		{"predicate": {"custom_model_data": 4005},"model": "skill/throwing_star/steely"},
+		{"predicate": {"custom_model_data": 4006},"model": "skill/throwing_star/ilbi"},
 		
 		{"predicate": {"custom_model_data": 10000},"model": "mob/zombie_mushroom/move"},
 		{"predicate": {"custom_model_data": 10001},"model": "mob/zombie_mushroom/stand"},
