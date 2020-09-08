@@ -8,6 +8,10 @@ namespace 23() as virtual
 	
 	func install()
 	{
+		scoreboard objectives add 2301005_mp dummy
+		scoreboard objectives add 2301005_mastery dummy
+		scoreboard objectives add 2301005_attack dummy
+		
 		function ARG(_PATH)1/install
 		function ARG(_PATH)2/install
 	}
@@ -38,11 +42,73 @@ namespace 23() as virtual
 			}
 		}
 		
-		folder 1005()
+		folder 1005() from bullet_skill_template(2301005)
 		{
 			func check()
 			{
+				execute unless score @s action_time matches 0.. if score @s[nbt={OnGround:1b}] 2301005_level matches 1.. run function ARG(_PATH)other_check
+			}
+			
+			func other_check()
+			{
+				execute store result score #USED_WEAPON temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_type
+				execute if score #USED_WEAPON temp matches 0 run tellraw @s {"translate":"warning.skill.no_weapon","color":"red"}
 				
+				execute if score #USED_WEAPON temp matches 1.. if score @s mp < @s 2301005_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
+				execute if score #USED_WEAPON temp matches 1.. if score @s mp >= @s 2301005_mp run function ARG(_PATH)run
+			}
+			
+			func mark_target()
+			{
+				scoreboard players set #DISTANCE temp 4
+				scoreboard players set #MAX_ENEMY temp 1
+				function skill:enemy_search/search_front/search
+			}
+				
+			func cast_effect()
+			{
+				execute rotated ~ 0 run summon minecraft:armor_stand ^ ^ ^1.7 {Tags:["model_animation","new"],Invisible:1,Invulnerable:1,NoGravity:1,Marker:1,Fire:32767s,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:230000}}]}
+				execute as @e[type=armor_stand,tag=new,limit=1] run function ARG(_PATH)effect_model_set
+				playsound minecraft:skill.2301005 player @a ~ ~ ~ 1 1 0
+			}
+			
+			func effect_model_set()
+			{
+				execute positioned as @s run tp @s ~ ~ ~ ~ ~
+				scoreboard players set @s max_life 14
+				scoreboard players set @s base_model 230000
+				tag @s remove new
+			}
+			
+			func summon_bullet()
+			{
+				# max_distance should be set to (#DISTANCE temp + 3)
+				summon minecraft:armor_stand ~ ~ ~ {Tags:["first_bullet","last_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:10,max_distance:7,skill_id:5,bullet_model:2300,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
+			}
+			
+			func set_numeric()
+			{
+				data modify storage skill:main damage set value [{min_damage:0,max_damage:0,accuracy:0,player_level:0,crit_rate:0,crit_damage:0,base_percent:100,attribute:6}]
+				scoreboard players operation #SKILL_MASTERY temp = @s 2301005_mastery
+				scoreboard players operation #SPELL_ATTACK temp = @s 2301005_attack
+				function skill:damage_formula/spell
+				
+				scoreboard players operation @s mp -= @s 2301005_mp
+				function bar_display:change/mp/dropped
+				
+				scoreboard players set @s action_time 16
+			}
+			
+			func effect()
+			{
+				execute if score @s display_number matches 1.. run function skill:summon_font_effect/2301005hit
+				function skill:mob_effect/play_hurt_sound/run
+			}
+			
+			func append_scheduler()
+			{
+				data modify storage skill:main new_schedule append value 0
+				execute store result storage skill:main new_schedule[-1] int 1 run schedule function ARG(_PATH)hit_effect 1t append
 			}
 		}
 	}
