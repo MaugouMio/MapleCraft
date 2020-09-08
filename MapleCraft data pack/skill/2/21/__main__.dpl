@@ -74,7 +74,7 @@ namespace 21() as virtual
 				
 			func cast_effect()
 			{
-				execute rotated ~ 0 run summon minecraft:armor_stand ^ ^ ^1.7 {Tags:["model_animation","new"],Invisible:1,Invulnerable:1,NoGravity:1,Marker:1,Fire:32767s,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:210000}}]}
+				execute rotated ~ 0 run summon minecraft:armor_stand ^ ^ ^1 {Tags:["model_animation","new"],Invisible:1,Invulnerable:1,NoGravity:1,Marker:1,Fire:32767s,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:210000}}]}
 				execute as @e[type=armor_stand,tag=new,limit=1] run function ARG(_PATH)effect_model_set
 				playsound minecraft:skill.2101004 player @a ~ ~ ~ 1 1 0
 			}
