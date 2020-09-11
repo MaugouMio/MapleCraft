@@ -15,6 +15,10 @@ namespace 22() as virtual
 		# 2/4/6 seconds for different level intervals
 		scoreboard objectives add 2201004_freeze dummy
 		
+		scoreboard objectives add 2201005_mp dummy
+		scoreboard objectives add 2201005_mastery dummy
+		scoreboard objectives add 2201005_attack dummy
+		
 		function ARG(_PATH)1/install
 		function ARG(_PATH)2/install
 	}
@@ -82,11 +86,58 @@ namespace 22() as virtual
 			}
 		}
 		
-		folder 1005()
+		folder 1005() from attack_skill_template(2201005)
 		{
+			
 			func check()
 			{
+				execute unless score @s action_time matches 0.. if score @s[nbt={OnGround:1b}] 2201005_level matches 1.. run function ARG(_PATH)other_check
+			}
+			
+			func other_check()
+			{
+				execute store result score #USED_WEAPON temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_type
+				execute if score #USED_WEAPON temp matches 0 run tellraw @s {"translate":"warning.skill.no_weapon","color":"red"}
 				
+				execute if score #USED_WEAPON temp matches 1.. if score @s mp < @s 2201005_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
+				execute if score #USED_WEAPON temp matches 1.. if score @s mp >= @s 2201005_mp run function ARG(_PATH)run
+			}
+			
+			func mark_target()
+			{
+				scoreboard players set #MAX_ENEMY temp 6
+				execute positioned ~ ~-2.5 ~ run tag @e[type=minecraft:zombified_piglin,tag=enemy,tag=!dead,distance=..5,limit=6,sort=nearest] add target
+			}
+			
+			func cast_effect()
+			{
+				execute positioned ~ ~0.2 ~ run function skill:summon_font_effect/2201005effect
+				playsound minecraft:skill.2201005 player @a ~ ~ ~ 1 1 0
+			}
+			
+			func set_numeric()
+			{
+				data modify storage skill:main damage set value [{min_damage:0,max_damage:0,accuracy:0,player_level:0,crit_rate:0,crit_damage:0,base_percent:100,attribute:5}]
+				scoreboard players operation #SKILL_MASTERY temp = @s 2201005_mastery
+				scoreboard players operation #SPELL_ATTACK temp = @s 2201005_attack
+				function skill:damage_formula/spell
+				
+				scoreboard players operation @s mp -= @s 2201005_mp
+				function bar_display:change/mp/dropped
+				
+				scoreboard players set @s action_time 16
+			}
+			
+			func effect()
+			{
+				execute if score @s display_number matches 1.. run function skill:summon_font_effect/2201005hit
+				function skill:mob_effect/play_hurt_sound/run
+			}
+			
+			func append_scheduler()
+			{
+				data modify storage skill:main new_schedule append value 0
+				execute store result storage skill:main new_schedule[-1] int 1 run schedule function ARG(_PATH)hit_effect 8t append
 			}
 		}
 	}
