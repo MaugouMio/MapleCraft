@@ -1169,6 +1169,78 @@ namespace skill()
 				function ARG(__PATH)write_values
 			}
 		}
+		
+		folder crossbow()
+		{
+			func normal()
+			{
+				# weapon attack
+				execute store result score #WEAPON_ATTACK temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_attack
+				scoreboard players operation #WEAPON_ATTACK temp += #BULLET_DAMAGE temp
+				
+				scoreboard players operation #MAX_DAMAGE temp = @s DEX
+				scoreboard players operation #MAX_DAMAGE temp *= #36 const
+				scoreboard players operation #MAX_DAMAGE temp /= #10 const
+				
+				scoreboard players operation #MIN_DAMAGE temp = #MAX_DAMAGE temp
+				scoreboard players operation #MIN_DAMAGE temp *= #9 const
+				scoreboard players operation @s crossbow_mastery > #10 const
+				scoreboard players operation #MIN_DAMAGE temp *= @s crossbow_mastery
+				scoreboard players operation #MIN_DAMAGE temp /= #1000 const
+				
+				scoreboard players operation #MAX_DAMAGE temp += @s STR
+				scoreboard players operation #MAX_DAMAGE temp *= #WEAPON_ATTACK temp
+				scoreboard players operation #MAX_DAMAGE temp /= #100 const
+				
+				scoreboard players operation #MIN_DAMAGE temp += @s STR
+				scoreboard players operation #MIN_DAMAGE temp *= #WEAPON_ATTACK temp
+				scoreboard players operation #MIN_DAMAGE temp /= #100 const
+				
+				# crit
+				scoreboard players operation #CRIT_RATE temp = @s crit_rate
+				scoreboard players operation #CRIT_DAMAGE temp = @s crit_damage
+				execute if score @s addi_crit_rate matches 1.. run function ARG(__PATH)addi_crit
+				
+				function ARG(_PATH)other_formula
+			}
+			
+			func power_knock_back()
+			{
+				# weapon attack
+				execute store result score #WEAPON_ATTACK temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_attack
+				
+				scoreboard players operation #MAX_DAMAGE temp = @s DEX
+				scoreboard players operation #MAX_DAMAGE temp *= #34 const
+				scoreboard players operation #MAX_DAMAGE temp /= #10 const
+				
+				scoreboard players operation #MIN_DAMAGE temp = #MAX_DAMAGE temp
+				scoreboard players operation #MIN_DAMAGE temp *= #9 const
+				scoreboard players operation #MIN_DAMAGE temp /= #100 const
+				
+				scoreboard players operation #MAX_DAMAGE temp += @s STR
+				scoreboard players operation #MAX_DAMAGE temp *= #WEAPON_ATTACK temp
+				scoreboard players operation #MAX_DAMAGE temp /= #150 const
+				
+				scoreboard players operation #MIN_DAMAGE temp += @s STR
+				scoreboard players operation #MIN_DAMAGE temp *= #WEAPON_ATTACK temp
+				scoreboard players operation #MIN_DAMAGE temp /= #150 const
+				
+				# reset crit
+				scoreboard players set #CRIT_RATE temp 0
+				scoreboard players set #CRIT_DAMAGE temp 0
+				
+				function ARG(_PATH)other_formula
+			}
+			
+			func other_formula()
+			{
+				# accuracy
+				function ARG(__PATH)accuracy/bow_thief_pirate
+				scoreboard players operation #ACCURACY temp += @s crossbow_accuracy
+				
+				function ARG(__PATH)write_values
+			}
+		}
 	}
 
 	folder calculate_damage()
