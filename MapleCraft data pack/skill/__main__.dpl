@@ -1008,6 +1008,35 @@ namespace skill()
 				function ARG(_PATH)other_formula
 			}
 			
+			func punch()
+			{
+				# weapon attack
+				execute store result score #WEAPON_ATTACK temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_attack
+				scoreboard players operation #MAX_DAMAGE temp = @s LUK
+				scoreboard players operation #MIN_DAMAGE temp = #MAX_DAMAGE temp
+				scoreboard players operation #MIN_DAMAGE temp /= #10 const
+				
+				scoreboard players operation #MAX_DAMAGE temp += @s STR
+				scoreboard players operation #MAX_DAMAGE temp += @s DEX
+				scoreboard players operation #MAX_DAMAGE temp *= #WEAPON_ATTACK temp
+				scoreboard players operation #MAX_DAMAGE temp /= #150 const
+				
+				scoreboard players operation #MIN_DAMAGE temp += @s STR
+				scoreboard players operation #MIN_DAMAGE temp += @s DEX
+				scoreboard players operation #MIN_DAMAGE temp *= #WEAPON_ATTACK temp
+				scoreboard players operation #MIN_DAMAGE temp /= #150 const
+				
+				# accuracy
+				function ARG(__PATH)accuracy/bow_thief_pirate
+				scoreboard players operation #ACCURACY temp += @s claw_accuracy
+				
+				# reset crit
+				scoreboard players set #CRIT_RATE temp 0
+				scoreboard players set #CRIT_DAMAGE temp 0
+				
+				function ARG(__PATH)write_values
+			}
+			
 			func other_formula()
 			{
 				# accuracy
