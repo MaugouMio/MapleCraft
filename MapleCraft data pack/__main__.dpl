@@ -105,6 +105,8 @@ namespace main()
 		scoreboard players set @s INT 4
 		scoreboard players set @s LUK 4
 		
+		function skill:player/reset_mastery
+		
 		effect give @s minecraft:absorption 1000000 255 true
 		attribute @s minecraft:generic.attack_damage base set -100.0
 	}
