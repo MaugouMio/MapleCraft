@@ -1372,53 +1372,30 @@ namespace skill()
 			}
 		}
 		
-		folder oh_sword()
+		folder sword()
 		{
-			func normal()
+			func one_hand()
 			{
-				# weapon attack
-				execute store result score #WEAPON_ATTACK temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_attack
-				
 				scoreboard players operation #MAX_DAMAGE temp = @s STR
 				scoreboard players operation #MAX_DAMAGE temp *= #4 const
 				
-				scoreboard players operation #MIN_DAMAGE temp = #MAX_DAMAGE temp
-				scoreboard players operation #MIN_DAMAGE temp *= #9 const
-				scoreboard players operation #MIN_DAMAGE temp *= @s sword_mastery
-				scoreboard players operation #MIN_DAMAGE temp /= #1000 const
-				
-				scoreboard players operation #MAX_DAMAGE temp += @s DEX
-				scoreboard players operation #MAX_DAMAGE temp *= #WEAPON_ATTACK temp
-				scoreboard players operation #MAX_DAMAGE temp /= #100 const
-				
-				scoreboard players operation #MIN_DAMAGE temp += @s DEX
-				scoreboard players operation #MIN_DAMAGE temp *= #WEAPON_ATTACK temp
-				scoreboard players operation #MIN_DAMAGE temp /= #100 const
-				
-				# accuracy
-				function ARG(__PATH)accuracy/job_check
-				scoreboard players operation #ACCURACY temp += @s sword_accuracy
-				
-				# crit
-				scoreboard players set #CRIT_RATE temp 0
-				scoreboard players set #CRIT_DAMAGE temp 0
-				execute if score @s addi_crit_rate matches 1.. run function ARG(__PATH)addi_crit
-				
-				function ARG(__PATH)write_values
+				function ARG(_PATH)other_formula
 			}
-		}
-		
-		folder th_sword()
-		{
-			func normal()
+			
+			func two_hand()
 			{
-				# weapon attack
-				execute store result score #WEAPON_ATTACK temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_attack
-				
 				scoreboard players operation #MAX_DAMAGE temp = @s STR
 				scoreboard players operation #MAX_DAMAGE temp *= #46 const
 				scoreboard players operation #MAX_DAMAGE temp /= #10 const
 				
+				function ARG(_PATH)other_formula
+			}
+			
+			func other_formula()
+			{
+				# weapon attack
+				execute store result score #WEAPON_ATTACK temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_attack
+				
 				scoreboard players operation #MIN_DAMAGE temp = #MAX_DAMAGE temp
 				scoreboard players operation #MIN_DAMAGE temp *= #9 const
 				scoreboard players operation #MIN_DAMAGE temp *= @s sword_mastery
@@ -1445,24 +1422,48 @@ namespace skill()
 			}
 		}
 		
-		folder oh_axe()
+		folder axe()
 		{
-			func swing()
+			folder one_hand()
 			{
-				scoreboard players operation #MAX_DAMAGE temp = @s STR
-				scoreboard players operation #MAX_DAMAGE temp *= #44 const
-				scoreboard players operation #MAX_DAMAGE temp /= #10 const
+				func swing()
+				{
+					scoreboard players operation #MAX_DAMAGE temp = @s STR
+					scoreboard players operation #MAX_DAMAGE temp *= #44 const
+					scoreboard players operation #MAX_DAMAGE temp /= #10 const
+					
+					function ARG(__PATH)other_formula
+				}
 				
-				function ARG(_PATH)other_formula
+				func stab()
+				{
+					scoreboard players operation #MAX_DAMAGE temp = @s STR
+					scoreboard players operation #MAX_DAMAGE temp *= #32 const
+					scoreboard players operation #MAX_DAMAGE temp /= #10 const
+					
+					function ARG(__PATH)other_formula
+				}
 			}
 			
-			func stab()
+			folder two_hand()
 			{
-				scoreboard players operation #MAX_DAMAGE temp = @s STR
-				scoreboard players operation #MAX_DAMAGE temp *= #32 const
-				scoreboard players operation #MAX_DAMAGE temp /= #10 const
+				func swing()
+				{
+					scoreboard players operation #MAX_DAMAGE temp = @s STR
+					scoreboard players operation #MAX_DAMAGE temp *= #48 const
+					scoreboard players operation #MAX_DAMAGE temp /= #10 const
+					
+					function ARG(__PATH)other_formula
+				}
 				
-				function ARG(_PATH)other_formula
+				func stab()
+				{
+					scoreboard players operation #MAX_DAMAGE temp = @s STR
+					scoreboard players operation #MAX_DAMAGE temp *= #34 const
+					scoreboard players operation #MAX_DAMAGE temp /= #10 const
+					
+					function ARG(__PATH)other_formula
+				}
 			}
 			
 			func other_formula()
@@ -1496,126 +1497,48 @@ namespace skill()
 			}
 		}
 		
-		folder th_axe()
+		folder blunt()
 		{
-			func swing()
+			folder one_hand()
 			{
-				scoreboard players operation #MAX_DAMAGE temp = @s STR
-				scoreboard players operation #MAX_DAMAGE temp *= #48 const
-				scoreboard players operation #MAX_DAMAGE temp /= #10 const
+				func swing()
+				{
+					scoreboard players operation #MAX_DAMAGE temp = @s STR
+					scoreboard players operation #MAX_DAMAGE temp *= #44 const
+					scoreboard players operation #MAX_DAMAGE temp /= #10 const
+					
+					function ARG(__PATH)other_formula
+				}
 				
-				function ARG(_PATH)other_formula
+				func stab()
+				{
+					scoreboard players operation #MAX_DAMAGE temp = @s STR
+					scoreboard players operation #MAX_DAMAGE temp *= #32 const
+					scoreboard players operation #MAX_DAMAGE temp /= #10 const
+					
+					function ARG(__PATH)other_formula
+				}
 			}
 			
-			func stab()
+			folder two_hand()
 			{
-				scoreboard players operation #MAX_DAMAGE temp = @s STR
-				scoreboard players operation #MAX_DAMAGE temp *= #34 const
-				scoreboard players operation #MAX_DAMAGE temp /= #10 const
+				func swing()
+				{
+					scoreboard players operation #MAX_DAMAGE temp = @s STR
+					scoreboard players operation #MAX_DAMAGE temp *= #48 const
+					scoreboard players operation #MAX_DAMAGE temp /= #10 const
+					
+					function ARG(__PATH)other_formula
+				}
 				
-				function ARG(_PATH)other_formula
-			}
-			
-			func other_formula()
-			{
-				# weapon attack
-				execute store result score #WEAPON_ATTACK temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_attack
-				
-				scoreboard players operation #MIN_DAMAGE temp = #MAX_DAMAGE temp
-				scoreboard players operation #MIN_DAMAGE temp *= #9 const
-				scoreboard players operation #MIN_DAMAGE temp *= @s axe_mastery
-				scoreboard players operation #MIN_DAMAGE temp /= #1000 const
-				
-				scoreboard players operation #MAX_DAMAGE temp += @s DEX
-				scoreboard players operation #MAX_DAMAGE temp *= #WEAPON_ATTACK temp
-				scoreboard players operation #MAX_DAMAGE temp /= #100 const
-				
-				scoreboard players operation #MIN_DAMAGE temp += @s DEX
-				scoreboard players operation #MIN_DAMAGE temp *= #WEAPON_ATTACK temp
-				scoreboard players operation #MIN_DAMAGE temp /= #100 const
-				
-				# accuracy
-				function ARG(__PATH)accuracy/job_check
-				scoreboard players operation #ACCURACY temp += @s axe_accuracy
-				
-				# crit
-				scoreboard players set #CRIT_RATE temp 0
-				scoreboard players set #CRIT_DAMAGE temp 0
-				execute if score @s addi_crit_rate matches 1.. run function ARG(__PATH)addi_crit
-				
-				function ARG(__PATH)write_values
-			}
-		}
-		
-		folder oh_blunt()
-		{
-			func swing()
-			{
-				scoreboard players operation #MAX_DAMAGE temp = @s STR
-				scoreboard players operation #MAX_DAMAGE temp *= #44 const
-				scoreboard players operation #MAX_DAMAGE temp /= #10 const
-				
-				function ARG(_PATH)other_formula
-			}
-			
-			func stab()
-			{
-				scoreboard players operation #MAX_DAMAGE temp = @s STR
-				scoreboard players operation #MAX_DAMAGE temp *= #32 const
-				scoreboard players operation #MAX_DAMAGE temp /= #10 const
-				
-				function ARG(_PATH)other_formula
-			}
-			
-			func other_formula()
-			{
-				# weapon attack
-				execute store result score #WEAPON_ATTACK temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_attack
-				
-				scoreboard players operation #MIN_DAMAGE temp = #MAX_DAMAGE temp
-				scoreboard players operation #MIN_DAMAGE temp *= #9 const
-				scoreboard players operation #MIN_DAMAGE temp *= @s blunt_mastery
-				scoreboard players operation #MIN_DAMAGE temp /= #1000 const
-				
-				scoreboard players operation #MAX_DAMAGE temp += @s DEX
-				scoreboard players operation #MAX_DAMAGE temp *= #WEAPON_ATTACK temp
-				scoreboard players operation #MAX_DAMAGE temp /= #100 const
-				
-				scoreboard players operation #MIN_DAMAGE temp += @s DEX
-				scoreboard players operation #MIN_DAMAGE temp *= #WEAPON_ATTACK temp
-				scoreboard players operation #MIN_DAMAGE temp /= #100 const
-				
-				# accuracy
-				function ARG(__PATH)accuracy/job_check
-				scoreboard players operation #ACCURACY temp += @s blunt_accuracy
-				
-				# crit
-				scoreboard players set #CRIT_RATE temp 0
-				scoreboard players set #CRIT_DAMAGE temp 0
-				execute if score @s addi_crit_rate matches 1.. run function ARG(__PATH)addi_crit
-				
-				function ARG(__PATH)write_values
-			}
-		}
-		
-		folder th_blunt()
-		{
-			func swing()
-			{
-				scoreboard players operation #MAX_DAMAGE temp = @s STR
-				scoreboard players operation #MAX_DAMAGE temp *= #48 const
-				scoreboard players operation #MAX_DAMAGE temp /= #10 const
-				
-				function ARG(_PATH)other_formula
-			}
-			
-			func stab()
-			{
-				scoreboard players operation #MAX_DAMAGE temp = @s STR
-				scoreboard players operation #MAX_DAMAGE temp *= #34 const
-				scoreboard players operation #MAX_DAMAGE temp /= #10 const
-				
-				function ARG(_PATH)other_formula
+				func stab()
+				{
+					scoreboard players operation #MAX_DAMAGE temp = @s STR
+					scoreboard players operation #MAX_DAMAGE temp *= #34 const
+					scoreboard players operation #MAX_DAMAGE temp /= #10 const
+					
+					function ARG(__PATH)other_formula
+				}
 			}
 			
 			func other_formula()
