@@ -4,7 +4,7 @@ import random
 ```
 skill_ids = []
 
-mastery_weapons = ["claw", "dagger", "bow", "crossbow", "spear", "polearm"]
+mastery_weapons = ["claw", "dagger", "bow", "crossbow", "spear", "polearm", "oh_sword", "th_sword"]
 ```
 
 namespace attack_skill_template(skill_id) as virtual
@@ -1362,6 +1362,79 @@ namespace skill()
 				# accuracy
 				function ARG(__PATH)accuracy/job_check
 				scoreboard players operation #ACCURACY temp += @s polearm_accuracy
+				
+				# crit
+				scoreboard players set #CRIT_RATE temp 0
+				scoreboard players set #CRIT_DAMAGE temp 0
+				execute if score @s addi_crit_rate matches 1.. run function ARG(__PATH)addi_crit
+				
+				function ARG(__PATH)write_values
+			}
+		}
+		
+		folder oh_sword()
+		{
+			func normal()
+			{
+				# weapon attack
+				execute store result score #WEAPON_ATTACK temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_attack
+				
+				scoreboard players operation #MAX_DAMAGE temp = @s STR
+				scoreboard players operation #MAX_DAMAGE temp *= #4 const
+				
+				scoreboard players operation #MIN_DAMAGE temp = #MAX_DAMAGE temp
+				scoreboard players operation #MIN_DAMAGE temp *= #9 const
+				scoreboard players operation #MIN_DAMAGE temp *= @s oh_sword_mastery
+				scoreboard players operation #MIN_DAMAGE temp /= #1000 const
+				
+				scoreboard players operation #MAX_DAMAGE temp += @s DEX
+				scoreboard players operation #MAX_DAMAGE temp *= #WEAPON_ATTACK temp
+				scoreboard players operation #MAX_DAMAGE temp /= #100 const
+				
+				scoreboard players operation #MIN_DAMAGE temp += @s DEX
+				scoreboard players operation #MIN_DAMAGE temp *= #WEAPON_ATTACK temp
+				scoreboard players operation #MIN_DAMAGE temp /= #100 const
+				
+				# accuracy
+				function ARG(__PATH)accuracy/job_check
+				scoreboard players operation #ACCURACY temp += @s oh_sword_accuracy
+				
+				# crit
+				scoreboard players set #CRIT_RATE temp 0
+				scoreboard players set #CRIT_DAMAGE temp 0
+				execute if score @s addi_crit_rate matches 1.. run function ARG(__PATH)addi_crit
+				
+				function ARG(__PATH)write_values
+			}
+		}
+		
+		folder th_sword()
+		{
+			func normal()
+			{
+				# weapon attack
+				execute store result score #WEAPON_ATTACK temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_attack
+				
+				scoreboard players operation #MAX_DAMAGE temp = @s STR
+				scoreboard players operation #MAX_DAMAGE temp *= #46 const
+				scoreboard players operation #MAX_DAMAGE temp /= #10 const
+				
+				scoreboard players operation #MIN_DAMAGE temp = #MAX_DAMAGE temp
+				scoreboard players operation #MIN_DAMAGE temp *= #9 const
+				scoreboard players operation #MIN_DAMAGE temp *= @s th_sword_mastery
+				scoreboard players operation #MIN_DAMAGE temp /= #1000 const
+				
+				scoreboard players operation #MAX_DAMAGE temp += @s DEX
+				scoreboard players operation #MAX_DAMAGE temp *= #WEAPON_ATTACK temp
+				scoreboard players operation #MAX_DAMAGE temp /= #100 const
+				
+				scoreboard players operation #MIN_DAMAGE temp += @s DEX
+				scoreboard players operation #MIN_DAMAGE temp *= #WEAPON_ATTACK temp
+				scoreboard players operation #MIN_DAMAGE temp /= #100 const
+				
+				# accuracy
+				function ARG(__PATH)accuracy/job_check
+				scoreboard players operation #ACCURACY temp += @s th_sword_accuracy
 				
 				# crit
 				scoreboard players set #CRIT_RATE temp 0
