@@ -60,7 +60,7 @@ namespace 23() as virtual
 			
 			func mark_target()
 			{
-				scoreboard players set #DISTANCE temp 4
+				scoreboard players set #DISTANCE temp 8
 				scoreboard players set #MAX_ENEMY temp 1
 				function skill:enemy_search/search_front/search
 			}
@@ -82,7 +82,7 @@ namespace 23() as virtual
 			
 			func summon_bullet()
 			{
-				# max_distance should be set to (#DISTANCE temp + 3)
+				# max_distance should be set to (#DISTANCE temp / 2 + 3)
 				summon minecraft:armor_stand ~ ~ ~ {Tags:["first_bullet","last_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:10,max_distance:7,skill_id:5,bullet_model:2300,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
 			}
 			

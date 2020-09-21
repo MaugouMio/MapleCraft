@@ -119,7 +119,11 @@ namespace 4() as virtual
 				
 				func mark_target()
 				{
-					scoreboard players set #DISTANCE temp 8
+					```
+					raise Warning("TODO: set mark_target distance according to keen eyes")
+					```
+					# scoreboard players operation #DISTANCE temp = @s keen_eyes_dist
+					scoreboard players set #DISTANCE temp 16
 					scoreboard players set #MAX_ENEMY temp 1
 					function skill:enemy_search/search_front/search
 				}
@@ -142,7 +146,7 @@ namespace 4() as virtual
 				
 				func summon_bullet()
 				{
-					# max_distance should be set to (#DISTANCE temp + 3)
+					# max_distance should be set to (#DISTANCE temp / 2 + 3)
 					summon minecraft:armor_stand ~ ~0.2 ~ {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:6,max_distance:11,skill_id:2,bullet_model:4005,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
 					summon minecraft:armor_stand ~ ~-0.2 ~ {Tags:["last_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:8,max_distance:11,skill_id:2,bullet_model:4005,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
 					```

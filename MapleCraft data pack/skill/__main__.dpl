@@ -824,12 +824,12 @@ namespace skill()
 
 	folder enemy_search()
 	{
-		folder search_front() from for_loop().for("#DISTANCE temp", "if score #FOUND_ENEMY temp < #MAX_ENEMY temp positioned ^ ^ ^1")
+		folder search_front() from for_loop().for("#DISTANCE temp", "if score #FOUND_ENEMY temp < #MAX_ENEMY temp positioned ^ ^ ^0.5")
 		{
 			func search()
 			{
 				scoreboard players set #FOUND_ENEMY temp 0
-				execute at @s rotated ~ 0 positioned ^ ^ ^1 run function ARG(_PATH)run
+				execute at @s rotated ~ 0 positioned ^ ^ ^0.5 run function ARG(_PATH)run
 			}
 			
 			func execute()
