@@ -2036,6 +2036,23 @@ namespace skill()
 			}
 		}
 		
+		folder dagger()
+		{
+			func swing()
+			{
+				scoreboard players set #RANGE_MAX temp 3
+				function main:rand_range
+				scoreboard players add #RAND_RANGE_RESULT temp 1000003
+				function ARG(__PATH)summon_model
+			}
+			
+			func stab()
+			{
+				scoreboard players set #RAND_RANGE_RESULT temp 1000006
+				function ARG(__PATH)summon_model
+			}
+		}
+		
 		func summon_model()
 		{
 			execute rotated ~ 0 run summon minecraft:armor_stand ^ ^ ^0.7 {Tags:["afterimage","new"],Invisible:1,Invulnerable:1,NoGravity:1,Marker:1,Fire:32767s,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:1}}]}

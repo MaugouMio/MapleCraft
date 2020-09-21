@@ -8,6 +8,9 @@ namespace 4() as virtual
 	
 	func install()
 	{
+		scoreboard objectives add 4001334_mp dummy
+		scoreboard objectives add 4001334_attack dummy
+		
 		scoreboard objectives add 4001344_mp dummy
 		scoreboard objectives add 4001344_attack dummy
 		
@@ -35,11 +38,68 @@ namespace 4() as virtual
 				}
 			}
 			
-			folder 1334()
+			folder 1334() from attack_skill_template(4001334)
 			{
 				func check()
 				{
+					execute unless score @s action_time matches 0.. if score @s 4001334_level matches 1.. run function ARG(_PATH)other_check
+				}
+				
+				func other_check()
+				{
+					function skill:check_weapon/dagger/run
+					execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 4001334_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
+					execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp >= @s 4001334_mp run function ARG(_PATH)run
+				}
+				
+				func mark_target()
+				{
+					scoreboard players set #DISTANCE temp 1
+					scoreboard players set #MAX_ENEMY temp 1
+					function skill:enemy_search/search_front/search
+				}
+				
+				func cast_effect()
+				{
+					function skill:afterimage/dagger/stab
+					playsound minecraft:skill.4001334_use player @a ~ ~ ~ 1 1 0
+				}
+				
+				func set_numeric()
+				{
+					data modify storage skill:main damage set value [{min_damage:0,max_damage:0,accuracy:0,player_level:0,crit_rate:0,crit_damage:0,base_percent:100,attribute:0}]
+					execute store result storage skill:main damage[0].base_percent int 1 run scoreboard players get @s 4001334_attack
+					function skill:damage_formula/dagger/thief
 					
+					# 2 times
+					data modify storage skill:main damage append from storage skill:main damage[0]
+					
+					scoreboard players operation @s mp -= @s 4001334_mp
+					function bar_display:change/mp/dropped
+					
+					scoreboard players set @s action_time 15
+				}
+				
+				func effect()
+				{
+					execute if score @s display_number matches 1.. run function ARG(_PATH)rand_hit_effect
+					function skill:mob_effect/play_hurt_sound/run
+				}
+				
+				func rand_hit_effect()
+				{
+					scoreboard players set #RANGE_MAX temp 6
+					function main:rand_range
+					execute if score #RAND_RANGE_RESULT temp matches 0..2 run function skill:summon_font_effect/4001334hit0
+					execute if score #RAND_RANGE_RESULT temp matches 3..5 run function skill:summon_font_effect/4001334hit1
+				}
+				
+				func append_scheduler()
+				{
+					data modify storage skill:main new_schedule append value 0
+					execute store result storage skill:main new_schedule[-1] int 1 run schedule function ARG(_PATH)hit_effect 7t append
+					data modify storage skill:main new_schedule append value 0
+					execute store result storage skill:main new_schedule[-1] int 1 run schedule function ARG(_PATH)hit_effect 9t append
 				}
 			}
 			
