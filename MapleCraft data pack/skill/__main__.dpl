@@ -83,7 +83,7 @@ namespace attack_skill_template(skill_id) as virtual
 		
 		data modify entity @s Motion set from entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].knock_back
 		
-		data modify entity @s ArmorItems[3].tag.AttributeModifiers[{Name:"move_control"}].Amount set value -1.0
+		attribute @s minecraft:generic.movement_speed modifier add 495407c5-10c0-4270-84ed-c566e01e6952 move_control -100.0 add
 	}
 	
 	func hit()
@@ -218,7 +218,7 @@ namespace bullet_skill_template(skill_id) as virtual
 		
 		data modify entity @s Motion set from entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].knock_back
 		
-		data modify entity @s ArmorItems[3].tag.AttributeModifiers[{Name:"move_control"}].Amount set value -1.0
+		attribute @s minecraft:generic.movement_speed modifier add 495407c5-10c0-4270-84ed-c566e01e6952 move_control -100.0 add
 	}
 	
 	func hit()
@@ -555,7 +555,7 @@ namespace skill()
 				func reset()
 				{
 					function ARG(__PATH)status_change/run
-					data modify entity @s[tag=!dead] ArmorItems[3].tag.AttributeModifiers[{Name:"move_control"}].Amount set value 0.0
+					attribute @s minecraft:generic.movement_speed modifier remove 495407c5-10c0-4270-84ed-c566e01e6952
 					scoreboard players reset @s kb_time
 				}
 			}
@@ -829,7 +829,7 @@ namespace skill()
 			func search()
 			{
 				scoreboard players set #FOUND_ENEMY temp 0
-				execute at @s rotated ~ 0 positioned ^ ^ ^0.5 run function ARG(_PATH)run
+				execute at @s rotated ~ 0 run function ARG(_PATH)run
 			}
 			
 			func execute()
@@ -1640,7 +1640,8 @@ namespace skill()
 		
 		func record_dead()
 		{
-			data merge entity @s {Attributes:[{Name:"generic.attack_damage",Base:0.0},{Name:"generic.movement_speed",Base:0.0}]}
+			attribute @s minecraft:generic.attack_damage base set -100.0
+			attribute @s minecraft:generic.movement_speed base set -100.0
 			loot spawn ~ ~ ~ kill @s
 			```
 			raise Warning("TODO: give exp to killer player")
@@ -1883,7 +1884,7 @@ namespace skill()
 				execute store result score #GLOBAL temp run scoreboard players set @s status 2
 				execute store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players operation #GLOBAL temp += @s base_model
 				
-				data modify entity @s ArmorItems[3].tag.AttributeModifiers[{Name:"move_control"}].Amount set value -1.0
+				attribute @s minecraft:generic.movement_speed modifier add 495407c5-10c0-4270-84ed-c566e01e6952 move_control -100.0 add
 			}
 			
 			func poison()
@@ -2086,9 +2087,9 @@ namespace skill()
 	
 	func test_mob()
 	{
-		execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["new","enemy","holy_weakness"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:10000,CustomPotionColor:-1,Unbreakable:1,AttributeModifiers:[{Name:"move_control",AttributeName:"generic.movement_speed",Amount:0.0,Operation:0,UUID:[I;0,1,0,1]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:9.5}],OnGround:1b,Team:"enemy"}
-		execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["new","enemy","holy_weakness"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:10000,CustomPotionColor:-1,Unbreakable:1,AttributeModifiers:[{Name:"move_control",AttributeName:"generic.movement_speed",Amount:0.0,Operation:0,UUID:[I;0,1,0,1]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:9.5}],OnGround:1b,Team:"enemy"}
-		execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["new","enemy","holy_weakness"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:10000,CustomPotionColor:-1,Unbreakable:1,AttributeModifiers:[{Name:"move_control",AttributeName:"generic.movement_speed",Amount:0.0,Operation:0,UUID:[I;0,1,0,1]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:9.5}],OnGround:1b,Team:"enemy"}
+		execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["new","enemy","holy_weakness"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:10000,CustomPotionColor:-1,Unbreakable:1}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:9.5},{Name:"generic.movement_speed",Base:0.2}],OnGround:1b,Team:"enemy"}
+		execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["new","enemy","holy_weakness"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:10000,CustomPotionColor:-1,Unbreakable:1}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:9.5},{Name:"generic.movement_speed",Base:0.2}],OnGround:1b,Team:"enemy"}
+		execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["new","enemy","holy_weakness"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:10000,CustomPotionColor:-1,Unbreakable:1}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:9.5},{Name:"generic.movement_speed",Base:0.2}],OnGround:1b,Team:"enemy"}
 		
 		scoreboard players set @e[type=zombified_piglin,tag=new] level 24
 		scoreboard players set @e[type=zombified_piglin,tag=new] hp_max 500

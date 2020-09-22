@@ -1,0 +1,29 @@
+{
+	"__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
+	"textures": {
+		"texture": "skill/afterimage/spear/stab/0"
+	},
+	"elements": [
+		{
+			"name": "Cube",
+			"from": [ -6.875, 0, 1.75 ], 
+			"to": [ 22.875, 0.1, 14.25 ], 
+			"rotation": { "origin": [ 8.0, 0.0, 8.0 ], "axis": "x", "angle": -22.5 },
+			"faces": {
+				"north": { "texture": "#texture", "uv": [ 0, 0, 0, 0 ] },
+				"east": { "texture": "#texture", "uv": [ 0, 0, 0, 0 ] },
+				"south": { "texture": "#texture", "uv": [ 0, 0, 0, 0 ] },
+				"west": { "texture": "#texture", "uv": [ 0, 0, 0, 0 ] },
+				"up": { "texture": "#texture", "uv": [ 0, 0, 16, 16 ] },
+				"down": { "texture": "#texture", "uv": [ 0, 16, 16, 0 ] }
+			}
+		}
+	],
+	"display": {
+		"head": {
+			"rotation": [ 0, -90, 0 ],
+			"translation": [ 0, 0, -24 ],
+			"scale": [ 3, 3, 3 ]
+		}
+	}
+}

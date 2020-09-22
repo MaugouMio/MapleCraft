@@ -135,6 +135,7 @@ namespace loop()
 		func execute()
 		{
 			function bar_display:loop/schedule_10s
+			effect give @a minecraft:saturation 10 100 true
 		}
 	}
 	
