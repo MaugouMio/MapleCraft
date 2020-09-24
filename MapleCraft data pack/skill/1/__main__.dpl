@@ -48,16 +48,45 @@ namespace 1() as virtual
 				
 				func mark_target()
 				{
-					# scoreboard players set #DISTANCE temp 2
+					scoreboard players operation #DISTANCE temp = #USED_WEAPON temp
+					# make single hand weapon %2 be 0
+					scoreboard players add #DISTANCE temp 1
+					scoreboard players operation #DISTANCE temp %= #2 const
+					scoreboard players add #DISTANCE temp 2
+					
 					scoreboard players set #MAX_ENEMY temp 1
 					function skill:enemy_search/search_front/search
 				}
 				
 				func cast_effect()
 				{
-					# function skill:afterimage/dagger/stab
+					function ARG(_PATH)swing_effect/check
 					execute positioned ~ ~0.2 ~ run function skill:summon_font_effect/1001004effect
 					playsound minecraft:skill.1001004 player @a ~ ~ ~ 1 1 0
+				}
+				
+				folder swing_effect()
+				{
+					func check()
+					{
+						execute if score #DISTANCE temp matches 2 run function ARG(_PATH)one_hand
+						execute if score #DISTANCE temp matches 3 run function ARG(_PATH)two_hand
+					}
+					
+					func one_hand()
+					{
+						execute if score @s #USED_WEAPON temp matches 23 run function skill:afterimage/dagger/random
+						execute if score @s #USED_WEAPON temp matches 19..21 run function skill:afterimage/staff/swing
+						execute if score @s #USED_WEAPON temp matches 5..7 run function skill:afterimage/oh_sword/random
+						execute if score @s #USED_WEAPON temp matches 9 run function skill:afterimage/oh_blunt/random
+					}
+					
+					func two_hand()
+					{
+						execute if score @s #USED_WEAPON temp matches 12..14 run function skill:afterimage/spear/random
+						execute if score @s #USED_WEAPON temp matches 8 run function skill:afterimage/th_sword/random
+						execute unless score @s #USED_WEAPON temp matches 8 if score @s #USED_WEAPON temp matches 6..10 run function skill:afterimage/th_axe/random
+					}
 				}
 				
 				func set_numeric()
