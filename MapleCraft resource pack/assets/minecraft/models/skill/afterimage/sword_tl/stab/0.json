@@ -1,13 +1,13 @@
 {
 	"__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
 	"textures": {
-		"texture": "skill/afterimage/sword_ol/stab/0"
+		"texture": "skill/afterimage/sword_tl/stab/0"
 	},
 	"elements": [
 		{
 			"name": "Cube",
-			"from": [ -4, 0, 0.25 ], 
-			"to": [ 20, 0.1, 15.75 ], 
+			"from": [ -7, 0, 2.125 ], 
+			"to": [ 23, 0.1, 13.875 ], 
 			"rotation": { "origin": [ 8.0, 0.0, 8.0 ], "axis": "x", "angle": 22.5 },
 			"faces": {
 				"north": { "texture": "#texture", "uv": [ 0, 0, 0, 0 ] },
@@ -22,8 +22,8 @@
 	"display": {
 		"head": {
 			"rotation": [ 0, -90, 0 ],
-			"translation": [ 0, -6, -10 ],
-			"scale": [ 1.5, 1.5, 1.5 ]
+			"translation": [ 0, 8, -26 ],
+			"scale": [ 3, 3, 3 ]
 		}
 	}
 }

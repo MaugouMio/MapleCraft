@@ -2039,17 +2039,17 @@ namespace skill()
 		
 		folder dagger()
 		{
-			func swing()
+			func random()
 			{
-				scoreboard players set #RANGE_MAX temp 3
+				scoreboard players set #RANGE_MAX temp 6
 				function main:rand_range
-				scoreboard players add #RAND_RANGE_RESULT temp 1000003
+				scoreboard players add #RAND_RANGE_RESULT temp 1000006
 				function ARG(__PATH)summon_model
 			}
 			
 			func stab()
 			{
-				scoreboard players set #RAND_RANGE_RESULT temp 1000006
+				scoreboard players set #RAND_RANGE_RESULT temp 1000009
 				function ARG(__PATH)summon_model
 			}
 		}

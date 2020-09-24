@@ -62,7 +62,7 @@ namespace 4() as virtual
 				func cast_effect()
 				{
 					function skill:afterimage/dagger/stab
-					playsound minecraft:skill.4001334_use player @a ~ ~ ~ 1 1 0
+					playsound minecraft:skill.4001334 player @a ~ ~ ~ 1 1 0
 				}
 				
 				func set_numeric()
