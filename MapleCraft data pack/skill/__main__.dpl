@@ -2034,12 +2034,16 @@ namespace skill()
 				function main:rand_range
 				scoreboard players add #RAND_RANGE_RESULT temp 1000000
 				function ARG(__PATH)summon_model
+				
+				playsound minecraft:skill.attack.punch player @a ~ ~ ~ 1 1 0
 			}
 			
 			func stab()
 			{
 				scoreboard players set #RAND_RANGE_RESULT temp 1000003
 				function ARG(__PATH)summon_model
+				
+				playsound minecraft:skill.attack.punch player @a ~ ~ ~ 1 1 0
 			}
 		}
 		
@@ -2051,12 +2055,16 @@ namespace skill()
 				function main:rand_range
 				scoreboard players add #RAND_RANGE_RESULT temp 1000012
 				function ARG(__PATH)summon_model
+				
+				playsound minecraft:skill.attack.sword_s player @a ~ ~ ~ 1 1 0
 			}
 			
 			func stab()
 			{
 				scoreboard players set #RAND_RANGE_RESULT temp 1000015
 				function ARG(__PATH)summon_model
+				
+				playsound minecraft:skill.attack.sword_s player @a ~ ~ ~ 1 1 0
 			}
 		}
 		
@@ -2068,12 +2076,16 @@ namespace skill()
 				function main:rand_range
 				scoreboard players add #RAND_RANGE_RESULT temp 1000006
 				function ARG(__PATH)summon_model
+				
+				playsound minecraft:skill.attack.sword_s player @a ~ ~ ~ 1 1 0
 			}
 			
 			func shoot()
 			{
 				scoreboard players set #RAND_RANGE_RESULT temp 1000048
 				function ARG(__PATH)summon_model
+				
+				playsound minecraft:skill.attack.bow player @a ~ ~ ~ 1 1 0
 			}
 		}
 		
@@ -2085,6 +2097,16 @@ namespace skill()
 				function main:rand_range
 				scoreboard players add #RAND_RANGE_RESULT temp 1000003
 				function ARG(__PATH)summon_model
+				
+				playsound minecraft:skill.attack.mace player @a ~ ~ ~ 1 1 0
+			}
+			
+			func shoot()
+			{
+				scoreboard players set #RAND_RANGE_RESULT temp 1000048
+				function ARG(__PATH)summon_model
+				
+				playsound minecraft:skill.attack.crossbow player @a ~ ~ ~ 1 1 0
 			}
 		}
 		
@@ -2094,6 +2116,21 @@ namespace skill()
 			{
 				scoreboard players set #RAND_RANGE_RESULT temp 1000037
 				function ARG(__PATH)summon_model
+				
+				playsound minecraft:skill.attack.mace player @a ~ ~ ~ 1 1 0
+			}
+		}
+		
+		folder polearm()
+		{
+			func random()
+			{
+				scoreboard players set #RANGE_MAX temp 12
+				function main:rand_range
+				scoreboard players add #RAND_RANGE_RESULT temp 1000018
+				function ARG(__PATH)summon_model
+				
+				playsound minecraft:skill.attack.polearm player @a ~ ~ ~ 1 1 0
 			}
 		}
 		
@@ -2105,6 +2142,8 @@ namespace skill()
 				function main:rand_range
 				scoreboard players add #RAND_RANGE_RESULT temp 1000018
 				function ARG(__PATH)summon_model
+				
+				playsound minecraft:skill.attack.spear player @a ~ ~ ~ 1 1 0
 			}
 		}
 		
@@ -2116,6 +2155,21 @@ namespace skill()
 				function main:rand_range
 				scoreboard players add #RAND_RANGE_RESULT temp 1000000
 				function ARG(__PATH)summon_model
+				
+				playsound minecraft:skill.attack.sword_s player @a ~ ~ ~ 1 1 0
+			}
+		}
+		
+		folder oh_axe()
+		{
+			func random()
+			{
+				scoreboard players set #RANGE_MAX temp 6
+				function main:rand_range
+				scoreboard players add #RAND_RANGE_RESULT temp 1000000
+				function ARG(__PATH)summon_model
+				
+				playsound minecraft:skill.attack.sword_l player @a ~ ~ ~ 1 1 0
 			}
 		}
 		
@@ -2127,6 +2181,8 @@ namespace skill()
 				function main:rand_range
 				scoreboard players add #RAND_RANGE_RESULT temp 1000036
 				function ARG(__PATH)summon_model
+				
+				playsound minecraft:skill.attack.mace player @a ~ ~ ~ 1 1 0
 			}
 		}
 		
@@ -2138,6 +2194,8 @@ namespace skill()
 				function main:rand_range
 				scoreboard players add #RAND_RANGE_RESULT temp 1000042
 				function ARG(__PATH)summon_model
+				
+				playsound minecraft:skill.attack.sword_l player @a ~ ~ ~ 1 1 0
 			}
 		}
 		
@@ -2149,6 +2207,21 @@ namespace skill()
 				function main:rand_range
 				scoreboard players add #RAND_RANGE_RESULT temp 1000030
 				function ARG(__PATH)summon_model
+				
+				playsound minecraft:skill.attack.sword_s player @a ~ ~ ~ 1 1 0
+			}
+		}
+		
+		folder th_blunt()
+		{
+			func random()
+			{
+				scoreboard players set #RANGE_MAX temp 6
+				function main:rand_range
+				scoreboard players add #RAND_RANGE_RESULT temp 1000030
+				function ARG(__PATH)summon_model
+				
+				playsound minecraft:skill.attack.mace player @a ~ ~ ~ 1 1 0
 			}
 		}
 		
