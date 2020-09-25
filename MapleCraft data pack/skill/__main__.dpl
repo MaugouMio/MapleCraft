@@ -1104,12 +1104,10 @@ namespace skill()
 				scoreboard players operation #MIN_DAMAGE temp /= #100 const
 				
 				scoreboard players operation #MAX_DAMAGE temp += @s DEX
-				scoreboard players operation #MAX_DAMAGE temp += @s STR
 				scoreboard players operation #MAX_DAMAGE temp *= #WEAPON_ATTACK temp
 				scoreboard players operation #MAX_DAMAGE temp /= #100 const
 				
 				scoreboard players operation #MIN_DAMAGE temp += @s DEX
-				scoreboard players operation #MIN_DAMAGE temp += @s STR
 				scoreboard players operation #MIN_DAMAGE temp *= #WEAPON_ATTACK temp
 				scoreboard players operation #MIN_DAMAGE temp /= #100 const
 				
