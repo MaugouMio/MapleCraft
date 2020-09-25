@@ -105,8 +105,7 @@ namespace 22() as virtual
 			
 			func mark_target()
 			{
-				scoreboard players set #MAX_ENEMY temp 6
-				execute positioned ~ ~-2.5 ~ run tag @e[type=minecraft:zombified_piglin,tag=enemy,tag=!dead,distance=..5,limit=6,sort=nearest] add target
+				execute positioned ~ ~-2.5 ~ store result score #FOUND_ENEMY temp run tag @e[type=minecraft:zombified_piglin,tag=enemy,tag=!dead,distance=..5,limit=6,sort=nearest] add target
 			}
 			
 			func cast_effect()

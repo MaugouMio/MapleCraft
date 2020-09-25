@@ -60,40 +60,16 @@ namespace 1() as virtual
 				
 				func cast_effect()
 				{
-					function ARG(_PATH)swing_effect/check
+					function skill:afterimage/warrior_swing/check
 					execute positioned ~ ~0.2 ~ run function skill:summon_font_effect/1001004effect
 					playsound minecraft:skill.1001004 player @a ~ ~ ~ 1 1 0
-				}
-				
-				folder swing_effect()
-				{
-					func check()
-					{
-						execute if score #DISTANCE temp matches 2 run function ARG(_PATH)one_hand
-						execute if score #DISTANCE temp matches 3 run function ARG(_PATH)two_hand
-					}
-					
-					func one_hand()
-					{
-						execute if score @s #USED_WEAPON temp matches 23 run function skill:afterimage/dagger/random
-						execute if score @s #USED_WEAPON temp matches 19..21 run function skill:afterimage/staff/swing
-						execute if score @s #USED_WEAPON temp matches 5..7 run function skill:afterimage/oh_sword/random
-						execute if score @s #USED_WEAPON temp matches 9 run function skill:afterimage/oh_blunt/random
-					}
-					
-					func two_hand()
-					{
-						execute if score @s #USED_WEAPON temp matches 12..14 run function skill:afterimage/spear/random
-						execute if score @s #USED_WEAPON temp matches 8 run function skill:afterimage/th_sword/random
-						execute unless score @s #USED_WEAPON temp matches 8 if score @s #USED_WEAPON temp matches 6..10 run function skill:afterimage/th_axe/random
-					}
 				}
 				
 				func set_numeric()
 				{
 					data modify storage skill:main damage set value [{min_damage:0,max_damage:0,accuracy:0,player_level:0,crit_rate:0,crit_damage:0,base_percent:100,attribute:0}]
 					execute store result storage skill:main damage[0].base_percent int 1 run scoreboard players get @s 1001004_attack
-					# function skill:damage_formula/dagger/thief
+					# melee *RANDOM* swing damage formula is done by afterimage functions
 					
 					scoreboard players operation @s mp -= @s 1001004_mp
 					function bar_display:change/mp/dropped

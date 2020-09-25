@@ -32,6 +32,11 @@ namespace attack_skill_template(skill_id) as virtual
 		function ARG(_PATH)cast_effect
 		function ARG(_PATH)set_numeric
 		
+		execute if score #FOUND_ENEMY temp matches 1.. run function ARG(_PATH)did_hit
+	}
+	
+	func did_hit()
+	{
 		data modify storage skill:main damage_info.attacker set from entity @s UUID
 		execute store result storage skill:main damage_info.attacker_id int 1 run scoreboard players get @s number
 		
@@ -167,6 +172,13 @@ namespace bullet_skill_template(skill_id) as virtual
 		function ARG(_PATH)summon_bullet
 		function ARG(_PATH)set_numeric
 		
+		scoreboard players add #BULLET_ID number 1
+		execute if score #FOUND_ENEMY temp matches 1.. run function ARG(_PATH)did_hit
+		execute if score #FOUND_ENEMY temp matches 0 as @e[type=armor_stand,tag=new_bullet] run function skill:bullet/no_target_setting
+	}
+	
+	func did_hit()
+	{
 		data modify storage skill:main damage_info.attacker set from entity @s UUID
 		execute store result storage skill:main damage_info.attacker_id int 1 run scoreboard players get @s number
 		
@@ -174,10 +186,7 @@ namespace bullet_skill_template(skill_id) as virtual
 		data modify storage skill:main damage_info.knock_back set from entity @e[type=area_effect_cloud,tag=knockback_motion,limit=1] Pos
 		kill @e[type=area_effect_cloud,tag=knockback_motion,limit=1]
 		
-		scoreboard players set #DID_HIT_ENEMY temp 0
-		scoreboard players add #BULLET_ID number 1
 		execute as @e[type=zombified_piglin,tag=target] at @s run function ARG(_PATH)hit
-		execute if score #DID_HIT_ENEMY temp matches 0 as @e[type=armor_stand,tag=new_bullet] run function skill:bullet/no_target_setting
 	}
 	
 	func hit_effect()
@@ -236,7 +245,6 @@ namespace bullet_skill_template(skill_id) as virtual
 		
 		tag @s remove target
 		scoreboard players add @s bullet_targeted 1
-		scoreboard players set #DID_HIT_ENEMY temp 1
 	}
 	
 	folder bullet_hit()
@@ -2024,6 +2032,33 @@ namespace skill()
 	
 	folder afterimage()
 	{
+		folder warrior_swing()
+		{
+			func check()
+			{
+				execute if score #DISTANCE temp matches 2 run function ARG(_PATH)one_hand
+				execute if score #DISTANCE temp matches 3 run function ARG(_PATH)two_hand
+			}
+			
+			func one_hand()
+			{
+				execute if score @s #USED_WEAPON temp matches 23 run function skill:afterimage/dagger/random
+				execute if score @s #USED_WEAPON temp matches 19..21 run function skill:afterimage/staff/swing
+				execute if score @s #USED_WEAPON temp matches 5 run function skill:afterimage/oh_axe/random
+				execute if score @s #USED_WEAPON temp matches 7 run function skill:afterimage/oh_sword/random
+				execute if score @s #USED_WEAPON temp matches 9 run function skill:afterimage/oh_blunt/random
+			}
+			
+			func two_hand()
+			{
+				execute if score @s #USED_WEAPON temp matches 12 run function skill:afterimage/spear/random
+				execute if score @s #USED_WEAPON temp matches 14 run function skill:afterimage/polearm/random
+				execute if score @s #USED_WEAPON temp matches 8 run function skill:afterimage/th_sword/random
+				execute if score @s #USED_WEAPON temp matches 6 run function skill:afterimage/th_axe/random
+				execute if score @s #USED_WEAPON temp matches 10 run function skill:afterimage/th_blunt/random
+			}
+		}
+		
 		folder claw()
 		{
 			func swing()
@@ -2042,6 +2077,7 @@ namespace skill()
 				function ARG(__PATH)summon_model
 				
 				playsound minecraft:skill.attack.punch player @a ~ ~ ~ 1 1 0
+				function skill:damage_formula/claw/punch
 			}
 		}
 		
@@ -2055,6 +2091,8 @@ namespace skill()
 				function ARG(__PATH)summon_model
 				
 				playsound minecraft:skill.attack.sword_s player @a ~ ~ ~ 1 1 0
+				execute if entity @s[tag=thief] run function skill:damage_formula/dagger/thief
+				execute if entity @s[tag=!thief] run function skill:damage_formula/dagger/non_thief
 			}
 			
 			func stab()
@@ -2076,6 +2114,7 @@ namespace skill()
 				function ARG(__PATH)summon_model
 				
 				playsound minecraft:skill.attack.sword_s player @a ~ ~ ~ 1 1 0
+				function skill:damage_formula/bow/power_knock_back
 			}
 			
 			func shoot()
@@ -2097,6 +2136,7 @@ namespace skill()
 				function ARG(__PATH)summon_model
 				
 				playsound minecraft:skill.attack.mace player @a ~ ~ ~ 1 1 0
+				function skill:damage_formula/crossbow/power_knock_back
 			}
 			
 			func shoot()
@@ -2116,6 +2156,7 @@ namespace skill()
 				function ARG(__PATH)summon_model
 				
 				playsound minecraft:skill.attack.mace player @a ~ ~ ~ 1 1 0
+				function skill:damage_formula/staff/swing
 			}
 		}
 		
@@ -2129,6 +2170,8 @@ namespace skill()
 				function ARG(__PATH)summon_model
 				
 				playsound minecraft:skill.attack.polearm player @a ~ ~ ~ 1 1 0
+				execute if score #RAND_RANGE_RESULT temp matches 1000018..1000023 function skill:damage_formula/polearm/swing
+				execute if score #RAND_RANGE_RESULT temp matches 1000024..1000029 function skill:damage_formula/polearm/stab
 			}
 		}
 		
@@ -2142,6 +2185,8 @@ namespace skill()
 				function ARG(__PATH)summon_model
 				
 				playsound minecraft:skill.attack.spear player @a ~ ~ ~ 1 1 0
+				execute if score #RAND_RANGE_RESULT temp matches 1000018..1000023 function skill:damage_formula/spear/swing
+				execute if score #RAND_RANGE_RESULT temp matches 1000024..1000029 function skill:damage_formula/spear/stab
 			}
 		}
 		
@@ -2155,6 +2200,7 @@ namespace skill()
 				function ARG(__PATH)summon_model
 				
 				playsound minecraft:skill.attack.sword_s player @a ~ ~ ~ 1 1 0
+				function skill:damage_formula/sword/one_hand
 			}
 		}
 		
@@ -2168,6 +2214,8 @@ namespace skill()
 				function ARG(__PATH)summon_model
 				
 				playsound minecraft:skill.attack.sword_l player @a ~ ~ ~ 1 1 0
+				execute if score #RAND_RANGE_RESULT temp matches 1000000..1000002 function skill:damage_formula/axe/one_hand/swing
+				execute if score #RAND_RANGE_RESULT temp matches 1000003..1000005 function skill:damage_formula/axe/one_hand/stab
 			}
 		}
 		
@@ -2181,6 +2229,8 @@ namespace skill()
 				function ARG(__PATH)summon_model
 				
 				playsound minecraft:skill.attack.mace player @a ~ ~ ~ 1 1 0
+				execute if score #RAND_RANGE_RESULT temp matches 1000036..1000038 function skill:damage_formula/blunt/one_hand/swing
+				execute if score #RAND_RANGE_RESULT temp matches 1000039..1000041 function skill:damage_formula/blunt/one_hand/stab
 			}
 		}
 		
@@ -2194,6 +2244,7 @@ namespace skill()
 				function ARG(__PATH)summon_model
 				
 				playsound minecraft:skill.attack.sword_l player @a ~ ~ ~ 1 1 0
+				function skill:damage_formula/sword/two_hand
 			}
 		}
 		
@@ -2207,6 +2258,8 @@ namespace skill()
 				function ARG(__PATH)summon_model
 				
 				playsound minecraft:skill.attack.sword_s player @a ~ ~ ~ 1 1 0
+				execute if score #RAND_RANGE_RESULT temp matches 1000030..1000032 function skill:damage_formula/axe/two_hand/swing
+				execute if score #RAND_RANGE_RESULT temp matches 1000033..1000035 function skill:damage_formula/axe/two_hand/stab
 			}
 		}
 		
@@ -2220,6 +2273,8 @@ namespace skill()
 				function ARG(__PATH)summon_model
 				
 				playsound minecraft:skill.attack.mace player @a ~ ~ ~ 1 1 0
+				execute if score #RAND_RANGE_RESULT temp matches 1000030..1000032 function skill:damage_formula/blunt/two_hand/swing
+				execute if score #RAND_RANGE_RESULT temp matches 1000033..1000035 function skill:damage_formula/blunt/two_hand/stab
 			}
 		}
 		
