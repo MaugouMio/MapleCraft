@@ -27,6 +27,7 @@ namespace attack_skill_template(skill_id) as virtual
 		scoreboard players set @s hp_recover_time 10
 		# movement restriction
 		attribute @s minecraft:generic.movement_speed modifier add 5b908c48-54cb-4388-aa76-82f61b02032d skill_action -10 multiply
+		data modify storage skill:main damage set value [{min_damage:0,max_damage:0,accuracy:0,player_level:0,crit_rate:0,crit_damage:0,base_percent:100,attribute:0}]
 		
 		function ARG(_PATH)mark_target
 		function ARG(_PATH)cast_effect
@@ -166,6 +167,7 @@ namespace bullet_skill_template(skill_id) as virtual
 		scoreboard players set @s hp_recover_time 10
 		# movement restriction
 		attribute @s minecraft:generic.movement_speed modifier add 5b908c48-54cb-4388-aa76-82f61b02032d skill_action -10 multiply
+		data modify storage skill:main damage set value [{min_damage:0,max_damage:0,accuracy:0,player_level:0,crit_rate:0,crit_damage:0,base_percent:100,attribute:0}]
 		
 		function ARG(_PATH)mark_target
 		function ARG(_PATH)cast_effect
@@ -2042,20 +2044,20 @@ namespace skill()
 			
 			func one_hand()
 			{
-				execute if score @s #USED_WEAPON temp matches 23 run function skill:afterimage/dagger/random
-				execute if score @s #USED_WEAPON temp matches 19..21 run function skill:afterimage/staff/swing
-				execute if score @s #USED_WEAPON temp matches 5 run function skill:afterimage/oh_axe/random
-				execute if score @s #USED_WEAPON temp matches 7 run function skill:afterimage/oh_sword/random
-				execute if score @s #USED_WEAPON temp matches 9 run function skill:afterimage/oh_blunt/random
+				execute if score #USED_WEAPON temp matches 23 run function ARG(__PATH)dagger/random
+				execute if score #USED_WEAPON temp matches 19..21 run function ARG(__PATH)staff/swing
+				execute if score #USED_WEAPON temp matches 5 run function ARG(__PATH)oh_axe/random
+				execute if score #USED_WEAPON temp matches 7 run function ARG(__PATH)oh_sword/random
+				execute if score #USED_WEAPON temp matches 9 run function ARG(__PATH)oh_blunt/random
 			}
 			
 			func two_hand()
 			{
-				execute if score @s #USED_WEAPON temp matches 12 run function skill:afterimage/spear/random
-				execute if score @s #USED_WEAPON temp matches 14 run function skill:afterimage/polearm/random
-				execute if score @s #USED_WEAPON temp matches 8 run function skill:afterimage/th_sword/random
-				execute if score @s #USED_WEAPON temp matches 6 run function skill:afterimage/th_axe/random
-				execute if score @s #USED_WEAPON temp matches 10 run function skill:afterimage/th_blunt/random
+				execute if score #USED_WEAPON temp matches 12 run function ARG(__PATH)spear/random
+				execute if score #USED_WEAPON temp matches 14 run function ARG(__PATH)polearm/random
+				execute if score #USED_WEAPON temp matches 8 run function ARG(__PATH)th_sword/random
+				execute if score #USED_WEAPON temp matches 6 run function ARG(__PATH)th_axe/random
+				execute if score #USED_WEAPON temp matches 10 run function ARG(__PATH)th_blunt/random
 			}
 		}
 		

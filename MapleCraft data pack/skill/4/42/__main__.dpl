@@ -56,7 +56,6 @@ namespace 42() as virtual
 			
 			func set_numeric()
 			{
-				data modify storage skill:main damage set value [{min_damage:0,max_damage:0,accuracy:0,player_level:0,crit_rate:0,crit_damage:0,base_percent:100,attribute:0}]
 				execute store result storage skill:main damage[0].base_percent int 1 run scoreboard players get @s 4201005_attack
 				function skill:damage_formula/dagger/thief
 				

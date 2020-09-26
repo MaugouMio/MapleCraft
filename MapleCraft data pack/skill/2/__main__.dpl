@@ -77,7 +77,7 @@ namespace 2() as virtual
 				
 				func set_numeric()
 				{
-					data modify storage skill:main damage set value [{min_damage:0,max_damage:0,accuracy:0,player_level:0,crit_rate:0,crit_damage:0,base_percent:100,attribute:1}]
+					data modify storage skill:main damage[0].attribute set value 1
 					scoreboard players operation #SKILL_MASTERY temp = @s 2001004_mastery
 					scoreboard players operation #SPELL_ATTACK temp = @s 2001004_attack
 					function skill:damage_formula/spell
@@ -130,7 +130,7 @@ namespace 2() as virtual
 				
 				func set_numeric()
 				{
-					data modify storage skill:main damage set value [{min_damage:0,max_damage:0,accuracy:0,player_level:0,crit_rate:0,crit_damage:0,base_percent:100,attribute:1}]
+					data modify storage skill:main damage[0].attribute set value 1
 					scoreboard players operation #SKILL_MASTERY temp = @s 2001005_mastery
 					scoreboard players operation #SPELL_ATTACK temp = @s 2001005_attack
 					function skill:damage_formula/spell

@@ -88,7 +88,7 @@ namespace 23() as virtual
 			
 			func set_numeric()
 			{
-				data modify storage skill:main damage set value [{min_damage:0,max_damage:0,accuracy:0,player_level:0,crit_rate:0,crit_damage:0,base_percent:100,attribute:6}]
+				data modify storage skill:main damage[0].attribute set value 6
 				scoreboard players operation #SKILL_MASTERY temp = @s 2301005_mastery
 				scoreboard players operation #SPELL_ATTACK temp = @s 2301005_attack
 				function skill:damage_formula/spell
