@@ -8,21 +8,21 @@
 			"name": "Cube",
 			"from": [ -9.5, 0, -9.25 ], 
 			"to": [ 25.5, 0.1, 25.25 ], 
-			"rotation": { "origin": [ 8.0, 0.0, 8.0 ], "axis": "x", "angle": 22.5 },
+			"rotation": { "origin": [ 8.0, 0.0, 8.0 ], "axis": "x", "angle": -45 },
 			"faces": {
 				"north": { "texture": "#texture", "uv": [ 0, 0, 0, 0 ] },
 				"east": { "texture": "#texture", "uv": [ 0, 0, 0, 0 ] },
 				"south": { "texture": "#texture", "uv": [ 0, 0, 0, 0 ] },
 				"west": { "texture": "#texture", "uv": [ 0, 0, 0, 0 ] },
-				"up": { "texture": "#texture", "uv": [ 0, 0, 16, 16 ] },
-				"down": { "texture": "#texture", "uv": [ 0, 16, 16, 0 ] }
+				"up": { "texture": "#texture", "uv": [ 0, 16, 16, 0 ] },
+				"down": { "texture": "#texture", "uv": [ 0, 0, 16, 16 ] }
 			}
 		}
 	],
 	"display": {
 		"head": {
 			"rotation": [ 0, -90, 0 ],
-			"translation": [ 0, 0, -10 ],
+			"translation": [ -2, 0, -10 ],
 			"scale": [ 1.5, 1.5, 1.5 ]
 		}
 	}
