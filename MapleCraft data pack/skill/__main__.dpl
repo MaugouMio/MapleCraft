@@ -2172,8 +2172,8 @@ namespace skill()
 				function ARG(__PATH)summon_model
 				
 				playsound minecraft:skill.attack.polearm player @a ~ ~ ~ 1 1 0
-				execute if score #RAND_RANGE_RESULT temp matches 1000018..1000023 function skill:damage_formula/polearm/swing
-				execute if score #RAND_RANGE_RESULT temp matches 1000024..1000029 function skill:damage_formula/polearm/stab
+				execute if score #RAND_RANGE_RESULT temp matches 1000018..1000023 run function skill:damage_formula/polearm/swing
+				execute if score #RAND_RANGE_RESULT temp matches 1000024..1000029 run function skill:damage_formula/polearm/stab
 			}
 		}
 		
@@ -2187,8 +2187,8 @@ namespace skill()
 				function ARG(__PATH)summon_model
 				
 				playsound minecraft:skill.attack.spear player @a ~ ~ ~ 1 1 0
-				execute if score #RAND_RANGE_RESULT temp matches 1000018..1000023 function skill:damage_formula/spear/swing
-				execute if score #RAND_RANGE_RESULT temp matches 1000024..1000029 function skill:damage_formula/spear/stab
+				execute if score #RAND_RANGE_RESULT temp matches 1000018..1000023 run function skill:damage_formula/spear/swing
+				execute if score #RAND_RANGE_RESULT temp matches 1000024..1000029 run function skill:damage_formula/spear/stab
 			}
 		}
 		
@@ -2216,8 +2216,8 @@ namespace skill()
 				function ARG(__PATH)summon_model
 				
 				playsound minecraft:skill.attack.sword_l player @a ~ ~ ~ 1 1 0
-				execute if score #RAND_RANGE_RESULT temp matches 1000000..1000002 function skill:damage_formula/axe/one_hand/swing
-				execute if score #RAND_RANGE_RESULT temp matches 1000003..1000005 function skill:damage_formula/axe/one_hand/stab
+				execute if score #RAND_RANGE_RESULT temp matches 1000000..1000002 run function skill:damage_formula/axe/one_hand/swing
+				execute if score #RAND_RANGE_RESULT temp matches 1000003..1000005 run function skill:damage_formula/axe/one_hand/stab
 			}
 		}
 		
@@ -2231,8 +2231,8 @@ namespace skill()
 				function ARG(__PATH)summon_model
 				
 				playsound minecraft:skill.attack.mace player @a ~ ~ ~ 1 1 0
-				execute if score #RAND_RANGE_RESULT temp matches 1000036..1000038 function skill:damage_formula/blunt/one_hand/swing
-				execute if score #RAND_RANGE_RESULT temp matches 1000039..1000041 function skill:damage_formula/blunt/one_hand/stab
+				execute if score #RAND_RANGE_RESULT temp matches 1000036..1000038 run function skill:damage_formula/blunt/one_hand/swing
+				execute if score #RAND_RANGE_RESULT temp matches 1000039..1000041 run function skill:damage_formula/blunt/one_hand/stab
 			}
 		}
 		
@@ -2260,8 +2260,8 @@ namespace skill()
 				function ARG(__PATH)summon_model
 				
 				playsound minecraft:skill.attack.sword_s player @a ~ ~ ~ 1 1 0
-				execute if score #RAND_RANGE_RESULT temp matches 1000030..1000032 function skill:damage_formula/axe/two_hand/swing
-				execute if score #RAND_RANGE_RESULT temp matches 1000033..1000035 function skill:damage_formula/axe/two_hand/stab
+				execute if score #RAND_RANGE_RESULT temp matches 1000030..1000032 run function skill:damage_formula/axe/two_hand/swing
+				execute if score #RAND_RANGE_RESULT temp matches 1000033..1000035 run function skill:damage_formula/axe/two_hand/stab
 			}
 		}
 		
@@ -2275,8 +2275,8 @@ namespace skill()
 				function ARG(__PATH)summon_model
 				
 				playsound minecraft:skill.attack.mace player @a ~ ~ ~ 1 1 0
-				execute if score #RAND_RANGE_RESULT temp matches 1000030..1000032 function skill:damage_formula/blunt/two_hand/swing
-				execute if score #RAND_RANGE_RESULT temp matches 1000033..1000035 function skill:damage_formula/blunt/two_hand/stab
+				execute if score #RAND_RANGE_RESULT temp matches 1000030..1000032 run function skill:damage_formula/blunt/two_hand/swing
+				execute if score #RAND_RANGE_RESULT temp matches 1000033..1000035 run function skill:damage_formula/blunt/two_hand/stab
 			}
 		}
 		
