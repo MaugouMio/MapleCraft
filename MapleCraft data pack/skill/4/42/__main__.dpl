@@ -48,12 +48,6 @@ namespace 42() as virtual
 				function skill:enemy_search/search_front/search
 			}
 			
-			func cast_effect()
-			{
-				execute positioned ~ ~0.3 ~ run function skill:summon_font_effect/4201005effect
-				playsound minecraft:skill.4201005_use player @a ~ ~ ~ 1 1 0
-			}
-			
 			func set_numeric()
 			{
 				execute store result storage skill:main damage[0].base_percent int 1 run scoreboard players get @s 4201005_attack
@@ -71,6 +65,12 @@ namespace 42() as virtual
 				function bar_display:change/mp/dropped
 				
 				scoreboard players set @s action_time 18
+			}
+			
+			func cast_effect()
+			{
+				execute positioned ~ ~0.3 ~ run function skill:summon_font_effect/4201005effect
+				playsound minecraft:skill.4201005_use player @a ~ ~ ~ 1 1 0
 			}
 			
 			func effect()

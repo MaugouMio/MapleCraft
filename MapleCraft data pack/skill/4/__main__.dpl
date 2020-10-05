@@ -59,12 +59,6 @@ namespace 4() as virtual
 					function skill:enemy_search/search_front/search
 				}
 				
-				func cast_effect()
-				{
-					function skill:afterimage/dagger/stab
-					playsound minecraft:skill.4001334 player @a ~ ~ ~ 1 1 0
-				}
-				
 				func set_numeric()
 				{
 					execute store result storage skill:main damage[0].base_percent int 1 run scoreboard players get @s 4001334_attack
@@ -77,6 +71,12 @@ namespace 4() as virtual
 					function bar_display:change/mp/dropped
 					
 					scoreboard players set @s action_time 15
+				}
+				
+				func cast_effect()
+				{
+					function skill:afterimage/dagger/stab
+					playsound minecraft:skill.4001334 player @a ~ ~ ~ 1 1 0
 				}
 				
 				func effect()
@@ -127,14 +127,6 @@ namespace 4() as virtual
 					function skill:enemy_search/search_front/search
 				}
 				
-				func cast_effect()
-				{
-					execute rotated ~ 0 run summon minecraft:armor_stand ^ ^ ^1.7 {Tags:["model_animation","new"],Invisible:1,Invulnerable:1,NoGravity:1,Marker:1,Fire:32767s,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:400000}}]}
-					execute as @e[type=armor_stand,tag=new,limit=1] run function ARG(_PATH)effect_model_set
-					function skill:afterimage/claw/swing
-					playsound minecraft:skill.4001344 player @a ~ ~ ~ 1 1 0
-				}
-				
 				func effect_model_set()
 				{
 					execute positioned as @s run tp @s ~ ~ ~ ~ ~
@@ -170,6 +162,14 @@ namespace 4() as virtual
 					function bar_display:change/mp/dropped
 					
 					scoreboard players set @s action_time 16
+				}
+				
+				func cast_effect()
+				{
+					execute rotated ~ 0 run summon minecraft:armor_stand ^ ^ ^1.7 {Tags:["model_animation","new"],Invisible:1,Invulnerable:1,NoGravity:1,Marker:1,Fire:32767s,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:400000}}]}
+					execute as @e[type=armor_stand,tag=new,limit=1] run function ARG(_PATH)effect_model_set
+					function skill:afterimage/claw/swing
+					playsound minecraft:skill.4001344 player @a ~ ~ ~ 1 1 0
 				}
 				
 				func effect()

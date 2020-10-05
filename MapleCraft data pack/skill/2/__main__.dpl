@@ -64,11 +64,6 @@ namespace 2() as virtual
 					function skill:enemy_search/search_front/search
 				}
 				
-				func cast_effect()
-				{
-					playsound minecraft:skill.2001004 player @a ~ ~ ~ 1 1 0
-				}
-				
 				func summon_bullet()
 				{
 					# max_distance should be set to (#DISTANCE temp / 2 + 3)
@@ -86,6 +81,11 @@ namespace 2() as virtual
 					function bar_display:change/mp/dropped
 					
 					scoreboard players set @s action_time 16
+				}
+				
+				func cast_effect()
+				{
+					playsound minecraft:skill.2001004 player @a ~ ~ ~ 1 1 0
 				}
 				
 				func effect()
@@ -122,12 +122,6 @@ namespace 2() as virtual
 					function skill:enemy_search/search_front/search
 				}
 				
-				func cast_effect()
-				{
-					execute positioned ~ ~0.2 ~ run function skill:summon_font_effect/2001005effect
-					playsound minecraft:skill.2001005 player @a ~ ~ ~ 1 1 0
-				}
-				
 				func set_numeric()
 				{
 					data modify storage skill:main damage[0].attribute set value 1
@@ -141,6 +135,12 @@ namespace 2() as virtual
 					function bar_display:change/mp/dropped
 					
 					scoreboard players set @s action_time 16
+				}
+				
+				func cast_effect()
+				{
+					execute positioned ~ ~0.2 ~ run function skill:summon_font_effect/2001005effect
+					playsound minecraft:skill.2001005 player @a ~ ~ ~ 1 1 0
 				}
 				
 				func effect()

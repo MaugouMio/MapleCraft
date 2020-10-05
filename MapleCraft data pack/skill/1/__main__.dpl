@@ -58,13 +58,6 @@ namespace 1() as virtual
 					function skill:enemy_search/search_front/search
 				}
 				
-				func cast_effect()
-				{
-					function skill:afterimage/warrior_swing/check
-					execute positioned ~ ~0.2 ~ run function skill:summon_font_effect/1001004effect
-					playsound minecraft:skill.1001004 player @a ~ ~ ~ 1 1 0
-				}
-				
 				func set_numeric()
 				{
 					execute store result storage skill:main damage[0].base_percent int 1 run scoreboard players get @s 1001004_attack
@@ -77,6 +70,13 @@ namespace 1() as virtual
 					```
 					raise Warning("TODO: set action_time and scheduler according to weapon speed")
 					```
+				}
+				
+				func cast_effect()
+				{
+					function skill:afterimage/warrior_swing/check
+					execute positioned ~ ~0.2 ~ run function skill:summon_font_effect/1001004effect
+					playsound minecraft:skill.1001004 player @a ~ ~ ~ 1 1 0
 				}
 				
 				func effect()

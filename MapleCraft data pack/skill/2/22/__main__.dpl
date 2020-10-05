@@ -48,12 +48,6 @@ namespace 22() as virtual
 				function skill:enemy_search/search_front/search
 			}
 			
-			func cast_effect()
-			{
-				execute rotated ~ 0 positioned ^ ^0.2 ^0.5 run function skill:summon_font_effect/2201004effect
-				playsound minecraft:skill.2201004 player @a ~ ~ ~ 1 1 0
-			}
-			
 			func set_numeric()
 			{
 				data modify storage skill:main damage[0].attribute set value 4
@@ -66,6 +60,12 @@ namespace 22() as virtual
 				function bar_display:change/mp/dropped
 				
 				scoreboard players set @s action_time 16
+			}
+			
+			func cast_effect()
+			{
+				execute rotated ~ 0 positioned ^ ^0.2 ^0.5 run function skill:summon_font_effect/2201004effect
+				playsound minecraft:skill.2201004 player @a ~ ~ ~ 1 1 0
 			}
 			
 			func add_debuff()
@@ -108,12 +108,6 @@ namespace 22() as virtual
 				execute positioned ~ ~-2.5 ~ store result score #FOUND_ENEMY temp run tag @e[type=minecraft:zombified_piglin,tag=enemy,tag=!dead,distance=..5,limit=6,sort=nearest] add target
 			}
 			
-			func cast_effect()
-			{
-				execute positioned ~ ~0.2 ~ run function skill:summon_font_effect/2201005effect
-				playsound minecraft:skill.2201005 player @a ~ ~ ~ 1 1 0
-			}
-			
 			func set_numeric()
 			{
 				data modify storage skill:main damage[0].attribute set value 5
@@ -125,6 +119,12 @@ namespace 22() as virtual
 				function bar_display:change/mp/dropped
 				
 				scoreboard players set @s action_time 16
+			}
+			
+			func cast_effect()
+			{
+				execute positioned ~ ~0.2 ~ run function skill:summon_font_effect/2201005effect
+				playsound minecraft:skill.2201005 player @a ~ ~ ~ 1 1 0
 			}
 			
 			func effect()

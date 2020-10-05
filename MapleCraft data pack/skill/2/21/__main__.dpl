@@ -71,13 +71,6 @@ namespace 21() as virtual
 				scoreboard players set #MAX_ENEMY temp 1
 				function skill:enemy_search/search_front/search
 			}
-				
-			func cast_effect()
-			{
-				execute rotated ~ 0 run summon minecraft:armor_stand ^ ^ ^1 {Tags:["model_animation","new"],Invisible:1,Invulnerable:1,NoGravity:1,Marker:1,Fire:32767s,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:210000}}]}
-				execute as @e[type=armor_stand,tag=new,limit=1] run function ARG(_PATH)effect_model_set
-				playsound minecraft:skill.2101004 player @a ~ ~ ~ 1 1 0
-			}
 			
 			func effect_model_set()
 			{
@@ -104,6 +97,13 @@ namespace 21() as virtual
 				function bar_display:change/mp/dropped
 				
 				scoreboard players set @s action_time 16
+			}
+				
+			func cast_effect()
+			{
+				execute rotated ~ 0 run summon minecraft:armor_stand ^ ^ ^1 {Tags:["model_animation","new"],Invisible:1,Invulnerable:1,NoGravity:1,Marker:1,Fire:32767s,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:210000}}]}
+				execute as @e[type=armor_stand,tag=new,limit=1] run function ARG(_PATH)effect_model_set
+				playsound minecraft:skill.2101004 player @a ~ ~ ~ 1 1 0
 			}
 			
 			func effect()
@@ -142,12 +142,6 @@ namespace 21() as virtual
 				function skill:enemy_search/search_front/search
 			}
 			
-			func cast_effect()
-			{
-				execute positioned ~ ~0.3 ~ run function skill:summon_font_effect/2101005effect
-				playsound minecraft:skill.2101005_use player @a ~ ~ ~ 1 1 0
-			}
-			
 			func summon_bullet()
 			{
 				# max_distance should be set to (#DISTANCE temp / 2 + 3)
@@ -171,6 +165,12 @@ namespace 21() as virtual
 				function bar_display:change/mp/dropped
 				
 				scoreboard players set @s action_time 16
+			}
+			
+			func cast_effect()
+			{
+				execute positioned ~ ~0.3 ~ run function skill:summon_font_effect/2101005effect
+				playsound minecraft:skill.2101005_use player @a ~ ~ ~ 1 1 0
 			}
 			
 			func add_debuff()
