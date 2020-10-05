@@ -68,7 +68,7 @@ namespace 1() as virtual
 				func set_numeric()
 				{
 					execute store result storage skill:main damage[0].base_percent int 1 run scoreboard players get @s 1001004_attack
-					# melee *RANDOM* swing damage formula is done by afterimage functions
+					# melee *RANDOM* swing damage formula and default attack speed is done by afterimage functions
 					
 					scoreboard players operation @s mp -= @s 1001004_mp
 					function bar_display:change/mp/dropped

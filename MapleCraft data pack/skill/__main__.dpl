@@ -30,8 +30,8 @@ namespace attack_skill_template(skill_id) as virtual
 		data modify storage skill:main damage set value [{min_damage:0,max_damage:0,accuracy:0,player_level:0,crit_rate:0,crit_damage:0,base_percent:100,attribute:0}]
 		
 		function ARG(_PATH)mark_target
-		function ARG(_PATH)cast_effect
 		function ARG(_PATH)set_numeric
+		function ARG(_PATH)cast_effect
 		
 		execute if score #FOUND_ENEMY temp matches 1.. run function ARG(_PATH)did_hit
 	}
@@ -170,9 +170,9 @@ namespace bullet_skill_template(skill_id) as virtual
 		data modify storage skill:main damage set value [{min_damage:0,max_damage:0,accuracy:0,player_level:0,crit_rate:0,crit_damage:0,base_percent:100,attribute:0}]
 		
 		function ARG(_PATH)mark_target
-		function ARG(_PATH)cast_effect
 		function ARG(_PATH)summon_bullet
 		function ARG(_PATH)set_numeric
+		function ARG(_PATH)cast_effect
 		
 		scoreboard players add #BULLET_ID number 1
 		execute if score #FOUND_ENEMY temp matches 1.. run function ARG(_PATH)did_hit
@@ -365,7 +365,6 @@ namespace skill()
 		scoreboard objectives add poison_damage dummy
 		scoreboard objectives add poison_particle dummy
 		scoreboard objectives add action_time dummy
-		scoreboard objectives add attack_times dummy
 		
 		scoreboard objectives add hurt_sound dummy
 		scoreboard objectives add die_sound dummy
@@ -382,10 +381,10 @@ namespace skill()
 			print(f"scoreboard objectives add {skill}_level dummy")
 			print(f"scoreboard objectives add {skill}_eid dummy")
 		```
-		# function ARG(_PATH)1/install
+		function ARG(_PATH)1/install
 		function ARG(_PATH)2/install
-		# function ARG(_PATH)3/install
-		# function ARG(_PATH)4/install
+		function ARG(_PATH)3/install
+		function ARG(_PATH)4/install
 		# function ARG(_PATH)5/install
 	}
 	
