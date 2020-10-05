@@ -4,7 +4,7 @@ import loop
 description = "MapleCraft data pack"
 
 ```
-constants = [-7, -1, 0, 1, 2, 3, 4, 5, 6, 8, 9, 10, 17, 20, 30, 32, 34, 36, 41, 44, 46, 48, 50, 66, 100, 150, 1000, 99999]
+constants = [-7, -1, 0, 1, 2, 3, 4, 5, 6, 8, 9, 10, 17, 20, 30, 32, 34, 36, 41, 44, 46, 48, 50, 66, 100, 150, 1000, 10000, 99999]
 ```
 
 import math
@@ -75,7 +75,7 @@ namespace main()
 	
 	func main()
 	{
-		execute as @a[score={jump=1..}] at @s run function ARG(_PATH)jump_effect
+		execute as @a[scores={jump=1..}] at @s run function ARG(_PATH)jump_effect
 		
 		function skill:main/run
 		# function number_display:main
@@ -118,6 +118,8 @@ namespace main()
 		
 		effect give @s minecraft:absorption 1000000 255 true
 		attribute @s minecraft:generic.attack_damage base set -100.0
+		
+		tag @s add heal_target
 	}
 	
 	func rand_rate()

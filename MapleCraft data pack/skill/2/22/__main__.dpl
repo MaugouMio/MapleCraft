@@ -88,7 +88,6 @@ namespace 22() as virtual
 		
 		folder 1005() from attack_skill_template(2201005)
 		{
-			
 			func check()
 			{
 				execute unless score @s action_time matches 0.. if score @s[nbt={OnGround:1b}] 2201005_level matches 1.. run function ARG(_PATH)other_check

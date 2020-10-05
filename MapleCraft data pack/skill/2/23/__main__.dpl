@@ -8,6 +8,8 @@ namespace 23() as virtual
 	
 	func install()
 	{
+		scoreboard objectives add 2301002_mp dummy
+		
 		scoreboard objectives add 2301005_mp dummy
 		scoreboard objectives add 2301005_mastery dummy
 		scoreboard objectives add 2301005_attack dummy
@@ -18,11 +20,74 @@ namespace 23() as virtual
 	
 	folder 0()
 	{
-		folder 1002()
+		folder 1002() from attack_skill_template(2301002)
 		{
 			func check()
 			{
+				execute unless score @s action_time matches 0.. if score @s 2301002_level matches 1.. run function ARG(_PATH)other_check
+			}
+			
+			func other_check()
+			{
+				execute if score @s mp < @s 2301002_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
+				execute if score @s mp >= @s 2301002_mp run function ARG(_PATH)run
+			}
+			
+			func mark_target()
+			{
+				execute positioned ~ ~-2.5 ~ store result score #FOUND_ENEMY temp run tag @e[type=#skill:heal,tag=heal_target,tag=!dead,distance=..5,limit=6,sort=nearest] add target
+				tag @s add caster
+			}
+			
+			func set_numeric()
+			{
+				data modify storage skill:main damage[0].attribute set value 6
+				function skill:damage_formula/heal
 				
+				scoreboard players operation @s mp -= @s 2301002_mp
+				function bar_display:change/mp/dropped
+				
+				scoreboard players set @s action_time 12
+			}
+			
+			func cast_effect()
+			{
+				execute positioned ~ ~-0.4 ~ run function skill:summon_font_effect/2301002effect
+				playsound minecraft:skill.2301002 player @a ~ ~ ~ 1 1 0
+				
+				execute as @a[tag=target] at @s run function ARG(_PATH)heal
+				tag @s remove caster
+			}
+			
+			func heal()
+			{
+				execute if entity @s[tag=!caster] positioned ~ ~0.8 ~ run function skill:summon_font_effect/2301002hit
+				execute if score @s hp < @s hp_max run function ARG(_PATH)did_need_heal
+				
+				tag @s remove target
+			}
+			
+			func did_need_heal()
+			{
+				function ARG(_PATH)rand_recovery
+				scoreboard players operation @s hp += #FINAL_HEAL temp
+				scoreboard players operation @s hp < @s hp_max
+				
+				function bar_display:change/hp/recovered
+			}
+			
+			func rand_recovery() from random().generate("#MIN_HEAL_AMOUNT temp", "#MAX_HEAL_AMOUNT temp", "#FINAL_HEAL temp");
+			
+			func effect()
+			{
+				execute if score @s display_number matches 1.. positioned ~ ~0.8 ~ run function skill:summon_font_effect/2301002hit
+				function skill:mob_effect/play_hurt_sound/run
+			}
+			
+			func append_scheduler()
+			{
+				data modify storage skill:main new_schedule append value 0
+				execute store result storage skill:main new_schedule[-1] int 1 run schedule function ARG(_PATH)hit_effect 1t append
 			}
 		}
 		

@@ -913,6 +913,59 @@ namespace skill()
 			execute store result storage skill:main damage[0].crit_damage int 1 run scoreboard players get @s addi_crit_damage
 		}
 		
+		func heal()
+		{
+			# target multiplier
+			scoreboard players set #MULTIPLIER temp 500
+			scoreboard players operation #MULTIPLIER temp /= #FOUND_ENEMY temp
+			scoreboard players add #MULTIPLIER temp 150
+			
+			# magic attack
+			execute store result score #MAGIC_ATTACK temp run data get entity @s Inventory[{Slot:-106b}].tag.magic_attack
+			scoreboard players operation #MAGIC_ATTACK temp += @s INT
+			scoreboard players operation #MAGIC_ATTACK temp *= @s 2301002_level
+			scoreboard players operation #MAGIC_ATTACK temp *= #MULTIPLIER temp
+			scoreboard players operation #MAGIC_ATTACK temp /= #100 const
+			
+			scoreboard players operation #MIN_DAMAGE temp = @s INT
+			scoreboard players operation #MIN_DAMAGE temp *= #3 const
+			
+			scoreboard players operation #MAX_DAMAGE temp = #MIN_DAMAGE temp
+			scoreboard players operation #MAX_DAMAGE temp *= #4 const
+			
+			scoreboard players operation #MIN_DAMAGE temp /= #10 const
+			scoreboard players operation #MIN_DAMAGE temp += @s LUK
+			scoreboard players operation #MIN_DAMAGE temp *= #MAGIC_ATTACK temp
+			scoreboard players operation #MIN_DAMAGE temp /= #10000 const
+			
+			scoreboard players operation #MAX_DAMAGE temp /= #10 const
+			scoreboard players operation #MAX_DAMAGE temp += @s LUK
+			scoreboard players operation #MAX_DAMAGE temp *= #MAGIC_ATTACK temp
+			scoreboard players operation #MAX_DAMAGE temp /= #10000 const
+			
+			# recovery amount
+			scoreboard players operation #MIN_HEAL_AMOUNT temp = #MAGIC_ATTACK temp
+			scoreboard players operation #MAX_HEAL_AMOUNT temp = #MAGIC_ATTACK temp
+			
+			scoreboard players operation #MIN_HEAL_AMOUNT temp /= #20 const
+			scoreboard players operation #MAX_HEAL_AMOUNT temp /= #10 const
+			
+			# accuracy
+			scoreboard players operation #INT temp = @s INT
+			scoreboard players operation #INT temp /= #10 const
+			scoreboard players operation #ACCURACY temp = @s LUK
+			scoreboard players operation #ACCURACY temp /= #10 const
+			scoreboard players operation #ACCURACY temp += #INT temp
+			
+			# write values
+			execute store result storage skill:main damage[0].max_damage int 1 run scoreboard players get #MAX_DAMAGE temp
+			execute store result storage skill:main damage[0].min_damage int 1 run scoreboard players get #MIN_DAMAGE temp
+			execute store result storage skill:main damage[0].accuracy int 1 run scoreboard players get #ACCURACY temp
+			execute store result storage skill:main damage[0].player_level int 1 run scoreboard players get @s level
+			execute store result storage skill:main damage[0].crit_rate int 1 run scoreboard players get @s addi_crit_rate
+			execute store result storage skill:main damage[0].crit_damage int 1 run scoreboard players get @s addi_crit_damage
+		}
+		
 		folder accuracy()
 		{
 			func job_check()
@@ -2325,9 +2378,9 @@ namespace skill()
 	
 	func test_mob()
 	{
-		execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["new","enemy","holy_weakness"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:10000,CustomPotionColor:-1,Unbreakable:1}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:9.5},{Name:"generic.movement_speed",Base:0.2}],ActiveEffects:[{Id:11b,Amplifier:4,Duration:2147483647,Ambient:1,ShowParticles:0}],OnGround:1b,Team:"enemy"}
-		execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["new","enemy","holy_weakness"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:10000,CustomPotionColor:-1,Unbreakable:1}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:9.5},{Name:"generic.movement_speed",Base:0.2}],ActiveEffects:[{Id:11b,Amplifier:4,Duration:2147483647,Ambient:1,ShowParticles:0}],OnGround:1b,Team:"enemy"}
-		execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["new","enemy","holy_weakness"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:10000,CustomPotionColor:-1,Unbreakable:1}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:9.5},{Name:"generic.movement_speed",Base:0.2}],ActiveEffects:[{Id:11b,Amplifier:4,Duration:2147483647,Ambient:1,ShowParticles:0}],OnGround:1b,Team:"enemy"}
+		execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["new","enemy","heal_target","holy_weakness"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:10000,CustomPotionColor:-1,Unbreakable:1}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:9.5},{Name:"generic.movement_speed",Base:0.2}],ActiveEffects:[{Id:11b,Amplifier:4,Duration:2147483647,Ambient:1,ShowParticles:0}],OnGround:1b,Team:"enemy"}
+		execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["new","enemy","heal_target","holy_weakness"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:10000,CustomPotionColor:-1,Unbreakable:1}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:9.5},{Name:"generic.movement_speed",Base:0.2}],ActiveEffects:[{Id:11b,Amplifier:4,Duration:2147483647,Ambient:1,ShowParticles:0}],OnGround:1b,Team:"enemy"}
+		execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["new","enemy","heal_target","holy_weakness"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:10000,CustomPotionColor:-1,Unbreakable:1}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:9.5},{Name:"generic.movement_speed",Base:0.2}],ActiveEffects:[{Id:11b,Amplifier:4,Duration:2147483647,Ambient:1,ShowParticles:0}],OnGround:1b,Team:"enemy"}
 		
 		scoreboard players set @e[type=zombified_piglin,tag=new] level 24
 		scoreboard players set @e[type=zombified_piglin,tag=new] hp_max 500
