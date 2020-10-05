@@ -1827,16 +1827,13 @@ namespace skill()
 			
 			func deal_damage()
 			{
-				scoreboard players operation #MAX_DAMAGE_FINAL temp = #MAX_DAMAGE temp
-				scoreboard players operation #MIN_DAMAGE_FINAL temp = #MIN_DAMAGE temp
+				scoreboard players set @s display_number 0
+				execute unless score #MAX_DAMAGE temp = #MIN_DAMAGE temp run function ARG(_PATH)rand_damage
 				
 				execute if score #CRIT_RATE temp matches 1.. run function main:rand_rate
 				execute if score #CRIT_RATE temp > #RAND_RESULT temp run function ARG(_PATH)crit_multiply
 				execute unless score #CRIT_RATE temp > #RAND_RESULT temp run function ARG(_PATH)skill_multiply
 				
-				scoreboard players set @s display_number 0
-				execute unless score #MAX_DAMAGE_FINAL temp = #MIN_DAMAGE_FINAL temp run function ARG(_PATH)rand_damage
-				scoreboard players add @s display_number 1
 				scoreboard players operation @s display_number < #99999 const
 				scoreboard players operation @s display_number > #1 const
 				
@@ -1910,22 +1907,18 @@ namespace skill()
 			
 			func crit_multiply()
 			{
-				scoreboard players operation #MAX_DAMAGE_FINAL temp *= #CRIT_DAMAGE temp
-				scoreboard players operation #MAX_DAMAGE_FINAL temp /= #100 const
-				scoreboard players operation #MIN_DAMAGE_FINAL temp *= #CRIT_DAMAGE temp
-				scoreboard players operation #MIN_DAMAGE_FINAL temp /= #100 const
+				scoreboard players operation @s display_number *= #CRIT_DAMAGE temp
+				scoreboard players operation @s display_number /= #100 const
 				data modify entity @s ArmorItems[3].tag.damage_record[-1].crit set value 1
 			}
 			
 			func skill_multiply()
 			{
-				scoreboard players operation #MAX_DAMAGE_FINAL temp *= #BASE_PERCENT temp
-				scoreboard players operation #MAX_DAMAGE_FINAL temp /= #100 const
-				scoreboard players operation #MIN_DAMAGE_FINAL temp *= #BASE_PERCENT temp
-				scoreboard players operation #MIN_DAMAGE_FINAL temp /= #100 const
+				scoreboard players operation @s display_number *= #BASE_PERCENT temp
+				scoreboard players operation @s display_number /= #100 const
 			}
 			
-			func rand_damage() from random().generate("#MIN_DAMAGE_FINAL temp", "#MAX_DAMAGE_FINAL temp", "@s display_number");
+			func rand_damage() from random().generate("#MIN_DAMAGE temp", "#MAX_DAMAGE temp", "@s display_number");
 		}
 	}
 	
