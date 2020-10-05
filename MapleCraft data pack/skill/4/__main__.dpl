@@ -70,7 +70,10 @@ namespace 4() as virtual
 					scoreboard players operation @s mp -= @s 4001334_mp
 					function bar_display:change/mp/dropped
 					
-					scoreboard players set @s action_time 15
+					execute store result score @s action_time run data get entity @s Inventory[{Slot:-106b}].tag.action_time
+					# booster action_time setting belongs here
+					scoreboard players operation @s action_time > #-1 const
+					scoreboard players add @s action_time 13
 				}
 				
 				func cast_effect()
@@ -161,7 +164,9 @@ namespace 4() as virtual
 					scoreboard players operation @s mp -= @s 4001344_mp
 					function bar_display:change/mp/dropped
 					
-					scoreboard players set @s action_time 16
+					execute store result score @s action_time run data get entity @s Inventory[{Slot:-106b}].tag.action_time
+					# booster action_time setting belongs here
+					scoreboard players add @s action_time 16
 				}
 				
 				func cast_effect()

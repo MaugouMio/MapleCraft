@@ -2079,6 +2079,7 @@ namespace skill()
 				
 				playsound minecraft:skill.attack.punch player @a ~ ~ ~ 1 1 0
 				function skill:damage_formula/claw/punch
+				scoreboard players add @s action_time 16
 			}
 		}
 		
@@ -2094,6 +2095,7 @@ namespace skill()
 				playsound minecraft:skill.attack.sword_s player @a ~ ~ ~ 1 1 0
 				execute if entity @s[tag=thief] run function skill:damage_formula/dagger/thief
 				execute if entity @s[tag=!thief] run function skill:damage_formula/dagger/non_thief
+				scoreboard players add @s action_time 15
 			}
 			
 			func stab()
@@ -2116,6 +2118,7 @@ namespace skill()
 				
 				playsound minecraft:skill.attack.sword_s player @a ~ ~ ~ 1 1 0
 				function skill:damage_formula/bow/power_knock_back
+				scoreboard players add @s action_time 16
 			}
 			
 			func shoot()
@@ -2138,6 +2141,7 @@ namespace skill()
 				
 				playsound minecraft:skill.attack.mace player @a ~ ~ ~ 1 1 0
 				function skill:damage_formula/crossbow/power_knock_back
+				scoreboard players add @s action_time 17
 			}
 			
 			func shoot()
@@ -2158,6 +2162,7 @@ namespace skill()
 				
 				playsound minecraft:skill.attack.mace player @a ~ ~ ~ 1 1 0
 				function skill:damage_formula/staff/swing
+				scoreboard players add @s action_time 16
 			}
 		}
 		
@@ -2173,6 +2178,7 @@ namespace skill()
 				playsound minecraft:skill.attack.polearm player @a ~ ~ ~ 1 1 0
 				execute if score #RAND_RANGE_RESULT temp matches 1000036..1000044 run function skill:damage_formula/polearm/swing
 				execute if score #RAND_RANGE_RESULT temp matches 1000045..1000050 run function skill:damage_formula/polearm/stab
+				scoreboard players add @s action_time 15
 			}
 		}
 		
@@ -2188,6 +2194,7 @@ namespace skill()
 				playsound minecraft:skill.attack.spear player @a ~ ~ ~ 1 1 0
 				execute if score #RAND_RANGE_RESULT temp matches 1000036..1000044 run function skill:damage_formula/spear/swing
 				execute if score #RAND_RANGE_RESULT temp matches 1000045..1000050 run function skill:damage_formula/spear/stab
+				scoreboard players add @s action_time 15
 			}
 		}
 		
@@ -2202,6 +2209,7 @@ namespace skill()
 				
 				playsound minecraft:skill.attack.sword_s player @a ~ ~ ~ 1 1 0
 				function skill:damage_formula/sword/one_hand
+				scoreboard players add @s action_time 16
 			}
 		}
 		
@@ -2217,6 +2225,7 @@ namespace skill()
 				playsound minecraft:skill.attack.sword_l player @a ~ ~ ~ 1 1 0
 				execute if score #RAND_RANGE_RESULT temp matches 1000000..1000008 run function skill:damage_formula/axe/one_hand/swing
 				execute if score #RAND_RANGE_RESULT temp matches 1000009..1000014 run function skill:damage_formula/axe/one_hand/stab
+				scoreboard players add @s action_time 16
 			}
 		}
 		
@@ -2232,6 +2241,7 @@ namespace skill()
 				playsound minecraft:skill.attack.mace player @a ~ ~ ~ 1 1 0
 				execute if score #RAND_RANGE_RESULT temp matches 1000066..1000074 run function skill:damage_formula/blunt/one_hand/swing
 				execute if score #RAND_RANGE_RESULT temp matches 1000075..1000080 run function skill:damage_formula/blunt/one_hand/stab
+				scoreboard players add @s action_time 16
 			}
 		}
 		
@@ -2246,6 +2256,7 @@ namespace skill()
 				
 				playsound minecraft:skill.attack.sword_l player @a ~ ~ ~ 1 1 0
 				function skill:damage_formula/sword/two_hand
+				scoreboard players add @s action_time 16
 			}
 		}
 		
@@ -2261,6 +2272,7 @@ namespace skill()
 				playsound minecraft:skill.attack.sword_s player @a ~ ~ ~ 1 1 0
 				execute if score #RAND_RANGE_RESULT temp matches 1000051..1000059 run function skill:damage_formula/axe/two_hand/swing
 				execute if score #RAND_RANGE_RESULT temp matches 1000060..1000065 run function skill:damage_formula/axe/two_hand/stab
+				scoreboard players add @s action_time 16
 			}
 		}
 		
@@ -2276,6 +2288,7 @@ namespace skill()
 				playsound minecraft:skill.attack.mace player @a ~ ~ ~ 1 1 0
 				execute if score #RAND_RANGE_RESULT temp matches 1000051..1000059 run function skill:damage_formula/blunt/two_hand/swing
 				execute if score #RAND_RANGE_RESULT temp matches 1000060..1000065 run function skill:damage_formula/blunt/two_hand/stab
+				scoreboard players add @s action_time 16
 			}
 		}
 		
