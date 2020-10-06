@@ -8,6 +8,9 @@ namespace 3() as virtual
 	
 	func install()
 	{
+		scoreboard objectives add 3001004_mp dummy
+		scoreboard objectives add 3001004_attack dummy
+		
 		function ARG(_PATH)1/install
 		function ARG(_PATH)2/install
 	}
@@ -24,11 +27,77 @@ namespace 3() as virtual
 				}
 			}
 			
-			folder 1004()
+			folder 1004() from bullet_skill_template(3001004)
 			{
 				func check()
 				{
+					execute unless score @s action_time matches 0.. if score @s 3001004_level matches 1.. run function ARG(_PATH)other_check
+				}
+				
+				func other_check()
+				{
+					function skill:check_weapon/archer/run
+					execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 3001004_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
+					execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp >= @s 3001004_mp run function ARG(_PATH)run
+				}
+				
+				func mark_target()
+				{
+					```
+					raise Warning("TODO: set mark_target distance according to amazon eyes")
+					```
+					# scoreboard players operation #DISTANCE temp = @s amazon_eyes_dist
+					scoreboard players set #DISTANCE temp 14
+					scoreboard players set #MAX_ENEMY temp 1
+					function skill:enemy_search/search_front/search
+				}
+				
+				func summon_bullet()
+				{
+					# max_distance should be set to (#DISTANCE temp / 2 + 3)
+					summon minecraft:armor_stand ~ ~0.2 ~ {Tags:["first_bullet","last_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:6,max_distance:10,skill_id:6,bullet_model:3000,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
+					```
+					raise Warning("TODO: set arrow max_distance")
+					```
+				}
+				
+				func set_numeric()
+				{
+					execute store result storage skill:main damage[0].base_percent int 1 run scoreboard players get @s 3001004_attack
+					```
+					raise Warning("TODO: set arrow damage")
+					```
+					scoreboard players set #BULLET_DAMAGE temp 0
+					execute if score #USED_WEAPON temp matches 16 run function skill:damage_formula/bow/normal
+					execute if score #USED_WEAPON temp matches 18 run function skill:damage_formula/crossbow/normal
 					
+					data modify storage skill:main damage append from storage skill:main damage[0]
+					
+					scoreboard players operation @s mp -= @s 3001004_mp
+					function bar_display:change/mp/dropped
+					
+					execute store result score @s action_time run data get entity @s Inventory[{Slot:-106b}].tag.action_time
+					# booster action_time setting belongs here
+					scoreboard players add @s action_time 16
+				}
+				
+				func cast_effect()
+				{
+					execute if score #USED_WEAPON temp matches 16 run function skill:afterimage/bow/shoot
+					execute if score #USED_WEAPON temp matches 18 run function skill:afterimage/crossbow/shoot
+					playsound minecraft:skill.3001004 player @a ~ ~ ~ 1 1 0
+				}
+				
+				func effect()
+				{
+					execute if score @s display_number matches 1.. run function skill:summon_font_effect/3001004hit
+					function skill:mob_effect/play_hurt_sound/run
+				}
+				
+				func append_scheduler()
+				{
+					data modify storage skill:main new_schedule append value 0
+					execute store result storage skill:main new_schedule[-1] int 1 run schedule function ARG(_PATH)hit_effect 1t append
 				}
 			}
 			
