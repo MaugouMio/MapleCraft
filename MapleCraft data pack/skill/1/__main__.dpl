@@ -13,6 +13,10 @@ namespace 1() as virtual
 		scoreboard objectives add 1001004_mp dummy
 		scoreboard objectives add 1001004_attack dummy
 		
+		scoreboard objectives add 1001005_mp dummy
+		scoreboard objectives add 1001005_hp dummy
+		scoreboard objectives add 1001005_attack dummy
+		
 		function ARG(_PATH)1/install
 		function ARG(_PATH)2/install
 		function ARG(_PATH)3/install
@@ -90,11 +94,75 @@ namespace 1() as virtual
 				}
 			}
 			
-			folder 1005()
+			folder 1005() from attack_skill_template(1001005)
 			{
 				func check()
 				{
+					execute unless score @s action_time matches 0.. if score @s 1001005_level matches 1.. run function ARG(_PATH)other_check
+				}
+				
+				func other_check()
+				{
+					execute store result score #USED_WEAPON temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_type
+					execute if score #USED_WEAPON temp matches 0 run tellraw @s {"translate":"warning.skill.no_weapon","color":"red"}
 					
+					execute if score #USED_WEAPON temp matches 1.. if score @s mp < @s 1001005_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
+					execute if score #USED_WEAPON temp matches 1.. if score @s mp >= @s 1001005_mp run function ARG(_PATH)run
+					
+					# HP check here
+				}
+				
+				func mark_target()
+				{
+					scoreboard players operation #DISTANCE temp = #USED_WEAPON temp
+					# make single hand weapon %2 be 0
+					scoreboard players add #DISTANCE temp 1
+					scoreboard players operation #DISTANCE temp %= #2 const
+					scoreboard players add #DISTANCE temp 2
+					
+					scoreboard players set #MAX_ENEMY temp 6
+					function skill:enemy_search/search_front/search
+				}
+				
+				func set_numeric()
+				{
+					execute store result storage skill:main damage[0].base_percent int 1 run scoreboard players get @s 1001005_attack
+					# melee *RANDOM* swing damage formula and default attack speed is done by afterimage functions
+					
+					scoreboard players operation @s mp -= @s 1001005_mp
+					function bar_display:change/mp/dropped
+					scoreboard players operation @s hp -= @s 1001005_hp
+					function bar_display:change/hp/dropped
+					
+					execute store result score @s action_time run data get entity @s Inventory[{Slot:-106b}].tag.action_time
+					# booster action_time setting belongs here or in afterimage functions
+				}
+				
+				func cast_effect()
+				{
+					function skill:afterimage/warrior_swing/check
+					execute positioned ~ ~-0.4 ~ run function skill:summon_font_effect/1001005effect
+					playsound minecraft:skill.1001005 player @a ~ ~ ~ 1 1 0
+				}
+				
+				func effect()
+				{
+					execute if score @s display_number matches 1.. run function ARG(_PATH)rand_hit_effect
+					function skill:mob_effect/play_hurt_sound/run
+				}
+				
+				func rand_hit_effect()
+				{
+					scoreboard players set #RANGE_MAX temp 6
+					function main:rand_range
+					execute if score #RAND_RANGE_RESULT temp matches 0..2 run function skill:summon_font_effect/1001005hit0
+					execute if score #RAND_RANGE_RESULT temp matches 3..5 run function skill:summon_font_effect/1001005hit1
+				}
+				
+				func append_scheduler()
+				{
+					data modify storage skill:main new_schedule append value 0
+					execute store result storage skill:main new_schedule[-1] int 1 run schedule function ARG(_PATH)hit_effect 8t append
 				}
 			}
 		}
