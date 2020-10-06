@@ -58,7 +58,8 @@ namespace 3() as virtual
 				func summon_bullet()
 				{
 					# max_distance should be set to (#DISTANCE temp / 2 + 3)
-					summon minecraft:armor_stand ~ ~0.2 ~ {Tags:["first_bullet","last_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:6,max_distance:10,skill_id:6,bullet_model:3000,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
+					execute if score #USED_WEAPON temp matches 16 run summon minecraft:armor_stand ~ ~0.2 ~ {Tags:["first_bullet","last_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:6,max_distance:10,skill_id:6,bullet_model:3000,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
+					execute if score #USED_WEAPON temp matches 18 run summon minecraft:armor_stand ~ ~0.2 ~ {Tags:["first_bullet","last_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:7,max_distance:10,skill_id:6,bullet_model:3000,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
 					```
 					raise Warning("TODO: set arrow max_distance")
 					```
@@ -85,9 +86,27 @@ namespace 3() as virtual
 				
 				func cast_effect()
 				{
-					execute if score #USED_WEAPON temp matches 16 run function skill:afterimage/bow/shoot
-					execute if score #USED_WEAPON temp matches 18 run function skill:afterimage/crossbow/shoot
+					execute if score #USED_WEAPON temp matches 16 run function ARG(_PATH)bow_effect
+					execute if score #USED_WEAPON temp matches 18 run function ARG(_PATH)crossbow_effect
 					playsound minecraft:skill.3001004 player @a ~ ~ ~ 1 1 0
+				}
+				
+				func bow_effect()
+				{
+					function skill:afterimage/bow/shoot
+					```
+					raise Warning("TODO: check whether soul arrow is used to determine whether to play the arrow sound or not")
+					```
+					playsound minecraft:skill.attack.bow player @a ~ ~ ~ 1 1 0
+				}
+				
+				func crossbow_effect()
+				{
+					function skill:afterimage/crossbow/shoot
+					```
+					raise Warning("TODO: check whether soul arrow is used to determine whether to play the arrow sound or not")
+					```
+					playsound minecraft:skill.attack.crossbow player @a ~ ~ ~ 1 1 0
 				}
 				
 				func effect()
@@ -130,14 +149,27 @@ namespace 3() as virtual
 				
 				func summon_bullet()
 				{
-					# max_distance should be set to (#DISTANCE temp / 2 + 3)
-					summon minecraft:armor_stand ^-0.2 ^ ^ {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:6,max_distance:10,skill_id:6,bullet_model:3001CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
-					summon minecraft:armor_stand ^0.2 ^ ^ {Tags:["last_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:6,max_distance:10,skill_id:6,bullet_model:3001,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
+					execute if score #USED_WEAPON temp matches 16 run function ARG(_PATH)bow_bullet
+					execute if score #USED_WEAPON temp matches 18 run function ARG(_PATH)crossbow_bullet
 					```
 					raise Warning("TODO: set arrow model and max_distance")
 					```
 					# scoreboard players operation #GLOBAL temp = @s using_bullet
 					# execute as @e[tag=new_bullet] store result entity @s ArmorItems[3].tag.bullet_model int 1 run scoreboard players get #GLOBAL temp
+				}
+				
+				func bow_bullet()
+				{
+					# max_distance should be set to (#DISTANCE temp / 2 + 3)
+					summon minecraft:armor_stand ^-0.2 ^ ^ {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:6,max_distance:10,skill_id:7,bullet_model:3001CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
+					summon minecraft:armor_stand ^0.2 ^ ^ {Tags:["last_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:6,max_distance:10,skill_id:7,bullet_model:3001,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
+				}
+				
+				func crossbow_bullet()
+				{
+					# max_distance should be set to (#DISTANCE temp / 2 + 3)
+					summon minecraft:armor_stand ^-0.2 ^ ^ {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:7,max_distance:10,skill_id:7,bullet_model:3001CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
+					summon minecraft:armor_stand ^0.2 ^ ^ {Tags:["last_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:7,max_distance:10,skill_id:7,bullet_model:3001,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
 				}
 				
 				func set_numeric()
@@ -163,8 +195,26 @@ namespace 3() as virtual
 				
 				func cast_effect()
 				{
-					execute if score #USED_WEAPON temp matches 16 run function skill:afterimage/bow/shoot
-					execute if score #USED_WEAPON temp matches 18 run function skill:afterimage/crossbow/shoot
+					execute if score #USED_WEAPON temp matches 16 run function ARG(_PATH)bow_effect
+					execute if score #USED_WEAPON temp matches 18 run function ARG(_PATH)crossbow_effect
+				}
+				
+				func bow_effect()
+				{
+					function skill:afterimage/bow/shoot
+					```
+					raise Warning("TODO: check whether soul arrow is used to determine whether to play the arrow sound or not")
+					```
+					playsound minecraft:skill.3001005_bow player @a ~ ~ ~ 1 1 0
+				}
+				
+				func crossbow_effect()
+				{
+					function skill:afterimage/crossbow/shoot
+					```
+					raise Warning("TODO: check whether soul arrow is used to determine whether to play the arrow sound or not")
+					```
+					playsound minecraft:skill.3001005_crossbow player @a ~ ~ ~ 1 1 0
 				}
 				
 				func effect()

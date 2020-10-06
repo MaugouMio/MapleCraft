@@ -2196,7 +2196,7 @@ namespace skill()
 				scoreboard players set #RAND_RANGE_RESULT temp 1000096
 				function ARG(__PATH)summon_model
 				
-				playsound minecraft:skill.attack.bow player @a ~ ~ ~ 1 1 0
+				playsound minecraft:skill.attack.sword_s player @a ~ ~ ~ 1 1 0
 			}
 		}
 		
@@ -2207,7 +2207,7 @@ namespace skill()
 				scoreboard players set #RANGE_MAX temp 6
 				function main:rand_range
 				scoreboard players add #RAND_RANGE_RESULT temp 1000012
-				function ARG(__PATH)summon_model
+				function ARG(__PATH)summon_model_delay
 				
 				playsound minecraft:skill.attack.mace player @a ~ ~ ~ 1 1 0
 				function skill:damage_formula/crossbow/power_knock_back
@@ -2217,9 +2217,9 @@ namespace skill()
 			func shoot()
 			{
 				scoreboard players set #RAND_RANGE_RESULT temp 1000096
-				function ARG(__PATH)summon_model
+				function ARG(__PATH)summon_model_delay
 				
-				playsound minecraft:skill.attack.crossbow player @a ~ ~ ~ 1 1 0
+				playsound minecraft:skill.attack.mace player @a ~ ~ ~ 1 1 0
 			}
 		}
 		
@@ -2368,10 +2368,24 @@ namespace skill()
 			execute as @e[type=armor_stand,tag=new] run function ARG(_PATH)model_set
 		}
 		
+		func summon_model_delay()
+		{
+			execute rotated ~ 0 run summon minecraft:armor_stand ^ ^ ^0.7 {Tags:["afterimage","new"],Invisible:1,Invulnerable:1,NoGravity:1,Marker:1,Fire:32767s,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:1}}]}
+			execute as @e[type=armor_stand,tag=new] run function ARG(_PATH)model_set_delay
+		}
+		
 		func model_set()
 		{
 			execute positioned as @s run tp @s ~ ~ ~ ~ ~
 			scoreboard players set @s life 8
+			scoreboard players operation @s base_model = #RAND_RANGE_RESULT temp
+			tag @s remove new
+		}
+		
+		func model_set_delay()
+		{
+			execute positioned as @s run tp @s ~ ~ ~ ~ ~
+			scoreboard players set @s life 9
 			scoreboard players operation @s base_model = #RAND_RANGE_RESULT temp
 			tag @s remove new
 		}
