@@ -944,11 +944,13 @@ namespace skill()
 			scoreboard players operation #MAX_DAMAGE temp /= #10000 const
 			
 			# recovery amount
-			scoreboard players operation #MIN_HEAL_AMOUNT temp = #MAGIC_ATTACK temp
 			scoreboard players operation #MAX_HEAL_AMOUNT temp = #MAGIC_ATTACK temp
+			scoreboard players operation #MAX_HEAL_AMOUNT temp *= #3 const
+			scoreboard players operation #MAX_HEAL_AMOUNT temp /= #40 const
 			
-			scoreboard players operation #MIN_HEAL_AMOUNT temp /= #20 const
-			scoreboard players operation #MAX_HEAL_AMOUNT temp /= #10 const
+			scoreboard players operation #MIN_HEAL_AMOUNT temp = #MAGIC_ATTACK temp
+			scoreboard players operation #MIN_HEAL_AMOUNT temp *= #45 const
+			scoreboard players operation #MIN_HEAL_AMOUNT temp /= #1000 const
 			
 			# accuracy
 			scoreboard players operation #INT temp = @s INT
