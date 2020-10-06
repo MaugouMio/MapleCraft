@@ -4,7 +4,7 @@ import random
 ```
 skill_ids = []
 
-mastery_weapons = ["claw", "dagger", "bow", "crossbow", "spear", "polearm", "sword", "axe", "blunt"]
+mastery_weapons = ["claw", "dagger", "bow", "cbow", "spear", "polearm", "sword", "axe", "blunt"]
 ```
 
 namespace attack_skill_template(skill_id) as virtual
@@ -1301,7 +1301,7 @@ namespace skill()
 				
 				scoreboard players operation #MIN_DAMAGE temp = #MAX_DAMAGE temp
 				scoreboard players operation #MIN_DAMAGE temp *= #9 const
-				scoreboard players operation #MIN_DAMAGE temp *= @s crossbow_mastery
+				scoreboard players operation #MIN_DAMAGE temp *= @s cbow_mastery
 				scoreboard players operation #MIN_DAMAGE temp /= #1000 const
 				
 				scoreboard players operation #MAX_DAMAGE temp += @s STR
@@ -1352,7 +1352,7 @@ namespace skill()
 			{
 				# accuracy
 				function ARG(__PATH)accuracy/bow_thief_pirate
-				scoreboard players operation #ACCURACY temp += @s crossbow_accuracy
+				scoreboard players operation #ACCURACY temp += @s cbow_accuracy
 				
 				function ARG(__PATH)write_values
 			}
@@ -2395,9 +2395,9 @@ namespace skill()
 	
 	func test_mob()
 	{
-		execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["new","enemy","heal_target","holy_weakness"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:10000,CustomPotionColor:-1,Unbreakable:1}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:9.5},{Name:"generic.movement_speed",Base:0.2}],ActiveEffects:[{Id:11b,Amplifier:4,Duration:2147483647,Ambient:1b,ShowParticles:0b}],DeathLootTable:"minecraft:empty",OnGround:1b}
-		execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["new","enemy","heal_target","holy_weakness"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:10000,CustomPotionColor:-1,Unbreakable:1}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:9.5},{Name:"generic.movement_speed",Base:0.2}],ActiveEffects:[{Id:11b,Amplifier:4,Duration:2147483647,Ambient:1b,ShowParticles:0b}],DeathLootTable:"minecraft:empty",OnGround:1b}
-		execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["new","enemy","heal_target","holy_weakness"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:10000,CustomPotionColor:-1,Unbreakable:1}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:9.5},{Name:"generic.movement_speed",Base:0.2}],ActiveEffects:[{Id:11b,Amplifier:4,Duration:2147483647,Ambient:1b,ShowParticles:0b}],DeathLootTable:"minecraft:empty",OnGround:1b}
+		execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["new","enemy","heal_target","holy_weakness"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:10000,CustomPotionColor:-1,Unbreakable:1}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:9.5},{Name:"generic.movement_speed",Base:0.2}],ActiveEffects:[{Id:11b,Amplifier:4,Duration:2147483647,Ambient:1b,ShowParticles:0b}],DeathLootTable:"minecraft:empty",OnGround:1b,Team:"enemy"}
+		execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["new","enemy","heal_target","holy_weakness"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:10000,CustomPotionColor:-1,Unbreakable:1}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:9.5},{Name:"generic.movement_speed",Base:0.2}],ActiveEffects:[{Id:11b,Amplifier:4,Duration:2147483647,Ambient:1b,ShowParticles:0b}],DeathLootTable:"minecraft:empty",OnGround:1b,Team:"enemy"}
+		execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["new","enemy","heal_target","holy_weakness"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:10000,CustomPotionColor:-1,Unbreakable:1}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:9.5},{Name:"generic.movement_speed",Base:0.2}],ActiveEffects:[{Id:11b,Amplifier:4,Duration:2147483647,Ambient:1b,ShowParticles:0b}],DeathLootTable:"minecraft:empty",OnGround:1b,Team:"enemy"}
 		
 		scoreboard players set @e[type=zombified_piglin,tag=new] level 24
 		scoreboard players set @e[type=zombified_piglin,tag=new] hp_max 500

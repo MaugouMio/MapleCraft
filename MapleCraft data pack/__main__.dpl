@@ -49,8 +49,8 @@ namespace main()
 		scoreboard objectives add max_life dummy
 		scoreboard objectives add jump minecraft.custom:minecraft.jump
 		
-		# team add enemy
-		# team modify enemy collisionRule never
+		team add enemy
+		team modify enemy collisionRule never
 		```
 		constants = set(constants)
 		for i in constants:
