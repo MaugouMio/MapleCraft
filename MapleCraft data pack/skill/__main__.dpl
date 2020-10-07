@@ -1244,7 +1244,6 @@ namespace skill()
 				# crit
 				scoreboard players operation #CRIT_RATE temp = @s crit_rate
 				scoreboard players operation #CRIT_DAMAGE temp = @s crit_damage
-				execute if score @s addi_crit_rate matches 1.. run function ARG(__PATH)addi_crit
 				
 				function ARG(_PATH)other_formula
 			}
@@ -1283,6 +1282,9 @@ namespace skill()
 				function ARG(__PATH)accuracy/bow_thief_pirate
 				scoreboard players operation #ACCURACY temp += @s bow_accuracy
 				
+				# additional crit
+				execute if score @s addi_crit_rate matches 1.. run function ARG(__PATH)addi_crit
+				
 				function ARG(__PATH)write_values
 			}
 		}
@@ -1315,7 +1317,6 @@ namespace skill()
 				# crit
 				scoreboard players operation #CRIT_RATE temp = @s crit_rate
 				scoreboard players operation #CRIT_DAMAGE temp = @s crit_damage
-				execute if score @s addi_crit_rate matches 1.. run function ARG(__PATH)addi_crit
 				
 				function ARG(_PATH)other_formula
 			}
@@ -1353,6 +1354,9 @@ namespace skill()
 				# accuracy
 				function ARG(__PATH)accuracy/bow_thief_pirate
 				scoreboard players operation #ACCURACY temp += @s cbow_accuracy
+				
+				# additional crit
+				execute if score @s addi_crit_rate matches 1.. run function ARG(__PATH)addi_crit
 				
 				function ARG(__PATH)write_values
 			}
