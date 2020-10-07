@@ -64,7 +64,9 @@ namespace 31() as virtual
 			
 			func cast_effect()
 			{
-				function skill:afterimage/bow/swing
+				# share function with crossbow version (3201003)
+				execute if score #USED_WEAPON temp matches 16 run function skill:afterimage/bow/swing
+				execute if score #USED_WEAPON temp matches 18 run function skill:afterimage/crossbow/swing
 				playsound minecraft:skill.3101003 player @a ~ ~ ~ 1 1 0
 			}
 			
