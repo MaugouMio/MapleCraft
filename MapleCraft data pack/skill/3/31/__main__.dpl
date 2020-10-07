@@ -8,6 +8,11 @@ namespace 31() as virtual
 	
 	func install()
 	{
+		scoreboard objectives add 3101003_mp dummy
+		scoreboard objectives add 3101003_attack dummy
+		scoreboard objectives add 3101003_knock dummy
+		scoreboard objectives add 3101003_enemy dummy
+		
 		function ARG(_PATH)1/install
 		function ARG(_PATH)2/install
 	}
@@ -22,11 +27,77 @@ namespace 31() as virtual
 			}
 		}
 		
-		folder 1003()
+		folder 1003() from attack_skill_template(3101003)
 		{
 			func check()
 			{
+				execute unless score @s action_time matches 0.. if score @s 3101003_level matches 1.. run function ARG(_PATH)other_check
+			}
+			
+			func other_check()
+			{
+				function skill:check_weapon/bow/run
+				execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 3101003_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
+				execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp >= @s 3101003_mp run function ARG(_PATH)run
+			}
+			
+			func mark_target()
+			{
+				scoreboard players set #DISTANCE temp 2
+				scoreboard players operation #MAX_ENEMY temp = @s 3101003_enemy
+				function skill:enemy_search/search_front/search
+			}
+			
+			func set_numeric()
+			{
+				execute store result storage skill:main damage[0].base_percent int 1 run scoreboard players get @s 3101003_attack
+				# melee *RANDOM* swing damage formula and default attack speed is done by afterimage functions
+				execute store result score #KNOCKBACK_RATE temp run data get entity @s Inventory[{Slot:-106b}].tag.knockback
+				scoreboard players operation #KNOCKBACK_RATE temp += @s 3101003_knock
 				
+				scoreboard players operation @s mp -= @s 3101003_mp
+				function bar_display:change/mp/dropped
+				
+				execute store result score @s action_time run data get entity @s Inventory[{Slot:-106b}].tag.action_time
+				# booster action_time setting belongs here or in afterimage functions
+			}
+			
+			func cast_effect()
+			{
+				function skill:afterimage/bow/swing
+				playsound minecraft:skill.3101003 player @a ~ ~ ~ 1 1 0
+			}
+			
+			func add_debuff()
+			{
+				# judging whether to use power knockback is in "skill_template/merge_scheduler/execute" function
+				execute if entity @s[tag=!dead] run function main:rand_rate
+			}
+			
+			func effect()
+			{
+				execute if score @s display_number matches 1.. run function ARG(_PATH)rand_hit_effect
+				function skill:mob_effect/play_hurt_sound/run
+			}
+			
+			func rand_hit_effect()
+			{
+				scoreboard players set #RANGE_MAX temp 6
+				function main:rand_range
+				execute if score #RAND_RANGE_RESULT temp matches 0..2 run function skill:summon_font_effect/1001005hit0
+				execute if score #RAND_RANGE_RESULT temp matches 3..5 run function skill:summon_font_effect/1001005hit1
+			}
+			
+			func append_scheduler()
+			{
+				data modify storage skill:main new_schedule append value 0
+				execute store result storage skill:main new_schedule[-1] int 1 run schedule function ARG(_PATH)hit_effect 8t append
+				```
+				raise Warning("Remind: set knockback distance in append_scheduler function for efficiency")
+				```
+				data modify storage skill:main damage_info.power_knock_back set from storage skill:main damage_info.knock_back
+				execute store result storage skill:main damage_info.power_knock_back[0] double 0.0007 run data get storage skill:main damage_info.power_knock_back[0] 10000
+				execute store result storage skill:main damage_info.power_knock_back[2] double 0.0007 run data get storage skill:main damage_info.power_knock_back[2] 10000
 			}
 		}
 		

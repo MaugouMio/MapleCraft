@@ -95,14 +95,14 @@ namespace attack_skill_template(skill_id) as virtual
 	func hit()
 	{
 		function skill:calculate_damage/run
+		scoreboard players set #RAND_RESULT temp 100
+		execute if score #DID_HIT temp matches 1 run function ARG(_PATH)add_debuff
 		
 		data modify storage skill:main new_queue set value []
 		data modify storage skill:main temp set from storage skill:main new_schedule
 		function ARG(_PATH)merge_schedule/run
 		data modify entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue prepend from storage skill:main new_queue[]
 		execute store result score @s ARG(skill_id)_eid run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].time
-		
-		execute if score #DID_HIT temp matches 1 run function ARG(_PATH)add_debuff
 		
 		tag @s remove target
 	}
@@ -120,7 +120,8 @@ namespace attack_skill_template(skill_id) as virtual
 			data modify storage skill:main new_queue[-1].damage set from entity @s ArmorItems[3].tag.damage_record[0]
 			data modify storage skill:main new_queue[-1].attacker set from storage skill:main damage_info.attacker
 			data modify storage skill:main new_queue[-1].attacker_id set from storage skill:main damage_info.attacker_id
-			data modify storage skill:main new_queue[-1].knock_back set from storage skill:main damage_info.knock_back
+			execute if score #RAND_RESULT temp >= #KNOCKBACK_RATE temp run data modify storage skill:main new_queue[-1].knock_back set from storage skill:main damage_info.knock_back
+			execute if score #RAND_RESULT temp < #KNOCKBACK_RATE temp run data modify storage skill:main new_queue[-1].knock_back set from storage skill:main damage_info.power_knock_back
 			
 			data remove storage skill:main temp[0]
 			data remove entity @s ArmorItems[3].tag.damage_record[0]
@@ -240,13 +241,13 @@ namespace bullet_skill_template(skill_id) as virtual
 		execute as @e[type=armor_stand,tag=new_bullet] run function skill:bullet/setting
 		
 		function skill:calculate_damage/run
+		scoreboard players set #RAND_RESULT temp 100
+		execute if score #DID_HIT temp matches 1 run function ARG(_PATH)add_debuff
 		
 		data modify entity @s ArmorItems[3].tag.bullet_list append value {}
 		execute store result entity @s ArmorItems[3].tag.bullet_list[-1].bullet_id int 1 run scoreboard players get #BULLET_ID number
 		data modify entity @s ArmorItems[3].tag.bullet_list[-1].damage_record set from entity @s ArmorItems[3].tag.damage_record
 		data modify entity @s ArmorItems[3].tag.bullet_list[-1].damage_info set from storage skill:main damage_info
-	
-		execute if score #DID_HIT temp matches 1 run function ARG(_PATH)add_debuff
 		
 		tag @s remove target
 		scoreboard players operation @s bullet_targeted += #BULLET_AMOUNT temp
@@ -295,7 +296,8 @@ namespace bullet_skill_template(skill_id) as virtual
 			data modify storage skill:main new_queue[-1].damage set from entity @s ArmorItems[3].tag.bullet_list[0].damage_record[0]
 			data modify storage skill:main new_queue[-1].attacker set from entity @s ArmorItems[3].tag.bullet_list[0].damage_info.attacker
 			data modify storage skill:main new_queue[-1].attacker_id set from entity @s ArmorItems[3].tag.bullet_list[0].damage_info.attacker_id
-			data modify storage skill:main new_queue[-1].knock_back set from entity @s ArmorItems[3].tag.bullet_list[0].damage_info.knock_back
+			execute if score #RAND_RESULT temp >= #KNOCKBACK_RATE temp run data modify storage skill:main new_queue[-1].knock_back set from storage skill:main damage_info.knock_back
+			execute if score #RAND_RESULT temp < #KNOCKBACK_RATE temp run data modify storage skill:main new_queue[-1].knock_back set from storage skill:main damage_info.power_knock_back
 			
 			data remove storage skill:main new_schedule[0]
 			data remove entity @s ArmorItems[3].tag.bullet_list[0].damage_record[0]
@@ -1982,6 +1984,11 @@ namespace skill()
 				execute unless score @s next_poison matches 1.. run scoreboard players set @s next_poison 20
 				
 				data modify entity @s ArmorItems[3].tag.CustomPotionColor set value 2779438
+			}
+			
+			func knockback()
+			{
+				
 			}
 		}
 		
