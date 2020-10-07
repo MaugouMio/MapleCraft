@@ -624,7 +624,7 @@ namespace skill()
 		
 		func no_target_setting()
 		{
-			tp @s ~ ~ ~ ~ 0
+			execute positioned as @s run tp @s ~ ~ ~ ~ 0
 			execute store result score @s life run data get entity @s ArmorItems[3].tag.appear_delay -1
 			execute store result score @s max_life run data get entity @s ArmorItems[3].tag.max_distance
 			tag @s remove new_bullet
