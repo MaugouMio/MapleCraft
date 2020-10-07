@@ -235,7 +235,10 @@ namespace bullet_skill_template(skill_id) as virtual
 	func hit()
 	{
 		scoreboard players operation #GLOBAL temp = @s number
+		
+		scoreboard players set #BULLET_AMOUNT temp 0
 		execute as @e[type=armor_stand,tag=new_bullet] run function skill:bullet/setting
+		
 		function skill:calculate_damage/run
 		
 		data modify entity @s ArmorItems[3].tag.bullet_list append value {}
@@ -246,7 +249,7 @@ namespace bullet_skill_template(skill_id) as virtual
 		execute if score #DID_HIT temp matches 1 run function ARG(_PATH)add_debuff
 		
 		tag @s remove target
-		scoreboard players add @s bullet_targeted 1
+		scoreboard players operation @s bullet_targeted += #BULLET_AMOUNT temp
 	}
 	
 	folder bullet_hit()
@@ -313,9 +316,8 @@ namespace bullet_skill_template(skill_id) as virtual
 	func summon_bullet_sample() as virtual
 	{
 		# first bullet should have "first_bullet" tag
-		# last bullet should have "last_bullet" tag
 		summon minecraft:armor_stand ~ ~ ~ {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:16,max_distance:5,skill_id:1,bullet_model:123,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
-		summon minecraft:armor_stand ~ ~ ~ {Tags:["last_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:19,max_distance:5,skill_id:1,bullet_model:123,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
+		summon minecraft:armor_stand ~ ~ ~ {Tags:["new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:19,max_distance:5,skill_id:1,bullet_model:123,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
 	}
 }
 
@@ -614,6 +616,7 @@ namespace skill()
 		func setting()
 		{
 			execute facing entity @s eyes positioned as @s run tp @s ~ ~ ~ ~180 0
+			scoreboard players add #BULLET_AMOUNT temp 1
 			
 			scoreboard players operation @s number = #BULLET_ID number
 			scoreboard players operation @s target_id = #GLOBAL temp
@@ -659,7 +662,7 @@ namespace skill()
 		func hit()
 		{
 			execute if entity @s[tag=first_bullet] run function ARG(_PATH)append_scheduler
-			execute if entity @s[tag=last_bullet] as @e[type=zombified_piglin,tag=enemy] if score @s number = #GLOBAL temp run scoreboard players remove @s bullet_targeted 1
+			execute as @e[type=zombified_piglin,tag=enemy] if score @s number = #GLOBAL temp run scoreboard players remove @s bullet_targeted 1
 			kill @s
 		}
 		
