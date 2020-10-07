@@ -1,13 +1,13 @@
 {
 	"__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
 	"textures": {
-		"texture": "skill/230/1005/ball"
+		"texture": "skill/arrow/soul"
 	},
 	"elements": [
 		{
 			"name": "Cube",
-			"from": [ 4.74, 0, -16 ], 
-			"to": [ 11.26, 0.1, 32 ], 
+			"from": [ 0.5, 0, -13.6 ], 
+			"to": [ 15.5, 0.1, 29.6 ], 
 			"rotation": { "origin": [ 8.0, 0.0, 8.0 ], "axis": "z", "angle": 22.5 },
 			"faces": {
 				"north": { "texture": "#texture", "uv": [ 0, 0, 0, 0 ] },
@@ -20,8 +20,8 @@
 		},
 		{
 			"name": "Cube",
-			"from": [ 4.74, 0, -16 ], 
-			"to": [ 11.26, 0.1, 32 ], 
+			"from": [ 0.5, 0, -13.6 ], 
+			"to": [ 15.5, 0.1, 29.6 ], 
 			"rotation": { "origin": [ 8.0, 0.0, 8.0 ], "axis": "z", "angle": -22.5 },
 			"faces": {
 				"north": { "texture": "#texture", "uv": [ 0, 0, 0, 0 ] },

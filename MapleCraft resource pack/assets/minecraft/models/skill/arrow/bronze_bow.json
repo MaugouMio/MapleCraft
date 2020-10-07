@@ -1,28 +1,14 @@
 {
 	"__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
 	"textures": {
-		"texture": "skill/230/1005/ball"
+		"texture": "skill/arrow/bronze_bow"
 	},
 	"elements": [
 		{
 			"name": "Cube",
-			"from": [ 4.74, 0, -16 ], 
-			"to": [ 11.26, 0.1, 32 ], 
+			"from": [ 5.9, 0, -4 ], 
+			"to": [ 10.1, 0.1, 20 ], 
 			"rotation": { "origin": [ 8.0, 0.0, 8.0 ], "axis": "z", "angle": 22.5 },
-			"faces": {
-				"north": { "texture": "#texture", "uv": [ 0, 0, 0, 0 ] },
-				"east": { "texture": "#texture", "uv": [ 0, 0, 0, 0 ] },
-				"south": { "texture": "#texture", "uv": [ 0, 0, 0, 0 ] },
-				"west": { "texture": "#texture", "uv": [ 0, 0, 0, 0 ] },
-				"up": { "texture": "#texture", "uv": [ 0, 0, 16, 16 ] },
-				"down": { "texture": "#texture", "uv": [ 0, 16, 16, 0 ] }
-			}
-		},
-		{
-			"name": "Cube",
-			"from": [ 4.74, 0, -16 ], 
-			"to": [ 11.26, 0.1, 32 ], 
-			"rotation": { "origin": [ 8.0, 0.0, 8.0 ], "axis": "z", "angle": -22.5 },
 			"faces": {
 				"north": { "texture": "#texture", "uv": [ 0, 0, 0, 0 ] },
 				"east": { "texture": "#texture", "uv": [ 0, 0, 0, 0 ] },
