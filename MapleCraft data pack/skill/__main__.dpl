@@ -380,6 +380,7 @@ namespace skill()
 		for weapon in mastery_weapons:
 			print(f"scoreboard objectives add {weapon}_mastery dummy")
 			print(f"scoreboard objectives add {weapon}_accuracy dummy")
+			print(f"scoreboard objectives add {weapon}_color dummy")
 		
 		for skill in skill_ids:
 			print(f"scoreboard objectives add {skill}_level dummy")
@@ -609,6 +610,7 @@ namespace skill()
 			```
 			for weapon in mastery_weapons:
 				print(f"scoreboard players set @s {weapon}_mastery 10")
+				print(f"scoreboard players set @s {weapon}_color 255")
 			```
 		}
 	}
@@ -2151,14 +2153,21 @@ namespace skill()
 				scoreboard players set #RANGE_MAX temp 9
 				function main:rand_range
 				scoreboard players add #RAND_RANGE_RESULT temp 1000000
+				execute if score @s claw_mastery matches ..55 run function ARG(_PATH)set_color
 				function ARG(__PATH)summon_model
 				
 				playsound minecraft:skill.attack.punch player @a ~ ~ ~ 1 1 0
 			}
 			
+			func set_color()
+			{
+				scoreboard players add #RAND_RANGE_RESULT temp 1000
+				scoreboard players operation #AFTERIMAGE_COLOR temp = @s claw_color
+			}
+			
 			func stab()
 			{
-				scoreboard players set #RAND_RANGE_RESULT temp 1000009
+				scoreboard players set #RAND_RANGE_RESULT temp 1001009
 				function ARG(__PATH)summon_model
 				
 				playsound minecraft:skill.attack.punch player @a ~ ~ ~ 1 1 0
@@ -2174,6 +2183,7 @@ namespace skill()
 				scoreboard players set #RANGE_MAX temp 15
 				function main:rand_range
 				scoreboard players add #RAND_RANGE_RESULT temp 1000021
+				execute if score @s dagger_mastery matches ..55 run function ARG(_PATH)set_color
 				function ARG(__PATH)summon_model
 				
 				playsound minecraft:skill.attack.sword_s player @a ~ ~ ~ 1 1 0
@@ -2185,9 +2195,16 @@ namespace skill()
 			func stab()
 			{
 				scoreboard players set #RAND_RANGE_RESULT temp 1000030
+				execute if score @s dagger_mastery matches ..55 run function ARG(_PATH)set_color
 				function ARG(__PATH)summon_model
 				
 				playsound minecraft:skill.attack.sword_s player @a ~ ~ ~ 1 1 0
+			}
+			
+			func set_color()
+			{
+				scoreboard players add #RAND_RANGE_RESULT temp 1000
+				scoreboard players operation #AFTERIMAGE_COLOR temp = @s dagger_color
 			}
 		}
 		
@@ -2198,6 +2215,7 @@ namespace skill()
 				scoreboard players set #RANGE_MAX temp 6
 				function main:rand_range
 				scoreboard players add #RAND_RANGE_RESULT temp 1000015
+				execute if score @s bow_mastery matches ..55 run function ARG(_PATH)set_color
 				function ARG(__PATH)summon_model
 				
 				playsound minecraft:skill.attack.sword_s player @a ~ ~ ~ 1 1 0
@@ -2208,9 +2226,16 @@ namespace skill()
 			func shoot()
 			{
 				scoreboard players set #RAND_RANGE_RESULT temp 1000096
+				execute if score @s bow_mastery matches ..55 run function ARG(_PATH)set_color
 				function ARG(__PATH)summon_model
 				
 				playsound minecraft:skill.attack.sword_s player @a ~ ~ ~ 1 1 0
+			}
+			
+			func set_color()
+			{
+				scoreboard players add #RAND_RANGE_RESULT temp 1000
+				scoreboard players operation #AFTERIMAGE_COLOR temp = @s bow_color
 			}
 		}
 		
@@ -2221,6 +2246,7 @@ namespace skill()
 				scoreboard players set #RANGE_MAX temp 6
 				function main:rand_range
 				scoreboard players add #RAND_RANGE_RESULT temp 1000012
+				execute if score @s cbow_mastery matches ..55 run function ARG(_PATH)set_color
 				function ARG(__PATH)summon_model_delay
 				
 				playsound minecraft:skill.attack.mace player @a ~ ~ ~ 1 1 0
@@ -2231,9 +2257,16 @@ namespace skill()
 			func shoot()
 			{
 				scoreboard players set #RAND_RANGE_RESULT temp 1000096
+				execute if score @s cbow_mastery matches ..55 run function ARG(_PATH)set_color
 				function ARG(__PATH)summon_model_delay
 				
 				playsound minecraft:skill.attack.mace player @a ~ ~ ~ 1 1 0
+			}
+			
+			func set_color()
+			{
+				scoreboard players add #RAND_RANGE_RESULT temp 1000
+				scoreboard players operation #AFTERIMAGE_COLOR temp = @s cbow_color
 			}
 		}
 		
@@ -2241,7 +2274,8 @@ namespace skill()
 		{
 			func swing()
 			{
-				scoreboard players set #RAND_RANGE_RESULT temp 1000069
+				scoreboard players set #RAND_RANGE_RESULT temp 1001069
+				scoreboard players set #AFTERIMAGE_COLOR temp 255
 				function ARG(__PATH)summon_model
 				
 				playsound minecraft:skill.attack.mace player @a ~ ~ ~ 1 1 0
@@ -2257,12 +2291,21 @@ namespace skill()
 				scoreboard players set #RANGE_MAX temp 15
 				function main:rand_range
 				scoreboard players add #RAND_RANGE_RESULT temp 1000036
-				function ARG(__PATH)summon_model
 				
-				playsound minecraft:skill.attack.polearm player @a ~ ~ ~ 1 1 0
 				execute if score #RAND_RANGE_RESULT temp matches 1000036..1000044 run function skill:damage_formula/polearm/swing
 				execute if score #RAND_RANGE_RESULT temp matches 1000045..1000050 run function skill:damage_formula/polearm/stab
+				
+				execute if score @s polearm_mastery matches ..55 run function ARG(_PATH)set_color
+				function ARG(__PATH)summon_model
+				playsound minecraft:skill.attack.polearm player @a ~ ~ ~ 1 1 0
+				
 				scoreboard players add @s action_time 15
+			}
+			
+			func set_color()
+			{
+				scoreboard players add #RAND_RANGE_RESULT temp 1000
+				scoreboard players operation #AFTERIMAGE_COLOR temp = @s polearm_color
 			}
 		}
 		
@@ -2273,12 +2316,21 @@ namespace skill()
 				scoreboard players set #RANGE_MAX temp 15
 				function main:rand_range
 				scoreboard players add #RAND_RANGE_RESULT temp 1000036
-				function ARG(__PATH)summon_model
 				
-				playsound minecraft:skill.attack.spear player @a ~ ~ ~ 1 1 0
 				execute if score #RAND_RANGE_RESULT temp matches 1000036..1000044 run function skill:damage_formula/spear/swing
 				execute if score #RAND_RANGE_RESULT temp matches 1000045..1000050 run function skill:damage_formula/spear/stab
+				
+				execute if score @s spear_mastery matches ..55 run function ARG(_PATH)set_color
+				function ARG(__PATH)summon_model
+				playsound minecraft:skill.attack.spear player @a ~ ~ ~ 1 1 0
+				
 				scoreboard players add @s action_time 15
+			}
+			
+			func set_color()
+			{
+				scoreboard players add #RAND_RANGE_RESULT temp 1000
+				scoreboard players operation #AFTERIMAGE_COLOR temp = @s spear_color
 			}
 		}
 		
@@ -2289,11 +2341,18 @@ namespace skill()
 				scoreboard players set #RANGE_MAX temp 15
 				function main:rand_range
 				scoreboard players add #RAND_RANGE_RESULT temp 1000000
+				execute if score @s sword_mastery matches ..55 run function ARG(_PATH)set_color
 				function ARG(__PATH)summon_model
 				
 				playsound minecraft:skill.attack.sword_s player @a ~ ~ ~ 1 1 0
 				function skill:damage_formula/sword/one_hand
 				scoreboard players add @s action_time 16
+			}
+			
+			func set_color()
+			{
+				scoreboard players add #RAND_RANGE_RESULT temp 1000
+				scoreboard players operation #AFTERIMAGE_COLOR temp = @s sword_color
 			}
 		}
 		
@@ -2304,12 +2363,21 @@ namespace skill()
 				scoreboard players set #RANGE_MAX temp 15
 				function main:rand_range
 				scoreboard players add #RAND_RANGE_RESULT temp 1000000
-				function ARG(__PATH)summon_model
 				
-				playsound minecraft:skill.attack.sword_l player @a ~ ~ ~ 1 1 0
 				execute if score #RAND_RANGE_RESULT temp matches 1000000..1000008 run function skill:damage_formula/axe/one_hand/swing
 				execute if score #RAND_RANGE_RESULT temp matches 1000009..1000014 run function skill:damage_formula/axe/one_hand/stab
+				
+				execute if score @s axe_mastery matches ..55 run function ARG(_PATH)set_color
+				function ARG(__PATH)summon_model
+				playsound minecraft:skill.attack.sword_l player @a ~ ~ ~ 1 1 0
+				
 				scoreboard players add @s action_time 16
+			}
+			
+			func set_color()
+			{
+				scoreboard players add #RAND_RANGE_RESULT temp 1000
+				scoreboard players operation #AFTERIMAGE_COLOR temp = @s axe_color
 			}
 		}
 		
@@ -2320,12 +2388,21 @@ namespace skill()
 				scoreboard players set #RANGE_MAX temp 15
 				function main:rand_range
 				scoreboard players add #RAND_RANGE_RESULT temp 1000066
-				function ARG(__PATH)summon_model
 				
-				playsound minecraft:skill.attack.mace player @a ~ ~ ~ 1 1 0
 				execute if score #RAND_RANGE_RESULT temp matches 1000066..1000074 run function skill:damage_formula/blunt/one_hand/swing
 				execute if score #RAND_RANGE_RESULT temp matches 1000075..1000080 run function skill:damage_formula/blunt/one_hand/stab
+				
+				execute if score @s blunt_mastery matches ..55 run function ARG(_PATH)set_color
+				function ARG(__PATH)summon_model
+				playsound minecraft:skill.attack.mace player @a ~ ~ ~ 1 1 0
+				
 				scoreboard players add @s action_time 16
+			}
+			
+			func set_color()
+			{
+				scoreboard players add #RAND_RANGE_RESULT temp 1000
+				scoreboard players operation #AFTERIMAGE_COLOR temp = @s blunt_color
 			}
 		}
 		
@@ -2336,6 +2413,7 @@ namespace skill()
 				scoreboard players set #RANGE_MAX temp 15
 				function main:rand_range
 				scoreboard players add #RAND_RANGE_RESULT temp 1000081
+				execute if score @s sword_mastery matches ..55 run function ARG(__PATH)oh_sword/set_color
 				function ARG(__PATH)summon_model
 				
 				playsound minecraft:skill.attack.sword_l player @a ~ ~ ~ 1 1 0
@@ -2351,11 +2429,14 @@ namespace skill()
 				scoreboard players set #RANGE_MAX temp 15
 				function main:rand_range
 				scoreboard players add #RAND_RANGE_RESULT temp 1000051
-				function ARG(__PATH)summon_model
 				
-				playsound minecraft:skill.attack.sword_s player @a ~ ~ ~ 1 1 0
 				execute if score #RAND_RANGE_RESULT temp matches 1000051..1000059 run function skill:damage_formula/axe/two_hand/swing
 				execute if score #RAND_RANGE_RESULT temp matches 1000060..1000065 run function skill:damage_formula/axe/two_hand/stab
+				
+				execute if score @s axe_mastery matches ..55 run function ARG(__PATH)oh_axe/set_color
+				function ARG(__PATH)summon_model
+				playsound minecraft:skill.attack.sword_s player @a ~ ~ ~ 1 1 0
+				
 				scoreboard players add @s action_time 16
 			}
 		}
@@ -2367,18 +2448,21 @@ namespace skill()
 				scoreboard players set #RANGE_MAX temp 15
 				function main:rand_range
 				scoreboard players add #RAND_RANGE_RESULT temp 1000051
-				function ARG(__PATH)summon_model
 				
-				playsound minecraft:skill.attack.mace player @a ~ ~ ~ 1 1 0
 				execute if score #RAND_RANGE_RESULT temp matches 1000051..1000059 run function skill:damage_formula/blunt/two_hand/swing
 				execute if score #RAND_RANGE_RESULT temp matches 1000060..1000065 run function skill:damage_formula/blunt/two_hand/stab
+				
+				execute if score @s blunt_mastery matches ..55 run function ARG(__PATH)oh_blunt/set_color
+				function ARG(__PATH)summon_model
+				playsound minecraft:skill.attack.mace player @a ~ ~ ~ 1 1 0
+				
 				scoreboard players add @s action_time 16
 			}
 		}
 		
 		func summon_model()
 		{
-			execute rotated ~ 0 run summon minecraft:armor_stand ^ ^ ^0.7 {Tags:["afterimage","new"],Invisible:1,Invulnerable:1,NoGravity:1,Marker:1,Fire:32767s,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:1}}]}
+			execute rotated ~ 0 run summon minecraft:armor_stand ^ ^ ^0.7 {Tags:["afterimage","new"],Invisible:1,Invulnerable:1,NoGravity:1,Marker:1,Fire:32767s,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:1,CustomPotionColor:255}}]}
 			execute as @e[type=armor_stand,tag=new] run function ARG(_PATH)model_set
 		}
 		
@@ -2393,6 +2477,7 @@ namespace skill()
 			execute positioned as @s run tp @s ~ ~ ~ ~ ~
 			scoreboard players set @s life 8
 			scoreboard players operation @s base_model = #RAND_RANGE_RESULT temp
+			execute store result entity @s ArmorItems[3].tag.CustomPotionColor int 1 run scoreboard players get #AFTERIMAGE_COLOR temp
 			tag @s remove new
 		}
 		
@@ -2401,6 +2486,7 @@ namespace skill()
 			execute positioned as @s run tp @s ~ ~ ~ ~ ~
 			scoreboard players set @s life 9
 			scoreboard players operation @s base_model = #RAND_RANGE_RESULT temp
+			execute store result entity @s ArmorItems[3].tag.CustomPotionColor int 1 run scoreboard players get #AFTERIMAGE_COLOR temp
 			tag @s remove new
 		}
 
