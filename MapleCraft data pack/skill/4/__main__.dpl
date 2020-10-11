@@ -8,6 +8,9 @@ namespace 4() as virtual
 	
 	func install()
 	{
+		scoreboard objectives add 4001002_mp dummy
+		scoreboard objectives add 4001002_time dummy
+		
 		scoreboard objectives add 4001334_mp dummy
 		scoreboard objectives add 4001334_attack dummy
 		
@@ -22,11 +25,111 @@ namespace 4() as virtual
 	{
 		folder 0()
 		{
-			folder 1002()
+			folder 1002() from attack_skill_template(4001002)
 			{
 				func check()
 				{
+					execute unless score @s action_time matches 0.. if score @s 4001002_level matches 1.. run function ARG(_PATH)other_check
+				}
+				
+				func other_check()
+				{
+					function skill:check_weapon/check_empty
+					execute if score #USED_WEAPON temp matches 1.. if score @s mp < @s 4001002_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
+					execute if score #USED_WEAPON temp matches 1.. if score @s mp >= @s 4001002_mp run function ARG(_PATH)run
+				}
+				
+				func mark_target()
+				{
+					execute unless score #USED_WEAPON temp matches 24 run function ARG(_PATH)check_weapon_distance
+					execute if score #USED_WEAPON temp matches 24 run scoreboard players set #DISTANCE temp 2
 					
+					scoreboard players set #MAX_ENEMY temp 1
+					function skill:enemy_search/search_front/search
+				}
+				
+				func check_weapon_distance()
+				{
+					scoreboard players operation #DISTANCE temp = #USED_WEAPON temp
+					# make single hand weapon %2 be 0
+					scoreboard players add #DISTANCE temp 1
+					scoreboard players operation #DISTANCE temp %= #2 const
+					scoreboard players add #DISTANCE temp 2
+				}
+				
+				func set_numeric()
+				{
+					execute store result storage skill:main damage[0].base_percent int 1 run scoreboard players get @s 4001334_attack
+					# melee *RANDOM* swing damage formula and default attack speed is done by afterimage functions
+					scoreboard players operation #DISORDER_TIME temp = @s 4001002_time
+					scoreboard players operation #DISORDER_LEVEL temp = @s 4001002_level
+					
+					scoreboard players operation @s mp -= @s 4001002_mp
+					function bar_display:change/mp/dropped
+					
+					execute store result score @s action_time run data get entity @s Inventory[{Slot:-106b}].tag.action_time
+				}
+				
+				func cast_effect()
+				{
+					execute unless score #USED_WEAPON temp matches 24 run function skill:afterimage/warrior_swing/check
+					execute if score #USED_WEAPON temp matches 24 run function skill:afterimage/claw/stab
+					playsound minecraft:skill.4001002 player @a ~ ~ ~ 1 1 0
+				}
+				
+				func effect()
+				{
+					data remove entity @s AngryAt
+					```
+					raise Warning("TODO: weapon normal attack hit effect")
+					```
+					function skill:mob_effect/play_hurt_sound/run
+				}
+				
+				func add_debuff()
+				{
+					execute unless score @s 4001002_time matches 1.. run function ARG(_PATH)set_debuff
+				}
+				
+				func set_debuff()
+				{
+					execute positioned ~ ~0.8 ~ run function skill:summon_font_effect/4001002mob
+					
+					scoreboard players operation @s 4001002_time = #DISORDER_TIME temp
+					
+					# weapon attack drop
+					execute store result score #WA_DROP temp run data get entity @s Attributes[{Name:"minecraft:generic.attack_damage"}].Base 10
+					scoreboard players operation @s temp = #WA_DROP temp
+					scoreboard players remove @s temp 1
+					scoreboard players operation @s temp < #DISORDER_LEVEL temp
+					execute store result entity @s ArmorItems[3].tag.AttributeModifiers[{Name:"disorder"}].Amount 0.1 run scoreboard players operation #WA_DROP temp -= @s temp
+					
+					# weapon defense drop
+					scoreboard players operation @s wdef_drop = @s weapon_defense
+					scoreboard players remove @s wdef_drop 1
+					scoreboard players operation @s wdef_drop < #DISORDER_LEVEL temp
+				}
+				
+				folder mob()
+				{
+					func countdown()
+					{
+						scoreboard players remove @s 4001002_time 1
+						execute if score @s 4001002_time matches 0 run function ARG(_PATH)reset
+					}
+					
+					func reset()
+					{
+						scoreboard players reset @s 4001002_time
+						scoreboard players set @s wdef_drop 0
+						data modify entity @s ArmorItems[3].tag.AttributeModifiers[{Name:"disorder"}].Amount set value 0
+					}
+				}
+				
+				func append_scheduler()
+				{
+					data modify storage skill:main new_schedule append value 0
+					execute store result storage skill:main new_schedule[-1] int 1 run schedule function ARG(_PATH)hit_effect 7t append
 				}
 			}
 			

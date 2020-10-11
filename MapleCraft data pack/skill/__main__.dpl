@@ -354,6 +354,7 @@ namespace skill()
 		scoreboard objectives add weapon_defense dummy
 		scoreboard objectives add magic_defense dummy
 		scoreboard objectives add base_accuracy dummy
+		scoreboard objectives add wdef_drop dummy
 		
 		scoreboard objectives add crit_rate dummy
 		scoreboard objectives add crit_damage dummy
@@ -395,6 +396,11 @@ namespace skill()
 	
 	folder loop()
 	{
+		func schedule_1s()
+		{
+			execute as @e[type=zombified_piglin,tag=enemy,tag=!dead,scores={4001002_time=1..}] run function skill:4/0/0/1002/mob/countdown
+		}
+		
 		func schedule_1d()
 		{
 			scoreboard players set #BULLET_ID number 1
@@ -1783,6 +1789,7 @@ namespace skill()
 			{
 				# defense
 				scoreboard players operation #DEFENSE temp = @s weapon_defense
+				scoreboard players operation #DEFENSE temp -= @s wdef_drop
 				scoreboard players operation #DEFENSE temp /= #2 const
 				
 				scoreboard players set #LEVEL_PUNISH temp 100
@@ -2168,6 +2175,7 @@ namespace skill()
 			func stab()
 			{
 				scoreboard players set #RAND_RANGE_RESULT temp 1001009
+				scoreboard players set #AFTERIMAGE_COLOR temp 255
 				function ARG(__PATH)summon_model
 				
 				playsound minecraft:skill.attack.punch player @a ~ ~ ~ 1 1 0
@@ -2509,9 +2517,9 @@ namespace skill()
 	
 	func test_mob()
 	{
-		execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["new","enemy","heal_target","holy_weakness"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:10000,CustomPotionColor:-1,Unbreakable:1}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:9.5},{Name:"generic.movement_speed",Base:0.2}],ActiveEffects:[{Id:11b,Amplifier:4,Duration:2147483647,Ambient:1b,ShowParticles:0b}],DeathLootTable:"minecraft:empty",OnGround:1b,Team:"enemy"}
-		execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["new","enemy","heal_target","holy_weakness"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:10000,CustomPotionColor:-1,Unbreakable:1}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:9.5},{Name:"generic.movement_speed",Base:0.2}],ActiveEffects:[{Id:11b,Amplifier:4,Duration:2147483647,Ambient:1b,ShowParticles:0b}],DeathLootTable:"minecraft:empty",OnGround:1b,Team:"enemy"}
-		execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["new","enemy","heal_target","holy_weakness"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:10000,CustomPotionColor:-1,Unbreakable:1}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:9.5},{Name:"generic.movement_speed",Base:0.2}],ActiveEffects:[{Id:11b,Amplifier:4,Duration:2147483647,Ambient:1b,ShowParticles:0b}],DeathLootTable:"minecraft:empty",OnGround:1b,Team:"enemy"}
+		execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["new","enemy","heal_target","holy_weakness"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:10000,CustomPotionColor:-1,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.attack_damage",Name:"threaten",Amount:0,Operation:1,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:9.5},{Name:"generic.movement_speed",Base:0.2}],ActiveEffects:[{Id:11b,Amplifier:4,Duration:2147483647,Ambient:1b,ShowParticles:0b}],DeathLootTable:"minecraft:empty",OnGround:1b,Team:"enemy"}
+		execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["new","enemy","heal_target","holy_weakness"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:10000,CustomPotionColor:-1,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.attack_damage",Name:"threaten",Amount:0,Operation:1,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:9.5},{Name:"generic.movement_speed",Base:0.2}],ActiveEffects:[{Id:11b,Amplifier:4,Duration:2147483647,Ambient:1b,ShowParticles:0b}],DeathLootTable:"minecraft:empty",OnGround:1b,Team:"enemy"}
+		execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["new","enemy","heal_target","holy_weakness"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:10000,CustomPotionColor:-1,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.attack_damage",Name:"threaten",Amount:0,Operation:1,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:9.5},{Name:"generic.movement_speed",Base:0.2}],ActiveEffects:[{Id:11b,Amplifier:4,Duration:2147483647,Ambient:1b,ShowParticles:0b}],DeathLootTable:"minecraft:empty",OnGround:1b,Team:"enemy"}
 		
 		scoreboard players set @e[type=zombified_piglin,tag=new] level 24
 		scoreboard players set @e[type=zombified_piglin,tag=new] hp_max 500
