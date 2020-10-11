@@ -10,6 +10,7 @@ namespace 4() as virtual
 	{
 		scoreboard objectives add 4001002_mp dummy
 		scoreboard objectives add 4001002_time dummy
+		scoreboard objectives add 4001002_effect dummy
 		
 		scoreboard objectives add 4001334_mp dummy
 		scoreboard objectives add 4001334_attack dummy
@@ -79,7 +80,11 @@ namespace 4() as virtual
 				
 				func effect()
 				{
-					data remove entity @s AngryAt
+					summon minecraft:wandering_trader ~ -2 ~ {NoAI:1,Silent:1,DespawnDelay:1,Offers:{Recipes:[]},UUID:[I;0,1,0,1]}
+					data modify entity @s AngryAt set value [I;0,1,0,1]
+					
+					execute if score @s 4001002_effect matches 1 positioned ~ ~0.8 ~ run function skill:summon_font_effect/4001002mob
+					scoreboard players reset @s 4001002_effect
 					```
 					raise Warning("TODO: weapon normal attack hit effect")
 					```
@@ -93,20 +98,16 @@ namespace 4() as virtual
 				
 				func set_debuff()
 				{
-					execute positioned ~ ~0.8 ~ run function skill:summon_font_effect/4001002mob
-					
 					scoreboard players operation @s 4001002_time = #DISORDER_TIME temp
+					scoreboard players set @s 4001002_effect 1
 					
 					# weapon attack drop
-					execute store result score #WA_DROP temp run data get entity @s Attributes[{Name:"minecraft:generic.attack_damage"}].Base 10
-					scoreboard players operation @s temp = #WA_DROP temp
+					execute store result score @s temp run data get entity @s Attributes[{Name:"minecraft:generic.attack_damage"}].Base 10
 					scoreboard players remove @s temp 1
-					scoreboard players operation @s temp < #DISORDER_LEVEL temp
-					execute store result entity @s ArmorItems[3].tag.AttributeModifiers[{Name:"disorder"}].Amount 0.1 run scoreboard players operation #WA_DROP temp -= @s temp
+					execute store result entity @s ArmorItems[3].tag.AttributeModifiers[{Name:"disorder"}].Amount float -0.1 run scoreboard players operation @s temp < #DISORDER_LEVEL temp
 					
 					# weapon defense drop
 					scoreboard players operation @s wdef_drop = @s weapon_defense
-					scoreboard players remove @s wdef_drop 1
 					scoreboard players operation @s wdef_drop < #DISORDER_LEVEL temp
 				}
 				
