@@ -28,6 +28,7 @@ namespace attack_skill_template(skill_id) as virtual
 		# movement restriction
 		attribute @s minecraft:generic.movement_speed modifier add 5b908c48-54cb-4388-aa76-82f61b02032d skill_action -10 multiply
 		data modify storage skill:main damage set value [{min_damage:0,max_damage:0,accuracy:0,player_level:0,crit_rate:0,crit_damage:0,base_percent:100,attribute:0}]
+		data modify storage skill:main damage_info.hit_effect set value 0
 		
 		function ARG(_PATH)mark_target
 		function ARG(_PATH)set_numeric
@@ -62,11 +63,14 @@ namespace attack_skill_template(skill_id) as virtual
 		execute store result score @s display_number run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].damage.number
 		execute store result score @s display_num_type run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].damage.crit
 		execute store result score #NUMBER_HEIGHT temp run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].damage.height
+		execute store result score #HIT_EFFECT temp run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].hit_effect
 		data modify entity @s AngryAt set from entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].attacker
 		
 		execute unless score @s pushed_time matches 0.. if score @s kb <= @s display_number run function ARG(_PATH)knock_back
 		data remove entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0]
 		
+		execute if score #HIT_EFFECT temp matches 1 positioned ^ ^ ^0.4 run function skill:afterimage/hit/mace
+		execute if score #HIT_EFFECT temp matches 2 positioned ^ ^ ^0.4 run function skill:afterimage/hit/sword
 		function ARG(_PATH)effect
 		function skill:show_num_at_height
 		
@@ -120,6 +124,7 @@ namespace attack_skill_template(skill_id) as virtual
 			data modify storage skill:main new_queue[-1].damage set from entity @s ArmorItems[3].tag.damage_record[0]
 			data modify storage skill:main new_queue[-1].attacker set from storage skill:main damage_info.attacker
 			data modify storage skill:main new_queue[-1].attacker_id set from storage skill:main damage_info.attacker_id
+			data modify storage skill:main new_queue[-1].hit_effect set from storage skill:main damage_info.hit_effect
 			execute if score #RAND_RESULT temp >= #KNOCKBACK_RATE temp run data modify storage skill:main new_queue[-1].knock_back set from storage skill:main damage_info.knock_back
 			execute if score #RAND_RESULT temp < #KNOCKBACK_RATE temp run data modify storage skill:main new_queue[-1].knock_back set from storage skill:main damage_info.power_knock_back
 			
@@ -169,6 +174,7 @@ namespace bullet_skill_template(skill_id) as virtual
 		# movement restriction
 		attribute @s minecraft:generic.movement_speed modifier add 5b908c48-54cb-4388-aa76-82f61b02032d skill_action -10 multiply
 		data modify storage skill:main damage set value [{min_damage:0,max_damage:0,accuracy:0,player_level:0,crit_rate:0,crit_damage:0,base_percent:100,attribute:0}]
+		data modify storage skill:main damage_info.hit_effect set value 0
 		
 		function ARG(_PATH)mark_target
 		function ARG(_PATH)summon_bullet
@@ -203,11 +209,14 @@ namespace bullet_skill_template(skill_id) as virtual
 		execute store result score @s display_number run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].damage.number
 		execute store result score @s display_num_type run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].damage.crit
 		execute store result score #NUMBER_HEIGHT temp run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].damage.height
+		execute store result score #HIT_EFFECT temp run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].hit_effect
 		data modify entity @s AngryAt set from entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].attacker
 		
 		execute unless score @s pushed_time matches 0.. if score @s kb <= @s display_number run function ARG(_PATH)knock_back
 		data remove entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0]
 		
+		execute if score #HIT_EFFECT temp matches 1 positioned ^ ^ ^0.4 run function skill:afterimage/hit/mace
+		execute if score #HIT_EFFECT temp matches 2 positioned ^ ^ ^0.4 run function skill:afterimage/hit/sword
 		function ARG(_PATH)effect
 		function skill:show_num_at_height
 		
@@ -296,8 +305,8 @@ namespace bullet_skill_template(skill_id) as virtual
 			data modify storage skill:main new_queue[-1].damage set from entity @s ArmorItems[3].tag.bullet_list[0].damage_record[0]
 			data modify storage skill:main new_queue[-1].attacker set from entity @s ArmorItems[3].tag.bullet_list[0].damage_info.attacker
 			data modify storage skill:main new_queue[-1].attacker_id set from entity @s ArmorItems[3].tag.bullet_list[0].damage_info.attacker_id
-			execute if score #RAND_RESULT temp >= #KNOCKBACK_RATE temp run data modify storage skill:main new_queue[-1].knock_back set from storage skill:main damage_info.knock_back
-			execute if score #RAND_RESULT temp < #KNOCKBACK_RATE temp run data modify storage skill:main new_queue[-1].knock_back set from storage skill:main damage_info.power_knock_back
+			data modify storage skill:main new_queue[-1].hit_effect set from entity @s ArmorItems[3].tag.bullet_list[0].damage_info.hit_effect
+			data modify storage skill:main new_queue[-1].knock_back set from storage skill:main damage_info.knock_back
 			
 			data remove storage skill:main new_schedule[0]
 			data remove entity @s ArmorItems[3].tag.bullet_list[0].damage_record[0]
@@ -2126,6 +2135,25 @@ namespace skill()
 	
 	folder afterimage()
 	{
+		folder hit()
+		{
+			func mace()
+			{
+				scoreboard players set #RANGE_MAX temp 6
+				function main:rand_range
+				execute if score #RAND_RANGE_RESULT temp matches ..2 run function skill:summon_font_effect/0001000mace0
+				execute if score #RAND_RANGE_RESULT temp matches 3.. run function skill:summon_font_effect/0001000mace1
+			}
+			
+			func sword()
+			{
+				scoreboard players set #RANGE_MAX temp 6
+				function main:rand_range
+				execute if score #RAND_RANGE_RESULT temp matches ..2 run function skill:summon_font_effect/0001000sword0
+				execute if score #RAND_RANGE_RESULT temp matches 3.. run function skill:summon_font_effect/0001000sword1
+			}
+		}
+		
 		folder warrior_swing()
 		{
 			func check()

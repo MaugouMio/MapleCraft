@@ -76,6 +76,10 @@ namespace 4() as virtual
 					execute unless score #USED_WEAPON temp matches 24 run function skill:afterimage/warrior_swing/check
 					execute if score #USED_WEAPON temp matches 24 run function skill:afterimage/claw/stab
 					playsound minecraft:skill.4001002 player @a ~ ~ ~ 1 1 0
+					
+					# hit_effect: 0 => None, 1 => mace, 2 => sword
+					data modify storage skill:main damage_info.hit_effect set value 1
+					execute unless score #USED_WEAPON temp matches ..4 unless score #USED_WEAPON temp matches 9..10 unless score #USED_WEAPON temp matches 16..21 unless score #USED_WEAPON temp matches 24 run data modify storage skill:main damage_info.hit_effect set value 2
 				}
 				
 				func effect()
