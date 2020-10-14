@@ -60,7 +60,6 @@ namespace 4() as virtual
 				
 				func set_numeric()
 				{
-					execute store result storage skill:main damage[0].base_percent int 1 run scoreboard players get @s 4001334_attack
 					# melee *RANDOM* swing damage formula and default attack speed is done by afterimage functions
 					scoreboard players operation #DISORDER_TIME temp = @s 4001002_time
 					scoreboard players operation #DISORDER_LEVEL temp = @s 4001002_level
@@ -89,9 +88,7 @@ namespace 4() as virtual
 					
 					execute if score @s 4001002_effect matches 1 positioned ~ ~0.8 ~ run function skill:summon_font_effect/4001002mob
 					scoreboard players reset @s 4001002_effect
-					```
-					raise Warning("TODO: weapon normal attack hit effect")
-					```
+					
 					function skill:mob_effect/play_hurt_sound/run
 				}
 				

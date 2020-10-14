@@ -69,8 +69,8 @@ namespace attack_skill_template(skill_id) as virtual
 		execute unless score @s pushed_time matches 0.. if score @s kb <= @s display_number run function ARG(_PATH)knock_back
 		data remove entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0]
 		
-		execute if score #HIT_EFFECT temp matches 1 positioned ^ ^ ^0.4 run function skill:afterimage/hit/mace
-		execute if score #HIT_EFFECT temp matches 2 positioned ^ ^ ^0.4 run function skill:afterimage/hit/sword
+		execute if score @s display_number matches 1.. if score #HIT_EFFECT temp matches 1 positioned ^ ^ ^0.5 run function skill:afterimage/hit/mace
+		execute if score @s display_number matches 1.. if score #HIT_EFFECT temp matches 2 positioned ^ ^ ^0.5 run function skill:afterimage/hit/sword
 		function ARG(_PATH)effect
 		function skill:show_num_at_height
 		
@@ -215,8 +215,8 @@ namespace bullet_skill_template(skill_id) as virtual
 		execute unless score @s pushed_time matches 0.. if score @s kb <= @s display_number run function ARG(_PATH)knock_back
 		data remove entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0]
 		
-		execute if score #HIT_EFFECT temp matches 1 positioned ^ ^ ^0.4 run function skill:afterimage/hit/mace
-		execute if score #HIT_EFFECT temp matches 2 positioned ^ ^ ^0.4 run function skill:afterimage/hit/sword
+		execute if score @s display_number matches 1.. if score #HIT_EFFECT temp matches 1 positioned ^ ^ ^0.5 run function skill:afterimage/hit/mace
+		execute if score @s display_number matches 1.. if score #HIT_EFFECT temp matches 2 positioned ^ ^ ^0.5 run function skill:afterimage/hit/sword
 		function ARG(_PATH)effect
 		function skill:show_num_at_height
 		
