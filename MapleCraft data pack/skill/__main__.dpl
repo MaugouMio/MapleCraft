@@ -2141,16 +2141,16 @@ namespace skill()
 			{
 				scoreboard players set #RANGE_MAX temp 6
 				function main:rand_range
-				execute if score #RAND_RANGE_RESULT temp matches ..2 run function skill:summon_font_effect/0001000mace0
-				execute if score #RAND_RANGE_RESULT temp matches 3.. run function skill:summon_font_effect/0001000mace1
+				execute if score #RAND_RANGE_RESULT temp matches ..2 run function skill:summon_font_effect/0000000mace0
+				execute if score #RAND_RANGE_RESULT temp matches 3.. run function skill:summon_font_effect/0000000mace1
 			}
 			
 			func sword()
 			{
 				scoreboard players set #RANGE_MAX temp 6
 				function main:rand_range
-				execute if score #RAND_RANGE_RESULT temp matches ..2 run function skill:summon_font_effect/0001000sword0
-				execute if score #RAND_RANGE_RESULT temp matches 3.. run function skill:summon_font_effect/0001000sword1
+				execute if score #RAND_RANGE_RESULT temp matches ..2 run function skill:summon_font_effect/0000000sword0
+				execute if score #RAND_RANGE_RESULT temp matches 3.. run function skill:summon_font_effect/0000000sword1
 			}
 		}
 		
