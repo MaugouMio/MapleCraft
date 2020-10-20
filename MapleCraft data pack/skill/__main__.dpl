@@ -196,6 +196,12 @@ namespace bullet_skill_template(skill_id) as virtual
 		kill @e[type=area_effect_cloud,tag=knockback_motion,limit=1]
 		
 		execute as @e[type=zombified_piglin,tag=target] at @s run function ARG(_PATH)hit
+		```
+		if "ARG(skill_id)" == "4101005":
+			print("scoreboard players operation @s hp += #DRAIN_AMOUNT temp")
+			print("scoreboard players operation @s hp < @s hp_max")
+			print("function bar_display:change/hp/recovered")
+		```
 	}
 	
 	func hit_effect()

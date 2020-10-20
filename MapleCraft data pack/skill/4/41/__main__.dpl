@@ -8,6 +8,10 @@ namespace 41() as virtual
 	
 	func install()
 	{
+		scoreboard objectives add 4101005_mp dummy
+		scoreboard objectives add 4101005_attack dummy
+		scoreboard objectives add 4101005_absorb dummy
+		
 		function ARG(_PATH)1/install
 		function ARG(_PATH)2/install
 	}
@@ -30,11 +34,103 @@ namespace 41() as virtual
 			}
 		}
 		
-		folder 1005()
+		folder 1005() from bullet_skill_template(4101005)
 		{
 			func check()
 			{
+				execute unless score @s action_time matches 0.. if score @s 4101005_level matches 1.. run function ARG(_PATH)other_check
+			}
+			
+			func other_check()
+			{
+				function skill:check_weapon/claw/run
+				execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 4101005_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
+				execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp >= @s 4101005_mp run function ARG(_PATH)run
+			}
+			
+			func mark_target()
+			{
+				```
+				raise Warning("TODO: set mark_target distance according to keen eyes")
+				```
+				# scoreboard players operation #DISTANCE temp = @s keen_eyes_dist
+				scoreboard players set #DISTANCE temp 14
+				scoreboard players set #MAX_ENEMY temp 1
+				function skill:enemy_search/search_front/search
+			}
+			
+			func effect_model_set()
+			{
+				tp @s ~ ~ ~ ~180 ~
+				scoreboard players set @s max_life 12
+				scoreboard players set @s base_model 410000
+				tag @s remove new
+			}
+			
+			func summon_bullet()
+			{
+				# max_distance should be set to (#DISTANCE temp / 2 + 3)
+				summon minecraft:armor_stand ~ ~0.2 ~ {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:6,max_distance:10,skill_id:9,bullet_model:4005,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
+				```
+				raise Warning("TODO: set throwing star model and max_distance")
+				```
+				# scoreboard players operation #GLOBAL temp = @s using_bullet
+				# execute as @e[tag=new_bullet] store result entity @s ArmorItems[3].tag.bullet_model int 1 run scoreboard players get #GLOBAL temp
+			}
+			
+			func set_numeric()
+			{
+				execute store result storage skill:main damage[0].base_percent int 1 run scoreboard players get @s 4101005_attack
+				scoreboard players operation #DRAIN_RATE temp = @s 4101005_absorb
+				scoreboard players operation #DRAIN_MAX temp = @s hp_max
+				scoreboard players operation #DRAIN_MAX temp /= #2 const
+				```
+				raise Warning("TODO: set throwing star damage")
+				```
+				scoreboard players set #BULLET_DAMAGE temp 25
+				function skill:damage_formula/claw/normal
 				
+				scoreboard players operation @s mp -= @s 4101005_mp
+				function bar_display:change/mp/dropped
+				
+				execute store result score @s action_time run data get entity @s Inventory[{Slot:-106b}].tag.action_time
+				# booster action_time setting belongs here
+				scoreboard players add @s action_time 16
+			}
+			
+			func add_debuff()
+			{
+				execute store result score #DRAIN_AMOUNT temp run data get entity @s ArmorItems[3].tag.damage_record[-1].number
+				```
+				raise Warning("TODO: if got shadow partner, add #DRAIN_AMOUNT temp by ArmorItems[3].tag.damage_record[-2].number")
+				```
+				scoreboard players operation #DRAIN_AMOUNT temp *= #DRAIN_RATE temp
+				scoreboard players operation #DRAIN_AMOUNT temp /= #100 const
+				
+				scoreboard players operation #DRAIN_AMOUNT temp < @s hp_max
+				scoreboard players operation #DRAIN_AMOUNT temp < #DRAIN_MAX temp
+			}
+			
+			func cast_effect()
+			{
+				summon minecraft:armor_stand ~ ~ ~ {Tags:["model_animation","new"],Invisible:1,Invulnerable:1,NoGravity:1,Marker:1,Fire:32767s,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:410000}}]}
+				execute as @e[type=armor_stand,tag=new,limit=1] run function ARG(_PATH)effect_model_set
+				function skill:afterimage/claw/swing
+				playsound minecraft:skill.4101005 player @a ~ ~ ~ 1 1 0
+				# hit_effect: 0 => None, 1 => mace, 2 => sword
+				data modify storage skill:main damage_info.hit_effect set value 1
+			}
+			
+			func effect()
+			{
+				execute if score @s display_number matches 1.. positioned ^ ^ ^0.5 run function skill:afterimage/hit/mace
+				function skill:mob_effect/play_hurt_sound/run
+			}
+			
+			func append_scheduler()
+			{
+				data modify storage skill:main new_schedule append value 0
+				execute store result storage skill:main new_schedule[-1] int 1 run schedule function ARG(_PATH)hit_effect 1t append
 			}
 		}
 	}
