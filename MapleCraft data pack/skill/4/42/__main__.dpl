@@ -73,21 +73,23 @@ namespace 42() as virtual
 			{
 				execute positioned ~ ~0.3 ~ run function skill:summon_font_effect/4201005effect
 				playsound minecraft:skill.4201005_use player @a ~ ~ ~ 1 1 0
+				# borrow hit_effect variable to set custom hit effect
+				scoreboard players set #RANGE_MAX temp 3
+				function main:rand_range
+				execute store result storage skill:main damage_info.hit_effect int 1 run scoreboard players add #RAND_RANGE_RESULT temp 3
 			}
 			
 			func effect()
 			{
-				execute if score @s display_number matches 1.. run function ARG(_PATH)rand_hit_effect
+				execute if score @s display_number matches 1.. positioned ^ ^ ^0.5 run function ARG(_PATH)rand_hit_effect
 				playsound minecraft:skill.4201005_hit hostile @a ~ ~ ~ 1 1 0
 			}
 			
 			func rand_hit_effect()
 			{
-				scoreboard players set #RANGE_MAX temp 3
-				function main:rand_range
-				execute if score #RAND_RANGE_RESULT temp matches 0 run function skill:summon_font_effect/4201005hit0
-				execute if score #RAND_RANGE_RESULT temp matches 1 run function skill:summon_font_effect/4201005hit1
-				execute if score #RAND_RANGE_RESULT temp matches 2 run function skill:summon_font_effect/4201005hit2
+				execute if score #HIT_EFFECT temp matches 3 run function skill:summon_font_effect/4201005hit0
+				execute if score #HIT_EFFECT temp matches 4 run function skill:summon_font_effect/4201005hit1
+				execute if score #HIT_EFFECT temp matches 5 run function skill:summon_font_effect/4201005hit2
 			}
 			
 			func append_scheduler()
