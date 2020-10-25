@@ -67,14 +67,13 @@ namespace attack_skill_template(skill_id) as virtual
 		data modify entity @s AngryAt set from entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].attacker
 		
 		execute unless score @s pushed_time matches 0.. if score @s kb <= @s display_number run function ARG(_PATH)knock_back
-		data remove entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0]
-		
 		execute if score @s display_number matches 1.. if score #HIT_EFFECT temp matches 1 positioned ^ ^ ^0.5 run function skill:afterimage/hit/mace
 		execute if score @s display_number matches 1.. if score #HIT_EFFECT temp matches 2 positioned ^ ^ ^0.5 run function skill:afterimage/hit/sword
 		function ARG(_PATH)effect
 		function skill:show_num_at_height
 		
 		scoreboard players reset @s ARG(skill_id)_eid
+		data remove entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0]
 		execute if score @s hp matches ..0 unless data entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0] run function skill:mob_effect/dead
 		execute if data entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0] store result score @s ARG(skill_id)_eid run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].time
 	}
@@ -219,14 +218,13 @@ namespace bullet_skill_template(skill_id) as virtual
 		data modify entity @s AngryAt set from entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].attacker
 		
 		execute unless score @s pushed_time matches 0.. if score @s kb <= @s display_number run function ARG(_PATH)knock_back
-		data remove entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0]
-		
 		execute if score @s display_number matches 1.. if score #HIT_EFFECT temp matches 1 positioned ^ ^ ^0.5 run function skill:afterimage/hit/mace
 		execute if score @s display_number matches 1.. if score #HIT_EFFECT temp matches 2 positioned ^ ^ ^0.5 run function skill:afterimage/hit/sword
 		function ARG(_PATH)effect
 		function skill:show_num_at_height
 		
 		scoreboard players reset @s ARG(skill_id)_eid
+		data remove entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0]
 		execute if score @s hp matches ..0 unless data entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0] run function skill:mob_effect/dead
 		execute if data entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0] store result score @s ARG(skill_id)_eid run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].time
 	}
@@ -298,6 +296,10 @@ namespace bullet_skill_template(skill_id) as virtual
 		}
 	}
 	
+	```
+	# 3101005 uses its own merge_schedule function
+	if "ARG(skill_id)" != "3101005":
+		print('''
 	folder merge_schedule() from while_loop("if data storage skill:main new_schedule[0]")
 	{
 		func execute()
@@ -318,6 +320,8 @@ namespace bullet_skill_template(skill_id) as virtual
 			data remove entity @s ArmorItems[3].tag.bullet_list[0].damage_record[0]
 		}
 	}
+	''')
+	```
 	
 	folder merge_ori_schedule() from while_loop("if data entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0] if score #RIGHT temp < #LEFT temp")
 	{
@@ -384,6 +388,8 @@ namespace skill()
 		scoreboard objectives add next_poison dummy
 		scoreboard objectives add poison_damage dummy
 		scoreboard objectives add poison_particle dummy
+		scoreboard objectives add stun_time dummy
+		scoreboard objectives add stun_particle dummy
 		scoreboard objectives add action_time dummy
 		
 		scoreboard objectives add hurt_sound dummy
@@ -465,6 +471,7 @@ namespace skill()
 				
 				execute if score @s kb_time matches 1.. run function ARG(_PATH)kb/countdown
 				execute if score @s pushed_time matches 1.. run function ARG(_PATH)push_countdown
+				execute if score @s stun_time matches 1.. run function ARG(_PATH)stun_countdown/run
 				execute if score @s bullet_targeted matches 1.. at @s run function ARG(_PATH)move_bullets
 			}
 			
@@ -535,8 +542,8 @@ namespace skill()
 						{
 							scoreboard players remove @s next_poison 1
 							scoreboard players remove @s poison_particle 1
-							execute if score @s poison_particle matches 0 run function ARG(_PATH)show_particle
 							execute if score @s next_poison matches 0 run function ARG(_PATH)next
+							execute if score @s poison_particle matches 0 run function ARG(_PATH)show_particle
 						}
 						
 						func show_particle()
@@ -571,6 +578,7 @@ namespace skill()
 						
 						func reset()
 						{
+							scoreboard players reset @s poison_particle
 							scoreboard players reset @s next_poison
 							scoreboard players reset @s poison_time
 							function ARG(__PATH)other_color_check
@@ -599,6 +607,31 @@ namespace skill()
 			{
 				scoreboard players remove @s pushed_time 1
 				scoreboard players reset @s[scores={pushed_time=0}] pushed_time
+			}
+			
+			folder stun_countdown()
+			{
+				func run()
+				{
+					scoreboard players remove @s stun_particle 1
+					scoreboard players remove @s stun_time 1
+					execute if score @s stun_time matches 0 run function ARG(_PATH)reset
+					execute if score @s stun_particle matches 0 at @s run function ARG(_PATH)show_particle
+				}
+						
+				func show_particle()
+				{
+					execute positioned ~ ~0.8 ~ run function skill:summon_font_effect/3101005mob
+					scoreboard players set @s stun_particle 6
+				}
+				
+				func reset()
+				{
+					scoreboard players reset @s stun_particle
+					scoreboard players reset @s stun_time
+					
+					attribute @s minecraft:generic.movement_speed modifier remove 98fb435b-7645-4b76-8504-ee4f9e13fdec
+				}
 			}
 			
 			func move_bullets()
@@ -1884,7 +1917,7 @@ namespace skill()
 			
 			func deal_damage()
 			{
-				scoreboard players set @s display_number 0
+				scoreboard players operation @s display_number = #MAX_DAMAGE temp
 				execute unless score #MAX_DAMAGE temp = #MIN_DAMAGE temp run function ARG(_PATH)rand_damage
 				
 				execute if score #CRIT_RATE temp matches 1.. run function main:rand_rate
@@ -2010,9 +2043,12 @@ namespace skill()
 				data modify entity @s ArmorItems[3].tag.CustomPotionColor set value 2779438
 			}
 			
-			func knockback()
+			func stun()
 			{
+				scoreboard players operation @s stun_time = #STUN_TIME temp
+				execute unless score @s stun_particle matches 1.. run scoreboard players set @s stun_particle 6
 				
+				attribute @s minecraft:generic.movement_speed modifier add 98fb435b-7645-4b76-8504-ee4f9e13fdec stun_control -100.0 add
 			}
 		}
 		

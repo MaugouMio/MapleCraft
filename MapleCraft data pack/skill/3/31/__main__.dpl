@@ -13,6 +13,12 @@ namespace 31() as virtual
 		scoreboard objectives add 3101003_knock dummy
 		scoreboard objectives add 3101003_enemy dummy
 		
+		scoreboard objectives add 3101005_mp dummy
+		scoreboard objectives add 3101005_attack dummy
+		scoreboard objectives add 3101005_stun dummy
+		scoreboard objectives add 3101005_time dummy
+		scoreboard objectives add 3101005_splashed dummy
+		
 		function ARG(_PATH)1/install
 		function ARG(_PATH)2/install
 	}
@@ -111,11 +117,285 @@ namespace 31() as virtual
 			}
 		}
 		
-		folder 1005()
+		folder 1005() from bullet_skill_template(3101005)
 		{
 			func check()
 			{
+				execute unless score @s action_time matches 0.. if score @s[nbt={OnGround:1b}] 3101005_level matches 1.. run function ARG(_PATH)other_check
+			}
+			
+			func other_check()
+			{
+				function skill:check_weapon/bow/run
+				execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 3101005_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
+				execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp >= @s 3101005_mp run function ARG(_PATH)run
+			}
+			
+			func mark_target()
+			{
+				```
+				raise Warning("TODO: set mark_target distance according to amazon eyes")
+				```
+				# scoreboard players operation #DISTANCE temp = @s amazon_eyes_dist
+				scoreboard players set #DISTANCE temp 14
+				scoreboard players set #MAX_ENEMY temp 1
+				function skill:enemy_search/search_front/search
+				execute as @e[type=zombified_piglin,tag=target,limit=1] at @s run tag @e[type=zombified_piglin,tag=enemy,tag=!target,distance=..5,limit=5] add new_splashed
+			}
+			
+			func summon_bullet()
+			{
+				# max_distance should be set to (#DISTANCE temp / 2 + 3)
+				summon minecraft:armor_stand ~ ~0.2 ~ {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:6,max_distance:10,skill_id:10,bullet_model:3100,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
+				```
+				raise Warning("TODO: set arrow max_distance")
+				```
+			}
+			
+			func set_numeric()
+			{
+				execute store result storage skill:main damage[0].base_percent int 1 run scoreboard players get @s 3101005_attack
+				scoreboard players operation #STUN_RATE temp = @s 3101005_stun
+				scoreboard players operation #STUN_TIME temp = @s 3101005_time
+				```
+				raise Warning("TODO: set arrow damage")
+				```
+				scoreboard players set #BULLET_DAMAGE temp 0
+				function skill:damage_formula/bow/normal
 				
+				scoreboard players operation @s mp -= @s 3101005_mp
+				function bar_display:change/mp/dropped
+				
+				execute store result score @s action_time run data get entity @s Inventory[{Slot:-106b}].tag.action_time
+				# booster action_time setting belongs here
+				scoreboard players add @s action_time 16
+			}
+			
+			func cast_effect()
+			{
+				playsound minecraft:skill.3101005_use player @a ~ ~ ~ 1 1 0
+				
+				function skill:afterimage/bow/shoot
+				```
+				raise Warning("TODO: check whether soul arrow is used to determine whether to play the arrow sound or not")
+				```
+				playsound minecraft:skill.attack.bow player @a ~ ~ ~ 1 1 0
+			}
+	
+			# override function
+			func hit()
+			{
+				scoreboard players operation #GLOBAL temp = @s number
+				
+				execute as @e[type=armor_stand,tag=new_bullet] run function skill:bullet/setting
+				
+				scoreboard players set #BOMB_DIRECT_HIT temp 1
+				function ARG(_PATH)calculate_damage/run
+				scoreboard players set #RAND_RESULT temp 100
+				execute if score #DID_HIT temp matches 1 run function ARG(_PATH)add_debuff
+				
+				data modify entity @s ArmorItems[3].tag.bullet_list append value {}
+				execute store result entity @s ArmorItems[3].tag.bullet_list[-1].bullet_id int 1 run scoreboard players get #BULLET_ID number
+				data modify entity @s ArmorItems[3].tag.bullet_list[-1].damage_record set from entity @s ArmorItems[3].tag.damage_record
+				data modify entity @s ArmorItems[3].tag.bullet_list[-1].damage_info set from storage skill:main damage_info
+				
+				execute if score @s display_number matches 1.. as @e[type=zombified_piglin,tag=new_splashed] run function ARG(_PATH)splashed
+				
+				tag @s remove target
+				scoreboard players add @s bullet_targeted 1
+			}
+			
+			func splashed()
+			{
+				function ARG(_PATH)calculate_damage/run
+				scoreboard players set #RAND_RESULT temp 100
+				execute if score #DID_HIT temp matches 1 run function ARG(_PATH)add_debuff
+				
+				data modify entity @s ArmorItems[3].tag.bullet_list append value {}
+				execute store result entity @s ArmorItems[3].tag.bullet_list[-1].bullet_id int 1 run scoreboard players get #BULLET_ID number
+				data modify entity @s ArmorItems[3].tag.bullet_list[-1].damage_record set from entity @s ArmorItems[3].tag.damage_record
+				data modify entity @s ArmorItems[3].tag.bullet_list[-1].damage_info set from storage skill:main damage_info
+				
+				tag @s remove new_splashed
+				scoreboard players add @s 3101005_splashed 1
+			}
+			
+			# replace normal damage calculation for special crit formula
+			folder calculate_damage()
+			{
+				func run()
+				{
+					data modify entity @s ArmorItems[3].tag.damage_record set value []
+					# copy damage list (for accuracy and defense calculation)
+					data modify storage skill:main damage_copy set from storage skill:main damage
+					scoreboard players set #DID_HIT temp 0
+					### original traverse_damages ###
+					# original record_value #
+					execute store result score #MIN_DAMAGE temp run data get storage skill:main damage[0].min_damage
+					execute store result score #MAX_DAMAGE temp run data get storage skill:main damage[0].max_damage
+					execute store result score #BASE_PERCENT temp run data get storage skill:main damage[0].base_percent
+					execute if score #BOMB_DIRECT_HIT temp matches 1 run function ARG(_PATH)reset_direct_hit
+					execute store result score #CRIT_RATE temp run data get storage skill:main damage[0].crit_rate
+					execute store result score #LEVEL_DIFFERENCE temp run data get storage skill:main damage[0].player_level -1
+					scoreboard players operation #LEVEL_DIFFERENCE temp += @s level
+					scoreboard players operation #LEVEL_DIFFERENCE temp > #0 const
+					# Calculate defense and hit rate
+					function skill:calculate_damage/traverse_damages/weapon_formula
+					#########################
+					
+					data modify entity @s ArmorItems[3].tag.damage_record append value {number:0,crit:0,height:1}
+					
+					function main:rand_rate
+					execute if score #HIT_RATE temp > #RAND_RESULT temp run function ARG(_PATH)deal_damage
+					#################################
+					
+					execute if score @s hp matches ..0 run function skill:calculate_damage/record_dead
+				}
+				
+				func reset_direct_hit()
+				{
+					scoreboard players set #BASE_PERCENT temp 50
+					scoreboard players reset #BOMB_DIRECT_HIT temp
+				}
+				
+				func deal_damage()
+				{
+					scoreboard players operation @s display_number = #MAX_DAMAGE temp
+					execute unless score #MAX_DAMAGE temp = #MIN_DAMAGE temp run function skill:calculate_damage/traverse_damages/rand_damage
+					
+					scoreboard players operation @s display_number *= #BASE_PERCENT temp
+					scoreboard players operation @s display_number /= #100 const
+					
+					execute if score #CRIT_RATE temp matches 1.. run function main:rand_rate
+					execute if score #CRIT_RATE temp > #RAND_RESULT temp run function ARG(_PATH)crit_multiply
+					
+					scoreboard players operation @s display_number < #99999 const
+					scoreboard players operation @s display_number > #1 const
+					
+					scoreboard players operation @s hp -= @s display_number
+					execute store result entity @s ArmorItems[3].tag.damage_record[-1].number int 1 run scoreboard players get @s display_number
+					
+					scoreboard players set #DID_HIT temp 1
+				}
+				
+				func crit_multiply()
+				{
+					execute store result score #CRIT_DAMAGE temp run data get storage skill:main damage[0].crit_damage
+					scoreboard players add #CRIT_DAMAGE temp 100
+					
+					scoreboard players operation @s display_number *= #CRIT_DAMAGE temp
+					scoreboard players operation @s display_number /= #100 const
+					data modify entity @s ArmorItems[3].tag.damage_record[-1].crit set value 1
+				}
+			}
+			
+			func add_debuff()
+			{
+				execute if entity @s[tag=!boss] run function ARG(_PATH)try_stun
+			}
+			
+			func try_stun()
+			{
+				function main:rand_rate
+				execute if score #RAND_RESULT temp < #STUN_RATE temp run function skill:mob_effect/debuff/stun
+			}
+			
+			# override bullet_hit/run function
+			folder bullet_hit() from bullet_skill_template(3101005).bullet_hit()
+			{
+				func run()
+				{
+					data modify storage skill:main temp set value []
+					function ARG(_PATH)pop_bullet_list
+					
+					data modify storage skill:main new_queue set value []
+					function ARG(__PATH)merge_schedule
+					data modify storage skill:main new_queue[-1].splash set value 0
+					data modify entity @s ArmorItems[3].tag.3101005_effect_queue prepend from storage skill:main new_queue[]
+					execute store result score @s 3101005_eid run data get entity @s ArmorItems[3].tag.3101005_effect_queue[0].time
+					
+					data remove entity @s ArmorItems[3].tag.bullet_list[0]
+					data modify entity @s ArmorItems[3].tag.bullet_list prepend from storage skill:main temp[]
+					
+					# append scheduler
+					data modify storage skill:main new_schedule set value [0]
+					execute store result storage skill:main new_schedule[-1] int 1 run schedule function ARG(__PATH)hit_effect 6t append
+					execute as @e[type=zombified_piglin,scores={3101005_splashed=1..}] run function ARG(__PATH)splash_hit/run
+				}
+			}
+			
+			folder splash_hit()
+			{
+				func run()
+				{
+					data modify storage skill:main temp set value []
+					function ARG(_PATH)pop_bullet_list
+					execute if data entity @s ArmorItems[3].tag.bullet_list[0] run function ARG(_PATH)set
+					
+					data modify entity @s ArmorItems[3].tag.bullet_list prepend from storage skill:main temp[]
+				}
+				
+				func set()
+				{
+					data modify storage skill:main new_queue set value []
+					function ARG(__PATH)merge_schedule
+					data modify storage skill:main new_queue[-1].splash set value 1
+					data modify entity @s ArmorItems[3].tag.3101005_effect_queue prepend from storage skill:main new_queue[]
+					execute store result score @s 3101005_eid run data get entity @s ArmorItems[3].tag.3101005_effect_queue[0].time
+					
+					data remove entity @s ArmorItems[3].tag.bullet_list[0]
+					scoreboard players remove @s 3101005_splashed 1
+				}
+				
+				func pop_bullet_list()
+				{
+					execute store result score #CUR_BULLET_ID temp run data get entity @s ArmorItems[3].tag.bullet_list[0].bullet_id
+					execute unless score #CUR_BULLET_ID temp = #BULLET_ID temp run function ARG(_PATH)check_next
+				}
+				
+				func check_next()
+				{
+					data modify storage skill:main temp append from entity @s ArmorItems[3].tag.bullet_list[0]
+					data remove entity @s ArmorItems[3].tag.bullet_list[0]
+					execute if data entity @s ArmorItems[3].tag.bullet_list[0] run function ARG(_PATH)pop_bullet_list
+				}
+			}
+			
+			func effect()
+			{
+				execute if score @s display_number matches 1.. run function ARG(_PATH)explosion
+				execute unless score @s display_number matches 1.. run function skill:mob_effect/play_hurt_sound/run
+			}
+			
+			func explosion()
+			{
+				playsound minecraft:skill.3101005_hit player @a ~ ~ ~ 1 1 0
+				
+				execute store result score #IS_SPLASH temp run data get entity @s ArmorItems[3].tag.3101005_effect_queue[0].splash
+				execute if score #IS_SPLASH temp matches 0 run function skill:summon_font_effect/3101005hit0
+				execute if score #IS_SPLASH temp matches 1 run function skill:summon_font_effect/3101005hit1
+			}
+	
+			# replace merge_schedule (add flag to separate splash from hit and for multi target use)
+			func merge_schedule()
+			{
+				execute store result score #LEFT temp run data get storage skill:main new_schedule[0]
+				execute store result score #RIGHT temp run data get entity @s ArmorItems[3].tag.3101005_effect_queue[0].time
+				function ARG(_PATH)merge_ori_schedule/run
+				
+				data modify storage skill:main new_queue append value {time:0,damage:0,attacker:[I;0,0,0,0],knock_back:[]}
+				execute store result storage skill:main new_queue[-1].time int 1 run scoreboard players get #LEFT temp
+				data modify storage skill:main new_queue[-1].damage set from entity @s ArmorItems[3].tag.bullet_list[0].damage_record[0]
+				data modify storage skill:main new_queue[-1].attacker set from entity @s ArmorItems[3].tag.bullet_list[0].damage_info.attacker
+				data modify storage skill:main new_queue[-1].attacker_id set from entity @s ArmorItems[3].tag.bullet_list[0].damage_info.attacker_id
+				data modify storage skill:main new_queue[-1].hit_effect set from entity @s ArmorItems[3].tag.bullet_list[0].damage_info.hit_effect
+				data modify storage skill:main new_queue[-1].knock_back set from storage skill:main damage_info.knock_back
+			}
+			
+			func append_scheduler()
+			{
+				data modify storage skill:main new_schedule append value 0
+				execute store result storage skill:main new_schedule[-1] int 1 run schedule function ARG(_PATH)hit_effect 1t append
 			}
 		}
 	}
