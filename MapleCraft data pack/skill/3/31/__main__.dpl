@@ -194,12 +194,14 @@ namespace 31() as virtual
 				scoreboard players set #RAND_RESULT temp 100
 				execute if score #DID_HIT temp matches 1 run function ARG(_PATH)add_debuff
 				
+				scoreboard players add @s queuing_effect 1
 				data modify entity @s ArmorItems[3].tag.bullet_list append value {}
 				execute store result entity @s ArmorItems[3].tag.bullet_list[-1].bullet_id int 1 run scoreboard players get #BULLET_ID number
 				data modify entity @s ArmorItems[3].tag.bullet_list[-1].damage_record set from entity @s ArmorItems[3].tag.damage_record
 				data modify entity @s ArmorItems[3].tag.bullet_list[-1].damage_info set from storage skill:main damage_info
 				
 				execute if score @s display_number matches 1.. as @e[type=zombified_piglin,tag=new_splashed] run function ARG(_PATH)splashed
+				execute unless score @s display_number matches 1.. run tag @e[type=zombified_piglin,tag=new_splashed] remove new_splashed
 				
 				tag @s remove target
 				scoreboard players add @s bullet_targeted 1
@@ -211,6 +213,7 @@ namespace 31() as virtual
 				scoreboard players set #RAND_RESULT temp 100
 				execute if score #DID_HIT temp matches 1 run function ARG(_PATH)add_debuff
 				
+				scoreboard players add @s queuing_effect 1
 				data modify entity @s ArmorItems[3].tag.bullet_list append value {}
 				execute store result entity @s ArmorItems[3].tag.bullet_list[-1].bullet_id int 1 run scoreboard players get #BULLET_ID number
 				data modify entity @s ArmorItems[3].tag.bullet_list[-1].damage_record set from entity @s ArmorItems[3].tag.damage_record
@@ -308,6 +311,8 @@ namespace 31() as virtual
 					data modify storage skill:main temp set value []
 					function ARG(_PATH)pop_bullet_list
 					
+					scoreboard players remove @s queuing_effect 1
+					
 					data modify storage skill:main new_queue set value []
 					function ARG(__PATH)merge_schedule
 					data modify storage skill:main new_queue[-1].splash set value 0
@@ -337,6 +342,8 @@ namespace 31() as virtual
 				
 				func set()
 				{
+					scoreboard players remove @s queuing_effect 1
+					
 					data modify storage skill:main new_queue set value []
 					function ARG(__PATH)merge_schedule
 					data modify storage skill:main new_queue[-1].splash set value 1
@@ -390,6 +397,8 @@ namespace 31() as virtual
 				data modify storage skill:main new_queue[-1].attacker_id set from entity @s ArmorItems[3].tag.bullet_list[0].damage_info.attacker_id
 				data modify storage skill:main new_queue[-1].hit_effect set from entity @s ArmorItems[3].tag.bullet_list[0].damage_info.hit_effect
 				data modify storage skill:main new_queue[-1].knock_back set from storage skill:main damage_info.knock_back
+				
+				scoreboard players add @s queuing_effect 1
 			}
 			
 			func append_scheduler()

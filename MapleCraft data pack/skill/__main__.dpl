@@ -60,6 +60,8 @@ namespace attack_skill_template(skill_id) as virtual
 	
 	func perform_effect()
 	{
+		scoreboard players remove @s queuing_effect 1
+		
 		execute store result score @s display_number run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].damage.number
 		execute store result score @s display_num_type run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].damage.crit
 		execute store result score #NUMBER_HEIGHT temp run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].damage.height
@@ -74,7 +76,7 @@ namespace attack_skill_template(skill_id) as virtual
 		
 		scoreboard players reset @s ARG(skill_id)_eid
 		data remove entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0]
-		execute if score @s hp matches ..0 unless data entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0] run function skill:mob_effect/dead
+		execute if score @s hp matches ..0 unless score @s queuing_effect matches 1.. run function skill:mob_effect/dead
 		execute if data entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0] store result score @s ARG(skill_id)_eid run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].time
 	}
 	
@@ -129,6 +131,7 @@ namespace attack_skill_template(skill_id) as virtual
 			
 			data remove storage skill:main temp[0]
 			data remove entity @s ArmorItems[3].tag.damage_record[0]
+			scoreboard players add @s queuing_effect 1
 		}
 	}
 	
@@ -211,6 +214,8 @@ namespace bullet_skill_template(skill_id) as virtual
 	
 	func perform_effect()
 	{
+		scoreboard players remove @s queuing_effect 1
+		
 		execute store result score @s display_number run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].damage.number
 		execute store result score @s display_num_type run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].damage.crit
 		execute store result score #NUMBER_HEIGHT temp run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].damage.height
@@ -225,7 +230,7 @@ namespace bullet_skill_template(skill_id) as virtual
 		
 		scoreboard players reset @s ARG(skill_id)_eid
 		data remove entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0]
-		execute if score @s hp matches ..0 unless data entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0] run function skill:mob_effect/dead
+		execute if score @s hp matches ..0 unless score @s queuing_effect matches 1.. run function skill:mob_effect/dead
 		execute if data entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0] store result score @s ARG(skill_id)_eid run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].time
 	}
 	
@@ -257,6 +262,7 @@ namespace bullet_skill_template(skill_id) as virtual
 		scoreboard players set #RAND_RESULT temp 100
 		execute if score #DID_HIT temp matches 1 run function ARG(_PATH)add_debuff
 		
+		scoreboard players add @s queuing_effect 1
 		data modify entity @s ArmorItems[3].tag.bullet_list append value {}
 		execute store result entity @s ArmorItems[3].tag.bullet_list[-1].bullet_id int 1 run scoreboard players get #BULLET_ID number
 		data modify entity @s ArmorItems[3].tag.bullet_list[-1].damage_record set from entity @s ArmorItems[3].tag.damage_record
@@ -273,6 +279,7 @@ namespace bullet_skill_template(skill_id) as virtual
 			data modify storage skill:main temp set value []
 			function ARG(_PATH)pop_bullet_list
 			
+			scoreboard players remove @s queuing_effect 1
 			data modify storage skill:main new_queue set value []
 			function ARG(__PATH)merge_schedule/run
 			data modify entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue prepend from storage skill:main new_queue[]
@@ -318,6 +325,7 @@ namespace bullet_skill_template(skill_id) as virtual
 			
 			data remove storage skill:main new_schedule[0]
 			data remove entity @s ArmorItems[3].tag.bullet_list[0].damage_record[0]
+			scoreboard players add @s queuing_effect 1
 		}
 	}
 	''')
@@ -390,6 +398,7 @@ namespace skill()
 		scoreboard objectives add poison_particle dummy
 		scoreboard objectives add stun_time dummy
 		scoreboard objectives add stun_particle dummy
+		scoreboard objectives add queuing_effect dummy
 		scoreboard objectives add action_time dummy
 		
 		scoreboard objectives add hurt_sound dummy
