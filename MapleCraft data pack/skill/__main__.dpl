@@ -399,6 +399,8 @@ namespace skill()
 		scoreboard objectives add stun_time dummy
 		scoreboard objectives add stun_particle dummy
 		scoreboard objectives add queuing_effect dummy
+		scoreboard objectives add hit_order dummy
+		scoreboard objectives add hit_distance dummy
 		scoreboard objectives add action_time dummy
 		
 		scoreboard objectives add hurt_sound dummy
@@ -954,8 +956,69 @@ namespace skill()
 			
 			func try_mark()
 			{
+				scoreboard players set @s hit_distance 0
 				execute if score #FOUND_ENEMY temp < #MAX_ENEMY temp run tag @s add target
 				scoreboard players add #FOUND_ENEMY temp 1
+			}
+		}
+		
+		folder search_front_rec_dist() from for_loop().for("#DISTANCE temp", "if score #FOUND_ENEMY temp < #MAX_ENEMY temp positioned ^ ^ ^0.5")
+		{
+			func search()
+			{
+				scoreboard players set #FOUND_ENEMY temp 0
+				scoreboard players set #CUR_DISTANCE temp 0
+				
+				execute at @s rotated ~ 0 run function ARG(_PATH)run
+				execute if score #FOUND_ENEMY temp < #MAX_ENEMY temp run function ARG(_PATH)order_mark
+			}
+			
+			func execute()
+			{
+				scoreboard playeres add #CUR_DISTANCE temp 1
+				execute as @e[type=minecraft:zombified_piglin,tag=enemy,tag=!temp_mark,tag=!dead,distance=..2] run function ARG(_PATH)pre_mark
+				execute if score #FOUND_ENEMY temp >= #MAX_ENEMY temp run function ARG(_PATH)order_mark
+			}
+			
+			func pre_mark()
+			{
+				scoreboard players add #FOUND_ENEMY temp 1
+				scoreboard players operation @s hit_distance = #CUR_DISTANCE temp
+				scoreboard players operation @s hit_distance /= #2 const
+				tag @s add temp_mark
+			}
+			
+			func order_mark()
+			{
+				data modify storage skill:main temp set value []
+				scoreboard players set #GLOBAL hit_distance -1
+				scoreboard players set #FOUND_ENEMY temp 0
+				
+				execute at @s as @e[type=zombified_piglin,tag=temp_mark,sort=nearest] run function ARG(_PATH)try_mark
+				tag @e[type=zombified_piglin,tag=temp_mark] remove temp_mark
+			}
+			
+			func try_mark()
+			{
+				execute if score #FOUND_ENEMY temp < #MAX_ENEMY temp run function ARG(_PATH)mark
+			}
+			
+			func mark()
+			{
+				# to remove the asyncness of the different distance formulas between 'pre_mark' and 'order_mark'
+				scoreboard players operation @s hit_distance > #GLOBAL hit_distance
+				execute unless score #GLOBAL hit_distance = @s hit_distance run function ARG(_PATH)record_dists
+				
+				tag @s add target
+				scoreboard players add #FOUND_ENEMY temp 1
+				scoreboard players operation @s hit_order = #FOUND_ENEMY temp
+			}
+			
+			func record_dists()
+			{
+				data modify storage skill:main temp append value 0
+				execute store result storage skill:main temp[-1] int 1 run scoreboard players get @s hit_distance
+				scoreboard players operation #GLOBAL hit_distance = @s hit_distance
 			}
 		}
 	}
