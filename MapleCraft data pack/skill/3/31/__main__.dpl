@@ -323,8 +323,8 @@ namespace 31() as virtual
 					data modify entity @s ArmorItems[3].tag.bullet_list prepend from storage skill:main temp[]
 					
 					# append scheduler
-					data modify storage skill:main new_schedule set value [0]
-					execute store result storage skill:main new_schedule[-1] int 1 run schedule function ARG(__PATH)hit_effect 6t append
+					data modify storage skill:main new_schedule set value [{delay:0,time:0}]
+					execute store result storage skill:main new_schedule[-1].time int 1 run schedule function ARG(__PATH)hit_effect 6t append
 					execute as @e[type=zombified_piglin,scores={3101005_splashed=1..}] run function ARG(__PATH)splash_hit/run
 				}
 			}
@@ -386,7 +386,7 @@ namespace 31() as virtual
 			# replace merge_schedule (add flag to separate splash from hit and for multi target use)
 			func merge_schedule()
 			{
-				execute store result score #LEFT temp run data get storage skill:main new_schedule[0]
+				execute store result score #LEFT temp run data get storage skill:main new_schedule[0].time
 				execute store result score #RIGHT temp run data get entity @s ArmorItems[3].tag.3101005_effect_queue[0].time
 				function ARG(_PATH)merge_ori_schedule/run
 				
