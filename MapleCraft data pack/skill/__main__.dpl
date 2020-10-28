@@ -140,6 +140,7 @@ namespace attack_skill_template(skill_id) as virtual
 		data modify entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue prepend from storage skill:main new_queue[]
 		execute store result score @s ARG(skill_id)_eid run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].time
 		
+		scoreboard players set @s hit_distance 0
 		tag @s remove target
 	}
 	
@@ -994,7 +995,6 @@ namespace skill()
 			
 			func try_mark()
 			{
-				scoreboard players set @s hit_distance 0
 				execute if score #FOUND_ENEMY temp < #MAX_ENEMY temp run tag @s add target
 				scoreboard players add #FOUND_ENEMY temp 1
 			}
