@@ -8,6 +8,9 @@ namespace 32() as virtual
 	
 	func install()
 	{
+		scoreboard objectives add 3201005_mp dummy
+		scoreboard objectives add 3201005_attack dummy
+		
 		function ARG(_PATH)1/install
 		function ARG(_PATH)2/install
 	}
@@ -45,11 +48,76 @@ namespace 32() as virtual
 			}
 		}
 		
-		folder 1005()
+		folder 1005() from attack_skill_template(3201005)
 		{
 			func check()
 			{
+				execute unless score @s action_time matches 0.. if score @s[nbt={OnGround:1b}] 3201005_level matches 1.. run function ARG(_PATH)other_check
+			}
+			
+			func other_check()
+			{
+				function skill:check_weapon/crossbow/run
+				execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 3201005_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
+				execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp >= @s 3201005_mp run function ARG(_PATH)run
+			}
+			
+			func mark_target()
+			{
+				```
+				raise Warning("TODO: set mark_target distance according to amazon eyes")
+				```
+				# scoreboard players operation #DISTANCE temp = @s amazon_eyes_dist
+				scoreboard players set #DISTANCE temp 14
+				scoreboard players set #MAX_ENEMY temp 1
+				function skill:enemy_search/search_front_rec_dist/search
+			}
+			
+			func set_numeric()
+			{
+				execute store result storage skill:main damage[0].base_percent int 1 run scoreboard players get @s 3201005_attack
+				```
+				raise Warning("TODO: set arrow damage")
+				```
+				scoreboard players set #BULLET_DAMAGE temp 0
+				function skill:damage_formula/crossbow/normal
 				
+				scoreboard players operation @s mp -= @s 3201005_mp
+				function bar_display:change/mp/dropped
+				
+				execute store result score @s action_time run data get entity @s Inventory[{Slot:-106b}].tag.action_time
+				# booster action_time setting belongs here
+				scoreboard players add @s action_time 17
+			}
+			
+			func cast_effect()
+			{
+				# max_distance should be set to (#DISTANCE temp / 2 + 3)
+				summon minecraft:armor_stand ~ ~0.2 ~ {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:6,max_distance:10,skill_id:0,bullet_model:3200,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
+				```
+				raise Warning("TODO: set arrow max_distance")
+				```
+				execute as @e[type=armor_stand,tag=new_bullet] run function skill:bullet/no_target_setting
+				
+				execute rotated ~ 0 positioned ^ ^0.2 ^0.5 run function skill:summon_font_effect/3201005effect
+				function skill:afterimage/crossbow/shoot
+				```
+				raise Warning("TODO: check whether soul arrow is used to determine whether to play the arrow sound or not")
+				```
+				playsound minecraft:skill.attack.crossbow player @a ~ ~ ~ 1 1 0
+				playsound minecraft:skill.3201005 player @a ~ ~ ~ 1 1 0
+			}
+			
+			func effect()
+			{
+				execute if score @s display_number matches 1.. run function skill:summon_font_effect/3201005hit
+				function skill:mob_effect/play_hurt_sound/run
+			}
+			
+			func append_scheduler()
+			{
+				data modify storage skill:main new_schedule append value {delay:0,time:0}
+				execute store result storage skill:main new_schedule[-1].time int 1 run schedule function ARG(_PATH)hit_effect 8t append
 			}
 		}
 	}

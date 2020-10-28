@@ -116,7 +116,15 @@ namespace attack_skill_template(skill_id) as virtual
 	{
 		func execute()
 		{
-			execute store result score #LEFT temp run data get storage skill:main temp[0]
+			execute store result score #EFFECT_DELAY temp run data get storage skill:main temp[0].delay
+			execute if score #EFFECT_DELAY temp = @s hit_distance run function ARG(_PATH)merge
+			
+			data remove storage skill:main temp[0]
+		}
+		
+		func merge()
+		{
+			execute store result score #LEFT temp run data get storage skill:main temp[0].time
 			execute store result score #RIGHT temp run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].time
 			function ARG(__PATH)merge_ori_schedule/run
 			
@@ -129,7 +137,6 @@ namespace attack_skill_template(skill_id) as virtual
 			execute if score #RAND_RESULT temp >= #KNOCKBACK_RATE temp run data modify storage skill:main new_queue[-1].knock_back set from storage skill:main damage_info.knock_back
 			execute if score #RAND_RESULT temp < #KNOCKBACK_RATE temp run data modify storage skill:main new_queue[-1].knock_back set from storage skill:main damage_info.power_knock_back
 			
-			data remove storage skill:main temp[0]
 			data remove entity @s ArmorItems[3].tag.damage_record[0]
 			scoreboard players add @s queuing_effect 1
 		}
@@ -311,7 +318,7 @@ namespace bullet_skill_template(skill_id) as virtual
 	{
 		func execute()
 		{
-			execute store result score #LEFT temp run data get storage skill:main new_schedule[0]
+			execute store result score #LEFT temp run data get storage skill:main new_schedule[0].time
 			execute store result score #RIGHT temp run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].time
 			function ARG(__PATH)merge_ori_schedule/run
 			

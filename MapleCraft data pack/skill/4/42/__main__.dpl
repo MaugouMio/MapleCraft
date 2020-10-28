@@ -94,19 +94,19 @@ namespace 42() as virtual
 			
 			func append_scheduler()
 			{
-				data modify storage skill:main new_schedule append value 0
-				execute store result storage skill:main new_schedule[-1] int 1 run schedule function ARG(_PATH)hit_effect 7t append
-				data modify storage skill:main new_schedule append value 0
-				execute store result storage skill:main new_schedule[-1] int 1 run schedule function ARG(_PATH)hit_effect 9t append
-				data modify storage skill:main new_schedule append value 0
-				execute store result storage skill:main new_schedule[-1] int 1 run schedule function ARG(_PATH)hit_effect 11t append
-				data modify storage skill:main new_schedule append value 0
-				execute store result storage skill:main new_schedule[-1] int 1 run schedule function ARG(_PATH)hit_effect 13t append
+				data modify storage skill:main new_schedule append value {delay:0,time:0}
+				execute store result storage skill:main new_schedule[-1].time int 1 run schedule function ARG(_PATH)hit_effect 7t append
+				data modify storage skill:main new_schedule append value {delay:0,time:0}
+				execute store result storage skill:main new_schedule[-1].time int 1 run schedule function ARG(_PATH)hit_effect 9t append
+				data modify storage skill:main new_schedule append value {delay:0,time:0}
+				execute store result storage skill:main new_schedule[-1].time int 1 run schedule function ARG(_PATH)hit_effect 11t append
+				data modify storage skill:main new_schedule append value {delay:0,time:0}
+				execute store result storage skill:main new_schedule[-1].time int 1 run schedule function ARG(_PATH)hit_effect 13t append
 				
-				execute if score @s 4201005_level matches 11.. run data modify storage skill:main new_schedule append value 0
-				execute if score @s 4201005_level matches 11.. run execute store result storage skill:main new_schedule[-1] int 1 run schedule function ARG(_PATH)hit_effect 15t append
-				execute if score @s 4201005_level matches 21.. run data modify storage skill:main new_schedule append value 0
-				execute if score @s 4201005_level matches 21.. run execute store result storage skill:main new_schedule[-1] int 1 run schedule function ARG(_PATH)hit_effect 18t append
+				execute if score @s 4201005_level matches 11.. run data modify storage skill:main new_schedule append value {delay:0,time:0}
+				execute if score @s 4201005_level matches 11.. run execute store result storage skill:main new_schedule[-1].time int 1 run schedule function ARG(_PATH)hit_effect 15t append
+				execute if score @s 4201005_level matches 21.. run data modify storage skill:main new_schedule append value {delay:0,time:0}
+				execute if score @s 4201005_level matches 21.. run execute store result storage skill:main new_schedule[-1].time int 1 run schedule function ARG(_PATH)hit_effect 18t append
 			}
 		}
 	}

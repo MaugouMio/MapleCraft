@@ -81,8 +81,8 @@ namespace 22() as virtual
 			
 			func append_scheduler()
 			{
-				data modify storage skill:main new_schedule append value 0
-				execute store result storage skill:main new_schedule[-1] int 1 run schedule function ARG(_PATH)hit_effect 8t append
+				data modify storage skill:main new_schedule append value {delay:0,time:0}
+				execute store result storage skill:main new_schedule[-1].time int 1 run schedule function ARG(_PATH)hit_effect 8t append
 			}
 		}
 		
@@ -134,8 +134,8 @@ namespace 22() as virtual
 			
 			func append_scheduler()
 			{
-				data modify storage skill:main new_schedule append value 0
-				execute store result storage skill:main new_schedule[-1] int 1 run schedule function ARG(_PATH)hit_effect 8t append
+				data modify storage skill:main new_schedule append value {delay:0,time:0}
+				execute store result storage skill:main new_schedule[-1].time int 1 run schedule function ARG(_PATH)hit_effect 8t append
 			}
 		}
 	}
