@@ -76,6 +76,7 @@ namespace 32() as virtual
 			func set_numeric()
 			{
 				execute store result storage skill:main damage[0].base_percent int 1 run scoreboard players get @s 3201005_attack
+				scoreboard players set #AFTER_MODIFIER_RATE temp 9
 				```
 				raise Warning("TODO: set arrow damage")
 				```

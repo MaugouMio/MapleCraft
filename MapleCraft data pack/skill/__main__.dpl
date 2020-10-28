@@ -141,6 +141,7 @@ namespace attack_skill_template(skill_id) as virtual
 		execute store result score @s ARG(skill_id)_eid run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].time
 		
 		scoreboard players set @s hit_distance 0
+		scoreboard players set @s hit_order 0
 		tag @s remove target
 	}
 	
@@ -1048,8 +1049,8 @@ namespace skill()
 				execute unless score #GLOBAL hit_distance = @s hit_distance run function ARG(_PATH)record_dists
 				
 				tag @s add target
-				scoreboard players add #FOUND_ENEMY temp 1
 				scoreboard players operation @s hit_order = #FOUND_ENEMY temp
+				scoreboard players add #FOUND_ENEMY temp 1
 			}
 			
 			func record_dists()
@@ -2034,6 +2035,8 @@ namespace skill()
 				execute if score #CRIT_RATE temp > #RAND_RESULT temp run function ARG(_PATH)crit_multiply
 				execute unless score #CRIT_RATE temp > #RAND_RESULT temp run function ARG(_PATH)skill_multiply
 				
+				execute if score @s hit_order matches 1.. run function ARG(_PATH)after_modify/run
+				
 				scoreboard players operation @s display_number < #99999 const
 				scoreboard players operation @s display_number > #1 const
 				
@@ -2041,6 +2044,15 @@ namespace skill()
 				execute store result entity @s ArmorItems[3].tag.damage_record[-1].number int 1 run scoreboard players get @s display_number
 				
 				scoreboard players set #DID_HIT temp 1
+			}
+			
+			folder after_modify() from for_loop().for("@s hit_order", "")
+			{
+				func execute()
+				{
+					scoreboard players operation @s display_number *= #AFTER_MODIFIER_RATE temp
+					scoreboard players operation @s display_number /= #10 const
+				}
 			}
 			
 			folder attribute_multiply()
