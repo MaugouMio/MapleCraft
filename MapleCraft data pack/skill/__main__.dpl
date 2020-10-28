@@ -2040,10 +2040,10 @@ namespace skill()
 				execute if score #CRIT_RATE temp > #RAND_RESULT temp run function ARG(_PATH)crit_multiply
 				execute unless score #CRIT_RATE temp > #RAND_RESULT temp run function ARG(_PATH)skill_multiply
 				
-				execute if score @s hit_order matches 1.. run function ARG(_PATH)after_modify/run
-				
 				scoreboard players operation @s display_number < #99999 const
 				scoreboard players operation @s display_number > #1 const
+				
+				execute if score @s hit_order matches 1.. run function ARG(_PATH)after_modify/set
 				
 				scoreboard players operation @s hp -= @s display_number
 				execute store result entity @s ArmorItems[3].tag.damage_record[-1].number int 1 run scoreboard players get @s display_number
@@ -2053,6 +2053,13 @@ namespace skill()
 			
 			folder after_modify() from for_loop().for("@s hit_order", "")
 			{
+				func set()
+				{
+					scoreboard players operation @s display_number *= #100 const
+					function ARG(_PATH)run
+					scoreboard players operation @s display_number /= #100 const
+				}
+				
 				func execute()
 				{
 					scoreboard players operation @s display_number *= #AFTER_MODIFIER_RATE temp
