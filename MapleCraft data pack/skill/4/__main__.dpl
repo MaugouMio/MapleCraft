@@ -185,6 +185,10 @@ namespace 4() as virtual
 				{
 					function skill:afterimage/dagger/stab
 					playsound minecraft:skill.4001334 player @a ~ ~ ~ 1 1 0
+					# borrow hit_effect variable to set custom hit effect
+					scoreboard players set #RANGE_MAX temp 6
+					function main:rand_range
+					execute store result storage skill:main damage_info.hit_effect int 1 run scoreboard players add #RAND_RANGE_RESULT temp 3
 				}
 				
 				func effect()
@@ -195,10 +199,8 @@ namespace 4() as virtual
 				
 				func rand_hit_effect()
 				{
-					scoreboard players set #RANGE_MAX temp 6
-					function main:rand_range
-					execute if score #RAND_RANGE_RESULT temp matches 0..2 run function skill:summon_font_effect/4001334hit0
-					execute if score #RAND_RANGE_RESULT temp matches 3..5 run function skill:summon_font_effect/4001334hit1
+					execute if score #HIT_EFFECT temp matches 3..5 run function skill:summon_font_effect/4001334hit0
+					execute if score #HIT_EFFECT temp matches 6..8 run function skill:summon_font_effect/4001334hit1
 				}
 				
 				func append_scheduler()
