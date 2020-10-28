@@ -69,7 +69,7 @@ namespace 32() as virtual
 				```
 				# scoreboard players operation #DISTANCE temp = @s amazon_eyes_dist
 				scoreboard players set #DISTANCE temp 14
-				scoreboard players set #MAX_ENEMY temp 1
+				scoreboard players set #MAX_ENEMY temp 6
 				function skill:enemy_search/search_front_rec_dist/search
 			}
 			
@@ -93,7 +93,7 @@ namespace 32() as virtual
 			func cast_effect()
 			{
 				# max_distance should be set to (#DISTANCE temp / 2 + 3)
-				summon minecraft:armor_stand ~ ~0.2 ~ {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:6,max_distance:10,skill_id:0,bullet_model:3200,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
+				summon minecraft:armor_stand ~ ~0.2 ~ {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:7,max_distance:10,skill_id:0,bullet_model:3200,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
 				```
 				raise Warning("TODO: set arrow max_distance")
 				```
@@ -114,11 +114,10 @@ namespace 32() as virtual
 				function skill:mob_effect/play_hurt_sound/run
 			}
 			
-			func append_scheduler()
-			{
-				data modify storage skill:main new_schedule append value {delay:0,time:0}
-				execute store result storage skill:main new_schedule[-1].time int 1 run schedule function ARG(_PATH)hit_effect 8t append
-			}
+			```
+			# delay_range = 0 ~ 7
+			append_scheduler(delay_range = 8, base_delay = 8, skill_path = "skill:3/2/0/1005/")
+			```
 		}
 	}
 }

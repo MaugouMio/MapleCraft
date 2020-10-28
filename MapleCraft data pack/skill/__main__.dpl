@@ -5,6 +5,37 @@ import random
 skill_ids = []
 
 mastery_weapons = ["claw", "dagger", "bow", "cbow", "spear", "polearm", "sword", "axe", "blunt"]
+
+def append_scheduler(delay_range, base_delay, skill_path):
+	print("func append_scheduler()")
+	print("{")
+	print("		execute store result score #GLOBAL hit_distance run data get storage skill:main temp[0]")
+	print("		function ARG(_PATH)schedulers/delay0/check")
+	print("}")
+	
+	print("folder schedulers()")
+	print("{")
+	for i in range(delay_range):
+		print(f"folder delay{i}()")
+		print("	{")
+		print("		func check()")
+		print("		{")
+		print(f"		execute if score #GLOBAL hit_distance matches {i} run function ARG(_PATH)run")
+		if i < 7:
+			print(f"	execute if score #GLOBAL hit_distance matches {i+1}.. run function ARG(__PATH)delay{i+1}/check")
+		print("		}")
+		
+		print("		func run()")
+		print("		{")
+		print(f"		data modify storage skill:main new_schedule append value {{delay:{i},time:0}}")
+		print(f"		execute store result storage skill:main new_schedule[-1].time int 1 run schedule function {skill_path}hit_effect {base_delay+i}t append")
+		if i < 7:
+			print("		data remove storage skill:main temp[0]")
+			print("		execute store result score #GLOBAL hit_distance run data get storage skill:main temp[0]")
+			
+		print("		}")
+		print("	}")
+	print("}")
 ```
 
 namespace attack_skill_template(skill_id) as virtual
@@ -982,7 +1013,7 @@ namespace skill()
 			
 			func execute()
 			{
-				scoreboard playeres add #CUR_DISTANCE temp 1
+				scoreboard players add #CUR_DISTANCE temp 1
 				execute as @e[type=minecraft:zombified_piglin,tag=enemy,tag=!temp_mark,tag=!dead,distance=..2] run function ARG(_PATH)pre_mark
 				execute if score #FOUND_ENEMY temp >= #MAX_ENEMY temp run function ARG(_PATH)order_mark
 			}
