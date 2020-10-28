@@ -79,7 +79,12 @@ namespace attack_skill_template(skill_id) as virtual
 		
 		data modify storage skill:main new_schedule set value []
 		function ARG(_PATH)append_scheduler
-		
+		```
+		if "ARG(skill_id)" == "3101003":
+			print("data modify storage skill:main damage_info.power_knock_back set from storage skill:main damage_info.knock_back")
+			print("execute store result storage skill:main damage_info.power_knock_back[0] double 0.0007 run data get storage skill:main damage_info.power_knock_back[0] 10000")
+			print("execute store result storage skill:main damage_info.power_knock_back[2] double 0.0007 run data get storage skill:main damage_info.power_knock_back[2] 10000")
+		```
 		execute as @e[type=zombified_piglin,tag=target] at @s run function ARG(_PATH)hit
 	}
 	
