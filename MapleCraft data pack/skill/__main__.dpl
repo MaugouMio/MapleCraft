@@ -104,16 +104,25 @@ namespace attack_skill_template(skill_id) as virtual
 		execute store result score #HIT_EFFECT temp run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].hit_effect
 		data modify entity @s AngryAt set from entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].attacker
 		
-		execute unless score @s pushed_time matches 0.. if score @s kb <= @s display_number run function ARG(_PATH)knock_back
-		execute if score @s display_number matches 1.. if score #HIT_EFFECT temp matches 1 positioned ^ ^ ^0.5 run function skill:afterimage/hit/mace
-		execute if score @s display_number matches 1.. if score #HIT_EFFECT temp matches 2 positioned ^ ^ ^0.5 run function skill:afterimage/hit/sword
-		function ARG(_PATH)effect
+		execute store result score #GLOBAL temp run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].attacker_id
+		execute as @a if score @s number = #GLOBAL temp run tag @s add face_target
+		execute facing entity @a[tag=face_target,limit=1] feet run function ARG(_PATH)facing_effect
+		tag @a[tag=face_target,limit=1] remove face_target
+		
 		function skill:show_num_at_height
 		
 		scoreboard players reset @s ARG(skill_id)_eid
 		data remove entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0]
 		execute if score @s hp matches ..0 unless score @s queuing_effect matches 1.. run function skill:mob_effect/dead
 		execute if data entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0] store result score @s ARG(skill_id)_eid run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].time
+	}
+	
+	func facing_effect()
+	{
+		execute unless score @s pushed_time matches 0.. if score @s kb <= @s display_number run function ARG(_PATH)knock_back
+		execute if score @s display_number matches 1.. if score #HIT_EFFECT temp matches 1 positioned ^ ^ ^0.5 run function skill:afterimage/hit/mace
+		execute if score @s display_number matches 1.. if score #HIT_EFFECT temp matches 2 positioned ^ ^ ^0.5 run function skill:afterimage/hit/sword
+		function ARG(_PATH)effect
 	}
 	
 	func knock_back()
@@ -123,10 +132,8 @@ namespace attack_skill_template(skill_id) as virtual
 		execute store result score #GLOBAL temp run scoreboard players set @s status 2
 		execute store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players operation #GLOBAL temp += @s base_model
 		
-		execute store result score #GLOBAL temp run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].attacker_id
-		execute as @a if score @s number = #GLOBAL temp run tag @s add face_target
-		tp @s ~ ~ ~ facing entity @a[tag=face_target,limit=1]
-		tag @a[tag=face_target] remove face_target
+		# face attacker player
+		tp @s ~ ~ ~ ~ ~
 		
 		data modify entity @s Motion set from entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].knock_back
 		
@@ -267,16 +274,25 @@ namespace bullet_skill_template(skill_id) as virtual
 		execute store result score #HIT_EFFECT temp run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].hit_effect
 		data modify entity @s AngryAt set from entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].attacker
 		
-		execute unless score @s pushed_time matches 0.. if score @s kb <= @s display_number run function ARG(_PATH)knock_back
-		execute if score @s display_number matches 1.. if score #HIT_EFFECT temp matches 1 positioned ^ ^ ^0.5 run function skill:afterimage/hit/mace
-		execute if score @s display_number matches 1.. if score #HIT_EFFECT temp matches 2 positioned ^ ^ ^0.5 run function skill:afterimage/hit/sword
-		function ARG(_PATH)effect
+		execute store result score #GLOBAL temp run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].attacker_id
+		execute as @a if score @s number = #GLOBAL temp run tag @s add face_target
+		execute facing entity @a[tag=face_target,limit=1] feet run function ARG(_PATH)facing_effect
+		tag @a[tag=face_target,limit=1] remove face_target
+		
 		function skill:show_num_at_height
 		
 		scoreboard players reset @s ARG(skill_id)_eid
 		data remove entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0]
 		execute if score @s hp matches ..0 unless score @s queuing_effect matches 1.. run function skill:mob_effect/dead
 		execute if data entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0] store result score @s ARG(skill_id)_eid run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].time
+	}
+	
+	func facing_effect()
+	{
+		execute unless score @s pushed_time matches 0.. if score @s kb <= @s display_number run function ARG(_PATH)knock_back
+		execute if score @s display_number matches 1.. if score #HIT_EFFECT temp matches 1 positioned ^ ^ ^0.5 run function skill:afterimage/hit/mace
+		execute if score @s display_number matches 1.. if score #HIT_EFFECT temp matches 2 positioned ^ ^ ^0.5 run function skill:afterimage/hit/sword
+		function ARG(_PATH)effect
 	}
 	
 	func knock_back()
@@ -286,10 +302,8 @@ namespace bullet_skill_template(skill_id) as virtual
 		execute store result score #GLOBAL temp run scoreboard players set @s status 2
 		execute store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players operation #GLOBAL temp += @s base_model
 		
-		execute store result score #GLOBAL temp run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].attacker_id
-		execute as @a if score @s number = #GLOBAL temp run tag @s add face_target
-		tp @s ~ ~ ~ facing entity @a[tag=face_target,limit=1]
-		tag @a[tag=face_target] remove face_target
+		# face attacker player
+		tp @s ~ ~ ~ ~ ~
 		
 		data modify entity @s Motion set from entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].knock_back
 		
