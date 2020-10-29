@@ -59,7 +59,7 @@ namespace 31() as virtual
 				execute store result storage skill:main damage[0].base_percent int 1 run scoreboard players get @s 3101003_attack
 				# melee *RANDOM* swing damage formula and default attack speed is done by afterimage functions
 				execute store result score #KNOCKBACK_RATE temp run data get entity @s Inventory[{Slot:-106b}].tag.knockback
-				scoreboard players operation #KNOCKBACK_RATE temp += @s 3101003_knock
+				scoreboard players operation #SKILL_KNOCKBACK_RATE temp = @s 3101003_knock
 				
 				scoreboard players operation @s mp -= @s 3101003_mp
 				function bar_display:change/mp/dropped
@@ -74,12 +74,6 @@ namespace 31() as virtual
 				execute if score #USED_WEAPON temp matches 16 run function skill:afterimage/bow/swing
 				execute if score #USED_WEAPON temp matches 18 run function skill:afterimage/crossbow/swing
 				playsound minecraft:skill.3101003 player @a ~ ~ ~ 1 1 0
-			}
-			
-			func add_debuff()
-			{
-				# judging whether to use power knockback is in "skill_template/merge_scheduler/execute" function
-				execute if entity @s[tag=!dead] run function main:rand_rate
 			}
 			
 			func effect()

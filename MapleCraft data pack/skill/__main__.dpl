@@ -119,7 +119,14 @@ namespace attack_skill_template(skill_id) as virtual
 	
 	func facing_effect()
 	{
-		execute unless score @s pushed_time matches 0.. if score @s kb <= @s display_number run function ARG(_PATH)knock_back
+		```
+		if "ARG(skill_id)" == "3101003":
+			print("scoreboard players set #DID_KNOCKBACK temp 1")
+			print("execute if score @s kb > @s display_number unless data entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].force_knock run scoreboard players set #DID_KNOCKBACK temp 0")
+			print("execute unless score @s pushed_time matches 0.. if score #DID_KNOCKBACK temp matches 1 run function ARG(_PATH)knock_back")
+		else:
+			print("execute unless score @s pushed_time matches 0.. if score @s kb <= @s display_number run function ARG(_PATH)knock_back")
+		```
 		execute if score @s display_number matches 1.. if score #HIT_EFFECT temp matches 1 positioned ^ ^ ^0.5 run function skill:afterimage/hit/mace
 		execute if score @s display_number matches 1.. if score #HIT_EFFECT temp matches 2 positioned ^ ^ ^0.5 run function skill:afterimage/hit/sword
 		function ARG(_PATH)effect
@@ -143,7 +150,10 @@ namespace attack_skill_template(skill_id) as virtual
 	func hit()
 	{
 		function skill:calculate_damage/run
-		scoreboard players set #RAND_RESULT temp 100
+		```
+		if "ARG(skill_id)" == "3101003":
+			print("execute if entity @s[tag=!dead] run function main:rand_rate")
+		```
 		execute if score #DID_HIT temp matches 1 run function ARG(_PATH)add_debuff
 		
 		data modify storage skill:main new_queue set value []
@@ -172,16 +182,24 @@ namespace attack_skill_template(skill_id) as virtual
 			execute store result score #LEFT temp run data get storage skill:main temp[0].time
 			execute store result score #RIGHT temp run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].time
 			function ARG(__PATH)merge_ori_schedule/run
-			
+			```
+			if "ARG(skill_id)" == "3101003":
+				print("scoreboard players operation #SELF_KNOCKBACK_RATE temp = #SKILL_KNOCKBACK_RATE temp")
+				print("execute store result score #THIS_DAMAGE temp run data get entity @s ArmorItems[3].tag.damage_record[0].number")
+				print("execute if score @s kb <= #THIS_DAMAGE temp run scoreboard players operation #SELF_KNOCKBACK_RATE temp += #KNOCKBACK_RATE temp")
+			```
 			data modify storage skill:main new_queue append value {}
 			execute store result storage skill:main new_queue[-1].time int 1 run scoreboard players get #LEFT temp
 			data modify storage skill:main new_queue[-1].damage set from entity @s ArmorItems[3].tag.damage_record[0]
 			data modify storage skill:main new_queue[-1].attacker set from storage skill:main damage_info.attacker
 			data modify storage skill:main new_queue[-1].attacker_id set from storage skill:main damage_info.attacker_id
 			data modify storage skill:main new_queue[-1].hit_effect set from storage skill:main damage_info.hit_effect
-			execute if score #RAND_RESULT temp >= #KNOCKBACK_RATE temp run data modify storage skill:main new_queue[-1].knock_back set from storage skill:main damage_info.knock_back
-			execute if score #RAND_RESULT temp < #KNOCKBACK_RATE temp run data modify storage skill:main new_queue[-1].knock_back set from storage skill:main damage_info.power_knock_back
-			
+			```
+			if "ARG(skill_id)" == "3101003":
+				print("execute if score #RAND_RESULT temp >= #SELF_KNOCKBACK_RATE temp run data modify storage skill:main new_queue[-1].knock_back set from storage skill:main damage_info.knock_back")
+				print("execute if score #RAND_RESULT temp < #SELF_KNOCKBACK_RATE temp run data modify storage skill:main new_queue[-1].knock_back set from storage skill:main damage_info.power_knock_back")
+				print("execute if score #RAND_RESULT temp < #SELF_KNOCKBACK_RATE temp run data modify storage skill:main new_queue[-1].force_knock set value 1b")
+			```
 			data remove entity @s ArmorItems[3].tag.damage_record[0]
 			scoreboard players add @s queuing_effect 1
 		}
@@ -318,7 +336,6 @@ namespace bullet_skill_template(skill_id) as virtual
 		execute as @e[type=armor_stand,tag=new_bullet] run function skill:bullet/setting
 		
 		function skill:calculate_damage/run
-		scoreboard players set #RAND_RESULT temp 100
 		execute if score #DID_HIT temp matches 1 run function ARG(_PATH)add_debuff
 		
 		scoreboard players add @s queuing_effect 1
