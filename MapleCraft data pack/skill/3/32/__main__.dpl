@@ -94,7 +94,7 @@ namespace 32() as virtual
 			func cast_effect()
 			{
 				# max_distance should be set to (#DISTANCE temp / 2 + 2)
-				execute rotated ~ 0 run summon minecraft:armor_stand ^ ^0.2 ^0.5 {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:7,max_distance:9,skill_id:0,bullet_model:3200,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
+				execute rotated ~ 0 run summon minecraft:armor_stand ^ ^0.2 ^0.5 {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:8,max_distance:9,skill_id:0,bullet_model:3200,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
 				```
 				raise Warning("TODO: set arrow max_distance")
 				```

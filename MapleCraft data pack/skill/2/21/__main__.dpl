@@ -83,7 +83,7 @@ namespace 21() as virtual
 			func summon_bullet()
 			{
 				# max_distance should be set to (#DISTANCE temp / 2 + 2)
-				execute rotated ~ 0 run summon minecraft:armor_stand ^ ^ ^1 {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:10,max_distance:7,skill_id:4,bullet_model:2101,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
+				execute rotated ~ 0 run summon minecraft:armor_stand ^ ^ ^1 {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:11,max_distance:7,skill_id:4,bullet_model:2101,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
 			}
 			
 			func set_numeric()
@@ -145,7 +145,7 @@ namespace 21() as virtual
 			func summon_bullet()
 			{
 				# max_distance should be set to (#DISTANCE temp / 2 + 2)
-				execute rotated ~ 0 run summon minecraft:armor_stand ^ ^ ^1 {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:10,max_distance:7,skill_id:3,bullet_model:2100,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
+				execute rotated ~ 0 run summon minecraft:armor_stand ^ ^ ^1 {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:11,max_distance:7,skill_id:3,bullet_model:2100,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
 			}
 			
 			func set_numeric()
