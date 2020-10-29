@@ -69,8 +69,8 @@ namespace 41() as virtual
 			
 			func summon_bullet()
 			{
-				# max_distance should be set to (#DISTANCE temp / 2 + 3)
-				summon minecraft:armor_stand ~ ~0.2 ~ {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:6,max_distance:10,skill_id:9,bullet_model:4005,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
+				# max_distance should be set to (#DISTANCE temp / 2 + 2)
+				execute rotated ~ 0 run summon minecraft:armor_stand ^ ^0.2 ^1 {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:6,max_distance:9,skill_id:9,bullet_model:4005,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
 				```
 				raise Warning("TODO: set throwing star model and max_distance")
 				```
