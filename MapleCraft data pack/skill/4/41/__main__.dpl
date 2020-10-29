@@ -54,7 +54,7 @@ namespace 41() as virtual
 				raise Warning("TODO: set mark_target distance according to keen eyes")
 				```
 				# scoreboard players operation #DISTANCE temp = @s keen_eyes_dist
-				scoreboard players set #DISTANCE temp 14
+				scoreboard players set #DISTANCE temp 13
 				scoreboard players set #MAX_ENEMY temp 1
 				function skill:enemy_search/search_front/search
 			}

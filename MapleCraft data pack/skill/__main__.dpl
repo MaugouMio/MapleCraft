@@ -21,7 +21,7 @@ def append_scheduler(delay_range, base_delay, skill_path):
 		print("		func check()")
 		print("		{")
 		print(f"		execute if score #GLOBAL hit_distance matches {i} run function ARG(_PATH)run")
-		if i < 7:
+		if i < delay_range - 1:
 			print(f"	execute if score #GLOBAL hit_distance matches {i+1}.. run function ARG(__PATH)delay{i+1}/check")
 		print("		}")
 		
@@ -29,7 +29,7 @@ def append_scheduler(delay_range, base_delay, skill_path):
 		print("		{")
 		print(f"		data modify storage skill:main new_schedule append value {{delay:{i},time:0}}")
 		print(f"		execute store result storage skill:main new_schedule[-1].time int 1 run schedule function {skill_path}hit_effect {base_delay+i}t append")
-		if i < 7:
+		if i < delay_range - 1:
 			print("		data remove storage skill:main temp[0]")
 			print("		execute store result score #GLOBAL hit_distance run data get storage skill:main temp[0]")
 			
@@ -1002,31 +1002,25 @@ namespace skill()
 
 	folder enemy_search()
 	{
-		folder search_front() from for_loop().for("#DISTANCE temp", "if score #FOUND_ENEMY temp < #MAX_ENEMY temp positioned ^ ^ ^0.5")
+		folder search_front() from for_loop().for("#DISTANCE temp", "positioned ^ ^ ^0.7")
 		{
 			func search()
 			{
-				scoreboard players set #FOUND_ENEMY temp 0
-				execute at @s rotated ~ 0 run function ARG(_PATH)run
-				execute if score #FOUND_ENEMY temp < #MAX_ENEMY temp run function ARG(_PATH)order_mark
+				execute at @s rotated ~ 0 positioned ^ ^ ^-1.8 run function ARG(_PATH)run
+				execute at @s run function ARG(_PATH)order_mark
 			}
 			
 			func execute()
 			{
-				execute as @e[type=minecraft:zombified_piglin,tag=enemy,tag=!temp_mark,tag=!dead,distance=..2] run function ARG(_PATH)pre_mark
-				execute if score #FOUND_ENEMY temp >= #MAX_ENEMY temp run function ARG(_PATH)order_mark
-			}
-			
-			func pre_mark()
-			{
-				scoreboard players add #FOUND_ENEMY temp 1
-				tag @s add temp_mark
+				tag @e[type=minecraft:zombified_piglin,tag=enemy,tag=!dead,distance=..2] add temp_mark
 			}
 			
 			func order_mark()
 			{
 				scoreboard players set #FOUND_ENEMY temp 0
-				execute at @s as @e[type=zombified_piglin,tag=temp_mark,sort=nearest] run function ARG(_PATH)try_mark
+				# remove the mobs behind the player
+				execute rotated ~ 0 positioned ^ ^ ^100 run tag @e[type=zombified_piglin,tag=temp_mark,distance=100.2..] remove temp_mark
+				execute as @e[type=zombified_piglin,tag=temp_mark,sort=nearest] run function ARG(_PATH)try_mark
 				tag @e[type=zombified_piglin,tag=temp_mark] remove temp_mark
 			}
 			
@@ -1037,29 +1031,25 @@ namespace skill()
 			}
 		}
 		
-		folder search_front_rec_dist() from for_loop().for("#DISTANCE temp", "if score #FOUND_ENEMY temp < #MAX_ENEMY temp positioned ^ ^ ^0.5")
+		folder search_front_rec_dist() from for_loop().for("#DISTANCE temp", "positioned ^ ^ ^0.7")
 		{
 			func search()
 			{
-				scoreboard players set #FOUND_ENEMY temp 0
 				scoreboard players set #CUR_DISTANCE temp 0
 				
-				execute at @s rotated ~ 0 run function ARG(_PATH)run
-				execute if score #FOUND_ENEMY temp < #MAX_ENEMY temp run function ARG(_PATH)order_mark
+				execute at @s rotated ~ 0 positioned ^ ^ ^-1.8 run function ARG(_PATH)run
+				execute at @s run function ARG(_PATH)order_mark
 			}
 			
 			func execute()
 			{
-				scoreboard players add #CUR_DISTANCE temp 1
 				execute as @e[type=minecraft:zombified_piglin,tag=enemy,tag=!temp_mark,tag=!dead,distance=..2] run function ARG(_PATH)pre_mark
-				execute if score #FOUND_ENEMY temp >= #MAX_ENEMY temp run function ARG(_PATH)order_mark
+				scoreboard players add #CUR_DISTANCE temp 1
 			}
 			
 			func pre_mark()
 			{
-				scoreboard players add #FOUND_ENEMY temp 1
 				scoreboard players operation @s hit_distance = #CUR_DISTANCE temp
-				scoreboard players operation @s hit_distance /= #2 const
 				tag @s add temp_mark
 			}
 			
@@ -1069,7 +1059,9 @@ namespace skill()
 				scoreboard players set #GLOBAL hit_distance -1
 				scoreboard players set #FOUND_ENEMY temp 0
 				
-				execute at @s as @e[type=zombified_piglin,tag=temp_mark,sort=nearest] run function ARG(_PATH)try_mark
+				# remove the mobs behind the player
+				execute rotated ~ 0 positioned ^ ^ ^100 run tag @e[type=zombified_piglin,tag=temp_mark,distance=100.2..] remove temp_mark
+				execute as @e[type=zombified_piglin,tag=temp_mark,sort=nearest] run function ARG(_PATH)try_mark
 				tag @e[type=zombified_piglin,tag=temp_mark] remove temp_mark
 			}
 			

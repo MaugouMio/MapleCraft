@@ -43,7 +43,7 @@ namespace 4() as virtual
 				func mark_target()
 				{
 					execute unless score #USED_WEAPON temp matches 24 run function ARG(_PATH)check_weapon_distance
-					execute if score #USED_WEAPON temp matches 24 run scoreboard players set #DISTANCE temp 2
+					execute if score #USED_WEAPON temp matches 24 run scoreboard players set #DISTANCE temp 4
 					
 					scoreboard players set #MAX_ENEMY temp 1
 					function skill:enemy_search/search_front/search
@@ -55,7 +55,7 @@ namespace 4() as virtual
 					# make single hand weapon %2 be 0
 					scoreboard players add #DISTANCE temp 1
 					scoreboard players operation #DISTANCE temp %= #2 const
-					scoreboard players add #DISTANCE temp 2
+					scoreboard players add #DISTANCE temp 4
 				}
 				
 				func set_numeric()
@@ -232,7 +232,7 @@ namespace 4() as virtual
 					raise Warning("TODO: set mark_target distance according to keen eyes")
 					```
 					# scoreboard players operation #DISTANCE temp = @s keen_eyes_dist
-					scoreboard players set #DISTANCE temp 14
+					scoreboard players set #DISTANCE temp 13
 					scoreboard players set #MAX_ENEMY temp 1
 					function skill:enemy_search/search_front/search
 				}

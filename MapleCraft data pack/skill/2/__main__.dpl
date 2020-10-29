@@ -59,7 +59,7 @@ namespace 2() as virtual
 				
 				func mark_target()
 				{
-					scoreboard players set #DISTANCE temp 10
+					scoreboard players set #DISTANCE temp 9
 					scoreboard players set #MAX_ENEMY temp 1
 					function skill:enemy_search/search_front/search
 				}
@@ -117,7 +117,7 @@ namespace 2() as virtual
 				
 				func mark_target()
 				{
-					scoreboard players set #DISTANCE temp 10
+					scoreboard players set #DISTANCE temp 9
 					scoreboard players set #MAX_ENEMY temp 1
 					function skill:enemy_search/search_front/search
 				}

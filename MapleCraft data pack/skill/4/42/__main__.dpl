@@ -43,7 +43,7 @@ namespace 42() as virtual
 			
 			func mark_target()
 			{
-				scoreboard players set #DISTANCE temp 2
+				scoreboard players set #DISTANCE temp 4
 				scoreboard players set #MAX_ENEMY temp 1
 				function skill:enemy_search/search_front/search
 			}

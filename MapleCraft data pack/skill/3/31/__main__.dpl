@@ -49,7 +49,7 @@ namespace 31() as virtual
 			
 			func mark_target()
 			{
-				scoreboard players set #DISTANCE temp 2
+				scoreboard players set #DISTANCE temp 4
 				scoreboard players operation #MAX_ENEMY temp = @s 3101003_enemy
 				function skill:enemy_search/search_front/search
 			}
@@ -125,7 +125,7 @@ namespace 31() as virtual
 				raise Warning("TODO: set mark_target distance according to amazon eyes")
 				```
 				# scoreboard players operation #DISTANCE temp = @s amazon_eyes_dist
-				scoreboard players set #DISTANCE temp 14
+				scoreboard players set #DISTANCE temp 13
 				scoreboard players set #MAX_ENEMY temp 1
 				function skill:enemy_search/search_front/search
 				execute as @e[type=zombified_piglin,tag=target,limit=1] at @s run tag @e[type=zombified_piglin,tag=enemy,tag=!target,distance=..5,limit=5] add new_splashed
