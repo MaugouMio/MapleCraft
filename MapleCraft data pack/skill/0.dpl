@@ -56,9 +56,9 @@ namespace 0() as virtual
 				
 				func effect()
 				{
-					execute if score @s display_number matches 10 run function skill:summon_font_effect/0001000hit0
-					execute if score @s display_number matches 25 run function skill:summon_font_effect/0001000hit1
-					execute if score @s display_number matches 40 run function skill:summon_font_effect/0001000hit2
+					execute if score @s display_number matches 10 positioned ^ ^ ^0.5 run function skill:summon_font_effect/0001000hit0
+					execute if score @s display_number matches 25 positioned ^ ^ ^0.5 run function skill:summon_font_effect/0001000hit1
+					execute if score @s display_number matches 40 positioned ^ ^ ^0.5 run function skill:summon_font_effect/0001000hit2
 					function skill:mob_effect/play_hurt_sound/run
 				}
 				

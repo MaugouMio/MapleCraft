@@ -123,7 +123,6 @@ namespace 41() as virtual
 			
 			func effect()
 			{
-				execute if score @s display_number matches 1.. positioned ^ ^ ^0.5 run function skill:afterimage/hit/mace
 				function skill:mob_effect/play_hurt_sound/run
 			}
 			

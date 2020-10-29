@@ -166,7 +166,7 @@ namespace 23() as virtual
 			
 			func effect()
 			{
-				execute if score @s display_number matches 1.. run function skill:summon_font_effect/2301005hit
+				execute if score @s display_number matches 1.. positioned ^ ^ ^0.5 run function skill:summon_font_effect/2301005hit
 				function skill:mob_effect/play_hurt_sound/run
 			}
 			
