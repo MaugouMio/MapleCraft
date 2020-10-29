@@ -57,9 +57,9 @@ namespace 3() as virtual
 				
 				func summon_bullet()
 				{
-					# max_distance should be set to (#DISTANCE temp / 2 + 2)
-					execute if score #USED_WEAPON temp matches 16 rotated ~ 0 run summon minecraft:armor_stand ^ ^0.2 ^1 {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:7,max_distance:9,skill_id:6,bullet_model:3000,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
-					execute if score #USED_WEAPON temp matches 18 rotated ~ 0 run summon minecraft:armor_stand ^ ^0.2 ^1 {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:8,max_distance:9,skill_id:6,bullet_model:3000,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
+					# max_distance should be set to (#DISTANCE temp - 3)
+					execute if score #USED_WEAPON temp matches 16 rotated ~ 0 run summon minecraft:armor_stand ^ ^0.2 ^1 {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:7,max_distance:10,skill_id:6,bullet_model:3000,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
+					execute if score #USED_WEAPON temp matches 18 rotated ~ 0 run summon minecraft:armor_stand ^ ^0.2 ^1 {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:8,max_distance:10,skill_id:6,bullet_model:3000,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
 					```
 					raise Warning("TODO: set arrow max_distance")
 					```
@@ -160,16 +160,16 @@ namespace 3() as virtual
 				
 				func bow_bullet()
 				{
-					# max_distance should be set to (#DISTANCE temp / 2 + 2)
-					execute rotated ~ 0 run summon minecraft:armor_stand ^-0.2 ^ ^1 {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:7,max_distance:9,skill_id:7,bullet_model:3101,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
-					execute rotated ~ 0 run summon minecraft:armor_stand ^0.2 ^ ^1 {Tags:["new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:7,max_distance:9,skill_id:7,bullet_model:3101,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
+					# max_distance should be set to (#DISTANCE temp - 3)
+					execute rotated ~ 0 run summon minecraft:armor_stand ^-0.2 ^ ^1 {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:7,max_distance:10,skill_id:7,bullet_model:3101,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
+					execute rotated ~ 0 run summon minecraft:armor_stand ^0.2 ^ ^1 {Tags:["new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:7,max_distance:10,skill_id:7,bullet_model:3101,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
 				}
 				
 				func crossbow_bullet()
 				{
-					# max_distance should be set to (#DISTANCE temp / 2 + 2)
-					execute rotated ~ 0 run summon minecraft:armor_stand ^-0.2 ^ ^1 {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:8,max_distance:9,skill_id:7,bullet_model:3201,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
-					execute rotated ~ 0 run summon minecraft:armor_stand ^0.2 ^ ^1 {Tags:["new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:8,max_distance:9,skill_id:7,bullet_model:3201,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
+					# max_distance should be set to (#DISTANCE temp - 3)
+					execute rotated ~ 0 run summon minecraft:armor_stand ^-0.2 ^ ^1 {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:8,max_distance:10,skill_id:7,bullet_model:3201,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
+					execute rotated ~ 0 run summon minecraft:armor_stand ^0.2 ^ ^1 {Tags:["new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:8,max_distance:10,skill_id:7,bullet_model:3201,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
 				}
 				
 				func set_numeric()

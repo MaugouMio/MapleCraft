@@ -795,13 +795,13 @@ namespace skill()
 		func wander()
 		{
 			execute if score @s life > @s max_life run kill @s
-			tp @s ^ ^ ^1
+			tp @s ^ ^ ^0.7
 		}
 		
 		func move()
 		{
 			execute if entity @s[distance=..0.7] run function ARG(_PATH)hit
-			execute facing entity @s eyes positioned as @s run tp @s ^ ^ ^-1
+			execute facing entity @s eyes positioned as @s run tp @s ^ ^ ^-0.7
 		}
 		
 		func hit()
