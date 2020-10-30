@@ -203,6 +203,8 @@ namespace attack_skill_template(skill_id) as virtual
 				print("execute if score #RAND_RESULT temp >= #SELF_KNOCKBACK_RATE temp run data modify storage skill:main new_queue[-1].knock_back set from storage skill:main damage_info.knock_back")
 				print("execute if score #RAND_RESULT temp < #SELF_KNOCKBACK_RATE temp run data modify storage skill:main new_queue[-1].knock_back set from storage skill:main damage_info.power_knock_back")
 				print("execute if score #RAND_RESULT temp < #SELF_KNOCKBACK_RATE temp run data modify storage skill:main new_queue[-1].force_knock set value 1b")
+			else:
+				print("data modify storage skill:main new_queue[-1].knock_back set from storage skill:main damage_info.knock_back")
 			```
 			data remove entity @s ArmorItems[3].tag.damage_record[0]
 			scoreboard players add @s queuing_effect 1
