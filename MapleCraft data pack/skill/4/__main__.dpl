@@ -83,8 +83,8 @@ namespace 4() as virtual
 				
 				func effect()
 				{
-					summon minecraft:wandering_trader ~ -2 ~ {NoAI:1,Silent:1,DespawnDelay:1,Offers:{Recipes:[]},UUID:[I;0,1,0,1]}
-					data modify entity @s AngryAt set value [I;0,1,0,1]
+					summon minecraft:wandering_trader ~ -2 ~ {NoAI:1,Silent:1,DespawnDelay:1,Offers:{Recipes:[]},UUID:[I;0,2,0,2]}
+					data modify entity @s AngryAt set value [I;0,2,0,2]
 					
 					execute if score @s 4001002_effect matches 1 positioned ~ ~0.8 ~ run function skill:summon_font_effect/4001002mob
 					scoreboard players reset @s 4001002_effect

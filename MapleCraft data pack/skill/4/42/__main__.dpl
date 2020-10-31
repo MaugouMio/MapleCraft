@@ -11,6 +11,10 @@ namespace 42() as virtual
 		scoreboard objectives add 4201005_mp dummy
 		scoreboard objectives add 4201005_attack dummy
 		
+		scoreboard objectives add 4201004_mp dummy
+		scoreboard objectives add 4201004_attack dummy
+		scoreboard objectives add 4201004_steal dummy
+		
 		function ARG(_PATH)1/install
 		function ARG(_PATH)2/install
 	}
@@ -22,9 +26,99 @@ namespace 42() as virtual
 			
 		}
 		
-		folder 1004()
+		folder 1004() from attack_skill_template(4201004)
 		{
+			func check()
+			{
+				execute unless score @s action_time matches 0.. if score @s 4201004_level matches 1.. run function ARG(_PATH)other_check
+			}
 			
+			func other_check()
+			{
+				function skill:check_weapon/check_empty
+				execute if score #USED_WEAPON temp matches 1.. if score @s mp < @s 4201004_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
+				execute if score #USED_WEAPON temp matches 1.. if score @s mp >= @s 4201004_mp run function ARG(_PATH)run
+			}
+			
+			func mark_target()
+			{
+				execute unless score #USED_WEAPON temp matches 24 run function ARG(_PATH)check_weapon_distance
+				execute if score #USED_WEAPON temp matches 24 run scoreboard players set #DISTANCE temp 4
+				
+				scoreboard players set #MAX_ENEMY temp 1
+				function skill:enemy_search/search_front/search
+			}
+			
+			func check_weapon_distance()
+			{
+				scoreboard players operation #DISTANCE temp = #USED_WEAPON temp
+				# make single hand weapon %2 be 0
+				scoreboard players add #DISTANCE temp 1
+				scoreboard players operation #DISTANCE temp %= #2 const
+				scoreboard players add #DISTANCE temp 4
+			}
+			
+			func set_numeric()
+			{
+				# melee *RANDOM* swing damage formula and default attack speed is done by afterimage functions
+				scoreboard players operation #STEAL_RATE temp = @s 4201004_steal
+				
+				scoreboard players operation @s mp -= @s 4201004_mp
+				function bar_display:change/mp/dropped
+				
+				execute store result score @s action_time run data get entity @s Inventory[{Slot:-106b}].tag.action_time
+			}
+			
+			func cast_effect()
+			{
+				execute rotated ~ 0 run summon minecraft:armor_stand ^ ^ ^0.7 {Tags:["model_animation","new"],Invisible:1,Invulnerable:1,NoGravity:1,Marker:1,Fire:32767s,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:420000}}]}
+				execute as @e[type=armor_stand,tag=new,limit=1] run function ARG(_PATH)effect_model_set
+				
+				execute unless score #USED_WEAPON temp matches 24 run function skill:afterimage/warrior_swing/check
+				execute if score #USED_WEAPON temp matches 24 run function skill:afterimage/claw/stab
+				playsound minecraft:skill.4201004 player @a ~ ~ ~ 1 1 0
+				
+				# hit_effect: 0 => None, 1 => mace, 2 => sword
+				data modify storage skill:main damage_info.hit_effect set value 1
+				execute unless score #USED_WEAPON temp matches ..4 unless score #USED_WEAPON temp matches 9..10 unless score #USED_WEAPON temp matches 16..21 unless score #USED_WEAPON temp matches 24 run data modify storage skill:main damage_info.hit_effect set value 2
+			}
+				
+			func effect_model_set()
+			{
+				execute positioned as @s run tp @s ~ ~ ~ ~ ~
+				scoreboard players set @s max_life 14
+				scoreboard players set @s base_model 420000
+				tag @s remove new
+			}
+			
+			func effect()
+			{
+				function skill:mob_effect/play_hurt_sound/run
+			}
+			
+			func add_debuff()
+			{
+				execute if entity @s[tag=!stealed] run function ARG(_PATH)try_steal
+			}
+			
+			func try_steal()
+			{
+				function main:rand_rate
+				execute if score #RAND_RESULT temp < #STEAL_RATE temp run function ARG(_PATH)steal
+			}
+			
+			func steal()
+			{
+				data modify entity 00000000-0000-0001-0000-000000000001 DeathLootTable set from entity @s ArmorItems[3].tag.steal_loot
+				loot spawn ~ ~1 ~ kill 00000000-0000-0001-0000-000000000001
+				tag @s add stealed
+			}
+			
+			func append_scheduler()
+			{
+				data modify storage skill:main new_schedule append value {delay:0,time:0}
+				execute store result storage skill:main new_schedule[-1].time int 1 run schedule function ARG(_PATH)hit_effect 7t append
+			}
 		}
 		
 		folder 1005() from attack_skill_template(4201005)
