@@ -47,7 +47,10 @@ namespace main()
 		scoreboard objectives add temp dummy
 		scoreboard objectives add life dummy
 		scoreboard objectives add max_life dummy
+		scoreboard objectives add meso dummy
 		scoreboard objectives add jump minecraft.custom:minecraft.jump
+		scoreboard objectives add pick_meso minecraft.picked_up:minecraft.diamond
+		scoreboard objectives add pick_etc minecraft.picked_up:minecraft.string
 		
 		team add enemy
 		team modify enemy collisionRule never
@@ -77,10 +80,47 @@ namespace main()
 	func main()
 	{
 		execute as @a[scores={jump=1..}] at @s run function ARG(_PATH)jump_effect
+		execute as @a[predicate=main:pickup] at @s run function ARG(_PATH)pick/check
 		
 		function skill:main/run
 		# function number_display:main
 		function bar_display:main
+	}
+	
+	folder pick()
+	{
+		func check()
+		{
+			execute if score @s pick_meso matches 1.. run function ARG(_PATH)meso/record
+			scoreboard players reset @s[scores={pick_etc=1..}] pick_etc
+			
+			playsound minecraft:game.pick_up_item player @a ~ ~ ~ 1 1 0
+		}
+		
+		folder meso() from for_loop().for("@s pick_meso", "")
+		{
+			func record()
+			{
+				data modify storage main:item picked_meso append from entity @s Inventory[{id:"minecraft:diamond"}].tag.CustomModelData
+				function ARG(_PATH)run
+				
+				clear @s minecraft:diamond
+				scoreboard players reset @s pick_meso
+			}
+			
+			func execute()
+			{
+				execute store result score #GLOBAL temp run data get storage main:item picked_meso[0]
+				data remove storage main:item picked_meso[0]
+				
+				scoreboard players operation @s meso += #GLOBAL temp
+			}
+		}
+		
+		func etc()
+		{
+			scoreboard players reset @s pick_etc
+		}
 	}
 	
 	func jump_effect()

@@ -1937,7 +1937,7 @@ namespace skill()
 			attribute @s minecraft:generic.attack_damage base set -100.0
 			attribute @s minecraft:generic.movement_speed base set -100.0
 			loot spawn ~ ~1 ~ kill @s
-			execute as @e[type=item,tag=!checked] run function ARG(__PATH)item/check
+			execute as @e[type=item,tag=!checked] at @s run function ARG(__PATH)item/check
 			```
 			raise Warning("TODO: give exp to killer player")
 			```
@@ -2322,6 +2322,7 @@ namespace skill()
 		{
 			execute if data entity @s Item{id:"minecraft:diamond"} store result entity @s Item.tag.CustomModelData int 1 run data get entity @s Item.tag.AttributeModifiers[0].Amount 1000
 			data modify entity @s Owner set from storage skill:main damage_info.attacker
+			playsound minecraft:game.drop_item player @a ~ ~ ~ 1 1 0
 			tag @s add checked
 		}
 	}

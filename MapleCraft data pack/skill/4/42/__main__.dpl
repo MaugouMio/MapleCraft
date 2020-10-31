@@ -111,7 +111,7 @@ namespace 42() as virtual
 			{
 				data modify entity 00000000-0000-0001-0000-000000000001 DeathLootTable set from entity @s ArmorItems[3].tag.steal_loot
 				loot spawn ~ ~1 ~ kill 00000000-0000-0001-0000-000000000001
-				execute as @e[type=item,tag=!checked] run function skill:item/check
+				execute as @e[type=item,tag=!checked] at @s run function skill:item/check
 				tag @s add stealed
 			}
 			

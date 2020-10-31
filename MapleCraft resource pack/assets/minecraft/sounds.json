@@ -311,5 +311,31 @@
 				"stream": true
 			}
 		]
+	},
+	"game.pick_up_item": {
+		"sounds": [
+			{
+				"name": "game/pick_up_item",
+				"stream": true
+			}
+		]
+	},
+	"game.drop_item": {
+		"sounds": [
+			{
+				"name": "game/drop_item",
+				"stream": true,
+				"preload": true
+			}
+		]
+	},
+	
+	
+	
+	"entity.item.pickup": {
+		"sounds": [
+			{ "name": "empty" }
+		],
+		"replace": true
 	}
 }
