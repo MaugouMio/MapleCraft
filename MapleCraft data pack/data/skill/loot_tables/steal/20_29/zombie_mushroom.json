@@ -1,0 +1,54 @@
+{
+  "pools": [
+    {
+      "rolls": 1.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_attributes",
+              "modifiers": [
+                {
+                  "name": "meso",
+                  "attribute": "minecraft:generic.attack_damage",
+                  "operation": "addition",
+                  "amount": {
+                    "min": 0.022,
+                    "max": 0.033
+                  },
+                  "slot": "head"
+                }
+              ]
+            },
+            {
+              "function": "minecraft:set_name",
+              "name": ""
+            },
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{HideFlags:127}"
+            }
+          ],
+          "name": "minecraft:diamond",
+		  "weight": 1
+        },
+		{
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_name",
+              "name": {"translate": "item.etc.4000008"}
+            },
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{HideFlags:127,CustomModelData:4000008}"
+            }
+          ],
+          "name": "minecraft:string",
+		  "weight": 1
+        }
+      ]
+    }
+  ]
+}

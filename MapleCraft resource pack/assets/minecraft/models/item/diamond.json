@@ -1,0 +1,12 @@
+{
+	"parent": "minecraft:item/generated",
+	"textures": {
+		"layer0": "item/diamond"
+	},
+	"overrides": [
+		{"predicate": {"custom_model_data": 1},"model": "item/meso/1"},
+		{"predicate": {"custom_model_data": 50},"model": "item/meso/50"},
+		{"predicate": {"custom_model_data": 100},"model": "item/meso/100"},
+		{"predicate": {"custom_model_data": 1000},"model": "item/meso/1000"}
+	]
+}

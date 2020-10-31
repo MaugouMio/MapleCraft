@@ -1,0 +1,9 @@
+{
+	"parent": "minecraft:item/generated",
+	"textures": {
+		"layer0": "item/string"
+	},
+	"overrides": [
+		{"predicate": {"custom_model_data": 4000008},"model": "item/etc/400/0008"}
+	]
+}
