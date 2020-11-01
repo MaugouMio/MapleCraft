@@ -10,7 +10,6 @@ namespace 4() as virtual
 	{
 		scoreboard objectives add 4001002_mp dummy
 		scoreboard objectives add 4001002_time dummy
-		scoreboard objectives add 4001002_effect dummy
 		
 		scoreboard objectives add 4001334_mp dummy
 		scoreboard objectives add 4001334_attack dummy
@@ -86,8 +85,8 @@ namespace 4() as virtual
 					summon minecraft:wandering_trader ~ -2 ~ {NoAI:1,Silent:1,DespawnDelay:1,Offers:{Recipes:[]},UUID:[I;0,2,0,2]}
 					data modify entity @s AngryAt set value [I;0,2,0,2]
 					
-					execute if score @s 4001002_effect matches 1 positioned ~ ~0.8 ~ run function skill:summon_font_effect/4001002mob
-					scoreboard players reset @s 4001002_effect
+					execute if entity @s[tag=4001002_effect] positioned ~ ~0.8 ~ run function skill:summon_font_effect/4001002mob
+					tag @s remove 4001002_effect
 					
 					function skill:mob_effect/play_hurt_sound/run
 				}
@@ -100,7 +99,7 @@ namespace 4() as virtual
 				func set_debuff()
 				{
 					scoreboard players operation @s 4001002_time = #DISORDER_TIME temp
-					scoreboard players set @s 4001002_effect 1
+					tag @s add 4001002_effect
 					
 					# weapon attack drop
 					execute store result score @s temp run data get entity @s Attributes[{Name:"minecraft:generic.attack_damage"}].Base 10
