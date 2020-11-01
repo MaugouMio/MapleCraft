@@ -159,8 +159,6 @@ namespace main()
 		
 		effect give @s minecraft:absorption 1000000 255 true
 		attribute @s minecraft:generic.attack_damage base set -100.0
-		
-		tag @s add heal_target
 	}
 	
 	func rand_rate()

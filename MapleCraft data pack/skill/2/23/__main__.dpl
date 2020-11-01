@@ -35,8 +35,31 @@ namespace 23() as virtual
 			
 			func mark_target()
 			{
-				execute positioned ~ ~-2.5 ~ store result score #FOUND_ENEMY temp run tag @e[type=#skill:heal,tag=heal_target,tag=!dead,distance=..5,limit=6,sort=nearest] add target
+				execute positioned ~ ~-2.5 ~ store result score #FOUND_ENEMY temp run tag @a[tag=!dead,distance=..5,limit=6,sort=random] add target
+				execute if score #FOUND_ENEMY temp matches ..5 run function ARG(_PATH)mark_enemy/run
+				
 				tag @s add caster
+			}
+			
+			folder mark_enemy()
+			{
+				func run()
+				{
+					scoreboard players remove #FOUND_ENEMY temp 5
+					execute positioned ~ ~-2.5 ~ as @e[type=zombified_piglin,tag=heal_target,tag=!dead,distance=..5,limit=5,sort=random] run function ARG(_PATH)try_mark
+					scoreboard players add #FOUND_ENEMY temp 5
+				}
+			
+				func try_mark()
+				{
+					execute if score #FOUND_ENEMY temp matches ..0 run function ARG(_PATH)mark
+				}
+				
+				func mark()
+				{
+					scoreboard players add #FOUND_ENEMY temp 1
+					tag @s add target
+				}
 			}
 			
 			func set_numeric()

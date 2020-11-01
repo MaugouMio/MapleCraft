@@ -533,7 +533,7 @@ namespace skill()
 			execute as @a[scores={action_time=1..}] run function ARG(_PATH)action/countdown
 			
 			# used skill check
-			execute as @a[scores={right_click=1..}] at @s run function skill:check_skill/run
+			execute as @a[scores={right_click=1..},tag=!dead] at @s run function skill:check_skill/run
 		}
 		
 		func font_effect_update()
