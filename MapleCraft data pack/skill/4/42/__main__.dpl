@@ -98,7 +98,7 @@ namespace 42() as virtual
 			
 			func add_debuff()
 			{
-				execute if entity @s[tag=!stealed,tag=!boss] run function ARG(_PATH)try_steal
+				execute if entity @s[tag=!stealed,tag=!boss,tag=!dead] run function ARG(_PATH)try_steal
 			}
 			
 			func try_steal()
