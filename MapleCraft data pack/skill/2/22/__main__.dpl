@@ -104,7 +104,20 @@ namespace 22() as virtual
 			
 			func mark_target()
 			{
-				execute positioned ~ ~-2.5 ~ store result score #FOUND_ENEMY temp run tag @e[type=minecraft:zombified_piglin,tag=enemy,tag=!dead,distance=..5,limit=6,sort=nearest] add target
+				data modify storage skill:main temp set value []
+				scoreboard players set #FOUND_ENEMY temp 0
+				execute positioned ~ ~-2.5 ~ as @e[type=zombified_piglin,tag=enemy,tag=!dead,distance=..5,limit=6,sort=random] run function ARG(_PATH)mark
+			}
+			
+			func mark()
+			{
+				tag @s add target
+				
+				scoreboard players operation @s hit_distance = #FOUND_ENEMY temp
+				data modify storage skill:main temp append value 0
+				execute store result storage skill:main temp[-1] int 1 run scoreboard players get @s hit_distance
+				
+				scoreboard players add #FOUND_ENEMY temp 1
 			}
 			
 			func set_numeric()
@@ -131,12 +144,11 @@ namespace 22() as virtual
 				execute if score @s display_number matches 1.. run function skill:summon_font_effect/2201005hit
 				function skill:mob_effect/play_hurt_sound/run
 			}
-			
-			func append_scheduler()
-			{
-				data modify storage skill:main new_schedule append value {delay:0,time:0}
-				execute store result storage skill:main new_schedule[-1].time int 1 run schedule function ARG(_PATH)hit_effect 8t append
-			}
+				
+			```
+			# delay_range = max possible value of enemy amount
+			append_scheduler(delay_range = 6, base_delay = 8, skill_path = "skill:2/2/0/1005/")
+			```
 		}
 	}
 }

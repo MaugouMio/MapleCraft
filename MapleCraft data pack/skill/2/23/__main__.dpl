@@ -35,8 +35,10 @@ namespace 23() as virtual
 			
 			func mark_target()
 			{
-				execute positioned ~ ~-2.5 ~ store result score #FOUND_ENEMY temp run tag @a[tag=!dead,distance=..5,limit=6,sort=random] add target
-				execute if score #FOUND_ENEMY temp matches ..5 run function ARG(_PATH)mark_enemy/run
+				tag @s add target
+				execute positioned ~ ~-2.5 ~ store result score #FOUND_ALLY temp run tag @a[tag=!dead,tag=!target,distance=..5,limit=5,sort=random] add target
+				scoreboard players add #FOUND_ALLY temp 1
+				execute if score #FOUND_ALLY temp matches ..5 run function ARG(_PATH)mark_enemy/run
 				
 				tag @s add caster
 			}
@@ -45,20 +47,29 @@ namespace 23() as virtual
 			{
 				func run()
 				{
-					scoreboard players remove #FOUND_ENEMY temp 5
+					data modify storage skill:main temp set value []
+					scoreboard players set #MAX_ENEMY temp 6
+					scoreboard players set #FOUND_ENEMY temp 0
+					scoreboard players operation #MAX_ENEMY temp -= #FOUND_ALLY temp
+					
 					execute positioned ~ ~-2.5 ~ as @e[type=zombified_piglin,tag=heal_target,tag=!dead,distance=..5,limit=5,sort=random] run function ARG(_PATH)try_mark
-					scoreboard players add #FOUND_ENEMY temp 5
+					scoreboard players operation #FOUND_ENEMY temp += #FOUND_ALLY temp
 				}
 			
 				func try_mark()
 				{
-					execute if score #FOUND_ENEMY temp matches ..0 run function ARG(_PATH)mark
+					execute if score #FOUND_ENEMY temp < #MAX_ENEMY temp run function ARG(_PATH)mark
 				}
 				
 				func mark()
 				{
-					scoreboard players add #FOUND_ENEMY temp 1
 					tag @s add target
+					
+					scoreboard players operation @s hit_distance = #FOUND_ENEMY temp
+					data modify storage skill:main temp append value 0
+					execute store result storage skill:main temp[-1] int 1 run scoreboard players get @s hit_distance
+					
+					scoreboard players add #FOUND_ENEMY temp 1
 				}
 			}
 			
@@ -106,12 +117,11 @@ namespace 23() as virtual
 				execute if score @s display_number matches 1.. positioned ~ ~0.8 ~ run function skill:summon_font_effect/2301002hit
 				function skill:mob_effect/play_hurt_sound/run
 			}
-			
-			func append_scheduler()
-			{
-				data modify storage skill:main new_schedule append value {delay:0,time:0}
-				execute store result storage skill:main new_schedule[-1].time int 1 run schedule function ARG(_PATH)hit_effect 1t append
-			}
+				
+				```
+				# delay_range = max possible value of enemy amount
+				append_scheduler(delay_range = 5, base_delay = 1, skill_path = "skill:2/3/0/1002/")
+				```
 		}
 		
 		folder 1003()
