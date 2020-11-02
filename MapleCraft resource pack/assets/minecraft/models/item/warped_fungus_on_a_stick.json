@@ -1,0 +1,15 @@
+{
+	"parent": "item/handheld",
+	"textures": {
+		"layer0": "item/carrot_on_a_stick"
+	},
+	"overrides": [
+		{"predicate": {"custom_model_data": 1}, "model": "item/consume/207/0000"},
+		{"predicate": {"custom_model_data": 2}, "model": "item/consume/207/0001"},
+		{"predicate": {"custom_model_data": 3}, "model": "item/consume/207/0002"},
+		{"predicate": {"custom_model_data": 4}, "model": "item/consume/207/0003"},
+		{"predicate": {"custom_model_data": 5}, "model": "item/consume/207/0004"},
+		{"predicate": {"custom_model_data": 6}, "model": "item/consume/207/0005"},
+		{"predicate": {"custom_model_data": 7}, "model": "item/consume/207/0006"}
+	]
+}
