@@ -157,6 +157,7 @@ namespace 31() as virtual
 				
 				function skill:damage_formula/bow/normal
 				
+				scoreboard players remove @s bullet_amount 1
 				scoreboard players operation @s mp -= @s 3101005_mp
 				function bar_display:change/mp/dropped
 				

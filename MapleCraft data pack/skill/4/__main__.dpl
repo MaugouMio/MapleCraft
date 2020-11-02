@@ -280,6 +280,7 @@ namespace 4() as virtual
 					
 					data modify storage skill:main damage append from storage skill:main damage[0]
 					
+					scoreboard players remove @s bullet_amount 2
 					scoreboard players operation @s mp -= @s 4001344_mp
 					function bar_display:change/mp/dropped
 					

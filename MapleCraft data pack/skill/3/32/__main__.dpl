@@ -90,6 +90,7 @@ namespace 32() as virtual
 				
 				function skill:damage_formula/crossbow/normal
 				
+				scoreboard players remove @s bullet_amount 1
 				scoreboard players operation @s mp -= @s 3201005_mp
 				function bar_display:change/mp/dropped
 				

@@ -103,6 +103,7 @@ namespace 41() as virtual
 				
 				function skill:damage_formula/claw/normal
 				
+				scoreboard players remove @s bullet_amount 1
 				scoreboard players operation @s mp -= @s 4101005_mp
 				function bar_display:change/mp/dropped
 				
