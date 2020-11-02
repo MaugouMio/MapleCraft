@@ -41,7 +41,18 @@ namespace 3() as virtual
 				{
 					function skill:check_weapon/archer/run
 					execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 3001004_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
-					execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp >= @s 3001004_mp run function ARG(_PATH)run
+					execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp >= @s 3001004_mp run function ARG(_PATH)arrow_check
+				}
+			
+				func arrow_check()
+				{
+					scoreboard players set #GLOBAL temp 0
+					execute if score #USED_WEAPON temp matches 16 unless score @s bullet_item matches 21..25 run scoreboard players set #GLOBAL temp 1
+					execute if score #USED_WEAPON temp matches 18 unless score @s bullet_item matches 26..30 run scoreboard players set #GLOBAL temp 1
+					execute unless score @s bullet_amount matches 1.. run scoreboard players set #GLOBAL temp 1
+					
+					execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"warning.skill.lack_arrow","color":"red"}
+					execute if score #GLOBAL temp matches 0 run function ARG(_PATH)run
 				}
 				
 				func mark_target()
@@ -131,7 +142,18 @@ namespace 3() as virtual
 				{
 					function skill:check_weapon/archer/run
 					execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 3001005_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
-					execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp >= @s 3001005_mp run function ARG(_PATH)run
+					execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp >= @s 3001005_mp run function ARG(_PATH)arrow_check
+				}
+			
+				func arrow_check()
+				{
+					scoreboard players set #GLOBAL temp 0
+					execute if score #USED_WEAPON temp matches 16 unless score @s bullet_item matches 21..25 run scoreboard players set #GLOBAL temp 1
+					execute if score #USED_WEAPON temp matches 18 unless score @s bullet_item matches 26..30 run scoreboard players set #GLOBAL temp 1
+					execute unless score @s bullet_amount matches 2.. run scoreboard players set #GLOBAL temp 1
+					
+					execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"warning.skill.lack_arrow","color":"red"}
+					execute if score #GLOBAL temp matches 0 run function ARG(_PATH)run
 				}
 				
 				func mark_target()

@@ -222,7 +222,17 @@ namespace 4() as virtual
 				{
 					function skill:check_weapon/claw/run
 					execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 4001344_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
-					execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp >= @s 4001344_mp run function ARG(_PATH)run
+					execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp >= @s 4001344_mp run function ARG(_PATH)star_check
+				}
+			
+				func star_check()
+				{
+					scoreboard players set #GLOBAL temp 0
+					execute unless score @s bullet_item matches ..20 run scoreboard players set #GLOBAL temp 1
+					execute unless score @s bullet_amount matches 2.. run scoreboard players set #GLOBAL temp 1
+					
+					execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"warning.skill.lack_arrow","color":"red"}
+					execute if score #GLOBAL temp matches 0 run function ARG(_PATH)run
 				}
 				
 				func mark_target()
