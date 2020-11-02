@@ -74,7 +74,7 @@ namespace 41() as virtual
 				```
 				raise Warning("TODO: set throwing star model and max_distance")
 				```
-				# scoreboard players operation #GLOBAL temp = @s using_bullet
+				# scoreboard players operation #GLOBAL temp = @s bullet_model
 				# execute as @e[tag=new_bullet] store result entity @s ArmorItems[3].tag.bullet_model int 1 run scoreboard players get #GLOBAL temp
 			}
 			

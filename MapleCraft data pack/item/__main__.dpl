@@ -1,0 +1,96 @@
+import loop
+import random
+
+namespace item()
+{
+	func install()
+	{
+		scoreboard objectives add right_click_item minecraft.used:minecraft.warped_fungus_on_a_stick
+		scoreboard objectives add bullet_item dummy
+		scoreboard objectives add bullet_model dummy
+		scoreboard objectives add bullet_damage dummy
+		scoreboard objectives add bullet_amount dummy
+	}
+	
+	func main()
+	{
+		# used consume item check
+		execute as @a[scores={right_click_item=1..},tag=!dead] at @s run function ARG(_PATH)check
+	}
+	
+	func check()
+	{
+		execute store result score #USING_ITEM temp run data get entity @s[nbt={SelectedItem:{id:"minecraft:warped_fungus_on_a_stick"}}] SelectedItem.tag.CustomModelData
+		
+		execute if score #USING_ITEM temp matches ..30 run function ARG(_PATH)consume/weapon/check
+		
+		scoreboard players reset @s right_click_item
+	}
+	
+	folder consume()
+	{
+		folder weapon()
+		{
+			func check()
+			{
+				execute store result score @s bullet_model run data get entity @s SelectedItem.tag.bullet_model
+				execute store result score @s bullet_damage run data get entity @s SelectedItem.tag.Enchantments[0].lvl
+				execute store result score @s bullet_amount run data get entity @s SelectedItem.tag.amount
+				tellraw @s {"translate":"item.consume.used_weapon","with":[{"nbt":"SelectedItem.tag.display.Name","entity":"@s","interpret":true},{"score":{"name":"@s","objective":"bullet_amount"}}]}
+				
+				execute if score @s bullet_item matches 1.. run function ARG(_PATH)restore/check
+				
+				scoreboard players operation @s bullet_item = #USING_ITEM temp
+			}
+			
+			folder restore()
+			{
+				func check()
+				{
+					execute if score @s bullet_item matches ..20 run function ARG(_PATH)throwing_star
+					execute if score @s bullet_item matches 21..25 run function ARG(_PATH)arrow_bow
+					execute if score @s bullet_item matches 26..30 run function ARG(_PATH)arrow_crossbow
+					
+					execute store result block 0 2 0 Items[0].tag.amount run scoreboard players operation #GLOBAL temp = @s bullet_amount
+					data modify block 0 0 0 Text1 set value '{"translate":"item.consume.weapon.left","with":[{"score":{"name":"#GLOBAL","objective":"temp"}}]}'
+					data modify block 0 2 0 Items[0].tag.display.Lore[0] set from block 0 0 0 Text1
+					loot replace entity @s weapon.mainhand 1 mine 0 2 0 minecraft:air{modify_player:1b}
+					
+					scoreboard players reset @s bullet_item
+				}
+				
+				func throwing_star()
+				{
+					# nbt is stored in google cloud sheet
+					execute if score @s bullet_item matches 1 run replaceitem block 0 2 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:1,amount:500,bullet_model:4000,max_amount:500,unit_price:0.8f,display:{Name:'{"translate":"item.consume.2070000"}',Lore:['{"translate":"item.consume.weapon.left","with":["500"]}']},Enchantments:[{id:"minecraft:fortune",lvl:15}],HideFlags:126,Unbreakable:1}
+					execute if score @s bullet_item matches 2 run replaceitem block 0 2 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:2,amount:500,bullet_model:4001,max_amount:500,unit_price:0.7f,display:{Name:'{"translate":"item.consume.2070001"}',Lore:['{"translate":"item.consume.weapon.left","with":["500"]}']},Enchantments:[{id:"minecraft:fortune",lvl:17}],HideFlags:126,Unbreakable:1}
+					execute if score @s bullet_item matches 3 run replaceitem block 0 2 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:3,amount:700,bullet_model:4002,max_amount:700,unit_price:0.6f,display:{Name:'{"translate":"item.consume.2070002"}',Lore:['{"translate":"item.consume.weapon.left","with":["700"]}']},Enchantments:[{id:"minecraft:fortune",lvl:19}],HideFlags:126,Unbreakable:1}
+					execute if score @s bullet_item matches 4 run replaceitem block 0 2 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:4,amount:500,bullet_model:4003,max_amount:500,unit_price:0.6f,display:{Name:'{"translate":"item.consume.2070003"}',Lore:['{"translate":"item.consume.weapon.left","with":["500"]}']},Enchantments:[{id:"minecraft:fortune",lvl:21}],HideFlags:126,Unbreakable:1}
+					execute if score @s bullet_item matches 5 run replaceitem block 0 2 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:5,amount:1000,bullet_model:4004,max_amount:1000,unit_price:0.5f,display:{Name:'{"translate":"item.consume.2070004"}',Lore:['{"translate":"item.consume.weapon.left","with":["1000"]}']},Enchantments:[{id:"minecraft:fortune",lvl:23}],HideFlags:126,Unbreakable:1}
+					execute if score @s bullet_item matches 6 run replaceitem block 0 2 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:6,amount:1000,bullet_model:4005,max_amount:1000,unit_price:0.4f,display:{Name:'{"translate":"item.consume.2070005"}',Lore:['{"translate":"item.consume.weapon.left","with":["1000"]}']},Enchantments:[{id:"minecraft:fortune",lvl:25}],HideFlags:126,Unbreakable:1}
+					execute if score @s bullet_item matches 7 run replaceitem block 0 2 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:7,amount:800,bullet_model:4006,max_amount:800,unit_price:0.3f,display:{Name:'{"translate":"item.consume.2070006"}',Lore:['{"translate":"item.consume.weapon.left","with":["800"]}']},Enchantments:[{id:"minecraft:fortune",lvl:27}],HideFlags:126,Unbreakable:1}
+				}
+				
+				func arrow_bow()
+				{
+					# nbt is stored in google cloud sheet
+					execute if score @s bullet_item matches 21 run replaceitem block 0 2 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:21,amount:2000,bullet_model:3101,display:{Name:'{"translate":"item.consume.2060000"}',Lore:['{"translate":"item.consume.weapon.left","with":["2000"]}']},Enchantments:[],HideFlags:126,Unbreakable:1}
+					execute if score @s bullet_item matches 22 run replaceitem block 0 2 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:22,amount:2000,bullet_model:3102,display:{Name:'{"translate":"item.consume.2060001"}',Lore:['{"translate":"item.consume.weapon.left","with":["2000"]}']},Enchantments:[{id:"minecraft:fortune",lvl:1}],HideFlags:126,Unbreakable:1}
+					execute if score @s bullet_item matches 23 run replaceitem block 0 2 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:23,amount:2000,bullet_model:3103,display:{Name:'{"translate":"item.consume.2060002"}',Lore:['{"translate":"item.consume.weapon.left","with":["2000"]}']},Enchantments:[{id:"minecraft:fortune",lvl:2}],HideFlags:126,Unbreakable:1}
+					execute if score @s bullet_item matches 24 run replaceitem block 0 2 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:24,amount:2000,bullet_model:3104,display:{Name:'{"translate":"item.consume.2060003"}',Lore:['{"translate":"item.consume.weapon.left","with":["2000"]}']},Enchantments:[{id:"minecraft:fortune",lvl:4}],HideFlags:126,Unbreakable:1}
+					execute if score @s bullet_item matches 25 run replaceitem block 0 2 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:25,amount:2000,bullet_model:3105,display:{Name:'{"translate":"item.consume.2060004"}',Lore:['{"translate":"item.consume.weapon.left","with":["2000"]}']},Enchantments:[{id:"minecraft:fortune",lvl:4}],HideFlags:126,Unbreakable:1}
+				}
+				
+				func arrow_crossbow()
+				{
+					# nbt is stored in google cloud sheet
+					execute if score @s bullet_item matches 26 run replaceitem block 0 2 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:26,amount:2000,bullet_model:3201,display:{Name:'{"translate":"item.consume.2061000"}',Lore:['{"translate":"item.consume.weapon.left","with":["2000"]}']},Enchantments:[],HideFlags:126,Unbreakable:1}
+					execute if score @s bullet_item matches 27 run replaceitem block 0 2 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:27,amount:2000,bullet_model:3202,display:{Name:'{"translate":"item.consume.2061001"}',Lore:['{"translate":"item.consume.weapon.left","with":["2000"]}']},Enchantments:[{id:"minecraft:fortune",lvl:1}],HideFlags:126,Unbreakable:1}
+					execute if score @s bullet_item matches 28 run replaceitem block 0 2 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:28,amount:2000,bullet_model:3203,display:{Name:'{"translate":"item.consume.2061002"}',Lore:['{"translate":"item.consume.weapon.left","with":["2000"]}']},Enchantments:[{id:"minecraft:fortune",lvl:2}],HideFlags:126,Unbreakable:1}
+					execute if score @s bullet_item matches 29 run replaceitem block 0 2 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:29,amount:2000,bullet_model:3204,display:{Name:'{"translate":"item.consume.2061003"}',Lore:['{"translate":"item.consume.weapon.left","with":["2000"]}']},Enchantments:[{id:"minecraft:fortune",lvl:4}],HideFlags:126,Unbreakable:1}
+					execute if score @s bullet_item matches 30 run replaceitem block 0 2 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:30,amount:2000,bullet_model:3205,display:{Name:'{"translate":"item.consume.2061004"}',Lore:['{"translate":"item.consume.weapon.left","with":["2000"]}']},Enchantments:[{id:"minecraft:fortune",lvl:4}],HideFlags:126,Unbreakable:1}
+				}
+			}
+		}
+	}
+}

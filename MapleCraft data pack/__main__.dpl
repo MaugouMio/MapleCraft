@@ -61,16 +61,18 @@ namespace main()
 		```
 		scoreboard players set #GLOBAL number 0
 		
-		setworldspawn 0 2 0
-		fill -1 0 -1 1 2 1 minecraft:bedrock
+		setworldspawn 0 4 0
+		fill -1 0 -1 1 3 1 minecraft:bedrock
 		setblock 0 0 0 minecraft:acacia_wall_sign
 		setblock 0 1 0 minecraft:chest
+		setblock 0 2 0 minecraft:shulker_box
 		summon minecraft:snow_golem 0 -2 0 {NoAI:1,NoGravity:1,Invulnerable:1,Silent:1,UUID:[I;0,1,0,1]}
 		
 		function skill:install
 		function number_display:install
 		function bar_display:install
 		function stat:install
+		function item:install
 		
 		function loop:schedule_1s/run
 		function loop:schedule_10s/run
@@ -85,6 +87,7 @@ namespace main()
 		function skill:main/run
 		# function number_display:main
 		function bar_display:main
+		function item:main
 	}
 	
 	folder pick()
