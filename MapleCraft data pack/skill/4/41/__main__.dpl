@@ -71,11 +71,17 @@ namespace 41() as virtual
 			{
 				# max_distance should be set to (#DISTANCE temp - 3)
 				execute rotated ~ 0 run summon minecraft:armor_stand ^ ^0.2 ^1 {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:7,max_distance:10,skill_id:9,bullet_model:4005,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
+				
+				scoreboard players operation #GLOBAL bullet_model = @s bullet_model
+				execute as @e[type=armor_stand,tag=new_bullet] run function ARG(_PATH)set_bullet
+			}
+			
+			func set_bullet()
+			{
 				```
-				raise Warning("TODO: set throwing star model and max_distance")
+				raise Warning("TODO: set throwing star max_distance")
 				```
-				# scoreboard players operation #GLOBAL temp = @s bullet_model
-				# execute as @e[tag=new_bullet] store result entity @s ArmorItems[3].tag.bullet_model int 1 run scoreboard players get #GLOBAL temp
+				execute store result entity @s ArmorItems[3].tag.bullet_model int 1 run scoreboard players get #GLOBAL bullet_model
 			}
 			
 			func set_numeric()

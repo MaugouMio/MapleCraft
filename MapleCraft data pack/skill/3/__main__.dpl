@@ -149,11 +149,17 @@ namespace 3() as virtual
 				{
 					execute if score #USED_WEAPON temp matches 16 run function ARG(_PATH)bow_bullet
 					execute if score #USED_WEAPON temp matches 18 run function ARG(_PATH)crossbow_bullet
+					
+					scoreboard players operation #GLOBAL bullet_model = @s bullet_model
+					execute as @e[type=armor_stand,tag=new_bullet] run function ARG(_PATH)set_bullet
+				}
+				
+				func set_bullet()
+				{
 					```
-					raise Warning("TODO: set arrow model and max_distance")
+					raise Warning("TODO: set arrow max_distance")
 					```
-					# scoreboard players operation #GLOBAL temp = @s bullet_model
-					# execute as @e[tag=new_bullet] store result entity @s ArmorItems[3].tag.bullet_model int 1 run scoreboard players get #GLOBAL temp
+					execute store result entity @s ArmorItems[3].tag.bullet_model int 1 run scoreboard players get #GLOBAL bullet_model
 				}
 				
 				func bow_bullet()
