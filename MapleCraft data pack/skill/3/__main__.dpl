@@ -68,10 +68,8 @@ namespace 3() as virtual
 				func set_numeric()
 				{
 					execute store result storage skill:main damage[0].base_percent int 1 run scoreboard players get @s 3001004_attack
-					```
-					raise Warning("TODO: set arrow damage")
-					```
-					scoreboard players set #BULLET_DAMAGE temp 0
+					
+					scoreboard players operation #BULLET_DAMAGE temp = @s bullet_damage
 					execute if score #USED_WEAPON temp matches 16 run function skill:damage_formula/bow/normal
 					execute if score #USED_WEAPON temp matches 18 run function skill:damage_formula/crossbow/normal
 					
@@ -175,10 +173,7 @@ namespace 3() as virtual
 				func set_numeric()
 				{
 					execute store result storage skill:main damage[0].base_percent int 1 run scoreboard players get @s 3001005_attack
-					```
-					raise Warning("TODO: set arrow damage")
-					```
-					scoreboard players set #BULLET_DAMAGE temp 0
+					
 					execute if score #USED_WEAPON temp matches 16 run function skill:damage_formula/bow/normal
 					execute if score #USED_WEAPON temp matches 18 run function skill:damage_formula/crossbow/normal
 					

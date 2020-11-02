@@ -259,10 +259,7 @@ namespace 4() as virtual
 				func set_numeric()
 				{
 					execute store result storage skill:main damage[0].base_percent int 1 run scoreboard players get @s 4001344_attack
-					```
-					raise Warning("TODO: set throwing star damage")
-					```
-					scoreboard players set #BULLET_DAMAGE temp 25
+					
 					function skill:damage_formula/claw/lucky_seven
 					
 					data modify storage skill:main damage append from storage skill:main damage[0]

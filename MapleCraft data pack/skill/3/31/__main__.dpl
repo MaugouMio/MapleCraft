@@ -144,10 +144,7 @@ namespace 31() as virtual
 				execute store result storage skill:main damage[0].base_percent int 1 run scoreboard players get @s 3101005_attack
 				scoreboard players operation #STUN_RATE temp = @s 3101005_stun
 				scoreboard players operation #STUN_TIME temp = @s 3101005_time
-				```
-				raise Warning("TODO: set arrow damage")
-				```
-				scoreboard players set #BULLET_DAMAGE temp 0
+				
 				function skill:damage_formula/bow/normal
 				
 				scoreboard players operation @s mp -= @s 3101005_mp

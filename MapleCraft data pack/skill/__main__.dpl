@@ -1268,7 +1268,7 @@ namespace skill()
 			{
 				# weapon attack
 				execute store result score #WEAPON_ATTACK temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_attack
-				scoreboard players operation #WEAPON_ATTACK temp += #BULLET_DAMAGE temp
+				scoreboard players operation #WEAPON_ATTACK temp += @s bullet_damage
 				
 				scoreboard players operation #MAX_DAMAGE temp = @s LUK
 				scoreboard players operation #MAX_DAMAGE temp *= #36 const
@@ -1296,7 +1296,7 @@ namespace skill()
 			{
 				# weapon attack
 				execute store result score #MAX_DAMAGE temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_attack
-				scoreboard players operation #MAX_DAMAGE temp += #BULLET_DAMAGE temp
+				scoreboard players operation #MAX_DAMAGE temp += @s bullet_damage
 				scoreboard players operation #MAX_DAMAGE temp *= @s LUK
 				scoreboard players operation #MAX_DAMAGE temp /= #20 const
 				
@@ -1428,7 +1428,7 @@ namespace skill()
 			{
 				# weapon attack
 				execute store result score #WEAPON_ATTACK temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_attack
-				scoreboard players operation #WEAPON_ATTACK temp += #BULLET_DAMAGE temp
+				scoreboard players operation #WEAPON_ATTACK temp += @s bullet_damage
 				
 				scoreboard players operation #MAX_DAMAGE temp = @s DEX
 				scoreboard players operation #MAX_DAMAGE temp *= #34 const
@@ -1501,7 +1501,7 @@ namespace skill()
 			{
 				# weapon attack
 				execute store result score #WEAPON_ATTACK temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_attack
-				scoreboard players operation #WEAPON_ATTACK temp += #BULLET_DAMAGE temp
+				scoreboard players operation #WEAPON_ATTACK temp += @s bullet_damage
 				
 				scoreboard players operation #MAX_DAMAGE temp = @s DEX
 				scoreboard players operation #MAX_DAMAGE temp *= #36 const

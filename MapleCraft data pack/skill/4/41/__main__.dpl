@@ -84,10 +84,7 @@ namespace 41() as virtual
 				scoreboard players operation #DRAIN_RATE temp = @s 4101005_absorb
 				scoreboard players operation #DRAIN_MAX temp = @s hp_max
 				scoreboard players operation #DRAIN_MAX temp /= #2 const
-				```
-				raise Warning("TODO: set throwing star damage")
-				```
-				scoreboard players set #BULLET_DAMAGE temp 25
+				
 				function skill:damage_formula/claw/normal
 				
 				scoreboard players operation @s mp -= @s 4101005_mp

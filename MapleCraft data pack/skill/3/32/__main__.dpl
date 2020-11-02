@@ -77,10 +77,7 @@ namespace 32() as virtual
 			{
 				execute store result storage skill:main damage[0].base_percent int 1 run scoreboard players get @s 3201005_attack
 				scoreboard players set #AFTER_MODIFIER_RATE temp 9
-				```
-				raise Warning("TODO: set arrow damage")
-				```
-				scoreboard players set #BULLET_DAMAGE temp 0
+				
 				function skill:damage_formula/crossbow/normal
 				
 				scoreboard players operation @s mp -= @s 3201005_mp
