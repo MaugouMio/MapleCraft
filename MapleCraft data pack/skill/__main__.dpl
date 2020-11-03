@@ -450,6 +450,102 @@ namespace skill()
 	folder 4() from 4();
 	# folder 5() from 5();
 	
+	# for auto attack
+	folder 6()
+	{
+		folder 0()
+		{
+			folder 0()
+			{
+				folder 1000()
+				{
+					func check()
+					{
+						execute unless score @s action_time matches 0.. run function ARG(_PATH)weapon_check
+					}
+				
+					func weapon_check()
+					{
+						function skill:check_weapon/check_empty
+						execute if score #USED_WEAPON temp matches 5.. unless score #USED_WEAPON temp matches 16..18 unless score #USED_WEAPON temp matches 24 run function ARG(__PATH)1001/run
+						execute if score #USED_WEAPON temp matches 16..18 run function ARG(_PATH)archer_check
+						execute if score #USED_WEAPON temp matches 24 run function ARG(_PATH)claw_check
+					}
+					
+					func archer_check()
+					{
+						scoreboard players set #GLOBAL temp 0
+						execute if score #USED_WEAPON temp matches 16 unless score @s bullet_item matches 21..25 run scoreboard players set #GLOBAL temp 1
+						execute if score #USED_WEAPON temp matches 18 unless score @s bullet_item matches 26..30 run scoreboard players set #GLOBAL temp 1
+						execute unless score @s bullet_amount matches 1.. run scoreboard players set #GLOBAL temp 1
+						
+						execute if score #GLOBAL temp matches 1 run function ARG(__PATH)1003/run
+						execute if score #GLOBAL temp matches 0 run function ARG(__PATH)1002/run
+					}
+			
+					func claw_check()
+					{
+						scoreboard players set #GLOBAL temp 0
+						execute unless score @s bullet_item matches ..20 run scoreboard players set #GLOBAL temp 1
+						execute unless score @s bullet_amount matches 1.. run scoreboard players set #GLOBAL temp 1
+						
+						execute if score #GLOBAL temp matches 1 run function ARG(__PATH)1001/run
+						execute if score #GLOBAL temp matches 0 run function ARG(__PATH)1002/run
+					}
+				}
+				
+				# melee weapon normal attack
+				folder 1001() from attack_skill_template(6001001)
+				{
+					func mark_target()
+					{
+						execute unless score #USED_WEAPON temp matches 24 run function ARG(_PATH)check_weapon_distance
+						execute if score #USED_WEAPON temp matches 24 run scoreboard players set #DISTANCE temp 4
+						
+						scoreboard players set #MAX_ENEMY temp 1
+						function skill:enemy_search/search_front/search
+					}
+					
+					func check_weapon_distance()
+					{
+						scoreboard players operation #DISTANCE temp = #USED_WEAPON temp
+						# make single hand weapon %2 be 0
+						scoreboard players add #DISTANCE temp 1
+						scoreboard players operation #DISTANCE temp %= #2 const
+						scoreboard players add #DISTANCE temp 4
+					}
+				}
+				
+				# bullet weapon normal attack
+				folder 1002() from bullet_skill_template(6001002)
+				{
+					func mark_target()
+					{
+						```
+						raise Warning("TODO: set mark_target distance according to amazon eyes or keen eyes")
+						```
+						# execute if entity @s[tag=archer] run scoreboard players operation #DISTANCE temp = @s amazon_eyes_dist
+						# execute if entity @s[tag=thief] run scoreboard players operation #DISTANCE temp = @s keen_eyes_dist
+						scoreboard players set #DISTANCE temp 13
+						scoreboard players set #MAX_ENEMY temp 1
+						function skill:enemy_search/search_front/search
+					}
+				}
+				
+				# bow/crossbow swing attack
+				folder 1003() from attack_skill_template(6001003)
+				{
+					func mark_target()
+					{
+						scoreboard players set #DISTANCE temp 4
+						scoreboard players set #MAX_ENEMY temp 1
+						function skill:enemy_search/search_front/search
+					}
+				}
+			}
+		}
+	}
+	
 	func install()
 	{
 		scoreboard objectives add right_click minecraft.used:minecraft.carrot_on_a_stick
