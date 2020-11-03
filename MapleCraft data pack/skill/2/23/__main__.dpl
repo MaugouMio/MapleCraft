@@ -118,10 +118,24 @@ namespace 23() as virtual
 				function skill:mob_effect/play_hurt_sound/run
 			}
 				
-				```
-				# delay_range = max possible value of enemy amount
-				append_scheduler(delay_range = 5, base_delay = 1, skill_path = "skill:2/3/0/1002/")
-				```
+			```
+			# delay_range = max possible value of enemy amount
+			append_scheduler(delay_range = 5, base_delay = 1, skill_path = "skill:2/3/0/1002/")
+			```
+				
+			folder levels()
+			{
+			```
+			for i in range(30):
+				print(f'''
+				func {i+1}()
+				{{
+					scoreboard players set @s 2301002_level {i+1}
+					scoreboard players set @s 2301002_mp {i//15*12+12}
+				}}
+				''')
+			```
+			}
 		}
 		
 		folder 1003()
@@ -207,6 +221,22 @@ namespace 23() as virtual
 			{
 				data modify storage skill:main new_schedule append value {delay:0,time:0}
 				execute store result storage skill:main new_schedule[-1].time int 1 run schedule function ARG(_PATH)hit_effect 1t append
+			}
+				
+			folder levels()
+			{
+			```
+			for i in range(30):
+				print(f'''
+				func {i+1}()
+				{{
+					scoreboard players set @s 2301005_level {i+1}
+					scoreboard players set @s 2301005_mp {i//15*12+12}
+					scoreboard players set @s 2301005_attack {i*2+22}
+					scoreboard players set @s 2301005_mastery {i//3*5+15}
+				}}
+				''')
+			```
 			}
 		}
 	}

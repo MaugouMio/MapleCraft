@@ -84,6 +84,23 @@ namespace 22() as virtual
 				data modify storage skill:main new_schedule append value {delay:0,time:0}
 				execute store result storage skill:main new_schedule[-1].time int 1 run schedule function ARG(_PATH)hit_effect 8t append
 			}
+				
+			folder levels()
+			{
+			```
+			for i in range(30):
+				print(f'''
+				func {i+1}()
+				{{
+					scoreboard players set @s 2201004_level {i+1}
+					scoreboard players set @s 2201004_mp {i//15*12+12}
+					scoreboard players set @s 2201004_attack {i*3+13}
+					scoreboard players set @s 2201004_mastery {i//3*5+15}
+					scoreboard players set @s 2201004_freeze {i//10*40+40}
+				}}
+				''')
+			```
+			}
 		}
 		
 		folder 1005() from attack_skill_template(2201005)
@@ -149,6 +166,22 @@ namespace 22() as virtual
 			# delay_range = max possible value of enemy amount
 			append_scheduler(delay_range = 6, base_delay = 8, skill_path = "skill:2/2/0/1005/")
 			```
+				
+			folder levels()
+			{
+			```
+			for i in range(30):
+				print(f'''
+				func {i+1}()
+				{{
+					scoreboard players set @s 2201005_level {i+1}
+					scoreboard players set @s 2201005_mp {i//15*20+20}
+					scoreboard players set @s 2201005_attack {i*2+2}
+					scoreboard players set @s 2201005_mastery {i//3*5+15}
+				}}
+				''')
+			```
+			}
 		}
 	}
 }

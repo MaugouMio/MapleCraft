@@ -117,6 +117,22 @@ namespace 21() as virtual
 				data modify storage skill:main new_schedule append value {delay:0,time:0}
 				execute store result storage skill:main new_schedule[-1].time int 1 run schedule function ARG(_PATH)hit_effect 1t append
 			}
+				
+			folder levels()
+			{
+			```
+			for i in range(30):
+				print(f'''
+				func {i+1}()
+				{{
+					scoreboard players set @s 2101004_level {i+1}
+					scoreboard players set @s 2101004_mp {i//15*14+14}
+					scoreboard players set @s 2101004_attack {i*3+33}
+					scoreboard players set @s 2101004_mastery {i//3*5+15}
+				}}
+				''')
+			```
+			}
 		}
 		
 		folder 1005() from bullet_skill_template(2101005)
@@ -194,6 +210,24 @@ namespace 21() as virtual
 			{
 				data modify storage skill:main new_schedule append value {delay:0,time:0}
 				execute store result storage skill:main new_schedule[-1].time int 1 run schedule function ARG(_PATH)hit_effect 1t append
+			}
+				
+			folder levels()
+			{
+			```
+			for i in range(30):
+				print(f'''
+				func {i+1}()
+				{{
+					scoreboard players set @s 2101005_level {i+1}
+					scoreboard players set @s 2101005_mp {i//15*10+10}
+					scoreboard players set @s 2101005_attack {i*2+12}
+					scoreboard players set @s 2101005_mastery {i//3*5+15}
+					scoreboard players set @s 2101005_rate {i+31}
+					scoreboard players set @s 2101005_poison {i//3*4+4}
+				}}
+				''')
+			```
 			}
 		}
 	}

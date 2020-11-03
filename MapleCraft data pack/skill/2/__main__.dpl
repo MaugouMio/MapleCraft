@@ -99,6 +99,24 @@ namespace 2() as virtual
 					data modify storage skill:main new_schedule append value {delay:0,time:0}
 					execute store result storage skill:main new_schedule[-1].time int 1 run schedule function ARG(_PATH)hit_effect 1t append
 				}
+				
+				folder levels()
+				{
+				```
+				mp_list = [6,6,6,6,7,7,7,8,8,9,9,10,10,11,11,12,12,13,13,14]
+				atk_list = [20,21,22,23,26,27,28,31,32,35,36,39,40,43,44,47,48,51,52,55]
+				for i in range(20):
+					print(f'''
+					func {i+1}()
+					{{
+						scoreboard players set @s 2001004_level {i+1}
+						scoreboard players set @s 2001004_mp {mp_list[i]}
+						scoreboard players set @s 2001004_attack {atk_list[i]}
+						scoreboard players set @s 2001004_mastery {i//2*5+15}
+					}}
+					''')
+				```
+				}
 			}
 			
 			folder 1005() from attack_skill_template(2001005)
@@ -155,6 +173,24 @@ namespace 2() as virtual
 					execute store result storage skill:main new_schedule[-1].time int 1 run schedule function ARG(_PATH)hit_effect 8t append
 					data modify storage skill:main new_schedule append value {delay:0,time:0}
 					execute store result storage skill:main new_schedule[-1].time int 1 run schedule function ARG(_PATH)hit_effect 11t append
+				}
+				
+				folder levels()
+				{
+				```
+				mp_list = [10,10,10,10,11,11,11,12,12,13,13,14,14,15,15,16,17,18,19,20]
+				atk_list = [11,12,13,14,16,17,18,20,21,23,24,26,27,29,30,32,34,36,38,40]
+				for i in range(20):
+					print(f'''
+					func {i+1}()
+					{{
+						scoreboard players set @s 2001005_level {i+1}
+						scoreboard players set @s 2001005_mp {mp_list[i]}
+						scoreboard players set @s 2001005_attack {atk_list[i]}
+						scoreboard players set @s 2001005_mastery {i//2*5+15}
+					}}
+					''')
+				```
 				}
 			}
 		}

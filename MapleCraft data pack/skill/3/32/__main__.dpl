@@ -146,6 +146,22 @@ namespace 32() as virtual
 			# delay_range = max possible value of #DISTANCE temp
 			append_scheduler(delay_range = 13, base_delay = 8, skill_path = "skill:3/2/0/1005/")
 			```
+				
+			folder levels()
+			{
+			```
+			atk_list = [122,125,128,131,134,137,140,143,146,149,152,155,158,160,163,165,168,170,173,175,178,180,183,185,188,190,193,195,198,200]
+			for i in range(30):
+				print(f'''
+				func {i+1}()
+				{{
+					scoreboard players set @s 3201005_level {i+1}
+					scoreboard players set @s 3201005_mp {i//5+23}
+					scoreboard players set @s 3201005_attack {atk_list[i]}
+				}}
+				''')
+			```
+			}
 		}
 	}
 }
