@@ -78,7 +78,7 @@ namespace 0() as virtual
 					
 					################################################# replace calculate damage
 					scoreboard players operation @s hp -= #SNAIL_DAMAGE temp
-					execute if score @s hp matches ..0 run function ARG(_PATH)record_dead
+					execute if score @s hp matches ..0 run function skill:calculate_damage/record_dead
 					#################################################
 					scoreboard players set #RAND_RESULT temp 100
 					
