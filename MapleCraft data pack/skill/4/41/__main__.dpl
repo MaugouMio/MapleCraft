@@ -135,8 +135,11 @@ namespace 41() as virtual
 			{
 				summon minecraft:armor_stand ~ ~ ~ {Tags:["model_animation","new"],Invisible:1,Invulnerable:1,NoGravity:1,Marker:1,Fire:32767s,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:410000}}]}
 				execute as @e[type=armor_stand,tag=new,limit=1] run function ARG(_PATH)effect_model_set
+				
 				function skill:afterimage/claw/swing
 				playsound minecraft:skill.4101005 player @a ~ ~ ~ 1 1 0
+				playsound minecraft:skill.attack.throw player @a ~ ~ ~ 1 1 0
+				
 				# hit_effect: 0 => None, 1 => mace, 2 => sword
 				data modify storage skill:main damage_info.hit_effect set value 1
 			}
