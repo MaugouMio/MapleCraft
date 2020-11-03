@@ -142,11 +142,11 @@ namespace 31() as virtual
 			
 			func summon_bullet()
 			{
-				# max_distance should be set to (#DISTANCE temp - 3)
 				execute rotated ~ 0 run summon minecraft:armor_stand ^ ^0.2 ^1 {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:7,max_distance:10,skill_id:10,bullet_model:3100,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
-				```
-				raise Warning("TODO: set arrow max_distance")
-				```
+				
+				scoreboard players operation #BULLET_DISTANCE temp = #DISTANCE temp
+				scoreboard players remove #BULLET_DISTANCE temp 3
+				execute store result entity @e[type=armor_stand,tag=new_bullet,limit=1] ArmorItems[3].tag.max_distance int 1 run scoreboard players get #BULLET_DISTANCE temp
 			}
 			
 			func set_numeric()
