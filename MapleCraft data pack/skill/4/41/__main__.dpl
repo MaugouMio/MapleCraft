@@ -54,7 +54,7 @@ namespace 41() as virtual
 				execute unless score @s bullet_item matches ..20 run scoreboard players set #GLOBAL temp 1
 				execute unless score @s bullet_amount matches 1.. run scoreboard players set #GLOBAL temp 1
 				
-				execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"warning.skill.lack_arrow","color":"red"}
+				execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"warning.skill.lack_throwing_star","color":"red"}
 				execute if score #GLOBAL temp matches 0 run function ARG(_PATH)run
 			}
 			
