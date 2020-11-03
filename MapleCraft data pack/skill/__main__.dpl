@@ -514,6 +514,33 @@ namespace skill()
 						scoreboard players operation #DISTANCE temp %= #2 const
 						scoreboard players add #DISTANCE temp 4
 					}
+				
+					func set_numeric()
+					{
+						# melee *RANDOM* swing damage formula and default attack speed is done by afterimage functions
+						execute store result score @s action_time run data get entity @s Inventory[{Slot:-106b}].tag.action_time
+					}
+				
+					func cast_effect()
+					{
+						execute unless score #USED_WEAPON temp matches 24 run function skill:afterimage/warrior_swing/check
+						execute if score #USED_WEAPON temp matches 24 run function skill:afterimage/claw/stab
+						
+						# hit_effect: 0 => None, 1 => mace, 2 => sword
+						data modify storage skill:main damage_info.hit_effect set value 1
+						execute unless score #USED_WEAPON temp matches ..4 unless score #USED_WEAPON temp matches 9..10 unless score #USED_WEAPON temp matches 16..21 unless score #USED_WEAPON temp matches 24 run data modify storage skill:main damage_info.hit_effect set value 2
+					}
+					
+					func effect()
+					{
+						function skill:mob_effect/play_hurt_sound/run
+					}
+				
+					func append_scheduler()
+					{
+						data modify storage skill:main new_schedule append value {delay:0,time:0}
+						execute store result storage skill:main new_schedule[-1].time int 1 run schedule function ARG(_PATH)hit_effect 7t append
+					}
 				}
 				
 				# bullet weapon normal attack
@@ -593,8 +620,10 @@ namespace skill()
 			print(f"scoreboard objectives add {weapon}_accuracy dummy")
 			print(f"scoreboard objectives add {weapon}_color dummy")
 		
+		auto_attacks = set(["6001001", "6001002", "6001003"])
 		for skill in skill_ids:
-			print(f"scoreboard objectives add {skill}_level dummy")
+			if skill not in auto_attacks:
+				print(f"scoreboard objectives add {skill}_level dummy")
 			print(f"scoreboard objectives add {skill}_eid dummy")
 		```
 		function ARG(_PATH)1/install
