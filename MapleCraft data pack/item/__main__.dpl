@@ -35,11 +35,13 @@ namespace item()
 			{
 				execute store result score @s bullet_model run data get entity @s SelectedItem.tag.bullet_model
 				execute store result score @s bullet_damage run data get entity @s SelectedItem.tag.Enchantments[0].lvl
-				execute store result score @s bullet_amount run data get entity @s SelectedItem.tag.amount
-				tellraw @s {"translate":"item.consume.used_weapon","with":[{"nbt":"SelectedItem.tag.display.Name","entity":"@s","interpret":true},{"score":{"name":"@s","objective":"bullet_amount"}}]}
+				execute store result score #GLOBAL bullet_amount run data get entity @s SelectedItem.tag.amount
+				tellraw @s {"translate":"item.consume.used_weapon","with":[{"nbt":"SelectedItem.tag.display.Name","entity":"@s","interpret":true},{"score":{"name":"#GLOBAL","objective":"bullet_amount"}}]}
 				
+				replaceitem entity @s weapon.mainhand minecraft:air
 				execute if score @s bullet_item matches 1.. run function ARG(_PATH)restore/check
 				
+				scoreboard players operation @s bullet_amount = #GLOBAL bullet_amount
 				scoreboard players operation @s bullet_item = #USING_ITEM temp
 			}
 			
@@ -51,10 +53,10 @@ namespace item()
 					execute if score @s bullet_item matches 21..25 run function ARG(_PATH)arrow_bow
 					execute if score @s bullet_item matches 26..30 run function ARG(_PATH)arrow_crossbow
 					
-					execute store result block 0 2 0 Items[0].tag.amount run scoreboard players operation #GLOBAL temp = @s bullet_amount
+					execute store result block 0 2 0 Items[0].tag.amount int 1 run scoreboard players operation #GLOBAL temp = @s bullet_amount
 					data modify block 0 0 0 Text1 set value '{"translate":"item.consume.weapon.left","with":[{"score":{"name":"#GLOBAL","objective":"temp"}}]}'
 					data modify block 0 2 0 Items[0].tag.display.Lore[0] set from block 0 0 0 Text1
-					loot replace entity @s weapon.mainhand 1 mine 0 2 0 minecraft:air{modify_player:1b}
+					loot give @s mine 0 2 0 minecraft:air{modify_player:1b}
 					
 					scoreboard players reset @s bullet_item
 				}
