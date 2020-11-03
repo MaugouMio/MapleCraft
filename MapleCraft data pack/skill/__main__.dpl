@@ -67,7 +67,7 @@ namespace attack_skill_template(skill_id) as virtual
 		
 		execute if score #FOUND_ENEMY temp matches 1.. run function ARG(_PATH)did_hit
 		```
-		if "ARG(skill_id)" in ["3201005"]:
+		if "ARG(skill_id)" in ["3201005","6001003"]:
 			print("scoreboard players reset #AFTER_MODIFIER_RATE temp")
 		```
 	}
@@ -84,7 +84,7 @@ namespace attack_skill_template(skill_id) as virtual
 		data modify storage skill:main new_schedule set value []
 		function ARG(_PATH)append_scheduler
 		```
-		if "ARG(skill_id)" == "3101003":
+		if "ARG(skill_id)" in ["3201005","6001003"]:
 			print("data modify storage skill:main damage_info.power_knock_back set from storage skill:main damage_info.knock_back")
 			print("execute store result storage skill:main damage_info.power_knock_back[0] double 0.0007 run data get storage skill:main damage_info.power_knock_back[0] 10000")
 			print("execute store result storage skill:main damage_info.power_knock_back[2] double 0.0007 run data get storage skill:main damage_info.power_knock_back[2] 10000")
@@ -124,7 +124,7 @@ namespace attack_skill_template(skill_id) as virtual
 	func facing_effect()
 	{
 		```
-		if "ARG(skill_id)" == "3101003":
+		if "ARG(skill_id)" in ["3201005","6001003"]:
 			print("scoreboard players set #DID_KNOCKBACK temp 1")
 			print("execute if score @s kb > @s display_number unless data entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].force_knock run scoreboard players set #DID_KNOCKBACK temp 0")
 			print("execute unless score @s pushed_time matches 0.. if score #DID_KNOCKBACK temp matches 1 run function ARG(_PATH)knock_back")
@@ -155,7 +155,7 @@ namespace attack_skill_template(skill_id) as virtual
 	{
 		function skill:calculate_damage/run
 		```
-		if "ARG(skill_id)" == "3101003":
+		if "ARG(skill_id)" in ["3201005","6001003"]:
 			print("execute if entity @s[tag=!dead] run function main:rand_rate")
 		```
 		execute if score #DID_HIT temp matches 1 run function ARG(_PATH)add_debuff
@@ -187,7 +187,7 @@ namespace attack_skill_template(skill_id) as virtual
 			execute store result score #RIGHT temp run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].time
 			function ARG(__PATH)merge_ori_schedule/run
 			```
-			if "ARG(skill_id)" == "3101003":
+			if "ARG(skill_id)" in ["3201005","6001003"]:
 				print("scoreboard players operation #SELF_KNOCKBACK_RATE temp = #SKILL_KNOCKBACK_RATE temp")
 				print("execute store result score #THIS_DAMAGE temp run data get entity @s ArmorItems[3].tag.damage_record[0].number")
 				print("execute if score @s kb <= #THIS_DAMAGE temp run scoreboard players operation #SELF_KNOCKBACK_RATE temp += #KNOCKBACK_RATE temp")
@@ -199,7 +199,7 @@ namespace attack_skill_template(skill_id) as virtual
 			data modify storage skill:main new_queue[-1].attacker_id set from storage skill:main damage_info.attacker_id
 			data modify storage skill:main new_queue[-1].hit_effect set from storage skill:main damage_info.hit_effect
 			```
-			if "ARG(skill_id)" == "3101003":
+			if "ARG(skill_id)" in ["3201005","6001003"]:
 				print("execute if score #RAND_RESULT temp >= #SELF_KNOCKBACK_RATE temp run data modify storage skill:main new_queue[-1].knock_back set from storage skill:main damage_info.knock_back")
 				print("execute if score #RAND_RESULT temp < #SELF_KNOCKBACK_RATE temp run data modify storage skill:main new_queue[-1].knock_back set from storage skill:main damage_info.power_knock_back")
 				print("execute if score #RAND_RESULT temp < #SELF_KNOCKBACK_RATE temp run data modify storage skill:main new_queue[-1].force_knock set value 1b")
@@ -567,6 +567,35 @@ namespace skill()
 						scoreboard players set #DISTANCE temp 4
 						scoreboard players set #MAX_ENEMY temp 1
 						function skill:enemy_search/search_front/search
+					}
+			
+					func set_numeric()
+					{
+						# melee *RANDOM* swing damage formula and default attack speed is done by afterimage functions
+						execute store result score #KNOCKBACK_RATE temp run data get entity @s Inventory[{Slot:-106b}].tag.knockback
+						scoreboard players set #SKILL_KNOCKBACK_RATE temp 0
+						
+						execute store result score @s action_time run data get entity @s Inventory[{Slot:-106b}].tag.action_time
+						# booster action_time setting belongs here or in afterimage functions
+					}
+			
+					func cast_effect()
+					{
+						execute if score #USED_WEAPON temp matches 16 run function skill:afterimage/bow/swing
+						execute if score #USED_WEAPON temp matches 18 run function skill:afterimage/crossbow/swing
+						
+						data modify storage skill:main damage_info.hit_effect set value 1
+					}
+					
+					func effect()
+					{
+						function skill:mob_effect/play_hurt_sound/run
+					}
+				
+					func append_scheduler()
+					{
+						data modify storage skill:main new_schedule append value {delay:0,time:0}
+						execute store result storage skill:main new_schedule[-1].time int 1 run schedule function ARG(_PATH)hit_effect 7t append
 					}
 				}
 			}
