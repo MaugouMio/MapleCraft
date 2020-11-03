@@ -60,14 +60,16 @@ namespace attack_skill_template(skill_id) as virtual
 		attribute @s minecraft:generic.movement_speed modifier add 5b908c48-54cb-4388-aa76-82f61b02032d skill_action -10 multiply
 		data modify storage skill:main damage set value [{min_damage:0,max_damage:0,accuracy:0,player_level:0,crit_rate:0,crit_damage:0,base_percent:100,attribute:0}]
 		data modify storage skill:main damage_info.hit_effect set value 0
-		
-		function ARG(_PATH)mark_target
+		```
+		if "ARG(skill_id)" not in ["3201005", "6001001", "6001003"]:
+			print("function ARG(_PATH)mark_target")
+		```
 		function ARG(_PATH)set_numeric
 		function ARG(_PATH)cast_effect
 		
 		execute if score #FOUND_ENEMY temp matches 1.. run function ARG(_PATH)did_hit
 		```
-		if "ARG(skill_id)" in ["3201005","6001003"]:
+		if "ARG(skill_id)" in ["3201005"]:
 			print("scoreboard players reset #AFTER_MODIFIER_RATE temp")
 		```
 	}
@@ -84,7 +86,7 @@ namespace attack_skill_template(skill_id) as virtual
 		data modify storage skill:main new_schedule set value []
 		function ARG(_PATH)append_scheduler
 		```
-		if "ARG(skill_id)" in ["3201005","6001003"]:
+		if "ARG(skill_id)" in ["3101003","6001003"]:
 			print("data modify storage skill:main damage_info.power_knock_back set from storage skill:main damage_info.knock_back")
 			print("execute store result storage skill:main damage_info.power_knock_back[0] double 0.0007 run data get storage skill:main damage_info.power_knock_back[0] 10000")
 			print("execute store result storage skill:main damage_info.power_knock_back[2] double 0.0007 run data get storage skill:main damage_info.power_knock_back[2] 10000")
@@ -124,7 +126,7 @@ namespace attack_skill_template(skill_id) as virtual
 	func facing_effect()
 	{
 		```
-		if "ARG(skill_id)" in ["3201005","6001003"]:
+		if "ARG(skill_id)" in ["3101003","6001003"]:
 			print("scoreboard players set #DID_KNOCKBACK temp 1")
 			print("execute if score @s kb > @s display_number unless data entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].force_knock run scoreboard players set #DID_KNOCKBACK temp 0")
 			print("execute unless score @s pushed_time matches 0.. if score #DID_KNOCKBACK temp matches 1 run function ARG(_PATH)knock_back")
@@ -155,7 +157,7 @@ namespace attack_skill_template(skill_id) as virtual
 	{
 		function skill:calculate_damage/run
 		```
-		if "ARG(skill_id)" in ["3201005","6001003"]:
+		if "ARG(skill_id)" in ["3101003","6001003"]:
 			print("execute if entity @s[tag=!dead] run function main:rand_rate")
 		```
 		execute if score #DID_HIT temp matches 1 run function ARG(_PATH)add_debuff
@@ -168,6 +170,7 @@ namespace attack_skill_template(skill_id) as virtual
 		
 		scoreboard players set @s hit_distance 0
 		scoreboard players set @s hit_order 0
+		tag @s remove first_target
 		tag @s remove target
 	}
 	
@@ -187,7 +190,7 @@ namespace attack_skill_template(skill_id) as virtual
 			execute store result score #RIGHT temp run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].time
 			function ARG(__PATH)merge_ori_schedule/run
 			```
-			if "ARG(skill_id)" in ["3201005","6001003"]:
+			if "ARG(skill_id)" in ["3101003","6001003"]:
 				print("scoreboard players operation #SELF_KNOCKBACK_RATE temp = #SKILL_KNOCKBACK_RATE temp")
 				print("execute store result score #THIS_DAMAGE temp run data get entity @s ArmorItems[3].tag.damage_record[0].number")
 				print("execute if score @s kb <= #THIS_DAMAGE temp run scoreboard players operation #SELF_KNOCKBACK_RATE temp += #KNOCKBACK_RATE temp")
@@ -199,7 +202,7 @@ namespace attack_skill_template(skill_id) as virtual
 			data modify storage skill:main new_queue[-1].attacker_id set from storage skill:main damage_info.attacker_id
 			data modify storage skill:main new_queue[-1].hit_effect set from storage skill:main damage_info.hit_effect
 			```
-			if "ARG(skill_id)" in ["3201005","6001003"]:
+			if "ARG(skill_id)" in ["3101003","6001003"]:
 				print("execute if score #RAND_RESULT temp >= #SELF_KNOCKBACK_RATE temp run data modify storage skill:main new_queue[-1].knock_back set from storage skill:main damage_info.knock_back")
 				print("execute if score #RAND_RESULT temp < #SELF_KNOCKBACK_RATE temp run data modify storage skill:main new_queue[-1].knock_back set from storage skill:main damage_info.power_knock_back")
 				print("execute if score #RAND_RESULT temp < #SELF_KNOCKBACK_RATE temp run data modify storage skill:main new_queue[-1].force_knock set value 1b")
@@ -253,8 +256,10 @@ namespace bullet_skill_template(skill_id) as virtual
 		attribute @s minecraft:generic.movement_speed modifier add 5b908c48-54cb-4388-aa76-82f61b02032d skill_action -10 multiply
 		data modify storage skill:main damage set value [{min_damage:0,max_damage:0,accuracy:0,player_level:0,crit_rate:0,crit_damage:0,base_percent:100,attribute:0}]
 		data modify storage skill:main damage_info.hit_effect set value 0
-		
-		function ARG(_PATH)mark_target
+		```
+		if "ARG(skill_id)" not in ["3101005", "3001004", "3001005", "4101005", "4001344", "6001002"]:
+			print("function ARG(_PATH)mark_target")
+		```
 		function ARG(_PATH)summon_bullet
 		function ARG(_PATH)set_numeric
 		function ARG(_PATH)cast_effect
@@ -351,6 +356,7 @@ namespace bullet_skill_template(skill_id) as virtual
 		data modify entity @s ArmorItems[3].tag.bullet_list[-1].damage_info set from storage skill:main damage_info
 		
 		tag @s remove target
+		tag @s remove first_target
 		scoreboard players operation @s bullet_targeted += #BULLET_AMOUNT temp
 	}
 	
@@ -467,7 +473,7 @@ namespace skill()
 					func weapon_check()
 					{
 						function skill:check_weapon/check_empty
-						execute if score #USED_WEAPON temp matches 5.. unless score #USED_WEAPON temp matches 16..18 unless score #USED_WEAPON temp matches 24 run function ARG(__PATH)1001/run
+						execute if score #USED_WEAPON temp matches 5.. unless score #USED_WEAPON temp matches 16..18 unless score #USED_WEAPON temp matches 24 run function ARG(__PATH)1001/mark_target
 						execute if score #USED_WEAPON temp matches 16..18 run function ARG(_PATH)archer_check
 						execute if score #USED_WEAPON temp matches 24 run function ARG(_PATH)claw_check
 					}
@@ -479,8 +485,8 @@ namespace skill()
 						execute if score #USED_WEAPON temp matches 18 unless score @s bullet_item matches 26..30 run scoreboard players set #GLOBAL temp 1
 						execute unless score @s bullet_amount matches 1.. run scoreboard players set #GLOBAL temp 1
 						
-						execute if score #GLOBAL temp matches 1 run function ARG(__PATH)1003/run
-						execute if score #GLOBAL temp matches 0 run function ARG(__PATH)1002/run
+						execute if score #GLOBAL temp matches 1 run function ARG(__PATH)1003/mark_target
+						execute if score #GLOBAL temp matches 0 run function ARG(__PATH)1002/check_distance
 					}
 			
 					func claw_check()
@@ -489,8 +495,8 @@ namespace skill()
 						execute unless score @s bullet_item matches ..20 run scoreboard players set #GLOBAL temp 1
 						execute unless score @s bullet_amount matches 1.. run scoreboard players set #GLOBAL temp 1
 						
-						execute if score #GLOBAL temp matches 1 run function ARG(__PATH)1001/run
-						execute if score #GLOBAL temp matches 0 run function ARG(__PATH)1002/run
+						execute if score #GLOBAL temp matches 1 run function ARG(__PATH)1001/mark_target
+						execute if score #GLOBAL temp matches 0 run function ARG(__PATH)1002/check_distance
 					}
 				}
 				
@@ -504,6 +510,8 @@ namespace skill()
 						
 						scoreboard players set #MAX_ENEMY temp 1
 						function skill:enemy_search/search_front/search
+						
+						function ARG(_PATH)run
 					}
 					
 					func check_weapon_distance()
@@ -546,6 +554,19 @@ namespace skill()
 				# bullet weapon normal attack
 				folder 1002() from bullet_skill_template(6001002)
 				{
+					func check_distance()
+					{
+						function ARG(_PATH)mark_target
+						execute unless score #FIRST_DISTANCE temp matches ..3 run function ARG(_PATH)run
+						execute if score #FIRST_DISTANCE temp matches ..3 run function ARG(_PATH)run_swing
+					}
+					
+					func run_swing()
+					{
+						execute if score #USED_WEAPON temp matches 24 run function skill:6/0/0/1001/run
+						execute if score #USED_WEAPON temp matches 16..18 run function skill:6/0/0/1003/run
+					}
+					
 					func mark_target()
 					{
 						```
@@ -644,6 +665,8 @@ namespace skill()
 						scoreboard players set #DISTANCE temp 4
 						scoreboard players set #MAX_ENEMY temp 1
 						function skill:enemy_search/search_front/search
+						
+						function ARG(_PATH)run
 					}
 			
 					func set_numeric()
@@ -1244,13 +1267,29 @@ namespace skill()
 		{
 			func search()
 			{
+				scoreboard players reset #FIRST_DISTANCE temp
+				scoreboard players set #CUR_DISTANCE temp 0
+				
 				execute at @s rotated ~ 0 positioned ^ ^ ^-1.8 run function ARG(_PATH)run
 				execute at @s run function ARG(_PATH)order_mark
 			}
 			
 			func execute()
 			{
-				tag @e[type=minecraft:zombified_piglin,tag=enemy,tag=!dead,distance=..2] add temp_mark
+				execute as @e[type=minecraft:zombified_piglin,tag=enemy,tag=!temp_mark,tag=!dead,distance=..2] run function ARG(_PATH)pre_mark
+				scoreboard players add #CUR_DISTANCE temp 1
+			}
+			
+			func pre_mark()
+			{
+				execute unless score #FIRST_DISTANCE temp matches 0.. run function ARG(_PATH)record_first
+				tag @s add temp_mark
+			}
+			
+			func record_first()
+			{
+				scoreboard players operation #FIRST_DISTANCE temp = #CUR_DISTANCE temp
+				tag @s add first_target
 			}
 			
 			func order_mark()
@@ -1273,6 +1312,7 @@ namespace skill()
 		{
 			func search()
 			{
+				scoreboard players reset #FIRST_DISTANCE temp
 				scoreboard players set #CUR_DISTANCE temp 0
 				
 				execute at @s rotated ~ 0 positioned ^ ^ ^-1.8 run function ARG(_PATH)run
@@ -1287,8 +1327,15 @@ namespace skill()
 			
 			func pre_mark()
 			{
+				execute unless score #FIRST_DISTANCE temp matches 0.. run function ARG(_PATH)record_first
 				scoreboard players operation @s hit_distance = #CUR_DISTANCE temp
 				tag @s add temp_mark
+			}
+			
+			func record_first()
+			{
+				scoreboard players operation #FIRST_DISTANCE temp = #CUR_DISTANCE temp
+				tag @s add first_target
 			}
 			
 			func order_mark()

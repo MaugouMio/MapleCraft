@@ -52,7 +52,14 @@ namespace 3() as virtual
 					execute unless score @s bullet_amount matches 1.. run scoreboard players set #GLOBAL temp 1
 					
 					execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"warning.skill.lack_arrow","color":"red"}
-					execute if score #GLOBAL temp matches 0 run function ARG(_PATH)run
+					execute if score #GLOBAL temp matches 0 run function ARG(_PATH)check_distance
+				}
+			
+				func check_distance()
+				{
+					function ARG(_PATH)mark_target
+					execute unless score #FIRST_DISTANCE temp matches ..3 run function ARG(_PATH)run
+					execute if score #FIRST_DISTANCE temp matches ..3 run function skill:6/0/0/1003/run
 				}
 				
 				func mark_target()
@@ -145,7 +152,7 @@ namespace 3() as virtual
 					execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 3001005_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
 					execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp >= @s 3001005_mp run function ARG(_PATH)arrow_check
 				}
-			
+				
 				func arrow_check()
 				{
 					scoreboard players set #GLOBAL temp 0
@@ -154,7 +161,14 @@ namespace 3() as virtual
 					execute unless score @s bullet_amount matches 2.. run scoreboard players set #GLOBAL temp 1
 					
 					execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"warning.skill.lack_arrow","color":"red"}
-					execute if score #GLOBAL temp matches 0 run function ARG(_PATH)run
+					execute if score #GLOBAL temp matches 0 run function ARG(_PATH)check_distance
+				}
+				
+				func check_distance()
+				{
+					function ARG(_PATH)mark_target
+					execute unless score #FIRST_DISTANCE temp matches ..3 run function ARG(_PATH)run
+					execute if score #FIRST_DISTANCE temp matches ..3 run function skill:6/0/0/1003/run
 				}
 				
 				func mark_target()

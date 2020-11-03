@@ -125,7 +125,14 @@ namespace 31() as virtual
 				execute unless score @s bullet_amount matches 1.. run scoreboard players set #GLOBAL temp 1
 				
 				execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"warning.skill.lack_arrow","color":"red"}
-				execute if score #GLOBAL temp matches 0 run function ARG(_PATH)run
+				execute if score #GLOBAL temp matches 0 run function ARG(_PATH)check_distance
+			}
+			
+			func check_distance()
+			{
+				function ARG(_PATH)mark_target
+				execute unless score #FIRST_DISTANCE temp matches ..3 run function ARG(_PATH)run
+				execute if score #FIRST_DISTANCE temp matches ..3 run function skill:6/0/0/1003/run
 			}
 			
 			func mark_target()
@@ -199,6 +206,7 @@ namespace 31() as virtual
 				execute unless score @s display_number matches 1.. run tag @e[type=zombified_piglin,tag=new_splashed] remove new_splashed
 				
 				tag @s remove target
+				tag @s remove first_target
 				scoreboard players add @s bullet_targeted 1
 			}
 			

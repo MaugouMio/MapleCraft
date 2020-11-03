@@ -91,6 +91,7 @@ namespace 0() as virtual
 					data modify entity @s ArmorItems[3].tag.bullet_list[-1].damage_info set from storage skill:main damage_info
 					
 					tag @s remove target
+					tag @s remove first_target
 					scoreboard players operation @s bullet_targeted += #BULLET_AMOUNT temp
 				}
 			}
