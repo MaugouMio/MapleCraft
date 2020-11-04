@@ -161,6 +161,8 @@ namespace main()
 		scoreboard players set @s INT 4
 		scoreboard players set @s LUK 4
 		
+		scoreboard players set @s amazon_eyes_dist 9
+		
 		function skill:player/reset_mastery
 		
 		effect give @s minecraft:absorption 1000000 255 true

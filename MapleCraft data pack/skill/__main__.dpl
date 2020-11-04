@@ -581,12 +581,8 @@ namespace skill()
 					
 					func mark_target()
 					{
-						```
-						raise Warning("TODO: set mark_target distance according to amazon eyes or keen eyes")
-						```
-						# execute if entity @s[tag=archer] run scoreboard players operation #DISTANCE temp = @s amazon_eyes_dist
-						# execute if entity @s[tag=thief] run scoreboard players operation #DISTANCE temp = @s keen_eyes_dist
-						scoreboard players set #DISTANCE temp 13
+						execute if score #USED_WEAPON temp matches 16..18 run scoreboard players operation #DISTANCE temp = @s amazon_eyes_dist
+						execute if score #USED_WEAPON temp matches 24 run scoreboard players operation #DISTANCE temp = @s keen_eyes_dist
 						scoreboard players set #MAX_ENEMY temp 1
 						function skill:enemy_search/search_front/search
 					}

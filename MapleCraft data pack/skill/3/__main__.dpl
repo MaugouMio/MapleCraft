@@ -8,6 +8,11 @@ namespace 3() as virtual
 	
 	func install()
 	{
+		scoreboard objectives add 3000000_level dummy
+		scoreboard objectives add 3000001_level dummy
+		scoreboard objectives add 3000002_level dummy
+		scoreboard objectives add amazon_eyes_dist dummy
+		
 		scoreboard objectives add 3001004_mp dummy
 		scoreboard objectives add 3001004_attack dummy
 		
@@ -22,6 +27,58 @@ namespace 3() as virtual
 	{
 		folder 0()
 		{
+			folder 0000()
+			{
+				folder levels()
+				{
+				```
+				for i in range(16):
+					print(f'''
+					func {i+1}()
+					{{
+						scoreboard players set @s 3000000_level {i+1}
+						scoreboard players set @s base_accuracy {i+1}
+					}}
+					''')
+				```
+				}
+			}
+			
+			folder 0001()
+			{
+				folder levels()
+				{
+				```
+				for i in range(20):
+					print(f'''
+					func {i+1}()
+					{{
+						scoreboard players set @s 3000001_level {i+1}
+						scoreboard players set @s crit_rate {i*2-(i-9)*(i//10)+12}
+						scoreboard players set @s crit_damage {i*5+5}
+					}}
+					''')
+				```
+				}
+			}
+			
+			folder 0002()
+			{
+				folder levels()
+				{
+				```
+				for i in range(8):
+					print(f'''
+					func {i+1}()
+					{{
+						scoreboard players set @s 3000002_level {i+1}
+						scoreboard players set @s amazon_eyes_dist {(i+1)//2+10}
+					}}
+					''')
+				```
+				}
+			}
+			
 			folder 1003()
 			{
 				func check()
@@ -70,18 +127,13 @@ namespace 3() as virtual
 				
 				func mark_target()
 				{
-					```
-					raise Warning("TODO: set mark_target distance according to amazon eyes")
-					```
-					# scoreboard players operation #DISTANCE temp = @s amazon_eyes_dist
-					scoreboard players set #DISTANCE temp 13
+					scoreboard players operation #DISTANCE temp = @s amazon_eyes_dist
 					scoreboard players set #MAX_ENEMY temp 1
 					function skill:enemy_search/search_front/search
 				}
 				
 				func summon_bullet()
 				{
-					# max_distance should be set to (#DISTANCE temp - 3)
 					execute if score #USED_WEAPON temp matches 16 rotated ~ 0 run summon minecraft:armor_stand ^ ^0.2 ^1 {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:7,max_distance:10,skill_id:6,bullet_model:3000,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
 					execute if score #USED_WEAPON temp matches 18 rotated ~ 0 run summon minecraft:armor_stand ^ ^0.2 ^1 {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:8,max_distance:10,skill_id:6,bullet_model:3000,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
 					
@@ -202,11 +254,7 @@ namespace 3() as virtual
 				
 				func mark_target()
 				{
-					```
-					raise Warning("TODO: set mark_target distance according to amazon eyes")
-					```
-					# scoreboard players operation #DISTANCE temp = @s amazon_eyes_dist
-					scoreboard players set #DISTANCE temp 13
+					scoreboard players operation #DISTANCE temp = @s amazon_eyes_dist
 					scoreboard players set #MAX_ENEMY temp 1
 					function skill:enemy_search/search_front/search
 				}
