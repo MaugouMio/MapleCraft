@@ -10,6 +10,9 @@ namespace 2() as virtual
 	
 	func install()
 	{
+		scoreboard objectives add 2000000_level dummy
+		scoreboard objectives add 2000001_level dummy
+		
 		scoreboard objectives add 2001004_mp dummy
 		scoreboard objectives add 2001004_mastery dummy
 		scoreboard objectives add 2001004_attack dummy
@@ -27,6 +30,49 @@ namespace 2() as virtual
 	{
 		folder 0()
 		{
+			folder 0000()
+			{
+				func calculate_recovery()
+				{
+					scoreboard players operation @s mp_recovery = @s 2000000_level
+					scoreboard players operation @s mp_recovery *= @s level
+					scoreboard players operation @s mp_recovery /= #10 const
+					scoreboard players operation @s mp_recovery += #3 const
+				}
+				
+				folder levels()
+				{
+				```
+				for i in range(16):
+					print(f'''
+					func {i+1}()
+					{{
+						scoreboard players set @s 2000000_level {i+1}
+						function skill:2/0/0/0000/calculate_recovery
+					}}
+					''')
+				```
+				}
+			}
+			
+			folder 0001()
+			{
+				folder levels()
+				{
+				```
+				for i in range(10):
+					print(f'''
+					func {i+1}()
+					{{
+						scoreboard players set @s 2000001_level {i+1}
+						scoreboard players set @s addi_mp_level {i*2+2}
+						scoreboard players set @s addi_mp_point {i+1}
+					}}
+					''')
+				```
+				}
+			}
+			
 			folder 1002()
 			{
 				func check()
