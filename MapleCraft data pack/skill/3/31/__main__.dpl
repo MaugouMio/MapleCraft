@@ -8,6 +8,8 @@ namespace 31() as virtual
 	
 	func install()
 	{
+		scoreboard objectives add 3100000_level dummy
+		
 		scoreboard objectives add 3101003_mp dummy
 		scoreboard objectives add 3101003_attack dummy
 		scoreboard objectives add 3101003_knock dummy
@@ -25,6 +27,34 @@ namespace 31() as virtual
 	
 	folder 0()
 	{
+		folder 0000()
+		{
+			folder levels()
+			{
+			```
+			for i in range(18):
+				print(f'''
+				func {i+1}()
+				{{
+					scoreboard players set @s 3100000_level {i+1}
+					scoreboard players set @s bow_mastery {i//2*5+15}
+					scoreboard players set @s bow_accuracy {i+1}
+					scoreboard players set @s bow_color {mastery_colors[i//2]}
+				}}
+				''')
+			for i in range(18, 20):
+				print(f'''
+				func {i+1}()
+				{{
+					scoreboard players set @s 3100000_level {i+1}
+					scoreboard players set @s bow_mastery {i//2*5+15}
+					scoreboard players set @s bow_accuracy {i+1}
+				}}
+				''')
+			```
+			}
+		}
+		
 		folder 1002()
 		{
 			func check()
