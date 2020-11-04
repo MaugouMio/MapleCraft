@@ -58,8 +58,8 @@ namespace 3() as virtual
 				func check_distance()
 				{
 					function ARG(_PATH)mark_target
-					execute unless score #FIRST_DISTANCE temp matches ..3 run function ARG(_PATH)run_shoot
-					execute if score #FIRST_DISTANCE temp matches ..3 run function skill:6/0/0/1003/run
+					execute unless score #FIRST_DISTANCE temp matches ..2 run function ARG(_PATH)run_shoot
+					execute if score #FIRST_DISTANCE temp matches ..2 run function skill:6/0/0/1003/run
 				}
 			
 				func run_shoot()
@@ -190,8 +190,8 @@ namespace 3() as virtual
 				func check_distance()
 				{
 					function ARG(_PATH)mark_target
-					execute unless score #FIRST_DISTANCE temp matches ..3 run function ARG(_PATH)run_shoot
-					execute if score #FIRST_DISTANCE temp matches ..3 run function skill:6/0/0/1003/run
+					execute unless score #FIRST_DISTANCE temp matches ..2 run function ARG(_PATH)run_shoot
+					execute if score #FIRST_DISTANCE temp matches ..2 run function skill:6/0/0/1003/run
 				}
 			
 				func run_shoot()

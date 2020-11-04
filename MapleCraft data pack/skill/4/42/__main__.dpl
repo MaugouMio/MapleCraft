@@ -43,7 +43,7 @@ namespace 42() as virtual
 			func mark_target()
 			{
 				execute unless score #USED_WEAPON temp matches 24 run function ARG(_PATH)check_weapon_distance
-				execute if score #USED_WEAPON temp matches 24 run scoreboard players set #DISTANCE temp 4
+				execute if score #USED_WEAPON temp matches 24 run scoreboard players set #DISTANCE temp 3
 				
 				scoreboard players set #MAX_ENEMY temp 1
 				function skill:enemy_search/search_front/search
