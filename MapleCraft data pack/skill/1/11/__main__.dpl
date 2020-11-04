@@ -10,6 +10,12 @@ namespace 11() as virtual
 	{
 		scoreboard objectives add 1100000_level dummy
 		scoreboard objectives add 1100001_level dummy
+		scoreboard objectives add 1100002_level dummy
+		scoreboard objectives add sword_final_atk dummy
+		scoreboard objectives add sword_final_rate dummy
+		scoreboard objectives add 1100003_level dummy
+		scoreboard objectives add axe_final_atk dummy
+		scoreboard objectives add axe_final_rate dummy
 		
 		function ARG(_PATH)1/install
 		function ARG(_PATH)2/install
@@ -67,6 +73,42 @@ namespace 11() as virtual
 					scoreboard players set @s 1100001_level {i+1}
 					scoreboard players set @s axe_mastery {i//2*5+15}
 					scoreboard players set @s axe_accuracy {i+1}
+				}}
+				''')
+			```
+			}
+		}
+		
+		folder 0002()
+		{
+			folder levels()
+			{
+			```
+			for i in range(30):
+				print(f'''
+				func {i+1}()
+				{{
+					scoreboard players set @s 1100002_level {i+1}
+					scoreboard players set @s sword_final_atk {i*5+105}
+					scoreboard players set @s sword_final_rate {i*2+2}
+				}}
+				''')
+			```
+			}
+		}
+		
+		folder 0003()
+		{
+			folder levels()
+			{
+			```
+			for i in range(30):
+				print(f'''
+				func {i+1}()
+				{{
+					scoreboard players set @s 1100003_level {i+1}
+					scoreboard players set @s axe_final_atk {i*5+105}
+					scoreboard players set @s axe_final_rate {i*2+2}
 				}}
 				''')
 			```

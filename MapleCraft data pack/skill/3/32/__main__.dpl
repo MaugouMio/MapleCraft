@@ -9,6 +9,9 @@ namespace 32() as virtual
 	func install()
 	{
 		scoreboard objectives add 3200000_level dummy
+		scoreboard objectives add 3200001_level dummy
+		scoreboard objectives add cbow_final_atk dummy
+		scoreboard objectives add cbow_final_rate dummy
 		
 		scoreboard objectives add 3201005_mp dummy
 		scoreboard objectives add 3201005_attack dummy
@@ -41,6 +44,24 @@ namespace 32() as virtual
 					scoreboard players set @s 3200000_level {i+1}
 					scoreboard players set @s cbow_mastery {i//2*5+15}
 					scoreboard players set @s cbow_accuracy {i+1}
+				}}
+				''')
+			```
+			}
+		}
+		
+		folder 0001()
+		{
+			folder levels()
+			{
+			```
+			for i in range(30):
+				print(f'''
+				func {i+1}()
+				{{
+					scoreboard players set @s 3200001_level {i+1}
+					scoreboard players set @s cbow_final_atk {i*5+105}
+					scoreboard players set @s cbow_final_rate {i*2+2}
 				}}
 				''')
 			```

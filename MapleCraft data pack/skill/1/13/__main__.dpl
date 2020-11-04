@@ -10,6 +10,12 @@ namespace 13() as virtual
 	{
 		scoreboard objectives add 1300000_level dummy
 		scoreboard objectives add 1300001_level dummy
+		scoreboard objectives add 1300002_level dummy
+		scoreboard objectives add spear_final_atk dummy
+		scoreboard objectives add spear_final_rate dummy
+		scoreboard objectives add 1300003_level dummy
+		scoreboard objectives add p_arm_final_atk dummy
+		scoreboard objectives add p_arm_final_rate dummy
 		
 		function ARG(_PATH)1/install
 		function ARG(_PATH)2/install
@@ -67,6 +73,42 @@ namespace 13() as virtual
 					scoreboard players set @s 1300001_level {i+1}
 					scoreboard players set @s polearm_mastery {i//2*5+15}
 					scoreboard players set @s polearm_accuracy {i+1}
+				}}
+				''')
+			```
+			}
+		}
+		
+		folder 0002()
+		{
+			folder levels()
+			{
+			```
+			for i in range(30):
+				print(f'''
+				func {i+1}()
+				{{
+					scoreboard players set @s 1300002_level {i+1}
+					scoreboard players set @s spear_final_atk {i*5+105}
+					scoreboard players set @s spear_final_rate {i*2+2}
+				}}
+				''')
+			```
+			}
+		}
+		
+		folder 0003()
+		{
+			folder levels()
+			{
+			```
+			for i in range(30):
+				print(f'''
+				func {i+1}()
+				{{
+					scoreboard players set @s 1300003_level {i+1}
+					scoreboard players set @s p_arm_final_atk {i*5+105}
+					scoreboard players set @s p_arm_final_rate {i*2+2}
 				}}
 				''')
 			```
