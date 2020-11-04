@@ -55,7 +55,7 @@ namespace attack_skill_template(skill_id) as virtual
 	
 	func run()
 	{
-		scoreboard players set @s hp_recover_time 10
+		scoreboard players operation @s next_hp_recover = @s hp_recover_time
 		# movement restriction
 		attribute @s minecraft:generic.movement_speed modifier add 5b908c48-54cb-4388-aa76-82f61b02032d skill_action -10 multiply
 		data modify storage skill:main damage set value [{min_damage:0,max_damage:0,accuracy:0,player_level:0,crit_rate:0,crit_damage:0,base_percent:100,attribute:0}]
@@ -251,7 +251,7 @@ namespace bullet_skill_template(skill_id) as virtual
 	
 	func run()
 	{
-		scoreboard players set @s hp_recover_time 10
+		scoreboard players operation @s next_hp_recover = @s hp_recover_time
 		# movement restriction
 		attribute @s minecraft:generic.movement_speed modifier add 5b908c48-54cb-4388-aa76-82f61b02032d skill_action -10 multiply
 		data modify storage skill:main damage set value [{min_damage:0,max_damage:0,accuracy:0,player_level:0,crit_rate:0,crit_damage:0,base_percent:100,attribute:0}]

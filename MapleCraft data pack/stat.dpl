@@ -6,5 +6,12 @@ namespace stat()
 		scoreboard objectives add DEX dummy
 		scoreboard objectives add INT dummy
 		scoreboard objectives add LUK dummy
+		
+		scoreboard objectives add addi_hp_level dummy
+		scoreboard objectives add addi_mp_level dummy
+		scoreboard objectives add addi_hp_point dummy
+		scoreboard objectives add addi_mp_point dummy
+		
+		scoreboard objectives add hp_recover_time dummy
 	}
 }

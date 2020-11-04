@@ -19,7 +19,7 @@ namespace bar_display()
 		scoreboard objectives add hp_warning trigger
 		scoreboard objectives add mp_warning trigger
 		
-		scoreboard objectives add hp_recover_time dummy
+		scoreboard objectives add next_hp_recover dummy
 		scoreboard objectives add hp_recovery dummy
 		scoreboard objectives add mp_recovery dummy
 		
@@ -34,7 +34,7 @@ namespace bar_display()
 	
 	func take_damage()
 	{
-		scoreboard players set @s hp_recover_time 10
+		scoreboard players operation @s next_hp_recover = @s hp_recover_time
 		
 		scoreboard players set @s display_num_type 2
 		scoreboard players operation @s display_number = @s damage_taken
@@ -199,13 +199,13 @@ namespace bar_display()
 		
 		func hp()
 		{
-			scoreboard players remove @s hp_recover_time 1
-			execute if score @s hp_recover_time matches 0 at @s run function ARG(_PATH)do_recover_hp
+			scoreboard players remove @s next_hp_recover 1
+			execute if score @s next_hp_recover matches 0 at @s run function ARG(_PATH)do_recover_hp
 		}
 		
 		func do_recover_hp()
 		{
-			scoreboard players set @s hp_recover_time 10
+			scoreboard players operation @s next_hp_recover = @s hp_recover_time
 			scoreboard players operation @s hp += @s hp_recovery
 			scoreboard players operation @s hp < @s hp_max
 			
