@@ -8,6 +8,10 @@ namespace 4() as virtual
 	
 	func install()
 	{
+		scoreboard objectives add 4000000_level dummy
+		scoreboard objectives add 4000001_level dummy
+		scoreboard objectives add keen_eyes_dist dummy
+		
 		scoreboard objectives add 4001002_mp dummy
 		scoreboard objectives add 4001002_time dummy
 		
@@ -25,6 +29,41 @@ namespace 4() as virtual
 	{
 		folder 0()
 		{
+			folder 0000()
+			{
+				folder levels()
+				{
+				```
+				for i in range(20):
+					print(f'''
+					func {i+1}()
+					{{
+						scoreboard players set @s 4000000_level {i+1}
+						scoreboard players set @s base_accuracy {i+1}
+						scoreboard players set @s base_avoid {i+1}
+					}}
+					''')
+				```
+				}
+			}
+			
+			folder 0001()
+			{
+				folder levels()
+				{
+				```
+				for i in range(8):
+					print(f'''
+					func {i+1}()
+					{{
+						scoreboard players set @s 4000001_level {i+1}
+						scoreboard players set @s keen_eyes_dist {(i+1)//2+10}
+					}}
+					''')
+				```
+				}
+			}
+			
 			folder 1002() from attack_skill_template(4001002)
 			{
 				func check()
@@ -278,11 +317,7 @@ namespace 4() as virtual
 				
 				func mark_target()
 				{
-					```
-					raise Warning("TODO: set mark_target distance according to keen eyes")
-					```
-					# scoreboard players operation #DISTANCE temp = @s keen_eyes_dist
-					scoreboard players set #DISTANCE temp 13
+					scoreboard players operation #DISTANCE temp = @s keen_eyes_dist
 					scoreboard players set #MAX_ENEMY temp 1
 					function skill:enemy_search/search_front/search
 				}
