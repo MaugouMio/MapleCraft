@@ -557,8 +557,20 @@ namespace skill()
 					func check_distance()
 					{
 						function ARG(_PATH)mark_target
-						execute unless score #FIRST_DISTANCE temp matches ..3 run function ARG(_PATH)run
+						execute unless score #FIRST_DISTANCE temp matches ..3 run function ARG(_PATH)run_shoot
 						execute if score #FIRST_DISTANCE temp matches ..3 run function ARG(_PATH)run_swing
+					}
+					
+					func run_shoot()
+					{
+						execute if score #USED_WEAPON temp matches 24 run function ARG(_PATH)run
+						execute if score #USED_WEAPON temp matches 16..18 run function ARG(_PATH)check_on_ground
+					}
+					
+					func check_on_ground()
+					{
+						execute if entity @s[nbt={OnGround:1b}] run function ARG(_PATH)run
+						execute unless entity @s[nbt={OnGround:1b}] as @e[type=zombified_piglin,tag=target] run function skill:enemy_search/clear
 					}
 					
 					func run_swing()
@@ -1263,6 +1275,12 @@ namespace skill()
 
 	folder enemy_search()
 	{
+		func clear()
+		{
+			tag @s remove first_target
+			tag @s remove target
+		}
+		
 		folder search_front() from for_loop().for("#DISTANCE temp", "positioned ^ ^ ^0.7")
 		{
 			func search()

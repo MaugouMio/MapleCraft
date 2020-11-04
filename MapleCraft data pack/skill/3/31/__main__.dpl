@@ -125,7 +125,7 @@ namespace 31() as virtual
 		{
 			func check()
 			{
-				execute unless score @s action_time matches 0.. if score @s[nbt={OnGround:1b}] 3101005_level matches 1.. run function ARG(_PATH)other_check
+				execute unless score @s action_time matches 0.. if score @s 3101005_level matches 1.. run function ARG(_PATH)other_check
 			}
 			
 			func other_check()
@@ -148,8 +148,14 @@ namespace 31() as virtual
 			func check_distance()
 			{
 				function ARG(_PATH)mark_target
-				execute unless score #FIRST_DISTANCE temp matches ..3 run function ARG(_PATH)run
+				execute unless score #FIRST_DISTANCE temp matches ..3 run function ARG(_PATH)run_shoot
 				execute if score #FIRST_DISTANCE temp matches ..3 run function skill:6/0/0/1003/run
+			}
+			
+			func run_shoot()
+			{
+				execute if entity @s[nbt={OnGround:1b}] run function ARG(_PATH)run
+				execute unless entity @s[nbt={OnGround:1b}] as @e[type=zombified_piglin,tag=target] run function skill:enemy_search/clear
 			}
 			
 			func mark_target()
