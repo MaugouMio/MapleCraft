@@ -15,6 +15,6 @@ namespace stat()
 		scoreboard objectives add hp_recover_time dummy
 	}
 	```
-	raise Warning("TODO: run function skill:2/0/0/0000/calculate_recovery when leveling up")
+	raise Warning("TODO: run function skill:2/0/0/0000/calculate_recovery when leveling up with 2000000_level score")
 	```
 }

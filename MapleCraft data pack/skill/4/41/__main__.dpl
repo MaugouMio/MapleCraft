@@ -8,6 +8,10 @@ namespace 41() as virtual
 	
 	func install()
 	{
+		scoreboard objectives add 4100000_level dummy
+		scoreboard objectives add 4100001_level dummy
+		scoreboard objectives add 4100002_level dummy
+		
 		scoreboard objectives add 4101005_mp dummy
 		scoreboard objectives add 4101005_attack dummy
 		scoreboard objectives add 4101005_absorb dummy
@@ -18,6 +22,70 @@ namespace 41() as virtual
 	
 	folder 0()
 	{
+		folder 0000()
+		{
+			folder levels()
+			{
+			```
+			for i in range(18):
+				print(f'''
+				func {i+1}()
+				{{
+					scoreboard players set @s 4100000_level {i+1}
+					scoreboard players set @s claw_mastery {i//2*5+15}
+					scoreboard players set @s claw_accuracy {i+1}
+					scoreboard players set @s claw_color {mastery_colors[i//2]}
+				}}
+				''')
+			for i in range(18, 20):
+				print(f'''
+				func {i+1}()
+				{{
+					scoreboard players set @s 4100000_level {i+1}
+					scoreboard players set @s claw_mastery {i//2*5+15}
+					scoreboard players set @s claw_accuracy {i+1}
+				}}
+				''')
+			```
+			}
+		}
+		
+		folder 0001()
+		{
+			folder levels()
+			{
+			```
+			for i in range(30):
+				print(f'''
+				func {i+1}()
+				{{
+					scoreboard players set @s 4100001_level {i+1}
+					scoreboard players set @s crit_rate {i+21}
+					scoreboard players set @s crit_damage {i*3+13}
+				}}
+				''')
+			```
+			}
+		}
+		
+		folder 0002()
+		{
+			folder levels()
+			{
+			```
+			for i in range(20):
+				print(f'''
+				func {i+1}()
+				{{
+					scoreboard players set @s 4100002_level {i+1}
+					scoreboard players set @s hp_recovery {i*3+13}
+					scoreboard players set @s mp_recovery {i+4}
+				}}
+				''')
+			```
+			}
+		}
+		
 		folder 1003()
 		{
 			func check()

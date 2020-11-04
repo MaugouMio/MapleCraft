@@ -21,6 +21,36 @@ namespace 42() as virtual
 	
 	folder 0()
 	{
+		folder 0000()
+		{
+			folder levels()
+			{
+			```
+			for i in range(18):
+				print(f'''
+				func {i+1}()
+				{{
+					scoreboard players set @s 4200000_level {i+1}
+					scoreboard players set @s dagger_mastery {i//2*5+15}
+					scoreboard players set @s dagger_accuracy {i+1}
+					scoreboard players set @s dagger_color {mastery_colors[i//2]}
+				}}
+				''')
+			for i in range(18, 20):
+				print(f'''
+				func {i+1}()
+				{{
+					scoreboard players set @s 4200000_level {i+1}
+					scoreboard players set @s dagger_mastery {i//2*5+15}
+					scoreboard players set @s dagger_accuracy {i+1}
+				}}
+				''')
+			```
+			}
+		}
+		
+		# 4200001 shares the same functions with 4100002
+		
 		folder 1002()
 		{
 			
