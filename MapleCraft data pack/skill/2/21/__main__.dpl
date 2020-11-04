@@ -8,6 +8,10 @@ namespace 21() as virtual
 	
 	func install()
 	{
+		scoreboard objectives add 2100000_level dummy
+		scoreboard objectives add 2100000_rate dummy
+		scoreboard objectives add 2100000_absorb dummy
+		
 		scoreboard objectives add 2101004_mp dummy
 		scoreboard objectives add 2101004_mastery dummy
 		scoreboard objectives add 2101004_attack dummy
@@ -25,6 +29,24 @@ namespace 21() as virtual
 	
 	folder 0()
 	{
+		folder 0000()
+		{
+			folder levels()
+			{
+			```
+			for i in range(20):
+				print(f'''
+				func {i+1}()
+				{{
+					scoreboard players set @s 2100000_level {i+1}
+					scoreboard players set @s 2100000_rate {i+11}
+					scoreboard players set @s 2100000_absorb {i*2+2}
+				}}
+				''')
+			```
+			}
+		}
+		
 		folder 1001()
 		{
 			func check()
