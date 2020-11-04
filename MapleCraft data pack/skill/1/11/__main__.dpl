@@ -8,12 +8,71 @@ namespace 11() as virtual
 	
 	func install()
 	{
+		scoreboard objectives add 1100000_level dummy
+		scoreboard objectives add 1100001_level dummy
+		
 		function ARG(_PATH)1/install
 		function ARG(_PATH)2/install
 	}
 	
 	folder 0()
 	{
+		folder 0000()
+		{
+			folder levels()
+			{
+			```
+			for i in range(18):
+				print(f'''
+				func {i+1}()
+				{{
+					scoreboard players set @s 1100000_level {i+1}
+					scoreboard players set @s sword_mastery {i//2*5+15}
+					scoreboard players set @s sword_accuracy {i+1}
+					scoreboard players set @s sword_color {mastery_colors[i//2]}
+				}}
+				''')
+			for i in range(18, 20):
+				print(f'''
+				func {i+1}()
+				{{
+					scoreboard players set @s 1100000_level {i+1}
+					scoreboard players set @s sword_mastery {i//2*5+15}
+					scoreboard players set @s sword_accuracy {i+1}
+				}}
+				''')
+			```
+			}
+		}
+		
+		folder 0001()
+		{
+			folder levels()
+			{
+			```
+			for i in range(18):
+				print(f'''
+				func {i+1}()
+				{{
+					scoreboard players set @s 1100001_level {i+1}
+					scoreboard players set @s axe_mastery {i//2*5+15}
+					scoreboard players set @s axe_accuracy {i+1}
+					scoreboard players set @s axe_color {mastery_colors[i//2]}
+				}}
+				''')
+			for i in range(18, 20):
+				print(f'''
+				func {i+1}()
+				{{
+					scoreboard players set @s 1100001_level {i+1}
+					scoreboard players set @s axe_mastery {i//2*5+15}
+					scoreboard players set @s axe_accuracy {i+1}
+				}}
+				''')
+			```
+			}
+		}
+		
 		folder 1004()
 		{
 			func check()
