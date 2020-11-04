@@ -12,7 +12,6 @@ namespace bar_display()
 		scoreboard objectives add target_hp dummy
 		scoreboard objectives add target_mp dummy
 		
-		scoreboard objectives add hp_mp_varying dummy
 		scoreboard objectives add hp_vary_time dummy
 		scoreboard objectives add mp_vary_time dummy
 		scoreboard objectives add hp_flash dummy
@@ -30,7 +29,7 @@ namespace bar_display()
 	func main()
 	{
 		execute as @a[scores={damage_taken=1..}] at @s run function ARG(_PATH)take_damage
-		execute as @a[scores={hp_mp_varying=1}] run function ARG(_PATH)bar_vary/check
+		execute as @a[tag=hp_mp_varying] run function ARG(_PATH)bar_vary/check
 	}
 	
 	func take_damage()
@@ -78,7 +77,7 @@ namespace bar_display()
 				scoreboard players operation @s target_hp /= @s hp_max
 				
 				scoreboard players set @s hp_vary_time 20
-				scoreboard players set @s hp_mp_varying 1
+				tag @s add hp_mp_varying
 				execute if score #HP_DROPPED temp matches 1 if score @s target_hp < @s hp_warning run scoreboard players set @s hp_flash 10
 			}
 		}
@@ -104,7 +103,7 @@ namespace bar_display()
 				scoreboard players operation @s target_mp /= @s mp_max
 				
 				scoreboard players set @s mp_vary_time 20
-				scoreboard players set @s hp_mp_varying 1
+				tag @s add hp_mp_varying
 				execute if score #MP_DROPPED temp matches 1 if score @s target_mp < @s mp_warning run scoreboard players set @s mp_flash 10
 			}
 		}
@@ -119,7 +118,7 @@ namespace bar_display()
 			execute if score @s mp_vary_time matches 1.. run function ARG(_PATH)mp_vary
 			
 			function ARG(__PATH)update_bar/run
-			execute unless score @s hp_vary_time matches 1.. unless score @s mp_vary_time matches 1.. run scoreboard players reset @s hp_mp_varying
+			execute unless score @s hp_vary_time matches 1.. unless score @s mp_vary_time matches 1.. run tag @s remove hp_mp_varying
 		}
 		
 		func hp_vary()
@@ -222,7 +221,7 @@ namespace bar_display()
 	{
 		func schedule_1s()
 		{
-			execute as @a unless score @s hp_mp_varying matches 1 run function ARG(__PATH)update_bar/run
+			execute as @a[tag=!hp_mp_varying] run function ARG(__PATH)update_bar/run
 			execute as @a if score @s hp < @s hp_max run function ARG(__PATH)recover/hp
 		}
 		
