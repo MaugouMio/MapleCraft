@@ -20,7 +20,7 @@ namespace item()
 	func main()
 	{
 		# used consume item check
-		execute as @a[scores={right_click_item=1..},tag=!dead] at @s run function ARG(_PATH)check
+		execute as @a[scores={right_click_item=1..},tag=!dead] at @s run function ARG(_PATH)consume/check
 		# pick item check
 		execute as @a[predicate=item:pickup] at @s run function ARG(_PATH)pick/check
 	}
@@ -63,17 +63,17 @@ namespace item()
 		}
 	}
 	
-	func check()
-	{
-		execute store result score #USING_ITEM temp run data get entity @s[nbt={SelectedItem:{id:"minecraft:warped_fungus_on_a_stick"}}] SelectedItem.tag.CustomModelData
-		
-		execute if score #USING_ITEM temp matches ..30 run function ARG(_PATH)consume/weapon/check
-		
-		scoreboard players reset @s right_click_item
-	}
-	
 	folder consume()
 	{
+		func check()
+		{
+			execute store result score #USING_ITEM temp run data get entity @s[nbt={SelectedItem:{id:"minecraft:warped_fungus_on_a_stick"}}] SelectedItem.tag.CustomModelData
+			
+			execute if score #USING_ITEM temp matches ..30 run function ARG(_PATH)weapon/check
+			
+			scoreboard players reset @s right_click_item
+		}
+		
 		folder weapon()
 		{
 			func check()
