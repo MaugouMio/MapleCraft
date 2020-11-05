@@ -79,6 +79,8 @@ namespace main()
 		function loop:schedule_1s/run
 		function loop:schedule_10s/run
 		function loop:schedule_1d/run
+		
+		datapack disable vanilla
 	}
 	
 	func main()
