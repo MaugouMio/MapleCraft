@@ -93,6 +93,10 @@ namespace attack_skill_template(skill_id) as virtual
 			print("execute store result storage skill:main damage_info.power_knock_back[2] double 0.0007 run data get storage skill:main damage_info.power_knock_back[2] 10000")
 		```
 		execute as @e[type=zombified_piglin,tag=target] at @s run function ARG(_PATH)hit
+		```
+		if "ARG(skill_id)"[0] == "2":
+			print("execute if score #TOTAL_ABSORB temp matches 1.. run function skill:2/1/0/0000/cast_effect")
+		```
 	}
 	
 	func hit_effect()
@@ -285,6 +289,8 @@ namespace bullet_skill_template(skill_id) as virtual
 			print("scoreboard players operation @s hp += #DRAIN_AMOUNT temp")
 			print("scoreboard players operation @s hp < @s hp_max")
 			print("function bar_display:change/hp/recovered")
+		elif "ARG(skill_id)"[0] == "2":
+			print("execute if score #TOTAL_ABSORB temp matches 1.. run function skill:2/1/0/0000/cast_effect")
 		```
 	}
 	
@@ -3060,7 +3066,8 @@ namespace skill()
 		execute store result score @s level run data get entity @s ArmorItems[3].tag.info.level
 		execute store result score @s hp_max run data get entity @s ArmorItems[3].tag.info.hp_max
 		scoreboard players operation @s hp = @s hp_max
-		execute store result score @s mp run data get entity @s ArmorItems[3].tag.info.mp
+		execute store result score @s mp_max run data get entity @s ArmorItems[3].tag.info.mp_max
+		scoreboard players operation @s mp = @s mp_max
 		execute store result score @s avoidability run data get entity @s ArmorItems[3].tag.info.avoidability
 		execute store result score @s weapon_defense run data get entity @s ArmorItems[3].tag.info.weapon_defense
 		execute store result score @s magic_defense run data get entity @s ArmorItems[3].tag.info.magic_defense
@@ -3079,9 +3086,9 @@ namespace skill()
 	
 	func test_mob()
 	{
-		execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["new","enemy","heal_target","holy_weakness"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:24,hp_max:500,mp:55,avoidability:8,weapon_defense:20,magic_defense:30,kb:1,hurt_sound:1,die_sound:2},steal_loot:"skill:steal/20_29/zombie_mushroom",CustomModelData:10000,CustomPotionColor:-1,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.attack_damage",Name:"threaten",Amount:0,Operation:1,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:9.5},{Name:"generic.movement_speed",Base:0.2}],ActiveEffects:[{Id:11b,Amplifier:4,Duration:2147483647,Ambient:1b,ShowParticles:0b}],DeathLootTable:"skill:mob/20_29/zombie_mushroom",OnGround:1b,Team:"enemy"}
-		execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["new","enemy","heal_target","holy_weakness"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:24,hp_max:500,mp:55,avoidability:8,weapon_defense:20,magic_defense:30,kb:1,hurt_sound:1,die_sound:2},steal_loot:"skill:steal/20_29/zombie_mushroom",CustomModelData:10000,CustomPotionColor:-1,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.attack_damage",Name:"threaten",Amount:0,Operation:1,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:9.5},{Name:"generic.movement_speed",Base:0.2}],ActiveEffects:[{Id:11b,Amplifier:4,Duration:2147483647,Ambient:1b,ShowParticles:0b}],DeathLootTable:"skill:mob/20_29/zombie_mushroom",OnGround:1b,Team:"enemy"}
-		execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["new","enemy","heal_target","holy_weakness"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:24,hp_max:500,mp:55,avoidability:8,weapon_defense:20,magic_defense:30,kb:1,hurt_sound:1,die_sound:2},steal_loot:"skill:steal/20_29/zombie_mushroom",CustomModelData:10000,CustomPotionColor:-1,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.attack_damage",Name:"threaten",Amount:0,Operation:1,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:9.5},{Name:"generic.movement_speed",Base:0.2}],ActiveEffects:[{Id:11b,Amplifier:4,Duration:2147483647,Ambient:1b,ShowParticles:0b}],DeathLootTable:"skill:mob/20_29/zombie_mushroom",OnGround:1b,Team:"enemy"}
+		execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["new","enemy","heal_target","holy_weakness"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:24,hp_max:500,mp_max:55,avoidability:8,weapon_defense:20,magic_defense:30,kb:1,hurt_sound:1,die_sound:2},steal_loot:"skill:steal/20_29/zombie_mushroom",CustomModelData:10000,CustomPotionColor:-1,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.attack_damage",Name:"threaten",Amount:0,Operation:1,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:9.5},{Name:"generic.movement_speed",Base:0.2}],ActiveEffects:[{Id:11b,Amplifier:4,Duration:2147483647,Ambient:1b,ShowParticles:0b}],DeathLootTable:"skill:mob/20_29/zombie_mushroom",OnGround:1b,Team:"enemy"}
+		execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["new","enemy","heal_target","holy_weakness"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:24,hp_max:500,mp_max:55,avoidability:8,weapon_defense:20,magic_defense:30,kb:1,hurt_sound:1,die_sound:2},steal_loot:"skill:steal/20_29/zombie_mushroom",CustomModelData:10000,CustomPotionColor:-1,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.attack_damage",Name:"threaten",Amount:0,Operation:1,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:9.5},{Name:"generic.movement_speed",Base:0.2}],ActiveEffects:[{Id:11b,Amplifier:4,Duration:2147483647,Ambient:1b,ShowParticles:0b}],DeathLootTable:"skill:mob/20_29/zombie_mushroom",OnGround:1b,Team:"enemy"}
+		execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["new","enemy","heal_target","holy_weakness"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:24,hp_max:500,mp_max:55,avoidability:8,weapon_defense:20,magic_defense:30,kb:1,hurt_sound:1,die_sound:2},steal_loot:"skill:steal/20_29/zombie_mushroom",CustomModelData:10000,CustomPotionColor:-1,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.attack_damage",Name:"threaten",Amount:0,Operation:1,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:9.5},{Name:"generic.movement_speed",Base:0.2}],ActiveEffects:[{Id:11b,Amplifier:4,Duration:2147483647,Ambient:1b,ShowParticles:0b}],DeathLootTable:"skill:mob/20_29/zombie_mushroom",OnGround:1b,Team:"enemy"}
 		
 		execute as @e[type=zombified_piglin,tag=enemy,tag=new] run function skill:mob_setting
 	}

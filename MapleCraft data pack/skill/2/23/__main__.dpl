@@ -80,6 +80,8 @@ namespace 23() as virtual
 				data modify storage skill:main damage[0].attribute set value 6
 				function skill:damage_formula/heal
 				
+				# mp eater
+				function skill:2/1/0/0000/set_numeric
 				scoreboard players operation @s mp -= @s 2301002_mp
 				function bar_display:change/mp/dropped
 				
@@ -113,6 +115,11 @@ namespace 23() as virtual
 			}
 			
 			func rand_recovery() from random().generate("#MIN_HEAL_AMOUNT temp", "#MAX_HEAL_AMOUNT temp", "#FINAL_HEAL temp");
+				
+			func add_debuff()
+			{
+				execute if score #ABSORB_RATE temp matches 1.. if score @s mp matches 1.. run function skill:2/1/0/0000/try_absorb
+			}
 			
 			func effect()
 			{
@@ -200,6 +207,8 @@ namespace 23() as virtual
 				scoreboard players operation #SPELL_ATTACK temp = @s 2301005_attack
 				function skill:damage_formula/spell
 				
+				# mp eater
+				function skill:2/1/0/0000/set_numeric
 				scoreboard players operation @s mp -= @s 2301005_mp
 				function bar_display:change/mp/dropped
 				
@@ -211,6 +220,11 @@ namespace 23() as virtual
 				execute rotated ~ 0 run summon minecraft:armor_stand ^ ^ ^1 {Tags:["model_animation","new"],Invisible:1,Invulnerable:1,NoGravity:1,Marker:1,Fire:32767s,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:230000}}]}
 				execute as @e[type=armor_stand,tag=new,limit=1] run function ARG(_PATH)effect_model_set
 				playsound minecraft:skill.2301005 player @a ~ ~ ~ 1 1 0
+			}
+				
+			func add_debuff()
+			{
+				execute if score #ABSORB_RATE temp matches 1.. if score @s mp matches 1.. run function skill:2/1/0/0000/try_absorb
 			}
 			
 			func effect()

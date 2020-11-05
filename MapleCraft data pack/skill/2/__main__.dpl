@@ -123,6 +123,8 @@ namespace 2() as virtual
 					scoreboard players operation #SPELL_ATTACK temp = @s 2001004_attack
 					function skill:damage_formula/spell
 					
+					# mp eater
+					function skill:2/1/0/0000/set_numeric
 					scoreboard players operation @s mp -= @s 2001004_mp
 					function bar_display:change/mp/dropped
 					
@@ -132,6 +134,11 @@ namespace 2() as virtual
 				func cast_effect()
 				{
 					playsound minecraft:skill.2001004 player @a ~ ~ ~ 1 1 0
+				}
+				
+				func add_debuff()
+				{
+					execute if score #ABSORB_RATE temp matches 1.. if score @s mp matches 1.. run function skill:2/1/0/0000/try_absorb
 				}
 				
 				func effect()
@@ -195,6 +202,8 @@ namespace 2() as virtual
 					
 					data modify storage skill:main damage append from storage skill:main damage[0]
 					
+					# mp eater
+					function skill:2/1/0/0000/set_numeric
 					scoreboard players operation @s mp -= @s 2001005_mp
 					function bar_display:change/mp/dropped
 					
@@ -205,6 +214,11 @@ namespace 2() as virtual
 				{
 					execute positioned ~ ~0.2 ~ run function skill:summon_font_effect/2001005effect
 					playsound minecraft:skill.2001005 player @a ~ ~ ~ 1 1 0
+				}
+				
+				func add_debuff()
+				{
+					execute if score #ABSORB_RATE temp matches 1.. if score @s mp matches 1.. run function skill:2/1/0/0000/try_absorb
 				}
 				
 				func effect()
