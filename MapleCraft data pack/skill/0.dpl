@@ -94,6 +94,21 @@ namespace 0() as virtual
 					tag @s remove first_target
 					scoreboard players operation @s bullet_targeted += #BULLET_AMOUNT temp
 				}
+				
+				folder levels()
+				{
+				```
+				for i in range(3):
+					print(f'''
+					func {i+1}()
+					{{
+						scoreboard players set @s 0001000_level {i+1}
+						scoreboard players set @s 0001000_mp {i*5+10}
+						scoreboard players set @s 0001000_attack {i*15+10}
+					}}
+					''')
+				```
+				}
 			}
 			
 			folder 1001()
