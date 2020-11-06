@@ -80,7 +80,8 @@ namespace 0() as virtual
 					scoreboard players operation @s hp -= #SNAIL_DAMAGE temp
 					execute if score @s hp matches ..0 run function skill:calculate_damage/record_dead
 					#################################################
-					scoreboard players set #RAND_RESULT temp 100
+					# mp eater
+					execute if score #ABSORB_RATE temp matches 1.. if score @s mp matches 1.. run function skill:2/1/0/0000/try_absorb
 					
 					data modify entity @s ArmorItems[3].tag.bullet_list append value {}
 					execute store result entity @s ArmorItems[3].tag.bullet_list[-1].bullet_id int 1 run scoreboard players get #BULLET_ID number

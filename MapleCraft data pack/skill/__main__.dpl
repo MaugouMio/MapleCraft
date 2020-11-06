@@ -79,7 +79,7 @@ namespace attack_skill_template(skill_id) as virtual
 	{
 		```
 		# mp eater
-		if "ARG(skill_id)"[0] == "2" or "ARG(skill_id)" == "0001000":
+		if "ARG(skill_id)"[0] == "2":
 			print("function skill:2/1/0/0000/set_numeric")
 		```
 		data modify storage skill:main damage_info.attacker set from entity @s UUID
@@ -100,7 +100,7 @@ namespace attack_skill_template(skill_id) as virtual
 		execute as @e[type=zombified_piglin,tag=target] at @s run function ARG(_PATH)hit
 		```
 		# mp eater
-		if "ARG(skill_id)"[0] == "2" or "ARG(skill_id)" == "0001000":
+		if "ARG(skill_id)"[0] == "2":
 			print("execute if score #TOTAL_ABSORB temp matches 1.. run function skill:2/1/0/0000/cast_effect")
 		```
 	}
@@ -174,7 +174,7 @@ namespace attack_skill_template(skill_id) as virtual
 		execute if score #DID_HIT temp matches 1 run function ARG(_PATH)add_debuff
 		```
 		# mp eater
-		if "ARG(skill_id)"[0] == "2" or "ARG(skill_id)" == "0001000":
+		if "ARG(skill_id)"[0] == "2":
 			print("execute if score #ABSORB_RATE temp matches 1.. if score @s mp matches 1.. run function skill:2/1/0/0000/try_absorb")
 		```
 		
