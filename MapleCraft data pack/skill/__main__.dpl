@@ -77,6 +77,11 @@ namespace attack_skill_template(skill_id) as virtual
 	
 	func did_hit()
 	{
+		```
+		# mp eater
+		if "ARG(skill_id)"[0] == "2" or "ARG(skill_id)" == "0001000":
+			print("function skill:2/1/0/0000/set_numeric")
+		```
 		data modify storage skill:main damage_info.attacker set from entity @s UUID
 		execute store result storage skill:main damage_info.attacker_id int 1 run scoreboard players get @s number
 		
@@ -94,7 +99,8 @@ namespace attack_skill_template(skill_id) as virtual
 		```
 		execute as @e[type=zombified_piglin,tag=target] at @s run function ARG(_PATH)hit
 		```
-		if "ARG(skill_id)"[0] == "2":
+		# mp eater
+		if "ARG(skill_id)"[0] == "2" or "ARG(skill_id)" == "0001000":
 			print("execute if score #TOTAL_ABSORB temp matches 1.. run function skill:2/1/0/0000/cast_effect")
 		```
 	}
@@ -166,6 +172,11 @@ namespace attack_skill_template(skill_id) as virtual
 			print("execute if entity @s[tag=!dead] run function main:rand_rate")
 		```
 		execute if score #DID_HIT temp matches 1 run function ARG(_PATH)add_debuff
+		```
+		# mp eater
+		if "ARG(skill_id)"[0] == "2" or "ARG(skill_id)" == "0001000":
+			print("execute if score #ABSORB_RATE temp matches 1.. if score @s mp matches 1.. run function skill:2/1/0/0000/try_absorb")
+		```
 		
 		data modify storage skill:main new_queue set value []
 		data modify storage skill:main temp set from storage skill:main new_schedule
@@ -276,6 +287,11 @@ namespace bullet_skill_template(skill_id) as virtual
 	
 	func did_hit()
 	{
+		```
+		# mp eater
+		if "ARG(skill_id)"[0] == "2" or "ARG(skill_id)" == "0001000":
+			print("function skill:2/1/0/0000/set_numeric")
+		```
 		data modify storage skill:main damage_info.attacker set from entity @s UUID
 		execute store result storage skill:main damage_info.attacker_id int 1 run scoreboard players get @s number
 		
@@ -289,7 +305,7 @@ namespace bullet_skill_template(skill_id) as virtual
 			print("scoreboard players operation @s hp += #DRAIN_AMOUNT temp")
 			print("scoreboard players operation @s hp < @s hp_max")
 			print("function bar_display:change/hp/recovered")
-		elif "ARG(skill_id)"[0] == "2":
+		elif "ARG(skill_id)"[0] == "2" or "ARG(skill_id)" == "0001000":
 			print("execute if score #TOTAL_ABSORB temp matches 1.. run function skill:2/1/0/0000/cast_effect")
 		```
 	}
@@ -355,7 +371,11 @@ namespace bullet_skill_template(skill_id) as virtual
 		
 		function skill:calculate_damage/run
 		execute if score #DID_HIT temp matches 1 run function ARG(_PATH)add_debuff
-		
+		```
+		# mp eater
+		if "ARG(skill_id)"[0] == "2" or "ARG(skill_id)" == "0001000":
+			print("execute if score #ABSORB_RATE temp matches 1.. if score @s mp matches 1.. run function skill:2/1/0/0000/try_absorb")
+		```
 		scoreboard players add @s queuing_effect 1
 		data modify entity @s ArmorItems[3].tag.bullet_list append value {}
 		execute store result entity @s ArmorItems[3].tag.bullet_list[-1].bullet_id int 1 run scoreboard players get #BULLET_ID number

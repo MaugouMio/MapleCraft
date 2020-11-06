@@ -148,8 +148,6 @@ namespace 21() as virtual
 				scoreboard players operation #SPELL_ATTACK temp = @s 2101004_attack
 				function skill:damage_formula/spell
 				
-				# mp eater
-				function skill:2/1/0/0000/set_numeric
 				scoreboard players operation @s mp -= @s 2101004_mp
 				function bar_display:change/mp/dropped
 				
@@ -161,11 +159,6 @@ namespace 21() as virtual
 				execute rotated ~ 0 run summon minecraft:armor_stand ^ ^ ^1 {Tags:["model_animation","new"],Invisible:1,Invulnerable:1,NoGravity:1,Marker:1,Fire:32767s,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:210000}}]}
 				execute as @e[type=armor_stand,tag=new,limit=1] run function ARG(_PATH)effect_model_set
 				playsound minecraft:skill.2101004 player @a ~ ~ ~ 1 1 0
-			}
-				
-			func add_debuff()
-			{
-				execute if score #ABSORB_RATE temp matches 1.. if score @s mp matches 1.. run function skill:2/1/0/0000/try_absorb
 			}
 			
 			func effect()
@@ -239,8 +232,6 @@ namespace 21() as virtual
 				
 				function skill:damage_formula/spell
 				
-				# mp eater
-				function skill:2/1/0/0000/set_numeric
 				scoreboard players operation @s mp -= @s 2101005_mp
 				function bar_display:change/mp/dropped
 				
@@ -256,7 +247,6 @@ namespace 21() as virtual
 			func add_debuff()
 			{
 				execute if entity @s[tag=!dead,tag=!poison_immune] run function ARG(_PATH)try_poison
-				execute if score #ABSORB_RATE temp matches 1.. if score @s mp matches 1.. run function skill:2/1/0/0000/try_absorb
 			}
 			
 			func try_poison()

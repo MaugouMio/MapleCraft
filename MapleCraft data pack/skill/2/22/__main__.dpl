@@ -58,8 +58,6 @@ namespace 22() as virtual
 				scoreboard players operation #FREEZE_TIME temp = @s 2201004_freeze
 				function skill:damage_formula/spell
 				
-				# mp eater
-				function skill:2/1/0/0000/set_numeric
 				scoreboard players operation @s mp -= @s 2201004_mp
 				function bar_display:change/mp/dropped
 				
@@ -75,7 +73,6 @@ namespace 22() as virtual
 			func add_debuff()
 			{
 				execute if entity @s[tag=!freeze_immune] run function skill:mob_effect/debuff/freeze
-				execute if score #ABSORB_RATE temp matches 1.. if score @s mp matches 1.. run function skill:2/1/0/0000/try_absorb
 			}
 			
 			func effect()
@@ -149,8 +146,6 @@ namespace 22() as virtual
 				scoreboard players operation #SPELL_ATTACK temp = @s 2201005_attack
 				function skill:damage_formula/spell
 				
-				# mp eater
-				function skill:2/1/0/0000/set_numeric
 				scoreboard players operation @s mp -= @s 2201005_mp
 				function bar_display:change/mp/dropped
 				
@@ -161,11 +156,6 @@ namespace 22() as virtual
 			{
 				execute positioned ~ ~0.2 ~ run function skill:summon_font_effect/2201005effect
 				playsound minecraft:skill.2201005 player @a ~ ~ ~ 1 1 0
-			}
-				
-			func add_debuff()
-			{
-				execute if score #ABSORB_RATE temp matches 1.. if score @s mp matches 1.. run function skill:2/1/0/0000/try_absorb
 			}
 			
 			func effect()
