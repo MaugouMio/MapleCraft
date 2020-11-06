@@ -56,6 +56,9 @@ namespace attack_skill_template(skill_id) as virtual
 	
 	func run()
 	{
+		# reset final attack
+		scoreboard players reset @s f_attack_skill
+		
 		scoreboard players operation @s next_hp_recover = @s hp_recover_time
 		# movement restriction
 		attribute @s minecraft:generic.movement_speed modifier add 5b908c48-54cb-4388-aa76-82f61b02032d skill_action -10 multiply
@@ -773,6 +776,8 @@ namespace skill()
 		scoreboard objectives add hit_order dummy
 		scoreboard objectives add hit_distance dummy
 		scoreboard objectives add action_time dummy
+		scoreboard objectives add f_attack_skill dummy
+		scoreboard objectives add f_attack_time dummy
 		
 		scoreboard objectives add hurt_sound dummy
 		scoreboard objectives add die_sound dummy
@@ -2866,14 +2871,50 @@ namespace skill()
 				function main:rand_range
 				scoreboard players add #RAND_RANGE_RESULT temp 1000036
 				
-				execute if score #RAND_RANGE_RESULT temp matches 1000036..1000044 run function skill:damage_formula/polearm/swing
-				execute if score #RAND_RANGE_RESULT temp matches 1000045..1000050 run function skill:damage_formula/polearm/stab
+				execute if score #RAND_RANGE_RESULT temp matches 1000036..1000044 run function ARG(_PATH)swing_formula
+				execute if score #RAND_RANGE_RESULT temp matches 1000045..1000050 run function ARG(_PATH)stab_formula
 				
 				execute if score @s polearm_mastery matches ..55 run function ARG(_PATH)set_color
 				function ARG(__PATH)summon_model
 				playsound minecraft:skill.attack.polearm player @a ~ ~ ~ 1 1 0
 				
+				execute if score @s f_attack_skill matches 1.. if score @s p_arm_final_rate matches 1.. run function ARG(_PATH)final_attack/try
 				scoreboard players add @s action_time 15
+			}
+			
+			func swing_formula()
+			{
+				function skill:damage_formula/polearm/swing
+				scoreboard players set #LAST_ACTION_TYPE temp 1
+			}
+			
+			func stab_formula()
+			{
+				function skill:damage_formula/polearm/stab
+				scoreboard players set #LAST_ACTION_TYPE temp 2
+			}
+			
+			folder final_attack()
+			{
+				func try()
+				{
+					function main:rand_rate
+					execute if score #RAND_RESULT temp < @s p_arm_final_rate run function ARG(_PATH)set
+				}
+				
+				func set()
+				{
+					scoreboard players operation @s f_attack_time = @s action_time
+					scoreboard players remove @s f_attack_time 1
+					
+					scoreboard players add @s action_time 10
+					execute if score #LAST_ACTION_TYPE temp matches 1 run scoreboard players add @s action_time 1
+					
+					# set final attack action
+					scoreboard players set #RANGE_MAX temp 6
+					function main:rand_range
+					scoreboard players add #RAND_RANGE_RESULT temp 1000106
+				}
 			}
 			
 			func set_color()
@@ -2891,14 +2932,50 @@ namespace skill()
 				function main:rand_range
 				scoreboard players add #RAND_RANGE_RESULT temp 1000036
 				
-				execute if score #RAND_RANGE_RESULT temp matches 1000036..1000044 run function skill:damage_formula/spear/swing
-				execute if score #RAND_RANGE_RESULT temp matches 1000045..1000050 run function skill:damage_formula/spear/stab
+				execute if score #RAND_RANGE_RESULT temp matches 1000036..1000044 run function ARG(_PATH)swing_formula
+				execute if score #RAND_RANGE_RESULT temp matches 1000045..1000050 run function ARG(_PATH)stab_formula
 				
 				execute if score @s spear_mastery matches ..55 run function ARG(_PATH)set_color
 				function ARG(__PATH)summon_model
 				playsound minecraft:skill.attack.spear player @a ~ ~ ~ 1 1 0
 				
+				execute if score @s f_attack_skill matches 1.. if score @s spear_final_rate matches 1.. run function ARG(_PATH)final_attack/try
 				scoreboard players add @s action_time 15
+			}
+			
+			func swing_formula()
+			{
+				function skill:damage_formula/spear/swing
+				scoreboard players set #LAST_ACTION_TYPE temp 1
+			}
+			
+			func stab_formula()
+			{
+				function skill:damage_formula/spear/stab
+				scoreboard players set #LAST_ACTION_TYPE temp 2
+			}
+			
+			folder final_attack()
+			{
+				func try()
+				{
+					function main:rand_rate
+					execute if score #RAND_RESULT temp < @s spear_final_rate run function ARG(_PATH)set
+				}
+				
+				func set()
+				{
+					scoreboard players operation @s f_attack_time = @s action_time
+					scoreboard players remove @s f_attack_time 1
+					
+					scoreboard players add @s action_time 10
+					execute if score #LAST_ACTION_TYPE temp matches 1 run scoreboard players add @s action_time 1
+					
+					# set final attack action
+					scoreboard players set #RANGE_MAX temp 6
+					function main:rand_range
+					scoreboard players add #RAND_RANGE_RESULT temp 1000106
+				}
 			}
 			
 			func set_color()
@@ -2915,12 +2992,41 @@ namespace skill()
 				scoreboard players set #RANGE_MAX temp 15
 				function main:rand_range
 				scoreboard players add #RAND_RANGE_RESULT temp 1000000
+				
+				execute if score #RAND_RANGE_RESULT temp matches 1000000..1000008 run function scoreboard players set #LAST_ACTION_TYPE temp 1
+				execute if score #RAND_RANGE_RESULT temp matches 1000009..1000014 run function scoreboard players set #LAST_ACTION_TYPE temp 2
+				
 				execute if score @s sword_mastery matches ..55 run function ARG(_PATH)set_color
 				function ARG(__PATH)summon_model
 				
 				playsound minecraft:skill.attack.sword_s player @a ~ ~ ~ 1 1 0
 				function skill:damage_formula/sword/one_hand
+				
+				execute if score @s f_attack_skill matches 1.. if score @s sword_final_rate matches 1.. run function ARG(_PATH)final_attack/try
 				scoreboard players add @s action_time 16
+			}
+			
+			folder final_attack()
+			{
+				func try()
+				{
+					function main:rand_rate
+					execute if score #RAND_RESULT temp < @s sword_final_rate run function ARG(_PATH)set
+				}
+				
+				func set()
+				{
+					scoreboard players operation @s f_attack_time = @s action_time
+					scoreboard players remove @s f_attack_time 2
+					
+					# set final attack action
+					scoreboard players set #RANGE_MAX temp 6
+					function main:rand_range
+					scoreboard players add #RAND_RANGE_RESULT temp 1000100
+					
+					scoreboard players add @s action_time 10
+					execute if score #LAST_ACTION_TYPE temp matches 2 if score #RAND_RANGE_RESULT temp matches 1000103..1000105 run scoreboard players remove @s action_time 2
+				}
 			}
 			
 			func set_color()
@@ -2938,14 +3044,50 @@ namespace skill()
 				function main:rand_range
 				scoreboard players add #RAND_RANGE_RESULT temp 1000000
 				
-				execute if score #RAND_RANGE_RESULT temp matches 1000000..1000008 run function skill:damage_formula/axe/one_hand/swing
-				execute if score #RAND_RANGE_RESULT temp matches 1000009..1000014 run function skill:damage_formula/axe/one_hand/stab
+				execute if score #RAND_RANGE_RESULT temp matches 1000000..1000008 run function ARG(_PATH)swing_formula
+				execute if score #RAND_RANGE_RESULT temp matches 1000009..1000014 run function ARG(_PATH)stab_formula
 				
 				execute if score @s axe_mastery matches ..55 run function ARG(_PATH)set_color
 				function ARG(__PATH)summon_model
 				playsound minecraft:skill.attack.sword_l player @a ~ ~ ~ 1 1 0
 				
+				execute if score @s f_attack_skill matches 1.. if score @s axe_final_rate matches 1.. run function ARG(_PATH)final_attack/try
 				scoreboard players add @s action_time 16
+			}
+			
+			func swing_formula()
+			{
+				function skill:damage_formula/axe/one_hand/swing
+				scoreboard players set #LAST_ACTION_TYPE temp 1
+			}
+			
+			func stab_formula()
+			{
+				function skill:damage_formula/axe/one_hand/stab
+				scoreboard players set #LAST_ACTION_TYPE temp 2
+			}
+			
+			folder final_attack()
+			{
+				func try()
+				{
+					function main:rand_rate
+					execute if score #RAND_RESULT temp < @s axe_final_rate run function ARG(_PATH)set
+				}
+				
+				func set()
+				{
+					scoreboard players operation @s f_attack_time = @s action_time
+					scoreboard players remove @s f_attack_time 2
+					
+					# set final attack action
+					scoreboard players set #RANGE_MAX temp 6
+					function main:rand_range
+					scoreboard players add #RAND_RANGE_RESULT temp 1000100
+					
+					scoreboard players add @s action_time 10
+					execute if score #LAST_ACTION_TYPE temp matches 2 if score #RAND_RANGE_RESULT temp matches 1000103..1000105 run scoreboard players remove @s action_time 2
+				}
 			}
 			
 			func set_color()
@@ -2963,14 +3105,50 @@ namespace skill()
 				function main:rand_range
 				scoreboard players add #RAND_RANGE_RESULT temp 1000066
 				
-				execute if score #RAND_RANGE_RESULT temp matches 1000066..1000074 run function skill:damage_formula/blunt/one_hand/swing
-				execute if score #RAND_RANGE_RESULT temp matches 1000075..1000080 run function skill:damage_formula/blunt/one_hand/stab
+				execute if score #RAND_RANGE_RESULT temp matches 1000066..1000074 run function ARG(_PATH)swing_formula
+				execute if score #RAND_RANGE_RESULT temp matches 1000075..1000080 run function ARG(_PATH)stab_formula
 				
 				execute if score @s blunt_mastery matches ..55 run function ARG(_PATH)set_color
 				function ARG(__PATH)summon_model
 				playsound minecraft:skill.attack.mace player @a ~ ~ ~ 1 1 0
 				
+				execute if score @s f_attack_skill matches 1.. if score @s blunt_final_rate matches 1.. run function ARG(_PATH)final_attack/try
 				scoreboard players add @s action_time 16
+			}
+			
+			func swing_formula()
+			{
+				function skill:damage_formula/blunt/one_hand/swing
+				scoreboard players set #LAST_ACTION_TYPE temp 1
+			}
+			
+			func stab_formula()
+			{
+				function skill:damage_formula/blunt/one_hand/stab
+				scoreboard players set #LAST_ACTION_TYPE temp 2
+			}
+			
+			folder final_attack()
+			{
+				func try()
+				{
+					function main:rand_rate
+					execute if score #RAND_RESULT temp < @s blunt_final_rate run function ARG(_PATH)set
+				}
+				
+				func set()
+				{
+					scoreboard players operation @s f_attack_time = @s action_time
+					scoreboard players remove @s f_attack_time 2
+					
+					# set final attack action
+					scoreboard players set #RANGE_MAX temp 6
+					function main:rand_range
+					scoreboard players add #RAND_RANGE_RESULT temp 1000118
+					
+					scoreboard players add @s action_time 10
+					execute if score #LAST_ACTION_TYPE temp matches 2 if score #RAND_RANGE_RESULT temp matches 1000121..1000123 run scoreboard players remove @s action_time 2
+				}
 			}
 			
 			func set_color()
@@ -2987,12 +3165,41 @@ namespace skill()
 				scoreboard players set #RANGE_MAX temp 15
 				function main:rand_range
 				scoreboard players add #RAND_RANGE_RESULT temp 1000081
+				
+				execute if score #RAND_RANGE_RESULT temp matches 1000081..1000089 run function scoreboard players set #LAST_ACTION_TYPE temp 1
+				execute if score #RAND_RANGE_RESULT temp matches 1000090..1000095 run function scoreboard players set #LAST_ACTION_TYPE temp 2
+				
 				execute if score @s sword_mastery matches ..55 run function ARG(__PATH)oh_sword/set_color
 				function ARG(__PATH)summon_model
 				
 				playsound minecraft:skill.attack.sword_l player @a ~ ~ ~ 1 1 0
 				function skill:damage_formula/sword/two_hand
+				
+				execute if score @s f_attack_skill matches 1.. if score @s sword_final_rate matches 1.. run function ARG(_PATH)final_attack/try
 				scoreboard players add @s action_time 16
+			}
+			
+			folder final_attack()
+			{
+				func try()
+				{
+					function main:rand_rate
+					execute if score #RAND_RESULT temp < @s sword_final_rate run function ARG(_PATH)set
+				}
+				
+				func set()
+				{
+					scoreboard players operation @s f_attack_time = @s action_time
+					scoreboard players remove @s f_attack_time 2
+					
+					# set final attack action
+					scoreboard players set #RANGE_MAX temp 6
+					function main:rand_range
+					scoreboard players add #RAND_RANGE_RESULT temp 1000124
+					
+					scoreboard players add @s action_time 10
+					execute if score #LAST_ACTION_TYPE temp matches 2 if score #RAND_RANGE_RESULT temp matches 1000127..1000129 run scoreboard players remove @s action_time 2
+				}
 			}
 		}
 		
@@ -3004,14 +3211,50 @@ namespace skill()
 				function main:rand_range
 				scoreboard players add #RAND_RANGE_RESULT temp 1000051
 				
-				execute if score #RAND_RANGE_RESULT temp matches 1000051..1000059 run function skill:damage_formula/axe/two_hand/swing
-				execute if score #RAND_RANGE_RESULT temp matches 1000060..1000065 run function skill:damage_formula/axe/two_hand/stab
+				execute if score #RAND_RANGE_RESULT temp matches 1000051..1000059 run function ARG(_PATH)swing_formula
+				execute if score #RAND_RANGE_RESULT temp matches 1000060..1000065 run function ARG(_PATH)stab_formula
 				
 				execute if score @s axe_mastery matches ..55 run function ARG(__PATH)oh_axe/set_color
 				function ARG(__PATH)summon_model
 				playsound minecraft:skill.attack.sword_s player @a ~ ~ ~ 1 1 0
 				
+				execute if score @s f_attack_skill matches 1.. if score @s axe_final_rate matches 1.. run function ARG(_PATH)final_attack/try
 				scoreboard players add @s action_time 16
+			}
+			
+			func swing_formula()
+			{
+				function skill:damage_formula/axe/two_hand/swing
+				scoreboard players set #LAST_ACTION_TYPE temp 1
+			}
+			
+			func stab_formula()
+			{
+				function skill:damage_formula/axe/two_hand/stab
+				scoreboard players set #LAST_ACTION_TYPE temp 2
+			}
+			
+			folder final_attack()
+			{
+				func try()
+				{
+					function main:rand_rate
+					execute if score #RAND_RESULT temp < @s axe_final_rate run function ARG(_PATH)set
+				}
+				
+				func set()
+				{
+					scoreboard players operation @s f_attack_time = @s action_time
+					scoreboard players remove @s f_attack_time 2
+					
+					# set final attack action
+					scoreboard players set #RANGE_MAX temp 6
+					function main:rand_range
+					scoreboard players add #RAND_RANGE_RESULT temp 1000112
+					
+					scoreboard players add @s action_time 10
+					execute if score #LAST_ACTION_TYPE temp matches 2 if score #RAND_RANGE_RESULT temp matches 1000115..1000117 run scoreboard players remove @s action_time 2
+				}
 			}
 		}
 		
@@ -3023,14 +3266,50 @@ namespace skill()
 				function main:rand_range
 				scoreboard players add #RAND_RANGE_RESULT temp 1000051
 				
-				execute if score #RAND_RANGE_RESULT temp matches 1000051..1000059 run function skill:damage_formula/blunt/two_hand/swing
-				execute if score #RAND_RANGE_RESULT temp matches 1000060..1000065 run function skill:damage_formula/blunt/two_hand/stab
+				execute if score #RAND_RANGE_RESULT temp matches 1000051..1000059 run function ARG(_PATH)swing_formula
+				execute if score #RAND_RANGE_RESULT temp matches 1000060..1000065 run function ARG(_PATH)stab_formula
 				
 				execute if score @s blunt_mastery matches ..55 run function ARG(__PATH)oh_blunt/set_color
 				function ARG(__PATH)summon_model
 				playsound minecraft:skill.attack.mace player @a ~ ~ ~ 1 1 0
 				
+				execute if score @s f_attack_skill matches 1.. if score @s blunt_final_rate matches 1.. run function ARG(_PATH)final_attack/try
 				scoreboard players add @s action_time 16
+			}
+			
+			func swing_formula()
+			{
+				function skill:damage_formula/blunt/two_hand/swing
+				scoreboard players set #LAST_ACTION_TYPE temp 1
+			}
+			
+			func stab_formula()
+			{
+				function skill:damage_formula/blunt/two_hand/stab
+				scoreboard players set #LAST_ACTION_TYPE temp 2
+			}
+			
+			folder final_attack()
+			{
+				func try()
+				{
+					function main:rand_rate
+					execute if score #RAND_RESULT temp < @s blunt_final_rate run function ARG(_PATH)set
+				}
+				
+				func set()
+				{
+					scoreboard players operation @s f_attack_time = @s action_time
+					scoreboard players remove @s f_attack_time 2
+					
+					# set final attack action
+					scoreboard players set #RANGE_MAX temp 6
+					function main:rand_range
+					scoreboard players add #RAND_RANGE_RESULT temp 1000112
+					
+					scoreboard players add @s action_time 10
+					execute if score #LAST_ACTION_TYPE temp matches 2 if score #RAND_RANGE_RESULT temp matches 1000115..1000117 run scoreboard players remove @s action_time 2
+				}
 			}
 		}
 		
