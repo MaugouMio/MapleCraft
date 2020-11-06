@@ -2809,6 +2809,24 @@ namespace skill()
 				function ARG(__PATH)summon_model
 				
 				playsound minecraft:skill.attack.sword_s player @a ~ ~ ~ 1 1 0
+				execute if score @s f_attack_skill matches 1.. if score @s bow_final_rate matches 1.. run function ARG(_PATH)final_attack/try
+			}
+			
+			folder final_attack()
+			{
+				func try()
+				{
+					function main:rand_rate
+					execute if score #RAND_RESULT temp < @s bow_final_rate run function ARG(_PATH)set
+				}
+				
+				func set()
+				{
+					scoreboard players operation @s f_attack_time = @s action_time
+					scoreboard players remove @s f_attack_time 4
+					
+					scoreboard players add @s action_time 10
+				}
 			}
 			
 			func set_color()
@@ -2840,6 +2858,24 @@ namespace skill()
 				function ARG(__PATH)summon_model_delay
 				
 				playsound minecraft:skill.attack.mace player @a ~ ~ ~ 1 1 0
+				execute if score @s f_attack_skill matches 1.. if score @s cbow_final_rate matches 1.. run function ARG(_PATH)final_attack/try
+			}
+			
+			folder final_attack()
+			{
+				func try()
+				{
+					function main:rand_rate
+					execute if score #RAND_RESULT temp < @s cbow_final_rate run function ARG(_PATH)set
+				}
+				
+				func set()
+				{
+					scoreboard players operation @s f_attack_time = @s action_time
+					scoreboard players remove @s f_attack_time 2
+					
+					scoreboard players add @s action_time 10
+				}
 			}
 			
 			func set_color()

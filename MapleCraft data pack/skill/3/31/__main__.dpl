@@ -239,6 +239,8 @@ namespace 31() as virtual
 				scoreboard players operation #STUN_TIME temp = @s 3101005_time
 				
 				function skill:damage_formula/bow/normal
+					
+				scoreboard players set @s f_attack_skill 1
 				
 				scoreboard players remove @s bullet_amount 1
 				scoreboard players operation @s mp -= @s 3101005_mp

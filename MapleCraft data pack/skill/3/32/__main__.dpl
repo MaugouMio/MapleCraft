@@ -167,6 +167,8 @@ namespace 32() as virtual
 				scoreboard players set #AFTER_MODIFIER_RATE temp 9
 				
 				function skill:damage_formula/crossbow/normal
+					
+				scoreboard players set @s f_attack_skill 1
 				
 				scoreboard players remove @s bullet_amount 1
 				scoreboard players operation @s mp -= @s 3201005_mp
