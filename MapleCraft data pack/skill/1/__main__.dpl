@@ -123,6 +123,7 @@ namespace 1() as virtual
 					execute store result storage skill:main damage[0].base_percent int 1 run scoreboard players get @s 1001004_attack
 					# melee *RANDOM* swing damage formula and default attack speed is done by afterimage functions
 					scoreboard players set @s f_attack_skill 1
+					scoreboard players operation @s f_attack_weapon = #USED_WEAPON temp
 					
 					scoreboard players operation @s mp -= @s 1001004_mp
 					function bar_display:change/mp/dropped
@@ -206,6 +207,7 @@ namespace 1() as virtual
 					execute store result storage skill:main damage[0].base_percent int 1 run scoreboard players get @s 1001005_attack
 					# melee *RANDOM* swing damage formula and default attack speed is done by afterimage functions
 					scoreboard players set @s f_attack_skill 2
+					scoreboard players operation @s f_attack_weapon = #USED_WEAPON temp
 					
 					scoreboard players operation @s mp -= @s 1001005_mp
 					function bar_display:change/mp/dropped
@@ -258,6 +260,59 @@ namespace 1() as virtual
 					''')
 				```
 				}
+			}
+			
+			folder 0006() from attack_skill_template(1000006)
+			{
+				func pre_set()
+				{
+					scoreboard players operation #USED_WEAPON temp = @s f_attack_weapon
+					function ARG(_PATH)run
+				}
+				
+				func mark_target()
+				{
+					scoreboard players operation #DISTANCE temp = #USED_WEAPON temp
+					# make single hand weapon %2 be 0
+					scoreboard players add #DISTANCE temp 1
+					scoreboard players operation #DISTANCE temp %= #2 const
+					scoreboard players add #DISTANCE temp 4
+					
+					scoreboard players set #MAX_ENEMY temp 1
+					execute if score @s f_attack_skill matches 2 run scoreboard players add #MAX_ENEMY temp 5
+					function skill:enemy_search/search_front_rec_dist/search
+				}
+				
+				func set_numeric()
+				{
+					execute if score @s f_attack_weapon matches 5..6 store result storage skill:main damage[0].base_percent int 1 run scoreboard players get @s axe_final_atk
+					execute if score @s f_attack_weapon matches 7..8 store result storage skill:main damage[0].base_percent int 1 run scoreboard players get @s sword_final_atk
+					execute if score @s f_attack_weapon matches 9..10 store result storage skill:main damage[0].base_percent int 1 run scoreboard players get @s blunt_final_atk
+					execute if score @s f_attack_weapon matches 12 store result storage skill:main damage[0].base_percent int 1 run scoreboard players get @s spear_final_atk
+					execute if score @s f_attack_weapon matches 14 store result storage skill:main damage[0].base_percent int 1 run scoreboard players get @s p_arm_final_atk
+					# splash blast got 2/3 damage base percent
+					execute if score @s f_attack_skill matches 2 store result storage skill:main damage[0].base_percent int 0.66667 run data get storage skill:main damage[0].base_percent
+					# melee *RANDOM* swing damage formula and default attack speed is done by afterimage functions
+				}
+				
+				func cast_effect()
+				{
+					function skill:afterimage/final_swing/check
+					execute if score @s f_attack_weapon matches 7..8 run data modify storage skill:main damage_info.hit_effect set value 3
+					execute unless score @s f_attack_weapon matches 7..8 run data modify storage skill:main damage_info.hit_effect set value 4
+				}
+				
+				func effect()
+				{
+					execute if score @s display_number matches 1.. if score #HIT_EFFECT temp matches 3 positioned ^ ^ ^0.5 run function skill:summon_font_effect/1100002hit
+					execute if score @s display_number matches 1.. if score #HIT_EFFECT temp matches 4 positioned ^ ^ ^0.5 run function skill:summon_font_effect/1100003hit
+					function skill:mob_effect/play_hurt_sound/run
+				}
+				
+				```
+				# delay_range = max possible value of #DISTANCE temp
+				append_scheduler(delay_range = 5, base_delay = 7, skill_path = "skill:1/0/0/0006/")
+				```
 			}
 		}
 	}

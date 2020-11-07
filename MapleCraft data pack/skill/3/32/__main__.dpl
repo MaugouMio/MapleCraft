@@ -169,6 +169,7 @@ namespace 32() as virtual
 				function skill:damage_formula/crossbow/normal
 					
 				scoreboard players set @s f_attack_skill 1
+				scoreboard players operation @s f_attack_weapon = #USED_WEAPON temp
 				
 				scoreboard players remove @s bullet_amount 1
 				scoreboard players operation @s mp -= @s 3201005_mp

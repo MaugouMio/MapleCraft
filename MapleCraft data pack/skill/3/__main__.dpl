@@ -156,6 +156,7 @@ namespace 3() as virtual
 					execute if score #USED_WEAPON temp matches 18 run function skill:damage_formula/crossbow/normal
 					
 					scoreboard players set @s f_attack_skill 1
+					scoreboard players operation @s f_attack_weapon = #USED_WEAPON temp
 					
 					scoreboard players remove @s bullet_amount 1
 					scoreboard players operation @s mp -= @s 3001004_mp
@@ -310,6 +311,7 @@ namespace 3() as virtual
 					execute if score #USED_WEAPON temp matches 18 run function skill:damage_formula/crossbow/normal
 					
 					scoreboard players set @s f_attack_skill 1
+					scoreboard players operation @s f_attack_weapon = #USED_WEAPON temp
 					
 					data modify storage skill:main damage append from storage skill:main damage[0]
 					
