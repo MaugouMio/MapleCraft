@@ -290,9 +290,12 @@ namespace 1() as virtual
 					execute if score @s f_attack_weapon matches 9..10 store result storage skill:main damage[0].base_percent int 1 run scoreboard players get @s blunt_final_atk
 					execute if score @s f_attack_weapon matches 12 store result storage skill:main damage[0].base_percent int 1 run scoreboard players get @s spear_final_atk
 					execute if score @s f_attack_weapon matches 14 store result storage skill:main damage[0].base_percent int 1 run scoreboard players get @s p_arm_final_atk
-					# splash blast got 2/3 damage base percent
-					execute if score @s f_attack_skill matches 2 store result storage skill:main damage[0].base_percent int 0.66667 run data get storage skill:main damage[0].base_percent
 					# melee *RANDOM* swing damage formula and default attack speed is done by afterimage functions
+					
+					scoreboard players set #AFTER_MODIFIER_SCALE_NUM temp 2
+					scoreboard players set #AFTER_MODIFIER_SCALE_DENOM temp 3
+					scoreboard players set #AFTER_MODIFIER_NUM temp 1
+					scoreboard players set #AFTER_MODIFIER_DENOM temp 3
 				}
 				
 				func cast_effect()

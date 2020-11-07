@@ -75,8 +75,8 @@ namespace attack_skill_template(skill_id) as virtual
 		
 		execute if score #FOUND_ENEMY temp matches 1.. run function ARG(_PATH)did_hit
 		```
-		if "ARG(skill_id)" in ["3201005"]:
-			print("scoreboard players reset #AFTER_MODIFIER_RATE temp")
+		if "ARG(skill_id)" in ["3201005", "1000006", "2221006", "3221001"]:
+			print("scoreboard players reset #AFTER_MODIFIER_NUM temp")
 		```
 	}
 	
@@ -2426,7 +2426,7 @@ namespace skill()
 				scoreboard players operation @s display_number < #99999 const
 				scoreboard players operation @s display_number > #1 const
 				
-				execute if score #AFTER_MODIFIER_RATE temp matches 1.. run function ARG(_PATH)after_modify/set
+				execute if score #AFTER_MODIFIER_NUM temp matches 1.. run function ARG(_PATH)after_modify/set
 				
 				scoreboard players operation @s hp -= @s display_number
 				execute store result entity @s ArmorItems[3].tag.damage_record[-1].number int 1 run scoreboard players get @s display_number
@@ -2438,6 +2438,8 @@ namespace skill()
 			{
 				func set()
 				{
+					scoreboard players operation @s display_number *= #AFTER_MODIFIER_SCALE_NUM temp
+					scoreboard players operation @s display_number /= #AFTER_MODIFIER_SCALE_DENOM temp
 					scoreboard players operation @s display_number *= #100 const
 					function ARG(_PATH)run
 					scoreboard players operation @s display_number /= #100 const
@@ -2445,8 +2447,8 @@ namespace skill()
 				
 				func execute()
 				{
-					scoreboard players operation @s display_number *= #AFTER_MODIFIER_RATE temp
-					scoreboard players operation @s display_number /= #10 const
+					scoreboard players operation @s display_number *= #AFTER_MODIFIER_NUM temp
+					scoreboard players operation @s display_number /= #AFTER_MODIFIER_DENOM temp
 				}
 			}
 			

@@ -164,7 +164,10 @@ namespace 32() as virtual
 			func set_numeric()
 			{
 				execute store result storage skill:main damage[0].base_percent int 1 run scoreboard players get @s 3201005_attack
-				scoreboard players set #AFTER_MODIFIER_RATE temp 9
+				scoreboard players set #AFTER_MODIFIER_SCALE_NUM temp 1
+				scoreboard players set #AFTER_MODIFIER_SCALE_DENOM temp 1
+				scoreboard players set #AFTER_MODIFIER_NUM temp 9
+				scoreboard players set #AFTER_MODIFIER_DENOM temp 10
 				
 				function skill:damage_formula/crossbow/normal
 					
