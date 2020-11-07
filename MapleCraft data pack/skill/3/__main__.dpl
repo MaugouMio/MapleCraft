@@ -380,6 +380,94 @@ namespace 3() as virtual
 				```
 				}
 			}
+			
+			folder 0006() from bullet_skill_template(3000006)
+			{
+				func pre_set()
+				{
+					scoreboard players operation #USED_WEAPON temp = @s f_attack_weapon
+					function ARG(_PATH)run
+				}
+				
+				func mark_target()
+				{
+					scoreboard players operation #DISTANCE temp = @s amazon_eyes_dist
+					scoreboard players set #MAX_ENEMY temp 1
+					function skill:enemy_search/search_front/search
+				}
+				
+				func summon_bullet()
+				{
+					execute rotated ~ 0 run summon minecraft:armor_stand ^ ^0.2 ^1 {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:7,max_distance:10,skill_id:12,bullet_model:3000,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
+					
+					scoreboard players operation #GLOBAL bullet_model = @s bullet_model
+					scoreboard players operation #BULLET_DISTANCE temp = #DISTANCE temp
+					scoreboard players remove #BULLET_DISTANCE temp 3
+					execute as @e[type=armor_stand,tag=new_bullet] run function ARG(_PATH)set_bullet
+				}
+				
+				func set_bullet()
+				{
+					execute store result entity @s ArmorItems[3].tag.max_distance int 1 run scoreboard players get #BULLET_DISTANCE temp
+					execute store result entity @s ArmorItems[3].tag.bullet_model int 1 run scoreboard players get #GLOBAL bullet_model
+				}
+				
+				func set_numeric()
+				{
+					execute if score @s f_attack_weapon matches 16 run function ARG(_PATH)bow_set
+					execute if score @s f_attack_weapon matches 18 run function ARG(_PATH)crossbow_set
+					
+					scoreboard players remove @s[scores={bullet_amount=1..}] bullet_amount 1
+				}
+				
+				func bow_set()
+				{
+					execute store result storage skill:main damage[0].base_percent int 1 run scoreboard players get @s bow_final_atk
+					function skill:damage_formula/bow/normal
+				}
+				
+				func crossbow_set()
+				{
+					execute store result storage skill:main damage[0].base_percent int 1 run scoreboard players get @s cbow_final_atk
+					function skill:damage_formula/crossbow/normal
+				}
+				
+				func cast_effect()
+				{
+					execute if score @s f_attack_weapon matches 16 run function ARG(_PATH)bow_effect
+					execute if score @s f_attack_weapon matches 18 run function ARG(_PATH)crossbow_effect
+				}
+				
+				func bow_effect()
+				{
+					playsound minecraft:skill.attack.sword_s player @a ~ ~ ~ 1 1 0
+					```
+					raise Warning("TODO: check whether soul arrow is used to determine whether to play the arrow sound or not")
+					```
+					playsound minecraft:skill.attack.bow player @a ~ ~ ~ 1 1 0
+				}
+				
+				func crossbow_effect()
+				{
+					playsound minecraft:skill.attack.mace player @a ~ ~ ~ 1 1 0
+					```
+					raise Warning("TODO: check whether soul arrow is used to determine whether to play the arrow sound or not")
+					```
+					playsound minecraft:skill.attack.crossbow player @a ~ ~ ~ 1 1 0
+				}
+				
+				func effect()
+				{
+					execute if score @s display_number matches 1.. positioned ^ ^ ^0.5 run function skill:summon_font_effect/1100003hit
+					function skill:mob_effect/play_hurt_sound/run
+				}
+				
+				func append_scheduler()
+				{
+					data modify storage skill:main new_schedule append value {delay:0,time:0}
+					execute store result storage skill:main new_schedule[-1].time int 1 run schedule function ARG(_PATH)hit_effect 1t append
+				}
+			}
 		}
 	}
 }
