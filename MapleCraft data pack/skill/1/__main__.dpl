@@ -199,7 +199,7 @@ namespace 1() as virtual
 					scoreboard players add #DISTANCE temp 4
 					
 					scoreboard players set #MAX_ENEMY temp 6
-					function skill:enemy_search/search_front_rec_dist/search
+					function skill:enemy_search/search_front_pure_order/search
 				}
 				
 				func set_numeric()
@@ -280,7 +280,7 @@ namespace 1() as virtual
 					
 					scoreboard players set #MAX_ENEMY temp 1
 					execute if score @s f_attack_skill matches 2 run scoreboard players add #MAX_ENEMY temp 5
-					function skill:enemy_search/search_front_rec_dist/search
+					function skill:enemy_search/search_front_pure_order/search
 				}
 				
 				func set_numeric()

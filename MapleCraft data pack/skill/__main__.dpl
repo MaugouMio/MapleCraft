@@ -1376,6 +1376,52 @@ namespace skill()
 			}
 		}
 		
+		folder search_front_pure_order() from for_loop().for("#DISTANCE temp", "positioned ^ ^ ^0.7")
+		{
+			func search()
+			{
+				execute at @s rotated ~ 0 positioned ^ ^ ^-1.8 run function ARG(_PATH)run
+				execute at @s run function ARG(_PATH)order_mark
+			}
+			
+			func execute()
+			{
+				tag @e[type=minecraft:zombified_piglin,tag=enemy,tag=!dead,distance=..2] add temp_mark
+			}
+			
+			func order_mark()
+			{
+				data modify storage skill:main temp set value []
+				scoreboard players set #FOUND_ENEMY temp 0
+				
+				# remove the mobs behind the player
+				execute rotated ~ 0 positioned ^ ^ ^100 run tag @e[type=zombified_piglin,tag=temp_mark,distance=100.2..] remove temp_mark
+				execute as @e[type=zombified_piglin,tag=temp_mark,sort=nearest] run function ARG(_PATH)try_mark
+				tag @e[type=zombified_piglin,tag=temp_mark] remove temp_mark
+			}
+			
+			func try_mark()
+			{
+				execute if score #FOUND_ENEMY temp < #MAX_ENEMY temp run function ARG(_PATH)mark
+			}
+			
+			func mark()
+			{
+				execute if score #FOUND_ENEMY temp matches ..4 run function ARG(_PATH)record_dists
+				
+				tag @s add target
+				execute store result score @s hit_distance run scoreboard players operation @s hit_order = #FOUND_ENEMY temp
+				scoreboard players remove @s[scores={hit_distance=5}] hit_distance 1
+				scoreboard players add #FOUND_ENEMY temp 1
+			}
+			
+			func record_dists()
+			{
+				data modify storage skill:main temp append value 0
+				execute store result storage skill:main temp[-1] int 1 run scoreboard players get #FOUND_ENEMY temp
+			}
+		}
+		
 		folder search_front_rec_dist() from for_loop().for("#DISTANCE temp", "positioned ^ ^ ^0.7")
 		{
 			func search()
