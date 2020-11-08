@@ -36,11 +36,9 @@ namespace 22() as virtual
 			
 			func other_check()
 			{
-				execute store result score #USED_WEAPON temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_type
-				execute if score #USED_WEAPON temp matches 0 run tellraw @s {"translate":"warning.skill.no_weapon","color":"red"}
-				
-				execute if score #USED_WEAPON temp matches 1.. if score @s mp < @s 2201004_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
-				execute if score #USED_WEAPON temp matches 1.. if score @s mp >= @s 2201004_mp run function ARG(_PATH)run
+				function skill:check_weapon/single_hand/run
+				execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 2201004_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
+				execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp >= @s 2201004_mp run function ARG(_PATH)run
 			}
 			
 			func mark_target()
@@ -114,11 +112,9 @@ namespace 22() as virtual
 			
 			func other_check()
 			{
-				execute store result score #USED_WEAPON temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_type
-				execute if score #USED_WEAPON temp matches 0 run tellraw @s {"translate":"warning.skill.no_weapon","color":"red"}
-				
-				execute if score #USED_WEAPON temp matches 1.. if score @s mp < @s 2201005_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
-				execute if score #USED_WEAPON temp matches 1.. if score @s mp >= @s 2201005_mp run function ARG(_PATH)run
+				function skill:check_weapon/single_hand/run
+				execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 2201005_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
+				execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp >= @s 2201005_mp run function ARG(_PATH)run
 			}
 			
 			func mark_target()
