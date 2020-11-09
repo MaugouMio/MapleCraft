@@ -128,7 +128,7 @@ namespace 0() as virtual
 			{
 				func check()
 				{
-					execute unless score @s action_time matches 0.. if score @s 0001002_level matches 1.. run function ARG(_PATH)other_check
+					execute if score @s 0001002_level matches 1.. run function ARG(_PATH)other_check
 				}
 				
 				func other_check()
@@ -152,8 +152,9 @@ namespace 0() as virtual
 					```
 					print(f"attribute @s minecraft:generic.luck modifier add {buff_info_dict['speed']['uuid']} 2 0 add")
 					```
+					execute if entity @s[tag=!hp_mp_varying] run function bar_display:update_bar/run
 					
-					function skill:summon_font_effect/0001002effect
+					execute positioned ~ ~-0.2 ~ run function skill:summon_font_effect/0001002effect
 					playsound minecraft:skill.1111005 player @a ~ ~ ~ 1 1 0
 					
 					scoreboard players operation @s mp -= @s 0001002_mp

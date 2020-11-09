@@ -36,7 +36,7 @@ namespace buff_template(name) as virtual
 				print(f"attribute @s minecraft:generic.luck modifier remove {buff_info_dict['ARG(name)']['uuid']}")
 		
 		print(f"scoreboard players add #{'ARG(name)'.upper()}_BUFF_PEOPLE temp 1")
-		print("execute if score #{'ARG(name)'.upper()}_BUFF_PEOPLE temp matches 1 run schedule function ARG(_PATH)counter/loop 1s")
+		print(f"execute if score #{'ARG(name)'.upper()}_BUFF_PEOPLE temp matches 1 run schedule function ARG(_PATH)counter/loop 1s")
 		```
 	}
 	
@@ -88,13 +88,13 @@ namespace buff_template(name) as virtual
 		for buff in buff_list:
 			print(f"func {buff}()")
 			print("{")
-			print("		scoreboard players reset @s {buff}_buff_id")
+			print(f"		scoreboard players reset @s {buff}_buff_id")
 			if buff == "speed":
 				print("	attribute @s minecraft:generic.movement_speed modifier remove f60188ac-3d9d-4c2b-be75-62abd26a2c44")
 			elif buff == "jump":
 				print("	effect clear @s minecraft:jump_boost")
 			else:
-				print("	scoreboard players reset @s {buff}_buff_num")
+				print(f"scoreboard players reset @s {buff}_buff_num")
 			print("}")
 		```
 	}
@@ -120,6 +120,6 @@ namespace buff() as virtual
 	
 	```
 	for buff in buff_info_dict:
-		print(f'func {buff} from buff_template("{buff}");')
+		print(f'folder {buff}() from buff_template("{buff}");')
 	```
 }
