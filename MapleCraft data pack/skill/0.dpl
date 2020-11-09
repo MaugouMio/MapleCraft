@@ -4,6 +4,10 @@ namespace 0() as virtual
 	{
 		scoreboard objectives add 0001000_mp dummy
 		scoreboard objectives add 0001000_attack dummy
+		
+		scoreboard objectives add 0001002_level dummy
+		scoreboard objectives add 0001002_mp dummy
+		scoreboard objectives add 0001002_time dummy
 	}
 	
 	folder 0()
@@ -124,7 +128,36 @@ namespace 0() as virtual
 			{
 				func check()
 				{
+					execute unless score @s action_time matches 0.. if score @s 0001002_level matches 1.. run function ARG(_PATH)other_check
+				}
+				
+				func other_check()
+				{
+					execute if score @s mp < @s 0001002_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
+					execute if score @s mp >= @s 0001002_mp run function ARG(_PATH)cast_effect
+				}
+				
+				func cast_effect()
+				{
+					function skill:buff/speed/run
 					
+					# set sub buff values
+					attribute @s minecraft:generic.movement_speed modifier remove f60188ac-3d9d-4c2b-be75-62abd26a2c44
+					execute if score @s 0001000_level matches 1 run attribute @s minecraft:generic.movement_speed modifier add f60188ac-3d9d-4c2b-be75-62abd26a2c44 speed_buff 0.1 multiply
+					execute if score @s 0001000_level matches 2 run attribute @s minecraft:generic.movement_speed modifier add f60188ac-3d9d-4c2b-be75-62abd26a2c44 speed_buff 0.15 multiply
+					execute if score @s 0001000_level matches 3 run attribute @s minecraft:generic.movement_speed modifier add f60188ac-3d9d-4c2b-be75-62abd26a2c44 speed_buff 0.2 multiply
+					
+					# set this buff values
+					scoreboard players operation @s speed_buff_time = @s 0001002_time
+					```
+					print(f"attribute @s minecraft:generic.luck modifier add {buff_info_dict['speed']['uuid']} 2 0 add")
+					```
+					
+					function skill:summon_font_effect/0001002effect
+					playsound minecraft:skill.1111005 player @a ~ ~ ~ 1 1 0
+					
+					scoreboard players operation @s mp -= @s 0001002_mp
+					function bar_display:change/mp/dropped
 				}
 			}
 		}

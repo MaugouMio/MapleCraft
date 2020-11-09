@@ -1,0 +1,125 @@
+```
+buff_types = set(["watk", "matk", "wdef", "mdef", "accu", "avoid", "speed", "jump"])
+buff_info_dict = {
+	"watk": {"buff_list": set(["watk"]), "uuid": "40fe3cf6-6440-4e27-8e2f-f052c66382c3"},
+	"matk": {"buff_list": set(["matk"]), "uuid": "314e9d0f-5dbb-49b6-9f0b-483b96524e3e"},
+	"wdef": {"buff_list": set(["wdef"]), "uuid": "f777a759-19ad-46ad-958c-21a3cf555528"},
+	"accu": {"buff_list": set(["accu"]), "uuid": "2f4cc2f7-0591-4895-9aa4-ccc8cb3eb628"},
+	"avoid": {"buff_list": set(["avoid"]), "uuid": "0af581fb-6d2c-45bb-bf47-9f8e39649f29"},
+	"speed": {"buff_list": set(["speed"]), "uuid": "811b4e32-7a16-4a3d-b668-3824f3439602"},
+	"rage": {"buff_list": set(["watk", "wdef"]), "uuid": "743db87e-fb29-419b-9f21-811132c0676f"},
+	"wmdef": {"buff_list": set(["wdef", "mdef"]), "uuid": "a43142ca-ea11-48a8-93c1-5356a1bd1131"},
+	"focus": {"buff_list": set(["accu", "avoid"]), "uuid": "b0fd1cdc-a5eb-471c-9565-876d25b328eb"},
+	"angel": {"buff_list": set(["wdef", "mdef", "accu", "avoid"]), "uuid": "62892587-b6cc-4882-848f-821a96aeccc0"},
+	"haste": {"buff_list": set(["speed", "jump"]), "uuid": "0ccd70b4-7ebe-4200-b664-238b568e8814"},
+	"hex": {"buff_list": set(["watk", "wdef", "mdef", "accu", "avoid"]), "uuid": "2c0a45fd-036c-4559-ab38-a57a9492ae93"}
+}
+buff_id = 0
+```
+
+namespace buff_template(name) as virtual
+{
+	func run()
+	{
+		```
+		buff_list = buff_info_dict["ARG(name)"]["buff_list"]
+		for buff in buff_list:
+			print(f"scoreboard players set @s {buff}_buff_id {buff_id}")
+		
+		for buff in buff_info_dict:
+			if buff != "ARG(name)":
+				if buff_info_dict[buff]["buff_list"].issubset(buff_list):
+					print(f"execute if score @s {buff}_buff_time matches 1.. run function skill:buff/{buff}/reset/run")
+				elif len(buff_info_dict[buff]["buff_list"].intersection(buff_list)) > 0:
+					print(f"execute if score @s {buff}_buff_time matches 1.. run function skill:buff/{buff}/reset/check")
+			else:
+				print(f"attribute @s minecraft:generic.luck modifier remove {buff_info_dict['ARG(name)']['uuid']}")
+		
+		print(f"scoreboard players add #{'ARG(name)'.upper()}_BUFF_PEOPLE temp 1")
+		print("execute if score #{'ARG(name)'.upper()}_BUFF_PEOPLE temp matches 1 run schedule function ARG(_PATH)counter/loop 1s")
+		```
+	}
+	
+	folder counter()
+	{
+		func loop()
+		{
+			execute as @a if score @s ARG(name)_buff_time matches 1.. run function ARG(_PATH)countdown
+			```
+			print(f"execute if score #{'ARG(name)'.upper()}_BUFF_PEOPLE temp matches 1.. run schedule function ARG(_PATH)loop 1s")
+			```
+		}
+		
+		func countdown()
+		{
+			scoreboard players remove @s ARG(name)_buff_time 1
+			execute if score @s ARG(name)_buff_time matches 0 run function ARG(_PATH)reset
+		}
+		
+		func reset()
+		{
+			```
+			for buff in buff_list:
+				print(f"execute if score @s {buff}_buff_id matches {buff_id} run function ARG(__PATH)reset/{buff}")
+			```
+			function ARG(__PATH)reset/run
+		}
+	}
+	
+	folder reset()
+	{
+		func check()
+		{
+			```
+			print(f"execute unless score @s {'unless score @s '.join([buff+'_buff_id matches '+str(buff_id)+' ' for buff in buff_list])}run function ARG(_PATH)run")
+			```
+		}
+		
+		func run()
+		{
+			scoreboard players reset @s ARG(name)_buff_time
+			```
+			print(f"attribute @s minecraft:generic.luck modifier remove {buff_info_dict['ARG(name)']['uuid']}")
+			print(f"scoreboard players remove #{'ARG(name)'.upper()}_BUFF_PEOPLE temp 1")
+			```
+		}
+		
+		```
+		for buff in buff_list:
+			print(f"func {buff}()")
+			print("{")
+			print("		scoreboard players reset @s {buff}_buff_id")
+			if buff == "speed":
+				print("	attribute @s minecraft:generic.movement_speed modifier remove f60188ac-3d9d-4c2b-be75-62abd26a2c44")
+			elif buff == "jump":
+				print("	effect clear @s minecraft:jump_boost")
+			else:
+				print("	scoreboard players reset @s {buff}_buff_num")
+			print("}")
+		```
+	}
+	
+	```
+	buff_id += 1
+	```
+}
+
+namespace buff() as virtual
+{
+	func install()
+	{
+		```
+		for buff in buff_types:
+			print(f"scoreboard objectives add {buff}_buff_num dummy")
+			print(f"scoreboard objectives add {buff}_buff_id dummy")
+		
+		for buff in buff_info_dict:
+			print(f"scoreboard objectives add {buff}_buff_time dummy")
+		```
+	}
+	
+	```
+	for buff in buff_info_dict:
+		print(f'func {buff} from buff_template("{buff}");')
+	```
+}

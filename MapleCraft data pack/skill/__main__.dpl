@@ -477,6 +477,8 @@ namespace bullet_skill_template(skill_id) as virtual
 
 
 
+
+import buff as virtual
 import 0 as virtual
 import 1 as virtual
 import 2 as virtual
@@ -486,6 +488,7 @@ import 4 as virtual
 
 namespace skill()
 {
+	folder buff() from buff();
 	folder 0() from 0();
 	folder 1() from 1();
 	folder 2() from 2();
@@ -806,6 +809,8 @@ namespace skill()
 				print(f"scoreboard objectives add {skill}_level dummy")
 			print(f"scoreboard objectives add {skill}_eid dummy")
 		```
+		function ARG(_PATH)buff/install
+		function ARG(_PATH)0/install
 		function ARG(_PATH)1/install
 		function ARG(_PATH)2/install
 		function ARG(_PATH)3/install
