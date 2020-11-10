@@ -475,6 +475,26 @@ namespace bullet_skill_template(skill_id) as virtual
 	}
 }
 
+namespace cd_counter(skill_id) as virtual
+{
+	func add()
+	{
+		scoreboard players add #ARG(skill_id)_CD_PEOPLE temp 1
+		execute if score #ARG(skill_id)_CD_PEOPLE temp matches 1 run schedule function ARG(_PATH)loop 1s
+	}
+	
+	func loop()
+	{
+		execute as @a if score @s ARG(skill_id)_cd matches 1.. run function ARG(_PATH)countdown
+		execute if score #ARG(skill_id)_CD_PEOPLE temp matches 1.. run schedule function ARG(_PATH)loop 1s
+	}
+	
+	func countdown()
+	{
+		scoreboard players remove @s ARG(skill_id)_cd 1
+		execute if score @s ARG(skill_id)_cd matches 0 run scoreboard players remove #ARG(skill_id)_CD_PEOPLE temp 1
+	}
+}
 
 
 

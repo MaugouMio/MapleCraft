@@ -8,6 +8,7 @@ namespace 0() as virtual
 		scoreboard objectives add 0001002_level dummy
 		scoreboard objectives add 0001002_mp dummy
 		scoreboard objectives add 0001002_time dummy
+		scoreboard objectives add 0001002_cd dummy
 	}
 	
 	folder 0()
@@ -128,7 +129,13 @@ namespace 0() as virtual
 			{
 				func check()
 				{
-					execute if score @s 0001002_level matches 1.. run function ARG(_PATH)other_check
+					execute if score @s 0001002_level matches 1.. run function ARG(_PATH)cd_check
+				}
+				
+				func cd_check()
+				{
+					execute if score @s 0001002_cd matches 1.. run tellraw @s {"translate":"warning.skill.in_cd","color":"red","with":[{"score":{"name":"@s","objective":"0001002_cd"}}]}
+					execute unless score @s 0001002_cd matches 1.. run function ARG(_PATH)other_check
 				}
 				
 				func other_check()
@@ -152,14 +159,20 @@ namespace 0() as virtual
 					```
 					print(f"attribute @s minecraft:generic.luck modifier add {buff_info_dict['speed']['uuid']} 2 0 add")
 					```
-					execute if entity @s[tag=!hp_mp_varying] run function bar_display:update_bar/run
+					# VVV since we got mp change below, no need to update the bar display VVV
+					# execute if entity @s[tag=!hp_mp_varying] run function bar_display:update_bar/run
 					
 					execute positioned ~ ~-0.2 ~ run function skill:summon_font_effect/0001002effect
 					playsound minecraft:skill.1111005 player @a ~ ~ ~ 1 1 0
 					
 					scoreboard players operation @s mp -= @s 0001002_mp
 					function bar_display:change/mp/dropped
+					
+					scoreboard players set @s 0001002_cd 60
+					function ARG(_PATH)cd_counter/add
 				}
+				
+				folder cd_counter() from cd_counter(0001002);
 			}
 		}
 	}
