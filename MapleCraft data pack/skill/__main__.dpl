@@ -1650,6 +1650,7 @@ namespace skill()
 				scoreboard players operation #ACCURACY temp /= #10 const
 				
 				scoreboard players operation #ACCURACY temp += @s base_accuracy
+				scoreboard players operation #ACCURACY temp += @s accu_buff_num
 			}
 			
 			# one punch
@@ -1663,6 +1664,7 @@ namespace skill()
 				scoreboard players operation #ACCURACY temp /= #10 const
 				
 				scoreboard players operation #ACCURACY temp += @s base_accuracy
+				scoreboard players operation #ACCURACY temp += @s accu_buff_num
 			}
 			
 			# include gunslingers
@@ -1676,6 +1678,7 @@ namespace skill()
 				scoreboard players operation #ACCURACY temp /= #10 const
 				
 				scoreboard players operation #ACCURACY temp += @s base_accuracy
+				scoreboard players operation #ACCURACY temp += @s accu_buff_num
 			}
 		}
 		
