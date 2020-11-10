@@ -14,8 +14,95 @@ buff_info_dict = {
 	"haste": {"buff_list": set(["speed", "jump"]), "uuid": "0ccd70b4-7ebe-4200-b664-238b568e8814"},
 	"hex": {"buff_list": set(["watk", "wdef", "mdef", "accu", "avoid"]), "uuid": "2c0a45fd-036c-4559-ab38-a57a9492ae93"}
 }
+simple_buff_info_dict = {
+	"shade": {"buff_list": set(), "uuid": "eae3a991-53b7-4225-ae20-72e518418db3"},
+	"drake": {"buff_list": set(["watk"]), "uuid": "16d3f9a5-a9ae-4bb1-9555-593e4a363a81"},
+	"conce": {"buff_list": set(["watk"]), "uuid": "d6d764da-de76-4ad5-9923-5a849d60e22f"}
+}
 buff_id = 0
 ```
+
+# for the buffs that only the buff itself can replace it
+namespace simple_buff_template(name) as virtual
+{
+	func run()
+	{
+		```
+		buff_list = simple_buff_info_dict["ARG(name)"]["buff_list"]
+		for buff in buff_list:
+			print(f"scoreboard players set @s {buff}_buff_id {buff_id}")
+		for buff in buff_info_dict:
+			if buff != "ARG(name)":
+				if buff_info_dict[buff]["buff_list"].issubset(buff_list):
+					print(f"execute if score @s {buff}_buff_time matches 1.. run function skill:buff/{buff}/reset/run")
+				elif len(buff_info_dict[buff]["buff_list"].intersection(buff_list)) > 0:
+					print(f"execute if score @s {buff}_buff_time matches 1.. run function skill:buff/{buff}/reset/check")
+		
+		print(f"scoreboard players add #{'ARG(name)'.upper()}_BUFF_PEOPLE temp 1")
+		print(f"execute if score #{'ARG(name)'.upper()}_BUFF_PEOPLE temp matches 1 run schedule function ARG(_PATH)counter/loop 1s")
+		```
+	}
+	
+	folder counter()
+	{
+		func loop()
+		{
+			execute as @a if score @s ARG(name)_buff_time matches 1.. run function ARG(_PATH)countdown
+			```
+			print(f"execute if score #{'ARG(name)'.upper()}_BUFF_PEOPLE temp matches 1.. run schedule function ARG(_PATH)loop 1s")
+			```
+		}
+		
+		func countdown()
+		{
+			```
+			if "ARG(name)" in ["recov"]:
+				print("function ARG(__PATH)execute")
+			```
+			scoreboard players remove @s ARG(name)_buff_time 1
+			execute if score @s ARG(name)_buff_time matches 0 run function ARG(_PATH)reset
+		}
+		
+		func reset()
+		{
+			```
+			for buff in buff_list:
+				print(f"execute if score @s {buff}_buff_id matches {buff_id} run function ARG(__PATH)reset/{buff}")
+			```
+			function ARG(__PATH)reset/run
+		}
+	}
+	
+	folder reset()
+	{
+		func run()
+		{
+			scoreboard players reset @s ARG(name)_buff_time
+			```
+			print(f"attribute @s minecraft:generic.luck modifier remove {simple_buff_info_dict['ARG(name)']['uuid']}")
+			print(f"scoreboard players remove #{'ARG(name)'.upper()}_BUFF_PEOPLE temp 1")
+			```
+		}
+		
+		```
+		for buff in buff_list:
+			print(f"func {buff}()")
+			print("{")
+			print(f"	scoreboard players reset @s {buff}_buff_id")
+			if buff == "speed":
+				print("	attribute @s minecraft:generic.movement_speed modifier remove f60188ac-3d9d-4c2b-be75-62abd26a2c44")
+			elif buff == "jump":
+				print("	effect clear @s minecraft:jump_boost")
+			else:
+				print(f"scoreboard players reset @s {buff}_buff_num")
+			print("}")
+		```
+	}
+	
+	```
+	buff_id += 1
+	```
+}
 
 namespace buff_template(name) as virtual
 {
@@ -114,6 +201,8 @@ namespace buff() as virtual
 			print(f"scoreboard objectives add {buff}_buff_id dummy")
 		
 		for buff in buff_info_dict:
+			print(f"scoreboard objectives add {buff}_buff_time dummy")
+		for buff in simple_buff_info_dict:
 			print(f"scoreboard objectives add {buff}_buff_time dummy")
 		```
 	}

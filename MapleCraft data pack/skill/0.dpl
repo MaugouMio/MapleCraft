@@ -5,6 +5,11 @@ namespace 0() as virtual
 		scoreboard objectives add 0001000_mp dummy
 		scoreboard objectives add 0001000_attack dummy
 		
+		scoreboard objectives add 0001001_level dummy
+		scoreboard objectives add 0001001_mp dummy
+		scoreboard objectives add 0001001_time dummy
+		scoreboard objectives add 0001001_cd dummy
+		
 		scoreboard objectives add 0001002_level dummy
 		scoreboard objectives add 0001002_mp dummy
 		scoreboard objectives add 0001002_time dummy
@@ -121,7 +126,68 @@ namespace 0() as virtual
 			{
 				func check()
 				{
+					execute if score @s 0001001_level matches 1.. run function ARG(_PATH)cd_check
+				}
+				
+				func cd_check()
+				{
+					execute if score @s 0001001_cd matches 1.. run tellraw @s {"translate":"warning.skill.in_cd","color":"red","with":[{"score":{"name":"@s","objective":"0001001_cd"}}]}
+					execute unless score @s 0001001_cd matches 1.. run function ARG(_PATH)other_check
+				}
+				
+				func other_check()
+				{
+					execute if score @s mp < @s 0001001_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
+					execute if score @s mp >= @s 0001001_mp run function ARG(_PATH)cast_effect
+				}
+				
+				func cast_effect()
+				{
+					function ARG(_PATH)recov/run
 					
+					# set this buff values
+					scoreboard players operation @s recov_buff_time = @s 0001001_time
+					```
+					print(f"attribute @s minecraft:generic.luck modifier add {simple_buff_info_dict['recov']['uuid']} g 0 add")
+					```
+					# VVV since we got mp change below, no need to update the bar display VVV
+					# execute if entity @s[tag=!hp_mp_varying] run function bar_display:update_bar/run
+					
+					execute positioned ~ ~-0.2 ~ run function skill:summon_font_effect/0001001effect
+					playsound minecraft:skill.2301004 player @a ~ ~ ~ 1 1 0
+					
+					scoreboard players operation @s mp -= @s 0001001_mp
+					function bar_display:change/mp/dropped
+					
+					scoreboard players set @s 0001001_cd 120
+					function ARG(_PATH)cd_counter/add
+				}
+				
+				folder cd_counter() from cd_counter(0001001);
+				
+				folder recov() from simple_buff_template("recov")
+				{
+					func execute()
+					{
+						scoreboard players operation #GLOBAL temp = @s recov_buff_time
+						scoreboard players operation #GLOBAL temp %= #5 const
+						execute if score #GLOBAL temp matches 0 run function ARG(_PATH)recover
+					}
+					
+					func recover()
+					{
+						scoreboard players operation @s display_number = @s 0001001_level
+						scoreboard players operation @s display_number *= #4 const
+						
+						execute store result score #GLOBAL temp if score @s hp < @s hp_max
+						scoreboard players operation @s hp += @s display_number
+						scoreboard players operation @s hp < @s hp_max
+						
+						scoreboard players set @s display_num_type 3
+						function number_display:show
+						
+						execute if score #GLOBAL temp matches 1 run function bar_display:change/hp/recovered
+					}
 				}
 			}
 			
