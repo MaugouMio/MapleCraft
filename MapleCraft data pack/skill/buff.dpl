@@ -63,17 +63,23 @@ namespace simple_buff_template(name) as virtual
 				print("execute at @s run function ARG(__PATH)execute")
 			```
 			scoreboard players remove @s ARG(name)_buff_time 1
-			execute if score @s ARG(name)_buff_time matches 0 run function ARG(_PATH)reset
+			```
+			if len(buff_list) > 0:
+				print("execute if score @s ARG(name)_buff_time matches 0 run function ARG(_PATH)reset")
+			else:
+				print("execute if score @s ARG(name)_buff_time matches 0 run function ARG(__PATH)reset/run")
+			```
 		}
 		
-		func reset()
-		{
-			```
+		```
+		if len(buff_list) > 0:
+			print("func reset()")
+			print("{")
 			for buff in buff_list:
 				print(f"execute if score @s {buff}_buff_id matches {buff_id} run function ARG(__PATH)reset/{buff}")
-			```
-			function ARG(__PATH)reset/run
-		}
+			print("		function ARG(__PATH)reset/run")
+			print("}")
+		```
 	}
 	
 	folder reset()
