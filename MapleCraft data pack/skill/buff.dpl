@@ -17,7 +17,8 @@ buff_info_dict = {
 simple_buff_info_dict = {
 	"shade": {"buff_list": set(), "uuid": "eae3a991-53b7-4225-ae20-72e518418db3"},
 	"drake": {"buff_list": set(["watk"]), "uuid": "16d3f9a5-a9ae-4bb1-9555-593e4a363a81"},
-	"conce": {"buff_list": set(["watk"]), "uuid": "d6d764da-de76-4ad5-9923-5a849d60e22f"}
+	"conce": {"buff_list": set(["watk"]), "uuid": "d6d764da-de76-4ad5-9923-5a849d60e22f"},
+	"recov": {"buff_list": set(), "uuid": "dadf7b57-e0bd-4da9-91f6-2f51765d49d9"}
 }
 buff_id = 0
 ```
@@ -57,7 +58,7 @@ namespace simple_buff_template(name) as virtual
 		{
 			```
 			if "ARG(name)" in ["recov"]:
-				print("function ARG(__PATH)execute")
+				print("execute at @s run function ARG(__PATH)execute")
 			```
 			scoreboard players remove @s ARG(name)_buff_time 1
 			execute if score @s ARG(name)_buff_time matches 0 run function ARG(_PATH)reset
