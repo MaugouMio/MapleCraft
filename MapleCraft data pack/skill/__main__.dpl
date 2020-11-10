@@ -61,9 +61,8 @@ namespace attack_skill_template(skill_id) as virtual
 		if "ARG(skill_id)" != "1000006":
 			print("scoreboard players reset @s f_attack_skill")
 		```
-		scoreboard players operation @s next_hp_recover = @s hp_recover_time
-		# movement restriction
-		attribute @s minecraft:generic.movement_speed modifier add 5b908c48-54cb-4388-aa76-82f61b02032d skill_action -10 multiply
+		function skill:use_constraint
+		
 		data modify storage skill:main damage set value [{min_damage:0,max_damage:0,accuracy:0,player_level:0,crit_rate:0,crit_damage:0,base_percent:100,attribute:0}]
 		data modify storage skill:main damage_info.hit_effect set value 0
 		```
@@ -277,9 +276,8 @@ namespace bullet_skill_template(skill_id) as virtual
 		if "ARG(skill_id)" != "3000006":
 			print("scoreboard players reset @s f_attack_skill")
 		```
-		scoreboard players operation @s next_hp_recover = @s hp_recover_time
-		# movement restriction
-		attribute @s minecraft:generic.movement_speed modifier add 5b908c48-54cb-4388-aa76-82f61b02032d skill_action -10 multiply
+		function skill:use_constraint
+		
 		data modify storage skill:main damage set value [{min_damage:0,max_damage:0,accuracy:0,player_level:0,crit_rate:0,crit_damage:0,base_percent:100,attribute:0}]
 		data modify storage skill:main damage_info.hit_effect set value 0
 		```
@@ -1095,6 +1093,13 @@ namespace skill()
 				}
 			}
 		}
+	}
+	
+	func use_constraint()
+	{
+		# basic skill constraints
+		scoreboard players operation @s next_hp_recover = @s hp_recover_time
+		attribute @s minecraft:generic.movement_speed modifier add 5b908c48-54cb-4388-aa76-82f61b02032d skill_action -10 multiply
 	}
 	
 	folder player()
@@ -3656,6 +3661,7 @@ namespace skill()
 		function skill:0/0/0/1001/levels/3
 		function skill:0/0/0/1002/levels/3
 		
+		function skill:1/0/0/1003/levels/20
 		function skill:1/0/0/1004/levels/20
 		function skill:1/0/0/1005/levels/20
 		

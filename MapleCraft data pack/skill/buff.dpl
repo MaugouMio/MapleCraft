@@ -18,7 +18,8 @@ simple_buff_info_dict = {
 	"shade": {"buff_list": set(), "uuid": "eae3a991-53b7-4225-ae20-72e518418db3"},
 	"drake": {"buff_list": set(["watk"]), "uuid": "16d3f9a5-a9ae-4bb1-9555-593e4a363a81"},
 	"conce": {"buff_list": set(["watk"]), "uuid": "d6d764da-de76-4ad5-9923-5a849d60e22f"},
-	"recov": {"buff_list": set(), "uuid": "dadf7b57-e0bd-4da9-91f6-2f51765d49d9"}
+	"recov": {"buff_list": set(), "uuid": "dadf7b57-e0bd-4da9-91f6-2f51765d49d9"},
+	"mguar": {"buff_list": set(), "uuid": "af97b5dc-0246-4cb5-b158-95298e49ae32"}
 }
 buff_id = 0
 ```
@@ -57,7 +58,7 @@ namespace simple_buff_template(name) as virtual
 		func countdown()
 		{
 			```
-			if "ARG(name)" in ["recov"]:
+			if "ARG(name)" in ["recov", "drake"]:
 				print("execute at @s run function ARG(__PATH)execute")
 			```
 			scoreboard players remove @s ARG(name)_buff_time 1
@@ -198,7 +199,8 @@ namespace buff() as virtual
 	{
 		```
 		for buff in buff_types:
-			print(f"scoreboard objectives add {buff}_buff_num dummy")
+			if buff not in ["speed", "jump"]:
+				print(f"scoreboard objectives add {buff}_buff_num dummy")
 			print(f"scoreboard objectives add {buff}_buff_id dummy")
 		
 		for buff in buff_info_dict:

@@ -36,9 +36,18 @@ namespace bar_display()
 	{
 		scoreboard players operation @s next_hp_recover = @s hp_recover_time
 		
+		scoreboard players operation #GLOBAL temp = @s wdef_buff_num
+		```
+		raise Warning("TODO: calculate all defense number with the right formula")
+		```
+		scoreboard players operation @s damage_taken -= #GLOBAL temp
+		scoreboard players operation @s damage_taken > #1 const
+		
 		scoreboard players set @s display_num_type 2
 		scoreboard players operation @s display_number = @s damage_taken
 		function number_display:show
+		
+		execute if score @s mguar_buff_time matches 1.. if score @s mp matches 1.. run function skill:2/0/0/1002/guard
 		
 		scoreboard players operation @s hp -= @s damage_taken
 		execute if score @s hp matches ..0 run function ARG(_PATH)die
