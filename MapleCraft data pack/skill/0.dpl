@@ -188,6 +188,20 @@ namespace 0() as virtual
 						execute if score #GLOBAL temp matches 1 run function bar_display:change/hp/recovered
 					}
 				}
+				
+				folder levels()
+				{
+				```
+				for i in range(3):
+					print(f'''
+					func {i+1}()
+					{{
+						scoreboard players set @s 0001001_level {i+1}
+						scoreboard players set @s 0001001_mp {i*10+10}
+					}}
+					''')
+				```
+				}
 			}
 			
 			folder 1002()
@@ -238,6 +252,21 @@ namespace 0() as virtual
 				}
 				
 				folder cd_counter() from cd_counter(0001002);
+				
+				folder levels()
+				{
+				```
+				for i in range(3):
+					print(f'''
+					func {i+1}()
+					{{
+						scoreboard players set @s 0001002_level {i+1}
+						scoreboard players set @s 0001002_mp {i*5+10}
+						scoreboard players set @s 0001002_time {i*4+4}
+					}}
+					''')
+				```
+				}
 			}
 		}
 	}
