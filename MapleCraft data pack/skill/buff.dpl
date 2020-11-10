@@ -19,7 +19,12 @@ simple_buff_info_dict = {
 	"drake": {"buff_list": set(["watk"]), "uuid": "16d3f9a5-a9ae-4bb1-9555-593e4a363a81"},
 	"conce": {"buff_list": set(["watk"]), "uuid": "d6d764da-de76-4ad5-9923-5a849d60e22f"},
 	"recov": {"buff_list": set(), "uuid": "dadf7b57-e0bd-4da9-91f6-2f51765d49d9"},
-	"mguar": {"buff_list": set(), "uuid": "af97b5dc-0246-4cb5-b158-95298e49ae32"}
+	"mguar": {"buff_list": set(), "uuid": "af97b5dc-0246-4cb5-b158-95298e49ae32"},
+	"boost": {"buff_list": set(), "uuid": "b31f2767-cfab-44b9-976c-efce2d890516"},
+	"refle": {"buff_list": set(), "uuid": "7723b370-831f-45f3-a787-0329572a3a2b"},
+	"hyper": {"buff_list": set(), "uuid": "389e85cc-bb89-467b-9988-77d4fea7ff69"},
+	"invin": {"buff_list": set(), "uuid": "361c294b-9e2f-4d46-8749-5fdec81ea9f5"},
+	"soul": {"buff_list": set(), "uuid": "b2c4f1a6-fe90-4feb-bcb2-09ad6966bc51"}
 }
 buff_id = 0
 ```
