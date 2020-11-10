@@ -39,6 +39,7 @@ namespace simple_buff_template(name) as virtual
 					print(f"execute if score @s {buff}_buff_time matches 1.. run function skill:buff/{buff}/reset/run")
 				elif len(buff_info_dict[buff]["buff_list"].intersection(buff_list)) > 0:
 					print(f"execute if score @s {buff}_buff_time matches 1.. run function skill:buff/{buff}/reset/check")
+		print(f"attribute @s minecraft:generic.luck modifier remove {simple_buff_info_dict['ARG(name)']['uuid']}")
 		
 		print(f"scoreboard players add #{'ARG(name)'.upper()}_BUFF_PEOPLE temp 1")
 		print(f"execute if score #{'ARG(name)'.upper()}_BUFF_PEOPLE temp matches 1 run schedule function ARG(_PATH)counter/loop 1s")
