@@ -54,6 +54,8 @@ namespace main()
 		
 		team add enemy
 		team modify enemy collisionRule never
+		team add player
+		team modify player collisionRule never
 		```
 		constants = set(constants)
 		for i in constants:
@@ -131,6 +133,8 @@ namespace main()
 		
 		effect give @s minecraft:absorption 1000000 255 true
 		attribute @s minecraft:generic.attack_damage base set -100.0
+		
+		team join player @s
 	}
 	
 	func rand_rate()
