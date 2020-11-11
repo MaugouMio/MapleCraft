@@ -525,7 +525,13 @@ namespace skill()
 				{
 					func check()
 					{
-						execute unless score @s action_time matches 0.. run function ARG(_PATH)weapon_check
+						execute unless score @s action_time matches 0.. run function ARG(_PATH)invisible_check
+					}
+					
+					func invisible_check()
+					{
+						execute unless score @s invis_buff_time matches 1.. run function ARG(_PATH)weapon_check
+						execute if score @s invis_buff_time matches 1.. run function skill:4/0/0/1003/cancel
 					}
 				
 					func weapon_check()

@@ -263,6 +263,20 @@ namespace 4() as virtual
 					```
 				}
 				
+				func cancel()
+				{
+					function skill:use_constraint
+					
+					function ARG(_PATH)invis/reset/run
+					
+					execute positioned ~ ~-0.2 ~ run function skill:summon_font_effect/4001003effect
+					playsound minecraft:skill.4001003 player @a ~ ~ ~ 1 1 0
+					
+					execute if entity @s[tag=!hp_mp_varying] run function bar_display:update_bar/run
+					
+					scoreboard players set @s action_time 4
+				}
+				
 				folder invis() from simple_buff_template("invis");
 				
 				folder levels()
