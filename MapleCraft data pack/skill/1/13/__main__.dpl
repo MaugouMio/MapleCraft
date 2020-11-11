@@ -25,6 +25,10 @@ namespace 13() as virtual
 		scoreboard objectives add 1301005_mp dummy
 		scoreboard objectives add 1301005_time dummy
 		
+		scoreboard objectives add 1301006_level dummy
+		scoreboard objectives add 1301006_mp dummy
+		scoreboard objectives add 1301006_time dummy
+		
 		function ARG(_PATH)1/install
 		function ARG(_PATH)2/install
 	}
@@ -131,7 +135,75 @@ namespace 13() as virtual
 		{
 			func check()
 			{
+				execute unless score @s action_time matches 1.. if score @s 1301006_level matches 1.. run function ARG(_PATH)other_check
+			}
+			
+			func other_check()
+			{
+				execute if score @s mp < @s 1301006_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
+				execute if score @s mp >= @s 1301006_mp run function ARG(_PATH)cast_effect
+			}
+			
+			func cast_effect()
+			{
+				function skill:use_constraint
 				
+				scoreboard players operation #IRON_WILL_VALUE temp = @s 1301006_level
+				scoreboard players operation #IRON_WILL_TIME temp = @s 1301006_time
+				
+				function ARG(_PATH)setting
+				tag @s add caster
+				execute as @a[tag=!dead,tag=!caster,limit=5,distance=..5,sort=nearest] run function ARG(_PATH)take_effect
+				tag @s remove caster
+				
+				# VVV since we got mp change below, no need to update the bar display VVV
+				# execute if entity @s[tag=!hp_mp_varying] run function bar_display:update_bar/run
+				
+				execute positioned ~ ~-0.4 ~ run function skill:summon_font_effect/1301006effect
+				playsound minecraft:skill.1301006 player @a ~ ~ ~ 1 1 0
+				
+				scoreboard players operation @s mp -= @s 1101006_mp
+				function bar_display:change/mp/dropped
+				
+				scoreboard players set @s action_time 12
+			}
+			
+			func take_effect()
+			{
+				function ARG(_PATH)setting
+				execute if entity @s[tag=!hp_mp_varying] run function bar_display:update_bar/run
+				
+				execute positioned ~ ~0.2 ~ run function skill:summon_font_effect/1301006affected
+			}
+			
+			func setting()
+			{
+				function skill:buff/wmdef/run
+				
+				# set sub buff values
+				scoreboard players operation @s wdef_buff_num = #IRON_WILL_VALUE temp
+				scoreboard players operation @s mdef_buff_num = #IRON_WILL_VALUE temp
+				
+				# set this buff values
+				scoreboard players operation @s wmdef_buff_time = #IRON_WILL_TIME temp
+				```
+				print(f"attribute @s minecraft:generic.luck modifier add {buff_info_dict['wmdef']['uuid']} 8 0 add")
+				```
+			}
+			
+			folder levels()
+			{
+			```
+			for i in range(20):
+				print(f'''
+				func {i+1}()
+				{{
+					scoreboard players set @s 1301006_level {i+1}
+					scoreboard players set @s 1301006_mp {i//10*12+12}
+					scoreboard players set @s 1301006_time {i*15+15}
+				}}
+				''')
+			```
 			}
 		}
 		
