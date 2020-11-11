@@ -500,9 +500,9 @@ namespace booster_skill_template(skill_id, weapon, icon) as virtual
 	{
 		```
 		if "ARG(skill_id)"[0] == "4":
-			print("execute if score @s ARG(skill_id)_level matches 1.. unless score @s invis_buff_time matches 1.. run function ARG(_PATH)other_check")
+			print("execute unless score @s action_time matches 1.. if score @s ARG(skill_id)_level matches 1.. unless score @s invis_buff_time matches 1.. run function ARG(_PATH)other_check")
 		else:
-			print("execute if score @s ARG(skill_id)_level matches 1.. run function ARG(_PATH)other_check")
+			print("execute unless score @s action_time matches 1.. if score @s ARG(skill_id)_level matches 1.. run function ARG(_PATH)other_check")
 		```
 	}
 	
