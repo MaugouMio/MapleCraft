@@ -25,6 +25,11 @@ namespace 11() as virtual
 		scoreboard objectives add 1101005_mp dummy
 		scoreboard objectives add 1101005_time dummy
 		
+		scoreboard objectives add 1101006_level dummy
+		scoreboard objectives add 1101006_mp dummy
+		scoreboard objectives add 1101006_time dummy
+		scoreboard objectives add 1101006_value dummy
+		
 		function ARG(_PATH)1/install
 		function ARG(_PATH)2/install
 	}
@@ -131,7 +136,57 @@ namespace 11() as virtual
 		{
 			func check()
 			{
+				execute unless score @s action_time matches 1.. if score @s 1101006_level matches 1.. run function ARG(_PATH)other_check
+			}
+			
+			func other_check()
+			{
+				execute if score @s mp < @s 1101006_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
+				execute if score @s mp >= @s 1101006_mp run function ARG(_PATH)cast_effect
+			}
+			
+			func cast_effect()
+			{
+				function skill:use_constraint
 				
+				function skill:buff/rage/run
+				
+				# set sub buff values
+				scoreboard players operation @s watk_buff_num = @s 1101006_value
+				scoreboard players set @s wdef_buff_num 0
+				scoreboard players operation @s wdef_buff_num -= @s 1101006_value
+				
+				# set this buff values
+				scoreboard players operation @s rage_buff_time = @s 1101006_time
+				```
+				print(f"attribute @s minecraft:generic.luck modifier add {buff_info_dict['rage']['uuid']} 7 0 add")
+				```
+				# VVV since we got mp change below, no need to update the bar display VVV
+				# execute if entity @s[tag=!hp_mp_varying] run function bar_display:update_bar/run
+				
+				execute positioned ~ ~1.7 ~ run function skill:summon_font_effect/1101006effect
+				playsound minecraft:skill.1101006 player @a ~ ~ ~ 1 1 0
+				
+				scoreboard players operation @s mp -= @s 1101006_mp
+				function bar_display:change/mp/dropped
+				
+				scoreboard players set @s action_time 12
+			}
+			
+			folder levels()
+			{
+			```
+			for i in range(20):
+				print(f'''
+				func {i+1}()
+				{{
+					scoreboard players set @s 1101006_level {i+1}
+					scoreboard players set @s 1101006_mp {i//10*8+12}
+					scoreboard players set @s 1101006_time {i*6+46}
+					scoreboard players set @s 1101006_value {i//2+3}
+				}}
+				''')
+			```
 			}
 		}
 		
