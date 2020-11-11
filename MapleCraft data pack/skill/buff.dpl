@@ -15,7 +15,7 @@ buff_info_dict = {
 	"hex": {"buff_list": set(["watk", "wdef", "mdef", "accu", "avoid"]), "uuid": "2c0a45fd-036c-4559-ab38-a57a9492ae93"}
 }
 simple_buff_info_dict = {
-	"shade": {"buff_list": set(), "uuid": "eae3a991-53b7-4225-ae20-72e518418db3"},
+	"invis": {"buff_list": set(), "uuid": "eae3a991-53b7-4225-ae20-72e518418db3"},
 	"drake": {"buff_list": set(["watk"]), "uuid": "16d3f9a5-a9ae-4bb1-9555-593e4a363a81"},
 	"conce": {"buff_list": set(["watk"]), "uuid": "d6d764da-de76-4ad5-9923-5a849d60e22f"},
 	"recov": {"buff_list": set(), "uuid": "dadf7b57-e0bd-4da9-91f6-2f51765d49d9"},
@@ -95,6 +95,10 @@ namespace simple_buff_template(name) as virtual
 			```
 			print(f"attribute @s minecraft:generic.luck modifier remove {simple_buff_info_dict['ARG(name)']['uuid']}")
 			print(f"scoreboard players remove #{'ARG(name)'.upper()}_BUFF_PEOPLE temp 1")
+			if "ARG(name)" == "invis":
+				print("effect clear @s minecraft:invisibility")
+				print("effect clear @s minecraft:resistance")
+				print("attribute @s minecraft:generic.movement_speed modifier remove 66586f5a-e0cc-422d-a854-cda6d49d93cc")
 			```
 		}
 		

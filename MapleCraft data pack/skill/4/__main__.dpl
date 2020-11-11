@@ -15,6 +15,10 @@ namespace 4() as virtual
 		scoreboard objectives add 4001002_mp dummy
 		scoreboard objectives add 4001002_time dummy
 		
+		scoreboard objectives add 4001003_level dummy
+		scoreboard objectives add 4001003_mp dummy
+		scoreboard objectives add 4001003_time dummy
+		
 		scoreboard objectives add 4001334_mp dummy
 		scoreboard objectives add 4001334_attack dummy
 		
@@ -194,7 +198,86 @@ namespace 4() as virtual
 			{
 				func check()
 				{
+					execute unless score @s action_time matches 1.. if score @s 4001003_level matches 1.. run function ARG(_PATH)other_check
+				}
+				
+				func other_check()
+				{
+					execute if score @s mp < @s 4001003_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
+					execute if score @s mp >= @s 4001003_mp run function ARG(_PATH)cast_effect
+				}
+				
+				func cast_effect()
+				{
+					function skill:use_constraint
 					
+					function ARG(_PATH)invis/run
+					
+					# set this buff values
+					scoreboard players operation @s invis_buff_time = @s 4001003_time
+					effect give @s minecraft:invisibility 1000000 0 true
+					effect give @s minecraft:resistance 1000000 4 true
+					function ARG(_PATH)reduce_speed/1_19
+					```
+					print(f"attribute @s minecraft:generic.luck modifier add {simple_buff_info_dict['invis']['uuid']} d 0 add")
+					```
+					# VVV since we got mp change below, no need to update the bar display VVV
+					# execute if entity @s[tag=!hp_mp_varying] run function bar_display:update_bar/run
+					
+					execute positioned ~ ~-0.2 ~ run function skill:summon_font_effect/4001003effect
+					playsound minecraft:skill.4001003 player @a ~ ~ ~ 1 1 0
+					
+					scoreboard players operation @s mp -= @s 4001003_mp
+					function bar_display:change/mp/dropped
+					
+					scoreboard players set @s action_time 4
+				}
+				
+				folder reduce_speed()
+				{
+					```
+					invisible_speed_uuid = "66586f5a-e0cc-422d-a854-cda6d49d93cc"
+					invisible_speed_list = [-0.3,-0.28,-0.26,-0.24,-0.22,-0.2,-0.18,-0.16,-0.14,-0.12,-0.1,-0.08,-0.07,-0.06,-0.05,-0.04,-0.03,-0.02,-0.01]
+					def bs_invisible_level(minlv, maxlv):
+						if minlv == maxlv:
+							return
+							
+						midlv = (maxlv + minlv) // 2
+						print(f"func {minlv}_{maxlv}()")
+						print("{")
+						if midlv == minlv:
+							print(f"execute if score @s 4001003_level matches {minlv} run attribute @s minecraft:generic.movement_speed modifier add {invisible_speed_uuid} invisible_restrict {invisible_speed_list[minlv-1]} multiply")
+						else:
+							print(f"execute if score @s 4001003_level matches {minlv}..{midlv} run function ARG(_PATH){minlv}_{midlv}")
+							
+						if midlv + 1 == maxlv:
+							print(f"execute if score @s 4001003_level matches {maxlv} run attribute @s minecraft:generic.movement_speed modifier add {invisible_speed_uuid} invisible_restrict {invisible_speed_list[maxlv-1]} multiply")
+						else:
+							print(f"execute if score @s 4001003_level matches {midlv+1}..{maxlv} run function ARG(_PATH){midlv+1}_{maxlv}")
+						print("}")
+						
+						bs_invisible_level(minlv, midlv)
+						bs_invisible_level(midlv+1, maxlv)
+						
+					bs_invisible_level(1, 19)
+					```
+				}
+				
+				folder invis() from simple_buff_template("invis");
+				
+				folder levels()
+				{
+				```
+				for i in range(20):
+					print(f'''
+					func {i+1}()
+					{{
+						scoreboard players set @s 4001003_level {i+1}
+						scoreboard players set @s 4001003_mp {24-i}
+						scoreboard players set @s 4001003_time {i*10+10}
+					}}
+					''')
+				```
 				}
 			}
 			
