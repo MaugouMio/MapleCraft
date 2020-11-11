@@ -8,6 +8,10 @@ namespace 42() as virtual
 	
 	func install()
 	{
+		scoreboard objectives add 4201002_level dummy
+		scoreboard objectives add 4201002_mp dummy
+		scoreboard objectives add 4201002_time dummy
+		
 		scoreboard objectives add 4201004_mp dummy
 		scoreboard objectives add 4201004_attack dummy
 		scoreboard objectives add 4201004_steal dummy

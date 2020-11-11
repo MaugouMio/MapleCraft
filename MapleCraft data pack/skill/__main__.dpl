@@ -531,7 +531,7 @@ namespace booster_skill_template(skill_id, weapon, icon) as virtual
 		# VVV since we got mp change below, no need to update the bar display VVV
 		# execute if entity @s[tag=!hp_mp_varying] run function bar_display:update_bar/run
 		
-		execute positioned ~ ~-0.2 ~ run function skill:summon_font_effect/ARG(skill_id)effect
+		execute positioned ~ ~-0.2 ~ run function skill:summon_font_effect/1101004effect
 		playsound minecraft:skill.1101004 player @a ~ ~ ~ 1 1 0
 		
 		scoreboard players operation @s mp -= @s ARG(skill_id)_mp
@@ -1399,7 +1399,7 @@ namespace skill()
 			"blunt": "9..10",
 			"spear": "12",
 			"polearm": "14"
-		}
+		} # to avoid single bracelet in a line
 		
 		for t in type_id_dict:
 			print(f"folder {t}()")
@@ -3719,6 +3719,14 @@ namespace skill()
 		function skill:1/0/0/1004/levels/20
 		function skill:1/0/0/1005/levels/20
 		
+		function skill:1/1/0/1004/levels/20
+		function skill:1/1/0/1005/levels/20
+		
+		function skill:1/2/0/1005/levels/20
+		
+		function skill:1/3/0/1004/levels/20
+		function skill:1/3/0/1005/levels/20
+		
 		function skill:2/0/0/1002/levels/20
 		function skill:2/0/0/1003/levels/20
 		function skill:2/0/0/1004/levels/20
@@ -3737,9 +3745,11 @@ namespace skill()
 		function skill:3/0/0/1004/levels/20
 		function skill:3/0/0/1005/levels/20
 		
+		function skill:3/1/0/1002/levels/20
 		function skill:3/1/0/1003/levels/20
 		function skill:3/1/0/1005/levels/30
 		
+		function skill:3/2/0/1002/levels/30
 		function skill:3/2/0/1005/levels/30
 		
 		function skill:4/0/0/1002/levels/20
@@ -3747,8 +3757,10 @@ namespace skill()
 		function skill:4/0/0/1334/levels/20
 		function skill:4/0/0/1344/levels/20
 		
+		function skill:4/1/0/1003/levels/30
 		function skill:4/1/0/1005/levels/30
 		
+		function skill:4/2/0/1002/levels/30
 		function skill:4/2/0/1004/levels/30
 		function skill:4/2/0/1005/levels/30
 	}

@@ -13,6 +13,10 @@ namespace 12() as virtual
 		scoreboard objectives add blunt_final_atk dummy
 		scoreboard objectives add blunt_final_rate dummy
 		
+		scoreboard objectives add 1201005_level dummy
+		scoreboard objectives add 1201005_mp dummy
+		scoreboard objectives add 1201005_time dummy
+		
 		function ARG(_PATH)1/install
 		function ARG(_PATH)2/install
 	}
@@ -68,6 +72,8 @@ namespace 12() as virtual
 			```
 			}
 		}
+		
+		# 1200004 shares the same functions with 1100004
 		
 		folder 1005() from booster_skill_template(1201005, blunt, k);
 		

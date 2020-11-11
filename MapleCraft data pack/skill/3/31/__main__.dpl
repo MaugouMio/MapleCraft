@@ -13,6 +13,10 @@ namespace 31() as virtual
 		scoreboard objectives add bow_final_atk dummy
 		scoreboard objectives add bow_final_rate dummy
 		
+		scoreboard objectives add 3101002_level dummy
+		scoreboard objectives add 3101002_mp dummy
+		scoreboard objectives add 3101002_time dummy
+		
 		scoreboard objectives add 3101003_mp dummy
 		scoreboard objectives add 3101003_attack dummy
 		scoreboard objectives add 3101003_knock dummy

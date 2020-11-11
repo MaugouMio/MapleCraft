@@ -17,6 +17,14 @@ namespace 13() as virtual
 		scoreboard objectives add p_arm_final_atk dummy
 		scoreboard objectives add p_arm_final_rate dummy
 		
+		scoreboard objectives add 1301004_level dummy
+		scoreboard objectives add 1301004_mp dummy
+		scoreboard objectives add 1301004_time dummy
+		
+		scoreboard objectives add 1301005_level dummy
+		scoreboard objectives add 1301005_mp dummy
+		scoreboard objectives add 1301005_time dummy
+		
 		function ARG(_PATH)1/install
 		function ARG(_PATH)2/install
 	}

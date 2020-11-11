@@ -13,6 +13,10 @@ namespace 32() as virtual
 		scoreboard objectives add cbow_final_atk dummy
 		scoreboard objectives add cbow_final_rate dummy
 		
+		scoreboard objectives add 3201002_level dummy
+		scoreboard objectives add 3201002_mp dummy
+		scoreboard objectives add 3201002_time dummy
+		
 		scoreboard objectives add 3201005_mp dummy
 		scoreboard objectives add 3201005_attack dummy
 		

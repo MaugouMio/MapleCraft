@@ -17,6 +17,14 @@ namespace 11() as virtual
 		scoreboard objectives add axe_final_atk dummy
 		scoreboard objectives add axe_final_rate dummy
 		
+		scoreboard objectives add 1101004_level dummy
+		scoreboard objectives add 1101004_mp dummy
+		scoreboard objectives add 1101004_time dummy
+		
+		scoreboard objectives add 1101005_level dummy
+		scoreboard objectives add 1101005_mp dummy
+		scoreboard objectives add 1101005_time dummy
+		
 		function ARG(_PATH)1/install
 		function ARG(_PATH)2/install
 	}
