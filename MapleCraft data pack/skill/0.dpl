@@ -229,9 +229,9 @@ namespace 0() as virtual
 					
 					# set sub buff values
 					attribute @s minecraft:generic.movement_speed modifier remove f60188ac-3d9d-4c2b-be75-62abd26a2c44
-					execute if score @s 0001000_level matches 1 run attribute @s minecraft:generic.movement_speed modifier add f60188ac-3d9d-4c2b-be75-62abd26a2c44 speed_buff 0.1 multiply
-					execute if score @s 0001000_level matches 2 run attribute @s minecraft:generic.movement_speed modifier add f60188ac-3d9d-4c2b-be75-62abd26a2c44 speed_buff 0.15 multiply
-					execute if score @s 0001000_level matches 3 run attribute @s minecraft:generic.movement_speed modifier add f60188ac-3d9d-4c2b-be75-62abd26a2c44 speed_buff 0.2 multiply
+					execute if score @s 0001000_level matches 1 run attribute @s minecraft:generic.movement_speed modifier add f60188ac-3d9d-4c2b-be75-62abd26a2c44 speed_buff 0.1 multiply_base
+					execute if score @s 0001000_level matches 2 run attribute @s minecraft:generic.movement_speed modifier add f60188ac-3d9d-4c2b-be75-62abd26a2c44 speed_buff 0.15 multiply_base
+					execute if score @s 0001000_level matches 3 run attribute @s minecraft:generic.movement_speed modifier add f60188ac-3d9d-4c2b-be75-62abd26a2c44 speed_buff 0.2 multiply_base
 					
 					# set this buff values
 					scoreboard players operation @s speed_buff_time = @s 0001002_time

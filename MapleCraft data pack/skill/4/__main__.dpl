@@ -246,12 +246,12 @@ namespace 4() as virtual
 						print(f"func {minlv}_{maxlv}()")
 						print("{")
 						if midlv == minlv:
-							print(f"execute if score @s 4001003_level matches {minlv} run attribute @s minecraft:generic.movement_speed modifier add {invisible_speed_uuid} invisible_restrict {invisible_speed_list[minlv-1]} multiply")
+							print(f"execute if score @s 4001003_level matches {minlv} run attribute @s minecraft:generic.movement_speed modifier add {invisible_speed_uuid} invisible_restrict {invisible_speed_list[minlv-1]} multiply_base")
 						else:
 							print(f"execute if score @s 4001003_level matches {minlv}..{midlv} run function ARG(_PATH){minlv}_{midlv}")
 							
 						if midlv + 1 == maxlv:
-							print(f"execute if score @s 4001003_level matches {maxlv} run attribute @s minecraft:generic.movement_speed modifier add {invisible_speed_uuid} invisible_restrict {invisible_speed_list[maxlv-1]} multiply")
+							print(f"execute if score @s 4001003_level matches {maxlv} run attribute @s minecraft:generic.movement_speed modifier add {invisible_speed_uuid} invisible_restrict {invisible_speed_list[maxlv-1]} multiply_base")
 						else:
 							print(f"execute if score @s 4001003_level matches {midlv+1}..{maxlv} run function ARG(_PATH){midlv+1}_{maxlv}")
 						print("}")
