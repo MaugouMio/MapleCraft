@@ -51,10 +51,7 @@ namespace 42() as virtual
 		
 		# 4200001 shares the same functions with 4100002
 		
-		folder 1002()
-		{
-			
-		}
+		folder 1002() from booster_skill_template(4201002, dagger, q);
 		
 		folder 1004() from attack_skill_template(4201004)
 		{
@@ -97,6 +94,7 @@ namespace 42() as virtual
 				function bar_display:change/mp/dropped
 				
 				execute store result score @s action_time run data get entity @s Inventory[{Slot:-106b}].tag.action_time
+				scoreboard players remove @s[scores={boost_buff_time=1..}] action_time 1
 			}
 			
 			func cast_effect()
@@ -206,7 +204,7 @@ namespace 42() as virtual
 				function bar_display:change/mp/dropped
 				
 				execute store result score @s action_time run data get entity @s Inventory[{Slot:-106b}].tag.action_time
-				# booster action_time setting belongs here
+				scoreboard players remove @s[scores={boost_buff_time=1..}] action_time 1
 				scoreboard players add @s action_time 18
 			}
 			

@@ -68,13 +68,7 @@ namespace 32() as virtual
 			}
 		}
 		
-		folder 1002()
-		{
-			func check()
-			{
-				
-			}
-		}
+		folder 1002() from booster_skill_template(3201002, crossbow, o);
 		
 		folder 1003()
 		{
@@ -179,7 +173,7 @@ namespace 32() as virtual
 				function bar_display:change/mp/dropped
 				
 				execute store result score @s action_time run data get entity @s Inventory[{Slot:-106b}].tag.action_time
-				# booster action_time setting belongs here
+				scoreboard players remove @s[scores={boost_buff_time=1..}] action_time 1
 				scoreboard players add @s action_time 17
 			}
 			

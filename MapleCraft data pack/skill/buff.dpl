@@ -231,4 +231,6 @@ namespace buff() as virtual
 	for buff in buff_info_dict:
 		print(f'folder {buff}() from buff_template("{buff}");')
 	```
+	
+	folder boost() from simple_buff_template("boost");
 }

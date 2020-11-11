@@ -494,6 +494,67 @@ namespace cd_counter(skill_id) as virtual
 	}
 }
 
+namespace booster_skill_template(skill_id, weapon, icon) as virtual
+{
+	func check()
+	{
+		```
+		if "ARG(skill_id)"[0] == "4":
+			print("execute if score @s ARG(skill_id)_level matches 1.. unless score @s invis_buff_time matches 1.. run function ARG(_PATH)other_check")
+		else:
+			print("execute if score @s ARG(skill_id)_level matches 1.. run function ARG(_PATH)other_check")
+		```
+	}
+	
+	func other_check()
+	{
+		function skill:check_weapon/ARG(weapon)/run
+		execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s hp <= @s ARG(skill_id)_mp run tellraw @s {"translate":"warning.skill.lack_hp","color":"red"}
+		execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s hp > @s ARG(skill_id)_mp run function ARG(_PATH)mp_check
+	}
+	
+	func mp_check()
+	{
+		execute if score @s mp < @s ARG(skill_id)_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
+		execute if score @s mp >= @s ARG(skill_id)_mp run function ARG(_PATH)cast_effect
+	}
+	
+	func cast_effect()
+	{
+		function skill:buff/boost/run
+		
+		# set this buff values
+		scoreboard players operation @s boost_buff_time = @s ARG(skill_id)_time
+		```
+		print(f"attribute @s minecraft:generic.luck modifier add {simple_buff_info_dict['boost']['uuid']} ARG(icon) 0 add")
+		```
+		# VVV since we got mp change below, no need to update the bar display VVV
+		# execute if entity @s[tag=!hp_mp_varying] run function bar_display:update_bar/run
+		
+		execute positioned ~ ~-0.2 ~ run function skill:summon_font_effect/ARG(skill_id)effect
+		playsound minecraft:skill.1101004 player @a ~ ~ ~ 1 1 0
+		
+		scoreboard players operation @s mp -= @s ARG(skill_id)_mp
+		function bar_display:change/mp/dropped
+		
+		scoreboard players set @s action_time 12
+	}
+	
+	folder levels()
+	{
+	```
+	for i in range(20):
+		print(f'''
+		func {i+1}()
+		{{
+			scoreboard players set @s ARG(skill_id)_level {i+1}
+			scoreboard players set @s ARG(skill_id)_mp {29-i}
+			scoreboard players set @s ARG(skill_id)_time {i*10+10}
+		}}
+		''')
+	```
+	}
+}
 
 
 import buff as virtual
@@ -678,7 +739,7 @@ namespace skill()
 						scoreboard players remove @s bullet_amount 1
 						
 						execute store result score @s action_time run data get entity @s Inventory[{Slot:-106b}].tag.action_time
-						# booster action_time setting belongs here
+						scoreboard players remove @s[scores={boost_buff_time=1..}] action_time 1
 						scoreboard players add @s action_time 16
 						execute if score #USED_WEAPON temp matches 18 run scoreboard players add @s action_time 1
 					}
@@ -748,7 +809,7 @@ namespace skill()
 						scoreboard players set #SKILL_KNOCKBACK_RATE temp 0
 						
 						execute store result score @s action_time run data get entity @s Inventory[{Slot:-106b}].tag.action_time
-						# booster action_time setting belongs here or in afterimage functions
+						scoreboard players remove @s[scores={boost_buff_time=1..}] action_time 1
 					}
 			
 					func cast_effect()
@@ -1326,42 +1387,26 @@ namespace skill()
 				execute store success score #ACCEPTED_WEAPON temp if score #USED_WEAPON temp matches {range_string}
 				execute if score #ACCEPTED_WEAPON temp matches 0 run tellraw @s {{"translate":"warning.skill.wrong_weapon","color":"red"}}
 			}}''')
+		
+		type_id_dict = {
+			"dagger": "23",
+			"claw": "24",
+			"archer": "16..18",
+			"bow": "16",
+			"crossbow": "18",
+			"sword": "7..8",
+			"axe": "5..6",
+			"blunt": "9..10",
+			"spear": "12",
+			"polearm": "14"
+		}
+		
+		for t in type_id_dict:
+			print(f"folder {t}()")
+			print("{")
+			check_weapon_range(type_id_dict[t])
+			print("}")
 		```
-		
-		folder dagger()
-		{
-			```
-			check_weapon_range("23")
-			```
-		}
-		
-		folder claw()
-		{
-			```
-			check_weapon_range("24")
-			```
-		}
-		
-		folder archer()
-		{
-			```
-			check_weapon_range("16..18")
-			```
-		}
-		
-		folder bow()
-		{
-			```
-			check_weapon_range("16")
-			```
-		}
-		
-		folder crossbow()
-		{
-			```
-			check_weapon_range("18")
-			```
-		}
 	}
 
 	folder enemy_search()

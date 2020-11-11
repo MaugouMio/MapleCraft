@@ -329,7 +329,7 @@ namespace 4() as virtual
 					function bar_display:change/mp/dropped
 					
 					execute store result score @s action_time run data get entity @s Inventory[{Slot:-106b}].tag.action_time
-					# booster action_time setting belongs here
+					scoreboard players remove @s[scores={boost_buff_time=1..}] action_time 1
 					scoreboard players operation @s action_time > #-1 const
 					scoreboard players add @s action_time 13
 				}
@@ -464,7 +464,7 @@ namespace 4() as virtual
 					function bar_display:change/mp/dropped
 					
 					execute store result score @s action_time run data get entity @s Inventory[{Slot:-106b}].tag.action_time
-					# booster action_time setting belongs here
+					scoreboard players remove @s[scores={boost_buff_time=1..}] action_time 1
 					scoreboard players add @s action_time 16
 				}
 				
