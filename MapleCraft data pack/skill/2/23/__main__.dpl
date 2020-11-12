@@ -10,6 +10,11 @@ namespace 23() as virtual
 	{
 		scoreboard objectives add 2301002_mp dummy
 		
+		scoreboard objectives add 2301003_level dummy
+		scoreboard objectives add 2301003_mp dummy
+		scoreboard objectives add 2301003_rate dummy
+		scoreboard objectives add 2301003_time dummy
+		
 		scoreboard objectives add 2301004_level dummy
 		scoreboard objectives add 2301004_mp dummy
 		scoreboard objectives add 2301004_time dummy
@@ -149,7 +154,60 @@ namespace 23() as virtual
 		{
 			func check()
 			{
+				execute unless score @s action_time matches 1.. if score @s 2301003_level matches 1.. run function ARG(_PATH)other_check
+			}
+			
+			func other_check()
+			{
+				execute if score @s mp < @s 2301003_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
+				execute if score @s mp >= @s 2301003_mp run function ARG(_PATH)cast_effect
+			}
+			
+			func cast_effect()
+			{
+				function skill:use_constraint
 				
+				function ARG(_PATH)invin/run
+				
+				# set this buff values
+				scoreboard players operation @s invin_buff_time = @s 2301003_time
+				```
+				print(f"attribute @s minecraft:generic.luck modifier add {simple_buff_info_dict['invin']['uuid']} t 0 add")
+				```
+				# VVV since we got mp change below, no need to update the bar display VVV
+				# execute if entity @s[tag=!hp_mp_varying] run function bar_display:update_bar/run
+				
+				execute positioned ~ ~-0.4 ~ run function skill:summon_font_effect/2301003effect
+				playsound minecraft:skill.2301003 player @a ~ ~ ~ 1 1 0
+				
+				scoreboard players operation @s mp -= @s 2301003_mp
+				function bar_display:change/mp/dropped
+				
+				scoreboard players set @s action_time 12
+			}
+			
+			func guard()
+			{
+				scoreboard players operation @s damage_taken *= @s 2301003_rate
+				scoreboard players operation @s damage_taken /= #100 const
+			}
+			
+			folder invin() from simple_buff_template("invin");
+			
+			folder levels()
+			{
+			```
+			for i in range(20):
+				print(f'''
+				func {i+1}()
+				{{
+					scoreboard players set @s 2301003_level {i+1}
+					scoreboard players set @s 2301003_mp {i//10*15+15}
+					scoreboard players set @s 2301003_rate {89-i}
+					scoreboard players set @s 2301003_time {i*15+15}
+				}}
+				''')
+			```
 			}
 		}
 		

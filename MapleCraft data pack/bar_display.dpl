@@ -41,6 +41,8 @@ namespace bar_display()
 		raise Warning("TODO: calculate all defense number with the right formula")
 		```
 		scoreboard players operation @s damage_taken -= #GLOBAL temp
+		
+		execute if score @s invin_buff_time matches 1.. run function skill:2/3/0/1003/guard
 		scoreboard players operation @s damage_taken > #1 const
 		
 		scoreboard players set @s display_num_type 2
