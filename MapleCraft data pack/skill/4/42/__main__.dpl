@@ -57,6 +57,8 @@ namespace 42() as virtual
 		
 		folder 1002() from booster_skill_template(4201002, dagger, q);
 		
+		# 4201003 shares the same functions with 4101004
+		
 		folder 1004() from attack_skill_template(4201004)
 		{
 			func check()

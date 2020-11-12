@@ -16,6 +16,10 @@ namespace 41() as virtual
 		scoreboard objectives add 4101003_mp dummy
 		scoreboard objectives add 4101003_time dummy
 		
+		scoreboard objectives add 4101004_level dummy
+		scoreboard objectives add 4101004_mp dummy
+		scoreboard objectives add 4101004_time dummy
+		
 		scoreboard objectives add 4101005_mp dummy
 		scoreboard objectives add 4101005_attack dummy
 		scoreboard objectives add 4101005_absorb dummy
@@ -96,7 +100,110 @@ namespace 41() as virtual
 		{
 			func check()
 			{
+				execute unless score @s action_time matches 1.. if score @s 4101004_level matches 1.. run function ARG(_PATH)other_check
+			}
+			
+			func other_check()
+			{
+				execute if score @s mp < @s 4101004_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
+				execute if score @s mp >= @s 4101004_mp run function ARG(_PATH)cast_effect
+			}
+			
+			func cast_effect()
+			{
+				function skill:use_constraint
 				
+				scoreboard players operation #HASTE_TIME temp = @s 4101004_time
+				
+				tag @s add caster
+				function ARG(_PATH)level_effect/1_20
+				tag @s remove caster
+				
+				# VVV since we got mp change below, no need to update the bar display VVV
+				# execute if entity @s[tag=!hp_mp_varying] run function bar_display:update_bar/run
+				
+				execute positioned ~ ~-0.4 ~ run function skill:summon_font_effect/4101004effect
+				playsound minecraft:skill.4101004 player @a ~ ~ ~ 1 1 0
+				
+				scoreboard players operation @s mp -= @s 4101004_mp
+				function bar_display:change/mp/dropped
+				
+				scoreboard players set @s action_time 12
+			}
+			
+			folder level_effect()
+			{
+				```
+				def bs_haste_level(minlv, maxlv):
+					if minlv == maxlv:
+						print(f"func {minlv}()")
+						print("{")
+						print("		function ARG(__PATH)pre_set")
+									# set sub buff values
+						print(f"	attribute @s minecraft:generic.movement_speed modifier add f60188ac-3d9d-4c2b-be75-62abd26a2c44 speed_buff {minlv * 0.02} multiply_base")
+						if minlv >= 10:
+							print(f"effect give @s minecraft:jump_boost 1000000 {minlv//10-1} true")
+						print("		function ARG(__PATH)post_set")
+						print("}")
+						return
+						
+					midlv = (maxlv + minlv) // 2
+					print(f"func {minlv}_{maxlv}()")
+					print("{")
+					if midlv == minlv:
+						print(f"execute if score @s 4101004_level matches {minlv} as @a[tag=!dead,limit=6,distance=..5,sort=nearest] run function ARG(_PATH){minlv}")
+					else:
+						print(f"execute if score @s 4101004_level matches {minlv}..{midlv} run function ARG(_PATH){minlv}_{midlv}")
+						
+					if midlv + 1 == maxlv:
+						print(f"execute if score @s 4101004_level matches {maxlv} as @a[tag=!dead,limit=6,distance=..5,sort=nearest] run function ARG(_PATH){maxlv}")
+					else:
+						print(f"execute if score @s 4101004_level matches {midlv+1}..{maxlv} run function ARG(_PATH){midlv+1}_{maxlv}")
+					print("}")
+					
+					bs_haste_level(minlv, midlv)
+					bs_haste_level(midlv+1, maxlv)
+					
+				bs_haste_level(1, 20)
+				```
+			}
+			
+			func pre_set()
+			{
+				function skill:buff/haste/run
+				attribute @s minecraft:generic.movement_speed modifier remove f60188ac-3d9d-4c2b-be75-62abd26a2c44
+				effect clear @s minecraft:jump_boost
+			}
+			
+			func post_set()
+			{
+				# set this buff values
+				scoreboard players operation @s haste_buff_time = #HASTE_TIME temp
+				```
+				print(f"attribute @s minecraft:generic.luck modifier add {buff_info_dict['haste']['uuid']} b 0 add")
+				```
+				execute if entity @s[tag=!caster] at @s run function ARG(_PATH)take_effect
+			}
+			
+			func take_effect()
+			{
+				execute if entity @s[tag=!hp_mp_varying] run function bar_display:update_bar/run
+				execute positioned ~ ~-0.4 ~ run function skill:summon_font_effect/4101004affected
+			}
+			
+			folder levels()
+			{
+			```
+			for i in range(20):
+				print(f'''
+				func {i+1}()
+				{{
+					scoreboard players set @s 4101004_level {i+1}
+					scoreboard players set @s 4101004_mp {i//10*15+15}
+					scoreboard players set @s 4101004_time {i*10+10}
+				}}
+				''')
+			```
 			}
 		}
 		
