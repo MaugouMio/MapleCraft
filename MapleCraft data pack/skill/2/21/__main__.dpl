@@ -12,6 +12,10 @@ namespace 21() as virtual
 		scoreboard objectives add 2100000_rate dummy
 		scoreboard objectives add 2100000_absorb dummy
 		
+		scoreboard objectives add 2101001_level dummy
+		scoreboard objectives add 2101001_mp dummy
+		scoreboard objectives add 2101001_time dummy
+		
 		scoreboard objectives add 2101004_mp dummy
 		scoreboard objectives add 2101004_mastery dummy
 		scoreboard objectives add 2101004_attack dummy
@@ -84,7 +88,75 @@ namespace 21() as virtual
 		{
 			func check()
 			{
+				execute unless score @s action_time matches 1.. if score @s 2101001_level matches 1.. run function ARG(_PATH)other_check
+			}
+			
+			func other_check()
+			{
+				execute if score @s mp < @s 2101001_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
+				execute if score @s mp >= @s 2101001_mp run function ARG(_PATH)cast_effect
+			}
+			
+			func cast_effect()
+			{
+				function skill:use_constraint
 				
+				# set sub buff values
+				scoreboard players operation #MEDITATE_LEVEL temp = @s 2101001_level
+				scoreboard players operation #MEDITATE_TIME temp = @s 2101001_time
+				
+				function ARG(_PATH)setting
+				tag @s add caster
+				execute as @a[tag=!dead,tag=!caster,limit=5,distance=..5,sort=nearest] at @s run function ARG(_PATH)take_effect
+				tag @s remove caster
+				
+				# VVV since we got mp change below, no need to update the bar display VVV
+				# execute if entity @s[tag=!hp_mp_varying] run function bar_display:update_bar/run
+				
+				execute positioned ~ ~-0.4 ~ run function skill:summon_font_effect/2101001effect
+				playsound minecraft:skill.2101001 player @a ~ ~ ~ 1 1 0
+				
+				scoreboard players operation @s mp -= @s 2101001_mp
+				function bar_display:change/mp/dropped
+				
+				scoreboard players set @s action_time 12
+			}
+			
+			func take_effect()
+			{
+				function ARG(_PATH)setting
+				execute if entity @s[tag=!hp_mp_varying] run function bar_display:update_bar/run
+				
+				execute positioned ~ ~1.7 ~ run function skill:summon_font_effect/2101001affected
+			}
+			
+			func setting()
+			{
+				function skill:buff/matk/run
+				
+				# set sub buff values
+				scoreboard players operation @s matk_buff_num = #MEDITATE_LEVEL temp
+				
+				# set this buff values
+				scoreboard players operation @s matk_buff_time = #MEDITATE_TIME temp
+				```
+				print(f"attribute @s minecraft:generic.luck modifier add {buff_info_dict['matk']['uuid']} 3 0 add")
+				```
+			}
+			
+			folder levels()
+			{
+			```
+			for i in range(20):
+				print(f'''
+				func {i+1}()
+				{{
+					scoreboard players set @s 2101001_level {i+1}
+					scoreboard players set @s 2101001_mp {i//10*10+10}
+					scoreboard players set @s 2101001_time {i*10+10}
+				}}
+				''')
+			```
 			}
 		}
 		
