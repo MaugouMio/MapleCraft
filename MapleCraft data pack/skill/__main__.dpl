@@ -1587,6 +1587,8 @@ namespace skill()
 		{
 			# magic attack
 			execute store result score #MAGIC_ATTACK temp run data get entity @s Inventory[{Slot:-106b}].tag.magic_attack
+			scoreboard players operation #MAGIC_ATTACK temp += @s matk_buff_num
+			
 			scoreboard players operation #MAGIC_ATTACK temp += @s INT
 			scoreboard players operation #INT temp = @s INT
 			scoreboard players operation #INT temp *= #5 const
@@ -1635,6 +1637,8 @@ namespace skill()
 			
 			# magic attack
 			execute store result score #MAGIC_ATTACK temp run data get entity @s Inventory[{Slot:-106b}].tag.magic_attack
+			scoreboard players operation #MAGIC_ATTACK temp += @s matk_buff_num
+			
 			scoreboard players operation #MAGIC_ATTACK temp += @s INT
 			scoreboard players operation #MAGIC_ATTACK temp *= @s 2301002_level
 			scoreboard players operation #MAGIC_ATTACK temp *= #MULTIPLIER temp
