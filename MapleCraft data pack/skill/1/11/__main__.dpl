@@ -154,7 +154,7 @@ namespace 11() as virtual
 				
 				function ARG(_PATH)setting
 				tag @s add caster
-				execute as @a[tag=!dead,tag=!caster,limit=5,distance=..5,sort=nearest] run function ARG(_PATH)take_effect
+				execute as @a[tag=!dead,tag=!caster,limit=5,distance=..5,sort=nearest] at @s run function ARG(_PATH)take_effect
 				tag @s remove caster
 				
 				# VVV since we got mp change below, no need to update the bar display VVV
