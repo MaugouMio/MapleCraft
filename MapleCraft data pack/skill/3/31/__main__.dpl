@@ -22,6 +22,11 @@ namespace 31() as virtual
 		scoreboard objectives add 3101003_knock dummy
 		scoreboard objectives add 3101003_enemy dummy
 		
+		scoreboard objectives add 3101004_level dummy
+		scoreboard objectives add 3101004_mp dummy
+		scoreboard objectives add 3101004_time dummy
+		scoreboard objectives add 3101004_weapon dummy
+		
 		scoreboard objectives add 3101005_mp dummy
 		scoreboard objectives add 3101005_attack dummy
 		scoreboard objectives add 3101005_stun dummy
@@ -166,7 +171,65 @@ namespace 31() as virtual
 		{
 			func check()
 			{
+				execute unless score @s action_time matches 1.. if score @s 3101004_level matches 1.. run function ARG(_PATH)other_check
+			}
+			
+			func other_check()
+			{
+				scoreboard players set @s 3101004_weapon 1
 				
+				function skill:check_weapon/bow/run
+				execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 3101004_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
+				execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp >= @s 3101004_mp run function ARG(_PATH)cast_effect
+			}
+			
+			func cast_effect()
+			{
+				function skill:use_constraint
+				
+				function ARG(_PATH)soul/run
+				
+				# set this buff values
+				scoreboard players operation @s soul_buff_time = @s 3101004_time
+				```
+				print(f"attribute @s minecraft:generic.luck modifier add {simple_buff_info_dict['soul']['uuid']} u 0 add")
+				```
+				# VVV since we got mp change below, no need to update the bar display VVV
+				# execute if entity @s[tag=!hp_mp_varying] run function bar_display:update_bar/run
+				
+				execute rotated ~ 0 run summon minecraft:armor_stand ^ ^ ^1 {Tags:["model_animation","new"],Invisible:1,Invulnerable:1,NoGravity:1,Marker:1,Fire:32767s,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:310000}}]}
+				execute as @e[type=armor_stand,tag=new,limit=1] run function ARG(_PATH)effect_model_set
+				playsound minecraft:skill.3101004 player @a ~ ~ ~ 1 1 0
+				
+				scoreboard players operation @s mp -= @s 3101004_mp
+				function bar_display:change/mp/dropped
+				
+				scoreboard players set @s action_time 12
+			}
+			
+			func effect_model_set()
+			{
+				execute positioned as @s run tp @s ~ ~ ~ ~ ~
+				scoreboard players set @s max_life 13
+				scoreboard players set @s base_model 310000
+				tag @s remove new
+			}
+			
+			folder soul() from simple_buff_template("soul");
+			
+			folder levels()
+			{
+			```
+			for i in range(20):
+				print(f'''
+				func {i+1}()
+				{{
+					scoreboard players set @s 3101004_level {i+1}
+					scoreboard players set @s 3101004_mp {i//10*5+15}
+					scoreboard players set @s 3101004_time {i*30+30}
+				}}
+				''')
+			```
 			}
 		}
 		
