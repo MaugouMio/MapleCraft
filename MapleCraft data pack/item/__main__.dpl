@@ -69,7 +69,7 @@ namespace item()
 		{
 			execute store result score #USING_ITEM temp run data get entity @s[nbt={SelectedItem:{id:"minecraft:warped_fungus_on_a_stick"}}] SelectedItem.tag.CustomModelData
 			
-			execute if score #USING_ITEM temp matches ..30 run function ARG(_PATH)weapon/check
+			execute if score #USING_ITEM temp matches ..30 unless score @s action_time matches 1.. run function ARG(_PATH)weapon/check
 			
 			scoreboard players reset @s right_click_item
 		}

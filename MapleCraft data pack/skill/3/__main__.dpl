@@ -196,6 +196,8 @@ namespace 3() as virtual
 					execute if score #USED_WEAPON temp matches 16 rotated ~ 0 run summon minecraft:armor_stand ^ ^0.2 ^1 {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:7,max_distance:10,skill_id:6,bullet_model:3000,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
 					execute if score #USED_WEAPON temp matches 18 rotated ~ 0 run summon minecraft:armor_stand ^ ^0.2 ^1 {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:8,max_distance:10,skill_id:6,bullet_model:3000,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
 					
+					scoreboard players operation #GLOBAL bullet_model = @s bullet_model
+					execute if score @s soul_buff_time matches 1.. if score @s 3101004_weapon = #USED_WEAPON temp run scoreboard players set #GLOBAL bullet_model 3001
 					scoreboard players operation #BULLET_DISTANCE temp = #DISTANCE temp
 					scoreboard players remove #BULLET_DISTANCE temp 3
 					execute store result entity @e[type=armor_stand,tag=new_bullet,limit=1] ArmorItems[3].tag.max_distance int 1 run scoreboard players get #BULLET_DISTANCE temp
@@ -208,7 +210,7 @@ namespace 3() as virtual
 					execute if score #USED_WEAPON temp matches 16 run function skill:damage_formula/bow/normal
 					execute if score #USED_WEAPON temp matches 18 run function skill:damage_formula/crossbow/normal
 					
-					scoreboard players set @s f_attack_skill 1
+					scoreboard players operation @s f_attack_skill = #GLOBAL bullet_model
 					scoreboard players operation @s f_attack_weapon = #USED_WEAPON temp
 					
 					scoreboard players remove @s bullet_amount 1
@@ -367,7 +369,7 @@ namespace 3() as virtual
 					execute if score #USED_WEAPON temp matches 16 run function skill:damage_formula/bow/normal
 					execute if score #USED_WEAPON temp matches 18 run function skill:damage_formula/crossbow/normal
 					
-					scoreboard players set @s f_attack_skill 1
+					scoreboard players operation @s f_attack_skill = #GLOBAL bullet_model
 					scoreboard players operation @s f_attack_weapon = #USED_WEAPON temp
 					
 					data modify storage skill:main damage append from storage skill:main damage[0]
@@ -459,7 +461,7 @@ namespace 3() as virtual
 				{
 					execute rotated ~ 0 run summon minecraft:armor_stand ^ ^0.2 ^1 {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:7,max_distance:10,skill_id:12,bullet_model:3000,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
 					
-					scoreboard players operation #GLOBAL bullet_model = @s bullet_model
+					scoreboard players operation #GLOBAL bullet_model = @s f_attack_skill
 					scoreboard players operation #BULLET_DISTANCE temp = #DISTANCE temp
 					scoreboard players remove #BULLET_DISTANCE temp 3
 					execute as @e[type=armor_stand,tag=new_bullet] run function ARG(_PATH)set_bullet
