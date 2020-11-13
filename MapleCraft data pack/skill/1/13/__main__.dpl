@@ -29,6 +29,13 @@ namespace 13() as virtual
 		scoreboard objectives add 1301006_mp dummy
 		scoreboard objectives add 1301006_time dummy
 		
+		scoreboard objectives add 1301007_level dummy
+		scoreboard objectives add 1301007_mp dummy
+		scoreboard objectives add 1301007_rate dummy
+		scoreboard objectives add 1301007_time dummy
+		scoreboard objectives add hp_max_base dummy
+		scoreboard objectives add mp_max_base dummy
+		
 		function ARG(_PATH)1/install
 		function ARG(_PATH)2/install
 	}
@@ -162,7 +169,7 @@ namespace 13() as virtual
 				execute positioned ~ ~-0.4 ~ run function skill:summon_font_effect/1301006effect
 				playsound minecraft:skill.1301006 player @a ~ ~ ~ 1 1 0
 				
-				scoreboard players operation @s mp -= @s 1101006_mp
+				scoreboard players operation @s mp -= @s 1301006_mp
 				function bar_display:change/mp/dropped
 				
 				scoreboard players set @s action_time 12
@@ -211,7 +218,101 @@ namespace 13() as virtual
 		{
 			func check()
 			{
+				execute unless score @s action_time matches 1.. if score @s 1301007_level matches 1.. run function ARG(_PATH)other_check
+			}
+			
+			func other_check()
+			{
+				execute if score @s mp < @s 1301007_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
+				execute if score @s mp >= @s 1301007_mp run function ARG(_PATH)cast_effect
+			}
+			
+			func cast_effect()
+			{
+				function skill:use_constraint
 				
+				scoreboard players operation #HYPER_VALUE temp = @s 1301007_rate
+				scoreboard players operation #HYPER_TIME temp = @s 1301007_time
+				
+				function ARG(_PATH)setting
+				tag @s add caster
+				execute as @a[tag=!dead,tag=!caster,limit=5,distance=..5,sort=nearest] at @s run function ARG(_PATH)take_effect
+				tag @s remove caster
+				
+				# VVV since we got mp change below, no need to update the bar display VVV
+				# execute if entity @s[tag=!hp_mp_varying] run function bar_display:update_bar/run
+				
+				execute positioned ~ ~-0.4 ~ run function skill:summon_font_effect/1301007effect
+				playsound minecraft:skill.1301007 player @a ~ ~ ~ 1 1 0
+				
+				scoreboard players operation @s mp -= @s 1301007_mp
+				function bar_display:change/mp/dropped
+				
+				scoreboard players set @s action_time 12
+			}
+			
+			func take_effect()
+			{
+				function ARG(_PATH)setting
+				function bar_display:change/mp/recovered
+				
+				execute positioned ~ ~-0.4 ~ run function skill:summon_font_effect/1301007affected
+			}
+			
+			func setting()
+			{
+				function ARG(_PATH)hyper/run
+				
+				# set this buff values
+				scoreboard players operation @s hyper_buff_time = #HYPER_TIME temp
+				scoreboard players operation @s hyper_buff_num = #HYPER_VALUE temp
+				function ARG(_PATH)set_hp_mp
+				
+				function bar_display:change/hp/recovered
+				# mp recovered is not needed for caster (so moved to take_effect for allies)
+				```
+				print(f"attribute @s minecraft:generic.luck modifier add {simple_buff_info_dict['hyper']['uuid']} s 0 add")
+				```
+			}
+			
+			func set_hp_mp()
+			{
+				scoreboard players operation @s hp_max = @s hp_max_base
+				scoreboard players operation @s hp_max *= @s hyper_buff_num
+				scoreboard players operation @s hp_max /= #100 const
+				scoreboard players operation @s hp_max < #30000 const
+				
+				scoreboard players operation @s mp_max = @s mp_max_base
+				scoreboard players operation @s mp_max *= @s hyper_buff_num
+				scoreboard players operation @s mp_max /= #100 const
+				scoreboard players operation @s mp_max < #30000 const
+			}
+			
+			func reset_effect()
+			{
+				scoreboard players operation @s hp_max = @s hp_max_base
+				function bar_display:change/hp/recovered
+				
+				scoreboard players operation @s mp_max = @s mp_max_base
+				function bar_display:change/mp/recovered
+			}
+			
+			folder hyper() from simple_buff_template("hyper");
+			
+			folder levels()
+			{
+			```
+			for i in range(30):
+				print(f'''
+				func {i+1}()
+				{{
+					scoreboard players set @s 1301007_level {i+1}
+					scoreboard players set @s 1301007_mp {i//10*20+20}
+					scoreboard players set @s 1301007_rate {i*2+102}
+					scoreboard players set @s 1301007_time {i*10+10}
+				}}
+				''')
+			```
 			}
 		}
 	}

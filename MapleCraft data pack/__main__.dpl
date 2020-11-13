@@ -4,7 +4,7 @@ import loop
 description = "MapleCraft data pack"
 
 ```
-constants = [-7, -1, 0, 1, 2, 3, 4, 5, 6, 8, 9, 10, 17, 20, 30, 32, 34, 36, 40, 41, 44, 45, 46, 48, 50, 66, 100, 150, 1000, 10000, 99999]
+constants = [-7, -1, 0, 1, 2, 3, 4, 5, 6, 8, 9, 10, 17, 20, 30, 32, 34, 36, 40, 41, 44, 45, 46, 48, 50, 66, 100, 150, 1000, 10000, 30000, 99999]
 ```
 
 import math
@@ -107,10 +107,12 @@ namespace main()
 		
 		scoreboard players set @s level 1
 		
+		scoreboard players set @s hp_max_base 50
 		scoreboard players set @s hp_max 50
 		scoreboard players set @s hp 50
 		scoreboard players set @s display_hp 100
 		scoreboard players set @s hp_warning 30
+		scoreboard players set @s mp_max_base 5
 		scoreboard players set @s mp_max 5
 		scoreboard players set @s mp 5
 		scoreboard players set @s display_mp 100
