@@ -478,7 +478,7 @@ namespace 3() as virtual
 					execute if score @s f_attack_weapon matches 16 run function ARG(_PATH)bow_set
 					execute if score @s f_attack_weapon matches 18 run function ARG(_PATH)crossbow_set
 					
-					scoreboard players remove @s[scores={bullet_amount=1..}] bullet_amount 1
+					execute unless score #GLOBAL bullet_model matches 3001 run scoreboard players remove @s[scores={bullet_amount=1..}] bullet_amount 1
 				}
 				
 				func bow_set()
