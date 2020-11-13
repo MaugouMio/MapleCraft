@@ -609,6 +609,7 @@ namespace skill()
 						execute if score #USED_WEAPON temp matches 16 unless score @s bullet_item matches 21..25 run scoreboard players set #LACK_BULLET temp 1
 						execute if score #USED_WEAPON temp matches 18 unless score @s bullet_item matches 26..30 run scoreboard players set #LACK_BULLET temp 1
 						execute unless score @s bullet_amount matches 1.. run scoreboard players set #LACK_BULLET temp 1
+						execute if score @s soul_buff_time matches 1.. if score @s 3101004_weapon = #USED_WEAPON temp run scoreboard players set #LACK_BULLET temp 0
 						
 						execute if score #LACK_BULLET temp matches 1 run function ARG(__PATH)1003/mark_target
 						execute if score #LACK_BULLET temp matches 0 run function ARG(__PATH)1002/check_distance
@@ -719,6 +720,7 @@ namespace skill()
 						execute if score #USED_WEAPON temp matches 24 rotated ~ 0 run summon minecraft:armor_stand ^ ^0.2 ^1 {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:7,max_distance:10,skill_id:11,bullet_model:4000,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
 						
 						scoreboard players operation #GLOBAL bullet_model = @s bullet_model
+						execute if score @s soul_buff_time matches 1.. if score @s 3101004_weapon = #USED_WEAPON temp run scoreboard players set #GLOBAL bullet_model 3001
 						scoreboard players operation #BULLET_DISTANCE temp = #DISTANCE temp
 						scoreboard players remove #BULLET_DISTANCE temp 3
 						execute as @e[type=armor_stand,tag=new_bullet] run function ARG(_PATH)set_bullet
@@ -737,6 +739,7 @@ namespace skill()
 						execute if score #USED_WEAPON temp matches 24 run function skill:damage_formula/claw/normal
 						
 						scoreboard players remove @s bullet_amount 1
+						execute if score @s soul_buff_time matches 1.. if score @s 3101004_weapon = #USED_WEAPON temp run scoreboard players add @s bullet_amount 1
 						
 						execute store result score @s action_time run data get entity @s Inventory[{Slot:-106b}].tag.action_time
 						scoreboard players remove @s[scores={boost_buff_time=1..}] action_time 1

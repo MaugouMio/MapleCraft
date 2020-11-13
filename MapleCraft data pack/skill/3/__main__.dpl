@@ -159,6 +159,7 @@ namespace 3() as virtual
 					execute if score #USED_WEAPON temp matches 16 unless score @s bullet_item matches 21..25 run scoreboard players set #LACK_BULLET temp 1
 					execute if score #USED_WEAPON temp matches 18 unless score @s bullet_item matches 26..30 run scoreboard players set #LACK_BULLET temp 1
 					execute unless score @s bullet_amount matches 1.. run scoreboard players set #LACK_BULLET temp 1
+					execute if score @s soul_buff_time matches 1.. if score @s 3101004_weapon = #USED_WEAPON temp run scoreboard players set #LACK_BULLET temp 0
 					
 					execute if score #LACK_BULLET temp matches 1 run function ARG(_PATH)lack_arrow
 					execute if score #LACK_BULLET temp matches 0 run function ARG(_PATH)check_distance
@@ -211,6 +212,8 @@ namespace 3() as virtual
 					scoreboard players operation @s f_attack_weapon = #USED_WEAPON temp
 					
 					scoreboard players remove @s bullet_amount 1
+					execute if score @s soul_buff_time matches 1.. if score @s 3101004_weapon = #USED_WEAPON temp run scoreboard players add @s bullet_amount 1
+					
 					scoreboard players operation @s mp -= @s 3001004_mp
 					function bar_display:change/mp/dropped
 					
@@ -295,6 +298,7 @@ namespace 3() as virtual
 					execute if score #USED_WEAPON temp matches 16 unless score @s bullet_item matches 21..25 run scoreboard players set #LACK_BULLET temp 1
 					execute if score #USED_WEAPON temp matches 18 unless score @s bullet_item matches 26..30 run scoreboard players set #LACK_BULLET temp 1
 					execute unless score @s bullet_amount matches 2.. run scoreboard players set #LACK_BULLET temp 1
+					execute if score @s soul_buff_time matches 1.. if score @s 3101004_weapon = #USED_WEAPON temp run scoreboard players set #LACK_BULLET temp 0
 					
 					execute if score #LACK_BULLET temp matches 1 run function ARG(_PATH)lack_arrow
 					execute if score #LACK_BULLET temp matches 0 run function ARG(_PATH)check_distance
@@ -332,6 +336,7 @@ namespace 3() as virtual
 					execute if score #USED_WEAPON temp matches 18 run function ARG(_PATH)crossbow_bullet
 					
 					scoreboard players operation #GLOBAL bullet_model = @s bullet_model
+					execute if score @s soul_buff_time matches 1.. if score @s 3101004_weapon = #USED_WEAPON temp run scoreboard players set #GLOBAL bullet_model 3001
 					scoreboard players operation #BULLET_DISTANCE temp = #DISTANCE temp
 					scoreboard players remove #BULLET_DISTANCE temp 3
 					execute as @e[type=armor_stand,tag=new_bullet] run function ARG(_PATH)set_bullet
@@ -368,6 +373,8 @@ namespace 3() as virtual
 					data modify storage skill:main damage append from storage skill:main damage[0]
 					
 					scoreboard players remove @s bullet_amount 2
+					execute if score @s soul_buff_time matches 1.. if score @s 3101004_weapon = #USED_WEAPON temp run scoreboard players add @s bullet_amount 2
+					
 					scoreboard players operation @s mp -= @s 3001005_mp
 					function bar_display:change/mp/dropped
 					

@@ -98,8 +98,6 @@ namespace 32() as virtual
 			
 			func other_check()
 			{
-				scoreboard players set @s 3101004_weapon 2
-				
 				function skill:check_weapon/crossbow/run
 				execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 3101004_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
 				execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp >= @s 3101004_mp run function skill:3/1/0/1004/cast_effect
@@ -125,6 +123,7 @@ namespace 32() as virtual
 				scoreboard players set #LACK_BULLET temp 0
 				execute unless score @s bullet_item matches 26..30 run scoreboard players set #LACK_BULLET temp 1
 				execute unless score @s bullet_amount matches 1.. run scoreboard players set #LACK_BULLET temp 1
+				execute if score @s soul_buff_time matches 1.. run scoreboard players set #LACK_BULLET temp 0
 				
 				execute if score #LACK_BULLET temp matches 1 run function ARG(_PATH)lack_arrow
 				execute if score #LACK_BULLET temp matches 0 run function ARG(_PATH)check_distance
@@ -181,7 +180,7 @@ namespace 32() as virtual
 				scoreboard players set @s f_attack_skill 1
 				scoreboard players operation @s f_attack_weapon = #USED_WEAPON temp
 				
-				scoreboard players remove @s bullet_amount 1
+				execute unless score @s soul_buff_time matches 1.. run scoreboard players remove @s bullet_amount 1
 				scoreboard players operation @s mp -= @s 3201005_mp
 				function bar_display:change/mp/dropped
 				

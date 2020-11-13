@@ -176,8 +176,6 @@ namespace 31() as virtual
 			
 			func other_check()
 			{
-				scoreboard players set @s 3101004_weapon 1
-				
 				function skill:check_weapon/bow/run
 				execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 3101004_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
 				execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp >= @s 3101004_mp run function ARG(_PATH)cast_effect
@@ -201,6 +199,7 @@ namespace 31() as virtual
 				execute as @e[type=armor_stand,tag=new,limit=1] run function ARG(_PATH)effect_model_set
 				playsound minecraft:skill.3101004 player @a ~ ~ ~ 1 1 0
 				
+				scoreboard players operation @s 3101004_weapon = #USED_WEAPON temp
 				scoreboard players operation @s mp -= @s 3101004_mp
 				function bar_display:change/mp/dropped
 				
@@ -252,6 +251,7 @@ namespace 31() as virtual
 				scoreboard players set #LACK_BULLET temp 0
 				execute unless score @s bullet_item matches 21..25 run scoreboard players set #LACK_BULLET temp 1
 				execute unless score @s bullet_amount matches 1.. run scoreboard players set #LACK_BULLET temp 1
+				execute if score @s soul_buff_time matches 1.. run scoreboard players set #LACK_BULLET temp 0
 				
 				execute if score #LACK_BULLET temp matches 1 run function ARG(_PATH)lack_arrow
 				execute if score #LACK_BULLET temp matches 0 run function ARG(_PATH)check_distance
@@ -304,7 +304,7 @@ namespace 31() as virtual
 				scoreboard players set @s f_attack_skill 1
 				scoreboard players operation @s f_attack_weapon = #USED_WEAPON temp
 				
-				scoreboard players remove @s bullet_amount 1
+				execute unless score @s soul_buff_time matches 1.. run scoreboard players remove @s bullet_amount 1
 				scoreboard players operation @s mp -= @s 3101005_mp
 				function bar_display:change/mp/dropped
 				
