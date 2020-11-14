@@ -243,7 +243,7 @@ namespace 11() as virtual
 				# VVV since we got mp change below, no need to update the bar display VVV
 				# execute if entity @s[tag=!hp_mp_varying] run function bar_display:update_bar/run
 				
-				execute positioned ~ ~1 ~ run function skill:summon_font_effect/1101007effect
+				execute positioned ~ ~-0.4 ~ run function skill:summon_font_effect/1101007effect
 				playsound minecraft:skill.1101007 player @a ~ ~ ~ 1 1 0
 				
 				scoreboard players operation @s mp -= @s 1101007_mp
