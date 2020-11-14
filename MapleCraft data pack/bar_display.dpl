@@ -43,6 +43,7 @@ namespace bar_display()
 		scoreboard players operation @s damage_taken -= #GLOBAL temp
 		
 		execute if score @s invin_buff_time matches 1.. run function skill:2/3/0/1003/guard
+		execute if score @s refle_buff_time matches 1.. run function skill:1/1/0/1007/reflect
 		scoreboard players operation @s damage_taken > #1 const
 		
 		scoreboard players set @s display_num_type 2

@@ -30,6 +30,11 @@ namespace 11() as virtual
 		scoreboard objectives add 1101006_time dummy
 		scoreboard objectives add 1101006_value dummy
 		
+		scoreboard objectives add 1101007_level dummy
+		scoreboard objectives add 1101007_mp dummy
+		scoreboard objectives add 1101007_rate dummy
+		scoreboard objectives add 1101007_time dummy
+		
 		function ARG(_PATH)1/install
 		function ARG(_PATH)2/install
 	}
@@ -214,7 +219,91 @@ namespace 11() as virtual
 		{
 			func check()
 			{
+				execute unless score @s action_time matches 1.. if score @s 1101007_level matches 1.. run function ARG(_PATH)other_check
+			}
+			
+			func other_check()
+			{
+				execute if score @s mp < @s 1101007_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
+				execute if score @s mp >= @s 1101007_mp run function ARG(_PATH)cast_effect
+			}
+			
+			func cast_effect()
+			{
+				function skill:use_constraint
 				
+				function ARG(_PATH)refle/run
+				
+				# set this buff values
+				scoreboard players operation @s refle_buff_time = @s 1101007_time
+				scoreboard players operation @s refle_buff_num = @s 1101007_rate
+				```
+				print(f"attribute @s minecraft:generic.luck modifier add {simple_buff_info_dict['refle']['uuid']} r 0 add")
+				```
+				# VVV since we got mp change below, no need to update the bar display VVV
+				# execute if entity @s[tag=!hp_mp_varying] run function bar_display:update_bar/run
+				
+				execute positioned ~ ~1 ~ run function skill:summon_font_effect/1101007effect
+				playsound minecraft:skill.1101007 player @a ~ ~ ~ 1 1 0
+				
+				scoreboard players operation @s mp -= @s 1101007_mp
+				function bar_display:change/mp/dropped
+				
+				scoreboard players set @s action_time 12
+			}
+			
+			func reflect()
+			{
+				scoreboard players operation #GLOBAL temp = @s damage_taken
+				scoreboard players operation #GLOBAL temp *= @s refle_buff_num
+				scoreboard players operation #GLOBAL temp /= #100 const
+				
+				# reflect attack
+				data modify storage skill:main damage_info.attacker set from entity @s UUID
+				execute store result storage skill:main damage_info.attacker_id int 1 run scoreboard players get @s number
+				
+				scoreboard players set #REFLECTED temp 0
+				execute as @e[type=zombified_piglin,tag=enemy,tag=!dead,limit=1,sort=nearest,distance=..4] at @s run function ARG(_PATH)hit
+				
+				# reduce damage reflected
+				scoreboard players operation @s damage_taken -= #REFLECTED temp
+			}
+			
+			func hit()
+			{
+				# damage calculation
+				scoreboard players operation @s display_number = @s hp_max
+				scoreboard players operation @s display_number /= #10 const
+				scoreboard players operation @s display_number < #GLOBAL temp
+				scoreboard players operation #REFLECTED temp = @s display_number
+				
+				scoreboard players operation @s hp -= @s display_number
+				execute if score @s hp matches ..0 run function skill:calculate_damage/record_dead
+				
+				# hit effect
+				scoreboard players set @s display_num_type 0
+				execute unless score @s display_number matches 0 run function number_display:show
+				data modify entity @s AngryAt set from storage skill:main damage_info.attacker set from entity @s UUID
+				function skill:mob_effect/play_hurt_sound/run
+				execute if score @s hp matches ..0 unless score @s queuing_effect matches 1.. run function skill:mob_effect/dead
+			}
+			
+			folder refle() from simple_buff_template("refle");
+			
+			folder levels()
+			{
+			```
+			for i in range(30):
+				print(f'''
+				func {i+1}()
+				{{
+					scoreboard players set @s 1101007_level {i+1}
+					scoreboard players set @s 1101007_mp {i//15*15+15}
+					scoreboard players set @s 1101007_rate {i+11}
+					scoreboard players set @s 1101007_time {i*3+3}
+				}}
+				''')
+			```
 			}
 		}
 	}
