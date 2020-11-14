@@ -206,12 +206,11 @@ namespace 32() as virtual
 			func cast_effect()
 			{
 				execute rotated ~ 0 positioned ^ ^0.2 ^1 run function skill:summon_font_effect/3201005effect
-				function skill:afterimage/crossbow/shoot
-				```
-				raise Warning("TODO: check whether soul arrow is used to determine whether to play the arrow sound or not")
-				```
-				playsound minecraft:skill.attack.crossbow player @a ~ ~ ~ 1 1 0
 				playsound minecraft:skill.3201005 player @a ~ ~ ~ 1 1 0
+				
+				function skill:afterimage/crossbow/shoot
+				# soul arrow does not play arrow sound
+				execute unless score #GLOBAL bullet_model matches 3001 run playsound minecraft:skill.attack.crossbow player @a ~ ~ ~ 1 1 0
 			}
 			
 			func effect()
