@@ -291,9 +291,11 @@ namespace 13() as virtual
 			func reset_effect()
 			{
 				scoreboard players operation @s hp_max = @s hp_max_base
+				scoreboard players operation @s hp < @s hp_max
 				function bar_display:change/hp/recovered
 				
 				scoreboard players operation @s mp_max = @s mp_max_base
+				scoreboard players operation @s mp < @s mp_max
 				function bar_display:change/mp/recovered
 			}
 			
