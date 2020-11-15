@@ -191,10 +191,10 @@ namespace 21() as virtual
 				
 				scoreboard players operation #SLOW_TIME temp = @s 2101003_time
 				
-				execute positioned ~ ~0.5 ~ run function skill:summon_font_effect/2101003effect
+				execute positioned ~ ~0.3 ~ run function skill:summon_font_effect/2101003effect
 				playsound minecraft:skill.2101003_use player @a ~ ~ ~ 1 1 0
 				
-				execute positioned ~ ~-2 ~ as @e[type=minecraft:zombified_piglin,tag=enemy,tag=!dead,distance=..5,sort=random,limit=6] unless score @s 2101003_time matches 1.. run function ARG(_PATH)set_debuff
+				execute positioned ~ ~-2 ~ as @e[type=minecraft:zombified_piglin,tag=enemy,tag=!dead,distance=..5,sort=random,limit=6] unless score @s 2101003_time matches 1.. at @s run function ARG(_PATH)set_debuff
 				
 				scoreboard players operation @s mp -= @s 2101003_mp
 				function bar_display:change/mp/dropped
@@ -209,6 +209,21 @@ namespace 21() as virtual
 				
 				scoreboard players operation @s 2101003_time = #SLOW_TIME temp
 				execute store result entity @s ArmorItems[3].tag.AttributeModifiers[{Name:"slow"}].Amount float -0.002 run scoreboard players get #SLOW_TIME temp
+			}
+			
+			folder mob()
+			{
+				func countdown()
+				{
+					scoreboard players remove @s 2101003_time 1
+					execute if score @s 2101003_time matches 0 run function ARG(_PATH)reset
+				}
+				
+				func reset()
+				{
+					scoreboard players reset @s 2101003_time
+					data modify entity @s ArmorItems[3].tag.AttributeModifiers[{Name:"slow"}].Amount set value 0
+				}
 			}
 			
 			folder levels()

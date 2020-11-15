@@ -907,7 +907,13 @@ namespace skill()
 	{
 		func schedule_1s()
 		{
-			execute as @e[type=zombified_piglin,tag=enemy,tag=!dead,scores={weaken_time=1..}] run function skill:4/0/0/1002/mob/countdown
+			execute as @e[type=zombified_piglin,tag=enemy,tag=!dead] run function ARG(_PATH)enemy
+		}
+		
+		func enemy()
+		{
+			execute if score @s weaken_time matches 1.. run function skill:4/0/0/1002/mob/countdown
+			execute if score @s 2101003_time matches 1.. run function skill:2/1/0/1003/mob/countdown
 		}
 		
 		func schedule_1d()
