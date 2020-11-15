@@ -101,7 +101,7 @@ namespace 12() as virtual
 				scoreboard players operation #THREATEN_LEVEL temp = @s 1201006_level
 				scoreboard players operation #THREATEN_TIME temp = @s 1201006_time
 				
-				execute positioned ~ ~1 ~ run function skill:summon_font_effect/1201006effect
+				execute positioned ~ ~0.5 ~ run function skill:summon_font_effect/1201006effect
 				playsound minecraft:skill.1201006 player @a ~ ~ ~ 1 1 0
 				
 				execute positioned ~ ~-2 ~ as @e[type=minecraft:zombified_piglin,tag=enemy,tag=!dead,distance=..5,sort=random,limit=6] unless score @s weaken_from matches 2 run function ARG(_PATH)set_debuff
@@ -115,6 +115,8 @@ namespace 12() as virtual
 			func set_debuff()
 			{
 				scoreboard players operation @s weaken_time = #THREATEN_TIME temp
+				scoreboard players set @s threat_particle 1
+				tag @s add mob_effect
 				scoreboard players set @s weaken_from 2
 				
 				# weapon attack drop

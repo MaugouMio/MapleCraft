@@ -145,6 +145,7 @@ namespace 4() as virtual
 				{
 					scoreboard players operation @s weaken_time = #DISORDER_TIME temp
 					scoreboard players set @s weaken_from 1
+					execute unless score @s stun_time matches 1.. run tag @s remove mob_effect
 					tag @s add 4001002_effect
 					
 					# weapon attack drop
