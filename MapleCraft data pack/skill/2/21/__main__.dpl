@@ -16,6 +16,10 @@ namespace 21() as virtual
 		scoreboard objectives add 2101001_mp dummy
 		scoreboard objectives add 2101001_time dummy
 		
+		scoreboard objectives add 2101003_level dummy
+		scoreboard objectives add 2101003_mp dummy
+		scoreboard objectives add 2101003_time dummy
+		
 		scoreboard objectives add 2101004_mp dummy
 		scoreboard objectives add 2101004_mastery dummy
 		scoreboard objectives add 2101004_attack dummy
@@ -172,7 +176,54 @@ namespace 21() as virtual
 		{
 			func check()
 			{
+				execute unless score @s action_time matches 1.. if score @s 2101003_level matches 1.. run function ARG(_PATH)other_check
+			}
+			
+			func other_check()
+			{
+				execute if score @s mp < @s 2101003_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
+				execute if score @s mp >= @s 2101003_mp run function ARG(_PATH)cast_effect
+			}
+			
+			func cast_effect()
+			{
+				function skill:use_constraint
 				
+				scoreboard players operation #SLOW_TIME temp = @s 2101003_time
+				
+				execute positioned ~ ~0.5 ~ run function skill:summon_font_effect/2101003effect
+				playsound minecraft:skill.2101003_use player @a ~ ~ ~ 1 1 0
+				
+				execute positioned ~ ~-2 ~ as @e[type=minecraft:zombified_piglin,tag=enemy,tag=!dead,distance=..5,sort=random,limit=6] unless score @s 2101003_time matches 1.. run function ARG(_PATH)set_debuff
+				
+				scoreboard players operation @s mp -= @s 2101003_mp
+				function bar_display:change/mp/dropped
+				
+				scoreboard players set @s action_time 12
+			}
+			
+			func set_debuff()
+			{
+				execute positioned ~ ~0.8 ~ run function skill:summon_font_effect/2101003mob
+				playsound minecraft:skill.2101003_hit player @a ~ ~ ~ 1 1 0
+				
+				scoreboard players operation @s 2101003_time = #SLOW_TIME temp
+				execute store result entity @s ArmorItems[3].tag.AttributeModifiers[{Name:"slow"}].Amount float -0.002 run scoreboard players get #SLOW_TIME temp
+			}
+			
+			folder levels()
+			{
+			```
+			for i in range(20):
+				print(f'''
+				func {i+1}()
+				{{
+					scoreboard players set @s 2101003_level {i+1}
+					scoreboard players set @s 2101003_mp {i//10*8+8}
+					scoreboard players set @s 2101003_time {i*2+2}
+				}}
+				''')
+			```
 			}
 		}
 		
