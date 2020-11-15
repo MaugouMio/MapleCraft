@@ -17,6 +17,10 @@ namespace 12() as virtual
 		scoreboard objectives add 1201005_mp dummy
 		scoreboard objectives add 1201005_time dummy
 		
+		scoreboard objectives add 1201006_level dummy
+		scoreboard objectives add 1201006_mp dummy
+		scoreboard objectives add 1201006_time dummy
+		
 		function ARG(_PATH)1/install
 		function ARG(_PATH)2/install
 	}
@@ -81,7 +85,61 @@ namespace 12() as virtual
 		{
 			func check()
 			{
+				execute unless score @s action_time matches 1.. if score @s 1201006_level matches 1.. run function ARG(_PATH)other_check
+			}
+			
+			func other_check()
+			{
+				execute if score @s mp < @s 1201006_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
+				execute if score @s mp >= @s 1201006_mp run function ARG(_PATH)cast_effect
+			}
+			
+			func cast_effect()
+			{
+				function skill:use_constraint
 				
+				scoreboard players operation #THREATEN_LEVEL temp = @s 1201006_level
+				scoreboard players operation #THREATEN_TIME temp = @s 1201006_time
+				
+				execute positioned ~ ~1 ~ run function skill:summon_font_effect/1201006effect
+				playsound minecraft:skill.1201006 player @a ~ ~ ~ 1 1 0
+				
+				execute positioned ~ ~-2 ~ as @e[type=minecraft:zombified_piglin,tag=enemy,tag=!dead,distance=..5,sort=random,limit=6] unless score @s weaken_from matches 2 run function ARG(_PATH)set_debuff
+				
+				scoreboard players operation @s mp -= @s 1201006_mp
+				function bar_display:change/mp/dropped
+				
+				scoreboard players set @s action_time 12
+			}
+			
+			func set_debuff()
+			{
+				scoreboard players operation @s weaken_time = #THREATEN_TIME temp
+				scoreboard players set @s weaken_from 2
+				
+				# weapon attack drop
+				execute store result score @s temp run data get entity @s Attributes[{Name:"minecraft:generic.attack_damage"}].Base 10
+				scoreboard players remove @s temp 1
+				execute store result entity @s ArmorItems[3].tag.AttributeModifiers[{Name:"disorder"}].Amount float -0.1 run scoreboard players operation @s temp < #THREATEN_LEVEL temp
+				
+				# weapon defense drop
+				scoreboard players operation @s wdef_drop = @s weapon_defense
+				scoreboard players operation @s wdef_drop < #THREATEN_LEVEL temp
+			}
+			
+			folder levels()
+			{
+			```
+			for i in range(20):
+				print(f'''
+				func {i+1}()
+				{{
+					scoreboard players set @s 1201006_level {i+1}
+					scoreboard players set @s 1201006_mp {i//10*8+12}
+					scoreboard players set @s 1201006_time {i*4+44}
+				}}
+				''')
+			```
 			}
 		}
 		

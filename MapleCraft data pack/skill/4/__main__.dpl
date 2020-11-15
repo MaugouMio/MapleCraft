@@ -14,6 +14,8 @@ namespace 4() as virtual
 		
 		scoreboard objectives add 4001002_mp dummy
 		scoreboard objectives add 4001002_time dummy
+		scoreboard objectives add weaken_time dummy
+		scoreboard objectives add weaken_from dummy
 		
 		scoreboard objectives add 4001003_level dummy
 		scoreboard objectives add 4001003_mp dummy
@@ -136,12 +138,13 @@ namespace 4() as virtual
 				
 				func add_debuff()
 				{
-					execute unless score @s 4001002_time matches 1.. run function ARG(_PATH)set_debuff
+					execute unless score @s weaken_from matches 1 run function ARG(_PATH)set_debuff
 				}
 				
 				func set_debuff()
 				{
-					scoreboard players operation @s 4001002_time = #DISORDER_TIME temp
+					scoreboard players operation @s weaken_time = #DISORDER_TIME temp
+					scoreboard players set @s weaken_from 1
 					tag @s add 4001002_effect
 					
 					# weapon attack drop
@@ -158,13 +161,16 @@ namespace 4() as virtual
 				{
 					func countdown()
 					{
-						scoreboard players remove @s 4001002_time 1
-						execute if score @s 4001002_time matches 0 run function ARG(_PATH)reset
+						scoreboard players remove @s weaken_time 1
+						execute if score @s weaken_time matches 0 run function ARG(_PATH)reset
 					}
 					
 					func reset()
 					{
-						scoreboard players reset @s 4001002_time
+						scoreboard players reset @s weaken_time
+						scoreboard players reset @s weaken_from
+						execute unless score @s stun_time matches 1.. run tag @s remove mob_effect
+						
 						scoreboard players set @s wdef_drop 0
 						data modify entity @s ArmorItems[3].tag.AttributeModifiers[{Name:"disorder"}].Amount set value 0
 					}
