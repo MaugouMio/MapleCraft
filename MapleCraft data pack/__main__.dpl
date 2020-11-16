@@ -51,6 +51,7 @@ namespace main()
 		scoreboard objectives add max_life dummy
 		scoreboard objectives add meso dummy
 		scoreboard objectives add jump minecraft.custom:minecraft.jump
+		scoreboard objectives add just_jump dummy
 		
 		team add enemy
 		team modify enemy collisionRule never
@@ -86,6 +87,7 @@ namespace main()
 	func main()
 	{
 		execute as @a[scores={jump=1..}] at @s run function ARG(_PATH)jump_effect
+		execute as @a[scores={just_jump=1..}] run function ARG(_PATH)jump_check_countdown
 		
 		function skill:main/run
 		# function number_display:main
@@ -96,7 +98,14 @@ namespace main()
 	func jump_effect()
 	{
 		playsound minecraft:game.jump player @a ~ ~ ~ 1 1 0
+		scoreboard players set @s just_jump 3
 		scoreboard players reset @s jump
+	}
+	
+	func jump_check_countdown()
+	{
+		scoreboard players remove @s just_jump 1
+		scoreboard players reset @s[scores={just_jump=0}] just_jump
 	}
 	
 	func new_player()

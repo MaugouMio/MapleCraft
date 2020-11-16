@@ -16,6 +16,10 @@ namespace 21() as virtual
 		scoreboard objectives add 2101001_mp dummy
 		scoreboard objectives add 2101001_time dummy
 		
+		scoreboard objectives add 2101002_level dummy
+		scoreboard objectives add 2101002_mp dummy
+		scoreboard objectives add teleport_time dummy
+		
 		scoreboard objectives add 2101003_level dummy
 		scoreboard objectives add 2101003_mp dummy
 		scoreboard objectives add 2101003_time dummy
@@ -168,7 +172,169 @@ namespace 21() as virtual
 		{
 			func check()
 			{
+				execute unless score @s teleport_time matches 1.. if score @s[tag=!delay_tp] 2101002_level matches 1.. run function ARG(_PATH)other_check
+			}
+			
+			func other_check()
+			{
+				execute if score @s mp < @s 2101002_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
+				execute if score @s mp >= @s 2101002_mp run function ARG(_PATH)move/up/check
+			}
+			
+			folder move()
+			{
+				func check_position()
+				{
+					scoreboard players set #GLOBAL temp 0
+					execute if block ~ ~ ~ #skill:passable if block ~ ~1 ~ #skill:passable unless block ~ ~-1 ~ #skill:passable run scoreboard players set #GLOBAL temp 1
+				}
+			
+				func tp()
+				{
+					tp @s ~ ~ ~
+					# remove motion
+					tp @s @s
+					
+					# cast restriction
+					scoreboard players operation @s next_hp_recover = @s hp_recover_time
+					
+					execute positioned ~ ~0.3 ~ run function skill:summon_font_effect/2101002effect
+					playsound minecraft:skill.2101002 player @a ~ ~ ~ 1 1 0
+					
+					scoreboard players operation @s mp -= @s 2101002_mp
+					function bar_display:change/mp/dropped
+					
+					scoreboard players set @s teleport_time 11
+				}
 				
+				folder up()
+				{
+					func check()
+					{
+						execute if score @s just_jump matches 1.. positioned ~ ~5 ~ run function ARG(_PATH)run
+						execute unless score @s just_jump matches 1.. if data entity @s {OnGround:1b} run function ARG(__PATH)down/check
+					}
+					
+					func run()
+					{
+						function ARG(__PATH)check_position
+						execute if score #GLOBAL temp matches 1 run function ARG(__PATH)tp
+						execute if score #GLOBAL temp matches 0 positioned ~ ~-1 ~ run function ARG(_PATH)run
+					}
+				}
+				
+				folder down()
+				{
+					func check()
+					{
+						execute if predicate main:sneaking positioned ~ ~-5 ~ run function ARG(_PATH)run
+						execute unless predicate main:sneaking run function ARG(__PATH)horizon/tag
+					}
+					
+					func run()
+					{
+						scoreboard players set #DOWN_CHECK_TIMES temp 5
+						
+						function ARG(__PATH)check_position
+						execute if score #GLOBAL temp matches 1 run function ARG(__PATH)tp
+						execute if score #GLOBAL temp matches 0 positioned ~ ~-1 ~ run function ARG(_PATH)loop_down
+					}
+					
+					func loop_down()
+					{
+						scoreboard players remove #DOWN_CHECK_TIMES temp 1
+						
+						function ARG(__PATH)check_position
+						execute if score #GLOBAL temp matches 1 run function ARG(__PATH)tp
+						execute if score #GLOBAL temp matches 0 if score #DOWN_CHECK_TIMES temp matches 0 positioned ~ ~6 ~ run function ARG(_PATH)loop_up
+						execute if score #GLOBAL temp matches 0 if score #DOWN_CHECK_TIMES temp matches 1.. positioned ~ ~-1 ~ run function ARG(_PATH)loop_down
+					}
+					
+					func loop_up()
+					{
+						scoreboard players remove #DOWN_CHECK_TIMES temp 1
+						
+						function ARG(__PATH)check_position
+						execute if score #GLOBAL temp matches 1 run function ARG(__PATH)tp
+						execute if score #GLOBAL temp matches 0 if score #DOWN_CHECK_TIMES temp matches -2.. positioned ~ ~1 ~ run function ARG(_PATH)loop_up
+					}
+				}
+				
+				folder horizon()
+				{
+					func tag()
+					{
+						tag @s add delay_tp
+						scoreboard players operation #GLOBAL temp = @s number
+						
+						summon minecraft:area_effect_cloud ~ ~ ~ {Tags:["tp_check","new"],Duration:2}
+						execute as @e[type=area_effect_cloud,tag=tp_check,tag=new] run function ARG(_PATH)set_point
+					}
+					
+					func set_point()
+					{
+						scoreboard players operation @s number = #GLOBAL temp
+						tag @s remove new
+					}
+					
+					func run()
+					{
+						tag @s remove delay_tp
+						
+						tag @s add tp_player
+						scoreboard players operation #GLOBAL temp = @s number
+						execute as @e[type=area_effect_cloud,tag=tp_check] if score @s number = #GLOBAL temp run function ARG(_PATH)tp_player
+						tag @s remove tp_player
+					}
+					
+					func tp_player()
+					{
+						execute unless entity @s[distance=..0.00001] at @s facing entity @a[tag=tp_player,limit=1] eyes rotated ~ 0 positioned ^ ^ ^5 run function ARG(_PATH)first_check
+						execute if entity @s[distance=..0.00001] run kill @s
+					}
+					
+					func vertical_check()
+					{
+						function ARG(__PATH)check_position
+						execute if score #GLOBAL temp matches 1 as @a[tag=tp_player,limit=1] run function ARG(__PATH)tp
+						execute if score #GLOBAL temp matches 0 positioned ~ ~-2 ~ run function ARG(_PATH)final_check
+					}
+					
+					func final_check()
+					{
+						function ARG(__PATH)check_position
+						execute if score #GLOBAL temp matches 1 as @a[tag=tp_player,limit=1] run function ARG(__PATH)tp
+					}
+					
+					func first_check()
+					{
+						function ARG(__PATH)check_position
+						execute if score #GLOBAL temp matches 1 as @a[tag=tp_player,limit=1] run function ARG(__PATH)tp
+						execute if score #GLOBAL temp matches 0 positioned ~ ~1 ~ run function ARG(_PATH)vertical_check
+						execute if score #GLOBAL temp matches 0 positioned ^ ^ ^-1 run function ARG(_PATH)second_check
+					}
+					
+					func second_check()
+					{
+						function ARG(__PATH)check_position
+						execute if score #GLOBAL temp matches 1 as @a[tag=tp_player,limit=1] run function ARG(__PATH)tp
+						execute if score #GLOBAL temp matches 0 positioned ~ ~1 ~ run function ARG(_PATH)vertical_check
+					}
+				}
+			}
+			
+			folder levels()
+			{
+			```
+			for i in range(20):
+				print(f'''
+				func {i+1}()
+				{{
+					scoreboard players set @s 2101002_level {i+1}
+					scoreboard players set @s 2101002_mp {50-i*2}
+				}}
+				''')
+			```
 			}
 		}
 		

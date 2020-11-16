@@ -931,7 +931,10 @@ namespace skill()
 			execute as @e[type=armor_stand,tag=model_animation] run function ARG(_PATH)model_animation_update
 			execute as @e[type=armor_stand,tag=afterimage] run function skill:afterimage/update
 			execute as @e[type=zombified_piglin,tag=enemy] run function ARG(_PATH)enemy/run
+			
 			execute as @a[scores={action_time=1..}] run function ARG(_PATH)action/countdown
+			execute as @a[scores={teleport_time=1..}] run function ARG(_PATH)tp_countdown
+			execute as @a[tag=delay_tp] at @s run function skill:2/1/0/1002/move/horizon/run
 			
 			# used skill check
 			execute as @a[scores={right_click=1..},tag=!dead] at @s run function skill:check_skill/run
@@ -1191,13 +1194,19 @@ namespace skill()
 				}
 			}
 		}
+		
+		func tp_countdown()
+		{
+			scoreboard players remove @s teleport_time 1
+			scoreboard players reset @s[scores={teleport_time=0}] teleport_time
+		}
 	}
 	
 	func use_constraint()
 	{
 		# basic skill constraints
 		scoreboard players operation @s next_hp_recover = @s hp_recover_time
-		attribute @s minecraft:generic.movement_speed modifier add 5b908c48-54cb-4388-aa76-82f61b02032d skill_action -10 multiply
+		attribute @s minecraft:generic.movement_speed modifier add 5b908c48-54cb-4388-aa76-82f61b02032d skill_action -0.99 multiply
 	}
 	
 	folder player()
