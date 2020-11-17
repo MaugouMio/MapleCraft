@@ -171,6 +171,7 @@ namespace 23() as virtual
 				
 				# set this buff values
 				scoreboard players operation @s invin_buff_time = @s 2301003_time
+				scoreboard players operation @s invin_buff_num = @s 2301003_rate
 				```
 				print(f"attribute @s minecraft:generic.luck modifier add {simple_buff_info_dict['invin']['uuid']} t 0 add")
 				```
@@ -188,7 +189,7 @@ namespace 23() as virtual
 			
 			func guard()
 			{
-				scoreboard players operation @s damage_taken *= @s 2301003_rate
+				scoreboard players operation @s damage_taken *= @s invin_buff_num
 				scoreboard players operation @s damage_taken /= #100 const
 			}
 			

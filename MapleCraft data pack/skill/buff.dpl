@@ -228,6 +228,8 @@ namespace buff() as virtual
 			print(f"scoreboard objectives add {buff}_buff_time dummy")
 		```
 		
+		scoreboard objectives add mguar_buff_num dummy
+		scoreboard objectives add invin_buff_num dummy
 		scoreboard objectives add refle_buff_num dummy
 		scoreboard objectives add hyper_buff_num dummy
 	}

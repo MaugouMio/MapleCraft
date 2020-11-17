@@ -103,6 +103,7 @@ namespace 2() as virtual
 					
 					# set this buff values
 					scoreboard players operation @s mguar_buff_time = @s 2001002_time
+					scoreboard players operation @s mguar_buff_num = @s 2001002_rate
 					```
 					print(f"attribute @s minecraft:generic.luck modifier add {simple_buff_info_dict['mguar']['uuid']} h 0 add")
 					```
@@ -121,7 +122,7 @@ namespace 2() as virtual
 				func guard()
 				{
 					scoreboard players operation #GLOBAL temp = @s damage_taken
-					scoreboard players operation #GLOBAL temp *= @s 2001002_rate
+					scoreboard players operation #GLOBAL temp *= @s mguar_buff_num
 					scoreboard players operation #GLOBAL temp /= #100 const
 					scoreboard players operation #GLOBAL temp < @s mp
 					
