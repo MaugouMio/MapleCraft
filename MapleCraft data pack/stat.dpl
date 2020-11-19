@@ -12,12 +12,87 @@ namespace stat()
 		scoreboard objectives add addi_hp_point dummy
 		scoreboard objectives add addi_mp_point dummy
 		
+		scoreboard objectives add standard_pdd dummy
+		
 		scoreboard objectives add hp_recover_time dummy
 	}
+	
+	folder standard_pdd()
+	{
+		func set()
+		{
+			execute if entity @s[tag=warrior] run function ARG(_PATH)warrior/set
+			execute if entity @s[tag=archer] run function ARG(_PATH)archer/set
+			execute if entity @s[tag=magician] run function ARG(_PATH)magician/set
+			execute if entity @s[tag=thief] run function ARG(_PATH)thief/set
+			execute if entity @s[tag=!warrior,tag=!archer,tag=!magician,tag=!thief] run function ARG(_PATH)beginner
+		}
+		
+		func beginner()
+		{
+			execute if score @s level matches 8.. run scoreboard players set @s standard_pdd 19
+			execute if score @s level matches 5..7 run scoreboard players set @s standard_pdd 17
+			execute if score @s level matches ..4 run scoreboard players set @s standard_pdd 7
+		}
+		```
+		def check_std_pdd(levels, std_pdd):
+			for i in range(len(levels)-1, 0, -1):
+				if i == len(levels) - 1:
+					print("	func set()")
+				else:
+					print(f"func {levels[i]}()")
+				print("		{")
+				print(f"		execute if score @s level matches {levels[i]}.. run scoreboard players set @s standard_pdd {std_pdd[i]}")
+				if i == 1:
+					print(f"	execute unless score @s level matches {levels[i]}.. run scoreboard players set @s standard_pdd {std_pdd[0]}")
+				else:
+					print(f"	execute unless score @s level matches {levels[i]}.. run function ARG(_PATH){levels[i-1]}")
+				print("		}")
+		```
+		folder warrior()
+		{
+			```
+			levels = [10,12,15,20,22,25,30,35,40,47,50,55,60,65,70,75,80,85,90,95,100]
+			std_pdd = [54,57,83,106,109,129,154,179,203,208,261,267,305,308,356,359,382,388,440,446,494]
+			check_std_pdd(levels, std_pdd)
+			```
+		}
+		
+		folder archer()
+		{
+			```
+			levels = [10,15,20,25,30,35,40,50,55,60,65,70,75,80,85,90,95,100]
+			std_pdd = [32,49,65,80,95,110,125,145,148,177,180,206,212,238,244,270,276,298]
+			check_std_pdd(levels, std_pdd)
+			```
+		}
+		
+		folder magician()
+		{
+			```
+			levels = [8,10,13,15,18,20,25,28,30,33,35,40,48,50,55,58,60,65,68,70,75,78,80,85,88,90,95,98,100]
+			std_pdd = [25,31,40,49,54,56,60,64,75,91,98,99,107,131,134,142,159,162,170,184,190,198,212,218,226,240,246,254,266]
+			check_std_pdd(levels, std_pdd)
+			```
+		}
+		
+		folder thief()
+		{
+			```
+			levels = [10,15,20,22,25,30,32,35,37,40,50,55,60,65,70,75,80,85,90,95]
+			std_pdd = [42,60,76,85,100,115,116,131,132,147,184,187,220,223,257,263,291,297,325,331]
+			check_std_pdd(levels, std_pdd)
+			```
+		}
+	}
+	
 	```
 	raise Warning("TODO: run function skill:2/0/0/0000/calculate_recovery when leveling up with 2000000_level score")
 	```
 	```
 	raise Warning("TODO: run function skill:1/3/0/1007/set_hp_mp after hp mp max changed with hyper_buff_time score")
+	```
+	```
+	raise Warning("TODO: run function stat:standard_pdd/set when leveling up or after first job transformation")
 	```
 }

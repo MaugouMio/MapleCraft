@@ -32,15 +32,169 @@ namespace bar_display()
 		execute as @a[tag=hp_mp_varying] run function ARG(_PATH)bar_vary/check
 	}
 	
+	folder defense_formula()
+	{
+		func weapon()
+		{
+			# base damage
+			scoreboard players operation @s damage_taken *= @s damage_taken
+			
+			scoreboard players set #RANGE_MAX temp temp 51
+			function main:rand_range
+			scoreboard players operation #RAND_RANGE_RESULT temp *= @s damage_taken
+			scoreboard players operation #RAND_RANGE_RESULT temp /= #100000 const
+			
+			scoreboard players operation @s damage_taken *= #8 const
+			scoreboard players operation @s damage_taken /= #1000 const
+			scoreboard players operation @s damage_taken += #RAND_RANGE_RESULT temp
+			
+			# set #C temp as C * 10000
+			function ARG(_PATH)get_c/run
+			
+			# reduce by weapon defense times A
+			scoreboard players operation #A temp = #C temp
+			scoreboard players add #A temp 2800
+			
+			scoreboard players operation #GLOBAL temp = #WEAPON_DEFENSE temp
+			scoreboard players operation #GLOBAL temp *= #A temp
+			scoreboard players operation #GLOBAL temp /= #10000 const
+			
+			scoreboard players operation @s damage_taken -= #GLOBAL temp
+			
+			# set #B temp as B * 100000
+			function ARG(_PATH)get_b/run
+			
+			# reduce by (weapon_defense - standard_pdd) * B
+			scoreboard players operation #WEAPON_DEFENSE temp -= @s standard_pdd
+			scoreboard players operation #WEAPON_DEFENSE temp *= #B temp
+			scoreboard players operation #WEAPON_DEFENSE temp /= #100000 const
+			
+			scoreboard players operation @s damage_taken -= #WEAPON_DEFENSE temp
+		}
+		
+		func magic()
+		{
+			# base damage
+			scoreboard players operation @s damage_taken *= @s damage_taken
+			
+			scoreboard players set #RANGE_MAX temp temp 51
+			function main:rand_range
+			scoreboard players operation #RAND_RANGE_RESULT temp *= @s damage_taken
+			scoreboard players operation #RAND_RANGE_RESULT temp /= #100000 const
+			
+			scoreboard players operation @s damage_taken *= #15 const
+			scoreboard players operation @s damage_taken /= #2000 const
+			scoreboard players operation @s damage_taken += #RAND_RANGE_RESULT temp
+			
+			# magic defense related
+			scoreboard players operation #MAGIC_DEFENSE temp *= #25 const
+			
+			scoreboard players operation #GLOBAL STR = @s STR
+			scoreboard players operation #GLOBAL STR *= #100 const
+			scoreboard players operation #GLOBAL STR /= #28 const
+			scoreboard players operation #MAGIC_DEFENSE temp += #GLOBAL STR
+			
+			scoreboard players operation #GLOBAL DEX = @s DEX
+			scoreboard players operation #GLOBAL DEX *= #25 const
+			scoreboard players operation #GLOBAL DEX /= #6 const
+			scoreboard players operation #MAGIC_DEFENSE temp += #GLOBAL DEX
+			
+			scoreboard players operation #GLOBAL LUK = @s LUK
+			scoreboard players operation #GLOBAL LUK *= #5 const
+			scoreboard players operation #MAGIC_DEFENSE temp += #GLOBAL LUK
+			
+			execute if entity @s[tag=magician] run function ARG(_PATH)k_multiply
+			scoreboard players operation #MAGIC_DEFENSE temp /= #100 const
+			
+			scoreboard players operation @s damage_taken -= #MAGIC_DEFENSE temp
+		}
+		
+		folder get_c()
+		{
+			func run()
+			{
+				scoreboard players operation #C temp = @s STR
+				scoreboard players operation #C temp *= #100 const
+				
+				scoreboard players operation #GLOBAL DEX = @s DEX
+				scoreboard players operation #GLOBAL DEX *= #100 const
+				
+				execute if entity @s[tag=warrior] run function ARG(_PATH)warrior
+				execute if entity @s[tag=!warrior] run function ARG(_PATH)non_warrior
+				scoreboard players operation #C temp += #GLOBAL DEX
+				
+				scoreboard players operation #GLOBAL INT = @s INT
+				scoreboard players operation #GLOBAL INT *= #50 const
+				scoreboard players operation #GLOBAL INT /= #36
+				scoreboard players operation #C temp += #GLOBAL INT
+				
+				scoreboard players operation #GLOBAL LUK = @s LUK
+				scoreboard players operation #GLOBAL LUK *= #100 const
+				scoreboard players operation #GLOBAL LUK /= #32
+				scoreboard players operation #C temp += #GLOBAL LUK
+			}
+			
+			func warrior()
+			{
+				scoreboard players operation #C temp /= #28
+				scoreboard players operation #GLOBAL DEX /= #32
+			}
+			
+			func non_warrior()
+			{
+				scoreboard players operation #C temp /= #20
+				scoreboard players operation #GLOBAL DEX /= #28
+			}
+		}
+		
+		folder get_b()
+		{
+			func run()
+			{
+				execute if score #WEAPON_DEFENSE temp >= @s standard_pdd run function ARG(_PATH)wdef_greater
+				execute unless score #WEAPON_DEFENSE temp >= @s standard_pdd run function ARG(_PATH)wdef_smaller
+			}
+			
+			func wdef_greater()
+			{
+				scoreboard players operation #C temp *= #56 const
+				scoreboard players operation #C temp /= #9 const
+				
+				scoreboard players operation #B temp = @s level
+				scoreboard players operation #B temp *= #700 const
+				scoreboard players operation #B temp /= #13 const
+				
+				scoreboard players operation #B temp += #C temp
+				scoreboard players add #B temp 19600
+			}
+			
+			func wdef_smaller()
+			{
+				scoreboard players operation #C temp *= #10 const
+				
+				scoreboard players operation #B temp = @s level
+				scoreboard players operation #B temp *= #2000 const
+				scoreboard players operation #B temp /= #11 const
+				
+				scoreboard players operation #B temp += #C temp
+				scoreboard players add #B temp 28000
+			}
+		}
+		
+		func k_multiply()
+		{
+			scoreboard players operation #MAGIC_DEFENSE temp *= #6 const
+			scoreboard players operation #MAGIC_DEFENSE temp /= #5 const
+		}
+	}
+	
 	func take_damage()
 	{
 		scoreboard players operation @s next_hp_recover = @s hp_recover_time
 		
-		scoreboard players operation #GLOBAL temp = @s wdef_buff_num
-		```
-		raise Warning("TODO: calculate all defense number with the right formula")
-		```
-		scoreboard players operation @s damage_taken -= #GLOBAL temp
+		scoreboard players operation #WEAPON_DEFENSE temp = @s weapon_defense
+		scoreboard players operation #WEAPON_DEFENSE temp += @s wdef_buff_num
+		function ARG(_PATH)defense_formula/weapon
 		
 		execute if score @s invin_buff_time matches 1.. run function skill:2/3/0/1003/guard
 		execute if score @s refle_buff_time matches 1.. run function skill:1/1/0/1007/reflect
