@@ -39,7 +39,7 @@ namespace bar_display()
 			# base damage
 			scoreboard players operation @s damage_taken *= @s damage_taken
 			
-			scoreboard players set #RANGE_MAX temp temp 51
+			scoreboard players set #RANGE_MAX temp 51
 			function main:rand_range
 			scoreboard players operation #RAND_RANGE_RESULT temp *= @s damage_taken
 			scoreboard players operation #RAND_RANGE_RESULT temp /= #100000 const
@@ -77,7 +77,7 @@ namespace bar_display()
 			# base damage
 			scoreboard players operation @s damage_taken *= @s damage_taken
 			
-			scoreboard players set #RANGE_MAX temp temp 51
+			scoreboard players set #RANGE_MAX temp 51
 			function main:rand_range
 			scoreboard players operation #RAND_RANGE_RESULT temp *= @s damage_taken
 			scoreboard players operation #RAND_RANGE_RESULT temp /= #100000 const
@@ -125,25 +125,25 @@ namespace bar_display()
 				
 				scoreboard players operation #GLOBAL INT = @s INT
 				scoreboard players operation #GLOBAL INT *= #50 const
-				scoreboard players operation #GLOBAL INT /= #36
+				scoreboard players operation #GLOBAL INT /= #36 const
 				scoreboard players operation #C temp += #GLOBAL INT
 				
 				scoreboard players operation #GLOBAL LUK = @s LUK
 				scoreboard players operation #GLOBAL LUK *= #100 const
-				scoreboard players operation #GLOBAL LUK /= #32
+				scoreboard players operation #GLOBAL LUK /= #32 const
 				scoreboard players operation #C temp += #GLOBAL LUK
 			}
 			
 			func warrior()
 			{
-				scoreboard players operation #C temp /= #28
-				scoreboard players operation #GLOBAL DEX /= #32
+				scoreboard players operation #C temp /= #28 const
+				scoreboard players operation #GLOBAL DEX /= #32 const
 			}
 			
 			func non_warrior()
 			{
-				scoreboard players operation #C temp /= #20
-				scoreboard players operation #GLOBAL DEX /= #28
+				scoreboard players operation #C temp /= #20 const
+				scoreboard players operation #GLOBAL DEX /= #28 const
 			}
 		}
 		
