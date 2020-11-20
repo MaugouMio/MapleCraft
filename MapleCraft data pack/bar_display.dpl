@@ -207,17 +207,66 @@ namespace bar_display()
 		execute if score @s mguar_buff_time matches 1.. if score @s mp matches 1.. run function skill:2/0/0/1002/guard
 		
 		scoreboard players operation @s hp -= @s damage_taken
-		execute if score @s hp matches ..0 run function ARG(_PATH)die
+		execute if score @s hp matches ..0 run function ARG(_PATH)death/die
 		function ARG(_PATH)change/hp/dropped
 		
 		effect give @s minecraft:absorption 1000000 255 true
 		scoreboard players reset @s damage_taken
 	}
 	
-	func die()
+	folder death()
 	{
-		scoreboard players set @s hp 0
-		say dead
+		func die()
+		{
+			gamemode spectator @s
+			scoreboard players set @s hp 0
+			tag @s add dead
+			
+			playsound minecraft:game.die player @a ~ ~ ~ 1 1 0
+			
+			scoreboard players operation #GLOBAL temp = @s number
+			summon minecraft:vex ~ ~0.3 ~ {Tags:["dead_decoration","new"],PersistenceRequired:1,Silent:1,NoAI:1,CustomNameVisible:1,CustomName:'{"text":"2","font":"space:default"}',Invulnerable:1,Team:"player",HandItems:[{id:"minecraft:potion",Count:1b,tag:{CustomModelData:2}},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:2}}]}
+			execute rotated ~ 0 run summon minecraft:armor_stand ~ ~1.7 ~ {Tags:["dead_decoration","new"],Motion:[0.0,-0.15,0.0],ActiveEffects:[{Id:28,Amplifier:0b,Duration:100000,Ambient:1b,ShowParticles:0b}],Silent:1,Invisible:1,Invulnerable:1,DisabledSlots:4144959,Team:"player",ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:3,CustomPotionColor:16777215}}]}
+			
+			data modify entity 00000000-0000-0001-0000-000000000001 DeathLootTable set value "bar_display:skull"
+			loot replace entity @e[type=minecraft:vex,tag=new,limit=1] armor.head kill 00000000-0000-0001-0000-000000000001
+			execute as @e[type=#bar_display:dead_decoration,tag=new] at @s run function ARG(_PATH)set_dead_decoration
+			
+			forceload add ~ ~
+		}
+		
+		func set_dead_decoration()
+		{
+			tp @s ~ ~ ~ ~ ~
+			data modify entity @s[type=vex] CustomName set from entity @s ArmorItems[3].tag.SkullOwner.Name
+			scoreboard players operation @s number = #GLOBAL temp
+			tag @s remove new
+		}
+		
+		func revive()
+		{
+			scoreboard players operation #GLOBAL temp = @s number
+			execute as @e[type=#bar_display:dead_decoration,tag=dead_decoration] if score @s number = #GLOBAL temp at @s run function ARG(_PATH)remove_dead_decoration
+			execute as @e[type=#bar_display:dead_decoration,tag=dead_decoration] at @s run forceload add ~ ~
+			
+			scoreboard players set @s hp 50
+			function ARG(__PATH)change/hp/recovered
+			tag @s remove dead
+			
+			title @s times 1 10 10
+			title @s title {"text":"0","font":"ui:transition"}
+			# teleport to the nearest town
+			tp @s -80 4 55 -90 40
+			
+			gamemode adventure @s
+		}
+		
+		func remove_dead_decoration()
+		{
+			execute if entity @s[type=vex] run forceload remove ~ ~
+			tp @s ~ -10 ~
+			kill @s
+		}
 	}
 	
 	folder change()
@@ -388,12 +437,12 @@ namespace bar_display()
 		func schedule_1s()
 		{
 			execute as @a[tag=!hp_mp_varying] run function ARG(__PATH)update_bar/run
-			execute as @a if score @s hp < @s hp_max run function ARG(__PATH)recover/hp
+			execute as @a[tag=!dead] if score @s hp < @s hp_max run function ARG(__PATH)recover/hp
 		}
 		
 		func schedule_10s()
 		{
-			execute as @a if score @s mp < @s mp_max run function ARG(__PATH)recover/mp
+			execute as @a[tag=!dead] if score @s mp < @s mp_max run function ARG(__PATH)recover/mp
 		}
 		
 		func schedule_1d()
