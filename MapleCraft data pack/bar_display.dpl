@@ -233,6 +233,7 @@ namespace bar_display()
 			execute as @e[type=#bar_display:dead_decoration,tag=new] at @s run function ARG(_PATH)set_dead_decoration
 			
 			forceload add ~ ~
+			tellraw @s [{"text":"3","font":"ui:main"},{"text":"B96","font":"space:default"},{"text":"2","font":"ui:main","clickEvent":{"action":"run_command","value":"/trigger command set 7"}},"\n"]
 		}
 		
 		func set_dead_decoration()
@@ -255,7 +256,9 @@ namespace bar_display()
 			
 			title @s times 1 10 10
 			title @s title {"text":"0","font":"ui:transition"}
-			# teleport to the nearest town
+			```
+			raise Warning("TODO: teleport to the nearest town")
+			```
 			tp @s -80 4 55 -90 40
 			
 			gamemode adventure @s
@@ -264,7 +267,7 @@ namespace bar_display()
 		func remove_dead_decoration()
 		{
 			execute if entity @s[type=vex] run forceload remove ~ ~
-			tp @s ~ -10 ~
+			tp @s[type=vex] ~ -10 ~
 			kill @s
 		}
 	}

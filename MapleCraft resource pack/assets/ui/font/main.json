@@ -1,0 +1,40 @@
+{
+	"providers": [
+		{
+			"type": "bitmap",
+			"file": "ui:font/main/no_button.png",
+			"ascent": 8,
+			"height": 9,
+			"chars": [
+				"0"
+			]
+		},
+		{
+			"type": "bitmap",
+			"file": "ui:font/main/yes_button.png",
+			"ascent": 8,
+			"height": 9,
+			"chars": [
+				"1"
+			]
+		},
+		{
+			"type": "bitmap",
+			"file": "ui:font/main/ok_button.png",
+			"ascent": 8,
+			"height": 9,
+			"chars": [
+				"2"
+			]
+		},
+		{
+			"type": "bitmap",
+			"file": "ui:font/main/death.png",
+			"ascent": 66,
+			"height": 73,
+			"chars": [
+				"3"
+			]
+		}
+	]
+}
