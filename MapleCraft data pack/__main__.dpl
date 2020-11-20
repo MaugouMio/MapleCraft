@@ -89,6 +89,7 @@ namespace main()
 	{
 		execute as @a[scores={jump=1..}] at @s run function ARG(_PATH)jump_effect
 		execute as @a[scores={just_jump=1..}] run function ARG(_PATH)jump_check_countdown
+		execute as @a unless score @s command matches 0 run function ARG(_PATH)command/check
 		
 		function skill:main/run
 		# function number_display:main
@@ -158,7 +159,7 @@ namespace main()
 			execute if score @s command matches 1.. run function ARG(_PATH)search/run
 			playsound minecraft:ui.button.click player @s
 			
-			scoreboard players reset @s
+			scoreboard players reset @s command
 			scoreboard players enable @s command
 		}
 		
@@ -235,7 +236,7 @@ namespace loop()
 			function bar_display:loop/schedule_10s
 			effect give @a minecraft:saturation 10 100 true
 			# unlock players that set command trigger to 0
-			trigger enable @a[scores={command=0}] command
+			scoreboard players enable @a[scores={command=0}] command
 		}
 	}
 	

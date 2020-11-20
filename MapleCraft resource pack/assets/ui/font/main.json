@@ -29,11 +29,20 @@
 		},
 		{
 			"type": "bitmap",
+			"file": "ui:font/main/mouse.png",
+			"ascent": 10,
+			"height": 14,
+			"chars": [
+				"3"
+			]
+		},
+		{
+			"type": "bitmap",
 			"file": "ui:font/main/death.png",
 			"ascent": 66,
 			"height": 73,
 			"chars": [
-				"3"
+				"4"
 			]
 		}
 	]
