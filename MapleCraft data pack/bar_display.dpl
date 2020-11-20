@@ -220,6 +220,7 @@ namespace bar_display()
 		{
 			gamemode spectator @s
 			scoreboard players set @s hp 0
+			function skill:buff/reset_all
 			tag @s add dead
 			
 			playsound minecraft:game.die player @a ~ ~ ~ 1 1 0
