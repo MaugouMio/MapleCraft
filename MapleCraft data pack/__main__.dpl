@@ -157,7 +157,7 @@ namespace main()
 		func check()
 		{
 			execute if score @s command matches 1.. run function ARG(_PATH)search/run
-			playsound minecraft:ui.button.click player @s
+			execute at @s run playsound minecraft:ui.button.click player @s
 			
 			scoreboard players reset @s command
 			scoreboard players enable @s command
@@ -226,6 +226,8 @@ namespace loop()
 		{
 			function skill:loop/schedule_1s
 			function bar_display:loop/schedule_1s
+			
+			execute as @a[predicate=main:underground] at @s run tp @s ~ 10 ~
 		}
 	}
 	
