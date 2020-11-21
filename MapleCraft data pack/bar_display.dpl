@@ -262,14 +262,6 @@ namespace bar_display()
 			function ARG(__PATH)change/hp/recovered
 			tag @s remove dead
 			
-			tellraw @s "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
-			title @s times 1 5 10
-			title @s title {"text":"0","font":"ui:transition"}
-			```
-			raise Warning("TODO: teleport to the nearest town")
-			```
-			tp @s -80 4 55 -90 40
-			
 			gamemode adventure @s
 		}
 		

@@ -53,6 +53,7 @@ namespace main()
 		scoreboard objectives add jump minecraft.custom:minecraft.jump
 		scoreboard objectives add just_jump dummy
 		scoreboard objectives add command trigger
+		scoreboard objectives add login minecraft.custom:minecraft.leave_game
 		
 		team add enemy
 		team modify enemy collisionRule never
@@ -90,6 +91,7 @@ namespace main()
 		execute as @a[scores={jump=1..}] at @s run function ARG(_PATH)jump_effect
 		execute as @a[scores={just_jump=1..}] run function ARG(_PATH)jump_check_countdown
 		execute as @a unless score @s command matches 0 run function ARG(_PATH)command/check
+		execute as @a[scores={login=1..}] run function ARG(_PATH)login_reset
 		
 		function skill:main/run
 		# function number_display:main
@@ -150,6 +152,38 @@ namespace main()
 		attribute @s minecraft:generic.attack_damage base set -100.0
 		
 		team join player @s
+	}
+	
+	func login_reset()
+	{
+		execute if entity @s[tag=dead] run function ARG(_PATH)town_revive/run
+		# special map teleport to nearest town belongs here
+		
+		execute at @s run playsound minecraft:game.game_in player @s
+		title @s times 1 5 10
+		title @s title {"text":"0","font":"ui:transition"}
+		scoreboard players reset @s login
+	}
+	
+	folder town_revive()
+	{
+		func run()
+		{
+			function bar_display:death/revive
+			
+			execute unless score @s login matches 1.. run function ARG(_PATH)reset_screen
+			```
+			raise Warning("TODO: teleport to the nearest town")
+			```
+			tp @s -80 4 55 -90 40
+		}
+		
+		func reset_screen()
+		{
+			tellraw @s "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+			title @s times 1 5 10
+			title @s title {"text":"0","font":"ui:transition"}
+		}
 	}
 	
 	folder command()

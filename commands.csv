@@ -1,1 +1,1 @@
-7,if entity @s[tag=dead] run function bar_display:death/revive
+7,if entity @s[tag=dead] run function main:town_revive/run
