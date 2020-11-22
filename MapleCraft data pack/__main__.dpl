@@ -130,6 +130,7 @@ namespace main()
 		scoreboard players set @s mp 5
 		scoreboard players set @s display_mp 100
 		scoreboard players set @s mp_warning 30
+		function bar_display:update_bar/run
 		
 		scoreboard players set @s hp_recover_time 10
 		scoreboard players set @s next_hp_recover 10
@@ -152,6 +153,10 @@ namespace main()
 		attribute @s minecraft:generic.attack_damage base set -100.0
 		
 		team join player @s
+		
+		execute at @s run playsound minecraft:game.game_in player @s
+		title @s times 1 5 10
+		title @s title {"text":"0","font":"ui:transition"}
 	}
 	
 	func login_reset()
