@@ -80,7 +80,7 @@ namespace item()
 			func check()
 			{
 				# use sound check
-				execute store result #GLOBAL temp run data get entity @s SelectedItem.tag.sound
+				execute store result score #GLOBAL temp run data get entity @s SelectedItem.tag.sound
 				execute if score #GLOBAL temp matches 0 run playsound minecraft:item.potion player @s
 				
 				# potion type check
@@ -113,12 +113,12 @@ namespace item()
 				{
 					execute store result score #GLOBAL temp run data get entity @s SelectedItem.tag.mp
 					scoreboard players operation @s mp += #GLOBAL temp
-					scoreboard players operation @s mp < @s hp_max
+					scoreboard players operation @s mp < @s mp_max
 					
 					function bar_display:change/mp/recovered
 				}
 				
-				func hp()
+				func hp_rate()
 				{
 					execute store result score #GLOBAL temp run data get entity @s SelectedItem.tag.hp_rate
 					scoreboard players operation #GLOBAL temp *= @s hp_max
@@ -130,14 +130,14 @@ namespace item()
 					function bar_display:change/hp/recovered
 				}
 				
-				func mp()
+				func mp_rate()
 				{
 					execute store result score #GLOBAL temp run data get entity @s SelectedItem.tag.mp_rate
 					scoreboard players operation #GLOBAL temp *= @s mp_max
 					scoreboard players operation #GLOBAL temp /= #100 const
 					
 					scoreboard players operation @s mp += #GLOBAL temp
-					scoreboard players operation @s mp < @s hp_max
+					scoreboard players operation @s mp < @s mp_max
 					
 					function bar_display:change/mp/recovered
 				}
