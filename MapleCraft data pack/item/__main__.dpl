@@ -70,8 +70,86 @@ namespace item()
 			execute store result score #USING_ITEM temp run data get entity @s[nbt={SelectedItem:{id:"minecraft:warped_fungus_on_a_stick"}}] SelectedItem.tag.CustomModelData
 			
 			execute if score #USING_ITEM temp matches ..30 unless score @s action_time matches 1.. run function ARG(_PATH)weapon/check
+			execute if score #USING_ITEM temp matches 100..499 unless score @s action_time matches 1.. run function ARG(_PATH)potion/check
 			
 			scoreboard players reset @s right_click_item
+		}
+		
+		folder potion()
+		{
+			func check()
+			{
+				# use sound check
+				execute store result #GLOBAL temp run data get entity @s SelectedItem.tag.sound
+				execute if score #GLOBAL temp matches 0 run playsound minecraft:item.potion player @s
+				
+				# potion type check
+				execute if score #USING_ITEM temp matches ..299 run function ARG(_PATH)recover/check
+				execute if score #USING_ITEM temp matches 300.. run function ARG(_PATH)buff/check
+				
+				# potion consume blongs here
+			}
+			
+			folder recover()
+			{
+				func check()
+				{
+					execute if score #USING_ITEM temp matches 100..169 if score @s hp < @s hp_max run function ARG(_PATH)hp
+					execute if score #USING_ITEM temp matches 130..199 if score @s mp < @s mp_max run function ARG(_PATH)mp
+					execute if score #USING_ITEM temp matches 200..269 if score @s hp < @s hp_max run function ARG(_PATH)hp_rate
+					execute if score #USING_ITEM temp matches 230..299 if score @s mp < @s mp_max run function ARG(_PATH)mp_rate
+				}
+				
+				func hp()
+				{
+					execute store result score #GLOBAL temp run data get entity @s SelectedItem.tag.hp
+					scoreboard players operation @s hp += #GLOBAL temp
+					scoreboard players operation @s hp < @s hp_max
+					
+					function bar_display:change/hp/recovered
+				}
+				
+				func mp()
+				{
+					execute store result score #GLOBAL temp run data get entity @s SelectedItem.tag.mp
+					scoreboard players operation @s mp += #GLOBAL temp
+					scoreboard players operation @s mp < @s hp_max
+					
+					function bar_display:change/mp/recovered
+				}
+				
+				func hp()
+				{
+					execute store result score #GLOBAL temp run data get entity @s SelectedItem.tag.hp_rate
+					scoreboard players operation #GLOBAL temp *= @s hp_max
+					scoreboard players operation #GLOBAL temp /= #100 const
+					
+					scoreboard players operation @s hp += #GLOBAL temp
+					scoreboard players operation @s hp < @s hp_max
+					
+					function bar_display:change/hp/recovered
+				}
+				
+				func mp()
+				{
+					execute store result score #GLOBAL temp run data get entity @s SelectedItem.tag.mp_rate
+					scoreboard players operation #GLOBAL temp *= @s mp_max
+					scoreboard players operation #GLOBAL temp /= #100 const
+					
+					scoreboard players operation @s mp += #GLOBAL temp
+					scoreboard players operation @s mp < @s hp_max
+					
+					function bar_display:change/mp/recovered
+				}
+			}
+			
+			folder buff()
+			{
+				func check()
+				{
+					
+				}
+			}
 		}
 		
 		folder weapon()
