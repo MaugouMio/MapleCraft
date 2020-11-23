@@ -99,7 +99,7 @@ namespace 42() as virtual
 				scoreboard players operation @s mp -= @s 4201004_mp
 				function bar_display:change/mp/dropped
 				
-				execute store result score @s action_time run data get entity @s Inventory[{Slot:-106b}].tag.action_time
+				scoreboard players operation @s action_time = @s weapon_speed
 				scoreboard players remove @s[scores={boost_buff_time=1..}] action_time 1
 			}
 			
@@ -209,7 +209,7 @@ namespace 42() as virtual
 				scoreboard players operation @s mp -= @s 4201005_mp
 				function bar_display:change/mp/dropped
 				
-				execute store result score @s action_time run data get entity @s Inventory[{Slot:-106b}].tag.action_time
+				scoreboard players operation @s action_time = @s weapon_speed
 				scoreboard players remove @s[scores={boost_buff_time=1..}] action_time 1
 				scoreboard players add @s action_time 18
 			}

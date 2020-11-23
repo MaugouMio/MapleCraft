@@ -652,7 +652,7 @@ namespace skill()
 					func set_numeric()
 					{
 						# melee *RANDOM* swing damage formula and default attack speed is done by afterimage functions
-						execute store result score @s action_time run data get entity @s Inventory[{Slot:-106b}].tag.action_time
+						scoreboard players operation @s action_time = @s weapon_speed
 					}
 				
 					func cast_effect()
@@ -741,7 +741,7 @@ namespace skill()
 						scoreboard players remove @s bullet_amount 1
 						execute if score @s soul_buff_time matches 1.. if score @s 3101004_weapon = #USED_WEAPON temp run scoreboard players add @s bullet_amount 1
 						
-						execute store result score @s action_time run data get entity @s Inventory[{Slot:-106b}].tag.action_time
+						scoreboard players operation @s action_time = @s weapon_speed
 						scoreboard players remove @s[scores={boost_buff_time=1..}] action_time 1
 						scoreboard players add @s action_time 16
 						execute if score #USED_WEAPON temp matches 18 run scoreboard players add @s action_time 1
@@ -804,10 +804,10 @@ namespace skill()
 					func set_numeric()
 					{
 						# melee *RANDOM* swing damage formula and default attack speed is done by afterimage functions
-						execute store result score #KNOCKBACK_RATE temp run data get entity @s Inventory[{Slot:-106b}].tag.knockback
+						scoreboard players operation #KNOCKBACK_RATE temp = @s weapon_knock
 						scoreboard players set #SKILL_KNOCKBACK_RATE temp 0
 						
-						execute store result score @s action_time run data get entity @s Inventory[{Slot:-106b}].tag.action_time
+						scoreboard players operation @s action_time = @s weapon_speed
 						scoreboard players remove @s[scores={boost_buff_time=1..}] action_time 1
 					}
 			
@@ -1393,7 +1393,7 @@ namespace skill()
 		{
 			scoreboard players set #ACCEPTED_WEAPON temp 0
 			
-			execute store result score #USED_WEAPON temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_type
+			scoreboard players operation #USED_WEAPON temp = @s weapon_type
 			execute if score #USED_WEAPON temp matches 0 run tellraw @s {"translate":"warning.skill.no_weapon","color":"red"}
 		}
 		
@@ -1626,7 +1626,7 @@ namespace skill()
 		func spell()
 		{
 			# magic attack
-			execute store result score #MAGIC_ATTACK temp run data get entity @s Inventory[{Slot:-106b}].tag.magic_attack
+			scoreboard players operation #MAGIC_ATTACK temp = @s weapon_mattack
 			scoreboard players operation #MAGIC_ATTACK temp += @s matk_buff_num
 			
 			scoreboard players operation #MAGIC_ATTACK temp += @s INT
@@ -1676,7 +1676,7 @@ namespace skill()
 			scoreboard players add #MULTIPLIER temp 150
 			
 			# magic attack
-			execute store result score #MAGIC_ATTACK temp run data get entity @s Inventory[{Slot:-106b}].tag.magic_attack
+			scoreboard players operation #MAGIC_ATTACK temp = @s weapon_mattack
 			scoreboard players operation #MAGIC_ATTACK temp += @s matk_buff_num
 			
 			scoreboard players operation #MAGIC_ATTACK temp += @s INT
@@ -1745,6 +1745,7 @@ namespace skill()
 				scoreboard players operation #ACCURACY temp /= #10 const
 				
 				scoreboard players operation #ACCURACY temp += @s base_accuracy
+				scoreboard players operation #ACCURACY temp += @s equip_accuracy
 				scoreboard players operation #ACCURACY temp += @s accu_buff_num
 			}
 			
@@ -1759,6 +1760,7 @@ namespace skill()
 				scoreboard players operation #ACCURACY temp /= #10 const
 				
 				scoreboard players operation #ACCURACY temp += @s base_accuracy
+				scoreboard players operation #ACCURACY temp += @s equip_accuracy
 				scoreboard players operation #ACCURACY temp += @s accu_buff_num
 			}
 			
@@ -1773,6 +1775,7 @@ namespace skill()
 				scoreboard players operation #ACCURACY temp /= #10 const
 				
 				scoreboard players operation #ACCURACY temp += @s base_accuracy
+				scoreboard players operation #ACCURACY temp += @s equip_accuracy
 				scoreboard players operation #ACCURACY temp += @s accu_buff_num
 			}
 		}
@@ -1799,7 +1802,7 @@ namespace skill()
 			func normal()
 			{
 				# weapon attack
-				execute store result score #WEAPON_ATTACK temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_attack
+				scoreboard players operation #WEAPON_ATTACK temp = @s weapon_attack
 				scoreboard players operation #WEAPON_ATTACK temp += @s bullet_damage
 				scoreboard players operation #WEAPON_ATTACK temp += @s watk_buff_num
 				
@@ -1828,7 +1831,7 @@ namespace skill()
 			func lucky_seven()
 			{
 				# weapon attack
-				execute store result score #MAX_DAMAGE temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_attack
+				scoreboard players operation #MAX_DAMAGE temp = @s weapon_attack
 				scoreboard players operation #MAX_DAMAGE temp += @s bullet_damage
 				scoreboard players operation #MAX_DAMAGE temp += @s watk_buff_num
 				
@@ -1844,7 +1847,7 @@ namespace skill()
 			func punch()
 			{
 				# weapon attack
-				execute store result score #WEAPON_ATTACK temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_attack
+				scoreboard players operation #WEAPON_ATTACK temp = @s weapon_attack
 				scoreboard players operation #WEAPON_ATTACK temp += @s watk_buff_num
 				
 				scoreboard players operation #MAX_DAMAGE temp = @s LUK
@@ -1892,7 +1895,7 @@ namespace skill()
 			func thief()
 			{
 				# weapon attack
-				execute store result score #WEAPON_ATTACK temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_attack
+				scoreboard players operation #WEAPON_ATTACK temp = @s weapon_attack
 				scoreboard players operation #WEAPON_ATTACK temp += @s watk_buff_num
 				
 				scoreboard players operation #MAX_DAMAGE temp = @s LUK
@@ -1924,7 +1927,7 @@ namespace skill()
 			func non_thief()
 			{
 				# weapon attack
-				execute store result score #WEAPON_ATTACK temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_attack
+				scoreboard players operation #WEAPON_ATTACK temp = @s weapon_attack
 				scoreboard players operation #WEAPON_ATTACK temp += @s watk_buff_num
 				
 				scoreboard players operation #MAX_DAMAGE temp = @s STR
@@ -1966,7 +1969,7 @@ namespace skill()
 			func normal()
 			{
 				# weapon attack
-				execute store result score #WEAPON_ATTACK temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_attack
+				scoreboard players operation #WEAPON_ATTACK temp = @s weapon_attack
 				execute unless score #GLOBAL bullet_model matches 3001 run scoreboard players operation #WEAPON_ATTACK temp += @s bullet_damage
 				scoreboard players operation #WEAPON_ATTACK temp += @s watk_buff_num
 				
@@ -1997,7 +2000,7 @@ namespace skill()
 			func power_knock_back()
 			{
 				# weapon attack
-				execute store result score #WEAPON_ATTACK temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_attack
+				scoreboard players operation #WEAPON_ATTACK temp = @s weapon_attack
 				scoreboard players operation #WEAPON_ATTACK temp += @s watk_buff_num
 				
 				scoreboard players operation #MAX_DAMAGE temp = @s DEX
@@ -2041,7 +2044,7 @@ namespace skill()
 			func normal()
 			{
 				# weapon attack
-				execute store result score #WEAPON_ATTACK temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_attack
+				scoreboard players operation #WEAPON_ATTACK temp = @s weapon_attack
 				execute unless score #GLOBAL bullet_model matches 3001 run scoreboard players operation #WEAPON_ATTACK temp += @s bullet_damage
 				scoreboard players operation #WEAPON_ATTACK temp += @s watk_buff_num
 				
@@ -2072,7 +2075,7 @@ namespace skill()
 			func power_knock_back()
 			{
 				# weapon attack
-				execute store result score #WEAPON_ATTACK temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_attack
+				scoreboard players operation #WEAPON_ATTACK temp = @s weapon_attack
 				scoreboard players operation #WEAPON_ATTACK temp += @s watk_buff_num
 				
 				scoreboard players operation #MAX_DAMAGE temp = @s DEX
@@ -2132,7 +2135,7 @@ namespace skill()
 			func other_formula()
 			{
 				# weapon attack
-				execute store result score #WEAPON_ATTACK temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_attack
+				scoreboard players operation #WEAPON_ATTACK temp = @s weapon_attack
 				scoreboard players operation #WEAPON_ATTACK temp += @s watk_buff_num
 				
 				scoreboard players operation #MIN_DAMAGE temp = #MAX_DAMAGE temp
@@ -2182,7 +2185,7 @@ namespace skill()
 			func other_formula()
 			{
 				# weapon attack
-				execute store result score #WEAPON_ATTACK temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_attack
+				scoreboard players operation #WEAPON_ATTACK temp = @s weapon_attack
 				scoreboard players operation #WEAPON_ATTACK temp += @s watk_buff_num
 				
 				scoreboard players operation #MIN_DAMAGE temp = #MAX_DAMAGE temp
@@ -2233,7 +2236,7 @@ namespace skill()
 			func other_formula()
 			{
 				# weapon attack
-				execute store result score #WEAPON_ATTACK temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_attack
+				scoreboard players operation #WEAPON_ATTACK temp = @s weapon_attack
 				scoreboard players operation #WEAPON_ATTACK temp += @s watk_buff_num
 				
 				scoreboard players operation #MIN_DAMAGE temp = #MAX_DAMAGE temp
@@ -2309,7 +2312,7 @@ namespace skill()
 			func other_formula()
 			{
 				# weapon attack
-				execute store result score #WEAPON_ATTACK temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_attack
+				scoreboard players operation #WEAPON_ATTACK temp = @s weapon_attack
 				scoreboard players operation #WEAPON_ATTACK temp += @s watk_buff_num
 				
 				scoreboard players operation #MIN_DAMAGE temp = #MAX_DAMAGE temp
@@ -2385,7 +2388,7 @@ namespace skill()
 			func other_formula()
 			{
 				# weapon attack
-				execute store result score #WEAPON_ATTACK temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_attack
+				scoreboard players operation #WEAPON_ATTACK temp = @s weapon_attack
 				scoreboard players operation #WEAPON_ATTACK temp += @s watk_buff_num
 				
 				scoreboard players operation #MIN_DAMAGE temp = #MAX_DAMAGE temp
@@ -2438,7 +2441,7 @@ namespace skill()
 			func other_formula()
 			{
 				# weapon attack
-				execute store result score #WEAPON_ATTACK temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_attack
+				scoreboard players operation #WEAPON_ATTACK temp = @s weapon_attack
 				scoreboard players operation #WEAPON_ATTACK temp += @s watk_buff_num
 				
 				scoreboard players operation #MIN_DAMAGE temp = #MAX_DAMAGE temp

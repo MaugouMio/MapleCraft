@@ -15,6 +15,13 @@ namespace item()
 		scoreboard objectives add bullet_model dummy
 		scoreboard objectives add bullet_damage dummy
 		scoreboard objectives add bullet_amount dummy
+		
+		scoreboard objectives add weapon_type dummy
+		scoreboard objectives add weapon_attack dummy
+		scoreboard objectives add weapon_mattack dummy
+		scoreboard objectives add weapon_knock dummy
+		scoreboard objectives add weapon_speed dummy
+		scoreboard objectives add equip_accuracy dummy
 	}
 	
 	folder loop()
@@ -27,8 +34,8 @@ namespace item()
 	
 	func main()
 	{
-		# used consume item check
-		execute as @a[scores={right_click_item=1..},tag=!dead] at @s run function ARG(_PATH)consume/check
+		# used item check
+		execute as @a[scores={right_click_item=1..},tag=!dead] at @s run function ARG(_PATH)use/check
 		# pick item check
 		execute as @a[predicate=item:pickup] at @s run function ARG(_PATH)pick/check
 	}
@@ -120,92 +127,92 @@ namespace item()
 		}
 	}
 	
-	folder consume()
+	folder use()
 	{
 		func check()
 		{
 			execute store result score #USING_ITEM temp run data get entity @s[nbt={SelectedItem:{id:"minecraft:warped_fungus_on_a_stick"}}] SelectedItem.tag.CustomModelData
 			
-			execute if score #USING_ITEM temp matches ..30 unless score @s action_time matches 1.. run function ARG(_PATH)weapon/check
-			execute if score #USING_ITEM temp matches 100..499 unless score @s action_time matches 1.. run function ARG(_PATH)potion/check
+			execute if score #USING_ITEM temp matches ..499 run function ARG(_PATH)consume/check
+			execute if score #USING_ITEM temp matches 10001.. unless score @s action_time matches 1.. run function ARG(_PATH)weapon/check
 			
 			scoreboard players reset @s right_click_item
 		}
 		
-		folder potion()
+		folder equip_numeric()
 		{
-			func check()
+			func apply()
 			{
-				# use sound check
-				execute store result score #GLOBAL temp run data get entity @s SelectedItem.tag.sound
-				execute if score #GLOBAL temp matches 0 run playsound minecraft:item.potion player @s
+				# need to store item info in storage item:main equip
+				execute store result score #GLOBAL temp run data get storage item:main equip.hp
+				scoreboard players operation @s hp_max_base += #GLOBAL temp
+				execute store result score #GLOBAL temp run data get storage item:main equip.mp
+				scoreboard players operation @s mp_max_base += #GLOBAL temp
+				execute unless score @s hyper_buff_time matches 1.. run function ARG(_PATH)update_hp_mp
+				execute if score @s hyper_buff_time matches 1.. run function skill:1/3/0/1007/set_hp_mp
 				
-				# potion type check
-				execute if score #USING_ITEM temp matches ..299 run function ARG(_PATH)recover/check
-				execute if score #USING_ITEM temp matches 300.. run function ARG(_PATH)buff/check
+				execute store result score #GLOBAL temp run data get storage item:main equip.defense
+				scoreboard players operation @s weapon_defense += #GLOBAL temp
+				execute store result score #GLOBAL temp run data get storage item:main equip.magic_defense
+				scoreboard players operation @s magic_defense += #GLOBAL temp
+				execute store result score #GLOBAL temp run data get storage item:main equip.accuracy
+				scoreboard players operation @s equip_accuracy += #GLOBAL temp
 				
-				# potion consume blongs here
+				execute store result score #SPEED temp run data get block 0 1 0 Items[0].tag.AttributeModifiers[0].Amount 100
+				execute store result score #GLOBAL temp run data get storage item:main equip.speed
+				execute store result block 0 1 0 Items[0].tag.AttributeModifiers[0].Amount float 0.01 run scoreboard players operation #SPEED temp += #GLOBAL temp
+				
+				execute store result score #GLOBAL temp run data get storage item:main equip.str
+				scoreboard players operation @s STR += #GLOBAL temp
+				execute store result score #GLOBAL temp run data get storage item:main equip.dex
+				scoreboard players operation @s DEX += #GLOBAL temp
+				execute store result score #GLOBAL temp run data get storage item:main equip.int
+				scoreboard players operation @s INT += #GLOBAL temp
+				execute store result score #GLOBAL temp run data get storage item:main equip.luk
+				scoreboard players operation @s LUK += #GLOBAL temp
 			}
 			
-			folder recover()
+			func update_hp_mp()
 			{
-				func check()
-				{
-					execute if score #USING_ITEM temp matches 100..169 if score @s hp < @s hp_max run function ARG(_PATH)hp
-					execute if score #USING_ITEM temp matches 130..199 if score @s mp < @s mp_max run function ARG(_PATH)mp
-					execute if score #USING_ITEM temp matches 200..269 if score @s hp < @s hp_max run function ARG(_PATH)hp_rate
-					execute if score #USING_ITEM temp matches 230..299 if score @s mp < @s mp_max run function ARG(_PATH)mp_rate
-				}
-				
-				func hp()
-				{
-					execute store result score #GLOBAL temp run data get entity @s SelectedItem.tag.hp
-					scoreboard players operation @s hp += #GLOBAL temp
-					scoreboard players operation @s hp < @s hp_max
-					
-					function bar_display:change/hp/recovered
-				}
-				
-				func mp()
-				{
-					execute store result score #GLOBAL temp run data get entity @s SelectedItem.tag.mp
-					scoreboard players operation @s mp += #GLOBAL temp
-					scoreboard players operation @s mp < @s mp_max
-					
-					function bar_display:change/mp/recovered
-				}
-				
-				func hp_rate()
-				{
-					execute store result score #GLOBAL temp run data get entity @s SelectedItem.tag.hp_rate
-					scoreboard players operation #GLOBAL temp *= @s hp_max
-					scoreboard players operation #GLOBAL temp /= #100 const
-					
-					scoreboard players operation @s hp += #GLOBAL temp
-					scoreboard players operation @s hp < @s hp_max
-					
-					function bar_display:change/hp/recovered
-				}
-				
-				func mp_rate()
-				{
-					execute store result score #GLOBAL temp run data get entity @s SelectedItem.tag.mp_rate
-					scoreboard players operation #GLOBAL temp *= @s mp_max
-					scoreboard players operation #GLOBAL temp /= #100 const
-					
-					scoreboard players operation @s mp += #GLOBAL temp
-					scoreboard players operation @s mp < @s mp_max
-					
-					function bar_display:change/mp/recovered
-				}
+				scoreboard players operation @s hp_max = @s hp_max_base
+				scoreboard players operation @s hp_max < #30000 const
+				scoreboard players operation @s mp_max = @s mp_max_base
+				scoreboard players operation @s mp_max < #30000 const
 			}
 			
-			folder buff()
+			func remove()
 			{
-				func check()
-				{
-					
-				}
+				# removed item is stored in block 0 0 0 Items[0]
+				execute store result score #GLOBAL temp run data get block 0 1 0 Items[0].tag.hp
+				scoreboard players operation @s hp_max_base -= #GLOBAL temp
+				execute store result score #GLOBAL temp run data get block 0 1 0 Items[0].tag.mp
+				scoreboard players operation @s mp_max_base -= #GLOBAL temp
+				execute unless score @s hyper_buff_time matches 1.. run function ARG(_PATH)update_hp_mp
+				execute if score @s hyper_buff_time matches 1.. run function skill:1/3/0/1007/set_hp_mp
+				
+				execute store result score #GLOBAL temp run data get block 0 1 0 Items[0].tag.defense
+				scoreboard players operation @s weapon_defense -= #GLOBAL temp
+				execute store result score #GLOBAL temp run data get block 0 1 0 Items[0].tag.magic_defense
+				scoreboard players operation @s magic_defense -= #GLOBAL temp
+				execute store result score #GLOBAL temp run data get block 0 1 0 Items[0].tag.accuracy
+				scoreboard players operation @s equip_accuracy -= #GLOBAL temp
+				
+				execute store result score #SPEED temp run data get entity @s Inventory[{Slot:103b}].tag.AttributeModifiers[0].Amount 100
+				execute store result score #GLOBAL temp run data get block 0 1 0 Items[0].tag.speed
+				
+				execute store result score #GLOBAL temp run data get block 0 1 0 Items[0].tag.str
+				scoreboard players operation @s STR -= #GLOBAL temp
+				execute store result score #GLOBAL temp run data get block 0 1 0 Items[0].tag.dex
+				scoreboard players operation @s DEX -= #GLOBAL temp
+				execute store result score #GLOBAL temp run data get block 0 1 0 Items[0].tag.int
+				scoreboard players operation @s INT -= #GLOBAL temp
+				execute store result score #GLOBAL temp run data get block 0 1 0 Items[0].tag.luk
+				scoreboard players operation @s LUK -= #GLOBAL temp
+				
+				# reset speed attribute modifier
+				replaceitem block 0 1 0 container.0 minecraft:potion
+				data modify block 0 1 0 Items[0].tag set from entity @s Inventory[{Slot:103b}].tag
+				execute store result block 0 1 0 Items[0].tag.AttributeModifiers[0].Amount float 0.01 run scoreboard players operation #SPEED temp -= #GLOBAL temp
 			}
 		}
 		
@@ -213,73 +220,217 @@ namespace item()
 		{
 			func check()
 			{
-				execute store result score @s bullet_model run data get entity @s SelectedItem.tag.bullet_model
-				execute store result score @s bullet_damage run data get entity @s SelectedItem.tag.Enchantments[0].lvl
-				execute store result score #GLOBAL bullet_amount run data get entity @s SelectedItem.tag.amount
-				tellraw @s {"translate":"item.consume.used_weapon","with":[{"nbt":"SelectedItem.tag.display.Name","entity":"@s","interpret":true},{"score":{"name":"#GLOBAL","objective":"bullet_amount"}}]}
+				scoreboard players set #ACCEPTED_WEAPON temp 0
+				```
+				raise Warning("TODO: check weapon level, job, stats restrictions")
+				```
+				scoreboard players set #ACCEPTED_WEAPON temp 1
 				
-				replaceitem entity @s weapon.mainhand minecraft:air
-				execute if score @s bullet_item matches 1.. run function ARG(_PATH)restore/check
+				execute if score #ACCEPTED_WEAPON temp matches 0 run tellraw @s {"translate":"warning.equip.invalid_stat","color":"red"}
+				execute if score #ACCEPTED_WEAPON temp matches 1 run function ARG(_PATH)equip
 				
-				scoreboard players operation @s bullet_amount = #GLOBAL bullet_amount
-				scoreboard players operation @s bullet_item = #USING_ITEM temp
+				playsound minecraft:item.equip player @s
 			}
 			
-			folder restore()
+			func equip()
+			{
+				data modify storage item:main equip set from entity @s SelectedItem.tag
+				
+				# give weapon for display
+				replaceitem block 0 1 0 container.0 minecraft:diamond_axe
+				data modify block 0 1 0 Items[0].tag set from entity @s SelectedItem.tag
+				data modify block 0 1 0 Items[0].tag.display.Lore set value ['{"translate":"item.notice.for_display"}']
+				loot replace entity @s weapon.mainhand 1 mine 0 1 0 minecraft:air{modify_player:1b}
+				
+				# replace original weapon
+				execute if score @s weapon_type matches 1.. run function ARG(_PATH)remove
+				
+				# equip new weapon
+				replaceitem block 0 1 0 container.0 minecraft:potion
+				data modify block 0 1 0 Items[0].tag set from entity @s Inventory[{Slot:103b}].tag
+				data modify block 0 1 0 Items[0].tag.weapon set from storage item:main equip
+				
+				execute store result score @s weapon_type run data get storage item:main equip.weapon_type
+				execute store result score @s weapon_attack run data get storage item:main equip.weapon_attack
+				execute store result score @s weapon_mattack run data get storage item:main equip.magic_attack
+				execute store result score @s weapon_speed run data get storage item:main equip.action_time
+				execute store result score @s weapon_knock run data get storage item:main equip.knockback
+				function ARG(__PATH)equip_numeric/apply
+				
+				loot replace entity @s armor.head 1 mine 0 1 0 minecraft:air{modify_player:1b}
+				
+				execute if score @s boost_buff_time matches 1.. run function skill:buff/boost/reset/run
+			}
+			
+			func remove()
+			{
+				replaceitem block 0 1 0 container.0 minecraft:warped_fungus_on_a_stick
+				data modify block 0 1 0 Items[0].tag set from entity @s Inventory[{Slot:103b}].tag.weapon
+				loot give @s mine 0 1 0 minecraft:air{modify_player:1b}
+				
+				function ARG(__PATH)equip_numeric/remove
+				scoreboard players reset @s weapon_type
+			}
+		}
+		
+		folder consume()
+		{
+			func check()
+			{
+				execute if score #USING_ITEM temp matches ..30 unless score @s action_time matches 1.. run function ARG(_PATH)weapon/check
+				execute if score #USING_ITEM temp matches 100.. run function ARG(_PATH)potion/check
+			}
+			
+			folder potion()
 			{
 				func check()
 				{
-					execute if score @s bullet_item matches ..20 run function ARG(_PATH)throwing_star
-					execute if score @s bullet_item matches 21..25 if score @s bullet_amount matches 1.. run function ARG(_PATH)arrow_bow
-					execute if score @s bullet_item matches 26..30 if score @s bullet_amount matches 1.. run function ARG(_PATH)arrow_crossbow
+					# use sound check
+					execute store result score #GLOBAL temp run data get entity @s SelectedItem.tag.sound
+					execute if score #GLOBAL temp matches 0 run playsound minecraft:item.potion player @s
 					
-					scoreboard players reset @s bullet_item
+					# potion type check
+					execute if score #USING_ITEM temp matches ..299 run function ARG(_PATH)recover/check
+					execute if score #USING_ITEM temp matches 300.. run function ARG(_PATH)buff/check
+					
+					# potion consume blongs here
 				}
 				
-				func give()
+				folder recover()
 				{
-					execute store result block 0 2 0 Items[0].tag.amount int 1 run scoreboard players operation #GLOBAL temp = @s bullet_amount
-					data modify block 0 0 0 Text1 set value '{"translate":"item.consume.weapon.left","with":[{"score":{"name":"#GLOBAL","objective":"temp"}}]}'
-					data modify block 0 2 0 Items[0].tag.display.Lore[0] set from block 0 0 0 Text1
-					loot give @s mine 0 2 0 minecraft:air{modify_player:1b}
+					func check()
+					{
+						execute if score #USING_ITEM temp matches 100..169 if score @s hp < @s hp_max run function ARG(_PATH)hp
+						execute if score #USING_ITEM temp matches 130..199 if score @s mp < @s mp_max run function ARG(_PATH)mp
+						execute if score #USING_ITEM temp matches 200..269 if score @s hp < @s hp_max run function ARG(_PATH)hp_rate
+						execute if score #USING_ITEM temp matches 230..299 if score @s mp < @s mp_max run function ARG(_PATH)mp_rate
+					}
+					
+					func hp()
+					{
+						execute store result score #GLOBAL temp run data get entity @s SelectedItem.tag.hp
+						scoreboard players operation @s hp += #GLOBAL temp
+						scoreboard players operation @s hp < @s hp_max
+						
+						function bar_display:change/hp/recovered
+					}
+					
+					func mp()
+					{
+						execute store result score #GLOBAL temp run data get entity @s SelectedItem.tag.mp
+						scoreboard players operation @s mp += #GLOBAL temp
+						scoreboard players operation @s mp < @s mp_max
+						
+						function bar_display:change/mp/recovered
+					}
+					
+					func hp_rate()
+					{
+						execute store result score #GLOBAL temp run data get entity @s SelectedItem.tag.hp_rate
+						scoreboard players operation #GLOBAL temp *= @s hp_max
+						scoreboard players operation #GLOBAL temp /= #100 const
+						
+						scoreboard players operation @s hp += #GLOBAL temp
+						scoreboard players operation @s hp < @s hp_max
+						
+						function bar_display:change/hp/recovered
+					}
+					
+					func mp_rate()
+					{
+						execute store result score #GLOBAL temp run data get entity @s SelectedItem.tag.mp_rate
+						scoreboard players operation #GLOBAL temp *= @s mp_max
+						scoreboard players operation #GLOBAL temp /= #100 const
+						
+						scoreboard players operation @s mp += #GLOBAL temp
+						scoreboard players operation @s mp < @s mp_max
+						
+						function bar_display:change/mp/recovered
+					}
 				}
 				
-				func throwing_star()
+				folder buff()
 				{
-					# nbt is stored in google cloud sheet
-					execute if score @s bullet_item matches 1 run replaceitem block 0 2 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:1,amount:500,bullet_model:4000,max_amount:500,unit_price:0.8f,display:{Name:'{"translate":"item.consume.2070000"}',Lore:['{"translate":"item.consume.weapon.left","with":["500"]}']},Enchantments:[{id:"minecraft:fortune",lvl:15}],HideFlags:126,Unbreakable:1}
-					execute if score @s bullet_item matches 2 run replaceitem block 0 2 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:2,amount:500,bullet_model:4001,max_amount:500,unit_price:0.7f,display:{Name:'{"translate":"item.consume.2070001"}',Lore:['{"translate":"item.consume.weapon.left","with":["500"]}']},Enchantments:[{id:"minecraft:fortune",lvl:17}],HideFlags:126,Unbreakable:1}
-					execute if score @s bullet_item matches 3 run replaceitem block 0 2 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:3,amount:700,bullet_model:4002,max_amount:700,unit_price:0.6f,display:{Name:'{"translate":"item.consume.2070002"}',Lore:['{"translate":"item.consume.weapon.left","with":["700"]}']},Enchantments:[{id:"minecraft:fortune",lvl:19}],HideFlags:126,Unbreakable:1}
-					execute if score @s bullet_item matches 4 run replaceitem block 0 2 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:4,amount:500,bullet_model:4003,max_amount:500,unit_price:0.6f,display:{Name:'{"translate":"item.consume.2070003"}',Lore:['{"translate":"item.consume.weapon.left","with":["500"]}']},Enchantments:[{id:"minecraft:fortune",lvl:21}],HideFlags:126,Unbreakable:1}
-					execute if score @s bullet_item matches 5 run replaceitem block 0 2 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:5,amount:1000,bullet_model:4004,max_amount:1000,unit_price:0.5f,display:{Name:'{"translate":"item.consume.2070004"}',Lore:['{"translate":"item.consume.weapon.left","with":["1000"]}']},Enchantments:[{id:"minecraft:fortune",lvl:23}],HideFlags:126,Unbreakable:1}
-					execute if score @s bullet_item matches 6 run replaceitem block 0 2 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:6,amount:1000,bullet_model:4005,max_amount:1000,unit_price:0.4f,display:{Name:'{"translate":"item.consume.2070005"}',Lore:['{"translate":"item.consume.weapon.left","with":["1000"]}']},Enchantments:[{id:"minecraft:fortune",lvl:25}],HideFlags:126,Unbreakable:1}
-					execute if score @s bullet_item matches 7 run replaceitem block 0 2 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:7,amount:800,bullet_model:4006,max_amount:800,unit_price:0.3f,display:{Name:'{"translate":"item.consume.2070006"}',Lore:['{"translate":"item.consume.weapon.left","with":["800"]}']},Enchantments:[{id:"minecraft:fortune",lvl:27}],HideFlags:126,Unbreakable:1}
+					func check()
+					{
+						
+					}
+				}
+			}
+			
+			folder weapon()
+			{
+				func check()
+				{
+					execute store result score @s bullet_model run data get entity @s SelectedItem.tag.bullet_model
+					execute store result score @s bullet_damage run data get entity @s SelectedItem.tag.Enchantments[0].lvl
+					execute store result score #GLOBAL bullet_amount run data get entity @s SelectedItem.tag.amount
+					tellraw @s {"translate":"item.notice.used_weapon","with":[{"nbt":"SelectedItem.tag.display.Name","entity":"@s","interpret":true},{"score":{"name":"#GLOBAL","objective":"bullet_amount"}}]}
 					
-					function ARG(_PATH)give
+					playsound minecraft:item.equip player @s
+					replaceitem entity @s weapon.mainhand minecraft:air
+					execute if score @s bullet_item matches 1.. run function ARG(_PATH)restore/check
+					
+					scoreboard players operation @s bullet_amount = #GLOBAL bullet_amount
+					scoreboard players operation @s bullet_item = #USING_ITEM temp
 				}
 				
-				func arrow_bow()
+				folder restore()
 				{
-					# nbt is stored in google cloud sheet
-					execute if score @s bullet_item matches 21 run replaceitem block 0 2 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:21,amount:2000,bullet_model:3101,display:{Name:'{"translate":"item.consume.2060000"}',Lore:['{"translate":"item.consume.weapon.left","with":["2000"]}']},Enchantments:[],HideFlags:126,Unbreakable:1}
-					execute if score @s bullet_item matches 22 run replaceitem block 0 2 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:22,amount:2000,bullet_model:3102,display:{Name:'{"translate":"item.consume.2060001"}',Lore:['{"translate":"item.consume.weapon.left","with":["2000"]}']},Enchantments:[{id:"minecraft:fortune",lvl:1}],HideFlags:126,Unbreakable:1}
-					execute if score @s bullet_item matches 23 run replaceitem block 0 2 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:23,amount:2000,bullet_model:3103,display:{Name:'{"translate":"item.consume.2060002"}',Lore:['{"translate":"item.consume.weapon.left","with":["2000"]}']},Enchantments:[{id:"minecraft:fortune",lvl:2}],HideFlags:126,Unbreakable:1}
-					execute if score @s bullet_item matches 24 run replaceitem block 0 2 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:24,amount:2000,bullet_model:3104,display:{Name:'{"translate":"item.consume.2060003"}',Lore:['{"translate":"item.consume.weapon.left","with":["2000"]}']},Enchantments:[{id:"minecraft:fortune",lvl:4}],HideFlags:126,Unbreakable:1}
-					execute if score @s bullet_item matches 25 run replaceitem block 0 2 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:25,amount:2000,bullet_model:3105,display:{Name:'{"translate":"item.consume.2060004"}',Lore:['{"translate":"item.consume.weapon.left","with":["2000"]}']},Enchantments:[{id:"minecraft:fortune",lvl:4}],HideFlags:126,Unbreakable:1}
+					func check()
+					{
+						execute if score @s bullet_item matches ..20 run function ARG(_PATH)throwing_star
+						execute if score @s bullet_item matches 21..25 if score @s bullet_amount matches 1.. run function ARG(_PATH)arrow_bow
+						execute if score @s bullet_item matches 26..30 if score @s bullet_amount matches 1.. run function ARG(_PATH)arrow_crossbow
+						
+						scoreboard players reset @s bullet_item
+					}
 					
-					function ARG(_PATH)give
-				}
-				
-				func arrow_crossbow()
-				{
-					# nbt is stored in google cloud sheet
-					execute if score @s bullet_item matches 26 run replaceitem block 0 2 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:26,amount:2000,bullet_model:3201,display:{Name:'{"translate":"item.consume.2061000"}',Lore:['{"translate":"item.consume.weapon.left","with":["2000"]}']},Enchantments:[],HideFlags:126,Unbreakable:1}
-					execute if score @s bullet_item matches 27 run replaceitem block 0 2 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:27,amount:2000,bullet_model:3202,display:{Name:'{"translate":"item.consume.2061001"}',Lore:['{"translate":"item.consume.weapon.left","with":["2000"]}']},Enchantments:[{id:"minecraft:fortune",lvl:1}],HideFlags:126,Unbreakable:1}
-					execute if score @s bullet_item matches 28 run replaceitem block 0 2 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:28,amount:2000,bullet_model:3203,display:{Name:'{"translate":"item.consume.2061002"}',Lore:['{"translate":"item.consume.weapon.left","with":["2000"]}']},Enchantments:[{id:"minecraft:fortune",lvl:2}],HideFlags:126,Unbreakable:1}
-					execute if score @s bullet_item matches 29 run replaceitem block 0 2 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:29,amount:2000,bullet_model:3204,display:{Name:'{"translate":"item.consume.2061003"}',Lore:['{"translate":"item.consume.weapon.left","with":["2000"]}']},Enchantments:[{id:"minecraft:fortune",lvl:4}],HideFlags:126,Unbreakable:1}
-					execute if score @s bullet_item matches 30 run replaceitem block 0 2 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:30,amount:2000,bullet_model:3205,display:{Name:'{"translate":"item.consume.2061004"}',Lore:['{"translate":"item.consume.weapon.left","with":["2000"]}']},Enchantments:[{id:"minecraft:fortune",lvl:4}],HideFlags:126,Unbreakable:1}
+					func give()
+					{
+						execute store result block 0 1 0 Items[0].tag.amount int 1 run scoreboard players operation #GLOBAL temp = @s bullet_amount
+						data modify block 0 0 0 Text1 set value '{"translate":"item.notice.weapon.left","with":[{"score":{"name":"#GLOBAL","objective":"temp"}}]}'
+						data modify block 0 1 0 Items[0].tag.display.Lore[0] set from block 0 0 0 Text1
+						loot give @s mine 0 1 0 minecraft:air{modify_player:1b}
+					}
 					
-					function ARG(_PATH)give
+					func throwing_star()
+					{
+						# nbt is stored in google cloud sheet
+						execute if score @s bullet_item matches 1 run replaceitem block 0 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:1,amount:500,bullet_model:4000,max_amount:500,unit_price:0.8f,display:{Name:'{"translate":"item.consume.2070000"}',Lore:['{"translate":"item.notice.weapon.left","with":["500"]}']},Enchantments:[{id:"minecraft:fortune",lvl:15}],HideFlags:126,Unbreakable:1}
+						execute if score @s bullet_item matches 2 run replaceitem block 0 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:2,amount:500,bullet_model:4001,max_amount:500,unit_price:0.7f,display:{Name:'{"translate":"item.consume.2070001"}',Lore:['{"translate":"item.notice.weapon.left","with":["500"]}']},Enchantments:[{id:"minecraft:fortune",lvl:17}],HideFlags:126,Unbreakable:1}
+						execute if score @s bullet_item matches 3 run replaceitem block 0 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:3,amount:700,bullet_model:4002,max_amount:700,unit_price:0.6f,display:{Name:'{"translate":"item.consume.2070002"}',Lore:['{"translate":"item.notice.weapon.left","with":["700"]}']},Enchantments:[{id:"minecraft:fortune",lvl:19}],HideFlags:126,Unbreakable:1}
+						execute if score @s bullet_item matches 4 run replaceitem block 0 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:4,amount:500,bullet_model:4003,max_amount:500,unit_price:0.6f,display:{Name:'{"translate":"item.consume.2070003"}',Lore:['{"translate":"item.notice.weapon.left","with":["500"]}']},Enchantments:[{id:"minecraft:fortune",lvl:21}],HideFlags:126,Unbreakable:1}
+						execute if score @s bullet_item matches 5 run replaceitem block 0 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:5,amount:1000,bullet_model:4004,max_amount:1000,unit_price:0.5f,display:{Name:'{"translate":"item.consume.2070004"}',Lore:['{"translate":"item.notice.weapon.left","with":["1000"]}']},Enchantments:[{id:"minecraft:fortune",lvl:23}],HideFlags:126,Unbreakable:1}
+						execute if score @s bullet_item matches 6 run replaceitem block 0 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:6,amount:1000,bullet_model:4005,max_amount:1000,unit_price:0.4f,display:{Name:'{"translate":"item.consume.2070005"}',Lore:['{"translate":"item.notice.weapon.left","with":["1000"]}']},Enchantments:[{id:"minecraft:fortune",lvl:25}],HideFlags:126,Unbreakable:1}
+						execute if score @s bullet_item matches 7 run replaceitem block 0 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:7,amount:800,bullet_model:4006,max_amount:800,unit_price:0.3f,display:{Name:'{"translate":"item.consume.2070006"}',Lore:['{"translate":"item.notice.weapon.left","with":["800"]}']},Enchantments:[{id:"minecraft:fortune",lvl:27}],HideFlags:126,Unbreakable:1}
+						
+						function ARG(_PATH)give
+					}
+					
+					func arrow_bow()
+					{
+						# nbt is stored in google cloud sheet
+						execute if score @s bullet_item matches 21 run replaceitem block 0 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:21,amount:2000,bullet_model:3101,display:{Name:'{"translate":"item.consume.2060000"}',Lore:['{"translate":"item.notice.weapon.left","with":["2000"]}']},Enchantments:[],HideFlags:126,Unbreakable:1}
+						execute if score @s bullet_item matches 22 run replaceitem block 0 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:22,amount:2000,bullet_model:3102,display:{Name:'{"translate":"item.consume.2060001"}',Lore:['{"translate":"item.notice.weapon.left","with":["2000"]}']},Enchantments:[{id:"minecraft:fortune",lvl:1}],HideFlags:126,Unbreakable:1}
+						execute if score @s bullet_item matches 23 run replaceitem block 0 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:23,amount:2000,bullet_model:3103,display:{Name:'{"translate":"item.consume.2060002"}',Lore:['{"translate":"item.notice.weapon.left","with":["2000"]}']},Enchantments:[{id:"minecraft:fortune",lvl:2}],HideFlags:126,Unbreakable:1}
+						execute if score @s bullet_item matches 24 run replaceitem block 0 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:24,amount:2000,bullet_model:3104,display:{Name:'{"translate":"item.consume.2060003"}',Lore:['{"translate":"item.notice.weapon.left","with":["2000"]}']},Enchantments:[{id:"minecraft:fortune",lvl:4}],HideFlags:126,Unbreakable:1}
+						execute if score @s bullet_item matches 25 run replaceitem block 0 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:25,amount:2000,bullet_model:3105,display:{Name:'{"translate":"item.consume.2060004"}',Lore:['{"translate":"item.notice.weapon.left","with":["2000"]}']},Enchantments:[{id:"minecraft:fortune",lvl:4}],HideFlags:126,Unbreakable:1}
+						
+						function ARG(_PATH)give
+					}
+					
+					func arrow_crossbow()
+					{
+						# nbt is stored in google cloud sheet
+						execute if score @s bullet_item matches 26 run replaceitem block 0 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:26,amount:2000,bullet_model:3201,display:{Name:'{"translate":"item.consume.2061000"}',Lore:['{"translate":"item.notice.weapon.left","with":["2000"]}']},Enchantments:[],HideFlags:126,Unbreakable:1}
+						execute if score @s bullet_item matches 27 run replaceitem block 0 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:27,amount:2000,bullet_model:3202,display:{Name:'{"translate":"item.consume.2061001"}',Lore:['{"translate":"item.notice.weapon.left","with":["2000"]}']},Enchantments:[{id:"minecraft:fortune",lvl:1}],HideFlags:126,Unbreakable:1}
+						execute if score @s bullet_item matches 28 run replaceitem block 0 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:28,amount:2000,bullet_model:3203,display:{Name:'{"translate":"item.consume.2061002"}',Lore:['{"translate":"item.notice.weapon.left","with":["2000"]}']},Enchantments:[{id:"minecraft:fortune",lvl:2}],HideFlags:126,Unbreakable:1}
+						execute if score @s bullet_item matches 29 run replaceitem block 0 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:29,amount:2000,bullet_model:3204,display:{Name:'{"translate":"item.consume.2061003"}',Lore:['{"translate":"item.notice.weapon.left","with":["2000"]}']},Enchantments:[{id:"minecraft:fortune",lvl:4}],HideFlags:126,Unbreakable:1}
+						execute if score @s bullet_item matches 30 run replaceitem block 0 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:30,amount:2000,bullet_model:3205,display:{Name:'{"translate":"item.consume.2061004"}',Lore:['{"translate":"item.notice.weapon.left","with":["2000"]}']},Enchantments:[{id:"minecraft:fortune",lvl:4}],HideFlags:126,Unbreakable:1}
+						
+						function ARG(_PATH)give
+					}
 				}
 			}
 		}

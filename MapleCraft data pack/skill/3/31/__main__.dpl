@@ -112,13 +112,13 @@ namespace 31() as virtual
 			{
 				execute store result storage skill:main damage[0].base_percent int 1 run scoreboard players get @s 3101003_attack
 				# melee *RANDOM* swing damage formula and default attack speed is done by afterimage functions
-				execute store result score #KNOCKBACK_RATE temp run data get entity @s Inventory[{Slot:-106b}].tag.knockback
+				scoreboard players operation #KNOCKBACK_RATE temp = @s weapon_knock
 				scoreboard players operation #SKILL_KNOCKBACK_RATE temp = @s 3101003_knock
 				
 				scoreboard players operation @s mp -= @s 3101003_mp
 				function bar_display:change/mp/dropped
 				
-				execute store result score @s action_time run data get entity @s Inventory[{Slot:-106b}].tag.action_time
+				scoreboard players operation @s action_time = @s weapon_speed
 				scoreboard players remove @s[scores={boost_buff_time=1..}] action_time 1
 			}
 			
@@ -312,7 +312,7 @@ namespace 31() as virtual
 				scoreboard players operation @s mp -= @s 3101005_mp
 				function bar_display:change/mp/dropped
 				
-				execute store result score @s action_time run data get entity @s Inventory[{Slot:-106b}].tag.action_time
+				scoreboard players operation @s action_time = @s weapon_speed
 				scoreboard players remove @s[scores={boost_buff_time=1..}] action_time 1
 				scoreboard players add @s action_time 16
 			}

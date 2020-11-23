@@ -111,7 +111,7 @@ namespace 4() as virtual
 					scoreboard players operation @s mp -= @s 4001002_mp
 					function bar_display:change/mp/dropped
 					
-					execute store result score @s action_time run data get entity @s Inventory[{Slot:-106b}].tag.action_time
+					scoreboard players operation @s action_time = @s weapon_speed
 				}
 				
 				func cast_effect()
@@ -335,7 +335,7 @@ namespace 4() as virtual
 					scoreboard players operation @s mp -= @s 4001334_mp
 					function bar_display:change/mp/dropped
 					
-					execute store result score @s action_time run data get entity @s Inventory[{Slot:-106b}].tag.action_time
+					scoreboard players operation @s action_time = @s weapon_speed
 					scoreboard players remove @s[scores={boost_buff_time=1..}] action_time 1
 					scoreboard players operation @s action_time > #-1 const
 					scoreboard players add @s action_time 13
@@ -470,7 +470,7 @@ namespace 4() as virtual
 					scoreboard players operation @s mp -= @s 4001344_mp
 					function bar_display:change/mp/dropped
 					
-					execute store result score @s action_time run data get entity @s Inventory[{Slot:-106b}].tag.action_time
+					scoreboard players operation @s action_time = @s weapon_speed
 					scoreboard players remove @s[scores={boost_buff_time=1..}] action_time 1
 					scoreboard players add @s action_time 16
 				}

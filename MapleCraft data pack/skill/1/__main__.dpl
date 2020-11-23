@@ -153,7 +153,7 @@ namespace 1() as virtual
 				
 				func other_check()
 				{
-					execute store result score #USED_WEAPON temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_type
+					scoreboard players operation #USED_WEAPON temp = @s weapon_type
 					execute if score #USED_WEAPON temp matches 0 run tellraw @s {"translate":"warning.skill.no_weapon","color":"red"}
 					
 					execute if score #USED_WEAPON temp matches 1.. if score @s mp < @s 1001004_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
@@ -182,7 +182,7 @@ namespace 1() as virtual
 					scoreboard players operation @s mp -= @s 1001004_mp
 					function bar_display:change/mp/dropped
 					
-					execute store result score @s action_time run data get entity @s Inventory[{Slot:-106b}].tag.action_time
+					scoreboard players operation @s action_time = @s weapon_speed
 					scoreboard players remove @s[scores={boost_buff_time=1..}] action_time 1
 				}
 				
@@ -231,7 +231,7 @@ namespace 1() as virtual
 				
 				func other_check()
 				{
-					execute store result score #USED_WEAPON temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_type
+					scoreboard players operation #USED_WEAPON temp = @s weapon_type
 					execute if score #USED_WEAPON temp matches 0 run tellraw @s {"translate":"warning.skill.no_weapon","color":"red"}
 					
 					execute if score #USED_WEAPON temp matches 1.. if score @s hp <= @s 1001005_hp run tellraw @s {"translate":"warning.skill.lack_hp","color":"red"}
@@ -268,7 +268,7 @@ namespace 1() as virtual
 					scoreboard players operation @s hp -= @s 1001005_hp
 					function bar_display:change/hp/dropped
 					
-					execute store result score @s action_time run data get entity @s Inventory[{Slot:-106b}].tag.action_time
+					scoreboard players operation @s action_time = @s weapon_speed
 					scoreboard players remove @s[scores={boost_buff_time=1..}] action_time 1
 				}
 				

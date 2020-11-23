@@ -417,7 +417,7 @@ namespace 21() as virtual
 			
 			func other_check()
 			{
-				execute store result score #USED_WEAPON temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_type
+				scoreboard players operation #USED_WEAPON temp = @s weapon_type
 				execute if score #USED_WEAPON temp matches 0 run tellraw @s {"translate":"warning.skill.no_weapon","color":"red"}
 				
 				execute if score #USED_WEAPON temp matches 1.. if score @s mp < @s 2101004_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
@@ -503,7 +503,7 @@ namespace 21() as virtual
 			
 			func other_check()
 			{
-				execute store result score #USED_WEAPON temp run data get entity @s Inventory[{Slot:-106b}].tag.weapon_type
+				scoreboard players operation #USED_WEAPON temp = @s weapon_type
 				execute if score #USED_WEAPON temp matches 0 run tellraw @s {"translate":"warning.skill.no_weapon","color":"red"}
 				
 				execute if score #USED_WEAPON temp matches 1.. if score @s mp < @s 2101005_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
