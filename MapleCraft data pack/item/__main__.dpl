@@ -17,12 +17,69 @@ namespace item()
 		scoreboard objectives add bullet_amount dummy
 	}
 	
+	folder loop()
+	{
+		func schedule_1s()
+		{
+			execute as @e[type=item,tag=!checked] at @s run function ARG(__PATH)entity/check
+		}
+	}
+	
 	func main()
 	{
 		# used consume item check
 		execute as @a[scores={right_click_item=1..},tag=!dead] at @s run function ARG(_PATH)consume/check
 		# pick item check
 		execute as @a[predicate=item:pickup] at @s run function ARG(_PATH)pick/check
+	}
+	
+	folder entity()
+	{
+		func check()
+		{
+			execute if entity @s[tag=loot_item] run function ARG(_PATH)free_loot/check
+			execute if entity @s[tag=!loot_item] run function ARG(_PATH)new
+		}
+		
+		func new()
+		{
+			execute if data entity @s Item{id:"minecraft:diamond"} store result entity @s Item.tag.CustomModelData int 1 run data get entity @s Item.tag.AttributeModifiers[0].Amount 1000
+			execute if data entity @s Item{id:"minecraft:carrot_on_a_stick"} run data modify entity @s Owner set from entity @s Thrower
+			execute unless data entity @s Thrower run function ARG(_PATH)loot
+			data modify entity @s Age set value 2400
+			
+			tag @s[tag=!loot_item] add checked
+		}
+		
+		func loot()
+		{
+			data modify entity @s Owner set from storage skill:main damage_info.attacker
+			playsound minecraft:game.drop_item player @a ~ ~ ~ 1 1 0
+			tag @s add loot_item
+		}
+	
+		folder free_loot()
+		{
+			func check()
+			{
+				execute store result score #GLOBAL temp run data get entity @s Age
+				execute if score #GLOBAL temp matches 4800.. run function ARG(_PATH)free
+			}
+			
+			func free()
+			{
+				data modify storage item:main item set from entity @s Item
+				summon minecraft:item ~ ~ ~ {Item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:1}},Age:4800,Tags:["checked","new"]}
+				execute as @e[type=item,tag=new,limit=1] run function ARG(_PATH)respawn
+				kill @s
+			}
+			
+			func respawn()
+			{
+				data modify entity @s Item set from storage item:main item
+				tag @s remove new
+			}
+		}
 	}
 	
 	folder pick()
