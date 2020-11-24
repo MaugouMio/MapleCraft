@@ -50,11 +50,15 @@ namespace item()
 		
 		func new()
 		{
+			# set meso
 			execute if data entity @s Item{id:"minecraft:diamond"} store result entity @s Item.tag.CustomModelData int 1 run data get entity @s Item.tag.AttributeModifiers[0].Amount 1000
+			# set skill item and display weapon
 			execute if data entity @s Item{id:"minecraft:carrot_on_a_stick"} run data modify entity @s Owner set from entity @s Thrower
+			execute if data entity @s Item{id:"minecraft:diamond_axe"} run data modify entity @s Owner set from entity @s Thrower
+			# set loot item
 			execute unless data entity @s Thrower unless data entity @s Owner run function ARG(_PATH)loot
-			data modify entity @s Age set value 2400
 			
+			data modify entity @s Age set value 2400
 			tag @s[tag=!loot_item] add checked
 		}
 		
@@ -240,7 +244,11 @@ namespace item()
 			
 			func equip()
 			{
+				# clear display weapon
+				clear @s diamond_axe
+				
 				data modify storage item:main equip set from entity @s SelectedItem.tag
+				tellraw @s {"translate":"item.notice.equip_weapon","with":[{"nbt":"equip.display.Name","storage":"item:main","interpret":true}]}
 				
 				# give weapon for display
 				replaceitem block 0 1 0 container.0 minecraft:diamond_axe
