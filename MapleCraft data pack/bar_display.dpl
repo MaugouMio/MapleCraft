@@ -344,7 +344,7 @@ namespace bar_display()
 		{
 			scoreboard players operation #GLOBAL temp = @s target_hp
 			scoreboard players operation #GLOBAL temp -= @s display_hp
-			execute if score @s hp_vary_time matches 15.. run scoreboard players operation #GLOBAL temp *= #2 const
+			execute if score @s hp_vary_time matches 10.. run scoreboard players operation #GLOBAL temp *= #2 const
 			scoreboard players operation #GLOBAL temp /= @s hp_vary_time
 			scoreboard players operation @s display_hp += #GLOBAL temp
 			
@@ -357,7 +357,7 @@ namespace bar_display()
 		{
 			scoreboard players operation #GLOBAL temp = @s target_mp
 			scoreboard players operation #GLOBAL temp -= @s display_mp
-			execute if score @s mp_vary_time matches 15.. run scoreboard players operation #GLOBAL temp *= #2 const
+			execute if score @s mp_vary_time matches 10.. run scoreboard players operation #GLOBAL temp *= #2 const
 			scoreboard players operation #GLOBAL temp /= @s mp_vary_time
 			scoreboard players operation @s display_mp += #GLOBAL temp
 			
