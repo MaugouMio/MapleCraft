@@ -52,7 +52,7 @@ namespace item()
 		{
 			execute if data entity @s Item{id:"minecraft:diamond"} store result entity @s Item.tag.CustomModelData int 1 run data get entity @s Item.tag.AttributeModifiers[0].Amount 1000
 			execute if data entity @s Item{id:"minecraft:carrot_on_a_stick"} run data modify entity @s Owner set from entity @s Thrower
-			execute unless data entity @s Thrower run function ARG(_PATH)loot
+			execute unless data entity @s Thrower unless data entity @s Owner run function ARG(_PATH)loot
 			data modify entity @s Age set value 2400
 			
 			tag @s[tag=!loot_item] add checked
