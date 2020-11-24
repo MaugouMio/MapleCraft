@@ -183,8 +183,10 @@ namespace item()
 			{
 				scoreboard players operation @s hp_max = @s hp_max_base
 				scoreboard players operation @s hp_max < #30000 const
+				scoreboard players operation @s hp < @s hp_max
 				scoreboard players operation @s mp_max = @s mp_max_base
 				scoreboard players operation @s mp_max < #30000 const
+				scoreboard players operation @s mp < @s mp_max
 			}
 			
 			func remove()

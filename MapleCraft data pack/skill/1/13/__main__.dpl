@@ -281,11 +281,13 @@ namespace 13() as virtual
 				scoreboard players operation @s hp_max *= @s hyper_buff_num
 				scoreboard players operation @s hp_max /= #100 const
 				scoreboard players operation @s hp_max < #30000 const
+				scoreboard players operation @s hp < @s hp_max
 				
 				scoreboard players operation @s mp_max = @s mp_max_base
 				scoreboard players operation @s mp_max *= @s hyper_buff_num
 				scoreboard players operation @s mp_max /= #100 const
 				scoreboard players operation @s mp_max < #30000 const
+				scoreboard players operation @s mp < @s mp_max
 			}
 			
 			func reset_effect()
