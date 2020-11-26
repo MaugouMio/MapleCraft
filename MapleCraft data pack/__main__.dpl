@@ -556,21 +556,29 @@ namespace main()
 			tag @s remove magician
 			tag @s remove thief
 			
-			scoreboard players set @s level 1
-			scoreboard players set @s hp 50
-			scoreboard players set @s hp_max 50
-			scoreboard players set @s hp_max_base 50
-			scoreboard players set @s mp 5
-			scoreboard players set @s mp_max 5
-			scoreboard players set @s mp_max_base 5
+			scoreboard players set @s hp_recovery 10
+			scoreboard players set @s hp_recover_time 10
+			scoreboard players set @s mp_recovery 3
+			scoreboard players set @s crit_rate 0
+			scoreboard players set @s base_accuracy 0
+		
+			scoreboard players set @s amazon_eyes_dist 9
+			scoreboard players set @s keen_eyes_dist 9
+		
+			```
+			for weapon in mastery_weapons:
+				print(f"scoreboard players set @s {weapon}_mastery 10")
+				print(f"scoreboard players set @s {weapon}_accuracy 0")
+				print(f"scoreboard players set @s {weapon}_color 255")
+			```
 			
-			scoreboard players set @s STR 13
-			scoreboard players set @s DEX 4
-			scoreboard players set @s INT 4
-			scoreboard players set @s LUK 4
-			
-			function stat:standard_pdd/set
-			execute if score @s hyper_buff_time matches 1.. run function skill:1/3/0/1007/set_hp_mp
+			scoreboard players set @s sword_final_rate 0
+			scoreboard players set @s axe_final_rate 0
+			scoreboard players set @s blunt_final_rate 0
+			scoreboard players set @s spear_final_rate 0
+			scoreboard players set @s p_arm_final_rate 0
+			scoreboard players set @s bow_final_rate 0
+			scoreboard players set @s cbow_final_rate 0
 		}
 		
 		func warrior()
