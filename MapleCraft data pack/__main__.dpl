@@ -273,6 +273,7 @@ namespace main()
 		scoreboard players set @s 0001002_level 0
 		
 		function skill:player/reset_mastery
+		function skill:test_all_skill
 		
 		effect give @s minecraft:jump_boost infinite 0 true
 		effect give @s minecraft:resistance infinite 255 true
