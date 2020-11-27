@@ -1206,7 +1206,7 @@ namespace skill()
 	{
 		# basic skill constraints
 		scoreboard players operation @s next_hp_recover = @s hp_recover_time
-		attribute @s minecraft:generic.movement_speed modifier add 5b908c48-54cb-4388-aa76-82f61b02032d skill_action -0.99 multiply
+		attribute @s minecraft:generic.movement_speed modifier add 5b908c48-54cb-4388-aa76-82f61b02032d skill_action -0.95 multiply
 	}
 	
 	folder player()
