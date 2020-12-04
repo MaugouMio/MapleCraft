@@ -227,18 +227,36 @@ namespace item()
 			}
 		}
 		
+		func equip_qulification()
+		{
+			# job check
+			execute if entity @s[tag=!warrior,tag=!archer,tag=!magician,tag=!thief] store result score #ACCEPTED_EQUIP temp run data get entity @s SelectedItem.tag.job[0]
+			execute if entity @s[tag=warrior] store result score #ACCEPTED_EQUIP temp run data get entity @s SelectedItem.tag.job[1]
+			execute if entity @s[tag=archer] store result score #ACCEPTED_EQUIP temp run data get entity @s SelectedItem.tag.job[2]
+			execute if entity @s[tag=magician] store result score #ACCEPTED_EQUIP temp run data get entity @s SelectedItem.tag.job[3]
+			execute if entity @s[tag=thief] store result score #ACCEPTED_EQUIP temp run data get entity @s SelectedItem.tag.job[4]
+			# level check
+			execute store result score #GLOBAL temp run data get entity @s SelectedItem.tag.level
+			execute if score @s level < #GLOBAL temp run scoreboard players set #ACCEPTED_EQUIP temp 0
+			# stats check
+			execute store result score #GLOBAL temp run data get entity @s SelectedItem.tag.stats[0]
+			execute if score @s STR < #GLOBAL temp run scoreboard players set #ACCEPTED_EQUIP temp 0
+			execute store result score #GLOBAL temp run data get entity @s SelectedItem.tag.stats[1]
+			execute if score @s DEX < #GLOBAL temp run scoreboard players set #ACCEPTED_EQUIP temp 0
+			execute store result score #GLOBAL temp run data get entity @s SelectedItem.tag.stats[2]
+			execute if score @s INT < #GLOBAL temp run scoreboard players set #ACCEPTED_EQUIP temp 0
+			execute store result score #GLOBAL temp run data get entity @s SelectedItem.tag.stats[3]
+			execute if score @s LUK < #GLOBAL temp run scoreboard players set #ACCEPTED_EQUIP temp 0
+			
+			execute if score #ACCEPTED_EQUIP temp matches 0 run tellraw @s {"translate":"warning.equip.invalid_stat","color":"red"}
+		}
+		
 		folder weapon()
 		{
 			func check()
 			{
-				scoreboard players set #ACCEPTED_WEAPON temp 0
-				```
-				raise Warning("TODO: check weapon level, job, stats restrictions")
-				```
-				scoreboard players set #ACCEPTED_WEAPON temp 1
-				
-				execute if score #ACCEPTED_WEAPON temp matches 0 run tellraw @s {"translate":"warning.equip.invalid_stat","color":"red"}
-				execute if score #ACCEPTED_WEAPON temp matches 1 run function ARG(_PATH)equip
+				function ARG(__PATH)equip_qulification
+				execute if score #ACCEPTED_EQUIP temp matches 1 run function ARG(_PATH)equip
 				
 				playsound minecraft:item.equip player @s
 			}
