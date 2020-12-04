@@ -293,7 +293,7 @@ namespace item()
 			func check()
 			{
 				execute if score #USING_ITEM temp matches ..30 unless score @s action_time matches 1.. run function ARG(_PATH)weapon/check
-				execute if score #USING_ITEM temp matches 100.. run function ARG(_PATH)potion/check
+				execute if score #USING_ITEM temp matches 100.. unless score @s invis_buff_time matches 1.. run function ARG(_PATH)potion/check
 			}
 			
 			folder potion()
