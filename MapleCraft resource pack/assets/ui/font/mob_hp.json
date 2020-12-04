@@ -1,0 +1,76 @@
+{
+	"providers": [
+		{
+			"type": "bitmap",
+			"file": "space:font/space_split.png",
+			"ascent": -32768,
+			"height": -7,
+			"chars": [
+				","
+			]
+		},
+		{
+			"type": "bitmap",
+			"file": "ui:font/mob_hp/base.png",
+			"ascent": -5,
+			"height": 10,
+			"chars": [
+				"0"
+			]
+		},
+		{
+			"type": "bitmap",
+			"file": "ui:font/mob_hp/1.png",
+			"ascent": -8,
+			"height": 4,
+			"chars": [
+				"1"
+			]
+		},
+		{
+			"type": "bitmap",
+			"file": "ui:font/mob_hp/2.png",
+			"ascent": -8,
+			"height": 4,
+			"chars": [
+				"2"
+			]
+		},
+		{
+			"type": "bitmap",
+			"file": "ui:font/mob_hp/4.png",
+			"ascent": -8,
+			"height": 4,
+			"chars": [
+				"3"
+			]
+		},
+		{
+			"type": "bitmap",
+			"file": "ui:font/mob_hp/8.png",
+			"ascent": -8,
+			"height": 4,
+			"chars": [
+				"4"
+			]
+		},
+		{
+			"type": "bitmap",
+			"file": "ui:font/mob_hp/16.png",
+			"ascent": -8,
+			"height": 4,
+			"chars": [
+				"5"
+			]
+		},
+		{
+			"type": "bitmap",
+			"file": "ui:font/mob_hp/32.png",
+			"ascent": -8,
+			"height": 4,
+			"chars": [
+				"6"
+			]
+		}
+	]
+}

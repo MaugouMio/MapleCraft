@@ -883,6 +883,8 @@ namespace skill()
 		scoreboard objectives add target_id dummy
 		scoreboard objectives add skill_id dummy
 		scoreboard objectives add bullet_targeted dummy
+		scoreboard objectives add mob_hp_length dummy
+		scoreboard objectives add show_hp_time dummy
 		```
 		for weapon in mastery_weapons:
 			print(f"scoreboard objectives add {weapon}_mastery dummy")
@@ -915,6 +917,7 @@ namespace skill()
 		{
 			execute if score @s weaken_time matches 1.. run function skill:4/0/0/1002/mob/countdown
 			execute if score @s 2101003_time matches 1.. run function skill:2/1/0/1003/mob/countdown
+			execute if score @s show_hp_time matches 1.. run function skill:calculate_damage/update_hp_display/countdown
 		}
 		
 		func schedule_1d()
@@ -2482,7 +2485,99 @@ namespace skill()
 			scoreboard players set #DID_HIT temp 0
 			function ARG(_PATH)traverse_damages/run
 			
+			execute if score #DID_HIT temp matches 1 run function ARG(_PATH)update_hp_display/run
 			execute if score @s hp matches ..0 run function ARG(_PATH)record_dead
+		}
+		
+		folder update_hp_display()
+		{
+			func run()
+			{
+				# for rounding
+				scoreboard players operation #HP_CARRY temp = @s hp_max
+				scoreboard players operation #HP_CARRY temp /= #92 const
+				
+				execute store result score #HP_LENGTH temp run scoreboard players operation @s hp > #0 const
+				scoreboard players operation #HP_LENGTH temp += #HP_CARRY temp
+				scoreboard players operation #HP_LENGTH temp *= #46 const
+				scoreboard players operation #HP_LENGTH temp /= @s hp_max
+				
+				execute unless score @s mob_hp_length = #HP_LENGTH temp run function ARG(_PATH)update
+			}
+			
+			func update()
+			{
+				scoreboard players operation @s mob_hp_length = #HP_LENGTH temp
+				
+				data modify storage bar:main mob_hp set value []
+				data modify storage bar:main mob_hp_back set value []
+				execute if score #HP_LENGTH temp matches 32.. run function ARG(_PATH)32
+				execute if score #HP_LENGTH temp matches 16.. run function ARG(_PATH)16
+				execute if score #HP_LENGTH temp matches 8.. run function ARG(_PATH)8
+				execute if score #HP_LENGTH temp matches 4.. run function ARG(_PATH)4
+				execute if score #HP_LENGTH temp matches 2.. run function ARG(_PATH)2
+				execute if score #HP_LENGTH temp matches 1.. run function ARG(_PATH)1
+				
+				data modify block 0 0 0 Text1 set value '[{"text":"985","font":"space:default"},{"text":"0","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},{"nbt":"mob_hp[]","storage":"bar:main","font":"ui:mob_hp","interpret":true},{"nbt":"mob_hp_back","storage":"bar:main","font":"space:default","interpret":true},{"text":"\\uF829\\uF825","font":"space:default"}]'
+				data modify entity @s CustomName set from block 0 0 0 Text1
+				
+				execute unless score @s show_hp_time matches 1.. run data modify entity @s CustomNameVisible set value 1b
+				scoreboard players set @s show_hp_time 5
+			}
+			
+			func countdown()
+			{
+				scoreboard players remove @s show_hp_time 1
+				execute if score @s show_hp_time matches 0 run function ARG(_PATH)hide
+			}
+			
+			func hide()
+			{
+				data modify entity @s CustomName set value '{"text":"2","font":"space:default"}'
+				data modify entity @s CustomNameVisible set value 0b
+				scoreboard players reset @s show_hp_time
+			}
+			
+			func 32()
+			{
+				data modify storage bar:main mob_hp prepend value '{"text":"6","font":"ui:mob_hp"}'
+				data modify storage bar:main mob_hp_back append value "A"
+				scoreboard players remove #HP_LENGTH temp 32
+			}
+			
+			func 16()
+			{
+				data modify storage bar:main mob_hp prepend value '{"text":"5","font":"ui:mob_hp"}'
+				data modify storage bar:main mob_hp_back append value "9"
+				scoreboard players remove #HP_LENGTH temp 16
+			}
+			
+			func 8()
+			{
+				data modify storage bar:main mob_hp prepend value '{"text":"4","font":"ui:mob_hp"}'
+				data modify storage bar:main mob_hp_back append value "8"
+				scoreboard players remove #HP_LENGTH temp 8
+			}
+			
+			func 4()
+			{
+				data modify storage bar:main mob_hp prepend value '{"text":"3","font":"ui:mob_hp"}'
+				data modify storage bar:main mob_hp_back append value "4"
+				scoreboard players remove #HP_LENGTH temp 4
+			}
+			
+			func 2()
+			{
+				data modify storage bar:main mob_hp prepend value '{"text":"2","font":"ui:mob_hp"}'
+				data modify storage bar:main mob_hp_back append value "2"
+				scoreboard players remove #HP_LENGTH temp 2
+			}
+			
+			func 1()
+			{
+				data modify storage bar:main mob_hp prepend value '{"text":"1","font":"ui:mob_hp"}'
+				data modify storage bar:main mob_hp_back append value "1"
+			}
 		}
 		
 		func record_dead()
