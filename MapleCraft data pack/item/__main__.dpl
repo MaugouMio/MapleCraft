@@ -256,13 +256,14 @@ namespace item()
 			func check()
 			{
 				function ARG(__PATH)equip_qulification
+				execute if score #ACCEPTED_EQUIP temp matches 0 run playsound minecraft:game.dlg_notice player @s
 				execute if score #ACCEPTED_EQUIP temp matches 1 run function ARG(_PATH)equip
-				
-				playsound minecraft:item.equip player @s
 			}
 			
 			func equip()
 			{
+				playsound minecraft:item.equip player @s
+				
 				# clear display weapon
 				clear @s diamond_axe
 				
