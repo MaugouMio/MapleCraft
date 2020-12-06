@@ -234,7 +234,7 @@ namespace bar_display()
 			execute as @e[type=#bar_display:dead_decoration,tag=new] positioned as @s run function ARG(_PATH)set_dead_decoration
 			
 			forceload add ~ ~
-			tellraw @s [{"text":"4\n5\n6\n7\n8\n9\na\n","font":"ui:main"},{"text":"\uF82A\uF829\uF828\uF823","font":"space:default"},{"text":"2","font":"ui:main","clickEvent":{"action":"run_command","value":"/trigger command set 7"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},{"text":"B94","font":"space:default"},{"text":"b","font":"ui:main"},"\n"]
+			tellraw @s [{"text":"0_1\n2_3\n4_5\n6_7\n8_9\na_b\nc_d\n","font":"ui:window/death"},{"text":"\uF82A\uF829\uF828\uF823","font":"space:default"},{"text":"2","font":"ui:main","clickEvent":{"action":"run_command","value":"/trigger command set 7"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},{"text":"B94","font":"space:default"},{"text":"e_f\ng_h","font":"ui:window/death"}]
 		}
 		
 		func set_dead_decoration()
