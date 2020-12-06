@@ -157,7 +157,7 @@ namespace main()
 		
 		execute at @s run playsound minecraft:game.game_in player @s
 		title @s times 1 5 10
-		title @s title {"text":"0","font":"ui:transition"}
+		title @s title {"text":"c","font":"ui:main"}
 	}
 	
 	func login_reset()
@@ -167,7 +167,7 @@ namespace main()
 		
 		execute at @s run playsound minecraft:game.game_in player @s
 		title @s times 1 5 10
-		title @s title {"text":"0","font":"ui:transition"}
+		title @s title {"text":"c","font":"ui:main"}
 		scoreboard players reset @s login
 	}
 	
@@ -188,7 +188,7 @@ namespace main()
 		{
 			tellraw @s "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
 			title @s times 1 5 10
-			title @s title {"text":"0","font":"ui:transition"}
+			title @s title {"text":"c","font":"ui:main"}
 		}
 	}
 	
