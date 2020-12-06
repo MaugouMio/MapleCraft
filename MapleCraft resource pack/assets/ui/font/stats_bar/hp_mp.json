@@ -2,7 +2,7 @@
 	"providers": [
 		{
 			"type": "bitmap",
-			"file": "ui:font/stats_bar.png",
+			"file": "ui:font/stats_bar/base.png",
 			"ascent": -13,
 			"height": 25,
 			"chars": [
@@ -11,7 +11,7 @@
 		},
 		{
 			"type": "bitmap",
-			"file": "ui:font/stats_bar_mask.png",
+			"file": "ui:font/stats_bar/mask.png",
 			"ascent": -13,
 			"height": 25,
 			"chars": [
