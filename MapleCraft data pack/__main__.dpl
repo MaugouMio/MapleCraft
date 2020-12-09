@@ -118,6 +118,9 @@ namespace main()
 		scoreboard players set @s display_num_type 2
 		
 		scoreboard players set @s level 1
+		scoreboard players set @s exp 0
+		scoreboard players set @s exp_max 15
+		scoreboard players set @s stat_point 0
 		scoreboard players set @s standard_pdd 7
 		
 		scoreboard players set @s hp_max_base 50

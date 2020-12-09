@@ -844,6 +844,8 @@ namespace skill()
 		scoreboard objectives add motion_z dummy
 		
 		scoreboard objectives add level dummy
+		scoreboard objectives add exp dummy
+		scoreboard objectives add exp_max dummy
 		scoreboard objectives add avoidability dummy
 		scoreboard objectives add weapon_defense dummy
 		scoreboard objectives add magic_defense dummy

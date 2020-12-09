@@ -2,6 +2,8 @@ namespace stat()
 {
 	func install()
 	{
+		scoreboard objectives add stat_point dummy
+		
 		scoreboard objectives add STR dummy
 		scoreboard objectives add DEX dummy
 		scoreboard objectives add INT dummy
@@ -83,6 +85,44 @@ namespace stat()
 			std_pdd = [42,60,76,85,100,115,116,131,132,147,184,187,220,223,257,263,291,297,325,331]
 			check_std_pdd(levels, std_pdd)
 			```
+		}
+	}
+	
+	folder window()
+	{
+		func display()
+		{
+			# title
+			tellraw @s {"text":"!\n#","font":"ui:window/stat"}
+			# job
+			tellraw @s {"text":"&\n'","font":"ui:window/stat"}
+			# level
+			tellraw @s [{"text":"*","font":"ui:window/stat"},{"text":"A982","font":"space:default"},{"score":{"objective":"level","name":"@s"}}]
+			# hp
+			tellraw @s [{"text":",","font":"ui:window/stat"},{"text":"A982","font":"space:default"},{"score":{"objective":"hp","name":"@s"}},"_/_",{"score":{"objective":"hp_max","name":"@s"}}]
+			# mp
+			tellraw @s [{"text":".","font":"ui:window/stat"},{"text":"A982","font":"space:default"},{"score":{"objective":"mp","name":"@s"}},"_/_",{"score":{"objective":"mp_max","name":"@s"}}]
+			# exp
+			scoreboard players operation #GLOBAL temp = @s exp
+			scoreboard players operation #GLOBAL temp *= #100 const
+			scoreboard players operation #GLOBAL temp /= @s exp_max
+			tellraw @s [{"text":":","font":"ui:window/stat"},{"text":"A982","font":"space:default"},{"score":{"objective":"exp","name":"@s"}},"_(",{"score":{"objective":"temp","name":"#GLOBAL"}},"%)"]
+			# sep line
+			tellraw @s {"text":";","font":"ui:window/stat"}
+			# str
+			tellraw @s [{"text":"<","font":"ui:window/stat"},{"text":"A982","font":"space:default"},{"score":{"objective":"STR","name":"@s"}}]
+			# dex
+			tellraw @s [{"text":"=","font":"ui:window/stat"},{"text":"A982","font":"space:default"},{"score":{"objective":"DEX","name":"@s"}}]
+			# int
+			tellraw @s [{"text":">","font":"ui:window/stat"},{"text":"A982","font":"space:default"},{"score":{"objective":"INT","name":"@s"}}]
+			# luk
+			tellraw @s [{"text":"?","font":"ui:window/stat"},{"text":"A982","font":"space:default"},{"score":{"objective":"LUK","name":"@s"}}]
+			# tail
+			tellraw @s {"text":"@","font":"ui:window/stat"}
+			# point left
+			tellraw @s [{"text":"[","font":"ui:window/stat"},{"text":"A","font":"space:default"},{"score":{"objective":"stat_point","name":"@s"},"font":"ui:window/stat_back"},{"score":{"objective":"stat_point","name":"@s"}}]
+			# tail2
+			tellraw @s {"text":"]","font":"ui:window/stat"}
 		}
 	}
 	
