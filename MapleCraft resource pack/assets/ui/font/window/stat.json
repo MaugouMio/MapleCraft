@@ -182,7 +182,7 @@
 		},
 		{
 			"type": "bitmap",
-			"file": "ui:font/window/stat/base/0.png",
+			"file": "ui:font/window/stat/base/name.png",
 			"ascent": 8,
 			"height": 9,
 			"chars": [
@@ -191,7 +191,7 @@
 		},
 		{
 			"type": "bitmap",
-			"file": "ui:font/window/stat/base/1_0.png",
+			"file": "ui:font/window/stat/base/job0.png",
 			"ascent": 8,
 			"height": 9,
 			"chars": [
@@ -200,7 +200,7 @@
 		},
 		{
 			"type": "bitmap",
-			"file": "ui:font/window/stat/base/1_1.png",
+			"file": "ui:font/window/stat/base/job1.png",
 			"ascent": 8,
 			"height": 9,
 			"chars": [
@@ -209,7 +209,7 @@
 		},
 		{
 			"type": "bitmap",
-			"file": "ui:font/window/stat/base/2.png",
+			"file": "ui:font/window/stat/base/level.png",
 			"ascent": 8,
 			"height": 9,
 			"chars": [
@@ -218,7 +218,7 @@
 		},
 		{
 			"type": "bitmap",
-			"file": "ui:font/window/stat/base/3.png",
+			"file": "ui:font/window/stat/base/hp.png",
 			"ascent": 8,
 			"height": 9,
 			"chars": [
@@ -227,7 +227,7 @@
 		},
 		{
 			"type": "bitmap",
-			"file": "ui:font/window/stat/base/4.png",
+			"file": "ui:font/window/stat/base/mp.png",
 			"ascent": 8,
 			"height": 9,
 			"chars": [
@@ -236,7 +236,7 @@
 		},
 		{
 			"type": "bitmap",
-			"file": "ui:font/window/stat/base/5.png",
+			"file": "ui:font/window/stat/base/exp.png",
 			"ascent": 8,
 			"height": 9,
 			"chars": [
@@ -254,7 +254,7 @@
 		},
 		{
 			"type": "bitmap",
-			"file": "ui:font/window/stat/base/6.png",
+			"file": "ui:font/window/stat/base/str.png",
 			"ascent": 8,
 			"height": 9,
 			"chars": [
@@ -263,7 +263,7 @@
 		},
 		{
 			"type": "bitmap",
-			"file": "ui:font/window/stat/base/7.png",
+			"file": "ui:font/window/stat/base/dex.png",
 			"ascent": 8,
 			"height": 9,
 			"chars": [
@@ -272,7 +272,7 @@
 		},
 		{
 			"type": "bitmap",
-			"file": "ui:font/window/stat/base/8.png",
+			"file": "ui:font/window/stat/base/int.png",
 			"ascent": 8,
 			"height": 9,
 			"chars": [
@@ -281,7 +281,7 @@
 		},
 		{
 			"type": "bitmap",
-			"file": "ui:font/window/stat/base/9.png",
+			"file": "ui:font/window/stat/base/luk.png",
 			"ascent": 8,
 			"height": 9,
 			"chars": [
@@ -290,7 +290,7 @@
 		},
 		{
 			"type": "bitmap",
-			"file": "ui:font/window/stat/base/10.png",
+			"file": "ui:font/window/stat/base/tail.png",
 			"ascent": 8,
 			"height": 9,
 			"chars": [
@@ -299,7 +299,7 @@
 		},
 		{
 			"type": "bitmap",
-			"file": "ui:font/window/stat/base/11.png",
+			"file": "ui:font/window/stat/base/point.png",
 			"ascent": 8,
 			"height": 9,
 			"chars": [
@@ -308,11 +308,119 @@
 		},
 		{
 			"type": "bitmap",
-			"file": "ui:font/window/stat/base/tail.png",
+			"file": "ui:font/window/stat/base/tail2.png",
 			"ascent": 8,
 			"height": 9,
 			"chars": [
 				"]"
+			]
+		},
+		{
+			"type": "bitmap",
+			"file": "ui:font/window/stat/detail/title.png",
+			"ascent": 8,
+			"height": 9,
+			"chars": [
+				"^"
+			]
+		},
+		{
+			"type": "bitmap",
+			"file": "ui:font/window/stat/detail/attack.png",
+			"ascent": 8,
+			"height": 9,
+			"chars": [
+				"`"
+			]
+		},
+		{
+			"type": "bitmap",
+			"file": "ui:font/window/stat/detail/wdef.png",
+			"ascent": 8,
+			"height": 9,
+			"chars": [
+				"{"
+			]
+		},
+		{
+			"type": "bitmap",
+			"file": "ui:font/window/stat/detail/magic.png",
+			"ascent": 8,
+			"height": 9,
+			"chars": [
+				"|"
+			]
+		},
+		{
+			"type": "bitmap",
+			"file": "ui:font/window/stat/detail/mdef.png",
+			"ascent": 8,
+			"height": 9,
+			"chars": [
+				"}"
+			]
+		},
+		{
+			"type": "bitmap",
+			"file": "ui:font/window/stat/detail/accuracy.png",
+			"ascent": 8,
+			"height": 9,
+			"chars": [
+				"\uE000"
+			]
+		},
+		{
+			"type": "bitmap",
+			"file": "ui:font/window/stat/detail/avoid.png",
+			"ascent": 8,
+			"height": 9,
+			"chars": [
+				"\uE001"
+			]
+		},
+		{
+			"type": "bitmap",
+			"file": "ui:font/window/stat/detail/speed.png",
+			"ascent": 8,
+			"height": 9,
+			"chars": [
+				"\uE002"
+			]
+		},
+		{
+			"type": "bitmap",
+			"file": "ui:font/window/stat/detail/jump.png",
+			"ascent": 8,
+			"height": 9,
+			"chars": [
+				"\uE003"
+			]
+		},
+		{
+			"type": "bitmap",
+			"file": "ui:font/window/stat/detail/tail.png",
+			"ascent": 8,
+			"height": 9,
+			"chars": [
+				"\uE004"
+			]
+		},
+		{
+			"type": "bitmap",
+			"file": "ui:font/window/stat/detail/tail2.png",
+			"ascent": 8,
+			"height": 9,
+			"chars": [
+				"\uE005"
+			]
+		},
+		{
+			"type": "bitmap",
+			"file": "ui:font/window/stat/detail/tail3.png",
+			"ascent": 8,
+			"height": 9,
+			"chars": [
+				"\uE006"
 			]
 		}
 	]
