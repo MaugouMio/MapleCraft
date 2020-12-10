@@ -1,1 +1,7 @@
+1,if score @s stat_point matches 1.. run function stat:window/add/hp
+2,if score @s stat_point matches 1.. run function stat:window/add/mp
+3,if score @s stat_point matches 1.. run function stat:window/add/str
+4,if score @s stat_point matches 1.. run function stat:window/add/dex
+5,if score @s stat_point matches 1.. run function stat:window/add/int
+6,if score @s stat_point matches 1.. run function stat:window/add/luk
 7,if entity @s[tag=dead] run function main:town_revive/run
