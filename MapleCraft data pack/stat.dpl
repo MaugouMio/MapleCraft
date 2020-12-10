@@ -106,14 +106,24 @@ namespace stat()
 			execute unless score @s watk_buff_num matches 1.. run data modify storage ui:main attack_format set value '{"text":"","color":"black","font":"ui:window/stat"}'
 			tellraw @s [{"nbt":"add_buttons[0]","storage":"ui:main","interpret":true},{"text":",","font":"ui:window/stat"},{"nbt":"add_buttons[-1]","storage":"ui:main","interpret":true},{"text":"A94","font":"space:default"},[{"score":{"objective":"hp","name":"@s"},"font":"ui:window/stat","color":"black"},"_/_",{"score":{"objective":"hp_max","name":"@s"}}],[{"score":{"objective":"hp","name":"@s"},"font":"ui:window/stat_back"},{"score":{"objective":"hp_max","name":"@s"}}],{"text":"\uF82A\uF829\uF824","font":"space:default"},{"text":"`","font":"ui:window/stat"},{"text":"A93","font":"space:default"},[{"nbt":"attack_format","storage":"ui:main","interpret":true},{"score":{"objective":"temp","name":"#MIN_DAMAGE"}},"_~_",{"score":{"objective":"temp","name":"#MAX_DAMAGE"}}]]
 			# mp and wdef
-			tellraw @s [{"nbt":"add_buttons[1]","storage":"ui:main","interpret":true},{"text":".","font":"ui:window/stat"},{"nbt":"add_buttons[-1]","storage":"ui:main","interpret":true},{"text":"A94","font":"space:default"},[{"score":{"objective":"mp","name":"@s"},"font":"ui:window/stat","color":"black"},"_/_",{"score":{"objective":"mp_max","name":"@s"}}],[{"score":{"objective":"mp","name":"@s"},"font":"ui:window/stat_back"},{"score":{"objective":"mp_max","name":"@s"}}],{"text":"\uF82A\uF829\uF824","font":"space:default"},{"text":"{","font":"ui:window/stat"},{"text":"A93","font":"space:default"}]
+			execute if score @s wdef_buff_num matches ..10000 run function ARG(_PATH)mp_wdef_buff/check
+			execute unless score @s wdef_buff_num matches ..10000 run tellraw @s [{"nbt":"add_buttons[1]","storage":"ui:main","interpret":true},{"text":".","font":"ui:window/stat"},{"nbt":"add_buttons[-1]","storage":"ui:main","interpret":true},{"text":"A94","font":"space:default"},[{"score":{"objective":"mp","name":"@s"},"font":"ui:window/stat","color":"black"},"_/_",{"score":{"objective":"mp_max","name":"@s"}}],[{"score":{"objective":"mp","name":"@s"},"font":"ui:window/stat_back"},{"score":{"objective":"mp_max","name":"@s"}}],{"text":"\uF82A\uF829\uF824","font":"space:default"},[{"text":"{","font":"ui:window/stat"},{"text":"A93","font":"space:default"},{"score":{"objective":"weapon_defense","name":"@s"},"color":"black"}]]
 			# exp and magic
 			scoreboard players operation #GLOBAL temp = @s exp
 			scoreboard players operation #GLOBAL temp *= #100 const
 			scoreboard players operation #GLOBAL temp /= @s exp_max
-			tellraw @s [{"text":":","font":"ui:window/stat"},{"text":"A982","font":"space:default"},[{"score":{"objective":"exp","name":"@s"},"color":"black"},"_(",{"score":{"objective":"temp","name":"#GLOBAL"}},"%)"],[{"score":{"objective":"exp","name":"@s"},"font":"ui:window/stat_back"},{"score":{"objective":"temp","name":"#GLOBAL"}}],{"text":"\uF82A\uF828\uF825","font":"space:default"},"|"]
+			
+			scoreboard players operation #MAGIC_ATTACK temp = @s weapon_mattack
+			execute store result score #MAGIC_ATTACK_FINAL temp run scoreboard players operation #MAGIC_ATTACK temp += @s INT
+			scoreboard players operation #MAGIC_ATTACK_FINAL temp += @s matk_buff_num
+			
+			execute unless score @s matk_buff_num matches 1.. run data modify storage ui:main magic set value '[{"score":{"objective":"temp","name":"#MAGIC_ATTACK_FINAL"},"color":"black"}]'
+			execute if score @s matk_buff_num matches 1.. run data modify storage ui:main magic set value '[{"score":{"objective":"temp","name":"#MAGIC_ATTACK_FINAL"},"color":"#ff0000"},"_(",{"score":{"objective":"temp","name":"#MAGIC_ATTACK"}},"+",{"score":{"objective":"matk_buff_num","name":"@s"}},")"]'
+			tellraw @s [{"text":":","font":"ui:window/stat"},{"text":"A982","font":"space:default"},[{"score":{"objective":"exp","name":"@s"},"color":"black"},"_(",{"score":{"objective":"temp","name":"#GLOBAL"}},"%)"],[{"score":{"objective":"exp","name":"@s"},"font":"ui:window/stat_back"},{"score":{"objective":"temp","name":"#GLOBAL"}}],{"text":"\uF82A\uF828\uF825","font":"space:default"},"|",{"text":"A93","font":"space:default"},{"nbt":"magic","storage":"ui:main","interpret":true}]
 			# sep line and mdef
-			tellraw @s [{"text":";","font":"ui:window/stat"},{"text":"1","font":"space:default"},"}"]
+			execute unless score @s mdef_buff_num matches 1.. run data modify storage ui:main mdef set value '[{"score":{"objective":"temp","name":"#MAGIC_ATTACK_FINAL"},"color":"black"}]'
+			execute if score @s mdef_buff_num matches 1.. run function ARG(_PATH)sep_mdef_buff
+			tellraw @s [{"text":";","font":"ui:window/stat"},{"text":"1","font":"space:default"},"}",{"text":"A93","font":"space:default"},{"nbt":"mdef","storage":"ui:main","interpret":true}]
 			# str and accuracy
 			tellraw @s [{"nbt":"add_buttons[2]","storage":"ui:main","interpret":true},{"text":"<","font":"ui:window/stat"},{"nbt":"add_buttons[-1]","storage":"ui:main","interpret":true},{"text":"A94","font":"space:default"},{"score":{"objective":"STR","name":"@s"},"font":"ui:window/stat","color":"black"},{"score":{"objective":"STR","name":"@s"},"font":"ui:window/stat_back"},{"text":"\uF82A\uF829\uF828\uF821","font":"space:default"},{"text":"\uE000","font":"ui:window/stat"}]
 			# dex and avoid
@@ -142,6 +152,31 @@ namespace stat()
 			data modify storage ui:main add_buttons set value ['""','""','""','""','""','""','{"text":"6","font":"space:default"}']
 			# hp add, mp add, str add, dex add, int add, luk add, display button
 			execute if score @s stat_point matches 1.. run data modify storage ui:main add_buttons set value ['[{"text":"\\uF82B\\uF828\\uF824","font":"space:default"},{"text":"5","font":"ui:main","clickEvent":{"action":"run_command","value":"/trigger command set 1"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},"B93"]','[{"text":"\\uF82B\\uF828\\uF824","font":"space:default"},{"text":"5","font":"ui:main","clickEvent":{"action":"run_command","value":"/trigger command set 2"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},"B93"]','[{"text":"\\uF82B\\uF828\\uF824","font":"space:default"},{"text":"5","font":"ui:main","clickEvent":{"action":"run_command","value":"/trigger command set 3"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},"B93"]','[{"text":"\\uF82B\\uF828\\uF824","font":"space:default"},{"text":"5","font":"ui:main","clickEvent":{"action":"run_command","value":"/trigger command set 4"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},"B93"]','[{"text":"\\uF82B\\uF828\\uF824","font":"space:default"},{"text":"5","font":"ui:main","clickEvent":{"action":"run_command","value":"/trigger command set 5"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},"B93"]','[{"text":"\\uF82B\\uF828\\uF824","font":"space:default"},{"text":"5","font":"ui:main","clickEvent":{"action":"run_command","value":"/trigger command set 6"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},"B93"]','[{"text":"85","font":"space:default"},{"text":"5","font":"ui:main"}]']
+		}
+		
+		func sep_mdef_buff()
+		{
+			scoreboard players operation #MAGIC_DEFENSE temp = @s magic_defense
+			scoreboard players operation #MAGIC_DEFENSE temp += @s mdef_buff_num
+			data modify storage ui:main mdef set value '[{"score":{"objective":"temp","name":"#MAGIC_DEFENSE"},"color":"#ff0000"},"_(",{"score":{"objective":"magic_defense","name":"@s"}},"+",{"score":{"objective":"mdef_buff_num","name":"@s"}},")"]'
+		}
+		
+		folder mp_wdef_buff()
+		{
+			func check()
+			{
+				scoreboard players operation #WEAPON_DEFENSE temp = @s weapon_defense
+				scoreboard players operation #WEAPON_DEFENSE temp += @s wdef_buff_num
+				execute if score @s wdef_buff_num matches ..-1 run function ARG(_PATH)decrease
+				execute if score @s wdef_buff_num matches 1.. run tellraw @s [{"nbt":"add_buttons[1]","storage":"ui:main","interpret":true},{"text":".","font":"ui:window/stat"},{"nbt":"add_buttons[-1]","storage":"ui:main","interpret":true},{"text":"A94","font":"space:default"},[{"score":{"objective":"mp","name":"@s"},"font":"ui:window/stat","color":"black"},"_/_",{"score":{"objective":"mp_max","name":"@s"}}],[{"score":{"objective":"mp","name":"@s"},"font":"ui:window/stat_back"},{"score":{"objective":"mp_max","name":"@s"}}],{"text":"\uF82A\uF829\uF824","font":"space:default"},{"text":"{","font":"ui:window/stat"},{"text":"A93","font":"space:default"},[{"score":{"objective":"temp","name":"#WEAPON_DEFENSE"},"font":"ui:window/stat","color":"#ff0000"},"_(",{"score":{"objective":"weapon_defense","name":"@s"}},"+",{"score":{"objective":"wdef_buff_num","name":"@s"}},")"]]
+			}
+			
+			func decrease()
+			{
+				scoreboard players operation #WDEF_DECREASE temp = @s wdef_buff_num
+				scoreboard players operation #WDEF_DECREASE temp *= #-1 const
+				tellraw @s [{"nbt":"add_buttons[1]","storage":"ui:main","interpret":true},{"text":".","font":"ui:window/stat"},{"nbt":"add_buttons[-1]","storage":"ui:main","interpret":true},{"text":"A94","font":"space:default"},[{"score":{"objective":"mp","name":"@s"},"font":"ui:window/stat","color":"black"},"_/_",{"score":{"objective":"mp_max","name":"@s"}}],[{"score":{"objective":"mp","name":"@s"},"font":"ui:window/stat_back"},{"score":{"objective":"mp_max","name":"@s"}}],{"text":"\uF82A\uF829\uF824","font":"space:default"},{"text":"{","font":"ui:window/stat"},{"text":"A93","font":"space:default"},[{"score":{"objective":"temp","name":"#WEAPON_DEFENSE"},"font":"ui:window/stat","color":"#0000ff"},"_(",{"score":{"objective":"weapon_defense","name":"@s"}},"-",{"score":{"objective":"temp","name":"#WDEF_DECREASE"}},")"]]
+			}
 		}
 		
 		folder get_attack_range()
