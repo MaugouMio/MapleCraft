@@ -22,6 +22,10 @@ namespace item()
 		scoreboard objectives add weapon_knock dummy
 		scoreboard objectives add weapon_speed dummy
 		scoreboard objectives add equip_accuracy dummy
+		scoreboard objectives add equip_str dummy
+		scoreboard objectives add equip_dex dummy
+		scoreboard objectives add equip_int dummy
+		scoreboard objectives add equip_luk dummy
 	}
 	
 	folder loop()
@@ -170,12 +174,16 @@ namespace item()
 				
 				execute store result score #GLOBAL temp run data get storage item:main equip.str
 				scoreboard players operation @s STR += #GLOBAL temp
+				scoreboard players operation @s equip_str += #GLOBAL temp
 				execute store result score #GLOBAL temp run data get storage item:main equip.dex
 				scoreboard players operation @s DEX += #GLOBAL temp
+				scoreboard players operation @s equip_dex += #GLOBAL temp
 				execute store result score #GLOBAL temp run data get storage item:main equip.int
 				scoreboard players operation @s INT += #GLOBAL temp
+				scoreboard players operation @s equip_int += #GLOBAL temp
 				execute store result score #GLOBAL temp run data get storage item:main equip.luk
 				scoreboard players operation @s LUK += #GLOBAL temp
+				scoreboard players operation @s equip_luk += #GLOBAL temp
 			}
 			
 			func update_hp_mp()
@@ -210,12 +218,16 @@ namespace item()
 				
 				execute store result score #GLOBAL temp run data get block 0 1 0 Items[0].tag.str
 				scoreboard players operation @s STR -= #GLOBAL temp
+				scoreboard players operation @s equip_str -= #GLOBAL temp
 				execute store result score #GLOBAL temp run data get block 0 1 0 Items[0].tag.dex
 				scoreboard players operation @s DEX -= #GLOBAL temp
+				scoreboard players operation @s equip_dex -= #GLOBAL temp
 				execute store result score #GLOBAL temp run data get block 0 1 0 Items[0].tag.int
 				scoreboard players operation @s INT -= #GLOBAL temp
+				scoreboard players operation @s equip_int -= #GLOBAL temp
 				execute store result score #GLOBAL temp run data get block 0 1 0 Items[0].tag.luk
 				scoreboard players operation @s LUK -= #GLOBAL temp
+				scoreboard players operation @s equip_luk -= #GLOBAL temp
 				
 				execute store result score #GLOBAL temp run data get block 0 1 0 Items[0].tag.speed
 				
