@@ -92,6 +92,8 @@ namespace stat()
 	{
 		func display()
 		{
+			function ARG(_PATH)add_trigger
+			
 			# title
 			tellraw @s {"text":"!\n#","font":"ui:window/stat"}
 			# job
@@ -99,9 +101,9 @@ namespace stat()
 			# level
 			tellraw @s [{"text":"*","font":"ui:window/stat"},{"text":"A982","font":"space:default"},{"score":{"objective":"level","name":"@s"}}]
 			# hp
-			tellraw @s [{"text":",","font":"ui:window/stat"},{"text":"A982","font":"space:default"},{"score":{"objective":"hp","name":"@s"}},"_/_",{"score":{"objective":"hp_max","name":"@s"}}]
+			tellraw @s [{"nbt":"add_buttons[0]","storage":"ui:main","interpret":true},{"text":",","font":"ui:window/stat"},{"nbt":"add_buttons[-1]","storage":"ui:main","interpret":true},{"text":"A94","font":"space:default"},[{"score":{"objective":"hp","name":"@s"},"font":"ui:window/stat"},"_/_",{"score":{"objective":"hp_max","name":"@s"}}]]
 			# mp
-			tellraw @s [{"text":".","font":"ui:window/stat"},{"text":"A982","font":"space:default"},{"score":{"objective":"mp","name":"@s"}},"_/_",{"score":{"objective":"mp_max","name":"@s"}}]
+			tellraw @s [{"nbt":"add_buttons[1]","storage":"ui:main","interpret":true},{"text":".","font":"ui:window/stat"},{"nbt":"add_buttons[-1]","storage":"ui:main","interpret":true},{"text":"A94","font":"space:default"},[{"score":{"objective":"mp","name":"@s"},"font":"ui:window/stat"},"_/_",{"score":{"objective":"mp_max","name":"@s"}}]]
 			# exp
 			scoreboard players operation #GLOBAL temp = @s exp
 			scoreboard players operation #GLOBAL temp *= #100 const
@@ -110,19 +112,26 @@ namespace stat()
 			# sep line
 			tellraw @s {"text":";","font":"ui:window/stat"}
 			# str
-			tellraw @s [{"text":"<","font":"ui:window/stat"},{"text":"A982","font":"space:default"},{"score":{"objective":"STR","name":"@s"}}]
+			tellraw @s [{"nbt":"add_buttons[2]","storage":"ui:main","interpret":true},{"text":"<","font":"ui:window/stat"},{"nbt":"add_buttons[-1]","storage":"ui:main","interpret":true},{"text":"A94","font":"space:default"},{"score":{"objective":"STR","name":"@s"},"font":"ui:window/stat"}]
 			# dex
-			tellraw @s [{"text":"=","font":"ui:window/stat"},{"text":"A982","font":"space:default"},{"score":{"objective":"DEX","name":"@s"}}]
+			tellraw @s [{"nbt":"add_buttons[3]","storage":"ui:main","interpret":true},{"text":"=","font":"ui:window/stat"},{"nbt":"add_buttons[-1]","storage":"ui:main","interpret":true},{"text":"A94","font":"space:default"},{"score":{"objective":"DEX","name":"@s"},"font":"ui:window/stat"}]
 			# int
-			tellraw @s [{"text":">","font":"ui:window/stat"},{"text":"A982","font":"space:default"},{"score":{"objective":"INT","name":"@s"}}]
+			tellraw @s [{"nbt":"add_buttons[4]","storage":"ui:main","interpret":true},{"text":">","font":"ui:window/stat"},{"nbt":"add_buttons[-1]","storage":"ui:main","interpret":true},{"text":"A94","font":"space:default"},{"score":{"objective":"INT","name":"@s"},"font":"ui:window/stat"}]
 			# luk
-			tellraw @s [{"text":"?","font":"ui:window/stat"},{"text":"A982","font":"space:default"},{"score":{"objective":"LUK","name":"@s"}}]
+			tellraw @s [{"nbt":"add_buttons[5]","storage":"ui:main","interpret":true},{"text":"?","font":"ui:window/stat"},{"nbt":"add_buttons[-1]","storage":"ui:main","interpret":true},{"text":"A94","font":"space:default"},{"score":{"objective":"LUK","name":"@s"},"font":"ui:window/stat"}]
 			# tail
 			tellraw @s {"text":"@","font":"ui:window/stat"}
 			# point left
 			tellraw @s [{"text":"[","font":"ui:window/stat"},{"text":"A","font":"space:default"},{"score":{"objective":"stat_point","name":"@s"},"font":"ui:window/stat_back"},{"score":{"objective":"stat_point","name":"@s"}}]
 			# tail2
 			tellraw @s {"text":"]","font":"ui:window/stat"}
+		}
+		
+		func add_trigger()
+		{
+			data modify storage ui:main add_buttons set value ['""','""','""','""','""','""','{"text":"6","font":"space:default"}']
+			# hp add, mp add, str add, dex add, int add, luk add, display button
+			execute if score @s stat_point matches 1.. run data modify storage ui:main add_buttons set value ['[{"text":"\\uF82B\\uF828\\uF824","font":"space:default"},{"text":"5","font":"ui:main","clickEvent":{"action":"run_command","value":"/trigger command set 1"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},"B93"]','[{"text":"\\uF82B\\uF828\\uF824","font":"space:default"},{"text":"5","font":"ui:main","clickEvent":{"action":"run_command","value":"/trigger command set 2"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},"B93"]','[{"text":"\\uF82B\\uF828\\uF824","font":"space:default"},{"text":"5","font":"ui:main","clickEvent":{"action":"run_command","value":"/trigger command set 3"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},"B93"]','[{"text":"\\uF82B\\uF828\\uF824","font":"space:default"},{"text":"5","font":"ui:main","clickEvent":{"action":"run_command","value":"/trigger command set 4"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},"B93"]','[{"text":"\\uF82B\\uF828\\uF824","font":"space:default"},{"text":"5","font":"ui:main","clickEvent":{"action":"run_command","value":"/trigger command set 5"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},"B93"]','[{"text":"\\uF82B\\uF828\\uF824","font":"space:default"},{"text":"5","font":"ui:main","clickEvent":{"action":"run_command","value":"/trigger command set 6"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},"B93"]','[{"text":"85","font":"space:default"},{"text":"5","font":"ui:main"}]']
 		}
 	}
 	
