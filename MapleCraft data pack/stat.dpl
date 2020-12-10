@@ -93,43 +93,46 @@ namespace stat()
 		func display()
 		{
 			function ARG(_PATH)add_trigger
+			function ARG(_PATH)get_attack_range/run
 			
 			# title
 			tellraw @s {"text":"\n\n\n\n\n\n\n!\n#","font":"ui:window/stat"}
 			# job
 			tellraw @s {"text":"&\n'","font":"ui:window/stat"}
 			# level and detail title
-			tellraw @s [{"text":"*","font":"ui:window/stat"},{"text":"A982","font":"space:default"},{"score":{"objective":"level","name":"@s"}},{"score":{"objective":"level","name":"@s"},"font":"ui:window/stat_back"},{"text":"\uF82A\uF829\uF828\uF821","font":"space:default"},"^"]
+			tellraw @s [{"text":"*","font":"ui:window/stat"},{"text":"A982","font":"space:default"},{"score":{"objective":"level","name":"@s"},"color":"black"},{"score":{"objective":"level","name":"@s"},"font":"ui:window/stat_back"},{"text":"\uF82A\uF829\uF828\uF821","font":"space:default"},"^"]
 			# hp and attack
-			tellraw @s [{"nbt":"add_buttons[0]","storage":"ui:main","interpret":true},{"text":",","font":"ui:window/stat"},{"nbt":"add_buttons[-1]","storage":"ui:main","interpret":true},{"text":"A94","font":"space:default"},[{"score":{"objective":"hp","name":"@s"},"font":"ui:window/stat"},"_/_",{"score":{"objective":"hp_max","name":"@s"}},[{"score":{"objective":"hp","name":"@s"},"font":"ui:window/stat_back"},{"score":{"objective":"hp_max","name":"@s"}}],{"text":"\uF82A\uF829\uF824","font":"space:default"},"`"]]
+			execute if score @s watk_buff_num matches 1.. run data modify storage ui:main attack_format set value '{"text":"","color":"#ff0000","font":"ui:window/stat"}'
+			execute unless score @s watk_buff_num matches 1.. run data modify storage ui:main attack_format set value '{"text":"","color":"black","font":"ui:window/stat"}'
+			tellraw @s [{"nbt":"add_buttons[0]","storage":"ui:main","interpret":true},{"text":",","font":"ui:window/stat"},{"nbt":"add_buttons[-1]","storage":"ui:main","interpret":true},{"text":"A94","font":"space:default"},[{"score":{"objective":"hp","name":"@s"},"font":"ui:window/stat","color":"black"},"_/_",{"score":{"objective":"hp_max","name":"@s"}}],[{"score":{"objective":"hp","name":"@s"},"font":"ui:window/stat_back"},{"score":{"objective":"hp_max","name":"@s"}}],{"text":"\uF82A\uF829\uF824","font":"space:default"},{"text":"`","font":"ui:window/stat"},{"text":"A93","font":"space:default"},[{"nbt":"attack_format","storage":"ui:main","interpret":true},{"score":{"objective":"temp","name":"#MIN_DAMAGE"}},"_~_",{"score":{"objective":"temp","name":"#MAX_DAMAGE"}}]]
 			# mp and wdef
-			tellraw @s [{"nbt":"add_buttons[1]","storage":"ui:main","interpret":true},{"text":".","font":"ui:window/stat"},{"nbt":"add_buttons[-1]","storage":"ui:main","interpret":true},{"text":"A94","font":"space:default"},[{"score":{"objective":"mp","name":"@s"},"font":"ui:window/stat"},"_/_",{"score":{"objective":"mp_max","name":"@s"}},[{"score":{"objective":"mp","name":"@s"},"font":"ui:window/stat_back"},{"score":{"objective":"mp_max","name":"@s"}}],{"text":"\uF82A\uF829\uF824","font":"space:default"},"{"]]
+			tellraw @s [{"nbt":"add_buttons[1]","storage":"ui:main","interpret":true},{"text":".","font":"ui:window/stat"},{"nbt":"add_buttons[-1]","storage":"ui:main","interpret":true},{"text":"A94","font":"space:default"},[{"score":{"objective":"mp","name":"@s"},"font":"ui:window/stat","color":"black"},"_/_",{"score":{"objective":"mp_max","name":"@s"}}],[{"score":{"objective":"mp","name":"@s"},"font":"ui:window/stat_back"},{"score":{"objective":"mp_max","name":"@s"}}],{"text":"\uF82A\uF829\uF824","font":"space:default"},{"text":"{","font":"ui:window/stat"},{"text":"A93","font":"space:default"}]
 			# exp and magic
 			scoreboard players operation #GLOBAL temp = @s exp
 			scoreboard players operation #GLOBAL temp *= #100 const
 			scoreboard players operation #GLOBAL temp /= @s exp_max
-			tellraw @s [{"text":":","font":"ui:window/stat"},{"text":"A982","font":"space:default"},{"score":{"objective":"exp","name":"@s"}},"_(",{"score":{"objective":"temp","name":"#GLOBAL"}},"%)",[{"score":{"objective":"exp","name":"@s"},"font":"ui:window/stat_back"},{"score":{"objective":"temp","name":"#GLOBAL"}}],{"text":"\uF82A\uF828\uF825","font":"space:default"},"|"]
+			tellraw @s [{"text":":","font":"ui:window/stat"},{"text":"A982","font":"space:default"},[{"score":{"objective":"exp","name":"@s"},"color":"black"},"_(",{"score":{"objective":"temp","name":"#GLOBAL"}},"%)"],[{"score":{"objective":"exp","name":"@s"},"font":"ui:window/stat_back"},{"score":{"objective":"temp","name":"#GLOBAL"}}],{"text":"\uF82A\uF828\uF825","font":"space:default"},"|"]
 			# sep line and mdef
 			tellraw @s [{"text":";","font":"ui:window/stat"},{"text":"1","font":"space:default"},"}"]
 			# str and accuracy
-			tellraw @s [{"nbt":"add_buttons[2]","storage":"ui:main","interpret":true},{"text":"<","font":"ui:window/stat"},{"nbt":"add_buttons[-1]","storage":"ui:main","interpret":true},{"text":"A94","font":"space:default"},{"score":{"objective":"STR","name":"@s"},"font":"ui:window/stat"},{"score":{"objective":"STR","name":"@s"},"font":"ui:window/stat_back"},{"text":"\uF82A\uF829\uF828\uF821","font":"space:default"},{"text":"\uE000","font":"ui:window/stat"}]
+			tellraw @s [{"nbt":"add_buttons[2]","storage":"ui:main","interpret":true},{"text":"<","font":"ui:window/stat"},{"nbt":"add_buttons[-1]","storage":"ui:main","interpret":true},{"text":"A94","font":"space:default"},{"score":{"objective":"STR","name":"@s"},"font":"ui:window/stat","color":"black"},{"score":{"objective":"STR","name":"@s"},"font":"ui:window/stat_back"},{"text":"\uF82A\uF829\uF828\uF821","font":"space:default"},{"text":"\uE000","font":"ui:window/stat"}]
 			# dex and avoid
-			tellraw @s [{"nbt":"add_buttons[3]","storage":"ui:main","interpret":true},{"text":"=","font":"ui:window/stat"},{"nbt":"add_buttons[-1]","storage":"ui:main","interpret":true},{"text":"A94","font":"space:default"},{"score":{"objective":"DEX","name":"@s"},"font":"ui:window/stat"},{"score":{"objective":"DEX","name":"@s"},"font":"ui:window/stat_back"},{"text":"\uF82A\uF829\uF828\uF821","font":"space:default"},{"text":"\uE001","font":"ui:window/stat"}]
+			tellraw @s [{"nbt":"add_buttons[3]","storage":"ui:main","interpret":true},{"text":"=","font":"ui:window/stat"},{"nbt":"add_buttons[-1]","storage":"ui:main","interpret":true},{"text":"A94","font":"space:default"},{"score":{"objective":"DEX","name":"@s"},"font":"ui:window/stat","color":"black"},{"score":{"objective":"DEX","name":"@s"},"font":"ui:window/stat_back"},{"text":"\uF82A\uF829\uF828\uF821","font":"space:default"},{"text":"\uE001","font":"ui:window/stat"}]
 			# int and speed
 			execute store result score #GLOBAL temp run attribute @s minecraft:generic.movement_speed get 10000
 			scoreboard players add #GLOBAL temp 1
 			scoreboard players operation #GLOBAL temp /= #10 const
-			tellraw @s [{"nbt":"add_buttons[4]","storage":"ui:main","interpret":true},{"text":">","font":"ui:window/stat"},{"nbt":"add_buttons[-1]","storage":"ui:main","interpret":true},{"text":"A94","font":"space:default"},{"score":{"objective":"INT","name":"@s"},"font":"ui:window/stat"},{"score":{"objective":"INT","name":"@s"},"font":"ui:window/stat_back"},{"text":"\uF82A\uF829\uF828\uF821","font":"space:default"},{"text":"\uE002","font":"ui:window/stat"},{"text":"A93","font":"space:default"},[{"score":{"objective":"temp","name":"#GLOBAL"},"font":"ui:window/stat"},"%"]]
+			tellraw @s [{"nbt":"add_buttons[4]","storage":"ui:main","interpret":true},{"text":">","font":"ui:window/stat"},{"nbt":"add_buttons[-1]","storage":"ui:main","interpret":true},{"text":"A94","font":"space:default"},{"score":{"objective":"INT","name":"@s"},"font":"ui:window/stat","color":"black"},{"score":{"objective":"INT","name":"@s"},"font":"ui:window/stat_back"},{"text":"\uF82A\uF829\uF828\uF821","font":"space:default"},{"text":"\uE002","font":"ui:window/stat"},{"text":"A93","font":"space:default"},[{"score":{"objective":"temp","name":"#GLOBAL"},"color":"black","font":"ui:window/stat"},"%"]]
 			# luk and jump
 			execute store result score #GLOBAL temp run data get entity @s ActiveEffects[{Id:8b}].Amplifier
 			execute if data entity @s ActiveEffects[{Id:8b}] run scoreboard players add #GLOBAL temp 1
 			scoreboard players operation #GLOBAL temp *= #10 const
 			scoreboard players add #GLOBAL temp 100
-			tellraw @s [{"nbt":"add_buttons[5]","storage":"ui:main","interpret":true},{"text":"?","font":"ui:window/stat"},{"nbt":"add_buttons[-1]","storage":"ui:main","interpret":true},{"text":"A94","font":"space:default"},{"score":{"objective":"LUK","name":"@s"},"font":"ui:window/stat"},{"score":{"objective":"LUK","name":"@s"},"font":"ui:window/stat_back"},{"text":"\uF82A\uF829\uF828\uF821","font":"space:default"},{"text":"\uE003","font":"ui:window/stat"},{"text":"A93","font":"space:default"},[{"score":{"objective":"temp","name":"#GLOBAL"},"font":"ui:window/stat"},"%"]]
+			tellraw @s [{"nbt":"add_buttons[5]","storage":"ui:main","interpret":true},{"text":"?","font":"ui:window/stat"},{"nbt":"add_buttons[-1]","storage":"ui:main","interpret":true},{"text":"A94","font":"space:default"},{"score":{"objective":"LUK","name":"@s"},"font":"ui:window/stat","color":"black"},{"score":{"objective":"LUK","name":"@s"},"font":"ui:window/stat_back"},{"text":"\uF82A\uF829\uF828\uF821","font":"space:default"},{"text":"\uE003","font":"ui:window/stat"},{"text":"A93","font":"space:default"},[{"score":{"objective":"temp","name":"#GLOBAL"},"color":"black","font":"ui:window/stat"},"%"]]
 			# tail
 			tellraw @s [{"text":"@","font":"ui:window/stat"},{"text":"1","font":"space:default"},"\uE004"]
 			# point left
-			tellraw @s [{"text":"[","font":"ui:window/stat"},{"text":"A","font":"space:default"},{"score":{"objective":"stat_point","name":"@s"},"font":"ui:window/stat_back"},{"score":{"objective":"stat_point","name":"@s"}},{"text":"\uF829\uF828\uF827","font":"space:default"},"\uE005"]
+			tellraw @s [{"text":"[","font":"ui:window/stat"},{"text":"A","font":"space:default"},{"score":{"objective":"stat_point","name":"@s"},"font":"ui:window/stat_back"},{"score":{"objective":"stat_point","name":"@s"},"color":"black"},{"text":"\uF829\uF828\uF827","font":"space:default"},"\uE005"]
 			# tail2
 			tellraw @s [{"text":"]","font":"ui:window/stat"},{"text":"1","font":"space:default"},"\uE006"]
 		}
@@ -139,6 +142,120 @@ namespace stat()
 			data modify storage ui:main add_buttons set value ['""','""','""','""','""','""','{"text":"6","font":"space:default"}']
 			# hp add, mp add, str add, dex add, int add, luk add, display button
 			execute if score @s stat_point matches 1.. run data modify storage ui:main add_buttons set value ['[{"text":"\\uF82B\\uF828\\uF824","font":"space:default"},{"text":"5","font":"ui:main","clickEvent":{"action":"run_command","value":"/trigger command set 1"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},"B93"]','[{"text":"\\uF82B\\uF828\\uF824","font":"space:default"},{"text":"5","font":"ui:main","clickEvent":{"action":"run_command","value":"/trigger command set 2"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},"B93"]','[{"text":"\\uF82B\\uF828\\uF824","font":"space:default"},{"text":"5","font":"ui:main","clickEvent":{"action":"run_command","value":"/trigger command set 3"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},"B93"]','[{"text":"\\uF82B\\uF828\\uF824","font":"space:default"},{"text":"5","font":"ui:main","clickEvent":{"action":"run_command","value":"/trigger command set 4"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},"B93"]','[{"text":"\\uF82B\\uF828\\uF824","font":"space:default"},{"text":"5","font":"ui:main","clickEvent":{"action":"run_command","value":"/trigger command set 5"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},"B93"]','[{"text":"\\uF82B\\uF828\\uF824","font":"space:default"},{"text":"5","font":"ui:main","clickEvent":{"action":"run_command","value":"/trigger command set 6"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},"B93"]','[{"text":"85","font":"space:default"},{"text":"5","font":"ui:main"}]']
+		}
+		
+		folder get_attack_range()
+		{
+			func run()
+			{
+				execute if score @s weapon_type matches ..10 run function ARG(_PATH)2_10
+				execute if score @s weapon_type matches 12.. run function ARG(_PATH)12_24
+			}
+			
+			func 2_10()
+			{
+				execute if score @s weapon_type matches ..6 run function ARG(_PATH)2_6
+				execute if score @s weapon_type matches 7.. run function ARG(_PATH)7_10
+			}
+			
+			func 2_6()
+			{
+				# execute if score @s weapon_type matches 2 run function skill:damage_formula/knuckle/normal
+				# execute if score @s weapon_type matches 4 run function skill:damage_formula/gun/normal
+				execute if score @s weapon_type matches 5 run function ARG(_PATH)5
+				execute if score @s weapon_type matches 6 run function ARG(_PATH)6
+			}
+			
+			func 5()
+			{
+				function skill:damage_formula/axe/one_hand/swing
+				scoreboard players operation #DISPLAY_MAX_DAMAGE temp = #MAX_DAMAGE temp
+				function skill:damage_formula/axe/one_hand/stab
+				scoreboard players operation #MAX_DAMAGE temp = #DISPLAY_MAX_DAMAGE temp
+			}
+			
+			func 6()
+			{
+				function skill:damage_formula/axe/two_hand/swing
+				scoreboard players operation #DISPLAY_MAX_DAMAGE temp = #MAX_DAMAGE temp
+				function skill:damage_formula/axe/two_hand/stab
+				scoreboard players operation #MAX_DAMAGE temp = #DISPLAY_MAX_DAMAGE temp
+			}
+			
+			func 7_10()
+			{
+				execute if score @s weapon_type matches 7 run function skill:damage_formula/sword/one_hand
+				execute if score @s weapon_type matches 8 run function skill:damage_formula/sword/two_hand
+				execute if score @s weapon_type matches 9 run function ARG(_PATH)9
+				execute if score @s weapon_type matches 10 run function ARG(_PATH)10
+			}
+			
+			func 9()
+			{
+				function skill:damage_formula/blunt/one_hand/swing
+				scoreboard players operation #DISPLAY_MAX_DAMAGE temp = #MAX_DAMAGE temp
+				function skill:damage_formula/blunt/one_hand/stab
+				scoreboard players operation #MAX_DAMAGE temp = #DISPLAY_MAX_DAMAGE temp
+			}
+			
+			func 10()
+			{
+				function skill:damage_formula/blunt/two_hand/swing
+				scoreboard players operation #DISPLAY_MAX_DAMAGE temp = #MAX_DAMAGE temp
+				function skill:damage_formula/blunt/two_hand/stab
+				scoreboard players operation #MAX_DAMAGE temp = #DISPLAY_MAX_DAMAGE temp
+			}
+			
+			func 12_24()
+			{
+				execute if score @s weapon_type matches ..18 run function ARG(_PATH)12_18
+				execute if score @s weapon_type matches 19.. run function ARG(_PATH)19_24
+			}
+			
+			func 12_18()
+			{
+				execute if score @s weapon_type matches 12 run function ARG(_PATH)12
+				execute if score @s weapon_type matches 14 run function ARG(_PATH)14
+				execute if score @s weapon_type matches 16 run function skill:damage_formula/bow/normal
+				execute if score @s weapon_type matches 18 run function skill:damage_formula/crossbow/normal
+			}
+			
+			func 12()
+			{
+				function skill:damage_formula/spear/stab
+				scoreboard players operation #DISPLAY_MAX_DAMAGE temp = #MAX_DAMAGE temp
+				function skill:damage_formula/spear/swing
+				scoreboard players operation #MAX_DAMAGE temp = #DISPLAY_MAX_DAMAGE temp
+			}
+			
+			func 14()
+			{
+				function skill:damage_formula/polearm/swing
+				scoreboard players operation #DISPLAY_MAX_DAMAGE temp = #MAX_DAMAGE temp
+				function skill:damage_formula/polearm/stab
+				scoreboard players operation #MAX_DAMAGE temp = #DISPLAY_MAX_DAMAGE temp
+			}
+			
+			func 19_24()
+			{
+				execute if score @s weapon_type matches 19..21 run function ARG(_PATH)19
+				execute if score @s weapon_type matches 23 run function ARG(_PATH)23
+				execute if score @s weapon_type matches 24 run function skill:damage_formula/claw/normal
+			}
+			
+			func 19()
+			{
+				function skill:damage_formula/staff/swing
+				scoreboard players operation #DISPLAY_MAX_DAMAGE temp = #MAX_DAMAGE temp
+				function skill:damage_formula/staff/stab
+				scoreboard players operation #MAX_DAMAGE temp = #DISPLAY_MAX_DAMAGE temp
+			}
+			
+			func 23()
+			{
+				execute if entity @s[tag=thief] run function skill:damage_formula/dagger/thief
+				execute if entity @s[tag=!thief] run function skill:damage_formula/dagger/non_thief
+			}
 		}
 		
 		folder add()
