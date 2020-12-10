@@ -252,12 +252,16 @@ namespace item()
 			execute if score @s level < #GLOBAL temp run scoreboard players set #ACCEPTED_EQUIP temp 0
 			# stats check
 			execute store result score #GLOBAL temp run data get entity @s SelectedItem.tag.stats[0]
+			scoreboard players operation #GLOBAL temp += #EQUIP_STR temp
 			execute if score @s STR < #GLOBAL temp run scoreboard players set #ACCEPTED_EQUIP temp 0
 			execute store result score #GLOBAL temp run data get entity @s SelectedItem.tag.stats[1]
+			scoreboard players operation #GLOBAL temp += #EQUIP_DEX temp
 			execute if score @s DEX < #GLOBAL temp run scoreboard players set #ACCEPTED_EQUIP temp 0
 			execute store result score #GLOBAL temp run data get entity @s SelectedItem.tag.stats[2]
+			scoreboard players operation #GLOBAL temp += #EQUIP_INT temp
 			execute if score @s INT < #GLOBAL temp run scoreboard players set #ACCEPTED_EQUIP temp 0
 			execute store result score #GLOBAL temp run data get entity @s SelectedItem.tag.stats[3]
+			scoreboard players operation #GLOBAL temp += #EQUIP_LUK temp
 			execute if score @s LUK < #GLOBAL temp run scoreboard players set #ACCEPTED_EQUIP temp 0
 			
 			execute if score #ACCEPTED_EQUIP temp matches 0 run tellraw @s {"translate":"warning.equip.invalid_stat","color":"red"}
@@ -267,7 +271,12 @@ namespace item()
 		{
 			func check()
 			{
+				execute store result score #EQUIP_STR temp run data get entity @s Inventory[{Slot:103b}].tag.weapon.str
+				execute store result score #EQUIP_DEX temp run data get entity @s Inventory[{Slot:103b}].tag.weapon.dex
+				execute store result score #EQUIP_INT temp run data get entity @s Inventory[{Slot:103b}].tag.weapon.int
+				execute store result score #EQUIP_LUK temp run data get entity @s Inventory[{Slot:103b}].tag.weapon.luk
 				function ARG(__PATH)equip_qulification
+				
 				execute if score #ACCEPTED_EQUIP temp matches 0 run playsound minecraft:game.dlg_notice player @s
 				execute if score #ACCEPTED_EQUIP temp matches 1 run function ARG(_PATH)equip
 			}
