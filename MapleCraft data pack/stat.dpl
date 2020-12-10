@@ -98,27 +98,34 @@ namespace stat()
 			tellraw @s {"text":"\n\n\n\n\n\n\n!\n#","font":"ui:window/stat"}
 			# job
 			tellraw @s {"text":"&\n'","font":"ui:window/stat"}
-			# level
+			# level and detail title
 			tellraw @s [{"text":"*","font":"ui:window/stat"},{"text":"A982","font":"space:default"},{"score":{"objective":"level","name":"@s"}},{"score":{"objective":"level","name":"@s"},"font":"ui:window/stat_back"},{"text":"\uF82A\uF829\uF828\uF821","font":"space:default"},"^"]
-			# hp
+			# hp and attack
 			tellraw @s [{"nbt":"add_buttons[0]","storage":"ui:main","interpret":true},{"text":",","font":"ui:window/stat"},{"nbt":"add_buttons[-1]","storage":"ui:main","interpret":true},{"text":"A94","font":"space:default"},[{"score":{"objective":"hp","name":"@s"},"font":"ui:window/stat"},"_/_",{"score":{"objective":"hp_max","name":"@s"}},[{"score":{"objective":"hp","name":"@s"},"font":"ui:window/stat_back"},{"score":{"objective":"hp_max","name":"@s"}}],{"text":"\uF82A\uF829\uF824","font":"space:default"},"`"]]
-			# mp
+			# mp and wdef
 			tellraw @s [{"nbt":"add_buttons[1]","storage":"ui:main","interpret":true},{"text":".","font":"ui:window/stat"},{"nbt":"add_buttons[-1]","storage":"ui:main","interpret":true},{"text":"A94","font":"space:default"},[{"score":{"objective":"mp","name":"@s"},"font":"ui:window/stat"},"_/_",{"score":{"objective":"mp_max","name":"@s"}},[{"score":{"objective":"mp","name":"@s"},"font":"ui:window/stat_back"},{"score":{"objective":"mp_max","name":"@s"}}],{"text":"\uF82A\uF829\uF824","font":"space:default"},"{"]]
-			# exp
+			# exp and magic
 			scoreboard players operation #GLOBAL temp = @s exp
 			scoreboard players operation #GLOBAL temp *= #100 const
 			scoreboard players operation #GLOBAL temp /= @s exp_max
 			tellraw @s [{"text":":","font":"ui:window/stat"},{"text":"A982","font":"space:default"},{"score":{"objective":"exp","name":"@s"}},"_(",{"score":{"objective":"temp","name":"#GLOBAL"}},"%)",[{"score":{"objective":"exp","name":"@s"},"font":"ui:window/stat_back"},{"score":{"objective":"temp","name":"#GLOBAL"}}],{"text":"\uF82A\uF828\uF825","font":"space:default"},"|"]
-			# sep line
+			# sep line and mdef
 			tellraw @s [{"text":";","font":"ui:window/stat"},{"text":"1","font":"space:default"},"}"]
-			# str
+			# str and accuracy
 			tellraw @s [{"nbt":"add_buttons[2]","storage":"ui:main","interpret":true},{"text":"<","font":"ui:window/stat"},{"nbt":"add_buttons[-1]","storage":"ui:main","interpret":true},{"text":"A94","font":"space:default"},{"score":{"objective":"STR","name":"@s"},"font":"ui:window/stat"},{"score":{"objective":"STR","name":"@s"},"font":"ui:window/stat_back"},{"text":"\uF82A\uF829\uF828\uF821","font":"space:default"},{"text":"\uE000","font":"ui:window/stat"}]
-			# dex
+			# dex and avoid
 			tellraw @s [{"nbt":"add_buttons[3]","storage":"ui:main","interpret":true},{"text":"=","font":"ui:window/stat"},{"nbt":"add_buttons[-1]","storage":"ui:main","interpret":true},{"text":"A94","font":"space:default"},{"score":{"objective":"DEX","name":"@s"},"font":"ui:window/stat"},{"score":{"objective":"DEX","name":"@s"},"font":"ui:window/stat_back"},{"text":"\uF82A\uF829\uF828\uF821","font":"space:default"},{"text":"\uE001","font":"ui:window/stat"}]
-			# int
-			tellraw @s [{"nbt":"add_buttons[4]","storage":"ui:main","interpret":true},{"text":">","font":"ui:window/stat"},{"nbt":"add_buttons[-1]","storage":"ui:main","interpret":true},{"text":"A94","font":"space:default"},{"score":{"objective":"INT","name":"@s"},"font":"ui:window/stat"},{"score":{"objective":"INT","name":"@s"},"font":"ui:window/stat_back"},{"text":"\uF82A\uF829\uF828\uF821","font":"space:default"},{"text":"\uE002","font":"ui:window/stat"}]
-			# luk
-			tellraw @s [{"nbt":"add_buttons[5]","storage":"ui:main","interpret":true},{"text":"?","font":"ui:window/stat"},{"nbt":"add_buttons[-1]","storage":"ui:main","interpret":true},{"text":"A94","font":"space:default"},{"score":{"objective":"LUK","name":"@s"},"font":"ui:window/stat"},{"score":{"objective":"LUK","name":"@s"},"font":"ui:window/stat_back"},{"text":"\uF82A\uF829\uF828\uF821","font":"space:default"},{"text":"\uE003","font":"ui:window/stat"}]
+			# int and speed
+			execute store result score #GLOBAL temp run attribute @s minecraft:generic.movement_speed get 10000
+			scoreboard players add #GLOBAL temp 1
+			scoreboard players operation #GLOBAL temp /= #10 const
+			tellraw @s [{"nbt":"add_buttons[4]","storage":"ui:main","interpret":true},{"text":">","font":"ui:window/stat"},{"nbt":"add_buttons[-1]","storage":"ui:main","interpret":true},{"text":"A94","font":"space:default"},{"score":{"objective":"INT","name":"@s"},"font":"ui:window/stat"},{"score":{"objective":"INT","name":"@s"},"font":"ui:window/stat_back"},{"text":"\uF82A\uF829\uF828\uF821","font":"space:default"},{"text":"\uE002","font":"ui:window/stat"},{"text":"A93","font":"space:default"},[{"score":{"objective":"temp","name":"#GLOBAL"},"font":"ui:window/stat"},"%"]]
+			# luk and jump
+			execute store result score #GLOBAL temp run data get entity @s ActiveEffects[{Id:8b}].Amplifier
+			execute if data entity @s ActiveEffects[{Id:8b}] run scoreboard players add #GLOBAL temp 1
+			scoreboard players operation #GLOBAL temp *= #10 const
+			scoreboard players add #GLOBAL temp 100
+			tellraw @s [{"nbt":"add_buttons[5]","storage":"ui:main","interpret":true},{"text":"?","font":"ui:window/stat"},{"nbt":"add_buttons[-1]","storage":"ui:main","interpret":true},{"text":"A94","font":"space:default"},{"score":{"objective":"LUK","name":"@s"},"font":"ui:window/stat"},{"score":{"objective":"LUK","name":"@s"},"font":"ui:window/stat_back"},{"text":"\uF82A\uF829\uF828\uF821","font":"space:default"},{"text":"\uE003","font":"ui:window/stat"},{"text":"A93","font":"space:default"},[{"score":{"objective":"temp","name":"#GLOBAL"},"font":"ui:window/stat"},"%"]]
 			# tail
 			tellraw @s [{"text":"@","font":"ui:window/stat"},{"text":"1","font":"space:default"},"\uE004"]
 			# point left
