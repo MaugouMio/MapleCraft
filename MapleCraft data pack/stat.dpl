@@ -98,7 +98,8 @@ namespace stat()
 			# title
 			tellraw @s {"text":"\n\n\n\n\n\n\n!\n#","font":"ui:window/stat"}
 			# job
-			tellraw @s {"text":"&\n'","font":"ui:window/stat"}
+			function ARG(_PATH)set_job_text/run
+			tellraw @s [{"text":"&","font":"ui:window/stat"},{"text":"A982","font":"space:default"},{"nbt":"job","storage":"ui:main","interpret":true},"\n'",{"text":"A982","font":"space:default"},{"nbt":"sub_job","storage":"ui:main","interpret":true}]
 			# level and detail title
 			tellraw @s [{"text":"*","font":"ui:window/stat"},{"text":"A982","font":"space:default"},{"score":{"objective":"level","name":"@s"},"color":"black"},{"score":{"objective":"level","name":"@s"},"font":"ui:window/stat_back"},{"text":"\uF82A\uF829\uF828\uF821","font":"space:default"},"^"]
 			# hp and attack
@@ -172,6 +173,134 @@ namespace stat()
 			data modify storage ui:main add_buttons set value ['""','""','""','""','""','""','{"text":"6","font":"space:default"}']
 			# hp add, mp add, str add, dex add, int add, luk add, display button
 			execute if score @s stat_point matches 1.. run data modify storage ui:main add_buttons set value ['[{"text":"\\uF82B\\uF828\\uF824","font":"space:default"},{"text":"5","font":"ui:main","clickEvent":{"action":"run_command","value":"/trigger command set 1"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},"B93"]','[{"text":"\\uF82B\\uF828\\uF824","font":"space:default"},{"text":"5","font":"ui:main","clickEvent":{"action":"run_command","value":"/trigger command set 2"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},"B93"]','[{"text":"\\uF82B\\uF828\\uF824","font":"space:default"},{"text":"5","font":"ui:main","clickEvent":{"action":"run_command","value":"/trigger command set 3"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},"B93"]','[{"text":"\\uF82B\\uF828\\uF824","font":"space:default"},{"text":"5","font":"ui:main","clickEvent":{"action":"run_command","value":"/trigger command set 4"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},"B93"]','[{"text":"\\uF82B\\uF828\\uF824","font":"space:default"},{"text":"5","font":"ui:main","clickEvent":{"action":"run_command","value":"/trigger command set 5"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},"B93"]','[{"text":"\\uF82B\\uF828\\uF824","font":"space:default"},{"text":"5","font":"ui:main","clickEvent":{"action":"run_command","value":"/trigger command set 6"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},"B93"]','[{"text":"85","font":"space:default"},{"text":"5","font":"ui:main"}]']
+		}
+		
+		folder set_job_text()
+		{
+			func run()
+			{
+				execute if entity @s[tag=warrior] run function ARG(_PATH)warrior/set
+				execute if entity @s[tag=archer] run function ARG(_PATH)archer/set
+				execute if entity @s[tag=magician] run function ARG(_PATH)magician/set
+				execute if entity @s[tag=thief] run function ARG(_PATH)thief/set
+				execute if entity @s[tag=!warrior,tag=!archer,tag=!magician,tag=!thief] run data merge storage ui:main {job:'"\\uE007"',sub_job:'"\\uF000"'}
+			}
+			
+			folder warrior()
+			{
+				func set()
+				{
+					data modify storage ui:main job set value '"\\uE008"'
+					execute if entity @s[tag=fighter] run function ARG(_PATH)fighter
+					execute if entity @s[tag=page] run function ARG(_PATH)page
+					execute if entity @s[tag=spearman] run function ARG(_PATH)spearman
+					execute if entity @s[tag=!fighter,tag=!page,tag=!spearman] run data modify storage ui:main sub_job set value '"\\uF100"'
+				}
+				
+				func fighter()
+				{
+					execute if entity @s[tag=!crusader] run data modify storage ui:main sub_job set value '"\\uF110"'
+					execute if entity @s[tag=crusader,tag=!hero] run data modify storage ui:main sub_job set value '"\\uF111"'
+					execute if entity @s[tag=hero] run data modify storage ui:main sub_job set value '"\\uF112"'
+				}
+				
+				func page()
+				{
+					execute if entity @s[tag=!white_knight] run data modify storage ui:main sub_job set value '"\\uF120"'
+					execute if entity @s[tag=white_knight,tag=!paladin] run data modify storage ui:main sub_job set value '"\\uF121"'
+					execute if entity @s[tag=paladin] run data modify storage ui:main sub_job set value '"\\uF122"'
+				}
+				
+				func spearman()
+				{
+					execute if entity @s[tag=!dragon_knight] run data modify storage ui:main sub_job set value '"\\uF130"'
+					execute if entity @s[tag=dragon_knight,tag=!dark_knight] run data modify storage ui:main sub_job set value '"\\uF131"'
+					execute if entity @s[tag=dark_knight] run data modify storage ui:main sub_job set value '"\\uF132"'
+				}
+			}
+			
+			folder archer()
+			{
+				func set()
+				{
+					data modify storage ui:main job set value '"\\uE009"'
+					execute if entity @s[tag=hunter] run function ARG(_PATH)hunter
+					execute if entity @s[tag=crossbowman] run function ARG(_PATH)crossbowman
+					execute if entity @s[tag=!hunter,tag=!crossbowman] run data modify storage ui:main sub_job set value '"\\uF300"'
+				}
+				
+				func hunter()
+				{
+					execute if entity @s[tag=!ranger] run data modify storage ui:main sub_job set value '"\\uF310"'
+					execute if entity @s[tag=ranger,tag=!bow_master] run data modify storage ui:main sub_job set value '"\\uF311"'
+					execute if entity @s[tag=bow_master] run data modify storage ui:main sub_job set value '"\\uF312"'
+				}
+				
+				func crossbowman()
+				{
+					execute if entity @s[tag=!sniper] run data modify storage ui:main sub_job set value '"\\uF320"'
+					execute if entity @s[tag=sniper,tag=!marksman] run data modify storage ui:main sub_job set value '"\\uF321"'
+					execute if entity @s[tag=marksman] run data modify storage ui:main sub_job set value '"\\uF322"'
+				}
+			}
+			
+			folder magician()
+			{
+				func set()
+				{
+					data modify storage ui:main job set value '"\\uE00A"'
+					execute if entity @s[tag=wizard_fp] run function ARG(_PATH)wizard_fp
+					execute if entity @s[tag=wizard_il] run function ARG(_PATH)wizard_il
+					execute if entity @s[tag=cleric] run function ARG(_PATH)cleric
+					execute if entity @s[tag=!wizard_fp,tag=!wizard_il,tag=!cleric] run data modify storage ui:main sub_job set value '"\\uF200"'
+				}
+				
+				func wizard_fp()
+				{
+					execute if entity @s[tag=!mage_fp] run data modify storage ui:main sub_job set value '"\\uF210"'
+					execute if entity @s[tag=mage_fp,tag=!arch_mage_fp] run data modify storage ui:main sub_job set value '"\\uF211"'
+					execute if entity @s[tag=arch_mage_fp] run data modify storage ui:main sub_job set value '"\\uF212"'
+				}
+				
+				func wizard_il()
+				{
+					execute if entity @s[tag=!mage_il] run data modify storage ui:main sub_job set value '"\\uF220"'
+					execute if entity @s[tag=mage_il,tag=!arch_mage_il] run data modify storage ui:main sub_job set value '"\\uF221"'
+					execute if entity @s[tag=arch_mage_il] run data modify storage ui:main sub_job set value '"\\uF222"'
+				}
+				
+				func cleric()
+				{
+					execute if entity @s[tag=!priest] run data modify storage ui:main sub_job set value '"\\uF230"'
+					execute if entity @s[tag=priest,tag=!bishop] run data modify storage ui:main sub_job set value '"\\uF231"'
+					execute if entity @s[tag=bishop] run data modify storage ui:main sub_job set value '"\\uF232"'
+				}
+			}
+			
+			folder thief()
+			{
+				func set()
+				{
+					data modify storage ui:main job set value '"\\uE00B"'
+					execute if entity @s[tag=assassin] run function ARG(_PATH)assassin
+					execute if entity @s[tag=bandit] run function ARG(_PATH)bandit
+					execute if entity @s[tag=!assassin,tag=!bandit] run data modify storage ui:main sub_job set value '"\\uF400"'
+				}
+				
+				func assassin()
+				{
+					execute if entity @s[tag=!hermit] run data modify storage ui:main sub_job set value '"\\uF410"'
+					execute if entity @s[tag=hermit,tag=!night_lord] run data modify storage ui:main sub_job set value '"\\uF411"'
+					execute if entity @s[tag=night_lord] run data modify storage ui:main sub_job set value '"\\uF412"'
+				}
+				
+				func bandit()
+				{
+					execute if entity @s[tag=!chief_bandit] run data modify storage ui:main sub_job set value '"\\uF420"'
+					execute if entity @s[tag=chief_bandit,tag=!shadower] run data modify storage ui:main sub_job set value '"\\uF421"'
+					execute if entity @s[tag=shadower] run data modify storage ui:main sub_job set value '"\\uF422"'
+				}
+			}
 		}
 		
 		func str_add()
