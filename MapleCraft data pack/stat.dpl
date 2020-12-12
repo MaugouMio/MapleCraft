@@ -351,15 +351,17 @@ namespace stat()
 			{
 				scoreboard players operation #WEAPON_DEFENSE temp = @s weapon_defense
 				scoreboard players operation #WEAPON_DEFENSE temp += @s wdef_buff_num
-				execute if score @s wdef_buff_num matches ..-1 run function ARG(_PATH)decrease
+				execute if score @s wdef_buff_num matches ..-1 if score @s weapon_defense matches 1.. run function ARG(_PATH)decrease
+				execute if score @s wdef_buff_num matches ..-1 if score @s weapon_defense matches 0 run tellraw @s [{"nbt":"add_buttons[1]","storage":"ui:main","interpret":true},{"text":".","font":"ui:window/stat"},{"nbt":"add_buttons[-1]","storage":"ui:main","interpret":true},{"text":"A94","font":"space:default"},[{"score":{"objective":"mp","name":"@s"},"font":"ui:window/stat","color":"black"},"_/_",{"score":{"objective":"mp_max","name":"@s"}}],[{"score":{"objective":"mp","name":"@s"},"font":"ui:window/stat_back"},{"score":{"objective":"mp_max","name":"@s"}}],{"text":"\uF82A\uF829\uF824","font":"space:default"},[{"text":"{","font":"ui:window/stat"},{"text":"A93","font":"space:default"},{"score":{"objective":"weapon_defense","name":"@s"},"color":"black"}]]
 				execute if score @s wdef_buff_num matches 1.. run tellraw @s [{"nbt":"add_buttons[1]","storage":"ui:main","interpret":true},{"text":".","font":"ui:window/stat"},{"nbt":"add_buttons[-1]","storage":"ui:main","interpret":true},{"text":"A94","font":"space:default"},[{"score":{"objective":"mp","name":"@s"},"font":"ui:window/stat","color":"black"},"_/_",{"score":{"objective":"mp_max","name":"@s"}}],[{"score":{"objective":"mp","name":"@s"},"font":"ui:window/stat_back"},{"score":{"objective":"mp_max","name":"@s"}}],{"text":"\uF82A\uF829\uF824","font":"space:default"},{"text":"{","font":"ui:window/stat"},{"text":"A93","font":"space:default"},[{"score":{"objective":"temp","name":"#WEAPON_DEFENSE"},"font":"ui:window/stat","color":"#ff0000"},"_(",{"score":{"objective":"weapon_defense","name":"@s"}},"+",{"score":{"objective":"wdef_buff_num","name":"@s"}},")"]]
 			}
 			
 			func decrease()
 			{
 				scoreboard players operation #WDEF_DECREASE temp = @s wdef_buff_num
-				scoreboard players operation #WDEF_DECREASE temp *= #-1 const
-				tellraw @s [{"nbt":"add_buttons[1]","storage":"ui:main","interpret":true},{"text":".","font":"ui:window/stat"},{"nbt":"add_buttons[-1]","storage":"ui:main","interpret":true},{"text":"A94","font":"space:default"},[{"score":{"objective":"mp","name":"@s"},"font":"ui:window/stat","color":"black"},"_/_",{"score":{"objective":"mp_max","name":"@s"}}],[{"score":{"objective":"mp","name":"@s"},"font":"ui:window/stat_back"},{"score":{"objective":"mp_max","name":"@s"}}],{"text":"\uF82A\uF829\uF824","font":"space:default"},{"text":"{","font":"ui:window/stat"},{"text":"A93","font":"space:default"},[{"score":{"objective":"temp","name":"#WEAPON_DEFENSE"},"font":"ui:window/stat","color":"#0000ff"},"_(",{"score":{"objective":"weapon_defense","name":"@s"}},"-",{"score":{"objective":"temp","name":"#WDEF_DECREASE"}},")"]]
+				execute if score #WEAPON_DEFENSE temp matches ..-1 run scoreboard players operation #WDEF_DECREASE temp -= #WEAPON_DEFENSE temp
+				scoreboard players operation #WEAPON_DEFENSE temp > #0 const
+				tellraw @s [{"nbt":"add_buttons[1]","storage":"ui:main","interpret":true},{"text":".","font":"ui:window/stat"},{"nbt":"add_buttons[-1]","storage":"ui:main","interpret":true},{"text":"A94","font":"space:default"},[{"score":{"objective":"mp","name":"@s"},"font":"ui:window/stat","color":"black"},"_/_",{"score":{"objective":"mp_max","name":"@s"}}],[{"score":{"objective":"mp","name":"@s"},"font":"ui:window/stat_back"},{"score":{"objective":"mp_max","name":"@s"}}],{"text":"\uF82A\uF829\uF824","font":"space:default"},{"text":"{","font":"ui:window/stat"},{"text":"A93","font":"space:default"},[{"score":{"objective":"temp","name":"#WEAPON_DEFENSE"},"font":"ui:window/stat","color":"#0000ff"},"_(",{"score":{"objective":"weapon_defense","name":"@s"}},{"score":{"objective":"temp","name":"#WDEF_DECREASE"}},")"]]
 			}
 		}
 		

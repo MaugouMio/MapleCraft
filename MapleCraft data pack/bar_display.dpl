@@ -194,6 +194,7 @@ namespace bar_display()
 		
 		scoreboard players operation #WEAPON_DEFENSE temp = @s weapon_defense
 		scoreboard players operation #WEAPON_DEFENSE temp += @s wdef_buff_num
+		scoreboard players operation #WEAPON_DEFENSE temp > #0 const
 		function ARG(_PATH)defense_formula/weapon
 		
 		execute if score @s invin_buff_time matches 1.. run function skill:2/3/0/1003/guard
