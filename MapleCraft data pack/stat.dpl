@@ -19,6 +19,87 @@ namespace stat()
 		scoreboard objectives add hp_recover_time dummy
 	}
 	
+	folder exp()
+	{
+		func level_up()
+		{
+			scoreboard players add @s level 1
+			function ARG(_PATH)require/set
+		}
+		
+		folder require()
+		{
+			func set()
+			{
+				execute if score @s level matches ..3 run function ARG(_PATH)1_3
+				execute if score @s level matches 4..5 run function ARG(_PATH)4_5
+				execute if score @s level matches 6..50 run function ARG(_PATH)6_50/check
+				execute if score @s level matches 51.. run function ARG(_PATH)51_
+			}
+			
+			func 1_3()
+			{
+				scoreboard players operation #GLOBAL temp = @s level
+				scoreboard players operation #GLOBAL temp *= #GLOBAL temp
+				scoreboard players operation #GLOBAL temp *= #2 const
+				scoreboard players operation @s exp_max = @s level
+				scoreboard players operation @s exp_max *= #13 const
+				scoreboard players operation @s exp_max += #GLOBAL temp
+			}
+			
+			func 4_5()
+			{
+				scoreboard players operation #GLOBAL temp = @s level
+				scoreboard players operation #GLOBAL temp *= #GLOBAL temp
+				scoreboard players operation #GLOBAL temp *= #4 const
+				scoreboard players operation @s exp_max = @s level
+				scoreboard players operation @s exp_max *= #7 const
+				scoreboard players operation @s exp_max += #GLOBAL temp
+			}
+			
+			folder 6_50()
+			{
+				func check()
+				{
+					scoreboard players operation #GLOBAL temp = @s level
+					scoreboard players operation #GLOBAL temp %= #3 const
+					execute if score #GLOBAL temp matches 0 run function ARG(_PATH)multiple_3
+					execute unless score #GLOBAL temp matches 0 run function ARG(_PATH)else
+				}
+				
+				func multiple_3()
+				{
+					scoreboard players operation #GLOBAL temp = @s level
+					execute store result score @s exp_max run scoreboard players operation #GLOBAL temp *= #GLOBAL temp
+					scoreboard players operation #GLOBAL temp *= #GLOBAL temp
+					scoreboard players operation @s exp_max *= #57 const
+					scoreboard players operation @s exp_max += #GLOBAL temp
+					scoreboard players operation @s exp_max /= #9 const
+					# reset for next function check
+					scoreboard players set #GLOBAL temp 0
+				}
+				
+				func else()
+				{
+					scoreboard players operation #GLOBAL temp = @s level
+					execute store result score @s exp_max run scoreboard players operation #GLOBAL temp *= #GLOBAL temp
+					scoreboard players operation #GLOBAL temp *= #GLOBAL temp
+					scoreboard players operation @s exp_max *= #55 const
+					scoreboard players operation @s exp_max += #GLOBAL temp
+					scoreboard players remove @s exp_max 56
+					scoreboard players operation @s exp_max /= #9 const
+				}
+			}
+			
+			func 51_()
+			{
+				# only works for leveling up one by one
+				execute store result storage ui:main exp int 1.0548 run scoreboard players get @s exp_max
+				execute store result score @s exp_max run data get storage ui:main exp
+			}
+		}
+	}
+	
 	folder standard_pdd()
 	{
 		func set()
