@@ -497,28 +497,68 @@ namespace stat()
 				tellraw @s {"text":"Not available now.","color":"red"}
 			}
 			
-			func str()
+			folder str()
 			{
-				scoreboard players add @s STR 1
-				function ARG(_PATH)after_addition
+				func check()
+				{
+					scoreboard players operation #GLOBAL temp = @s STR
+					scoreboard players operation #GLOBAL temp -= @s equip_str
+					execute if score #GLOBAL temp matches ..998 run function ARG(_PATH)set
+				}
+				
+				func set()
+				{
+					scoreboard players add @s STR 1
+					function ARG(_PATH)after_addition
+				}
 			}
 			
-			func dex()
+			folder dex()
 			{
-				scoreboard players add @s DEX 1
-				function ARG(_PATH)after_addition
+				func check()
+				{
+					scoreboard players operation #GLOBAL temp = @s DEX
+					scoreboard players operation #GLOBAL temp -= @s equip_dex
+					execute if score #GLOBAL temp matches ..998 run function ARG(_PATH)set
+				}
+				
+				func set()
+				{
+					scoreboard players add @s DEX 1
+					function ARG(_PATH)after_addition
+				}
 			}
 			
-			func int()
+			folder int()
 			{
-				scoreboard players add @s INT 1
-				function ARG(_PATH)after_addition
+				func check()
+				{
+					scoreboard players operation #GLOBAL temp = @s INT
+					scoreboard players operation #GLOBAL temp -= @s equip_int
+					execute if score #GLOBAL temp matches ..998 run function ARG(_PATH)set
+				}
+				
+				func set()
+				{
+					scoreboard players add @s INT 1
+					function ARG(_PATH)after_addition
+				}
 			}
 			
-			func luk()
+			folder luk()
 			{
-				scoreboard players add @s LUK 1
-				function ARG(_PATH)after_addition
+				func check()
+				{
+					scoreboard players operation #GLOBAL temp = @s LUK
+					scoreboard players operation #GLOBAL temp -= @s equip_luk
+					execute if score #GLOBAL temp matches ..998 run function ARG(_PATH)set
+				}
+				
+				func set()
+				{
+					scoreboard players add @s LUK 1
+					function ARG(_PATH)after_addition
+				}
 			}
 		}
 	}
