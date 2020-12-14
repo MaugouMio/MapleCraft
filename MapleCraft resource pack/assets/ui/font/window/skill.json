@@ -307,6 +307,26 @@
 			]
 		},
 		{
+			"type": "bitmap",
+			"file": "ui:font/window/skill/disabled.png",
+			"ascent": 8,
+			"height": 9,
+			"chars": [
+				"\uE018",
+				"\uE019"
+			]
+		},
+		{
+			"type": "bitmap",
+			"file": "ui:font/window/skill/enabled.png",
+			"ascent": 8,
+			"height": 9,
+			"chars": [
+				"\uE01A",
+				"\uE01B"
+			]
+		},
+		{
             "type": "bitmap",
             "file": "minecraft:font/ascii.png",
             "ascent": 5,
