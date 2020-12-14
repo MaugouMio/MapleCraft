@@ -149,6 +149,10 @@ namespace main()
 		
 		scoreboard players set @s amazon_eyes_dist 9
 		scoreboard players set @s keen_eyes_dist 9
+		scoreboard players set @s skill_point 0
+		scoreboard players set @s skill_point_beg 0
+		scoreboard players set @s job_level 0
+		scoreboard players set @s skill_win_tab 0
 		
 		function skill:player/reset_mastery
 		

@@ -1,0 +1,79 @@
+namespace skill_window() as virtual
+{
+	func install()
+	{
+		scoreboard objectives add skill_point dummy
+		scoreboard objectives add skill_point_beg dummy
+		scoreboard objectives add job_level dummy
+		scoreboard objectives add skill_win_tab dummy
+	}
+	
+	func display()
+	{
+		# title and tab
+		function ARG(_PATH)tab/add
+		tellraw @s [{"text":"\uE000\n\uE001\n\uE002","font":"ui:window/skill"},{"text":"B97","font":"space:default"},{"nbt":"skill_tab[]","storage":"ui:main","interpret":true}]
+		# skill book and #job name#
+		tellraw @s [{"text":"\uE003","font":"ui:window/skill"},{"text":"B94","font":"space:default"},{"score":{"objective":"skill_win_tab","name":"@s"},"font":"ui:window/skill_book/top"}]
+		tellraw @s [{"text":"\uE004","font":"ui:window/skill"},{"text":"B94","font":"space:default"},{"score":{"objective":"skill_win_tab","name":"@s"},"font":"ui:window/skill_book/mid"}]
+		tellraw @s [{"text":"\uE005","font":"ui:window/skill"},{"text":"B94","font":"space:default"},{"score":{"objective":"skill_win_tab","name":"@s"},"font":"ui:window/skill_book/down"}]
+		# first skill and scroll up button
+		tellraw @s {"text":"\uE006","font":"ui:window/skill"}
+		# first skill second half
+		tellraw @s {"text":"\uE007","font":"ui:window/skill"}
+		# second skill
+		tellraw @s {"text":"\uE007","font":"ui:window/skill"}
+		tellraw @s {"text":"\uE007","font":"ui:window/skill"}
+		# third skill
+		tellraw @s {"text":"\uE007","font":"ui:window/skill"}
+		tellraw @s {"text":"\uE007","font":"ui:window/skill"}
+		# fourth skill first half
+		tellraw @s {"text":"\uE007","font":"ui:window/skill"}
+		# fourth skill second half and scroll down button
+		tellraw @s {"text":"\uE008","font":"ui:window/skill"}
+		# tail
+		tellraw @s {"text":"\uE009","font":"ui:window/skill"}
+		# skill point
+		execute if score @s skill_win_tab matches 0 run tellraw @s [{"text":"\uE00A","font":"ui:window/skill"},{"text":"A1","font":"space:default"},{"score":{"objective":"skill_point_beg","name":"@s"},"font":"ui:window/stat_back"},{"score":{"objective":"skill_point_beg","name":"@s"},"color":"black"}]
+		execute unless score @s skill_win_tab matches 0 run tellraw @s [{"text":"\uE00A","font":"ui:window/skill"},{"text":"A1","font":"space:default"},{"score":{"objective":"skill_point","name":"@s"},"font":"ui:window/stat_back"},{"score":{"objective":"skill_point","name":"@s"},"color":"black"}]
+		# tail2
+		tellraw @s {"text":"\uE00B","font":"ui:window/skill"}
+	}
+	
+	folder tab()
+	{
+		func add()
+		{
+			execute if score @s skill_win_tab matches 0 run data modify storage ui:main skill_tab set value ['{"text":"\\uE011"}']
+			execute unless score @s skill_win_tab matches 0 run data modify storage ui:main skill_tab set value ['{"text":"\\uE00C"}']
+			execute if score @s job_level matches 1.. run function ARG(_PATH)first
+		}
+		
+		func first()
+		{
+			execute if score @s skill_win_tab matches 1 run data modify storage ui:main skill_tab append value '{"text":"\\uE012"}'
+			execute unless score @s skill_win_tab matches 1 run data modify storage ui:main skill_tab append value '{"text":"\\uE00D"}'
+			execute if score @s job_level matches 2.. run function ARG(_PATH)second
+		}
+		
+		func second()
+		{
+			execute if score @s skill_win_tab matches 2 run data modify storage ui:main skill_tab append value '{"text":"\\uE013"}'
+			execute unless score @s skill_win_tab matches 2 run data modify storage ui:main skill_tab append value '{"text":"\\uE00E"}'
+			execute if score @s job_level matches 3.. run function ARG(_PATH)third
+		}
+		
+		func third()
+		{
+			execute if score @s skill_win_tab matches 3 run data modify storage ui:main skill_tab append value '{"text":"\\uE014"}'
+			execute unless score @s skill_win_tab matches 3 run data modify storage ui:main skill_tab append value '{"text":"\\uE00F"}'
+			execute if score @s job_level matches 4.. run function ARG(_PATH)fourth
+		}
+		
+		func fourth()
+		{
+			execute if score @s skill_win_tab matches 4 run data modify storage ui:main skill_tab append value '{"text":"\\uE015"}'
+			execute unless score @s skill_win_tab matches 4 run data modify storage ui:main skill_tab append value '{"text":"\\uE010"}'
+		}
+	}
+}
