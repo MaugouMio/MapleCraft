@@ -29,19 +29,20 @@ namespace skill_window() as virtual
 		function ARG(_PATH)set_display_skills/run
 		# first skill and scroll up button
 		function ARG(_PATH)scroll/prev/add
-		tellraw @s [{"text":"\uF825","font":"space:default"},[{"nbt":"display_skills[0].event","storage":"ui:main","interpret":true},{"nbt":"display_skills[0].top","storage":"ui:main","interpret":true}],{"nbt":"skill_prev_button","storage":"ui:main","interpret":true},{"text":"96","font":"space:default"},[{"text":"\uE006","font":"ui:window/skill"},{"text":"B95","font":"space:default"},{"nbt":"display_skills[0].bg_top","storage":"ui:main","interpret":true},{"text":"B7","font":"space:default"},{"nbt":"display_skills[0].top","storage":"ui:main","interpret":true},{"nbt":"skill_prev_button_show","storage":"ui:main","interpret":true},{"text":"\uF822","font":"space:default"},{"nbt":"display_skills[0].name","storage":"ui:main","interpret":true}]]
+		tellraw @s [{"text":"\uF825","font":"space:default"},[{"nbt":"display_skills[0].event","storage":"ui:main","interpret":true},{"nbt":"display_skills[0].top","storage":"ui:main","interpret":true}],{"nbt":"skill_prev_button","storage":"ui:main","interpret":true},{"text":"96","font":"space:default"},[{"text":"\uE006","font":"ui:window/skill"},{"text":"B95","font":"space:default"},{"nbt":"display_skills[0].bg_top","storage":"ui:main","interpret":true},{"text":"B7","font":"space:default"},{"nbt":"display_skills[0].top","storage":"ui:main","interpret":true},{"nbt":"skill_prev_button","storage":"ui:main","interpret":true},{"text":"\uF822","font":"space:default"},{"nbt":"display_skills[0].name","storage":"ui:main","interpret":true}]]
 		# first skill second half
 		tellraw @s [{"text":"\uF825","font":"space:default"},[{"nbt":"display_skills[0].event","storage":"ui:main","interpret":true},{"nbt":"display_skills[0].down","storage":"ui:main","interpret":true}],{"nbt":"display_skills[0].add","storage":"ui:main","interpret":true},{"text":"96","font":"space:default"},[{"text":"\uE007","font":"ui:window/skill"},{"text":"B95","font":"space:default"},{"nbt":"display_skills[0].bg_down","storage":"ui:main","interpret":true},{"text":"B7","font":"space:default"},{"nbt":"display_skills[0].down","storage":"ui:main","interpret":true},{"nbt":"display_skills[0].add","storage":"ui:main","interpret":true},{"text":"\uF822","font":"space:default"},{"nbt":"display_skills[0].level","storage":"ui:main","interpret":true}]]
 		# second skill
-		tellraw @s {"text":"\uE007","font":"ui:window/skill"}
-		tellraw @s {"text":"\uE007","font":"ui:window/skill"}
+		tellraw @s [{"text":"\uF825","font":"space:default"},[{"nbt":"display_skills[1].event","storage":"ui:main","interpret":true},{"nbt":"display_skills[1].top","storage":"ui:main","interpret":true}],{"text":"96","font":"space:default"},[{"text":"\uE007","font":"ui:window/skill"},{"text":"B95","font":"space:default"},{"nbt":"display_skills[1].bg_top","storage":"ui:main","interpret":true},{"text":"B7","font":"space:default"},{"nbt":"display_skills[1].top","storage":"ui:main","interpret":true},{"text":"\uF822","font":"space:default"},{"nbt":"display_skills[1].name","storage":"ui:main","interpret":true}]]
+		tellraw @s [{"text":"\uF825","font":"space:default"},[{"nbt":"display_skills[1].event","storage":"ui:main","interpret":true},{"nbt":"display_skills[1].down","storage":"ui:main","interpret":true}],{"nbt":"display_skills[1].add","storage":"ui:main","interpret":true},{"text":"96","font":"space:default"},[{"text":"\uE007","font":"ui:window/skill"},{"text":"B95","font":"space:default"},{"nbt":"display_skills[1].bg_down","storage":"ui:main","interpret":true},{"text":"B7","font":"space:default"},{"nbt":"display_skills[1].down","storage":"ui:main","interpret":true},{"nbt":"display_skills[1].add","storage":"ui:main","interpret":true},{"text":"\uF822","font":"space:default"},{"nbt":"display_skills[1].level","storage":"ui:main","interpret":true}]]
 		# third skill
-		tellraw @s {"text":"\uE007","font":"ui:window/skill"}
-		tellraw @s {"text":"\uE007","font":"ui:window/skill"}
+		tellraw @s [{"text":"\uF825","font":"space:default"},[{"nbt":"display_skills[2].event","storage":"ui:main","interpret":true},{"nbt":"display_skills[2].top","storage":"ui:main","interpret":true}],{"text":"96","font":"space:default"},[{"text":"\uE007","font":"ui:window/skill"},{"text":"B95","font":"space:default"},{"nbt":"display_skills[2].bg_top","storage":"ui:main","interpret":true},{"text":"B7","font":"space:default"},{"nbt":"display_skills[2].top","storage":"ui:main","interpret":true},{"text":"\uF822","font":"space:default"},{"nbt":"display_skills[2].name","storage":"ui:main","interpret":true}]]
+		tellraw @s [{"text":"\uF825","font":"space:default"},[{"nbt":"display_skills[2].event","storage":"ui:main","interpret":true},{"nbt":"display_skills[2].down","storage":"ui:main","interpret":true}],{"nbt":"display_skills[2].add","storage":"ui:main","interpret":true},{"text":"96","font":"space:default"},[{"text":"\uE007","font":"ui:window/skill"},{"text":"B95","font":"space:default"},{"nbt":"display_skills[2].bg_down","storage":"ui:main","interpret":true},{"text":"B7","font":"space:default"},{"nbt":"display_skills[2].down","storage":"ui:main","interpret":true},{"nbt":"display_skills[2].add","storage":"ui:main","interpret":true},{"text":"\uF822","font":"space:default"},{"nbt":"display_skills[2].level","storage":"ui:main","interpret":true}]]
 		# fourth skill first half
-		tellraw @s {"text":"\uE007","font":"ui:window/skill"}
+		tellraw @s [{"text":"\uF825","font":"space:default"},[{"nbt":"display_skills[3].event","storage":"ui:main","interpret":true},{"nbt":"display_skills[3].top","storage":"ui:main","interpret":true}],{"text":"96","font":"space:default"},[{"text":"\uE007","font":"ui:window/skill"},{"text":"B95","font":"space:default"},{"nbt":"display_skills[3].bg_top","storage":"ui:main","interpret":true},{"text":"B7","font":"space:default"},{"nbt":"display_skills[3].top","storage":"ui:main","interpret":true},{"text":"\uF822","font":"space:default"},{"nbt":"display_skills[3].name","storage":"ui:main","interpret":true}]]
 		# fourth skill second half and scroll down button
-		tellraw @s {"text":"\uE008","font":"ui:window/skill"}
+		function ARG(_PATH)scroll/next/add
+		tellraw @s [{"text":"\uF825","font":"space:default"},[{"nbt":"display_skills[3].event","storage":"ui:main","interpret":true},{"nbt":"display_skills[3].down","storage":"ui:main","interpret":true}],{"nbt":"display_skills[3].add","storage":"ui:main","interpret":true},{"nbt":"skill_next_button","storage":"ui:main","interpret":true},{"text":"96","font":"space:default"},[{"text":"\uE008","font":"ui:window/skill"},{"text":"B95","font":"space:default"},{"nbt":"display_skills[3].bg_down","storage":"ui:main","interpret":true},{"text":"B7","font":"space:default"},{"nbt":"display_skills[3].down","storage":"ui:main","interpret":true},{"nbt":"display_skills[3].add","storage":"ui:main","interpret":true},{"nbt":"skill_next_button","storage":"ui:main","interpret":true},{"text":"\uF822","font":"space:default"},{"nbt":"display_skills[3].level","storage":"ui:main","interpret":true}]]
 		# tail
 		tellraw @s {"text":"\uE009","font":"ui:window/skill"}
 		# skill point
@@ -74,13 +75,17 @@ namespace skill_window() as virtual
 		{
 			func set()
 			{
-				data modify storage ui:main display_skills set value [{add:'""',level:'{"score":{"objective":"0001000_level","name":"@s"},"font":"minecraft:uniform","color":"black"}',name:'{"translate":"skill.0001000","font":"minecraft:uniform","color":"black"}',bg_top:'{"text":"\\uE01A"}',bg_down:'{"text":"\\uE01B"}',top:'{"text":"\\uA000"}',down:'{"text":"\\uB000"}',event:'{"text":"","font":"ui:window/skill","clickEvent":{"action":"run_command","value":"/trigger command set 20"},"hoverEvent":{"action":"show_text","contents":{"translate":"skill.description.0001000"}}}'}]
+				data modify storage ui:main display_skills set value [{add:'""',level:'{"score":{"objective":"0001000_level","name":"@s"},"font":"minecraft:uniform","color":"black"}',name:'{"translate":"skill.0001000","font":"minecraft:uniform","color":"black"}',bg_top:'{"text":"\\uE01A"}',bg_down:'{"text":"\\uE01B"}',top:'{"text":"\\uA000"}',down:'{"text":"\\uB000"}',event:'{"text":"","font":"ui:window/skill","clickEvent":{"action":"run_command","value":"/trigger command set 20"},"hoverEvent":{"action":"show_text","contents":{"translate":"skill.description.0001000"}}}'},{add:'""',level:'""',name:'""',bg_top:'{"text":"\\uF82B\\uF828","font":"space:default"}',bg_down:'{"text":"\\uF82B\\uF828","font":"space:default"}',top:'{"text":"\\uF829\\uF821","font":"space:default"}',down:'{"text":"\\uF829\\uF821","font":"space:default"}',event:'""'},{add:'""',level:'""',name:'""',bg_top:'{"text":"\\uF82B\\uF828","font":"space:default"}',bg_down:'{"text":"\\uF82B\\uF828","font":"space:default"}',top:'{"text":"\\uF829\\uF821","font":"space:default"}',down:'{"text":"\\uF829\\uF821","font":"space:default"}',event:'""'},{add:'""',level:'""',name:'""',bg_top:'{"text":"\\uF82B\\uF828","font":"space:default"}',bg_down:'{"text":"\\uF82B\\uF828","font":"space:default"}',top:'{"text":"\\uF829\\uF821","font":"space:default"}',down:'{"text":"\\uF829\\uF821","font":"space:default"}',event:'""'}]
+				data modify storage ui:main display_skills[1] set value {add:'""',level:'{"score":{"objective":"0001001_level","name":"@s"},"font":"minecraft:uniform","color":"black"}',name:'{"translate":"skill.0001001","font":"minecraft:uniform","color":"black"}',bg_top:'{"text":"\\uE01A"}',bg_down:'{"text":"\\uE01B"}',top:'{"text":"\\uA001"}',down:'{"text":"\\uB001"}',event:'{"text":"","font":"ui:window/skill","clickEvent":{"action":"run_command","value":"/trigger command set 22"},"hoverEvent":{"action":"show_text","contents":{"translate":"skill.description.0001001"}}}'}
+				data modify storage ui:main display_skills[2] set value {add:'""',level:'{"score":{"objective":"0001002_level","name":"@s"},"font":"minecraft:uniform","color":"black"}',name:'{"translate":"skill.0001002","font":"minecraft:uniform","color":"black"}',bg_top:'{"text":"\\uE01A"}',bg_down:'{"text":"\\uE01B"}',top:'{"text":"\\uA002"}',down:'{"text":"\\uB002"}',event:'{"text":"","font":"ui:window/skill","clickEvent":{"action":"run_command","value":"/trigger command set 24"},"hoverEvent":{"action":"show_text","contents":{"translate":"skill.description.0001002"}}}'}
 				execute if score @s skill_point_beg matches 1.. run function ARG(_PATH)set_add
 			}
 			
 			func set_add()
 			{
 				execute if score @s 0001000_level matches ..2 run data modify storage ui:main display_skills[0].add set value '[{"text":"\\uF82A\\uF828\\uF824","font":"space:default"},{"text":"5","font":"ui:main","clickEvent":{"action":"run_command","value":"/trigger command set 21"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},"A93"]'
+				execute if score @s 0001001_level matches ..2 run data modify storage ui:main display_skills[1].add set value '[{"text":"\\uF82A\\uF828\\uF824","font":"space:default"},{"text":"5","font":"ui:main","clickEvent":{"action":"run_command","value":"/trigger command set 23"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},"A93"]'
+				execute if score @s 0001002_level matches ..2 run data modify storage ui:main display_skills[2].add set value '[{"text":"\\uF82A\\uF828\\uF824","font":"space:default"},{"text":"5","font":"ui:main","clickEvent":{"action":"run_command","value":"/trigger command set 25"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},"A93"]'
 			}
 		}
 	}
@@ -92,7 +97,6 @@ namespace skill_window() as virtual
 			func add()
 			{
 				data modify storage ui:main skill_prev_button set value '""'
-				data modify storage ui:main skill_prev_button_show set value '""'
 				execute if score @s skill_win_tab matches 1 if score @s skill_win_page1 matches 1.. run function ARG(_PATH)add_button
 				execute if score @s skill_win_tab matches 2 if score @s skill_win_page2 matches 1.. run function ARG(_PATH)add_button
 				execute if score @s skill_win_tab matches 3 if score @s skill_win_page3 matches 1.. run function ARG(_PATH)add_button
@@ -101,8 +105,7 @@ namespace skill_window() as virtual
 			
 			func add_button()
 			{
-				data modify storage ui:main prev_button set value '[{"text":"\\uF82A\\uF829\\uF826","font":"space:default"},{"text":"\\uE016","font":"ui:window/skill","clickEvent":{"action":"run_command","value":"/trigger command set 18"},"hoverEvent":{"action":"show_text","contents":{"text":"6\\n","font":"ui:main"}}},{"text":"A987"}]'
-				data modify storage ui:main prev_button_display set value '[{"text":"\uF82A\uF829\uF826","font":"space:default"},{"text":"\uE016","font":"ui:window/skill"},{"text":"A987"}]'
+				data modify storage ui:main skill_prev_button set value '[{"text":"\\uF82A\\uF829\\uF826","font":"space:default"},{"text":"\\uE016","font":"ui:window/skill","clickEvent":{"action":"run_command","value":"/trigger command set 18"},"hoverEvent":{"action":"show_text","contents":{"text":"6\\n","font":"ui:main"}}},{"text":"A987"}]'
 			}
 			
 			func adjust()
@@ -111,6 +114,32 @@ namespace skill_window() as virtual
 				execute if score @s skill_win_tab matches 2 if score @s skill_win_page2 matches 1.. run scoreboard players remove @s skill_win_page2 1
 				execute if score @s skill_win_tab matches 3 if score @s skill_win_page3 matches 1.. run scoreboard players remove @s skill_win_page3 1
 				execute if score @s skill_win_tab matches 4 if score @s skill_win_page4 matches 1.. run scoreboard players remove @s skill_win_page4 1
+				function skill:window/display
+			}
+		}
+		
+		folder next()
+		{
+			func add()
+			{
+				data modify storage ui:main skill_next_button set value '""'
+				execute if score @s skill_win_tab matches 1 if score @s skill_win_page1 < @s skill_win_page_m run function ARG(_PATH)add_button
+				execute if score @s skill_win_tab matches 2 if score @s skill_win_page2 < @s skill_win_page_m run function ARG(_PATH)add_button
+				execute if score @s skill_win_tab matches 3 if score @s skill_win_page3 < @s skill_win_page_m run function ARG(_PATH)add_button
+				execute if score @s skill_win_tab matches 4 if score @s skill_win_page4 < @s skill_win_page_m run function ARG(_PATH)add_button
+			}
+			
+			func add_button()
+			{
+				data modify storage ui:main skill_next_button set value '[{"text":"\\uF82A\\uF829\\uF826","font":"space:default"},{"text":"\\uE017","font":"ui:window/skill","clickEvent":{"action":"run_command","value":"/trigger command set 19"},"hoverEvent":{"action":"show_text","contents":{"text":"6\\n","font":"ui:main"}}},{"text":"A987"}]'
+			}
+			
+			func adjust()
+			{
+				execute if score @s skill_win_tab matches 1 if score @s skill_win_page1 < @s skill_win_page_m run scoreboard players add @s skill_win_page1 1
+				execute if score @s skill_win_tab matches 2 if score @s skill_win_page2 < @s skill_win_page_m run scoreboard players add @s skill_win_page2 1
+				execute if score @s skill_win_tab matches 3 if score @s skill_win_page3 < @s skill_win_page_m run scoreboard players add @s skill_win_page3 1
+				execute if score @s skill_win_tab matches 4 if score @s skill_win_page4 < @s skill_win_page_m run scoreboard players add @s skill_win_page4 1
 				function skill:window/display
 			}
 		}
