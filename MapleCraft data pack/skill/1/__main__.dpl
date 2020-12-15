@@ -38,6 +38,15 @@ namespace 1() as virtual
 			{
 				folder levels()
 				{
+					func add()
+					{
+						scoreboard players add @s 1000000_level 1
+						```
+						for i in range(1, 17):
+							print(f"execute if score @s 1000000_level matches {i} run function ARG(_PATH){i}")
+						```
+						function skill:window/after_addition
+					}
 				```
 				for i in range(16):
 					print(f'''
@@ -55,6 +64,15 @@ namespace 1() as virtual
 			{
 				folder levels()
 				{
+					func add()
+					{
+						scoreboard players add @s 1000001_level 1
+						```
+						for i in range(1, 11):
+							print(f"execute if score @s 1000001_level matches {i} run function ARG(_PATH){i}")
+						```
+						function skill:window/after_addition
+					}
 				```
 				for i in range(10):
 					print(f'''
@@ -73,6 +91,15 @@ namespace 1() as virtual
 			{
 				folder levels()
 				{
+					func add()
+					{
+						scoreboard players add @s 1000002_level 1
+						```
+						for i in range(1, 9):
+							print(f"execute if score @s 1000002_level matches {i} run function ARG(_PATH){i}")
+						```
+						function skill:window/after_addition
+					}
 				```
 				for i in range(8):
 					print(f'''
@@ -128,6 +155,15 @@ namespace 1() as virtual
 				
 				folder levels()
 				{
+					func add()
+					{
+						scoreboard players add @s 1001003_level 1
+						```
+						for i in range(1, 21):
+							print(f"execute if score @s 1001003_level matches {i} run function ARG(_PATH){i}")
+						```
+						function skill:window/after_addition
+					}
 				```
 				time_list = [75,85,95,105,120,130,140,155,165,175,190,200,215,225,240,250,265,275,290,300]
 				mp_list = [8,8,8,8,9,9,9,10,10,10,11,11,12,12,13,13,14,14,15,15]
@@ -207,6 +243,15 @@ namespace 1() as virtual
 				
 				folder levels()
 				{
+					func add()
+					{
+						scoreboard players add @s 1001004_level 1
+						```
+						for i in range(1, 21):
+							print(f"execute if score @s 1001004_level matches {i} run function ARG(_PATH){i}")
+						```
+						function skill:window/after_addition
+					}
 				```
 				mp_list = [4,4,4,4,5,5,5,6,6,7,7,8,8,9,9,10,10,11,11,12]
 				for i in range(20):
@@ -300,6 +345,15 @@ namespace 1() as virtual
 				
 				folder levels()
 				{
+					func add()
+					{
+						scoreboard players add @s 1001005_level 1
+						```
+						for i in range(1, 21):
+							print(f"execute if score @s 1001005_level matches {i} run function ARG(_PATH){i}")
+						```
+						function skill:window/after_addition
+					}
 				```
 				mp_list = [6,6,6,6,7,7,7,8,8,9,9,10,10,11,11,12,12,13,13,14]
 				for i in range(20):
