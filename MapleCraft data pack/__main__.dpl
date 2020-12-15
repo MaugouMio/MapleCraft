@@ -183,16 +183,18 @@ namespace main()
 		func run()
 		{
 			function bar_display:death/revive
-			
-			execute unless score @s login matches 1.. run function ARG(_PATH)reset_screen
 			```
 			raise Warning("TODO: teleport to the nearest town")
 			```
 			tp @s -80 4 55 -90 40
+			
+			execute unless score @s login matches 1.. run function ARG(_PATH)reset_screen
 		}
 		
 		func reset_screen()
 		{
+			execute at @s run playsound minecraft:ui.button.click player @s
+			
 			tellraw @s "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
 			title @s times 1 5 10
 			title @s title {"text":"4","font":"ui:main"}
@@ -204,7 +206,6 @@ namespace main()
 		func check()
 		{
 			execute if score @s command matches 1.. run function ARG(_PATH)search/run
-			execute at @s run playsound minecraft:ui.button.click player @s
 			
 			scoreboard players reset @s command
 			scoreboard players enable @s command

@@ -641,6 +641,7 @@ namespace stat()
 			{
 				func check()
 				{
+					execute at @s run playsound minecraft:ui.button.click player @s
 					scoreboard players operation #GLOBAL temp = @s hp_max_base
 					scoreboard players operation #GLOBAL temp -= @s equip_hp
 					execute if score #GLOBAL temp matches ..29999 run function ARG(_PATH)set
@@ -679,6 +680,7 @@ namespace stat()
 			{
 				func check()
 				{
+					execute at @s run playsound minecraft:ui.button.click player @s
 					scoreboard players operation #GLOBAL temp = @s mp_max_base
 					scoreboard players operation #GLOBAL temp -= @s equip_mp
 					execute if score #GLOBAL temp matches ..29999 run function ARG(_PATH)set
@@ -716,6 +718,7 @@ namespace stat()
 			{
 				func check()
 				{
+					execute at @s run playsound minecraft:ui.button.click player @s
 					scoreboard players operation #GLOBAL temp = @s STR
 					scoreboard players operation #GLOBAL temp -= @s equip_str
 					execute if score #GLOBAL temp matches ..998 run function ARG(_PATH)set
@@ -732,6 +735,7 @@ namespace stat()
 			{
 				func check()
 				{
+					execute at @s run playsound minecraft:ui.button.click player @s
 					scoreboard players operation #GLOBAL temp = @s DEX
 					scoreboard players operation #GLOBAL temp -= @s equip_dex
 					execute if score #GLOBAL temp matches ..998 run function ARG(_PATH)set
@@ -748,6 +752,7 @@ namespace stat()
 			{
 				func check()
 				{
+					execute at @s run playsound minecraft:ui.button.click player @s
 					scoreboard players operation #GLOBAL temp = @s INT
 					scoreboard players operation #GLOBAL temp -= @s equip_int
 					execute if score #GLOBAL temp matches ..998 run function ARG(_PATH)set
@@ -764,6 +769,7 @@ namespace stat()
 			{
 				func check()
 				{
+					execute at @s run playsound minecraft:ui.button.click player @s
 					scoreboard players operation #GLOBAL temp = @s LUK
 					scoreboard players operation #GLOBAL temp -= @s equip_luk
 					execute if score #GLOBAL temp matches ..998 run function ARG(_PATH)set

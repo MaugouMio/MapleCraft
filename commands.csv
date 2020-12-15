@@ -5,3 +5,13 @@
 5,if score @s stat_point matches 1.. run function stat:window/add/int/check
 6,if score @s stat_point matches 1.. run function stat:window/add/luk/check
 7,if entity @s[tag=dead] run function main:town_revive/run
+8,
+9,
+10,
+11,
+12,
+13,run function skill:window/tab/change/0
+14,if score @s job_level matches 1.. run function skill:window/tab/change/1
+15,if score @s job_level matches 2.. run function skill:window/tab/change/2
+16,if score @s job_level matches 3.. run function skill:window/tab/change/3
+17,if score @s job_level matches 4 run function skill:window/tab/change/4
