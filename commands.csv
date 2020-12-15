@@ -15,3 +15,11 @@
 15,if score @s job_level matches 2.. run function skill:window/tab/change/2
 16,if score @s job_level matches 3.. run function skill:window/tab/change/3
 17,if score @s job_level matches 4 run function skill:window/tab/change/4
+18,run function skill:window/scroll/prev/adjust
+19,run function skill:window/scroll/next/adjust
+20,if score @s 0001000_level matches 1.. run function skill:0/0/0/1000/get
+21,if score @s 0001000_level matches ..2 run function skill:0/0/0/1000/levels/add
+22,if score @s 0001001_level matches 1.. run function skill:0/0/0/1001/get
+23,if score @s 0001001_level matches ..2 run function skill:0/0/0/1001/levels/add
+24,if score @s 0001002_level matches 1.. run function skill:0/0/0/1002/get
+25,if score @s 0001002_level matches ..2 run function skill:0/0/0/1002/levels/add

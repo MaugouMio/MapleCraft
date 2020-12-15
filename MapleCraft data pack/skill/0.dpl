@@ -108,12 +108,19 @@ namespace 0() as virtual
 				
 				folder levels()
 				{
+					func add()
+					{
+						scoreboard players add @s 0001000_level 1
+						execute if score @s 0001000_level matches 1 run function ARG(_PATH)1
+						execute if score @s 0001000_level matches 2 run function ARG(_PATH)2
+						execute if score @s 0001000_level matches 3 run function ARG(_PATH)3
+						function skill:window/after_addition
+					}
 				```
 				for i in range(3):
 					print(f'''
 					func {i+1}()
 					{{
-						scoreboard players set @s 0001000_level {i+1}
 						scoreboard players set @s 0001000_mp {i*5+10}
 						scoreboard players set @s 0001000_attack {i*15+10}
 					}}
@@ -192,16 +199,14 @@ namespace 0() as virtual
 				
 				folder levels()
 				{
-				```
-				for i in range(3):
-					print(f'''
-					func {i+1}()
-					{{
-						scoreboard players set @s 0001001_level {i+1}
-						scoreboard players set @s 0001001_mp {i*10+10}
-					}}
-					''')
-				```
+					func add()
+					{
+						scoreboard players add @s 0001001_level 1
+						execute if score @s 0001001_level matches 1 run scoreboard players set @s 0001001_mp 10
+						execute if score @s 0001001_level matches 2 run scoreboard players set @s 0001001_mp 20
+						execute if score @s 0001001_level matches 3 run scoreboard players set @s 0001001_mp 30
+						function skill:window/after_addition
+					}
 				}
 			}
 			
@@ -256,12 +261,19 @@ namespace 0() as virtual
 				
 				folder levels()
 				{
+					func add()
+					{
+						scoreboard players add @s 0001002_level 1
+						execute if score @s 0001002_level matches 1 run function ARG(_PATH)1
+						execute if score @s 0001002_level matches 2 run function ARG(_PATH)2
+						execute if score @s 0001002_level matches 3 run function ARG(_PATH)3
+						function skill:window/after_addition
+					}
 				```
 				for i in range(3):
 					print(f'''
 					func {i+1}()
 					{{
-						scoreboard players set @s 0001002_level {i+1}
 						scoreboard players set @s 0001002_mp {i*5+10}
 						scoreboard players set @s 0001002_time {i*4+4}
 					}}
