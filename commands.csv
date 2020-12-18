@@ -32,3 +32,13 @@
 32,if score @s skill_point matches 1.. if score @s 1001004_level matches ..19 run function skill:1/0/0/1004/levels/add
 33,if score @s 1001005_level matches 1.. run function skill:1/0/0/1005/get
 34,if score @s skill_point matches 1.. if score @s 1001005_level matches ..19 if score @s 1001004_level matches 1.. run function skill:1/0/0/1005/levels/add
+35,if score @s skill_point matches 1.. if score @s 2000000_level matches ..15 run function skill:2/0/0/0000/levels/add
+36,if score @s skill_point matches 1.. if score @s 2000001_level matches ..9 if score @s 2000000_level matches 5.. run function skill:2/0/0/0001/levels/add
+37,if score @s 2001002_level matches 1.. run function skill:2/0/0/1002/get
+38,if score @s skill_point matches 1.. if score @s 2001002_level matches ..19 run function skill:2/0/0/1002/levels/add
+39,if score @s 2001003_level matches 1.. run function skill:2/0/0/1003/get
+40,if score @s skill_point matches 1.. if score @s 2001003_level matches ..19 if score @s 2001002_level matches 3.. run function skill:2/0/0/1003/levels/add
+41,if score @s 2001004_level matches 1.. run function skill:2/0/0/1004/get
+42,if score @s skill_point matches 1.. if score @s 2001004_level matches ..19 run function skill:2/0/0/1004/levels/add
+43,if score @s 2001005_level matches 1.. run function skill:2/0/0/1005/get
+44,if score @s skill_point matches 1.. if score @s 2001005_level matches ..19 if score @s 2001004_level matches 1.. run function skill:2/0/0/1005/levels/add
