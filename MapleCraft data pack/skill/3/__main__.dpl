@@ -137,6 +137,12 @@ namespace 3() as virtual
 					''')
 				```
 				}
+				
+				func get()
+				{
+					clear @s minecraft:carrot_on_a_stick{CustomModelData:99}
+					give @s minecraft:carrot_on_a_stick{CustomModelData:99,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.3001003","bold":true,"italic":false}'}}
+				}
 			}
 			
 			folder 1004() from bullet_skill_template(3001004)
@@ -273,6 +279,12 @@ namespace 3() as virtual
 					}}
 					''')
 				```
+				}
+				
+				func get()
+				{
+					clear @s minecraft:carrot_on_a_stick{CustomModelData:100}
+					give @s minecraft:carrot_on_a_stick{CustomModelData:100,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.3001004","bold":true,"italic":false}'}}
 				}
 			}
 			
@@ -431,6 +443,12 @@ namespace 3() as virtual
 					}}
 					''')
 				```
+				}
+				
+				func get()
+				{
+					clear @s minecraft:carrot_on_a_stick{CustomModelData:101}
+					give @s minecraft:carrot_on_a_stick{CustomModelData:101,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.3001005","bold":true,"italic":false}'}}
 				}
 			}
 			

@@ -79,7 +79,14 @@ namespace 12() as virtual
 		
 		# 1200004 shares the same functions with 1100004
 		
-		folder 1005() from booster_skill_template(1201005, blunt, k);
+		folder 1005() from booster_skill_template(1201005, blunt, k)
+		{
+			func get()
+			{
+				clear @s minecraft:carrot_on_a_stick{CustomModelData:25}
+				give @s minecraft:carrot_on_a_stick{CustomModelData:25,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.1201005","bold":true,"italic":false}'}}
+			}
+		}
 		
 		folder 1006()
 		{
@@ -142,6 +149,12 @@ namespace 12() as virtual
 				}}
 				''')
 			```
+			}
+			
+			func get()
+			{
+				clear @s minecraft:carrot_on_a_stick{CustomModelData:26}
+				give @s minecraft:carrot_on_a_stick{CustomModelData:26,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.1201006","bold":true,"italic":false}'}}
 			}
 		}
 		

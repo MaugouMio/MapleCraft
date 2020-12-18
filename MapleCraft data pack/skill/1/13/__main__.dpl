@@ -134,9 +134,23 @@ namespace 13() as virtual
 			}
 		}
 		
-		folder 1004() from booster_skill_template(1301004, spear, l);
+		folder 1004() from booster_skill_template(1301004, spear, l)
+		{
+			func get()
+			{
+				clear @s minecraft:carrot_on_a_stick{CustomModelData:40}
+				give @s minecraft:carrot_on_a_stick{CustomModelData:40,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.1301004","bold":true,"italic":false}'}}
+			}
+		}
 		
-		folder 1005() from booster_skill_template(1301005, polearm, m);
+		folder 1005() from booster_skill_template(1301005, polearm, m)
+		{
+			func get()
+			{
+				clear @s minecraft:carrot_on_a_stick{CustomModelData:41}
+				give @s minecraft:carrot_on_a_stick{CustomModelData:41,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.1301005","bold":true,"italic":false}'}}
+			}
+		}
 		
 		folder 1006()
 		{
@@ -211,6 +225,12 @@ namespace 13() as virtual
 				}}
 				''')
 			```
+			}
+			
+			func get()
+			{
+				clear @s minecraft:carrot_on_a_stick{CustomModelData:42}
+				give @s minecraft:carrot_on_a_stick{CustomModelData:42,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.1301006","bold":true,"italic":false}'}}
 			}
 		}
 		
@@ -317,6 +337,12 @@ namespace 13() as virtual
 				}}
 				''')
 			```
+			}
+			
+			func get()
+			{
+				clear @s minecraft:carrot_on_a_stick{CustomModelData:43}
+				give @s minecraft:carrot_on_a_stick{CustomModelData:43,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.1301007","bold":true,"italic":false}'}}
 			}
 		}
 	}

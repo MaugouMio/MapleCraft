@@ -55,7 +55,14 @@ namespace 42() as virtual
 		
 		# 4200001 shares the same functions with 4100002
 		
-		folder 1002() from booster_skill_template(4201002, dagger, q);
+		folder 1002() from booster_skill_template(4201002, dagger, q)
+		{
+			func get()
+			{
+				clear @s minecraft:carrot_on_a_stick{CustomModelData:148}
+				give @s minecraft:carrot_on_a_stick{CustomModelData:148,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.4201002","bold":true,"italic":false}'}}
+			}
+		}
 		
 		# 4201003 shares the same functions with 4101004
 		
@@ -170,6 +177,12 @@ namespace 42() as virtual
 				''')
 			```
 			}
+			
+			func get()
+			{
+				clear @s minecraft:carrot_on_a_stick{CustomModelData:149}
+				give @s minecraft:carrot_on_a_stick{CustomModelData:149,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.4201004","bold":true,"italic":false}'}}
+			}
 		}
 		
 		folder 1005() from attack_skill_template(4201005)
@@ -268,6 +281,12 @@ namespace 42() as virtual
 				}}
 				''')
 			```
+			}
+			
+			func get()
+			{
+				clear @s minecraft:carrot_on_a_stick{CustomModelData:150}
+				give @s minecraft:carrot_on_a_stick{CustomModelData:150,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.4201005","bold":true,"italic":false}'}}
 			}
 		}
 	}

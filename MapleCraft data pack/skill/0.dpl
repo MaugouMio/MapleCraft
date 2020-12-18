@@ -161,6 +161,12 @@ namespace 0() as virtual
 					''')
 				```
 				}
+				
+				func get()
+				{
+					clear @s minecraft:carrot_on_a_stick{CustomModelData:1}
+					give @s minecraft:carrot_on_a_stick{CustomModelData:1,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.0001000","bold":true,"italic":false}'}}
+				}
 			}
 			
 			folder 1001()
@@ -275,6 +281,12 @@ namespace 0() as virtual
 						execute if score @s 0001001_level matches 1.. run data modify block 0 0 0 Text1 set value '["\\n",{"nbt":"Text1","block":"0 0 0","interpret":true}]'
 					}
 				}
+				
+				func get()
+				{
+					clear @s minecraft:carrot_on_a_stick{CustomModelData:2}
+					give @s minecraft:carrot_on_a_stick{CustomModelData:2,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.0001001","bold":true,"italic":false}'}}
+				}
 			}
 			
 			folder 1002()
@@ -386,6 +398,12 @@ namespace 0() as virtual
 					}}
 					''')
 				```
+				}
+				
+				func get()
+				{
+					clear @s minecraft:carrot_on_a_stick{CustomModelData:3}
+					give @s minecraft:carrot_on_a_stick{CustomModelData:3,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.0001002","bold":true,"italic":false}'}}
 				}
 			}
 		}
