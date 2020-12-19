@@ -61,3 +61,15 @@
 61,if score @s[tag=thief] skill_point matches 1.. if score @s 4001334_level matches ..19 run function skill:4/0/0/1334/levels/add
 62,if score @s 4001344_level matches 1.. run function skill:4/0/0/1344/get
 63,if score @s[tag=thief] skill_point matches 1.. if score @s 4001344_level matches ..19 run function skill:4/0/0/1344/levels/add
+64,if score @s[tag=warrior,tag=!spearman] job_level matches 2.. if score @s skill_point matches 1.. if score @s 1100000_level matches ..19 run function skill:1/1/0/0000/levels/add
+65,if score @s[tag=fighter] skill_point matches 1.. if score @s 1100001_level matches ..19 run function skill:1/1/0/0001/levels/add
+66,if score @s[tag=warrior,tag=!spearman] job_level matches 2.. if score @s skill_point matches 1.. if score @s 1100002_level matches ..29 if score @s 1100000_level matches 3.. run function skill:1/1/0/0002/levels/add
+67,if score @s[tag=fighter] skill_point matches 1.. if score @s 1100003_level matches ..29 if score @s 1100001_level matches 3.. run function skill:1/1/0/0003/levels/add
+68,if score @s 1101004_level matches 1.. run function skill:1/1/0/1004/get
+69,if score @s[tag=warrior,tag=!spearman] job_level matches 2.. if score @s skill_point matches 1.. if score @s 1101004_level matches ..19 if score @s 1100000_level matches 5.. run function skill:1/1/0/1004/levels/add
+70,if score @s 1101005_level matches 1.. run function skill:1/1/0/1005/get
+71,if score @s[tag=fighter] skill_point matches 1.. if score @s 1101005_level matches ..19 if score @s 1100001_level matches 5.. run function skill:1/1/0/1005/levels/add
+72,if score @s 1101006_level matches 1.. run function skill:1/1/0/1006/get
+73,if score @s[tag=fighter] skill_point matches 1.. if score @s 1101006_level matches ..19 run function skill:1/1/0/1006/levels/add
+74,if score @s 1101007_level matches 1.. run function skill:1/1/0/1007/get
+75,if score @s[tag=fighter] skill_point matches 1.. if score @s 1101007_level matches ..29 if score @s 1101006_level matches 3.. run function skill:1/1/0/1007/levels/add
