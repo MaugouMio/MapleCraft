@@ -20,7 +20,7 @@ namespace skill_window() as virtual
 		tellraw @s {"text":"\n\n\n\uE000\n\uE001","font":"ui:window/skill"}
 		# tab
 		function ARG(_PATH)tab/add
-		tellraw @s [{"text":"\uF822","font":"space:default"},{"nbt":"skill_tab[]","storage":"ui:main","interpret":true,"font":"ui:window/skill"},[{"nbt":"skill_tab_back","storage":"ui:main","interpret":true,"font":"space:default"},{"text":"3"}],[{"text":"\uE002","font":"ui:window/skill"},{"text":"B97","font":"space:default"},{"nbt":"skill_tab[]","storage":"ui:main","interpret":true}]]
+		tellraw @s [{"text":"\uF823","font":"space:default"},{"nbt":"skill_tab[]","storage":"ui:main","interpret":true,"font":"ui:window/skill"},[{"nbt":"skill_tab_back","storage":"ui:main","interpret":true,"font":"space:default"},{"text":"3"}],[{"text":"\uE002","font":"ui:window/skill"},{"text":"B97","font":"space:default"},{"nbt":"skill_tab[]","storage":"ui:main","interpret":true}]]
 		# skill book and #job name#
 		tellraw @s [{"text":"\uE003","font":"ui:window/skill"},{"text":"B94","font":"space:default"},{"score":{"objective":"skill_win_tab","name":"@s"},"font":"ui:window/skill_book/top"}]
 		tellraw @s [{"text":"\uE004","font":"ui:window/skill"},{"text":"B94","font":"space:default"},{"score":{"objective":"skill_win_tab","name":"@s"},"font":"ui:window/skill_book/mid"}]
@@ -594,8 +594,8 @@ namespace skill_window() as virtual
 		func add()
 		{
 			data modify storage ui:main skill_tab_back set value ["91"]
-			execute if score @s skill_win_tab matches 0 run data modify storage ui:main skill_tab set value ['{"text":"\\uE011"}']
-			execute unless score @s skill_win_tab matches 0 run data modify storage ui:main skill_tab set value ['{"text":"\\uE00C","clickEvent":{"action":"run_command","value":"/trigger command set 13"}}']
+			execute if score @s skill_win_tab matches 0 run data modify storage ui:main skill_tab set value ['""','{"text":"\\uE011"}']
+			execute unless score @s skill_win_tab matches 0 run data modify storage ui:main skill_tab set value ['""','{"text":"\\uE00C","clickEvent":{"action":"run_command","value":"/trigger command set 13"}}']
 			execute if score @s job_level matches 1.. run function ARG(_PATH)first
 		}
 		
