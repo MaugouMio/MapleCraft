@@ -49,7 +49,7 @@ namespace 1() as virtual
 					{
 						```
 						for i in range(1, 17):
-							print(f"execute if score @s 1000000_level matches {i} scoreboard players set @s hp_recovery {i*3+10 + (i-1)//15*2}")
+							print(f"execute if score @s 1000000_level matches {i} run scoreboard players set @s hp_recovery {i*3+10 + (i-1)//15*2}")
 						```
 					}
 					
