@@ -80,3 +80,15 @@
 80,if score @s 1201006_level matches 1.. run function skill:1/2/0/1006/get
 81,if score @s[tag=page] skill_point matches 1.. if score @s 1201006_level matches ..19 run function skill:1/2/0/1006/levels/add
 82,if score @s[tag=page] skill_point matches 1.. if score @s 1101007_level matches ..29 if score @s 1201006_level matches 3.. run function skill:1/1/0/1007/levels/add
+83,if score @s[tag=spearman] skill_point matches 1.. if score @s 1300000_level matches ..19 run function skill:1/3/0/0000/levels/add
+84,if score @s[tag=spearman] skill_point matches 1.. if score @s 1300001_level matches ..19 run function skill:1/3/0/0001/levels/add
+85,if score @s[tag=spearman] skill_point matches 1.. if score @s 1300002_level matches ..29 if score @s 1300000_level matches 3.. run function skill:1/3/0/0002/levels/add
+86,if score @s[tag=spearman] skill_point matches 1.. if score @s 1300003_level matches ..29 if score @s 1300001_level matches 3.. run function skill:1/3/0/0003/levels/add
+87,if score @s 1301004_level matches 1.. run function skill:1/3/0/1004/get
+88,if score @s[tag=spearman] skill_point matches 1.. if score @s 1301004_level matches ..19 if score @s 1300000_level matches 5.. run function skill:1/3/0/1004/levels/add
+89,if score @s 1301005_level matches 1.. run function skill:1/3/0/1005/get
+90,if score @s[tag=spearman] skill_point matches 1.. if score @s 1301005_level matches ..19 if score @s 1300001_level matches 5.. run function skill:1/3/0/1005/levels/add
+91,if score @s 1301006_level matches 1.. run function skill:1/3/0/1006/get
+92,if score @s[tag=spearman] skill_point matches 1.. if score @s 1301006_level matches ..19 run function skill:1/3/0/1006/levels/add
+93,if score @s 1301007_level matches 1.. run function skill:1/3/0/1007/get
+94,if score @s[tag=spearman] skill_point matches 1.. if score @s 1301007_level matches ..29 if score @s 1301006_level matches 3.. run function skill:1/3/0/1007/levels/add

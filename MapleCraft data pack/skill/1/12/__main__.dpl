@@ -78,7 +78,6 @@ namespace 12() as virtual
 				print(f'''
 				func {i+1}()
 				{{
-					scoreboard players set @s 1200001_level {i+1}
 					scoreboard players set @s blunt_mastery {i//2*5+15}
 					scoreboard players set @s blunt_accuracy {i+1}
 					scoreboard players set @s blunt_color {mastery_colors[i//2]}
@@ -88,7 +87,6 @@ namespace 12() as virtual
 				print(f'''
 				func {i+1}()
 				{{
-					scoreboard players set @s 1200001_level {i+1}
 					scoreboard players set @s blunt_mastery {i//2*5+15}
 					scoreboard players set @s blunt_accuracy {i+1}
 				}}
@@ -151,7 +149,6 @@ namespace 12() as virtual
 				print(f'''
 				func {i+1}()
 				{{
-					scoreboard players set @s 1200003_level {i+1}
 					scoreboard players set @s blunt_final_atk {i*5+105}
 					scoreboard players set @s blunt_final_rate {i*2+2}
 				}}
@@ -269,7 +266,6 @@ namespace 12() as virtual
 				print(f'''
 				func {i+1}()
 				{{
-					scoreboard players set @s 1201006_level {i+1}
 					scoreboard players set @s 1201006_mp {i//10*8+12}
 					scoreboard players set @s 1201006_time {i*4+44}
 				}}

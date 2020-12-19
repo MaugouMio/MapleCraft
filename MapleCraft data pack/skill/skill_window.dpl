@@ -486,6 +486,72 @@ namespace skill_window() as virtual
 						}
 					}
 				}
+				
+				folder spearman()
+				{
+					func check()
+					{
+						execute if score @s skill_win_page2 matches 0 run function ARG(_PATH)page0/set
+						execute if score @s skill_win_page2 matches 1 run function ARG(_PATH)page1/set
+					}
+					
+					folder page0()
+					{
+						func set()
+						{
+							function skill:1/3/0/0000/levels/set_description
+							data modify storage ui:main display_skills[0] set value {add:'""',level:'{"score":{"objective":"1300000_level","name":"@s"},"font":"minecraft:uniform","color":"black"}',name:'{"translate":"skill.1300000","font":"minecraft:uniform","color":"black"}',bg_top:'{"text":"\\uE01A"}',bg_down:'{"text":"\\uE01B"}',top:'{"text":"\\uA025"}',down:'{"text":"\\uB025"}',event:'{"text":"","font":"ui:window/skill","hoverEvent":{"action":"show_text","contents":[{"text":"","font":"minecraft:uniform"},{"translate":"skill.1300000","bold":true},"\\n",{"translate":"skill.description.1300000"},"\\n-----------------------------------------------------\\n",{"nbt":"skill_level_info[0]","storage":"ui:main","interpret":true}]}}'}
+							function skill:1/3/0/0001/levels/set_description
+							data modify storage ui:main display_skills[1] set value {add:'""',level:'{"score":{"objective":"1300001_level","name":"@s"},"font":"minecraft:uniform","color":"black"}',name:'{"translate":"skill.1300001.clip","font":"minecraft:uniform","color":"black"}',bg_top:'{"text":"\\uE01A"}',bg_down:'{"text":"\\uE01B"}',top:'{"text":"\\uA026"}',down:'{"text":"\\uB026"}',event:'{"text":"","font":"ui:window/skill","hoverEvent":{"action":"show_text","contents":[{"text":"","font":"minecraft:uniform"},{"translate":"skill.1300001","bold":true},"\\n",{"translate":"skill.description.1300001"},"\\n-----------------------------------------------------\\n",{"nbt":"skill_level_info[1]","storage":"ui:main","interpret":true}]}}'}
+							function skill:1/3/0/0002/levels/set_description
+							data modify storage ui:main display_skills[2] set value {add:'""',level:'{"score":{"objective":"1300002_level","name":"@s"},"font":"minecraft:uniform","color":"black"}',name:'{"translate":"skill.1300002.clip","font":"minecraft:uniform","color":"black"}',bg_top:'{"text":"\\uE01A"}',bg_down:'{"text":"\\uE01B"}',top:'{"text":"\\uA01D"}',down:'{"text":"\\uB01D"}',event:'{"text":"","font":"ui:window/skill","hoverEvent":{"action":"show_text","contents":[{"text":"","font":"minecraft:uniform"},{"translate":"skill.1300002","bold":true},"\\n",{"translate":"skill.description.1300002"},"\\n-----------------------------------------------------\\n",{"nbt":"skill_level_info[2]","storage":"ui:main","interpret":true}]}}'}
+							function skill:1/3/0/0003/levels/set_description
+							data modify storage ui:main display_skills[3] set value {add:'""',level:'{"score":{"objective":"1300003_level","name":"@s"},"font":"minecraft:uniform","color":"black"}',name:'{"translate":"skill.1300003.clip","font":"minecraft:uniform","color":"black"}',bg_top:'{"text":"\\uE01A"}',bg_down:'{"text":"\\uE01B"}',top:'{"text":"\\uA01D"}',down:'{"text":"\\uB01D"}',event:'{"text":"","font":"ui:window/skill","hoverEvent":{"action":"show_text","contents":[{"text":"","font":"minecraft:uniform"},{"translate":"skill.1300003","bold":true},"\\n",{"translate":"skill.description.1300003"},"\\n-----------------------------------------------------\\n",{"nbt":"skill_level_info[3]","storage":"ui:main","interpret":true}]}}'}
+							
+							execute if score @s 1300000_level matches ..2 run data modify storage ui:main display_skills[2] merge value {bg_top:'{"text":"\\uE018"}',bg_down:'{"text":"\\uE019"}',top:'{"text":"\\uC00C"}',down:'{"text":"\\uD00C"}'}
+							execute if score @s 1300001_level matches ..2 run data modify storage ui:main display_skills[3] merge value {bg_top:'{"text":"\\uE018"}',bg_down:'{"text":"\\uE019"}',top:'{"text":"\\uC00C"}',down:'{"text":"\\uD00C"}'}
+							
+							execute if score @s skill_point matches 1.. run function ARG(_PATH)set_add
+						}
+						
+						func set_add()
+						{
+							execute if score @s 1300000_level matches ..19 run data modify storage ui:main display_skills[0].add set value '[{"text":"\\uF82A\\uF828\\uF824","font":"space:default"},{"text":"5","font":"ui:main","clickEvent":{"action":"run_command","value":"/trigger command set 83"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},"A93"]'
+							execute if score @s 1300001_level matches ..19 run data modify storage ui:main display_skills[1].add set value '[{"text":"\\uF82A\\uF828\\uF824","font":"space:default"},{"text":"5","font":"ui:main","clickEvent":{"action":"run_command","value":"/trigger command set 84"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},"A93"]'
+							execute if score @s 1300002_level matches ..29 if score @s 1300000_level matches 3.. run data modify storage ui:main display_skills[2].add set value '[{"text":"\\uF82A\\uF828\\uF824","font":"space:default"},{"text":"5","font":"ui:main","clickEvent":{"action":"run_command","value":"/trigger command set 85"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},"A93"]'
+							execute if score @s 1300003_level matches ..29 if score @s 1300001_level matches 3.. run data modify storage ui:main display_skills[3].add set value '[{"text":"\\uF82A\\uF828\\uF824","font":"space:default"},{"text":"5","font":"ui:main","clickEvent":{"action":"run_command","value":"/trigger command set 86"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},"A93"]'
+						}
+					}
+					
+					folder page1()
+					{
+						func set()
+						{
+							function skill:1/3/0/1004/levels/set_description
+							data modify storage ui:main display_skills[0] set value {add:'""',level:'{"score":{"objective":"1301004_level","name":"@s"},"font":"minecraft:uniform","color":"black"}',name:'{"translate":"skill.1301004","font":"minecraft:uniform","color":"black"}',bg_top:'{"text":"\\uE01A"}',bg_down:'{"text":"\\uE01B"}',top:'{"text":"\\uA027"}',down:'{"text":"\\uB027"}',event:'{"text":"","font":"ui:window/skill","clickEvent":{"action":"run_command","value":"/trigger command set 87"},"hoverEvent":{"action":"show_text","contents":[{"text":"","font":"minecraft:uniform"},{"translate":"skill.1301004","bold":true},"\\n",{"translate":"skill.description.1301004"},"\\n-----------------------------------------------------\\n",{"nbt":"skill_level_info[0]","storage":"ui:main","interpret":true}]}}'}
+							function skill:1/3/0/1005/levels/set_description
+							data modify storage ui:main display_skills[1] set value {add:'""',level:'{"score":{"objective":"1301005_level","name":"@s"},"font":"minecraft:uniform","color":"black"}',name:'{"translate":"skill.1301005.clip","font":"minecraft:uniform","color":"black"}',bg_top:'{"text":"\\uE01A"}',bg_down:'{"text":"\\uE01B"}',top:'{"text":"\\uA028"}',down:'{"text":"\\uB028"}',event:'{"text":"","font":"ui:window/skill","clickEvent":{"action":"run_command","value":"/trigger command set 89"},"hoverEvent":{"action":"show_text","contents":[{"text":"","font":"minecraft:uniform"},{"translate":"skill.1301005","bold":true},"\\n",{"translate":"skill.description.1301005"},"\\n-----------------------------------------------------\\n",{"nbt":"skill_level_info[1]","storage":"ui:main","interpret":true}]}}'}
+							function skill:1/3/0/1006/levels/set_description
+							data modify storage ui:main display_skills[2] set value {add:'""',level:'{"score":{"objective":"1301006_level","name":"@s"},"font":"minecraft:uniform","color":"black"}',name:'{"translate":"skill.1301006","font":"minecraft:uniform","color":"black"}',bg_top:'{"text":"\\uE01A"}',bg_down:'{"text":"\\uE01B"}',top:'{"text":"\\uA029"}',down:'{"text":"\\uB029"}',event:'{"text":"","font":"ui:window/skill","clickEvent":{"action":"run_command","value":"/trigger command set 91"},"hoverEvent":{"action":"show_text","contents":[{"text":"","font":"minecraft:uniform"},{"translate":"skill.1301006","bold":true},"\\n",{"translate":"skill.description.1301006"},"\\n-----------------------------------------------------\\n",{"nbt":"skill_level_info[2]","storage":"ui:main","interpret":true}]}}'}
+							function skill:1/3/0/1007/levels/set_description
+							data modify storage ui:main display_skills[3] set value {add:'""',level:'{"score":{"objective":"1301007_level","name":"@s"},"font":"minecraft:uniform","color":"black"}',name:'{"translate":"skill.1301007","font":"minecraft:uniform","color":"black"}',bg_top:'{"text":"\\uE01A"}',bg_down:'{"text":"\\uE01B"}',top:'{"text":"\\uA02A"}',down:'{"text":"\\uB02A"}',event:'{"text":"","font":"ui:window/skill","clickEvent":{"action":"run_command","value":"/trigger command set 93"},"hoverEvent":{"action":"show_text","contents":[{"text":"","font":"minecraft:uniform"},{"translate":"skill.1301007","bold":true},"\\n",{"translate":"skill.description.1301007"},"\\n-----------------------------------------------------\\n",{"nbt":"skill_level_info[3]","storage":"ui:main","interpret":true}]}}'}
+							
+							execute if score @s 1300000_level matches ..4 run data modify storage ui:main display_skills[0] merge value {bg_top:'{"text":"\\uE018"}',bg_down:'{"text":"\\uE019"}',top:'{"text":"\\uC011"}',down:'{"text":"\\uD011"}'}
+							execute if score @s 1300001_level matches ..4 run data modify storage ui:main display_skills[1] merge value {bg_top:'{"text":"\\uE018"}',bg_down:'{"text":"\\uE019"}',top:'{"text":"\\uC012"}',down:'{"text":"\\uD012"}'}
+							execute if score @s 1301006_level matches ..2 run data modify storage ui:main display_skills[3] merge value {bg_top:'{"text":"\\uE018"}',bg_down:'{"text":"\\uE019"}',top:'{"text":"\\uC013"}',down:'{"text":"\\uD013"}'}
+							
+							execute if score @s skill_point matches 1.. run function ARG(_PATH)set_add
+						}
+						
+						func set_add()
+						{
+							execute if score @s 1301004_level matches ..19 if score @s 1300000_level matches 5.. run data modify storage ui:main display_skills[0].add set value '[{"text":"\\uF82A\\uF828\\uF824","font":"space:default"},{"text":"5","font":"ui:main","clickEvent":{"action":"run_command","value":"/trigger command set 88"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},"A93"]'
+							execute if score @s 1301005_level matches ..19 if score @s 1300001_level matches 5.. run data modify storage ui:main display_skills[1].add set value '[{"text":"\\uF82A\\uF828\\uF824","font":"space:default"},{"text":"5","font":"ui:main","clickEvent":{"action":"run_command","value":"/trigger command set 90"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},"A93"]'
+							execute if score @s 1301006_level matches ..19 run data modify storage ui:main display_skills[2].add set value '[{"text":"\\uF82A\\uF828\\uF824","font":"space:default"},{"text":"5","font":"ui:main","clickEvent":{"action":"run_command","value":"/trigger command set 92"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},"A93"]'
+							execute if score @s 1301007_level matches ..29 if score @s 1301006_level matches 3.. run data modify storage ui:main display_skills[3].add set value '[{"text":"\\uF82A\\uF828\\uF824","font":"space:default"},{"text":"5","font":"ui:main","clickEvent":{"action":"run_command","value":"/trigger command set 94"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},"A93"]'
+						}
+					}
+				}
 			}
 		}
 	}
