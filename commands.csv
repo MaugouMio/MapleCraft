@@ -73,3 +73,10 @@
 73,if score @s[tag=fighter] skill_point matches 1.. if score @s 1101006_level matches ..19 run function skill:1/1/0/1006/levels/add
 74,if score @s 1101007_level matches 1.. run function skill:1/1/0/1007/get
 75,if score @s[tag=fighter] skill_point matches 1.. if score @s 1101007_level matches ..29 if score @s 1101006_level matches 3.. run function skill:1/1/0/1007/levels/add
+76,if score @s[tag=page] skill_point matches 1.. if score @s 1200001_level matches ..19 run function skill:1/2/0/0001/levels/add
+77,if score @s[tag=page] skill_point matches 1.. if score @s 1200003_level matches ..29 if score @s 1200001_level matches 3.. run function skill:1/2/0/0003/levels/add
+78,if score @s 1201005_level matches 1.. run function skill:1/2/0/1005/get
+79,if score @s[tag=page] skill_point matches 1.. if score @s 1201005_level matches ..19 if score @s 1200001_level matches 5.. run function skill:1/2/0/1005/levels/add
+80,if score @s 1201006_level matches 1.. run function skill:1/2/0/1006/get
+81,if score @s[tag=page] skill_point matches 1.. if score @s 1201006_level matches ..19 run function skill:1/2/0/1006/levels/add
+82,if score @s[tag=page] skill_point matches 1.. if score @s 1101007_level matches ..29 if score @s 1201006_level matches 3.. run function skill:1/1/0/1007/levels/add
