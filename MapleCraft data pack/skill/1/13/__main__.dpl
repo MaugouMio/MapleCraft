@@ -64,9 +64,10 @@ namespace 13() as virtual
 				func set_description()
 				{
 					data modify block 0 0 0 Text1 set value '""'
-					data modify storage ui:main temp set value [0, 0, 0, 0]
+					data modify storage ui:main temp set value [0, 0, 0, 0, 0]
 					execute store result storage ui:main temp[0] int 1 run scoreboard players get @s 1300000_level
 					execute store result storage ui:main temp[1] int 1 run scoreboard players get @s spear_mastery
+					execute store result storage ui:main temp[4] int 1 run scoreboard players get @s spear_color
 					
 					execute if score @s 1300000_level matches ..19 run function ARG(_PATH)get_next_level
 					execute if score @s 1300000_level matches 1.. run data modify block 0 0 0 Text1 set value '[{"translate":"skill.description.level.current","with":[{"nbt":"temp[0]","storage":"ui:main"}]},{"translate":"skill.description.level.1300000","with":[{"nbt":"temp[1]","storage":"ui:main"},{"nbt":"temp[0]","storage":"ui:main"}]},{"nbt":"Text1","block":"0 0 0","interpret":true}]'
@@ -83,7 +84,9 @@ namespace 13() as virtual
 					data modify block 0 0 0 Text1 set value '[{"translate":"skill.description.level.next","with":[{"nbt":"temp[2]","storage":"ui:main"}]},{"translate":"skill.description.level.1300000","with":[{"nbt":"temp[3]","storage":"ui:main"},{"nbt":"temp[2]","storage":"ui:main"}]}]'
 					
 					scoreboard players remove @s 1300000_level 1
+					scoreboard players remove @s spear_accuracy 1
 					execute store result score @s spear_mastery run data get storage ui:main temp[1]
+					execute store result score @s spear_color run data get storage ui:main temp[4]
 					execute if score @s 1300000_level matches 1.. run data modify block 0 0 0 Text1 set value '["\\n",{"nbt":"Text1","block":"0 0 0","interpret":true}]'
 				}
 			```
@@ -130,9 +133,10 @@ namespace 13() as virtual
 				func set_description()
 				{
 					data modify block 0 0 0 Text1 set value '""'
-					data modify storage ui:main temp set value [0, 0, 0, 0]
+					data modify storage ui:main temp set value [0, 0, 0, 0, 0]
 					execute store result storage ui:main temp[0] int 1 run scoreboard players get @s 1300001_level
 					execute store result storage ui:main temp[1] int 1 run scoreboard players get @s polearm_mastery
+					execute store result storage ui:main temp[4] int 1 run scoreboard players get @s polearm_color
 					
 					execute if score @s 1300001_level matches ..19 run function ARG(_PATH)get_next_level
 					execute if score @s 1300001_level matches 1.. run data modify block 0 0 0 Text1 set value '[{"translate":"skill.description.level.current","with":[{"nbt":"temp[0]","storage":"ui:main"}]},{"translate":"skill.description.level.1300001","with":[{"nbt":"temp[1]","storage":"ui:main"},{"nbt":"temp[0]","storage":"ui:main"}]},{"nbt":"Text1","block":"0 0 0","interpret":true}]'
@@ -149,7 +153,9 @@ namespace 13() as virtual
 					data modify block 0 0 0 Text1 set value '[{"translate":"skill.description.level.next","with":[{"nbt":"temp[2]","storage":"ui:main"}]},{"translate":"skill.description.level.1300001","with":[{"nbt":"temp[3]","storage":"ui:main"},{"nbt":"temp[2]","storage":"ui:main"}]}]'
 					
 					scoreboard players remove @s 1300001_level 1
+					scoreboard players remove @s polearm_accuracy 1
 					execute store result score @s polearm_mastery run data get storage ui:main temp[1]
+					execute store result score @s polearm_color run data get storage ui:main temp[4]
 					execute if score @s 1300001_level matches 1.. run data modify block 0 0 0 Text1 set value '["\\n",{"nbt":"Text1","block":"0 0 0","interpret":true}]'
 				}
 			```

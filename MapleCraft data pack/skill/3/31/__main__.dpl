@@ -48,7 +48,6 @@ namespace 31() as virtual
 				print(f'''
 				func {i+1}()
 				{{
-					scoreboard players set @s 3100000_level {i+1}
 					scoreboard players set @s bow_mastery {i//2*5+15}
 					scoreboard players set @s bow_accuracy {i+1}
 					scoreboard players set @s bow_color {mastery_colors[i//2]}
@@ -58,7 +57,6 @@ namespace 31() as virtual
 				print(f'''
 				func {i+1}()
 				{{
-					scoreboard players set @s 3100000_level {i+1}
 					scoreboard players set @s bow_mastery {i//2*5+15}
 					scoreboard players set @s bow_accuracy {i+1}
 				}}
@@ -76,7 +74,6 @@ namespace 31() as virtual
 				print(f'''
 				func {i+1}()
 				{{
-					scoreboard players set @s 3100001_level {i+1}
 					scoreboard players set @s bow_final_atk {i*5+105}
 					scoreboard players set @s bow_final_rate {i*2+2}
 				}}
@@ -163,7 +160,6 @@ namespace 31() as virtual
 				print(f'''
 				func {i+1}()
 				{{
-					scoreboard players set @s 3101003_level {i+1}
 					scoreboard players set @s 3101003_mp {i//10*7+8}
 					scoreboard players set @s 3101003_attack {i*5+105}
 					scoreboard players set @s 3101003_enemy {i//5+2 + i//19}
@@ -236,7 +232,6 @@ namespace 31() as virtual
 				print(f'''
 				func {i+1}()
 				{{
-					scoreboard players set @s 3101004_level {i+1}
 					scoreboard players set @s 3101004_mp {i//10*5+15}
 					scoreboard players set @s 3101004_time {i*30+30}
 				}}
@@ -578,7 +573,6 @@ namespace 31() as virtual
 				print(f'''
 				func {i+1}()
 				{{
-					scoreboard players set @s 3101005_level {i+1}
 					scoreboard players set @s 3101005_mp {i//15*14+14}
 					scoreboard players set @s 3101005_attack {i*2+72}
 					scoreboard players set @s 3101005_stun {i+31}
