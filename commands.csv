@@ -103,3 +103,7 @@
 103,if score @s[tag=wizard_fp] skill_point matches 1.. if score @s 2101004_level matches ..29 run function skill:2/1/0/1004/levels/add
 104,if score @s 2101005_level matches 1.. run function skill:2/1/0/1005/get
 105,if score @s[tag=wizard_fp] skill_point matches 1.. if score @s 2101005_level matches ..29 run function skill:2/1/0/1005/levels/add
+106,if score @s 2201004_level matches 1.. run function skill:2/2/0/1004/get
+107,if score @s[tag=wizard_il] skill_point matches 1.. if score @s 2201004_level matches ..29 run function skill:2/2/0/1004/levels/add
+108,if score @s 2201005_level matches 1.. run function skill:2/2/0/1005/get
+109,if score @s[tag=wizard_il] skill_point matches 1.. if score @s 2201005_level matches ..29 run function skill:2/2/0/1005/levels/add
