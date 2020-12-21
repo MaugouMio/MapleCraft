@@ -115,3 +115,13 @@
 115,if score @s[tag=cleric] skill_point matches 1.. if score @s 2301004_level matches ..19 if score @s 2301003_level matches 5.. run function skill:2/3/0/1004/levels/add
 116,if score @s 2301005_level matches 1.. run function skill:2/3/0/1005/get
 117,if score @s[tag=cleric] skill_point matches 1.. if score @s 2301005_level matches ..29 run function skill:2/3/0/1005/levels/add
+118,if score @s[tag=hunter] skill_point matches 1.. if score @s 3100000_level matches ..19 run function skill:3/1/0/0000/levels/add
+119,if score @s[tag=hunter] skill_point matches 1.. if score @s 3100001_level matches ..29 if score @s 3100000_level matches 3.. run function skill:3/1/0/0001/levels/add
+120,if score @s 3101002_level matches 1.. run function skill:3/1/0/1002/get
+121,if score @s[tag=hunter] skill_point matches 1.. if score @s 3101002_level matches ..19 if score @s 3100000_level matches 5.. run function skill:3/1/0/1002/levels/add
+122,if score @s 3101003_level matches 1.. run function skill:3/1/0/1003/get
+123,if score @s[tag=hunter] skill_point matches 1.. if score @s 3101003_level matches ..19 run function skill:3/1/0/1003/levels/add
+124,if score @s 3101004_level matches 1.. run function skill:3/1/0/1004/get
+125,if score @s[tag=hunter] skill_point matches 1.. if score @s 3101004_level matches ..19 if score @s 3101002_level matches 5.. run function skill:3/1/0/1004/levels/add
+126,if score @s 3101005_level matches 1.. run function skill:3/1/0/1005/get
+127,if score @s[tag=hunter] skill_point matches 1.. if score @s 3101005_level matches ..29 run function skill:3/1/0/1005/levels/add
