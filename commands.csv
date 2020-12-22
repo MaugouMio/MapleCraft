@@ -134,3 +134,12 @@
 134,if score @s[tag=crossbowman] skill_point matches 1.. if score @s 3101004_level matches ..19 if score @s 3201002_level matches 5.. run function skill:3/1/0/1004/levels/add
 135,if score @s 3201005_level matches 1.. run function skill:3/2/0/1005/get
 136,if score @s[tag=crossbowman] skill_point matches 1.. if score @s 3201005_level matches ..29 run function skill:3/2/0/1005/levels/add
+137,if score @s[tag=assassin] skill_point matches 1.. if score @s 4100000_level matches ..19 run function skill:4/1/0/0000/levels/add
+138,if score @s[tag=assassin] skill_point matches 1.. if score @s 4100001_level matches ..29 if score @s 4100000_level matches 3.. run function skill:4/1/0/0001/levels/add
+139,if score @s[tag=thief] job_level matches 2.. if score @s skill_point matches 1.. if score @s 4100002_level matches ..19 run function skill:4/1/0/0002/levels/add
+140,if score @s 4101003_level matches 1.. run function skill:4/1/0/1003/get
+141,if score @s[tag=assassin] skill_point matches 1.. if score @s 4101003_level matches ..19 if score @s 4100000_level matches 5.. run function skill:4/1/0/1003/levels/add
+142,if score @s 4101004_level matches 1.. run function skill:4/1/0/1004/get
+143,if score @s[tag=thief] job_level matches 2.. if score @s skill_point matches 1.. if score @s 4101004_level matches ..19 run function skill:4/1/0/1004/levels/add
+144,if score @s 4101005_level matches 1.. run function skill:4/1/0/1005/get
+145,if score @s[tag=assassin] skill_point matches 1.. if score @s 4101005_level matches ..29 if score @s 4100002_level matches 3.. run function skill:4/1/0/1005/levels/add
