@@ -119,9 +119,18 @@
 119,if score @s[tag=hunter] skill_point matches 1.. if score @s 3100001_level matches ..29 if score @s 3100000_level matches 3.. run function skill:3/1/0/0001/levels/add
 120,if score @s 3101002_level matches 1.. run function skill:3/1/0/1002/get
 121,if score @s[tag=hunter] skill_point matches 1.. if score @s 3101002_level matches ..19 if score @s 3100000_level matches 5.. run function skill:3/1/0/1002/levels/add
-122,if score @s 3101003_level matches 1.. run function skill:3/1/0/1003/get
-123,if score @s[tag=hunter] skill_point matches 1.. if score @s 3101003_level matches ..19 run function skill:3/1/0/1003/levels/add
-124,if score @s 3101004_level matches 1.. run function skill:3/1/0/1004/get
+122,if score @s[tag=hunter] 3101003_level matches 1.. run function skill:3/1/0/1003/get
+123,if score @s[tag=archer] job_level matches 2.. if score @s skill_point matches 1.. if score @s 3101003_level matches ..19 run function skill:3/1/0/1003/levels/add
+124,if score @s[tag=hunter] 3101004_level matches 1.. run function skill:3/1/0/1004/get
 125,if score @s[tag=hunter] skill_point matches 1.. if score @s 3101004_level matches ..19 if score @s 3101002_level matches 5.. run function skill:3/1/0/1004/levels/add
 126,if score @s 3101005_level matches 1.. run function skill:3/1/0/1005/get
 127,if score @s[tag=hunter] skill_point matches 1.. if score @s 3101005_level matches ..29 run function skill:3/1/0/1005/levels/add
+128,if score @s[tag=crossbowman] skill_point matches 1.. if score @s 3200000_level matches ..19 run function skill:3/2/0/0000/levels/add
+129,if score @s[tag=crossbowman] skill_point matches 1.. if score @s 3200001_level matches ..29 if score @s 3200000_level matches 3.. run function skill:3/2/0/0001/levels/add
+130,if score @s 3201002_level matches 1.. run function skill:3/2/0/1002/get
+131,if score @s[tag=crossbowman] skill_point matches 1.. if score @s 3201002_level matches ..19 if score @s 3200000_level matches 5.. run function skill:3/2/0/1002/levels/add
+132,if score @s[tag=crossbowman] 3101003_level matches 1.. run function skill:3/2/0/1003/get
+133,if score @s[tag=crossbowman] 3101004_level matches 1.. run function skill:3/2/0/1004/get
+134,if score @s[tag=crossbowman] skill_point matches 1.. if score @s 3101004_level matches ..19 if score @s 3201002_level matches 5.. run function skill:3/1/0/1004/levels/add
+135,if score @s 3201005_level matches 1.. run function skill:3/2/0/1005/get
+136,if score @s[tag=crossbowman] skill_point matches 1.. if score @s 3201005_level matches ..29 run function skill:3/2/0/1005/levels/add
