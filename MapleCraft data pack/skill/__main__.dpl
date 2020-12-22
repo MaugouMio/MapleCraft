@@ -523,6 +523,8 @@ namespace booster_skill_template(skill_id, weapon, icon) as virtual
 	
 	func cast_effect()
 	{
+		function skill:use_constraint
+		
 		function skill:buff/boost/run
 		
 		# set this buff values
@@ -1233,6 +1235,9 @@ namespace skill()
 			func reset()
 			{
 				attribute @s minecraft:generic.movement_speed modifier remove 5b908c48-54cb-4388-aa76-82f61b02032d
+				effect clear @s minecraft:jump_boost
+				execute if score @s jump_buff_num matches 1 run effect give @s minecraft:jump_boost 1000000 0 true
+				execute if score @s jump_buff_num matches 2 run effect give @s minecraft:jump_boost 1000000 1 true
 				scoreboard players reset @s action_time
 			}
 			
@@ -1265,6 +1270,7 @@ namespace skill()
 		# basic skill constraints
 		scoreboard players operation @s next_hp_recover = @s hp_recover_time
 		attribute @s minecraft:generic.movement_speed modifier add 5b908c48-54cb-4388-aa76-82f61b02032d skill_action -0.95 multiply
+		effect give @s minecraft:jump_boost 1000000 128 true
 	}
 	
 	func hunt_exp()

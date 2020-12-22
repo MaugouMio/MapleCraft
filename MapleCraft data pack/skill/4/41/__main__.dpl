@@ -248,6 +248,7 @@ namespace 41() as virtual
 			func cast_effect()
 			{
 				function skill:use_constraint
+				scoreboard players set @s action_time 12
 				
 				scoreboard players operation #HASTE_TIME temp = @s 4101004_time
 				
@@ -263,8 +264,6 @@ namespace 41() as virtual
 				
 				scoreboard players operation @s mp -= @s 4101004_mp
 				function bar_display:change/mp/dropped
-				
-				scoreboard players set @s action_time 12
 			}
 			
 			folder level_effect()
@@ -279,6 +278,7 @@ namespace 41() as virtual
 						print(f"	attribute @s minecraft:generic.movement_speed modifier add f60188ac-3d9d-4c2b-be75-62abd26a2c44 speed_buff {minlv * 0.02} multiply_base")
 						if minlv >= 10:
 							print(f"effect give @s minecraft:jump_boost 1000000 {minlv//10-1} true")
+						print(f"	scoreboard players set @s jump_buff_num {minlv//10}")
 						print("		function ARG(__PATH)post_set")
 						print("}")
 						return
@@ -308,7 +308,7 @@ namespace 41() as virtual
 			{
 				function skill:buff/haste/run
 				attribute @s minecraft:generic.movement_speed modifier remove f60188ac-3d9d-4c2b-be75-62abd26a2c44
-				effect clear @s minecraft:jump_boost
+				execute unless score @s action_time matches 1.. run effect clear @s minecraft:jump_boost
 			}
 			
 			func post_set()
