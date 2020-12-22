@@ -143,3 +143,10 @@
 143,if score @s[tag=thief] job_level matches 2.. if score @s skill_point matches 1.. if score @s 4101004_level matches ..19 run function skill:4/1/0/1004/levels/add
 144,if score @s 4101005_level matches 1.. run function skill:4/1/0/1005/get
 145,if score @s[tag=assassin] skill_point matches 1.. if score @s 4101005_level matches ..29 if score @s 4100002_level matches 3.. run function skill:4/1/0/1005/levels/add
+146,if score @s[tag=bandit] skill_point matches 1.. if score @s 4200000_level matches ..19 run function skill:4/2/0/0000/levels/add
+147,if score @s 4201002_level matches 1.. run function skill:4/2/0/1002/get
+148,if score @s[tag=bandit] skill_point matches 1.. if score @s 4201002_level matches ..19 if score @s 4200000_level matches 5.. run function skill:4/2/0/1002/levels/add
+149,if score @s 4201004_level matches 1.. run function skill:4/2/0/1004/get
+150,if score @s[tag=bandit] skill_point matches 1.. if score @s 4201004_level matches ..29 if score @s 4101004_level matches 5.. run function skill:4/2/0/1004/levels/add
+151,if score @s 4201005_level matches 1.. run function skill:4/2/0/1005/get
+152,if score @s[tag=bandit] skill_point matches 1.. if score @s 4201005_level matches ..29 run function skill:4/2/0/1005/levels/add
