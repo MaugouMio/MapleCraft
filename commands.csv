@@ -5,11 +5,11 @@
 5,if score @s stat_point matches 1.. run function stat:window/add/int/check
 6,if score @s stat_point matches 1.. run function stat:window/add/luk/check
 7,if entity @s[tag=dead] run function main:town_revive/run
-8,
-9,
-10,
-11,
-12,
+8,run tellraw @s {"text":"Not available yet.","color":"red"}
+9,run function stat:window/display
+10,run function skill:window/display
+11,run function main:settings/hp_alert
+12,run function main:settings/mp_alert
 13,run function skill:window/tab/change/0
 14,if score @s job_level matches 1.. run function skill:window/tab/change/1
 15,if score @s job_level matches 2.. run function skill:window/tab/change/2

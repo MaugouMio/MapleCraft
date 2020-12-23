@@ -173,6 +173,7 @@ namespace main()
 		effect give @s minecraft:absorption 1000000 255 true
 		attribute @s minecraft:generic.attack_damage base set -100.0
 		replaceitem entity @s armor.head minecraft:potion{CustomModelData:1,display:{Name:'""'},HideFlags:127,Enchantments:[{id:"minecraft:binding_curse",lvl:1}],AttributeModifiers:[{AttributeName:"generic.movement_speed",Name:"equip",Amount:0,Operation:1,UUID:[I;0,1,0,1]}]}
+		replaceitem entity @s hotbar.8 minecraft:written_book{author:"",title:"MENU",HideFlags:127,pages:['[{"translate":"text.menu.shortcut"},"\\n",[{"text":"0","font":"ui:menu","color":"white","clickEvent":{"action":"run_command","value":"/trigger command set 8"},"hoverEvent":{"action":"show_text","contents":[{"translate":"text.menu.shortcut.equip"}]}},{"text":"1","clickEvent":{"action":"run_command","value":"/trigger command set 9"},"hoverEvent":{"action":"show_text","contents":[{"translate":"text.menu.shortcut.stat"}]}},{"text":"2","clickEvent":{"action":"run_command","value":"/trigger command set 10"},"hoverEvent":{"action":"show_text","contents":[{"translate":"text.menu.shortcut.skill"}]}}],"\\n\\n",{"translate":"text.menu.sys_opt"},"\\n",[{"text":"3","font":"ui:menu","color":"white","clickEvent":{"action":"run_command","value":"/trigger command set 11"},"hoverEvent":{"action":"show_text","contents":[{"translate":"text.menu.sys_opt.hp_alert"}]}},{"text":"4","clickEvent":{"action":"run_command","value":"/trigger command set 12"},"hoverEvent":{"action":"show_text","contents":[{"translate":"text.menu.sys_opt.mp_alert"}]}},"\\n",{"text":"5","font":"ui:menu","color":"white","clickEvent":{"action":"run_command","value":"/trigger command set 11"},"hoverEvent":{"action":"show_text","contents":[{"translate":"text.menu.sys_opt.hp_alert"}]}},{"text":"6","clickEvent":{"action":"run_command","value":"/trigger command set 12"},"hoverEvent":{"action":"show_text","contents":[{"translate":"text.menu.sys_opt.mp_alert"}]}}]]']}
 		
 		team join player @s
 		
@@ -190,6 +191,21 @@ namespace main()
 		title @s times 1 5 10
 		title @s title {"text":"4","font":"ui:main"}
 		scoreboard players reset @s login
+	}
+	
+	folder settings()
+	{
+		func hp_alert()
+		{
+			scoreboard players enable @s hp_warning
+			tellraw @s ["\n",{"translate":"text.tip.hp_alert","clickEvent":{"action":"suggest_command","value":"/trigger hp_warning set 0"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.tip.copy_to_chat"}}}]
+		}
+		
+		func mp_alert()
+		{
+			scoreboard players enable @s mp_warning
+			tellraw @s ["\n",{"translate":"text.tip.mp_alert","clickEvent":{"action":"suggest_command","value":"/trigger mp_warning set 0"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.tip.copy_to_chat"}}}]
+		}
 	}
 	
 	folder town_revive()
