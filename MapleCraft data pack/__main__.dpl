@@ -233,12 +233,33 @@ namespace main()
 		}
 	}
 	
-	func reset_menu()
+	folder menu()
 	{
-		clear @s minecraft:written_book{menu:1b}
-		```
-		print(f"give @s {menu_book}")
-		```
+		func reset()
+		{
+			clear @s minecraft:written_book{menu:1b}
+			```
+			print(f"give @s {menu_book}")
+			```
+		}
+		
+		func equip()
+		{
+			tellraw @s {"text":"Not available yet.","color":"red"}
+			execute at @s run playsound minecraft:ui.menu_up player @s
+		}
+		
+		func stat()
+		{
+			function stat:window/display
+			execute at @s run playsound minecraft:ui.menu_up player @s
+		}
+		
+		func skill()
+		{
+			function skill:window/display
+			execute at @s run playsound minecraft:ui.menu_up player @s
+		}
 	}
 	
 	folder command()
@@ -246,7 +267,7 @@ namespace main()
 		func check()
 		{
 			execute if score @s command matches 1.. run function ARG(_PATH)search/run
-			execute if score @s command matches ..-1 run function ARG(__PATH)reset_menu
+			execute if score @s command matches ..-1 run function ARG(__PATH)menu/reset
 			
 			scoreboard players reset @s command
 			scoreboard players enable @s command
