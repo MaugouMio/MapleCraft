@@ -892,6 +892,7 @@ namespace skill()
 		scoreboard objectives add base_model dummy
 		scoreboard objectives add status dummy
 		scoreboard objectives add motion_x dummy
+		scoreboard objectives add motion_y dummy
 		scoreboard objectives add motion_z dummy
 		
 		scoreboard objectives add level dummy
@@ -1037,10 +1038,22 @@ namespace skill()
 				func run()
 				{
 					scoreboard players set #GLOBAL temp 0
-					execute if data entity @s {OnGround:0b} run scoreboard players set #GLOBAL temp 3
+					execute if data entity @s {OnGround:0b} run function ARG(_PATH)check_jump
 					execute if score #GLOBAL temp matches 0 run function ARG(_PATH)check_motion
 					
 					execute unless score @s status = #GLOBAL temp run function ARG(_PATH)change
+				}
+				
+				func check_jump()
+				{
+					execute if entity @s[tag=no_jump] run function ARG(_PATH)prevent_jump
+					scoreboard players set #GLOBAL temp 3
+				}
+				
+				func prevent_jump()
+				{
+					execute store result score @s motion_y run data get entity @s Motion[1] 100
+					execute if score @s motion_y matches 1.. run data modify entity @s Motion[1] set value -1.0
 				}
 				
 				func check_motion()
@@ -1052,8 +1065,8 @@ namespace skill()
 				
 				func change()
 				{
-					execute store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players operation #GLOBAL temp += @s base_model
 					scoreboard players operation @s status = #GLOBAL temp
+					execute store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players operation #GLOBAL temp += @s base_model
 				}
 				
 				folder color()
