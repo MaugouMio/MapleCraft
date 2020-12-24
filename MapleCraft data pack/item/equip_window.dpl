@@ -31,7 +31,7 @@ namespace equip_window() as virtual
 		tellraw @s [{"text":"\uE00B","font":"ui:window/equip"}]
 		
 		# projectile
-		# function ARG(_PATH)projectile/add
+		function ARG(_PATH)projectile/add
 		tellraw @s [{"text":"\uE00C","font":"ui:window/equip"}]
 		tellraw @s [{"text":"\uE00D","font":"ui:window/equip"}]
 		
@@ -42,5 +42,13 @@ namespace equip_window() as virtual
 		
 		# tail
 		tellraw @s {"text":"\uE010\n\uE011","font":"ui:window/equip"}
+	}
+	
+	folder projectile()
+	{
+		func add()
+		{
+			
+		}
 	}
 }
