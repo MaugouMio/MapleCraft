@@ -150,3 +150,4 @@
 150,if score @s[tag=bandit] skill_point matches 1.. if score @s 4201004_level matches ..29 if score @s 4101004_level matches 5.. run function skill:4/2/0/1004/levels/add
 151,if score @s 4201005_level matches 1.. run function skill:4/2/0/1005/get
 152,if score @s[tag=bandit] skill_point matches 1.. if score @s 4201005_level matches ..29 run function skill:4/2/0/1005/levels/add
+153,run function main:menu/key_reset/attack
