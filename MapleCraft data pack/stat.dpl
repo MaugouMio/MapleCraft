@@ -46,6 +46,10 @@ namespace stat()
 			execute if entity @s[tag=archer] run function ARG(_PATH)update_hp_mp/archer
 			execute if entity @s[tag=thief] run function ARG(_PATH)update_hp_mp/archer
 			execute if entity @s[tag=!warrior,tag=!magician,tag=!archer,tag=!thief] run function ARG(_PATH)update_hp_mp/beginner
+			# int contribute to mp
+			scoreboard players operation #GLOBAL temp = @s INT
+			scoreboard players operation #GLOBAL temp /= #10 const
+			scoreboard players operation @s mp_max_base += #GLOBAL temp
 			
 			execute unless score @s hyper_buff_time matches 1.. run function ARG(_PATH)update_hp_mp/max
 			execute if score @s hyper_buff_time matches 1.. run function skill:1/3/0/1007/set_hp_mp
