@@ -246,7 +246,7 @@ namespace main()
 		
 		func equip()
 		{
-			tellraw @s {"text":"Not available yet.","color":"red"}
+			function item:equip_window/display
 			execute at @s run playsound minecraft:ui.menu_up player @s
 		}
 		

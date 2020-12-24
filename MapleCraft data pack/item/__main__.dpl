@@ -1,5 +1,6 @@
 import loop
 import random
+import equip_window as virtual
 
 namespace item()
 {
@@ -29,6 +30,8 @@ namespace item()
 		scoreboard objectives add equip_int dummy
 		scoreboard objectives add equip_luk dummy
 	}
+	
+	folder equip_window() from equip_window();
 	
 	folder loop()
 	{

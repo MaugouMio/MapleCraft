@@ -1,0 +1,46 @@
+namespace equip_window() as virtual
+{
+	func display()
+	{
+		# title
+		tellraw @s {"text":"\n\n\n\uE000\n\uE001","font":"ui:window/equip"}
+		
+		# cap
+		# function ARG(_PATH)cap/add
+		tellraw @s [{"text":"\uE002","font":"ui:window/equip"}]
+		tellraw @s [{"text":"\uE003","font":"ui:window/equip"}]
+		
+		# forehead and ring1 ring2
+		# function ARG(_PATH)second_line/add
+		tellraw @s [{"text":"\uE004","font":"ui:window/equip"}]
+		tellraw @s [{"text":"\uE005","font":"ui:window/equip"}]
+		
+		# face and ear
+		# function ARG(_PATH)third_line/add
+		tellraw @s [{"text":"\uE006","font":"ui:window/equip"}]
+		tellraw @s [{"text":"\uE007","font":"ui:window/equip"}]
+		
+		# cape, cloth, pendent, weapon, shield
+		# function ARG(_PATH)fourth_line/add
+		tellraw @s [{"text":"\uE008","font":"ui:window/equip"}]
+		tellraw @s [{"text":"\uE009","font":"ui:window/equip"}]
+		
+		# gloves, pants, shoes, ring3, ring4
+		# function ARG(_PATH)fifth_line/add
+		tellraw @s [{"text":"\uE00A","font":"ui:window/equip"}]
+		tellraw @s [{"text":"\uE00B","font":"ui:window/equip"}]
+		
+		# projectile
+		# function ARG(_PATH)projectile/add
+		tellraw @s [{"text":"\uE00C","font":"ui:window/equip"}]
+		tellraw @s [{"text":"\uE00D","font":"ui:window/equip"}]
+		
+		# taming mob
+		# function ARG(_PATH)taming_mob/add
+		tellraw @s [{"text":"\uE00E","font":"ui:window/equip"}]
+		tellraw @s [{"text":"\uE00F","font":"ui:window/equip"}]
+		
+		# tail
+		tellraw @s {"text":"\uE010\n\uE011","font":"ui:window/equip"}
+	}
+}
