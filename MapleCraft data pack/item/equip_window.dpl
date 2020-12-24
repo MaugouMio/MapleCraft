@@ -32,8 +32,8 @@ namespace equip_window() as virtual
 		
 		# projectile
 		function ARG(_PATH)projectile/add
-		tellraw @s [{"text":"\uE00C","font":"ui:window/equip"}]
-		tellraw @s [{"text":"\uE00D","font":"ui:window/equip"}]
+		tellraw @s [{"text":"\uE00C","font":"ui:window/equip"},{"text":"A6","font":"space:default"},{"nbt":"equip.projectile.icon[0]","storage":"ui:main","interpret":true}]
+		tellraw @s [{"text":"\uE00D","font":"ui:window/equip"},{"text":"A6","font":"space:default"},{"nbt":"equip.projectile.icon[1]","storage":"ui:main","interpret":true},{"text":"92","font":"space:default"},{"nbt":"equip.projectile.amount[0]","storage":"ui:main"},{"nbt":"equip.projectile.amount[1]","storage":"ui:main","font":"space:default"},{"nbt":"equip.projectile.amount[2]","storage":"ui:main"},{"nbt":"equip.projectile.amount[3]","storage":"ui:main","font":"space:default"},{"nbt":"equip.projectile.amount[4]","storage":"ui:main"},{"nbt":"equip.projectile.amount[5]","storage":"ui:main","font":"space:default"},{"nbt":"equip.projectile.amount[6]","storage":"ui:main"},{"nbt":"equip.projectile.amount[7]","storage":"ui:main","font":"space:default"}]
 		
 		# taming mob
 		# function ARG(_PATH)taming_mob/add
@@ -48,7 +48,60 @@ namespace equip_window() as virtual
 	{
 		func add()
 		{
+			execute if score @s bullet_amount matches 0 if score @s bullet_item matches 21.. run scoreboard players reset @s bullet_item
+			execute unless score @s bullet_item matches 1.. run data modify storage ui:main equip.projectile set value {icon:['""','""'],amount:[]}
+			execute if score @s bullet_item matches 1.. run function ARG(_PATH)check
+		}
+		
+		func check()
+		{
+			execute if score @s bullet_item matches ..20 run function ARG(_PATH)throwing_star
+			execute if score @s bullet_item matches 21..25 if score @s bullet_amount matches 1.. run function ARG(_PATH)arrow_bow
+			execute if score @s bullet_item matches 26..30 if score @s bullet_amount matches 1.. run function ARG(_PATH)arrow_crossbow
 			
+			data modify storage ui:main equip.projectile.amount set value []
+			scoreboard players operation #BULLET_AMOUNT temp = @s bullet_amount
+			function ARG(_PATH)prepend_number
+		}
+		
+		func prepend_number()
+		{
+			data modify storage ui:main equip.projectile.amount prepend value 1
+			data modify storage ui:main equip.projectile.amount prepend value 0
+			scoreboard players operation #GLOBAL temp = #BULLET_AMOUNT temp
+			execute store result storage ui:main equip.projectile.amount[0] int 1 run scoreboard players operation #GLOBAL temp %= #10 const
+			
+			scoreboard players operation #BULLET_AMOUNT temp /= #10 const
+			execute if score #BULLET_AMOUNT temp matches 1.. run function ARG(_PATH)prepend_number
+		}
+		
+		func throwing_star()
+		{
+			execute if score @s bullet_item matches 1 run data modify storage ui:main equip.projectile set value {icon:['"\\uA000"','"\\uA001"']}
+			execute if score @s bullet_item matches 2 run data modify storage ui:main equip.projectile set value {icon:['"\\uA002"','"\\uA003"']}
+			execute if score @s bullet_item matches 3 run data modify storage ui:main equip.projectile set value {icon:['"\\uA004"','"\\uA005"']}
+			execute if score @s bullet_item matches 4 run data modify storage ui:main equip.projectile set value {icon:['"\\uA006"','"\\uA007"']}
+			execute if score @s bullet_item matches 5 run data modify storage ui:main equip.projectile set value {icon:['"\\uA008"','"\\uA009"']}
+			execute if score @s bullet_item matches 6 run data modify storage ui:main equip.projectile set value {icon:['"\\uA00A"','"\\uA00B"']}
+			execute if score @s bullet_item matches 7 run data modify storage ui:main equip.projectile set value {icon:['"\\uA00C"','"\\uA00D"']}
+		}
+					
+		func arrow_bow()
+		{
+			execute if score @s bullet_item matches 21 run data modify storage ui:main equip.projectile set value {icon:['"\\uA020"','"\\uA021"']}
+			execute if score @s bullet_item matches 22 run data modify storage ui:main equip.projectile set value {icon:['"\\uA022"','"\\uA023"']}
+			execute if score @s bullet_item matches 23 run data modify storage ui:main equip.projectile set value {icon:['"\\uA024"','"\\uA025"']}
+			execute if score @s bullet_item matches 24 run data modify storage ui:main equip.projectile set value {icon:['"\\uA026"','"\\uA027"']}
+			execute if score @s bullet_item matches 25 run data modify storage ui:main equip.projectile set value {icon:['"\\uA028"','"\\uA029"']}
+		}
+		
+		func arrow_crossbow()
+		{
+			execute if score @s bullet_item matches 26 run data modify storage ui:main equip.projectile set value {icon:['"\\uA02A"','"\\uA02B"']}
+			execute if score @s bullet_item matches 27 run data modify storage ui:main equip.projectile set value {icon:['"\\uA02C"','"\\uA02D"']}
+			execute if score @s bullet_item matches 28 run data modify storage ui:main equip.projectile set value {icon:['"\\uA02E"','"\\uA02F"']}
+			execute if score @s bullet_item matches 29 run data modify storage ui:main equip.projectile set value {icon:['"\\uA030"','"\\uA031"']}
+			execute if score @s bullet_item matches 30 run data modify storage ui:main equip.projectile set value {icon:['"\\uA032"','"\\uA033"']}
 		}
 	}
 }
