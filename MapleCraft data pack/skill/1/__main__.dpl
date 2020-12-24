@@ -47,10 +47,10 @@ namespace 1() as virtual
 					
 					func check()
 					{
-						```
-						for i in range(1, 17):
-							print(f"execute if score @s 1000000_level matches {i} run scoreboard players set @s hp_recovery {i*3+10 + (i-1)//15*2}")
-						```
+						scoreboard players operation @s hp_recovery = @s 1000000_level
+						scoreboard players operation @s hp_recovery *= #3 const
+						scoreboard players add @s hp_recovery 10
+						scoreboard players add @s[scores={1000000_level=16}] hp_recovery 2
 					}
 					
 					func set_description()
@@ -97,10 +97,9 @@ namespace 1() as virtual
 					
 					func check()
 					{
-						```
-						for i in range(1, 11):
-							print(f"execute if score @s 1000001_level matches {i} run function ARG(_PATH){i}")
-						```
+						execute store result score @s addi_hp_point run scoreboard players operation @s addi_hp_level = @s 1000001_level
+						scoreboard players operation @s addi_hp_level *= #4 const
+						scoreboard players operation @s addi_hp_point *= #3 const
 					}
 					
 					func set_description()

@@ -95,10 +95,8 @@ namespace 2() as virtual
 					
 					func check()
 					{
-						```
-						for i in range(1, 11):
-							print(f"execute if score @s 2000001_level matches {i} run function ARG(_PATH){i}")
-						```
+						execute store result score @s addi_mp_level run scoreboard players operation @s addi_mp_point = @s 2000001_level
+						scoreboard players operation @s addi_mp_level *= #2 const
 					}
 					
 					func set_description()

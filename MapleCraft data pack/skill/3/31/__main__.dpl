@@ -121,10 +121,10 @@ namespace 31() as virtual
 				
 				func check()
 				{
-					```
-					for i in range(1, 31):
-						print(f"execute if score @s 3100001_level matches {i} run function ARG(_PATH){i}")
-					```
+					execute store result score @s bow_final_atk run scoreboard players operation @s bow_final_rate = @s 3100001_level
+					scoreboard players operation @s bow_final_atk *= #5 const
+					scoreboard players add @s bow_final_atk 100
+					scoreboard players operation @s bow_final_rate *= #2 const
 				}
 				
 				func set_description()
@@ -155,16 +155,6 @@ namespace 31() as virtual
 					execute store result score @s bow_final_atk run data get storage ui:main temp[2]
 					execute if score @s 3100001_level matches 1.. run data modify block 0 0 0 Text1 set value '["\\n",{"nbt":"Text1","block":"0 0 0","interpret":true}]'
 				}
-			```
-			for i in range(30):
-				print(f'''
-				func {i+1}()
-				{{
-					scoreboard players set @s bow_final_atk {i*5+105}
-					scoreboard players set @s bow_final_rate {i*2+2}
-				}}
-				''')
-			```
 			}
 		}
 		
@@ -371,10 +361,10 @@ namespace 31() as virtual
 				
 				func check()
 				{
-					```
-					for i in range(1, 21):
-						print(f"execute if score @s 3101004_level matches {i} run function ARG(_PATH){i}")
-					```
+					scoreboard players set @s 3101004_mp 15
+					scoreboard players add @s[scores={3101004_level=11..}] 3101004_mp 5
+					scoreboard players operation @s 3101004_time = @s 3101004_level
+					scoreboard players operation @s 3101004_time *= #30 const
 				}
 				
 				func set_description()
@@ -405,16 +395,6 @@ namespace 31() as virtual
 					execute store result score @s 3101004_time run data get storage ui:main temp[2]
 					execute if score @s 3101004_level matches 1.. run data modify block 0 0 0 Text1 set value '["\\n",{"nbt":"Text1","block":"0 0 0","interpret":true}]'
 				}
-			```
-			for i in range(20):
-				print(f'''
-				func {i+1}()
-				{{
-					scoreboard players set @s 3101004_mp {i//10*5+15}
-					scoreboard players set @s 3101004_time {i*30+30}
-				}}
-				''')
-			```
 			}
 			
 			func get()
@@ -755,10 +735,15 @@ namespace 31() as virtual
 				
 				func check()
 				{
-					```
-					for i in range(1, 31):
-						print(f"execute if score @s 3101005_level matches {i} run function ARG(_PATH){i}")
-					```
+					scoreboard players set @s 3101005_mp 14
+					scoreboard players add @s[scores={3101005_level=16..}] 3101005_mp 14
+					execute store result score @s 3101005_attack run scoreboard players operation @s 3101005_stun = @s 3101005_level
+					scoreboard players operation @s 3101005_attack *= #2 const
+					scoreboard players add @s 3101005_attack 70
+					scoreboard players add @s 3101005_stun 30
+					scoreboard players set @s 3101005_time 40
+					scoreboard players add @s[scores={3101005_level=11..}] 3101005_time 40
+					scoreboard players add @s[scores={3101005_level=21..}] 3101005_time 40
 				}
 				
 				func set_description()
@@ -794,18 +779,6 @@ namespace 31() as virtual
 					execute store result score @s 3101005_time run data get storage ui:main temp[8]
 					execute if score @s 3101005_level matches 1.. run data modify block 0 0 0 Text1 set value '["\\n",{"nbt":"Text1","block":"0 0 0","interpret":true}]'
 				}
-			```
-			for i in range(30):
-				print(f'''
-				func {i+1}()
-				{{
-					scoreboard players set @s 3101005_mp {i//15*14+14}
-					scoreboard players set @s 3101005_attack {i*2+72}
-					scoreboard players set @s 3101005_stun {i+31}
-					scoreboard players set @s 3101005_time {i//10*40+40}
-				}}
-				''')
-			```
 			}
 			
 			func get()

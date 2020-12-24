@@ -113,10 +113,10 @@ namespace 12() as virtual
 				
 				func check()
 				{
-					```
-					for i in range(1, 31):
-						print(f"execute if score @s 1200003_level matches {i} run function ARG(_PATH){i}")
-					```
+					execute store result score @s blunt_final_atk run scoreboard players operation @s blunt_final_rate = @s 1200003_level
+					scoreboard players operation @s blunt_final_atk *= #5 const
+					scoreboard players add @s blunt_final_atk 100
+					scoreboard players operation @s blunt_final_rate *= #2 const
 				}
 				
 				func set_description()
@@ -147,16 +147,6 @@ namespace 12() as virtual
 					execute store result score @s blunt_final_atk run data get storage ui:main temp[2]
 					execute if score @s 1200003_level matches 1.. run data modify block 0 0 0 Text1 set value '["\\n",{"nbt":"Text1","block":"0 0 0","interpret":true}]'
 				}
-			```
-			for i in range(30):
-				print(f'''
-				func {i+1}()
-				{{
-					scoreboard players set @s blunt_final_atk {i*5+105}
-					scoreboard players set @s blunt_final_rate {i*2+2}
-				}}
-				''')
-			```
 			}
 		}
 		
@@ -230,10 +220,10 @@ namespace 12() as virtual
 				
 				func check()
 				{
-					```
-					for i in range(1, 21):
-						print(f"execute if score @s 1201006_level matches {i} run function ARG(_PATH){i}")
-					```
+					scoreboard players set @s 1201006_mp 12
+					scoreboard players add @s[scores={1201006_level=11..}] 1201006_mp 8
+					scoreboard players operation @s 1201006_time = @s 1201006_level
+					scoreboard players operation @s 1201006_time *= #6 const
 				}
 				
 				func set_description()
@@ -264,16 +254,6 @@ namespace 12() as virtual
 					execute store result score @s 1201006_time run data get storage ui:main temp[2]
 					execute if score @s 1201006_level matches 1.. run data modify block 0 0 0 Text1 set value '["\\n",{"nbt":"Text1","block":"0 0 0","interpret":true}]'
 				}
-			```
-			for i in range(20):
-				print(f'''
-				func {i+1}()
-				{{
-					scoreboard players set @s 1201006_mp {i//10*8+12}
-					scoreboard players set @s 1201006_time {i*4+44}
-				}}
-				''')
-			```
 			}
 			
 			func get()

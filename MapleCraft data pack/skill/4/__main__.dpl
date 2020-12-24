@@ -42,16 +42,8 @@ namespace 4() as virtual
 					func add()
 					{
 						scoreboard players add @s 4000000_level 1
-						function ARG(_PATH)check
+						execute store result score @s base_accuracy run scoreboard players operation @s base_avoid = @s 4000000_level
 						function skill:window/after_addition
-					}
-					
-					func check()
-					{
-						```
-						for i in range(1, 21):
-							print(f"execute if score @s 4000000_level matches {i} run function ARG(_PATH){i}")
-						```
 					}
 					
 					func set_description()
@@ -74,16 +66,6 @@ namespace 4() as virtual
 						scoreboard players remove @s 4000000_level 1
 						execute if score @s 4000000_level matches 1.. run data modify block 0 0 0 Text1 set value '["\\n",{"nbt":"Text1","block":"0 0 0","interpret":true}]'
 					}
-				```
-				for i in range(20):
-					print(f'''
-					func {i+1}()
-					{{
-						scoreboard players set @s base_accuracy {i+1}
-						scoreboard players set @s base_avoid {i+1}
-					}}
-					''')
-				```
 				}
 			}
 			
@@ -100,10 +82,9 @@ namespace 4() as virtual
 					
 					func check()
 					{
-						```
-						for i in range(1, 9):
-							print(f"execute if score @s 4000001_level matches {i} run scoreboard players set @s keen_eyes_dist {i//2+10}")
-						```
+						scoreboard players operation @s keen_eyes_dist = @s 4000001_level
+						scoreboard players operation @s keen_eyes_dist /= #2 const
+						scoreboard players add @s keen_eyes_dist 10
 					}
 					
 					func set_description()

@@ -108,10 +108,10 @@ namespace 32() as virtual
 				
 				func check()
 				{
-					```
-					for i in range(1, 31):
-						print(f"execute if score @s 3200001_level matches {i} run function ARG(_PATH){i}")
-					```
+					execute store result score @s cbow_final_atk run scoreboard players operation @s cbow_final_rate = @s 3200001_level
+					scoreboard players operation @s cbow_final_atk *= #5 const
+					scoreboard players add @s cbow_final_atk 100
+					scoreboard players operation @s cbow_final_rate *= #2 const
 				}
 				
 				func set_description()
@@ -142,16 +142,6 @@ namespace 32() as virtual
 					execute store result score @s cbow_final_atk run data get storage ui:main temp[2]
 					execute if score @s 3200001_level matches 1.. run data modify block 0 0 0 Text1 set value '["\\n",{"nbt":"Text1","block":"0 0 0","interpret":true}]'
 				}
-			```
-			for i in range(30):
-				print(f'''
-				func {i+1}()
-				{{
-					scoreboard players set @s cbow_final_atk {i*5+105}
-					scoreboard players set @s cbow_final_rate {i*2+2}
-				}}
-				''')
-			```
 			}
 		}
 		
@@ -337,10 +327,12 @@ namespace 32() as virtual
 				
 				func check()
 				{
-					```
-					for i in range(1, 31):
-						print(f"execute if score @s 3201005_level matches {i} run function ARG(_PATH){i}")
-					```
+					execute store result score @s 3201005_mp run scoreboard players operation @s 3201005_attack = @s 3201005_level
+					scoreboard players remove @s 3201005_mp 1
+					scoreboard players operation @s 3201005_mp /= #5 const
+					scoreboard players add @s 3201005_mp 23
+					scoreboard players operation @s 3201005_attack *= #4 const
+					scoreboard players add @s 3201005_attack 60
 				}
 				
 				func set_description()
@@ -371,16 +363,6 @@ namespace 32() as virtual
 					execute store result score @s 3201005_attack run data get storage ui:main temp[2]
 					execute if score @s 3201005_level matches 1.. run data modify block 0 0 0 Text1 set value '["\\n",{"nbt":"Text1","block":"0 0 0","interpret":true}]'
 				}
-			```
-			for i in range(30):
-				print(f'''
-				func {i+1}()
-				{{
-					scoreboard players set @s 3201005_mp {i//5+23}
-					scoreboard players set @s 3201005_attack {i*4+64}
-				}}
-				''')
-			```
 			}
 			
 			func get()

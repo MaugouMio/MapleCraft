@@ -557,10 +557,10 @@ namespace booster_skill_template(skill_id, weapon, icon) as virtual
 		
 		func check()
 		{
-			```
-			for i in range(1, 21):
-				print(f"execute if score @s ARG(skill_id)_level matches {i} run function ARG(_PATH){i}")
-			```
+			scoreboard players operation @s ARG(skill_id)_time = @s ARG(skill_id)_level
+			scoreboard players operation @s ARG(skill_id)_time *= #10 const
+			scoreboard players set @s ARG(skill_id)_mp 30
+			scoreboard players operation @s ARG(skill_id)_mp -= @s ARG(skill_id)_level
 		}
 		
 		func set_description()
@@ -591,17 +591,6 @@ namespace booster_skill_template(skill_id, weapon, icon) as virtual
 			execute store result score @s ARG(skill_id)_time run data get storage ui:main temp[2]
 			execute if score @s ARG(skill_id)_level matches 1.. run data modify block 0 0 0 Text1 set value '["\\n",{"nbt":"Text1","block":"0 0 0","interpret":true}]'
 		}
-	```
-	for i in range(20):
-		print(f'''
-		func {i+1}()
-		{{
-			scoreboard players set @s ARG(skill_id)_level {i+1}
-			scoreboard players set @s ARG(skill_id)_mp {29-i}
-			scoreboard players set @s ARG(skill_id)_time {i*10+10}
-		}}
-		''')
-	```
 	}
 }
 
@@ -1305,7 +1294,114 @@ namespace skill()
 			for weapon in mastery_weapons:
 				print(f"scoreboard players set @s {weapon}_mastery 10")
 				print(f"scoreboard players set @s {weapon}_color 255")
+				print(f"scoreboard players set @s {weapon}_accuracy 0")
 			```
+		}
+	
+		func reset_all_skill()
+		{
+			scoreboard players reset @s 0001000_level
+			scoreboard players reset @s 0001001_level
+			scoreboard players reset @s 0001002_level
+			scoreboard players set @s hp_recovery 10
+			scoreboard players reset @s 1000000_level
+			scoreboard players set @s addi_hp_level 0
+			scoreboard players set @s addi_hp_point 0
+			scoreboard players reset @s 1000001_level
+			scoreboard players set @s hp_recover_time 10
+			scoreboard players reset @s 1000002_level
+			scoreboard players reset @s 1001003_level
+			scoreboard players reset @s 1001004_level
+			scoreboard players reset @s 1001005_level
+			scoreboard players set @s mp_recovery 3
+			scoreboard players reset @s 2000000_level
+			scoreboard players set @s addi_mp_level 0
+			scoreboard players set @s addi_mp_point 0
+			scoreboard players reset @s 2000001_level
+			scoreboard players reset @s 2001002_level
+			scoreboard players reset @s 2001003_level
+			scoreboard players reset @s 2001004_level
+			scoreboard players reset @s 2001005_level
+			scoreboard players set @s base_accuracy 0
+			scoreboard players reset @s 3000000_level
+			scoreboard players set @s crit_rate 0
+			scoreboard players set @s crit_damage 0
+			scoreboard players reset @s 3000001_level
+			scoreboard players set @s amazon_eyes_dist 0
+			scoreboard players reset @s 3000002_level
+			scoreboard players reset @s 3001003_level
+			scoreboard players reset @s 3001004_level
+			scoreboard players reset @s 3001005_level
+			scoreboard players set @s base_avoid 0
+			scoreboard players reset @s 4000000_level
+			scoreboard players set @s keen_eyes_dist 0
+			scoreboard players reset @s 4000001_level
+			scoreboard players reset @s 4001002_level
+			scoreboard players reset @s 4001003_level
+			scoreboard players reset @s 4001334_level
+			scoreboard players reset @s 4001344_level
+			
+			function ARG(_PATH)reset_mastery
+			scoreboard players reset @s 1100000_level
+			scoreboard players reset @s 1100001_level
+			scoreboard players set @s sword_final_rate 0
+			scoreboard players reset @s 1100002_level
+			scoreboard players set @s axe_final_rate 0
+			scoreboard players reset @s 1100003_level
+			scoreboard players reset @s 1101004_level
+			scoreboard players reset @s 1101005_level
+			scoreboard players reset @s 1101006_level
+			scoreboard players reset @s 1101007_level
+			scoreboard players reset @s 1200001_level
+			scoreboard players set @s blunt_final_rate 0
+			scoreboard players reset @s 1200003_level
+			scoreboard players reset @s 1201005_level
+			scoreboard players reset @s 1201006_level
+			scoreboard players reset @s 1300000_level
+			scoreboard players reset @s 1300001_level
+			scoreboard players set @s spear_final_rate 0
+			scoreboard players reset @s 1300002_level
+			scoreboard players set @s p_arm_final_rate 0
+			scoreboard players reset @s 1300003_level
+			scoreboard players reset @s 1301004_level
+			scoreboard players reset @s 1301005_level
+			scoreboard players reset @s 1301006_level
+			scoreboard players reset @s 1301007_level
+			scoreboard players set @s 2100000_rate 0
+			scoreboard players reset @s 2100000_level
+			scoreboard players reset @s 2101001_level
+			scoreboard players reset @s 2101002_level
+			scoreboard players reset @s 2101003_level
+			scoreboard players reset @s 2101004_level
+			scoreboard players reset @s 2101005_level
+			scoreboard players reset @s 2201004_level
+			scoreboard players reset @s 2201005_level
+			scoreboard players reset @s 2301002_level
+			scoreboard players reset @s 2301003_level
+			scoreboard players reset @s 2301004_level
+			scoreboard players reset @s 2301005_level
+			scoreboard players reset @s 3100000_level
+			scoreboard players set @s bow_final_rate 0
+			scoreboard players reset @s 3100001_level
+			scoreboard players reset @s 3101002_level
+			scoreboard players reset @s 3101003_level
+			scoreboard players reset @s 3101004_level
+			scoreboard players reset @s 3101005_level
+			scoreboard players reset @s 3200000_level
+			scoreboard players set @s cbow_final_rate 0
+			scoreboard players reset @s 3200001_level
+			scoreboard players reset @s 3201002_level
+			scoreboard players reset @s 3201005_level
+			scoreboard players reset @s 4100000_level
+			scoreboard players reset @s 4100001_level
+			scoreboard players reset @s 4100002_level
+			scoreboard players reset @s 4101003_level
+			scoreboard players reset @s 4101004_level
+			scoreboard players reset @s 4101005_level
+			scoreboard players reset @s 4200000_level
+			scoreboard players reset @s 4201002_level
+			scoreboard players reset @s 4201004_level
+			scoreboard players reset @s 4201005_level
 		}
 	}
 	
