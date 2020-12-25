@@ -32,8 +32,8 @@ namespace equip_window() as virtual
 		
 		# projectile
 		function ARG(_PATH)projectile/add
-		tellraw @s [{"text":"\uE00C","font":"ui:window/equip"},{"text":"A6","font":"space:default"},{"nbt":"equip.projectile.icon[0]","storage":"ui:main","interpret":true}]
-		tellraw @s [{"text":"\uE00D","font":"ui:window/equip"},{"text":"A6","font":"space:default"},{"nbt":"equip.projectile.icon[1]","storage":"ui:main","interpret":true},{"text":"92","font":"space:default"},{"nbt":"equip.projectile.amount[0]","storage":"ui:main"},{"nbt":"equip.projectile.amount[1]","storage":"ui:main","font":"space:default"},{"nbt":"equip.projectile.amount[2]","storage":"ui:main"},{"nbt":"equip.projectile.amount[3]","storage":"ui:main","font":"space:default"},{"nbt":"equip.projectile.amount[4]","storage":"ui:main"},{"nbt":"equip.projectile.amount[5]","storage":"ui:main","font":"space:default"},{"nbt":"equip.projectile.amount[6]","storage":"ui:main"},{"nbt":"equip.projectile.amount[7]","storage":"ui:main","font":"space:default"}]
+		tellraw @s [{"text":"\uF82A\uF829\uF822","font":"space:default"},{"nbt":"equip.projectile.event","storage":"ui:main","interpret":true},{"text":"B5"},[{"text":"\uE00C","font":"ui:window/equip"},{"text":"A6","font":"space:default"},{"nbt":"equip.projectile.icon[0]","storage":"ui:main","interpret":true}]]
+		tellraw @s [{"text":"\uF82A\uF829\uF822","font":"space:default"},{"nbt":"equip.projectile.event","storage":"ui:main","interpret":true},{"text":"B5"},[{"text":"\uE00D","font":"ui:window/equip"},{"text":"A6","font":"space:default"},{"nbt":"equip.projectile.icon[1]","storage":"ui:main","interpret":true},{"text":"92","font":"space:default"},{"nbt":"equip.projectile.amount[0]","storage":"ui:main"},{"nbt":"equip.projectile.amount[1]","storage":"ui:main","font":"space:default"},{"nbt":"equip.projectile.amount[2]","storage":"ui:main"},{"nbt":"equip.projectile.amount[3]","storage":"ui:main","font":"space:default"},{"nbt":"equip.projectile.amount[4]","storage":"ui:main"},{"nbt":"equip.projectile.amount[5]","storage":"ui:main","font":"space:default"},{"nbt":"equip.projectile.amount[6]","storage":"ui:main"},{"nbt":"equip.projectile.amount[7]","storage":"ui:main","font":"space:default"}]]
 		
 		# taming mob
 		# function ARG(_PATH)taming_mob/add
@@ -49,7 +49,7 @@ namespace equip_window() as virtual
 		func add()
 		{
 			execute if score @s bullet_amount matches 0 if score @s bullet_item matches 21.. run scoreboard players reset @s bullet_item
-			execute unless score @s bullet_item matches 1.. run data modify storage ui:main equip.projectile set value {icon:['""','""'],amount:[]}
+			execute unless score @s bullet_item matches 1.. run data modify storage ui:main equip.projectile set value {icon:['""','""'],amount:[],event:'{"text":"\\uF829\\uF822","font":"space:default"}'}
 			execute if score @s bullet_item matches 1.. run function ARG(_PATH)check
 		}
 		
@@ -75,33 +75,49 @@ namespace equip_window() as virtual
 			execute if score #BULLET_AMOUNT temp matches 1.. run function ARG(_PATH)prepend_number
 		}
 		
+		folder take_off()
+		{
+			func check()
+			{
+				execute if score @s bullet_amount matches 0 if score @s bullet_item matches 21.. run scoreboard players reset @s bullet_item
+				execute if score @s bullet_item matches 1.. run function ARG(_PATH)restore
+			}
+			
+			func restore()
+			{
+				playsound minecraft:item.equip player @s
+				function item:use/consume/weapon/restore/check
+				function item:equip_window/display
+			}
+		}
+		
 		func throwing_star()
 		{
-			execute if score @s bullet_item matches 1 run data modify storage ui:main equip.projectile set value {icon:['"\\uA000"','"\\uA001"']}
-			execute if score @s bullet_item matches 2 run data modify storage ui:main equip.projectile set value {icon:['"\\uA002"','"\\uA003"']}
-			execute if score @s bullet_item matches 3 run data modify storage ui:main equip.projectile set value {icon:['"\\uA004"','"\\uA005"']}
-			execute if score @s bullet_item matches 4 run data modify storage ui:main equip.projectile set value {icon:['"\\uA006"','"\\uA007"']}
-			execute if score @s bullet_item matches 5 run data modify storage ui:main equip.projectile set value {icon:['"\\uA008"','"\\uA009"']}
-			execute if score @s bullet_item matches 6 run data modify storage ui:main equip.projectile set value {icon:['"\\uA00A"','"\\uA00B"']}
-			execute if score @s bullet_item matches 7 run data modify storage ui:main equip.projectile set value {icon:['"\\uA00C"','"\\uA00D"']}
+			execute if score @s bullet_item matches 1 run data modify storage ui:main equip.projectile set value {icon:['"\\uA000"','"\\uA001"'],event:'{"text":"\\uF829\\uF822","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 154"},"hoverEvent":{"action":"show_text","contents":[{"translate":"item.consume.2070000","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["15"]}]}}'}
+			execute if score @s bullet_item matches 2 run data modify storage ui:main equip.projectile set value {icon:['"\\uA002"','"\\uA003"'],event:'{"text":"\\uF829\\uF822","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 154"},"hoverEvent":{"action":"show_text","contents":[{"translate":"item.consume.2070001","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["17"]}]}}'}
+			execute if score @s bullet_item matches 3 run data modify storage ui:main equip.projectile set value {icon:['"\\uA004"','"\\uA005"'],event:'{"text":"\\uF829\\uF822","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 154"},"hoverEvent":{"action":"show_text","contents":[{"translate":"item.consume.2070002","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["19"]}]}}'}
+			execute if score @s bullet_item matches 4 run data modify storage ui:main equip.projectile set value {icon:['"\\uA006"','"\\uA007"'],event:'{"text":"\\uF829\\uF822","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 154"},"hoverEvent":{"action":"show_text","contents":[{"translate":"item.consume.2070003","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["21"]}]}}'}
+			execute if score @s bullet_item matches 5 run data modify storage ui:main equip.projectile set value {icon:['"\\uA008"','"\\uA009"'],event:'{"text":"\\uF829\\uF822","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 154"},"hoverEvent":{"action":"show_text","contents":[{"translate":"item.consume.2070004","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["23"]}]}}'}
+			execute if score @s bullet_item matches 6 run data modify storage ui:main equip.projectile set value {icon:['"\\uA00A"','"\\uA00B"'],event:'{"text":"\\uF829\\uF822","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 154"},"hoverEvent":{"action":"show_text","contents":[{"translate":"item.consume.2070005","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["25"]}]}}'}
+			execute if score @s bullet_item matches 7 run data modify storage ui:main equip.projectile set value {icon:['"\\uA00C"','"\\uA00D"'],event:'{"text":"\\uF829\\uF822","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 154"},"hoverEvent":{"action":"show_text","contents":[{"translate":"item.consume.2070006","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["27"]}]}}'}
 		}
 					
 		func arrow_bow()
 		{
-			execute if score @s bullet_item matches 21 run data modify storage ui:main equip.projectile set value {icon:['"\\uA020"','"\\uA021"']}
-			execute if score @s bullet_item matches 22 run data modify storage ui:main equip.projectile set value {icon:['"\\uA022"','"\\uA023"']}
-			execute if score @s bullet_item matches 23 run data modify storage ui:main equip.projectile set value {icon:['"\\uA024"','"\\uA025"']}
-			execute if score @s bullet_item matches 24 run data modify storage ui:main equip.projectile set value {icon:['"\\uA026"','"\\uA027"']}
-			execute if score @s bullet_item matches 25 run data modify storage ui:main equip.projectile set value {icon:['"\\uA028"','"\\uA029"']}
+			execute if score @s bullet_item matches 21 run data modify storage ui:main equip.projectile set value {icon:['"\\uA020"','"\\uA021"'],event:'{"text":"\\uF829\\uF822","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 154"},"hoverEvent":{"action":"show_text","contents":{"translate":"item.consume.2060000","font":"minecraft:uniform","bold":true}}}'}
+			execute if score @s bullet_item matches 22 run data modify storage ui:main equip.projectile set value {icon:['"\\uA022"','"\\uA023"'],event:'{"text":"\\uF829\\uF822","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 154"},"hoverEvent":{"action":"show_text","contents":[{"translate":"item.consume.2060001","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["1"]}]}}'}
+			execute if score @s bullet_item matches 23 run data modify storage ui:main equip.projectile set value {icon:['"\\uA024"','"\\uA025"'],event:'{"text":"\\uF829\\uF822","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 154"},"hoverEvent":{"action":"show_text","contents":[{"translate":"item.consume.2060002","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["2"]}]}}'}
+			execute if score @s bullet_item matches 24 run data modify storage ui:main equip.projectile set value {icon:['"\\uA026"','"\\uA027"'],event:'{"text":"\\uF829\\uF822","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 154"},"hoverEvent":{"action":"show_text","contents":[{"translate":"item.consume.2060003","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["4"]}]}}'}
+			execute if score @s bullet_item matches 25 run data modify storage ui:main equip.projectile set value {icon:['"\\uA028"','"\\uA029"'],event:'{"text":"\\uF829\\uF822","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 154"},"hoverEvent":{"action":"show_text","contents":[{"translate":"item.consume.2060004","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["4"]}]}}'}
 		}
 		
 		func arrow_crossbow()
 		{
-			execute if score @s bullet_item matches 26 run data modify storage ui:main equip.projectile set value {icon:['"\\uA02A"','"\\uA02B"']}
-			execute if score @s bullet_item matches 27 run data modify storage ui:main equip.projectile set value {icon:['"\\uA02C"','"\\uA02D"']}
-			execute if score @s bullet_item matches 28 run data modify storage ui:main equip.projectile set value {icon:['"\\uA02E"','"\\uA02F"']}
-			execute if score @s bullet_item matches 29 run data modify storage ui:main equip.projectile set value {icon:['"\\uA030"','"\\uA031"']}
-			execute if score @s bullet_item matches 30 run data modify storage ui:main equip.projectile set value {icon:['"\\uA032"','"\\uA033"']}
+			execute if score @s bullet_item matches 26 run data modify storage ui:main equip.projectile set value {icon:['"\\uA02A"','"\\uA02B"'],event:'{"text":"\\uF829\\uF822","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 154"},"hoverEvent":{"action":"show_text","contents":{"translate":"item.consume.2061000","font":"minecraft:uniform","bold":true}}}'}
+			execute if score @s bullet_item matches 27 run data modify storage ui:main equip.projectile set value {icon:['"\\uA02C"','"\\uA02D"'],event:'{"text":"\\uF829\\uF822","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 154"},"hoverEvent":{"action":"show_text","contents":[{"translate":"item.consume.2061001","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["1"]}]}}'}
+			execute if score @s bullet_item matches 28 run data modify storage ui:main equip.projectile set value {icon:['"\\uA02E"','"\\uA02F"'],event:'{"text":"\\uF829\\uF822","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 154"},"hoverEvent":{"action":"show_text","contents":[{"translate":"item.consume.2061002","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["2"]}]}}'}
+			execute if score @s bullet_item matches 29 run data modify storage ui:main equip.projectile set value {icon:['"\\uA030"','"\\uA031"'],event:'{"text":"\\uF829\\uF822","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 154"},"hoverEvent":{"action":"show_text","contents":[{"translate":"item.consume.2061003","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["4"]}]}}'}
+			execute if score @s bullet_item matches 30 run data modify storage ui:main equip.projectile set value {icon:['"\\uA032"','"\\uA033"'],event:'{"text":"\\uF829\\uF822","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 154"},"hoverEvent":{"action":"show_text","contents":[{"translate":"item.consume.2061004","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["4"]}]}}'}
 		}
 	}
 }
