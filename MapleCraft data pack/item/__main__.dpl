@@ -429,7 +429,7 @@ namespace item()
 				func check()
 				{
 					execute store result score @s bullet_model run data get entity @s SelectedItem.tag.bullet_model
-					execute store result score @s bullet_damage run data get entity @s SelectedItem.tag.attack
+					execute store result score #GLOBAL bullet_damage run data get entity @s SelectedItem.tag.attack
 					execute store result score #GLOBAL bullet_amount run data get entity @s SelectedItem.tag.amount
 					tellraw @s {"translate":"item.notice.used_weapon","with":[{"nbt":"SelectedItem.tag.display.Name","entity":"@s","interpret":true},{"score":{"name":"#GLOBAL","objective":"bullet_amount"}}]}
 					
@@ -437,6 +437,7 @@ namespace item()
 					replaceitem entity @s weapon.mainhand minecraft:air
 					execute if score @s bullet_item matches 1.. run function ARG(_PATH)restore/check
 					
+					scoreboard players operation @s bullet_damage = #GLOBAL bullet_damage
 					scoreboard players operation @s bullet_amount = #GLOBAL bullet_amount
 					scoreboard players operation @s bullet_item = #USING_ITEM temp
 				}

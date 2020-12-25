@@ -1987,7 +1987,7 @@ namespace skill()
 			{
 				# weapon attack
 				scoreboard players operation #WEAPON_ATTACK temp = @s weapon_attack
-				scoreboard players operation #WEAPON_ATTACK temp += @s bullet_damage
+				execute if score @s bullet_item matches ..20 run scoreboard players operation #WEAPON_ATTACK temp += @s bullet_damage
 				scoreboard players operation #WEAPON_ATTACK temp += @s watk_buff_num
 				
 				scoreboard players operation #MAX_DAMAGE temp = @s LUK
@@ -2016,7 +2016,7 @@ namespace skill()
 			{
 				# weapon attack
 				scoreboard players operation #MAX_DAMAGE temp = @s weapon_attack
-				scoreboard players operation #MAX_DAMAGE temp += @s bullet_damage
+				execute if score @s bullet_item matches ..20 run scoreboard players operation #MAX_DAMAGE temp += @s bullet_damage
 				scoreboard players operation #MAX_DAMAGE temp += @s watk_buff_num
 				
 				scoreboard players operation #MAX_DAMAGE temp *= @s LUK
@@ -2154,7 +2154,7 @@ namespace skill()
 			{
 				# weapon attack
 				scoreboard players operation #WEAPON_ATTACK temp = @s weapon_attack
-				execute unless score #GLOBAL bullet_model matches 3001 run scoreboard players operation #WEAPON_ATTACK temp += @s bullet_damage
+				execute unless score #GLOBAL bullet_model matches 3001 if score @s bullet_item matches 21..25 run run scoreboard players operation #WEAPON_ATTACK temp += @s bullet_damage
 				scoreboard players operation #WEAPON_ATTACK temp += @s watk_buff_num
 				
 				scoreboard players operation #MAX_DAMAGE temp = @s DEX
@@ -2229,7 +2229,7 @@ namespace skill()
 			{
 				# weapon attack
 				scoreboard players operation #WEAPON_ATTACK temp = @s weapon_attack
-				execute unless score #GLOBAL bullet_model matches 3001 run scoreboard players operation #WEAPON_ATTACK temp += @s bullet_damage
+				execute unless score #GLOBAL bullet_model matches 3001 if score @s bullet_item matches 26..30 run scoreboard players operation #WEAPON_ATTACK temp += @s bullet_damage
 				scoreboard players operation #WEAPON_ATTACK temp += @s watk_buff_num
 				
 				scoreboard players operation #MAX_DAMAGE temp = @s DEX

@@ -247,6 +247,7 @@ namespace stat()
 		func display()
 		{
 			function ARG(_PATH)add_trigger
+			scoreboard players reset #GLOBAL bullet_model
 			function ARG(_PATH)get_attack_range/run
 			
 			# title
