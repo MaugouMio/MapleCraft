@@ -152,4 +152,4 @@
 152,if score @s[tag=bandit] skill_point matches 1.. if score @s 4201005_level matches ..29 run function skill:4/2/0/1005/levels/add
 153,run function main:menu/key_reset/attack
 154,run function item:equip_window/projectile/take_off/check
-155,
+155,if score @s weapon_type matches 1.. run function item:equip_window/fourth_line/weapon/take_off
