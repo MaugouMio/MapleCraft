@@ -260,8 +260,9 @@ namespace stat()
 			# hp and attack
 			execute if score @s watk_buff_num matches 1.. run data modify storage ui:main attack_format set value '{"text":"","color":"#ff0000","font":"ui:window/stat"}'
 			execute unless score @s watk_buff_num matches 1.. run data modify storage ui:main attack_format set value '{"text":"","color":"black","font":"ui:window/stat"}'
-			
-			tellraw @s [{"nbt":"add_buttons[0]","storage":"ui:main","interpret":true},{"text":",","font":"ui:window/stat"},{"nbt":"add_buttons[-1]","storage":"ui:main","interpret":true},{"text":"A94","font":"space:default"},[{"score":{"objective":"hp","name":"@s"},"font":"ui:window/stat","color":"black"},"_/_",{"score":{"objective":"hp_max","name":"@s"}}],[{"score":{"objective":"hp","name":"@s"},"font":"ui:window/stat_back"},{"score":{"objective":"hp_max","name":"@s"}}],{"text":"\uF82A\uF829\uF824","font":"space:default"},{"text":"`","font":"ui:window/stat"},{"text":"A93","font":"space:default"},[{"nbt":"attack_format","storage":"ui:main","interpret":true},{"score":{"objective":"temp","name":"#MIN_DAMAGE"}},"_~_",{"score":{"objective":"temp","name":"#MAX_DAMAGE"}}]]
+			execute if score @s weapon_type matches 2.. run data modify storage ui:main attack_display set value '[{"score":{"objective":"temp","name":"#MIN_DAMAGE"}},"_~_",{"score":{"objective":"temp","name":"#MAX_DAMAGE"}}]'
+			execute unless score @s weapon_type matches 2.. run data modify storage ui:main attack_display set value '{"score":{"objective":"temp","name":"#MIN_DAMAGE"}}'
+			tellraw @s [{"nbt":"add_buttons[0]","storage":"ui:main","interpret":true},{"text":",","font":"ui:window/stat"},{"nbt":"add_buttons[-1]","storage":"ui:main","interpret":true},{"text":"A94","font":"space:default"},[{"score":{"objective":"hp","name":"@s"},"font":"ui:window/stat","color":"black"},"_/_",{"score":{"objective":"hp_max","name":"@s"}}],[{"score":{"objective":"hp","name":"@s"},"font":"ui:window/stat_back"},{"score":{"objective":"hp_max","name":"@s"}}],{"text":"\uF82A\uF829\uF824","font":"space:default"},{"text":"`","font":"ui:window/stat"},{"text":"A93","font":"space:default"},[{"nbt":"attack_format","storage":"ui:main","interpret":true},{"nbt":"attack_display","storage":"ui:main","interpret":true}]]
 			# mp and wdef
 			execute if score @s wdef_buff_num matches ..10000 run function ARG(_PATH)mp_wdef_buff/check
 			execute unless score @s wdef_buff_num matches ..10000 run tellraw @s [{"nbt":"add_buttons[1]","storage":"ui:main","interpret":true},{"text":".","font":"ui:window/stat"},{"nbt":"add_buttons[-1]","storage":"ui:main","interpret":true},{"text":"A94","font":"space:default"},[{"score":{"objective":"mp","name":"@s"},"font":"ui:window/stat","color":"black"},"_/_",{"score":{"objective":"mp_max","name":"@s"}}],[{"score":{"objective":"mp","name":"@s"},"font":"ui:window/stat_back"},{"score":{"objective":"mp_max","name":"@s"}}],{"text":"\uF82A\uF829\uF824","font":"space:default"},[{"text":"{","font":"ui:window/stat"},{"text":"A93","font":"space:default"},{"score":{"objective":"weapon_defense","name":"@s"},"color":"black"}]]
@@ -524,8 +525,15 @@ namespace stat()
 		{
 			func run()
 			{
+				execute unless score @s weapon_type matches 2.. run function ARG(_PATH)none
 				execute if score @s weapon_type matches ..10 run function ARG(_PATH)2_10
 				execute if score @s weapon_type matches 12.. run function ARG(_PATH)12_24
+			}
+			
+			func none()
+			{
+				scoreboard players set #MIN_DAMAGE temp 0
+				function skill:damage_formula/accuracy/job_check
 			}
 			
 			func 2_10()

@@ -105,6 +105,9 @@ namespace equip_window() as virtual
 		
 			func take_off()
 			{
+				# clear display weapon
+				clear @s diamond_axe
+				
 				execute at @s run playsound minecraft:item.equip player @s
 				function item:use/weapon/remove
 				function item:equip_window/display
