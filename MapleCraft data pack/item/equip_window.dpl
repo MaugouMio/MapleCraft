@@ -21,9 +21,9 @@ namespace equip_window() as virtual
 		tellraw @s [{"text":"\uE007","font":"ui:window/equip"}]
 		
 		# cape, cloth, pendent, weapon, shield
-		# function ARG(_PATH)fourth_line/add
-		tellraw @s [{"text":"\uE008","font":"ui:window/equip"}]
-		tellraw @s [{"text":"\uE009","font":"ui:window/equip"}]
+		function ARG(_PATH)fourth_line/add
+		tellraw @s [{"text":"\uF822","font":"space:default"},{"nbt":"equip.cape.event","storage":"ui:main","interpret":true},"\uF821",{"nbt":"equip.cloth.event","storage":"ui:main","interpret":true},{"nbt":"equip.pendent.event","storage":"ui:main","interpret":true},"\uF821",{"nbt":"equip.weapon.event","storage":"ui:main","interpret":true},{"nbt":"equip.shield.event","storage":"ui:main","interpret":true},"B94",{"text":"\uE008","font":"ui:window/equip"},"B86",[{"nbt":"equip.cape.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.cape.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.cape.icon[0]","storage":"ui:main","interpret":true}],"\uF829\uF821",[{"nbt":"equip.cloth.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.cloth.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.cloth.icon[0]","storage":"ui:main","interpret":true}],"\uF829\uF821",[{"nbt":"equip.pendent.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.pendent.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.pendent.icon[0]","storage":"ui:main","interpret":true}],"\uF829",[{"nbt":"equip.weapon.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.weapon.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.weapon.icon[0]","storage":"ui:main","interpret":true}],"\uF829",[{"nbt":"equip.shield.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.shield.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"}]]
+		tellraw @s [{"text":"\uF822","font":"space:default"},{"nbt":"equip.cape.event","storage":"ui:main","interpret":true},"\uF821",{"nbt":"equip.cloth.event","storage":"ui:main","interpret":true},{"nbt":"equip.pendent.event","storage":"ui:main","interpret":true},"\uF821",{"nbt":"equip.weapon.event","storage":"ui:main","interpret":true},{"nbt":"equip.shield.event","storage":"ui:main","interpret":true},"B94",{"text":"\uE009","font":"ui:window/equip"},"B86",[{"nbt":"equip.cape.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.cape.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.cape.icon[0]","storage":"ui:main","interpret":true}],"\uF829\uF821",[{"nbt":"equip.cloth.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.cloth.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.cloth.icon[0]","storage":"ui:main","interpret":true}],"\uF829\uF821",[{"nbt":"equip.pendent.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.pendent.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.pendent.icon[0]","storage":"ui:main","interpret":true}],"\uF829",[{"nbt":"equip.weapon.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.weapon.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.weapon.icon[0]","storage":"ui:main","interpret":true}],"\uF829",[{"nbt":"equip.shield.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.shield.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"}]]
 		
 		# gloves, pants, shoes, ring3, ring4
 		# function ARG(_PATH)fifth_line/add
@@ -42,6 +42,75 @@ namespace equip_window() as virtual
 		
 		# tail
 		tellraw @s {"text":"\uE010\n\uE011","font":"ui:window/equip"}
+	}
+	
+	folder fourth_line()
+	{
+		func add()
+		{
+			function ARG(_PATH)cape/add
+			function ARG(_PATH)cloth/add
+			function ARG(_PATH)pendent/add
+			function ARG(_PATH)weapon/add
+			function ARG(_PATH)shield/add
+		}
+		
+		folder cape()
+		{
+			func add()
+			{
+				data modify storage ui:main equip.cape set value {icon:['""','""'],event:'{"text":"\\uF829","font":"space:default"}'}
+			}
+		}
+		
+		folder cloth()
+		{
+			func add()
+			{
+				data modify storage ui:main equip.cloth set value {icon:['""','""'],event:'{"text":"\\uF829","font":"space:default"}'}
+			}
+		}
+		
+		folder pendent()
+		{
+			func add()
+			{
+				data modify storage ui:main equip.pendent set value {icon:['""','""'],event:'{"text":"\\uF829","font":"space:default"}'}
+			}
+		}
+		
+		folder weapon()
+		{
+			func add()
+			{
+				execute unless score @s weapon_type matches 1.. run data modify storage ui:main equip.weapon set value {icon:['""','""'],event:'{"text":"\\uF829","font":"space:default"}'}
+				execute if score @s weapon_type matches 1.. run function ARG(_PATH)set
+			}
+			
+			func set()
+			{
+				data modify storage ui:main equip.weapon set from entity @s Inventory[{Slot:103b}].tag.weapon
+				data modify block 0 0 0 Text1 set value '["",{"nbt":"equip.weapon.display.Name","storage":"ui:main","interpret":true}]'
+				function ARG(_PATH)set_display
+				data modify block 0 0 0 Text1 set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 155"},"hoverEvent":{"action":"show_text","contents":{"nbt":"Text1","block":"0 0 0","interpret":true}}}'
+				data modify storage ui:main equip.weapon.event set from block 0 0 0 Text1
+			}
+			
+			func set_display()
+			{
+				data modify block 0 0 0 Text1 set value '[{"nbt":"Text1","block":"0 0 0","interpret":true},"\\n",{"nbt":"equip.weapon.display.Lore[0]","storage":"ui:main","interpret":true}]'
+				data remove storage ui:main equip.weapon.display.Lore[0]
+				execute if data storage ui:main equip.weapon.display.Lore[0] run function ARG(_PATH)set_display
+			}
+		}
+		
+		folder shield()
+		{
+			func add()
+			{
+				data modify storage ui:main equip.shield set value {icon:['""','""'],event:'{"text":"\\uF829","font":"space:default"}'}
+			}
+		}
 	}
 	
 	folder projectile()
