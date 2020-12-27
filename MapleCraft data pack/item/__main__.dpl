@@ -148,7 +148,7 @@ namespace item()
 		{
 			execute store result score #USING_ITEM temp run data get entity @s[nbt={SelectedItem:{id:"minecraft:warped_fungus_on_a_stick"}}] SelectedItem.tag.CustomModelData
 			
-			execute if score #USING_ITEM temp matches ..499 run function ARG(_PATH)consume/check
+			execute if score #USING_ITEM temp matches ..999 run function ARG(_PATH)consume/check
 			execute if score #USING_ITEM temp matches 10001.. unless score @s action_time matches 1.. run function ARG(_PATH)weapon/check
 			
 			scoreboard players reset @s right_click_item
@@ -316,7 +316,7 @@ namespace item()
 				data modify block 0 1 0 Items[0].tag set from entity @s Inventory[{Slot:103b}].tag
 				data modify block 0 1 0 Items[0].tag.weapon set from storage item:main equip
 				
-				execute store result score @s weapon_type run data get storage item:main equip.weapon_type
+				execute store result score @s weapon_type run data get storage item:main equip.equip_type
 				execute store result score @s weapon_attack run data get storage item:main equip.weapon_attack
 				execute store result score @s weapon_mattack run data get storage item:main equip.magic_attack
 				execute store result score @s weapon_speed run data get storage item:main equip.action_time
@@ -344,7 +344,45 @@ namespace item()
 			func check()
 			{
 				execute if score #USING_ITEM temp matches ..30 unless score @s action_time matches 1.. run function ARG(_PATH)weapon/check
-				execute if score #USING_ITEM temp matches 100.. unless score @s invis_buff_time matches 1.. run function ARG(_PATH)potion/check
+				execute if score #USING_ITEM temp matches 100..499 unless score @s invis_buff_time matches 1.. run function ARG(_PATH)potion/check
+				execute if score #USING_ITEM temp matches 500.. unless score @s invis_buff_time matches 1.. run function ARG(_PATH)scroll/check
+			}
+			
+			folder scroll()
+			{
+				func check()
+				{
+					execute store result score #EQUIP_TYPE temp run data get entity @s Inventory[{Slot:-106b,id:"minecraft:warped_fungus_on_a_stick"}].tag.equip_type
+					execute store result score #SCROLL_TYPE temp run data get entity @s SelectedItem.tag.equip_type
+					execute if score #SCROLL_TYPE temp matches ..-1 run function ARG(_PATH)left_check
+					execute if score #EQUIP_TYPE temp = #SCROLL_TYPE temp run function ARG(_PATH)left_check
+				}
+				
+				func left_check()
+				{
+					execute store result score #SCROLL_LEFT temp run data get entity @s Inventory[{Slot:-106b}].tag.scroll_left
+					execute if score #SCROLL_LEFT temp matches 1.. at @s run function ARG(_PATH)set_chance
+				}
+				
+				func set_chance()
+				{
+					execute store result score #SCROLL_CHANCE temp run data get entity @s SelectedItem.tag.chance
+					function main:rand_rate
+					execute if score #RAND_RESULT temp < #SCROLL_CHANCE temp run function ARG(_PATH)success
+					execute unless score #RAND_RESULT temp < #SCROLL_CHANCE temp run function ARG(_PATH)fail
+				}
+				
+				func success()
+				{
+					execute positioned ~ ~1.7 ~ run function skill:summon_font_effect/0000000enchant_success
+					playsound minecraft:game.enchant_success player @a ~ ~ ~ 1 1 0
+				}
+				
+				func fail()
+				{
+					execute positioned ~ ~1.7 ~ run function skill:summon_font_effect/0000000enchant_fail
+					playsound minecraft:game.enchant_fail player @a ~ ~ ~ 1 1 0
+				}
 			}
 			
 			folder potion()
