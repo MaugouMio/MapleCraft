@@ -6,19 +6,19 @@ namespace equip_window() as virtual
 		tellraw @s {"text":"\n\n\n\uE000\n\uE001","font":"ui:window/equip"}
 		
 		# cap
-		# function ARG(_PATH)cap/add
-		tellraw @s [{"text":"\uE002","font":"ui:window/equip"}]
-		tellraw @s [{"text":"\uE003","font":"ui:window/equip"}]
+		function ARG(_PATH)cap/add
+		tellraw @s [{"text":"\uF829\uF823","font":"space:default"},{"nbt":"equip.cap.event","storage":"ui:main","interpret":true},"A3",{"text":"\uE002","font":"ui:window/equip"},"A985",{"nbt":"equip.cap.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.cap.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"}]
+		tellraw @s [{"text":"\uF829\uF823","font":"space:default"},{"nbt":"equip.cap.event","storage":"ui:main","interpret":true},"A3",{"text":"\uE003","font":"ui:window/equip"},"A985",{"nbt":"equip.cap.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.cap.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"}]
 		
 		# forehead and ring1 ring2
-		# function ARG(_PATH)second_line/add
-		tellraw @s [{"text":"\uE004","font":"ui:window/equip"}]
-		tellraw @s [{"text":"\uE005","font":"ui:window/equip"}]
+		function ARG(_PATH)second_line/add
+		tellraw @s [{"text":"\uF829\uF823","font":"space:default"},{"nbt":"equip.forehead.event","storage":"ui:main","interpret":true},"\uF829\uF821",{"nbt":"equip.ring1.event","storage":"ui:main","interpret":true},{"nbt":"equip.ring2.event","storage":"ui:main","interpret":true},"B94",{"text":"\uE004","font":"ui:window/equip"},"A985",[{"nbt":"equip.forehead.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.forehead.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.forehead.icon[0]","storage":"ui:main","interpret":true}],"\uF82A\uF821",[{"nbt":"equip.ring1.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.ring1.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.ring1.icon[0]","storage":"ui:main","interpret":true}],"\uF829\uF821",[{"nbt":"equip.ring2.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.ring2.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"}]]
+		tellraw @s [{"text":"\uF829\uF823","font":"space:default"},{"nbt":"equip.forehead.event","storage":"ui:main","interpret":true},"\uF829\uF821",{"nbt":"equip.ring1.event","storage":"ui:main","interpret":true},{"nbt":"equip.ring2.event","storage":"ui:main","interpret":true},"B94",{"text":"\uE005","font":"ui:window/equip"},"A985",[{"nbt":"equip.forehead.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.forehead.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.forehead.icon[0]","storage":"ui:main","interpret":true}],"\uF82A\uF821",[{"nbt":"equip.ring1.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.ring1.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.ring1.icon[0]","storage":"ui:main","interpret":true}],"\uF829\uF821",[{"nbt":"equip.ring2.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.ring2.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"}]]
 		
 		# face and ear
-		# function ARG(_PATH)third_line/add
-		tellraw @s [{"text":"\uE006","font":"ui:window/equip"}]
-		tellraw @s [{"text":"\uE007","font":"ui:window/equip"}]
+		function ARG(_PATH)third_line/add
+		tellraw @s [{"text":"\uF82A\uF823","font":"space:default"},{"nbt":"equip.face.event","storage":"ui:main","interpret":true},"\uF821",{"nbt":"equip.ear.event","storage":"ui:main","interpret":true},"B4",{"text":"\uE006","font":"ui:window/equip"},"A84",[{"nbt":"equip.face.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.face.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.face.icon[0]","storage":"ui:main","interpret":true}],"\uF829",[{"nbt":"equip.ear.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.ear.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"}]]
+		tellraw @s [{"text":"\uF82A\uF823","font":"space:default"},{"nbt":"equip.face.event","storage":"ui:main","interpret":true},"\uF821",{"nbt":"equip.ear.event","storage":"ui:main","interpret":true},"B4",{"text":"\uE007","font":"ui:window/equip"},"A84",[{"nbt":"equip.face.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.face.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.face.icon[0]","storage":"ui:main","interpret":true}],"\uF829",[{"nbt":"equip.ear.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.ear.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"}]]
 		
 		# cape, cloth, pendent, weapon, shield
 		function ARG(_PATH)fourth_line/add
@@ -26,9 +26,9 @@ namespace equip_window() as virtual
 		tellraw @s [{"text":"\uF822","font":"space:default"},{"nbt":"equip.cape.event","storage":"ui:main","interpret":true},"\uF821",{"nbt":"equip.cloth.event","storage":"ui:main","interpret":true},{"nbt":"equip.pendent.event","storage":"ui:main","interpret":true},"\uF821",{"nbt":"equip.weapon.event","storage":"ui:main","interpret":true},{"nbt":"equip.shield.event","storage":"ui:main","interpret":true},"B94",{"text":"\uE009","font":"ui:window/equip"},"B86",[{"nbt":"equip.cape.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.cape.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.cape.icon[0]","storage":"ui:main","interpret":true}],"\uF829\uF821",[{"nbt":"equip.cloth.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.cloth.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.cloth.icon[0]","storage":"ui:main","interpret":true}],"\uF829\uF821",[{"nbt":"equip.pendent.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.pendent.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.pendent.icon[0]","storage":"ui:main","interpret":true}],"\uF829",[{"nbt":"equip.weapon.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.weapon.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.weapon.icon[0]","storage":"ui:main","interpret":true}],"\uF829",[{"nbt":"equip.shield.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.shield.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"}]]
 		
 		# gloves, pants, shoes, ring3, ring4
-		# function ARG(_PATH)fifth_line/add
-		tellraw @s [{"text":"\uE00A","font":"ui:window/equip"}]
-		tellraw @s [{"text":"\uE00B","font":"ui:window/equip"}]
+		function ARG(_PATH)fifth_line/add
+		tellraw @s [{"text":"\uF822","font":"space:default"},{"nbt":"equip.gloves.event","storage":"ui:main","interpret":true},"\uF821",{"nbt":"equip.pants.event","storage":"ui:main","interpret":true},{"nbt":"equip.shoes.event","storage":"ui:main","interpret":true},"\uF821",{"nbt":"equip.ring3.event","storage":"ui:main","interpret":true},{"nbt":"equip.ring4.event","storage":"ui:main","interpret":true},"B94",{"text":"\uE00A","font":"ui:window/equip"},"B86",[{"nbt":"equip.gloves.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.gloves.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.gloves.icon[0]","storage":"ui:main","interpret":true}],"\uF829\uF821",[{"nbt":"equip.pants.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.pants.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.pants.icon[0]","storage":"ui:main","interpret":true}],"\uF829\uF821",[{"nbt":"equip.shoes.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.shoes.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.shoes.icon[0]","storage":"ui:main","interpret":true}],"\uF829",[{"nbt":"equip.ring3.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.ring3.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.ring3.icon[0]","storage":"ui:main","interpret":true}],"\uF829",[{"nbt":"equip.ring4.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.ring4.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"}]]
+		tellraw @s [{"text":"\uF822","font":"space:default"},{"nbt":"equip.gloves.event","storage":"ui:main","interpret":true},"\uF821",{"nbt":"equip.pants.event","storage":"ui:main","interpret":true},{"nbt":"equip.shoes.event","storage":"ui:main","interpret":true},"\uF821",{"nbt":"equip.ring3.event","storage":"ui:main","interpret":true},{"nbt":"equip.ring4.event","storage":"ui:main","interpret":true},"B94",{"text":"\uE00B","font":"ui:window/equip"},"B86",[{"nbt":"equip.gloves.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.gloves.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.gloves.icon[0]","storage":"ui:main","interpret":true}],"\uF829\uF821",[{"nbt":"equip.pants.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.pants.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.pants.icon[0]","storage":"ui:main","interpret":true}],"\uF829\uF821",[{"nbt":"equip.shoes.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.shoes.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.shoes.icon[0]","storage":"ui:main","interpret":true}],"\uF829",[{"nbt":"equip.ring3.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.ring3.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.ring3.icon[0]","storage":"ui:main","interpret":true}],"\uF829",[{"nbt":"equip.ring4.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.ring4.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"}]]
 		
 		# projectile
 		function ARG(_PATH)projectile/add
@@ -42,6 +42,73 @@ namespace equip_window() as virtual
 		
 		# tail
 		tellraw @s {"text":"\uE010\n\uE011","font":"ui:window/equip"}
+	}
+		
+	folder cap()
+	{
+		func add()
+		{
+			data modify storage ui:main equip.cap set value {icon:['""','""'],event:'{"text":"\\uF829","font":"space:default"}'}
+		}
+	}
+	
+	folder second_line()
+	{
+		func add()
+		{
+			function ARG(_PATH)forehead/add
+			function ARG(_PATH)ring1/add
+			function ARG(_PATH)ring2/add
+		}
+		
+		folder forehead()
+		{
+			func add()
+			{
+				data modify storage ui:main equip.forehead set value {icon:['""','""'],event:'{"text":"\\uF829","font":"space:default"}'}
+			}
+		}
+		
+		folder ring1()
+		{
+			func add()
+			{
+				data modify storage ui:main equip.ring1 set value {icon:['""','""'],event:'{"text":"\\uF829","font":"space:default"}'}
+			}
+		}
+		
+		folder ring2()
+		{
+			func add()
+			{
+				data modify storage ui:main equip.ring2 set value {icon:['""','""'],event:'{"text":"\\uF829","font":"space:default"}'}
+			}
+		}
+	}
+	
+	folder third_line()
+	{
+		func add()
+		{
+			function ARG(_PATH)face/add
+			function ARG(_PATH)ear/add
+		}
+		
+		folder face()
+		{
+			func add()
+			{
+				data modify storage ui:main equip.face set value {icon:['""','""'],event:'{"text":"\\uF829","font":"space:default"}'}
+			}
+		}
+		
+		folder ear()
+		{
+			func add()
+			{
+				data modify storage ui:main equip.ear set value {icon:['""','""'],event:'{"text":"\\uF829","font":"space:default"}'}
+			}
+		}
 	}
 	
 	folder fourth_line()
@@ -119,6 +186,58 @@ namespace equip_window() as virtual
 			func add()
 			{
 				data modify storage ui:main equip.shield set value {icon:['""','""'],event:'{"text":"\\uF829","font":"space:default"}'}
+			}
+		}
+	}
+	
+	folder fifth_line()
+	{
+		func add()
+		{
+			function ARG(_PATH)gloves/add
+			function ARG(_PATH)pants/add
+			function ARG(_PATH)shoes/add
+			function ARG(_PATH)ring3/add
+			function ARG(_PATH)ring4/add
+		}
+		
+		folder gloves()
+		{
+			func add()
+			{
+				data modify storage ui:main equip.gloves set value {icon:['""','""'],event:'{"text":"\\uF829","font":"space:default"}'}
+			}
+		}
+		
+		folder pants()
+		{
+			func add()
+			{
+				data modify storage ui:main equip.pants set value {icon:['""','""'],event:'{"text":"\\uF829","font":"space:default"}'}
+			}
+		}
+		
+		folder shoes()
+		{
+			func add()
+			{
+				data modify storage ui:main equip.shoes set value {icon:['""','""'],event:'{"text":"\\uF829","font":"space:default"}'}
+			}
+		}
+		
+		folder ring3()
+		{
+			func add()
+			{
+				data modify storage ui:main equip.ring3 set value {icon:['""','""'],event:'{"text":"\\uF829","font":"space:default"}'}
+			}
+		}
+		
+		folder ring4()
+		{
+			func add()
+			{
+				data modify storage ui:main equip.ring4 set value {icon:['""','""'],event:'{"text":"\\uF829","font":"space:default"}'}
 			}
 		}
 	}
