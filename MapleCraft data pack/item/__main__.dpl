@@ -375,6 +375,7 @@ namespace item()
 					execute unless score #RAND_RESULT temp < #SCROLL_CHANCE temp run function ARG(_PATH)fail
 					
 					loot replace entity @s weapon.offhand 1 mine 0 1 0 minecraft:air{modify_player:1b}
+					replaceitem entity @s weapon.mainhand minecraft:air
 				}
 				
 				func success()
@@ -383,7 +384,152 @@ namespace item()
 					playsound minecraft:game.enchant_success player @a ~ ~ ~ 1 1 0
 					tellraw @s {"translate":"text.scroll.success","color":"#efb7ab"}
 					
-					# execute store result block 0 1 0 Items[0].tag.scroll_left int 1 run scoreboard players remove #SCROLL_LEFT temp 1
+					execute store result score #SCROLL_QUALITY temp run data get block 0 1 0 Items[0].tag.quality
+					```
+					for attr in ["str", "dex", "int", "luk", "hp", "mp", "weapon_attack", "magic_attack", "defense", "magic_defense", "accuracy", "speed"]:
+						print(f"execute store result score #{attr.upper()} temp run data get block 0 1 0 Items[0].tag.{attr}")
+						print(f"execute store result score #GLOBAL temp run data get entity @s SelectedItem.tag.{attr}")
+						print(f"execute if score #GLOBAL temp matches 1.. run function ARG(_PATH)update_numeric/{attr}")
+					```
+					execute store result score #KNOCKBACK temp run data get block 0 1 0 Items[0].tag.knockback
+					
+					execute store result block 0 1 0 Items[0].tag.quality int 1 run scoreboard players get #SCROLL_QUALITY temp
+					execute store result score #SCROLL_PASSED temp run data get block 0 1 0 Items[0].tag.scroll_passed
+					execute store result block 0 1 0 Items[0].tag.scroll_passed int 1 run scoreboard players add #SCROLL_PASSED temp 1
+					execute if score #SCROLL_QUALITY temp matches ..-1 run data modify block 0 0 0 Text1 set value '[{"nbt":"Items[0].tag.original_name","block":"0 1 0","interpret":true,"color":"#9c9c9c"}," (+",{"score":{"objective":"temp","name":"#SCROLL_PASSED"}},")"]'
+					execute if score #SCROLL_QUALITY temp matches 0..4 run data modify block 0 0 0 Text1 set value '[{"nbt":"Items[0].tag.original_name","block":"0 1 0","interpret":true,"color":"#ffbc2b"}," (+",{"score":{"objective":"temp","name":"#SCROLL_PASSED"}},")"]'
+					execute if score #SCROLL_QUALITY temp matches 5..21 run data modify block 0 0 0 Text1 set value '[{"nbt":"Items[0].tag.original_name","block":"0 1 0","interpret":true,"color":"#53a9ff"}," (+",{"score":{"objective":"temp","name":"#SCROLL_PASSED"}},")"]'
+					execute if score #SCROLL_QUALITY temp matches 22..39 run data modify block 0 0 0 Text1 set value '[{"nbt":"Items[0].tag.original_name","block":"0 1 0","interpret":true,"color":"#cc66ff"}," (+",{"score":{"objective":"temp","name":"#SCROLL_PASSED"}},")"]'
+					execute if score #SCROLL_QUALITY temp matches 40.. run data modify block 0 0 0 Text1 set value '[{"nbt":"Items[0].tag.original_name","block":"0 1 0","interpret":true,"color":"#ffff11"}," (+",{"score":{"objective":"temp","name":"#SCROLL_PASSED"}},")"]'
+					data modify block 0 1 0 Items[0].tag.display.Name set from block 0 0 0 Text1
+					
+					execute if score #EQUIP_TYPE temp matches ..24 run function ARG(_PATH)set_display/clear/weapon
+					execute if score #EQUIP_TYPE temp matches 30.. run function ARG(_PATH)set_display/clear/equip
+					```
+					for attr in ["str", "dex", "int", "luk", "hp", "mp", "weapon_attack", "magic_attack", "defense", "magic_defense", "accuracy", "speed", "knockback"]:
+						print(f"execute if score #{attr.upper()} temp matches 1.. run function ARG(_PATH)set_display/{attr}")
+					```
+					execute store result block 0 1 0 Items[0].tag.scroll_left int 1 run scoreboard players remove #SCROLL_LEFT temp 1
+					data modify block 0 0 0 Text1 set value '{"translate":"item.notice.scroll","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#SCROLL_LEFT"}}]}'
+					data modify block 0 1 0 Items[0].tag.display.Lore append from block 0 0 0 Text1
+				}
+				
+				folder update_numeric()
+				{
+				```
+				def scroll_update_numeric(attr):
+					print(f"func {attr}()")
+					print("{")
+					print(f"	execute store result block 0 1 0 Items[0].tag.{attr} int 1 run scoreboard players operation #{attr.upper()} temp += #GLOBAL temp")
+					if attr in ["hp", "mp"]:
+						print(f"execute store result score #EQUIP_{attr.upper()} temp run data get block 0 1 0 Items[0].tag.scroll.{attr}")
+						print(f"scoreboard players operation #EQUIP_{attr.upper()}_QUALITY temp = #EQUIP_{attr.upper()} temp")
+						print(f"scoreboard players operation #EQUIP_{attr.upper()}_QUALITY temp /= #10 const")
+						print(f"scoreboard players operation #SCROLL_QUALITY temp -= #EQUIP_{attr.upper()}_QUALITY temp")
+						print(f"execute store result block 0 1 0 Items[0].tag.scroll.{attr} int 1 run scoreboard players operation #GLOBAL temp += #EQUIP_{attr.upper()} temp")
+						print("scoreboard players operation #GLOBAL temp /= #10 const")
+					print(f"	scoreboard players operation #SCROLL_QUALITY temp += #GLOBAL temp")
+					print("}")
+				
+				for attr in ["str", "dex", "int", "luk", "hp", "mp", "weapon_attack", "magic_attack", "defense", "magic_defense", "accuracy", "speed"]:
+					scroll_update_numeric(attr)
+				```
+				}
+				
+				folder set_display()
+				{
+					folder clear()
+					{
+						func weapon()
+						{
+							data remove block 0 1 0 Items[0].tag.display.Lore[9]
+							execute if data block 0 1 0 Items[0].tag.display.Lore[9] run function ARG(_PATH)weapon
+						}
+						
+						func equip()
+						{
+							data remove block 0 1 0 Items[0].tag.display.Lore[8]
+							execute if data block 0 1 0 Items[0].tag.display.Lore[8] run function ARG(_PATH)equip
+						}
+					}
+					
+					func str()
+					{
+						data modify block 0 0 0 Text1 set value '{"translate":"item.notice.str","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#STR"}}]}'
+						data modify block 0 1 0 Items[0].tag.display.Lore append from block 0 0 0 Text1
+					}
+					
+					func dex()
+					{
+						data modify block 0 0 0 Text1 set value '{"translate":"item.notice.dex","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#DEX"}}]}'
+						data modify block 0 1 0 Items[0].tag.display.Lore append from block 0 0 0 Text1
+					}
+					
+					func int()
+					{
+						data modify block 0 0 0 Text1 set value '{"translate":"item.notice.int","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#INT"}}]}'
+						data modify block 0 1 0 Items[0].tag.display.Lore append from block 0 0 0 Text1
+					}
+					
+					func luk()
+					{
+						data modify block 0 0 0 Text1 set value '{"translate":"item.notice.luk","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#LUK"}}]}'
+						data modify block 0 1 0 Items[0].tag.display.Lore append from block 0 0 0 Text1
+					}
+					
+					func hp()
+					{
+						data modify block 0 0 0 Text1 set value '{"translate":"item.notice.hp","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#HP"}}]}'
+						data modify block 0 1 0 Items[0].tag.display.Lore append from block 0 0 0 Text1
+					}
+					
+					func mp()
+					{
+						data modify block 0 0 0 Text1 set value '{"translate":"item.notice.mp","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#MP"}}]}'
+						data modify block 0 1 0 Items[0].tag.display.Lore append from block 0 0 0 Text1
+					}
+					
+					func weapon_attack()
+					{
+						data modify block 0 0 0 Text1 set value '{"translate":"item.notice.weapon_attack","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#WEAPON_ATTACK"}}]}'
+						data modify block 0 1 0 Items[0].tag.display.Lore append from block 0 0 0 Text1
+					}
+					
+					func magic_attack()
+					{
+						data modify block 0 0 0 Text1 set value '{"translate":"item.notice.magic_attack","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#MAGIC_ATTACK"}}]}'
+						data modify block 0 1 0 Items[0].tag.display.Lore append from block 0 0 0 Text1
+					}
+					
+					func defense()
+					{
+						data modify block 0 0 0 Text1 set value '{"translate":"item.notice.weapon_def","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#DEFENSE"}}]}'
+						data modify block 0 1 0 Items[0].tag.display.Lore append from block 0 0 0 Text1
+					}
+					
+					func magic_defense()
+					{
+						data modify block 0 0 0 Text1 set value '{"translate":"item.notice.magic_def","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#MAGIC_DEFENSE"}}]}'
+						data modify block 0 1 0 Items[0].tag.display.Lore append from block 0 0 0 Text1
+					}
+					
+					func accuracy()
+					{
+						data modify block 0 0 0 Text1 set value '{"translate":"item.notice.accuracy","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#ACCURACY"}}]}'
+						data modify block 0 1 0 Items[0].tag.display.Lore append from block 0 0 0 Text1
+					}
+					
+					func speed()
+					{
+						data modify block 0 0 0 Text1 set value '{"translate":"item.notice.speed","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#SPEED"}}]}'
+						data modify block 0 1 0 Items[0].tag.display.Lore append from block 0 0 0 Text1
+					}
+					
+					func knockback()
+					{
+						data modify block 0 0 0 Text1 set value '{"translate":"item.notice.knockback","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#KNOCKBACK"}}]}'
+						data modify block 0 1 0 Items[0].tag.display.Lore append from block 0 0 0 Text1
+					}
 				}
 				
 				func fail()
