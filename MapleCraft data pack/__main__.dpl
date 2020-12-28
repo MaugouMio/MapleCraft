@@ -71,6 +71,7 @@ namespace main()
 		fill -1 0 -1 1 2 1 minecraft:bedrock
 		setblock 0 0 0 minecraft:acacia_wall_sign
 		setblock 0 1 0 minecraft:shulker_box
+		setblock 0 2 0 minecraft:chest
 		summon minecraft:snow_golem 0 -2 0 {NoAI:1,NoGravity:1,Invulnerable:1,Silent:1,UUID:[I;0,1,0,1]}
 		
 		function skill:install
@@ -331,8 +332,8 @@ namespace main()
 	
 	func rand_rate()
 	{
-		loot replace block 0 1 0 container.0 loot main:percent_rate
-		execute store result score #RAND_RESULT temp run data get block 0 1 0 Items[0].tag.Damage
+		loot replace block 0 2 0 container.0 loot main:percent_rate
+		execute store result score #RAND_RESULT temp run data get block 0 2 0 Items[0].tag.Damage
 	}
 	
 	func rand_range() from random().generate("#0 const", "#RANGE_MAX temp", "#RAND_RANGE_RESULT temp");
