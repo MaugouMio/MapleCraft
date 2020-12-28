@@ -29,7 +29,7 @@ namespace 0() as virtual
 				func other_check()
 				{
 					function skill:check_weapon/single_hand/run
-					execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 0001000_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
+					execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 0001000_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"#efb7ab"}
 					execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp >= @s 0001000_mp run function ARG(_PATH)run
 				}
 				
@@ -178,13 +178,13 @@ namespace 0() as virtual
 				
 				func cd_check()
 				{
-					execute if score @s 0001001_cd matches 1.. run tellraw @s {"translate":"warning.skill.in_cd","color":"red","with":[{"score":{"name":"@s","objective":"0001001_cd"}}]}
+					execute if score @s 0001001_cd matches 1.. run tellraw @s {"translate":"warning.skill.in_cd","color":"#efb7ab","with":[{"score":{"name":"@s","objective":"0001001_cd"}}]}
 					execute unless score @s 0001001_cd matches 1.. run function ARG(_PATH)other_check
 				}
 				
 				func other_check()
 				{
-					execute if score @s mp < @s 0001001_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
+					execute if score @s mp < @s 0001001_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"#efb7ab"}
 					execute if score @s mp >= @s 0001001_mp run function ARG(_PATH)cast_effect
 				}
 				
@@ -298,13 +298,13 @@ namespace 0() as virtual
 				
 				func cd_check()
 				{
-					execute if score @s 0001002_cd matches 1.. run tellraw @s {"translate":"warning.skill.in_cd","color":"red","with":[{"score":{"name":"@s","objective":"0001002_cd"}}]}
+					execute if score @s 0001002_cd matches 1.. run tellraw @s {"translate":"warning.skill.in_cd","color":"#efb7ab","with":[{"score":{"name":"@s","objective":"0001002_cd"}}]}
 					execute unless score @s 0001002_cd matches 1.. run function ARG(_PATH)other_check
 				}
 				
 				func other_check()
 				{
-					execute if score @s mp < @s 0001002_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
+					execute if score @s mp < @s 0001002_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"#efb7ab"}
 					execute if score @s mp >= @s 0001002_mp run function ARG(_PATH)cast_effect
 				}
 				

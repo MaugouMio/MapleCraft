@@ -186,7 +186,7 @@ namespace 3() as virtual
 				
 				func other_check()
 				{
-					execute if score @s mp < @s 3001003_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
+					execute if score @s mp < @s 3001003_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"#efb7ab"}
 					execute if score @s mp >= @s 3001003_mp run function ARG(_PATH)cast_effect
 				}
 				
@@ -291,7 +291,7 @@ namespace 3() as virtual
 				func other_check()
 				{
 					function skill:check_weapon/archer/run
-					execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 3001004_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
+					execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 3001004_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"#efb7ab"}
 					execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp >= @s 3001004_mp run function ARG(_PATH)arrow_check
 				}
 			
@@ -309,7 +309,7 @@ namespace 3() as virtual
 				
 				func lack_arrow()
 				{
-					tellraw @s {"translate":"warning.skill.lack_arrow","color":"red"}
+					tellraw @s {"translate":"warning.skill.lack_arrow","color":"#efb7ab"}
 					function skill:6/0/0/1003/mark_target
 				}
 			
@@ -476,7 +476,7 @@ namespace 3() as virtual
 				func other_check()
 				{
 					function skill:check_weapon/archer/run
-					execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 3001005_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
+					execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 3001005_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"#efb7ab"}
 					execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp >= @s 3001005_mp run function ARG(_PATH)arrow_check
 				}
 				
@@ -494,7 +494,7 @@ namespace 3() as virtual
 				
 				func lack_arrow()
 				{
-					tellraw @s {"translate":"warning.skill.lack_arrow","color":"red"}
+					tellraw @s {"translate":"warning.skill.lack_arrow","color":"#efb7ab"}
 					function skill:6/0/0/1003/mark_target
 				}
 				

@@ -40,7 +40,7 @@ namespace 22() as virtual
 			func other_check()
 			{
 				function skill:check_weapon/single_hand/run
-				execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 2201004_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
+				execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 2201004_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"#efb7ab"}
 				execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp >= @s 2201004_mp run function ARG(_PATH)run
 			}
 			
@@ -169,7 +169,7 @@ namespace 22() as virtual
 			func other_check()
 			{
 				function skill:check_weapon/single_hand/run
-				execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 2201005_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
+				execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 2201005_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"#efb7ab"}
 				execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp >= @s 2201005_mp run function ARG(_PATH)run
 			}
 			

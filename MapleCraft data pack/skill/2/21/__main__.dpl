@@ -132,7 +132,7 @@ namespace 21() as virtual
 			
 			func other_check()
 			{
-				execute if score @s mp < @s 2101001_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
+				execute if score @s mp < @s 2101001_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"#efb7ab"}
 				execute if score @s mp >= @s 2101001_mp run function ARG(_PATH)cast_effect
 			}
 			
@@ -246,7 +246,7 @@ namespace 21() as virtual
 			
 			func other_check()
 			{
-				execute if score @s mp < @s 2101002_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
+				execute if score @s mp < @s 2101002_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"#efb7ab"}
 				execute if score @s mp >= @s 2101002_mp run function ARG(_PATH)move/up/check
 			}
 			
@@ -453,7 +453,7 @@ namespace 21() as virtual
 			
 			func other_check()
 			{
-				execute if score @s mp < @s 2101003_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
+				execute if score @s mp < @s 2101003_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"#efb7ab"}
 				execute if score @s mp >= @s 2101003_mp run function ARG(_PATH)cast_effect
 			}
 			
@@ -562,9 +562,9 @@ namespace 21() as virtual
 			func other_check()
 			{
 				scoreboard players operation #USED_WEAPON temp = @s weapon_type
-				execute if score #USED_WEAPON temp matches 0 run tellraw @s {"translate":"warning.skill.no_weapon","color":"red"}
+				execute if score #USED_WEAPON temp matches 0 run tellraw @s {"translate":"warning.skill.no_weapon","color":"#efb7ab"}
 				
-				execute if score #USED_WEAPON temp matches 1.. if score @s mp < @s 2101004_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
+				execute if score #USED_WEAPON temp matches 1.. if score @s mp < @s 2101004_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"#efb7ab"}
 				execute if score #USED_WEAPON temp matches 1.. if score @s mp >= @s 2101004_mp run function ARG(_PATH)run
 			}
 			
@@ -693,9 +693,9 @@ namespace 21() as virtual
 			func other_check()
 			{
 				scoreboard players operation #USED_WEAPON temp = @s weapon_type
-				execute if score #USED_WEAPON temp matches 0 run tellraw @s {"translate":"warning.skill.no_weapon","color":"red"}
+				execute if score #USED_WEAPON temp matches 0 run tellraw @s {"translate":"warning.skill.no_weapon","color":"#efb7ab"}
 				
-				execute if score #USED_WEAPON temp matches 1.. if score @s mp < @s 2101005_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
+				execute if score #USED_WEAPON temp matches 1.. if score @s mp < @s 2101005_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"#efb7ab"}
 				execute if score #USED_WEAPON temp matches 1.. if score @s mp >= @s 2101005_mp run function ARG(_PATH)run
 			}
 			

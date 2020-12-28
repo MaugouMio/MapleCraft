@@ -275,7 +275,7 @@ namespace item()
 			scoreboard players operation #GLOBAL temp += #EQUIP_LUK temp
 			execute if score @s LUK < #GLOBAL temp run scoreboard players set #ACCEPTED_EQUIP temp 0
 			
-			execute if score #ACCEPTED_EQUIP temp matches 0 run tellraw @s {"translate":"warning.equip.invalid_stat","color":"red"}
+			execute if score #ACCEPTED_EQUIP temp matches 0 run tellraw @s {"translate":"warning.equip.invalid_stat","color":"#efb7ab"}
 		}
 		
 		folder weapon()
@@ -376,12 +376,28 @@ namespace item()
 				{
 					execute positioned ~ ~1.7 ~ run function skill:summon_font_effect/0000000enchant_success
 					playsound minecraft:game.enchant_success player @a ~ ~ ~ 1 1 0
+					tellraw @s {"translate":"text.scroll.success","color":"#efb7ab"}
 				}
 				
 				func fail()
 				{
 					execute positioned ~ ~1.7 ~ run function skill:summon_font_effect/0000000enchant_fail
 					playsound minecraft:game.enchant_fail player @a ~ ~ ~ 1 1 0
+					
+					execute store result score #DESTROY_CHANCE temp run data get entity @s SelectedItem.tag.destroy_chance
+					function main:rand_rate
+					execute if score #RAND_RESULT temp < #DESTROY_CHANCE temp run function ARG(_PATH)destroy
+					execute unless score #RAND_RESULT temp < #DESTROY_CHANCE temp run function ARG(_PATH)pure_fail
+				}
+				
+				func destroy()
+				{
+					tellraw @s {"translate":"text.scroll.destroy","color":"#efb7ab"}
+				}
+				
+				func pure_fail()
+				{
+					tellraw @s {"translate":"text.scroll.fail","color":"#efb7ab"}
 				}
 			}
 			
