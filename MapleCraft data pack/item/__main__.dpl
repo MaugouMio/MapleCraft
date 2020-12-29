@@ -2,6 +2,53 @@ import loop
 import random
 import equip_window as virtual
 
+namespace use_equip_template(equip) as virtual
+{
+	func check()
+	{
+		execute store result score #EQUIP_STR temp run data get entity @s Inventory[{Slot:103b}].tag.ARG(equip).str
+		execute store result score #EQUIP_DEX temp run data get entity @s Inventory[{Slot:103b}].tag.ARG(equip).dex
+		execute store result score #EQUIP_INT temp run data get entity @s Inventory[{Slot:103b}].tag.ARG(equip).int
+		execute store result score #EQUIP_LUK temp run data get entity @s Inventory[{Slot:103b}].tag.ARG(equip).luk
+		function item:use/equip_qulification
+		
+		execute if score #ACCEPTED_EQUIP temp matches 0 run playsound minecraft:game.dlg_notice player @s
+		execute if score #ACCEPTED_EQUIP temp matches 1 run function ARG(_PATH)equip
+	}
+	
+	func equip()
+	{
+		playsound minecraft:item.equip player @s
+		
+		data modify storage item:main equip set from entity @s SelectedItem.tag
+		tellraw @s {"translate":"item.notice.equip_item","with":[{"nbt":"equip.display.Name","storage":"item:main","interpret":true}]}
+		replaceitem entity @s weapon.mainhand minecraft:air
+		
+		# replace original ARG(equip)
+		execute if entity @s[tag=ARG(equip)_equipped] run function ARG(_PATH)remove
+		
+		# equip new ARG(equip)
+		replaceitem block 0 1 0 container.0 minecraft:potion
+		data modify block 0 1 0 Items[0].tag set from entity @s Inventory[{Slot:103b}].tag
+		data modify block 0 1 0 Items[0].tag.ARG(equip) set from storage item:main equip
+		
+		function item:use/equip_numeric/apply
+		
+		loot replace entity @s armor.head 1 mine 0 1 0 minecraft:air{modify_player:1b}
+		tag @s add ARG(equip)_equipped
+	}
+	
+	func remove()
+	{
+		replaceitem block 0 1 0 container.0 minecraft:warped_fungus_on_a_stick
+		data modify block 0 1 0 Items[0].tag set from entity @s Inventory[{Slot:103b}].tag.ARG(equip)
+		loot give @s mine 0 1 0 minecraft:air{modify_player:1b}
+		
+		function item:use/equip_numeric/remove
+		tag @s remove ARG(equip)_equipped
+	}
+}
+
 namespace item()
 {
 	func install()
@@ -293,55 +340,61 @@ namespace item()
 		{
 			func check()
 			{
-				execute if score #USING_ITEM temp matches ..10800 run function ARG(_PATH)cap/check
+				execute if score #USING_ITEM temp matches ..12600 run function ARG(_PATH)first_half
+				execute if score #USING_ITEM temp matches 12601.. run function ARG(_PATH)second_half
 			}
 			
-			folder cap()
+			func first_half()
 			{
-				func check()
-				{
-					execute store result score #EQUIP_STR temp run data get entity @s Inventory[{Slot:103b}].tag.cap.str
-					execute store result score #EQUIP_DEX temp run data get entity @s Inventory[{Slot:103b}].tag.cap.dex
-					execute store result score #EQUIP_INT temp run data get entity @s Inventory[{Slot:103b}].tag.cap.int
-					execute store result score #EQUIP_LUK temp run data get entity @s Inventory[{Slot:103b}].tag.cap.luk
-					function item:use/equip_qulification
-					
-					execute if score #ACCEPTED_EQUIP temp matches 0 run playsound minecraft:game.dlg_notice player @s
-					execute if score #ACCEPTED_EQUIP temp matches 1 run function ARG(_PATH)equip
-				}
-				
-				func equip()
-				{
-					playsound minecraft:item.equip player @s
-					
-					data modify storage item:main equip set from entity @s SelectedItem.tag
-					tellraw @s {"translate":"item.notice.equip_item","with":[{"nbt":"equip.display.Name","storage":"item:main","interpret":true}]}
-					replaceitem entity @s weapon.mainhand minecraft:air
-					
-					# replace original cap
-					execute if entity @s[tag=cap_equipped] run function ARG(_PATH)remove
-					
-					# equip new cap
-					replaceitem block 0 1 0 container.0 minecraft:potion
-					data modify block 0 1 0 Items[0].tag set from entity @s Inventory[{Slot:103b}].tag
-					data modify block 0 1 0 Items[0].tag.cap set from storage item:main equip
-					
-					function item:use/equip_numeric/apply
-					
-					loot replace entity @s armor.head 1 mine 0 1 0 minecraft:air{modify_player:1b}
-					tag @s add cap_equipped
-				}
-				
-				func remove()
-				{
-					replaceitem block 0 1 0 container.0 minecraft:warped_fungus_on_a_stick
-					data modify block 0 1 0 Items[0].tag set from entity @s Inventory[{Slot:103b}].tag.cap
-					loot give @s mine 0 1 0 minecraft:air{modify_player:1b}
-					
-					function item:use/equip_numeric/remove
-					tag @s remove cap_equipped
-				}
+				execute if score #USING_ITEM temp matches ..10800 run function ARG(_PATH)cap/check
+				execute if score #USING_ITEM temp matches 10801..11100 run function ARG(_PATH)cloth/check
+				execute if score #USING_ITEM temp matches 11101..11400 run function ARG(_PATH)pants/check
+				execute if score #USING_ITEM temp matches 11401..11700 run function ARG(_PATH)overall/check
+				execute if score #USING_ITEM temp matches 11701..12000 run function ARG(_PATH)gloves/check
+				execute if score #USING_ITEM temp matches 12001..12300 run function ARG(_PATH)shoes/check
+				execute if score #USING_ITEM temp matches 12301..12600 run function ARG(_PATH)cape/check
 			}
+			
+			func second_half()
+			{
+				execute if score #USING_ITEM temp matches 12601..12900 run function ARG(_PATH)shield/check
+				execute if score #USING_ITEM temp matches 12901..13200 run function ARG(_PATH)eye/check
+				execute if score #USING_ITEM temp matches 13201..13500 run function ARG(_PATH)face/check
+				execute if score #USING_ITEM temp matches 13501..13800 run function ARG(_PATH)ear/check
+				execute if score #USING_ITEM temp matches 13801..14100 run function ARG(_PATH)pendent/check
+				execute if score #USING_ITEM temp matches 14101..14400 run function ARG(_PATH)ring/check
+			}
+			
+			folder cap() from use_equip_template("cap");
+			
+			# folder cloth() from use_equip_template("cloth")
+			# {
+				
+			# }
+			
+			# folder pants() from use_equip_template("pants")
+			# {
+				
+			# }
+			
+			# folder overall() from use_equip_template("overall")
+			# {
+				
+			# }
+			
+			folder gloves() from use_equip_template("gloves");
+			folder shoes() from use_equip_template("shoes");
+			folder cape() from use_equip_template("cape");
+			folder shield() from use_equip_template("shield");
+			folder eye() from use_equip_template("eye");
+			folder face() from use_equip_template("face");
+			folder ear() from use_equip_template("ear");
+			folder pendent() from use_equip_template("pendent");
+			
+			# folder ring() from use_equip_template("ring")
+			# {
+				
+			# }
 		}
 		
 		folder weapon()
