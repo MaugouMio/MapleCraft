@@ -153,3 +153,4 @@
 153,run function main:menu/key_reset/attack
 154,run function item:equip_window/projectile/take_off/check
 155,if score @s weapon_type matches 1.. run function item:equip_window/fourth_line/weapon/take_off
+156,if entity @s[tag=cap_equipped] run function item:equip_window/cap/take_off

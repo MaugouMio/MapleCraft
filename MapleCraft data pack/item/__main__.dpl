@@ -149,7 +149,8 @@ namespace item()
 			execute store result score #USING_ITEM temp run data get entity @s[nbt={SelectedItem:{id:"minecraft:warped_fungus_on_a_stick"}}] SelectedItem.tag.CustomModelData
 			
 			execute if score #USING_ITEM temp matches ..999 run function ARG(_PATH)consume/check
-			execute if score #USING_ITEM temp matches 10001.. unless score @s action_time matches 1.. run function ARG(_PATH)weapon/check
+			execute if score #USING_ITEM temp matches 10001..10500 unless score @s action_time matches 1.. run function ARG(_PATH)weapon/check
+			execute if score #USING_ITEM temp matches 10501.. unless score @s action_time matches 1.. run function ARG(_PATH)equip/check
 			
 			scoreboard players reset @s right_click_item
 		}
@@ -159,6 +160,11 @@ namespace item()
 			func apply()
 			{
 				# need to store item info in storage item:main equip
+				execute store result score #GLOBAL temp run data get storage item:main equip.weapon_attack
+				scoreboard players operation @s weapon_attack += #GLOBAL temp
+				execute store result score #GLOBAL temp run data get storage item:main equip.magic_attack
+				scoreboard players operation @s magic_attack += #GLOBAL temp
+				
 				execute store result score #GLOBAL temp run data get storage item:main equip.hp
 				scoreboard players operation @s hp_max_base += #GLOBAL temp
 				scoreboard players operation @s equip_hp += #GLOBAL temp
@@ -207,7 +213,12 @@ namespace item()
 			
 			func remove()
 			{
-				# removed item is stored in block 0 0 0 Items[0]
+				# removed item is stored in block 0 1 0 Items[0]
+				execute store result score #GLOBAL temp run data get block 0 1 0 Items[0].tag.weapon_attack
+				scoreboard players operation @s weapon_attack -= #GLOBAL temp
+				execute store result score #GLOBAL temp run data get block 0 1 0 Items[0].tag.magic_attack
+				scoreboard players operation @s magic_attack -= #GLOBAL temp
+				
 				execute store result score #GLOBAL temp run data get block 0 1 0 Items[0].tag.hp
 				scoreboard players operation @s hp_max_base -= #GLOBAL temp
 				scoreboard players operation @s equip_hp -= #GLOBAL temp
@@ -278,6 +289,61 @@ namespace item()
 			execute if score #ACCEPTED_EQUIP temp matches 0 run tellraw @s {"translate":"warning.equip.invalid_stat","color":"#efb7ab"}
 		}
 		
+		folder equip()
+		{
+			func check()
+			{
+				execute if score #USING_ITEM temp matches ..10800 run function ARG(_PATH)cap/check
+			}
+			
+			folder cap()
+			{
+				func check()
+				{
+					execute store result score #EQUIP_STR temp run data get entity @s Inventory[{Slot:103b}].tag.cap.str
+					execute store result score #EQUIP_DEX temp run data get entity @s Inventory[{Slot:103b}].tag.cap.dex
+					execute store result score #EQUIP_INT temp run data get entity @s Inventory[{Slot:103b}].tag.cap.int
+					execute store result score #EQUIP_LUK temp run data get entity @s Inventory[{Slot:103b}].tag.cap.luk
+					function item:use/equip_qulification
+					
+					execute if score #ACCEPTED_EQUIP temp matches 0 run playsound minecraft:game.dlg_notice player @s
+					execute if score #ACCEPTED_EQUIP temp matches 1 run function ARG(_PATH)equip
+				}
+				
+				func equip()
+				{
+					playsound minecraft:item.equip player @s
+					
+					data modify storage item:main equip set from entity @s SelectedItem.tag
+					tellraw @s {"translate":"item.notice.equip_item","with":[{"nbt":"equip.display.Name","storage":"item:main","interpret":true}]}
+					replaceitem entity @s weapon.mainhand minecraft:air
+					
+					# replace original cap
+					execute if entity @s[tag=cap_equipped] run function ARG(_PATH)remove
+					
+					# equip new cap
+					replaceitem block 0 1 0 container.0 minecraft:potion
+					data modify block 0 1 0 Items[0].tag set from entity @s Inventory[{Slot:103b}].tag
+					data modify block 0 1 0 Items[0].tag.cap set from storage item:main equip
+					
+					function item:use/equip_numeric/apply
+					
+					loot replace entity @s armor.head 1 mine 0 1 0 minecraft:air{modify_player:1b}
+					tag @s add cap_equipped
+				}
+				
+				func remove()
+				{
+					replaceitem block 0 1 0 container.0 minecraft:warped_fungus_on_a_stick
+					data modify block 0 1 0 Items[0].tag set from entity @s Inventory[{Slot:103b}].tag.cap
+					loot give @s mine 0 1 0 minecraft:air{modify_player:1b}
+					
+					function item:use/equip_numeric/remove
+					tag @s remove cap_equipped
+				}
+			}
+		}
+		
 		folder weapon()
 		{
 			func check()
@@ -300,11 +366,12 @@ namespace item()
 				clear @s diamond_axe
 				
 				data modify storage item:main equip set from entity @s SelectedItem.tag
-				tellraw @s {"translate":"item.notice.equip_weapon","with":[{"nbt":"equip.display.Name","storage":"item:main","interpret":true}]}
+				tellraw @s {"translate":"item.notice.equip_item","with":[{"nbt":"equip.display.Name","storage":"item:main","interpret":true}]}
 				
 				# give weapon for display
 				replaceitem block 0 1 0 container.0 minecraft:diamond_axe
 				data modify block 0 1 0 Items[0].tag set from entity @s SelectedItem.tag
+				data modify block 0 1 0 Items[0].tag.display.Name set from entity @s SelectedItem.tag.original_name
 				data modify block 0 1 0 Items[0].tag.display.Lore set value ['{"translate":"item.notice.for_display"}']
 				loot replace entity @s weapon.mainhand 1 mine 0 1 0 minecraft:air{modify_player:1b}
 				
@@ -317,8 +384,6 @@ namespace item()
 				data modify block 0 1 0 Items[0].tag.weapon set from storage item:main equip
 				
 				execute store result score @s weapon_type run data get storage item:main equip.equip_type
-				execute store result score @s weapon_attack run data get storage item:main equip.weapon_attack
-				execute store result score @s weapon_mattack run data get storage item:main equip.magic_attack
 				execute store result score @s weapon_speed run data get storage item:main equip.action_time
 				execute store result score @s weapon_knock run data get storage item:main equip.knockback
 				function ARG(__PATH)equip_numeric/apply

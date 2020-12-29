@@ -48,7 +48,31 @@ namespace equip_window() as virtual
 	{
 		func add()
 		{
-			data modify storage ui:main equip.cap set value {icon:['""','""'],event:'{"text":"\\uF829","font":"space:default"}'}
+			execute unless entity @s[tag=cap_equipped] run data modify storage ui:main equip.cap set value {icon:['""','""'],event:'{"text":"\\uF829","font":"space:default"}'}
+			execute if entity @s[tag=cap_equipped] run function ARG(_PATH)set
+		}
+		
+		func set()
+		{
+			data modify storage ui:main equip.cap set from entity @s Inventory[{Slot:103b}].tag.cap
+			data modify block 0 0 0 Text1 set value '["",{"nbt":"equip.cap.display.Name","storage":"ui:main","interpret":true}]'
+			function ARG(_PATH)set_display
+			data modify block 0 0 0 Text1 set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 156"},"hoverEvent":{"action":"show_text","contents":{"nbt":"Text1","block":"0 0 0","interpret":true}}}'
+			data modify storage ui:main equip.cap.event set from block 0 0 0 Text1
+		}
+		
+		func set_display()
+		{
+			data modify block 0 0 0 Text1 set value '[{"nbt":"Text1","block":"0 0 0","interpret":true},"\\n",{"nbt":"equip.cap.display.Lore[0]","storage":"ui:main","interpret":true}]'
+			data remove storage ui:main equip.cap.display.Lore[0]
+			execute if data storage ui:main equip.cap.display.Lore[0] run function ARG(_PATH)set_display
+		}
+	
+		func take_off()
+		{
+			execute at @s run playsound minecraft:item.equip player @s
+			function item:use/equip/cap/remove
+			function item:equip_window/display
 		}
 	}
 	
