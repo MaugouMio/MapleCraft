@@ -154,3 +154,17 @@
 154,run function item:equip_window/projectile/take_off/check
 155,if score @s weapon_type matches 1.. run function item:equip_window/fourth_line/weapon/take_off
 156,if entity @s[tag=cap_equipped] run function item:equip_window/cap/take_off
+157,if entity @s[tag=forehead_equipped] run function item:equip_window/second_line/forehead/take_off
+158,if entity @s[tag=ring1_equipped] run function item:equip_window/second_line/ring1/take_off
+159,if entity @s[tag=ring2_equipped] run function item:equip_window/second_line/ring2/take_off
+160,if entity @s[tag=face_equipped] run function item:equip_window/third_line/face/take_off
+161,if entity @s[tag=ear_equipped] run function item:equip_window/third_line/ear/take_off
+162,if entity @s[tag=cape_equipped] run function item:equip_window/fourth_line/cape/take_off
+163,if entity @s[tag=cloth_equipped] run function item:equip_window/fourth_line/cloth/take_off
+164,if entity @s[tag=pendent_equipped] run function item:equip_window/fourth_line/pendent/take_off
+165,if entity @s[tag=shield_equipped] run function item:equip_window/fourth_line/shield/take_off
+166,if entity @s[tag=gloves_equipped] run function item:equip_window/fifth_line/gloves/take_off
+167,if entity @s[tag=pants_equipped] run function item:equip_window/fifth_line/pants/take_off
+168,if entity @s[tag=shoes_equipped] run function item:equip_window/fifth_line/shoes/take_off
+169,if entity @s[tag=ring3_equipped] run function item:equip_window/fifth_line/ring3/take_off
+170,if entity @s[tag=ring4_equipped] run function item:equip_window/fifth_line/ring4/take_off
