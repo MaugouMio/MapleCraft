@@ -366,21 +366,111 @@ namespace item()
 			}
 			
 			folder cap() from use_equip_template("cap");
+			folder cloth() from use_equip_template("cloth");
 			
-			# folder cloth() from use_equip_template("cloth")
-			# {
+			folder pants() from use_equip_template("pants")
+			{
+				func check()
+				{
+					execute store result score #EQUIP_TYPE temp run data get entity @s Inventory[{Slot:103b}].tag.cloth.equip_type
+					execute if score #EQUIP_TYPE temp matches 33 run function ARG(_PATH)overall_check
+					execute unless score #EQUIP_TYPE temp matches 33 run function ARG(_PATH)pants_check
+					function item:use/equip_qulification
+					
+					execute if score #ACCEPTED_EQUIP temp matches 0 run playsound minecraft:game.dlg_notice player @s
+					execute if score #ACCEPTED_EQUIP temp matches 1 run function ARG(_PATH)equip
+				}
 				
-			# }
+				func overall_check()
+				{
+					execute store result score #EQUIP_STR temp run data get entity @s Inventory[{Slot:103b}].tag.cloth.str
+					execute store result score #EQUIP_DEX temp run data get entity @s Inventory[{Slot:103b}].tag.cloth.dex
+					execute store result score #EQUIP_INT temp run data get entity @s Inventory[{Slot:103b}].tag.cloth.int
+					execute store result score #EQUIP_LUK temp run data get entity @s Inventory[{Slot:103b}].tag.cloth.luk
+				}
+				
+				func pants_check()
+				{
+					execute store result score #EQUIP_STR temp run data get entity @s Inventory[{Slot:103b}].tag.pants.str
+					execute store result score #EQUIP_DEX temp run data get entity @s Inventory[{Slot:103b}].tag.pants.dex
+					execute store result score #EQUIP_INT temp run data get entity @s Inventory[{Slot:103b}].tag.pants.int
+					execute store result score #EQUIP_LUK temp run data get entity @s Inventory[{Slot:103b}].tag.pants.luk
+				}
+	
+				func equip()
+				{
+					playsound minecraft:item.equip player @s
+					
+					data modify storage item:main equip set from entity @s SelectedItem.tag
+					tellraw @s {"translate":"item.notice.equip_item","with":[{"nbt":"equip.display.Name","storage":"item:main","interpret":true}]}
+					replaceitem entity @s weapon.mainhand minecraft:air
+					
+					# replace original equip
+					execute if score #EQUIP_TYPE temp matches 33 if entity @s[tag=cloth_equipped] run function ARG(__PATH)cloth/remove
+					execute unless score #EQUIP_TYPE temp matches 33 if entity @s[tag=pants_equipped] run function ARG(_PATH)remove
+					
+					# equip new pants
+					replaceitem block 0 1 0 container.0 minecraft:potion
+					data modify block 0 1 0 Items[0].tag set from entity @s Inventory[{Slot:103b}].tag
+					data modify block 0 1 0 Items[0].tag.pants set from storage item:main equip
+					
+					function item:use/equip_numeric/apply
+					
+					loot replace entity @s armor.head 1 mine 0 1 0 minecraft:air{modify_player:1b}
+					tag @s add pants_equipped
+				}
+			}
 			
-			# folder pants() from use_equip_template("pants")
-			# {
+			folder overall()
+			{
+				func check()
+				{
+					execute store result score #EQUIP_STR temp run data get entity @s Inventory[{Slot:103b}].tag.cloth.str
+					execute store result score #EQUIP_DEX temp run data get entity @s Inventory[{Slot:103b}].tag.cloth.dex
+					execute store result score #EQUIP_INT temp run data get entity @s Inventory[{Slot:103b}].tag.cloth.int
+					execute store result score #EQUIP_LUK temp run data get entity @s Inventory[{Slot:103b}].tag.cloth.luk
+					execute if entity @s[tag=pants_equipped] run function ARG(_PATH)add_pants_numeric
+					function item:use/equip_qulification
+					
+					execute if score #ACCEPTED_EQUIP temp matches 0 run playsound minecraft:game.dlg_notice player @s
+					execute if score #ACCEPTED_EQUIP temp matches 1 run function ARG(_PATH)equip
+				}
 				
-			# }
-			
-			# folder overall() from use_equip_template("overall")
-			# {
-				
-			# }
+				func add_pants_numeric()
+				{
+					execute store result score #GLOBAL temp run data get entity @s Inventory[{Slot:103b}].tag.pants.str
+					scoreboard players operation #EQUIP_STR temp += #GLOBAL temp
+					execute store result score #GLOBAL temp run data get entity @s Inventory[{Slot:103b}].tag.pants.dex
+					scoreboard players operation #EQUIP_DEX temp += #GLOBAL temp
+					execute store result score #GLOBAL temp run data get entity @s Inventory[{Slot:103b}].tag.pants.int
+					scoreboard players operation #EQUIP_INT temp += #GLOBAL temp
+					execute store result score #GLOBAL temp run data get entity @s Inventory[{Slot:103b}].tag.pants.luk
+					scoreboard players operation #EQUIP_LUK temp += #GLOBAL temp
+				}
+	
+				func equip()
+				{
+					playsound minecraft:item.equip player @s
+					
+					data modify storage item:main equip set from entity @s SelectedItem.tag
+					tellraw @s {"translate":"item.notice.equip_item","with":[{"nbt":"equip.display.Name","storage":"item:main","interpret":true}]}
+					replaceitem entity @s weapon.mainhand minecraft:air
+					
+					# replace original equips
+					execute if entity @s[tag=cloth_equipped] run function ARG(__PATH)cloth/remove
+					execute if entity @s[tag=pants_equipped] run function ARG(__PATH)pants/remove
+					
+					# equip new ARG(equip)
+					replaceitem block 0 1 0 container.0 minecraft:potion
+					data modify block 0 1 0 Items[0].tag set from entity @s Inventory[{Slot:103b}].tag
+					data modify block 0 1 0 Items[0].tag.cloth set from storage item:main equip
+					
+					function item:use/equip_numeric/apply
+					
+					loot replace entity @s armor.head 1 mine 0 1 0 minecraft:air{modify_player:1b}
+					tag @s add cloth_equipped
+				}
+			}
 			
 			folder gloves() from use_equip_template("gloves");
 			folder shoes() from use_equip_template("shoes");
