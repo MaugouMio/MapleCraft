@@ -3,8 +3,8 @@ from PIL import Image, ImageDraw
 
 font = []
 back_font = []
-equip_type = "pants"
-font_index = int("0xC600", 16)
+equip_type = "overall"
+font_index = int("0xC800", 16)
 
 if not os.path.isdir(f"MapleCraft resource pack/assets/ui/textures/font/window/equip/icon/{equip_type}"):
 	os.mkdir(f"MapleCraft resource pack/assets/ui/textures/font/window/equip/icon/{equip_type}")
