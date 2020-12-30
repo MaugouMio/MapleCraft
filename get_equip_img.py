@@ -1,6 +1,8 @@
 import xml.etree.cElementTree as ET
-import base64, io, json
+import base64, io, json, os
 from PIL import Image
+
+equip_type = "cloth"
 
 try:
 	tree = ET.ElementTree(file = "C:/users/user/desktop/img.xml")
@@ -18,7 +20,7 @@ try:
 						break
 				if flag:
 					break
-
+	
 	tree = ET.ElementTree(file = "C:/users/user/desktop/string.xml")
 	root = tree.getroot()[0]
 	id_dict = dict()
@@ -32,8 +34,10 @@ try:
 		equip_names = json.loads(f.read())
 	for key in equip_names:
 		job = key.split(".")[-2]
-		img_dict[id_dict[equip_names[key]]].save("MapleCraft resource pack/assets/minecraft/textures/item/equip/shoes/" + job + "/" + key.split(".")[-1] + ".png")
+		if not os.path.isdir(f"MapleCraft resource pack/assets/minecraft/textures/item/equip/{equip_type}/{job}"):
+			os.mkdir(f"MapleCraft resource pack/assets/minecraft/textures/item/equip/{equip_type}/{job}")
+		img_dict[id_dict[equip_names[key]]].save(f"MapleCraft resource pack/assets/minecraft/textures/item/equip/{equip_type}/{job}/{key.split('.')[-1]}.png")
 
-exceptException as e:
+except Exception as e:
 	print(e)
 	os.system("pause")
