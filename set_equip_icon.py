@@ -3,15 +3,18 @@ from PIL import Image, ImageDraw
 
 font = []
 back_font = []
-equip_type = "shoes"
-font_index = int("0xC200", 16)
+equip_type = "cloth"
+font_index = int("0xC400", 16)
+
+if not os.path.isdir(f"MapleCraft resource pack/assets/ui/textures/font/window/equip/icon/{equip_type}"):
+	os.mkdir(f"MapleCraft resource pack/assets/ui/textures/font/window/equip/icon/{equip_type}")
 for w in os.walk(f"MapleCraft resource pack/assets/minecraft/textures/item/equip/{equip_type}"):
 	for file in w[2]:
 		img = Image.open(os.path.join(w[0], file))
 		size = ((img.size[0]+1)//4*4+2, (max(img.size[1], 36)+3)//4*4)
 		parent = os.path.basename(w[0])
 		if not os.path.isdir(f"MapleCraft resource pack/assets/ui/textures/font/window/equip/icon/{equip_type}/" + parent):
-			os.mkdir(f"C:/Users/user/Desktop/MapleCraft/MapleCraft resource pack/assets/ui/textures/font/window/equip/icon/{equip_type}/" + parent)
+			os.mkdir(f"MapleCraft resource pack/assets/ui/textures/font/window/equip/icon/{equip_type}/" + parent)
 			
 		if size[1] > 40:
 			print(w[0], file)

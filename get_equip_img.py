@@ -3,6 +3,8 @@ import base64, io, json, os
 from PIL import Image
 
 equip_type = "cloth"
+if not os.path.isdir(f"MapleCraft resource pack/assets/minecraft/textures/item/equip/{equip_type}"):
+	os.mkdir(f"MapleCraft resource pack/assets/minecraft/textures/item/equip/{equip_type}")
 
 try:
 	tree = ET.ElementTree(file = "C:/users/user/desktop/img.xml")
