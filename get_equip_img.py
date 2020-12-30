@@ -2,7 +2,7 @@ import xml.etree.cElementTree as ET
 import base64, io, json, os
 from PIL import Image
 
-equip_type = "cloth"
+equip_type = "pants"
 if not os.path.isdir(f"MapleCraft resource pack/assets/minecraft/textures/item/equip/{equip_type}"):
 	os.mkdir(f"MapleCraft resource pack/assets/minecraft/textures/item/equip/{equip_type}")
 
@@ -30,7 +30,9 @@ try:
 		for name in imgdir.findall("string"):
 			if name.attrib["name"] == "name":
 				if name.attrib["value"] not in id_dict:
-					id_dict[name.attrib["value"]] = imgdir.attrib["name"]
+					id_dict[name.attrib["value"]] = [imgdir.attrib["name"]]
+				else:
+					id_dict[name.attrib["value"]].append(imgdir.attrib["name"])
 
 	with open("C:/users/user/desktop/translate.json", "r") as f:
 		equip_names = json.loads(f.read())
@@ -38,7 +40,10 @@ try:
 		job = key.split(".")[-2]
 		if not os.path.isdir(f"MapleCraft resource pack/assets/minecraft/textures/item/equip/{equip_type}/{job}"):
 			os.mkdir(f"MapleCraft resource pack/assets/minecraft/textures/item/equip/{equip_type}/{job}")
-		img_dict[id_dict[equip_names[key]]].save(f"MapleCraft resource pack/assets/minecraft/textures/item/equip/{equip_type}/{job}/{key.split('.')[-1]}.png")
+		for id in id_dict[equip_names[key]]:
+			if id in img_dict:
+				img_dict[id].save(f"MapleCraft resource pack/assets/minecraft/textures/item/equip/{equip_type}/{job}/{key.split('.')[-1]}.png")
+				break
 
 except Exception as e:
 	print(e)
