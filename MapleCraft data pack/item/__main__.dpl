@@ -6,14 +6,28 @@ namespace use_equip_template(equip) as virtual
 {
 	func check()
 	{
-		execute store result score #EQUIP_STR temp run data get entity @s Inventory[{Slot:103b}].tag.ARG(equip).str
-		execute store result score #EQUIP_DEX temp run data get entity @s Inventory[{Slot:103b}].tag.ARG(equip).dex
-		execute store result score #EQUIP_INT temp run data get entity @s Inventory[{Slot:103b}].tag.ARG(equip).int
-		execute store result score #EQUIP_LUK temp run data get entity @s Inventory[{Slot:103b}].tag.ARG(equip).luk
+		execute if entity @s[tag=ARG(equip)_equipped] run function ARG(_PATH)get_ori_equip_stats
+		execute unless entity @s[tag=ARG(equip)_equipped] run function ARG(_PATH)reset_equip_stats
 		function item:use/equip_qulification
 		
 		execute if score #ACCEPTED_EQUIP temp matches 0 run playsound minecraft:game.dlg_notice player @s
 		execute if score #ACCEPTED_EQUIP temp matches 1 run function ARG(_PATH)equip
+	}
+	
+	func get_ori_equip_stats()
+	{
+		execute store result score #EQUIP_STR temp run data get entity @s Inventory[{Slot:103b}].tag.ARG(equip).str
+		execute store result score #EQUIP_DEX temp run data get entity @s Inventory[{Slot:103b}].tag.ARG(equip).dex
+		execute store result score #EQUIP_INT temp run data get entity @s Inventory[{Slot:103b}].tag.ARG(equip).int
+		execute store result score #EQUIP_LUK temp run data get entity @s Inventory[{Slot:103b}].tag.ARG(equip).luk
+	}
+	
+	func reset_equip_stats()
+	{
+		scoreboard players set #EQUIP_STR temp 0
+		scoreboard players set #EQUIP_DEX temp 0
+		scoreboard players set #EQUIP_INT temp 0
+		scoreboard players set #EQUIP_LUK temp 0
 	}
 	
 	func equip()
@@ -373,8 +387,12 @@ namespace item()
 				func check()
 				{
 					execute store result score #EQUIP_TYPE temp run data get entity @s Inventory[{Slot:103b}].tag.cloth.equip_type
-					execute if score #EQUIP_TYPE temp matches 33 run function ARG(_PATH)overall_check
-					execute unless score #EQUIP_TYPE temp matches 33 run function ARG(_PATH)pants_check
+					scoreboard players set #EQUIP_STR temp 0
+					scoreboard players set #EQUIP_DEX temp 0
+					scoreboard players set #EQUIP_INT temp 0
+					scoreboard players set #EQUIP_LUK temp 0
+					execute if score #EQUIP_TYPE temp matches 33 if entity @s[tag=cloth_equipped] run function ARG(_PATH)overall_check
+					execute unless score #EQUIP_TYPE temp matches 33 if entity @s[tag=pants_equipped] run function ARG(_PATH)pants_check
 					function item:use/equip_qulification
 					
 					execute if score #ACCEPTED_EQUIP temp matches 0 run playsound minecraft:game.dlg_notice player @s
@@ -425,15 +443,29 @@ namespace item()
 			{
 				func check()
 				{
-					execute store result score #EQUIP_STR temp run data get entity @s Inventory[{Slot:103b}].tag.cloth.str
-					execute store result score #EQUIP_DEX temp run data get entity @s Inventory[{Slot:103b}].tag.cloth.dex
-					execute store result score #EQUIP_INT temp run data get entity @s Inventory[{Slot:103b}].tag.cloth.int
-					execute store result score #EQUIP_LUK temp run data get entity @s Inventory[{Slot:103b}].tag.cloth.luk
+					execute if entity @s[tag=overall_equipped] run function ARG(_PATH)get_ori_equip_stats
+					execute unless entity @s[tag=overall_equipped] run function ARG(_PATH)reset_equip_stats
 					execute if entity @s[tag=pants_equipped] run function ARG(_PATH)add_pants_numeric
 					function item:use/equip_qulification
 					
 					execute if score #ACCEPTED_EQUIP temp matches 0 run playsound minecraft:game.dlg_notice player @s
 					execute if score #ACCEPTED_EQUIP temp matches 1 run function ARG(_PATH)equip
+				}
+				
+				func get_ori_equip_stats()
+				{
+					execute store result score #EQUIP_STR temp run data get entity @s Inventory[{Slot:103b}].tag.cloth.str
+					execute store result score #EQUIP_DEX temp run data get entity @s Inventory[{Slot:103b}].tag.cloth.dex
+					execute store result score #EQUIP_INT temp run data get entity @s Inventory[{Slot:103b}].tag.cloth.int
+					execute store result score #EQUIP_LUK temp run data get entity @s Inventory[{Slot:103b}].tag.cloth.luk
+				}
+				
+				func reset_equip_stats()
+				{
+					scoreboard players set #EQUIP_STR temp 0
+					scoreboard players set #EQUIP_DEX temp 0
+					scoreboard players set #EQUIP_INT temp 0
+					scoreboard players set #EQUIP_LUK temp 0
 				}
 				
 				func add_pants_numeric()
