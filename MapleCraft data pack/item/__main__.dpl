@@ -375,7 +375,7 @@ namespace item()
 				execute if score #USING_ITEM temp matches 12901..13200 run function ARG(_PATH)eye/check
 				execute if score #USING_ITEM temp matches 13201..13500 run function ARG(_PATH)face/check
 				execute if score #USING_ITEM temp matches 13501..13800 run function ARG(_PATH)ear/check
-				execute if score #USING_ITEM temp matches 13801..14100 run function ARG(_PATH)pendent/check
+				execute if score #USING_ITEM temp matches 13801..14100 run function ARG(_PATH)pendant/check
 				execute if score #USING_ITEM temp matches 14101..14400 run function ARG(_PATH)ring/check
 			}
 			
@@ -573,10 +573,10 @@ namespace item()
 				}
 			}
 			
-			folder eye() from use_equip_template("eye");
+			folder eye() from use_equip_template("forehead");
 			folder face() from use_equip_template("face");
 			folder ear() from use_equip_template("ear");
-			folder pendent() from use_equip_template("pendent");
+			folder pendant() from use_equip_template("pendant");
 			
 			# folder ring() from use_equip_template("ring")
 			# {

@@ -2,7 +2,7 @@ import xml.etree.cElementTree as ET
 import base64, io, json, os
 from PIL import Image
 
-equip_type = "eye"
+equip_type = "pendant"
 
 if not os.path.isdir(f"MapleCraft resource pack/assets/minecraft/textures/item/equip/{equip_type}"):
 	os.mkdir(f"MapleCraft resource pack/assets/minecraft/textures/item/equip/{equip_type}")

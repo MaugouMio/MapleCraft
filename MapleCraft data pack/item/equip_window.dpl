@@ -20,10 +20,10 @@ namespace equip_window() as virtual
 		tellraw @s [{"text":"\uF82A\uF823","font":"space:default"},{"nbt":"equip.face.event","storage":"ui:main","interpret":true},"\uF821",{"nbt":"equip.ear.event","storage":"ui:main","interpret":true},"B4",{"text":"\uE006","font":"ui:window/equip"},"A84",[{"nbt":"equip.face.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.face.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.face.icon[0]","storage":"ui:main","interpret":true}],"\uF829",[{"nbt":"equip.ear.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.ear.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"}]]
 		tellraw @s [{"text":"\uF82A\uF823","font":"space:default"},{"nbt":"equip.face.event","storage":"ui:main","interpret":true},"\uF821",{"nbt":"equip.ear.event","storage":"ui:main","interpret":true},"B4",{"text":"\uE007","font":"ui:window/equip"},"A84",[{"nbt":"equip.face.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.face.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.face.icon[0]","storage":"ui:main","interpret":true}],"\uF829",[{"nbt":"equip.ear.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.ear.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"}]]
 		
-		# cape, cloth, pendent, weapon, shield
+		# cape, cloth, pendant, weapon, shield
 		function ARG(_PATH)fourth_line/add
-		tellraw @s [{"text":"\uF822","font":"space:default"},{"nbt":"equip.cape.event","storage":"ui:main","interpret":true},"\uF821",{"nbt":"equip.cloth.event","storage":"ui:main","interpret":true},{"nbt":"equip.pendent.event","storage":"ui:main","interpret":true},"\uF821",{"nbt":"equip.weapon.event","storage":"ui:main","interpret":true},{"nbt":"equip.shield.event","storage":"ui:main","interpret":true},"B94",{"text":"\uE008","font":"ui:window/equip"},"B86",[{"nbt":"equip.cape.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.cape.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.cape.icon[0]","storage":"ui:main","interpret":true}],"\uF829\uF821",[{"nbt":"equip.cloth.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.cloth.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.cloth.icon[0]","storage":"ui:main","interpret":true}],"\uF829\uF821",[{"nbt":"equip.pendent.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.pendent.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.pendent.icon[0]","storage":"ui:main","interpret":true}],"\uF829",[{"nbt":"equip.weapon.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.weapon.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.weapon.icon[0]","storage":"ui:main","interpret":true}],"\uF829",[{"nbt":"equip.shield.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.shield.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"}]]
-		tellraw @s [{"text":"\uF822","font":"space:default"},{"nbt":"equip.cape.event","storage":"ui:main","interpret":true},"\uF821",{"nbt":"equip.cloth.event","storage":"ui:main","interpret":true},{"nbt":"equip.pendent.event","storage":"ui:main","interpret":true},"\uF821",{"nbt":"equip.weapon.event","storage":"ui:main","interpret":true},{"nbt":"equip.shield.event","storage":"ui:main","interpret":true},"B94",{"text":"\uE009","font":"ui:window/equip"},"B86",[{"nbt":"equip.cape.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.cape.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.cape.icon[0]","storage":"ui:main","interpret":true}],"\uF829\uF821",[{"nbt":"equip.cloth.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.cloth.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.cloth.icon[0]","storage":"ui:main","interpret":true}],"\uF829\uF821",[{"nbt":"equip.pendent.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.pendent.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.pendent.icon[0]","storage":"ui:main","interpret":true}],"\uF829",[{"nbt":"equip.weapon.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.weapon.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.weapon.icon[0]","storage":"ui:main","interpret":true}],"\uF829",[{"nbt":"equip.shield.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.shield.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"}]]
+		tellraw @s [{"text":"\uF822","font":"space:default"},{"nbt":"equip.cape.event","storage":"ui:main","interpret":true},"\uF821",{"nbt":"equip.cloth.event","storage":"ui:main","interpret":true},{"nbt":"equip.pendant.event","storage":"ui:main","interpret":true},"\uF821",{"nbt":"equip.weapon.event","storage":"ui:main","interpret":true},{"nbt":"equip.shield.event","storage":"ui:main","interpret":true},"B94",{"text":"\uE008","font":"ui:window/equip"},"B86",[{"nbt":"equip.cape.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.cape.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.cape.icon[0]","storage":"ui:main","interpret":true}],"\uF829\uF821",[{"nbt":"equip.cloth.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.cloth.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.cloth.icon[0]","storage":"ui:main","interpret":true}],"\uF829\uF821",[{"nbt":"equip.pendant.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.pendant.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.pendant.icon[0]","storage":"ui:main","interpret":true}],"\uF829",[{"nbt":"equip.weapon.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.weapon.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.weapon.icon[0]","storage":"ui:main","interpret":true}],"\uF829",[{"nbt":"equip.shield.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.shield.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"}]]
+		tellraw @s [{"text":"\uF822","font":"space:default"},{"nbt":"equip.cape.event","storage":"ui:main","interpret":true},"\uF821",{"nbt":"equip.cloth.event","storage":"ui:main","interpret":true},{"nbt":"equip.pendant.event","storage":"ui:main","interpret":true},"\uF821",{"nbt":"equip.weapon.event","storage":"ui:main","interpret":true},{"nbt":"equip.shield.event","storage":"ui:main","interpret":true},"B94",{"text":"\uE009","font":"ui:window/equip"},"B86",[{"nbt":"equip.cape.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.cape.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.cape.icon[0]","storage":"ui:main","interpret":true}],"\uF829\uF821",[{"nbt":"equip.cloth.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.cloth.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.cloth.icon[0]","storage":"ui:main","interpret":true}],"\uF829\uF821",[{"nbt":"equip.pendant.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.pendant.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.pendant.icon[0]","storage":"ui:main","interpret":true}],"\uF829",[{"nbt":"equip.weapon.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.weapon.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.weapon.icon[0]","storage":"ui:main","interpret":true}],"\uF829",[{"nbt":"equip.shield.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.shield.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"}]]
 		
 		# gloves, pants, shoes, ring3, ring4
 		function ARG(_PATH)fifth_line/add
@@ -112,7 +112,7 @@ namespace equip_window() as virtual
 			func take_off()
 			{
 				execute at @s run playsound minecraft:item.equip player @s
-				function item:use/equip/forehead/remove
+				function item:use/equip/eye/remove
 				function item:equip_window/display
 			}
 		}
@@ -261,7 +261,7 @@ namespace equip_window() as virtual
 		{
 			function ARG(_PATH)cape/add
 			function ARG(_PATH)cloth/add
-			function ARG(_PATH)pendent/add
+			function ARG(_PATH)pendant/add
 			function ARG(_PATH)weapon/add
 			function ARG(_PATH)shield/add
 		}
@@ -330,34 +330,34 @@ namespace equip_window() as virtual
 			}
 		}
 		
-		folder pendent()
+		folder pendant()
 		{
 			func add()
 			{
-				execute unless entity @s[tag=pendent_equipped] run data modify storage ui:main equip.pendent set value {icon:['""','""'],event:'{"text":"\\uF829","font":"space:default"}'}
-				execute if entity @s[tag=pendent_equipped] run function ARG(_PATH)set
+				execute unless entity @s[tag=pendant_equipped] run data modify storage ui:main equip.pendant set value {icon:['""','""'],event:'{"text":"\\uF829","font":"space:default"}'}
+				execute if entity @s[tag=pendant_equipped] run function ARG(_PATH)set
 			}
 			
 			func set()
 			{
-				data modify storage ui:main equip.pendent set from entity @s Inventory[{Slot:103b}].tag.pendent
-				data modify block 0 0 0 Text1 set value '["",{"nbt":"equip.pendent.display.Name","storage":"ui:main","interpret":true}]'
+				data modify storage ui:main equip.pendant set from entity @s Inventory[{Slot:103b}].tag.pendant
+				data modify block 0 0 0 Text1 set value '["",{"nbt":"equip.pendant.display.Name","storage":"ui:main","interpret":true}]'
 				function ARG(_PATH)set_display
 				data modify block 0 0 0 Text1 set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 164"},"hoverEvent":{"action":"show_text","contents":{"nbt":"Text1","block":"0 0 0","interpret":true}}}'
-				data modify storage ui:main equip.pendent.event set from block 0 0 0 Text1
+				data modify storage ui:main equip.pendant.event set from block 0 0 0 Text1
 			}
 			
 			func set_display()
 			{
-				data modify block 0 0 0 Text1 set value '[{"nbt":"Text1","block":"0 0 0","interpret":true},"\\n",{"nbt":"equip.pendent.display.Lore[0]","storage":"ui:main","interpret":true}]'
-				data remove storage ui:main equip.pendent.display.Lore[0]
-				execute if data storage ui:main equip.pendent.display.Lore[0] run function ARG(_PATH)set_display
+				data modify block 0 0 0 Text1 set value '[{"nbt":"Text1","block":"0 0 0","interpret":true},"\\n",{"nbt":"equip.pendant.display.Lore[0]","storage":"ui:main","interpret":true}]'
+				data remove storage ui:main equip.pendant.display.Lore[0]
+				execute if data storage ui:main equip.pendant.display.Lore[0] run function ARG(_PATH)set_display
 			}
 		
 			func take_off()
 			{
 				execute at @s run playsound minecraft:item.equip player @s
-				function item:use/equip/pendent/remove
+				function item:use/equip/pendant/remove
 				function item:equip_window/display
 			}
 		}

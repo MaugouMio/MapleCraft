@@ -161,7 +161,7 @@
 161,if entity @s[tag=ear_equipped] run function item:equip_window/third_line/ear/take_off
 162,if entity @s[tag=cape_equipped] run function item:equip_window/fourth_line/cape/take_off
 163,if entity @s[tag=cloth_equipped] run function item:equip_window/fourth_line/cloth/take_off
-164,if entity @s[tag=pendent_equipped] run function item:equip_window/fourth_line/pendent/take_off
+164,if entity @s[tag=pendant_equipped] run function item:equip_window/fourth_line/pendant/take_off
 165,if entity @s[tag=shield_equipped] run function item:equip_window/fourth_line/shield/take_off
 166,if entity @s[tag=gloves_equipped] run function item:equip_window/fifth_line/gloves/take_off
 167,if entity @s[tag=pants_equipped] run function item:equip_window/fifth_line/pants/take_off
