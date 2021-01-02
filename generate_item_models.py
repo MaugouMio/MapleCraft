@@ -1,7 +1,7 @@
 import os, json
 from PIL import Image
 
-for item_type in ["equip/ear"]:
+for item_type in ["equip/eye"]:
 	texture_folder = "MapleCraft resource pack/assets/minecraft/textures/item/" + item_type
 	model_folder = "MapleCraft resource pack/assets/minecraft/models/item/" + item_type
 
