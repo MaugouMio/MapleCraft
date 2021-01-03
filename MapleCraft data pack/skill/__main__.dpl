@@ -976,7 +976,7 @@ namespace skill()
 	{
 		func run()
 		{
-			execute as @e[type=area_effect_cloud,scores={type=1}] run function ARG(_PATH)font_effect_update
+			execute as @e[type=area_effect_cloud,scores={type=1}] run function ARG(_PATH)font_effect_update/check
 			execute as @e[type=armor_stand,tag=bullet] run function skill:bullet/check
 			execute as @e[type=armor_stand,tag=model_animation] run function ARG(_PATH)model_animation_update
 			execute as @e[type=armor_stand,tag=afterimage] run function skill:afterimage/update
@@ -990,15 +990,23 @@ namespace skill()
 			execute as @a[scores={right_click=1..},tag=!dead] at @s run function skill:check_skill/run
 		}
 		
-		func font_effect_update()
+		folder font_effect_update()
 		{
-			execute store result score #GLOBAL temp run data get entity @s Age
-			scoreboard players operation #GLOBAL temp %= #10 const
-			execute if score #GLOBAL temp matches 0 run data remove entity @s Tags[0]
+			func check()
+			{
+				execute store result score #GLOBAL temp run data get entity @s Age
+				execute if score #GLOBAL temp matches 1.. run function ARG(_PATH)update
+			}
 			
-			data modify storage skill:main effect_font set from entity @s Tags[0]
-			data modify block 0 0 0 Text1 set value '[{"nbt":"effect_font","storage":"skill:main","interpret":true},{"text":"F","font":"space:default"},{"score":{"name":"#GLOBAL","objective":"temp"}},{"text":"F","font":"space:default"}]'
-			data modify entity @s CustomName set from block 0 0 0 Text1
+			func update()
+			{
+				scoreboard players operation #GLOBAL temp %= #10 const
+				execute if score #GLOBAL temp matches 0 run data remove entity @s Tags[0]
+				
+				data modify storage skill:main effect_font set from entity @s Tags[0]
+				data modify block 0 0 0 Text1 set value '[{"nbt":"effect_font","storage":"skill:main","interpret":true},{"text":"F","font":"space:default"},{"score":{"name":"#GLOBAL","objective":"temp"}},{"text":"F","font":"space:default"}]'
+				data modify entity @s CustomName set from block 0 0 0 Text1
+			}
 		}
 		
 		func model_animation_update()
