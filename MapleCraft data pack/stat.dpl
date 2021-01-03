@@ -19,6 +19,132 @@ namespace stat()
 		scoreboard objectives add hp_recover_time dummy
 	}
 	
+	folder job()
+	{
+		func change()
+		{
+			scoreboard players add @s job_level 1
+			scoreboard players add @s skill_point 1
+			scoreboard players add @s[scores={job_level=4}] skill_point 2
+			scoreboard players add @s[scores={job_level=4}] stat_point 3
+			# effect
+			playsound minecraft:game.job_changed player @a ~ ~ ~ 1 1 0
+			function skill:summon_font_effect/0000000job_changed
+		}
+		
+		folder hp_mp()
+		{
+			folder warrior()
+			{
+				func warrior()
+				{
+					scoreboard players set #RANGE_MAX temp 51
+					function main:rand_range
+					scoreboard players add @s hp_max_base 200
+					scoreboard players operation @s hp_max_base += #RAND_RANGE_RESULT temp
+					
+					execute unless score @s hyper_buff_time matches 1.. run function stat:exp/update_hp_mp/max
+					execute if score @s hyper_buff_time matches 1.. run function skill:1/3/0/1007/set_hp_mp
+					
+					function stat:job/change
+				}
+				
+				func fighter()
+				{
+					scoreboard players set #RANGE_MAX temp 51
+					function main:rand_range
+					scoreboard players add @s hp_max_base 300
+					scoreboard players operation @s hp_max_base += #RAND_RANGE_RESULT temp
+					
+					execute unless score @s hyper_buff_time matches 1.. run function stat:exp/update_hp_mp/max
+					execute if score @s hyper_buff_time matches 1.. run function skill:1/3/0/1007/set_hp_mp
+					
+					function stat:job/change
+				}
+				
+				func page_spearman()
+				{
+					scoreboard players set #RANGE_MAX temp 51
+					function main:rand_range
+					scoreboard players add @s mp_max_base 100
+					scoreboard players operation @s mp_max_base += #RAND_RANGE_RESULT temp
+					
+					execute unless score @s hyper_buff_time matches 1.. run function stat:exp/update_hp_mp/max
+					execute if score @s hyper_buff_time matches 1.. run function skill:1/3/0/1007/set_hp_mp
+					
+					function stat:job/change
+				}
+			}
+			
+			folder magician()
+			{
+				func magician()
+				{
+					scoreboard players set #RANGE_MAX temp 51
+					function main:rand_range
+					scoreboard players add @s mp_max_base 100
+					scoreboard players operation @s mp_max_base += #RAND_RANGE_RESULT temp
+					
+					execute unless score @s hyper_buff_time matches 1.. run function stat:exp/update_hp_mp/max
+					execute if score @s hyper_buff_time matches 1.. run function skill:1/3/0/1007/set_hp_mp
+					
+					function stat:job/change
+				}
+				
+				func second()
+				{
+					scoreboard players set #RANGE_MAX temp 51
+					function main:rand_range
+					scoreboard players add @s mp_max_base 450
+					scoreboard players operation @s mp_max_base += #RAND_RANGE_RESULT temp
+					
+					execute unless score @s hyper_buff_time matches 1.. run function stat:exp/update_hp_mp/max
+					execute if score @s hyper_buff_time matches 1.. run function skill:1/3/0/1007/set_hp_mp
+					
+					function stat:job/change
+				}
+			}
+			
+			folder archer_thief()
+			{
+				func first()
+				{
+					scoreboard players set #RANGE_MAX temp 51
+					function main:rand_range
+					scoreboard players add @s hp_max_base 100
+					scoreboard players operation @s hp_max_base += #RAND_RANGE_RESULT temp
+					
+					scoreboard players set #RANGE_MAX temp 26
+					function main:rand_range
+					scoreboard players add @s mp_max_base 25
+					scoreboard players operation @s mp_max_base += #RAND_RANGE_RESULT temp
+					
+					execute unless score @s hyper_buff_time matches 1.. run function stat:exp/update_hp_mp/max
+					execute if score @s hyper_buff_time matches 1.. run function skill:1/3/0/1007/set_hp_mp
+					
+					function stat:job/change
+				}
+				
+				func second()
+				{
+					scoreboard players set #RANGE_MAX temp 51
+					function main:rand_range
+					scoreboard players add @s hp_max_base 300
+					scoreboard players operation @s hp_max_base += #RAND_RANGE_RESULT temp
+					
+					function main:rand_range
+					scoreboard players add @s mp_max_base 150
+					scoreboard players operation @s mp_max_base += #RAND_RANGE_RESULT temp
+					
+					execute unless score @s hyper_buff_time matches 1.. run function stat:exp/update_hp_mp/max
+					execute if score @s hyper_buff_time matches 1.. run function skill:1/3/0/1007/set_hp_mp
+					
+					function stat:job/change
+				}
+			}
+		}
+	}
+	
 	folder exp()
 	{
 		func level_up()
