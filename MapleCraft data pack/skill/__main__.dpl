@@ -158,7 +158,7 @@ namespace attack_skill_template(skill_id) as virtual
 	{
 		scoreboard players set @s pushed_time 12
 		scoreboard players operation @s kb_time > @s pushed_time
-		execute store result score #GLOBAL temp run scoreboard players set @s status 2
+		execute store result score #GLOBAL temp run scoreboard players set @s status 1
 		execute store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players operation #GLOBAL temp += @s base_model
 		
 		# face attacker player
@@ -361,7 +361,7 @@ namespace bullet_skill_template(skill_id) as virtual
 	{
 		scoreboard players set @s pushed_time 12
 		scoreboard players operation @s kb_time > @s pushed_time
-		execute store result score #GLOBAL temp run scoreboard players set @s status 2
+		execute store result score #GLOBAL temp run scoreboard players set @s status 1
 		execute store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players operation #GLOBAL temp += @s base_model
 		
 		# face attacker player
@@ -920,6 +920,11 @@ namespace skill()
 		scoreboard objectives add f_attack_weapon dummy
 		scoreboard objectives add f_attack_action dummy
 		
+		scoreboard objectives add action_frame_max dummy
+		scoreboard objectives add action_frame dummy
+		scoreboard objectives add action_frame_s dummy
+		scoreboard objectives add move_frame dummy
+		scoreboard objectives add stand_frame dummy
 		scoreboard objectives add hurt_sound dummy
 		scoreboard objectives add die_sound dummy
 		
@@ -1035,17 +1040,18 @@ namespace skill()
 			{
 				func run()
 				{
-					scoreboard players set #GLOBAL temp 0
+					scoreboard players set #GLOBAL temp -1
 					execute if data entity @s {OnGround:0b} run function ARG(_PATH)check_jump
-					execute if score #GLOBAL temp matches 0 run function ARG(_PATH)check_motion
+					execute if score #GLOBAL temp matches -1 run function ARG(_PATH)check_motion
 					
 					execute unless score @s status = #GLOBAL temp run function ARG(_PATH)change
+					execute if score @s action_frame_max matches 1.. run function ARG(_PATH)update_frame
 				}
 				
 				func check_jump()
 				{
 					execute if entity @s[tag=no_jump] run function ARG(_PATH)prevent_jump
-					scoreboard players set #GLOBAL temp 3
+					scoreboard players set #GLOBAL temp 0
 				}
 				
 				func prevent_jump()
@@ -1058,13 +1064,31 @@ namespace skill()
 				{
 					execute store result score @s motion_x run data get entity @s Motion[0] 100
 					execute store result score @s motion_z run data get entity @s Motion[2] 100
-					execute store success score #GLOBAL temp if score @s motion_x matches 0 if score @s motion_z matches 0
+					scoreboard players set #GLOBAL temp 2
+					execute if score @s motion_x matches 0 if score @s motion_z matches 0 run scoreboard players add #GLOBAL temp 1
+				}
+				
+				func update_frame()
+				{
+					scoreboard players add @s action_frame 1
+					execute if score @s action_frame = @s action_frame_max run scoreboard players set @s action_frame 0
+					
+					scoreboard players operation #GLOBAL temp = @s base_model
+					scoreboard players operation #GLOBAL temp += @s action_frame_s
+					execute store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players operation #GLOBAL temp += @s action_frame
 				}
 				
 				func change()
 				{
+					scoreboard players reset @s action_frame_max
+					scoreboard players set @s action_frame_s 2
+					execute if score #GLOBAL temp matches 2 if score @s move_frame matches 1.. run scoreboard players operation @s action_frame_max = @s move_frame
+					execute if score #GLOBAL temp matches 3 if score @s stand_frame matches 1.. run scoreboard players operation @s action_frame_s += @s move_frame
+					execute if score #GLOBAL temp matches 3 if score @s stand_frame matches 1.. run scoreboard players operation @s action_frame_max = @s stand_frame
+					scoreboard players set @s action_frame -1
+					
 					scoreboard players operation @s status = #GLOBAL temp
-					execute store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players operation #GLOBAL temp += @s base_model
+					execute unless score @s action_frame_max matches 1.. store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players operation #GLOBAL temp += @s base_model
 				}
 				
 				folder color()
@@ -3027,7 +3051,7 @@ namespace skill()
 				
 				data modify entity @s ArmorItems[3].tag.CustomPotionColor set value 12580095
 				
-				execute store result score #GLOBAL temp run scoreboard players set @s status 2
+				execute store result score #GLOBAL temp run scoreboard players set @s status 1
 				execute store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players operation #GLOBAL temp += @s base_model
 				
 				attribute @s minecraft:generic.movement_speed modifier add 495407c5-10c0-4270-84ed-c566e01e6952 move_control -100.0 add
@@ -4024,12 +4048,15 @@ namespace skill()
 		execute store result score @s mp_max run data get entity @s ArmorItems[3].tag.info.mp_max
 		scoreboard players operation @s mp = @s mp_max
 		execute store result score @s avoidability run data get entity @s ArmorItems[3].tag.info.avoidability
+		execute if data entity @s ArmorItems[3].tag.info.magic_attack store result score @s magic_attack run data get entity @s ArmorItems[3].tag.info.magic_attack
 		execute store result score @s weapon_defense run data get entity @s ArmorItems[3].tag.info.weapon_defense
 		execute store result score @s magic_defense run data get entity @s ArmorItems[3].tag.info.magic_defense
 		execute store result score @s kb run data get entity @s ArmorItems[3].tag.info.kb
 		execute store result score @s exp run data get entity @s ArmorItems[3].tag.info.exp
 		execute store result score @s hurt_sound run data get entity @s ArmorItems[3].tag.info.hurt_sound
 		execute store result score @s die_sound run data get entity @s ArmorItems[3].tag.info.die_sound
+		execute if data entity @s ArmorItems[3].tag.info.move_frame store result score @s move_frame run data get entity @s ArmorItems[3].tag.info.move_frame
+		execute if data entity @s ArmorItems[3].tag.info.stand_frame store result score @s stand_frame run data get entity @s ArmorItems[3].tag.info.stand_frame
 		execute store result score @s base_model run data get entity @s ArmorItems[3].tag.CustomModelData
 		
 		data remove entity @s ArmorItems[3].tag.info
@@ -4046,6 +4073,7 @@ namespace skill()
 		execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["new","enemy","fire_weakness","ice_resist","freeze_immune","no_jump"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:32,hp_max:1000,mp_max:80,avoidability:10,weapon_defense:90,magic_defense:80,kb:1,exp:120,hurt_sound:1,die_sound:3},steal_loot:"skill:steal/special/coupon_pq",CustomModelData:10004,CustomPotionColor:-1,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.movement_speed",Name:"slow",Amount:0,Operation:0,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:9.5},{Name:"generic.movement_speed",Base:0.1}],ActiveEffects:[{Id:11b,Amplifier:4,Duration:2147483647,Ambient:1b,ShowParticles:0b}],DeathLootTable:"skill:mob/special/coupon_pq",IsBaby:1b,OnGround:1b,AngerTime:2147483647,Team:"enemy"}
 		execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["new","enemy","no_jump"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:21,hp_max:320,mp_max:40,avoidability:15,weapon_defense:60,magic_defense:60,kb:50,exp:240,hurt_sound:1,die_sound:4},steal_loot:"skill:steal/special/pass_pq",CustomModelData:10008,CustomPotionColor:-1,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.movement_speed",Name:"slow",Amount:0,Operation:0,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:10.0},{Name:"generic.movement_speed",Base:0.1833}],ActiveEffects:[{Id:11b,Amplifier:4,Duration:2147483647,Ambient:1b,ShowParticles:0b}],DeathLootTable:"skill:mob/special/pass_pq",IsBaby:1b,OnGround:1b,AngerTime:2147483647,Team:"enemy"}
 		execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["new","enemy","poison_resist","poison_immune"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:35,hp_max:2000,mp_max:130,avoidability:8,weapon_defense:90,magic_defense:140,kb:1,exp:280,hurt_sound:1,die_sound:5},steal_loot:"skill:steal/special/pass_pq",CustomModelData:10012,CustomPotionColor:-1,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.movement_speed",Name:"slow",Amount:0,Operation:0,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:12.0},{Name:"generic.movement_speed",Base:0.1625}],ActiveEffects:[{Id:11b,Amplifier:4,Duration:2147483647,Ambient:1b,ShowParticles:0b}],DeathLootTable:"skill:mob/special/pass_pq",OnGround:1b,AngerTime:2147483647,Team:"enemy"}
+		execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["new","enemy","boss","king_slime","ice_resist","fire_resist","lightning_resist","holy_resist","poison_immune","freeze_immune"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:40,hp_max:8000,mp_max:100,avoidability:10,magic_attack:165,weapon_defense:160,magic_defense:160,kb:300,exp:800,move_frame:21,stand_frame:11,hurt_sound:1,die_sound:5},CustomModelData:10016,CustomPotionColor:-1,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.movement_speed",Name:"slow",Amount:0,Operation:0,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:13.0},{Name:"generic.movement_speed",Base:0.15}],ActiveEffects:[{Id:11b,Amplifier:4,Duration:2147483647,Ambient:1b,ShowParticles:0b}],DeathLootTable:"skill:mob/special/pass_pq",OnGround:1b,AngerTime:2147483647,Team:"enemy"}
 		
 		execute as @e[type=zombified_piglin,tag=enemy,tag=new] run function skill:mob_setting
 	}
