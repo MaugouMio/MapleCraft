@@ -23,13 +23,21 @@ namespace bar_display()
 		scoreboard objectives add hp_recovery dummy
 		scoreboard objectives add mp_recovery dummy
 		
+		scoreboard objectives add hurt_time dummy
 		scoreboard objectives add damage_taken minecraft.custom:minecraft.damage_absorbed
 	}
 	
 	func main()
 	{
-		execute as @a[scores={damage_taken=1..}] at @s run function ARG(_PATH)take_damage
+		execute as @a[scores={damage_taken=1..}] at @s run function ARG(_PATH)take_damage/check
+		execute as @a[scores={hurt_time=1..}] run function ARG(_PATH)hurt_time_countdown
 		execute as @a[tag=hp_mp_varying] run function ARG(_PATH)bar_vary/check
+	}
+	
+	func hurt_time_countdown()
+	{
+		scoreboard players remove @s hurt_time 1
+		execute if score @s hurt_time matches 0 run scoreboard players reset @s hurt_time
 	}
 	
 	folder defense_formula()
@@ -188,30 +196,40 @@ namespace bar_display()
 		}
 	}
 	
-	func take_damage()
+	folder take_damage()
 	{
-		scoreboard players operation @s next_hp_recover = @s hp_recover_time
+		func check()
+		{
+			execute unless score @s hurt_time matches 1.. run function ARG(_PATH)take
+			
+			effect give @s minecraft:absorption 1000000 255 true
+			scoreboard players reset @s damage_taken
+		}
 		
-		scoreboard players operation #WEAPON_DEFENSE temp = @s weapon_defense
-		execute if score @s wdef_buff_id matches 0.. run scoreboard players operation #WEAPON_DEFENSE temp += @s wdef_buff_num
-		function ARG(_PATH)defense_formula/weapon
-		
-		execute if score @s invin_buff_time matches 1.. run function skill:2/3/0/1003/guard
-		execute if score @s refle_buff_time matches 1.. run function skill:1/1/0/1007/reflect
-		scoreboard players operation @s damage_taken > #1 const
-		
-		scoreboard players set @s display_num_type 2
-		scoreboard players operation @s display_number = @s damage_taken
-		function number_display:show
-		
-		execute if score @s mguar_buff_time matches 1.. if score @s mp matches 1.. run function skill:2/0/0/1002/guard
-		
-		scoreboard players operation @s hp -= @s damage_taken
-		execute if score @s hp matches ..0 run function ARG(_PATH)death/die
-		function ARG(_PATH)change/hp/dropped
-		
-		effect give @s minecraft:absorption 1000000 255 true
-		scoreboard players reset @s damage_taken
+		func take()
+		{
+			scoreboard players operation @s next_hp_recover = @s hp_recover_time
+			
+			scoreboard players operation #WEAPON_DEFENSE temp = @s weapon_defense
+			execute if score @s wdef_buff_id matches 0.. run scoreboard players operation #WEAPON_DEFENSE temp += @s wdef_buff_num
+			function ARG(__PATH)defense_formula/weapon
+			
+			execute if score @s invin_buff_time matches 1.. run function skill:2/3/0/1003/guard
+			execute if score @s refle_buff_time matches 1.. run function skill:1/1/0/1007/reflect
+			scoreboard players operation @s damage_taken > #1 const
+			
+			scoreboard players set @s display_num_type 2
+			scoreboard players operation @s display_number = @s damage_taken
+			function number_display:show
+			
+			execute if score @s mguar_buff_time matches 1.. if score @s mp matches 1.. run function skill:2/0/0/1002/guard
+			
+			scoreboard players operation @s hp -= @s damage_taken
+			execute if score @s hp matches ..0 run function ARG(__PATH)death/die
+			function ARG(__PATH)change/hp/dropped
+			
+			scoreboard players set @s hurt_time 10
+		}
 	}
 	
 	folder death()
