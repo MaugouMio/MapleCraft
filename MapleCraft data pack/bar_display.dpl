@@ -252,6 +252,7 @@ namespace bar_display()
 			loot replace entity @e[type=minecraft:vex,tag=new,limit=1] armor.head kill 00000000-0000-0001-0000-000000000001
 			execute as @e[type=#bar_display:dead_decoration,tag=new] positioned as @s run function ARG(_PATH)set_dead_decoration
 			
+			scoreboard players add #TOMB_AMOUNT temp 1
 			forceload add ~ ~
 			tellraw @s [{"text":"0_1\n2_3\n4_5\n6_7\n8_9\na_b\nc_d\n","font":"ui:window/death"},{"text":"\uF82A\uF829\uF828\uF823","font":"space:default"},{"text":"2","font":"ui:main","clickEvent":{"action":"run_command","value":"/trigger command set 7"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},{"text":"B94","font":"space:default"},{"text":"e_f\ng_h","font":"ui:window/death"}]
 		}
@@ -282,7 +283,7 @@ namespace bar_display()
 		func revive()
 		{
 			scoreboard players operation #GLOBAL temp = @s number
-			execute as @e[type=#bar_display:dead_decoration,tag=dead_decoration] if score @s number = #GLOBAL temp at @s run function ARG(_PATH)remove_dead_decoration
+			execute as @e[type=#bar_display:dead_decoration,tag=dead_decoration] if score @s number = #GLOBAL temp at @s run function ARG(_PATH)remove_dead_decoration/all
 			execute as @e[type=#bar_display:dead_decoration,tag=dead_decoration] at @s run forceload add ~ ~
 			
 			scoreboard players set @s hp 50
@@ -292,11 +293,38 @@ namespace bar_display()
 			gamemode adventure @s
 		}
 		
-		func remove_dead_decoration()
+		folder tomb_check()
 		{
-			execute if entity @s[type=vex] run forceload remove ~ ~
-			tp @s[type=vex] ~ -10 ~
-			kill @s
+			func find()
+			{
+				scoreboard players set #FOUND_TOMB_OWNER temp 0
+				scoreboard players operation #GLOBAL temp = @s number
+				execute as @a[tag=dead] if score @s number = #GLOBAL temp run scoreboard players set #FOUND_TOMB_OWNER temp 1
+				execute if score #FOUND_TOMB_OWNER temp matches 0 at @s run function ARG(_PATH)clear
+			}
+			
+			func clear()
+			{
+				execute as @e[type=armor_stand,tag=dead_decoration] if score @s number = #GLOBAL temp run kill @s
+				execute at @s run function ARG(__PATH)remove_dead_decoration/vex
+				kill @s
+			}
+		}
+		
+		folder remove_dead_decoration()
+		{
+			func all()
+			{
+				execute if entity @s[type=vex] run function ARG(_PATH)vex
+				kill @s
+			}
+			
+			func vex()
+			{
+				forceload remove ~ ~
+				scoreboard players remove #TOMB_AMOUNT temp 1
+				tp @s ~ -10 ~
+			}
 		}
 	}
 	
@@ -471,6 +499,9 @@ namespace bar_display()
 		{
 			execute as @a[tag=!hp_mp_varying] run function ARG(__PATH)update_bar/run
 			execute as @a[tag=!dead] if score @s hp < @s hp_max run function ARG(__PATH)recover/hp
+			
+			execute store result score #DEAD_PLAYER_AMOUNT temp if entity @a[tag=dead]
+			execute if score #TOMB_AMOUNT temp > #DEAD_PLAYER_AMOUNT temp as @e[type=vex,tag=dead_decoration] run function ARG(__PATH)death/tomb_check/find
 		}
 		
 		func schedule_10s()
