@@ -87,6 +87,7 @@ namespace 0() as virtual
 					
 					################################################# replace calculate damage
 					scoreboard players operation @s hp -= #SNAIL_DAMAGE temp
+					function skill:calculate_damage/update_hp_display/run
 					execute if score @s hp matches ..0 run function skill:calculate_damage/record_dead
 					#################################################
 					# mp eater

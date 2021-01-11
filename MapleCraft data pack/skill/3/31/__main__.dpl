@@ -454,14 +454,14 @@ namespace 31() as virtual
 				scoreboard players set #MAX_ENEMY temp 1
 				function skill:enemy_search/search_front/search
 				
-				scoreboard players set #FOUND_ENEMY temp 0
+				scoreboard players set #FOUND_SPLASH_ENEMY temp 0
 				scoreboard players reset #PAIR_NUMBER temp
-				execute as @e[type=zombified_piglin,tag=target,limit=1] at @s positioned ~-3 ~-2 ~-3 as @e[type=#skill:enemy,tag=enemy,tag=!dead,dx=5,dy=4.5,dz=5] run function ARG(_PATH)try_splash
+				execute as @e[type=zombified_piglin,tag=target,limit=1] at @s positioned ~-3 ~-2 ~-3 as @e[type=#skill:enemy,tag=enemy,tag=!target,tag=!dead,dx=5,dy=4.5,dz=5] run function ARG(_PATH)try_splash
 			}
 			
 			func try_splash()
 			{
-				execute if score #FOUND_ENEMY temp matches ..4 run function ARG(_PATH)type_check
+				execute if score #FOUND_SPLASH_ENEMY temp matches ..4 run function ARG(_PATH)type_check
 			}
 			
 			func type_check()
@@ -474,13 +474,13 @@ namespace 31() as virtual
 			{
 				tag @s add new_splashed
 				scoreboard players operation #PAIR_NUMBER temp = @s number
-				scoreboard players add #FOUND_ENEMY temp 1
+				scoreboard players add #FOUND_SPLASH_ENEMY temp 1
 			}
 			
 			func splash_mark_owner()
 			{
 				scoreboard players operation #PAIR_NUMBER temp = @s number
-				execute as @e[type=zombified_piglin,tag=paired_mob] if score @s number = #PAIR_NUMBER temp run function ARG(_PATH)splash_mark
+				execute as @e[type=zombified_piglin,tag=paired_mob,tag=!target] if score @s number = #PAIR_NUMBER temp run function ARG(_PATH)splash_mark
 			}
 			
 			func summon_bullet()
@@ -594,6 +594,7 @@ namespace 31() as virtual
 					
 					function main:rand_rate
 					execute if score #HIT_RATE temp > #RAND_RESULT temp run function ARG(_PATH)deal_damage
+					execute if score #DID_HIT temp matches 1 run function skill:calculate_damage/update_hp_display/run
 					#################################
 					
 					execute if score @s hp matches ..0 run function skill:calculate_damage/record_dead

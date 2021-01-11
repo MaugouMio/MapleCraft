@@ -500,6 +500,7 @@ namespace 11() as virtual
 				scoreboard players operation #REFLECTED temp = @s display_number
 				
 				scoreboard players operation @s hp -= @s display_number
+				function skill:calculate_damage/update_hp_display/run
 				execute if score @s hp matches ..0 run function skill:calculate_damage/record_dead
 				
 				# hit effect
