@@ -465,19 +465,30 @@ namespace 11() as virtual
 			
 			func reflect()
 			{
-				scoreboard players operation #GLOBAL temp = @s damage_taken
-				scoreboard players operation #GLOBAL temp *= @s refle_buff_num
-				scoreboard players operation #GLOBAL temp /= #100 const
+				scoreboard players operation #REFLECTED temp = @s damage_taken
+				scoreboard players operation #REFLECTED temp *= @s refle_buff_num
+				scoreboard players operation #REFLECTED temp /= #100 const
 				
 				# reflect attack
 				data modify storage skill:main damage_info.attacker set from entity @s UUID
 				execute store result storage skill:main damage_info.attacker_id int 1 run scoreboard players get @s number
 				
+				scoreboard players set #EXP_GAIN temp 0
 				scoreboard players set #REFLECTED temp 0
-				execute as @e[type=zombified_piglin,tag=enemy,tag=!dead,limit=1,sort=nearest,distance=..4] at @s run function ARG(_PATH)hit
+				execute if entity @s[tag=magma_cube_hit] positioned ~-4 ~-4 ~-4 as @e[type=magma_cube,tag=enemy,limit=1,sort=nearest,dx=7,dy=7,dz=7] run function ARG(_PATH)magma_cube_hit
+				execute unless entity @s[tag=magma_cube_hit] as @e[type=zombified_piglin,tag=enemy,tag=!dead,limit=1,sort=nearest,distance=..4] at @s run function ARG(_PATH)hit
+				function skill:hunt_exp
 				
 				# reduce damage reflected
 				scoreboard players operation @s damage_taken -= #REFLECTED temp
+			}
+			
+			func magma_cube_hit()
+			{
+				scoreboard players set #KILLED_MOB temp 0
+				scoreboard players operation #GLOBAL temp = @s number
+				execute as @e[type=zombified_piglin,tag=enemy] if score @s number = #GLOBAL temp at @s run function ARG(_PATH)hit
+				execute if score #KILLED_MOB temp matches 1 run data merge entity @s {NoAI:1,Tags:[]}
 			}
 			
 			func hit()
@@ -485,7 +496,7 @@ namespace 11() as virtual
 				# damage calculation
 				scoreboard players operation @s display_number = @s hp_max
 				scoreboard players operation @s display_number /= #10 const
-				scoreboard players operation @s display_number < #GLOBAL temp
+				scoreboard players operation @s display_number < #REFLECTED temp
 				scoreboard players operation #REFLECTED temp = @s display_number
 				
 				scoreboard players operation @s hp -= @s display_number

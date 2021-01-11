@@ -201,10 +201,24 @@ namespace 4() as virtual
 					execute store result score @s temp run data get entity @s Attributes[{Name:"minecraft:generic.attack_damage"}].Base 10
 					scoreboard players remove @s temp 1
 					execute store result entity @s ArmorItems[3].tag.AttributeModifiers[{Name:"disorder"}].Amount float -0.1 run scoreboard players operation @s temp < #DISORDER_LEVEL temp
+					execute if entity @s[tag=paired_mob] run function ARG(_PATH)debuff_pair
 					
 					# weapon defense drop
 					scoreboard players operation @s wdef_drop = @s weapon_defense
 					scoreboard players operation @s wdef_drop < #DISORDER_LEVEL temp
+				}
+			
+				func debuff_pair()
+				{
+					scoreboard players operation #GLOBAL temp = @s temp
+					scoreboard players operation #PAIR_NUMBER temp = @s number
+					execute as @e[type=magma_cube,tag=enemy] if score @s number = #PAIR_NUMBER temp run function ARG(_PATH)pair_effect
+				}
+			
+				func pair_effect()
+				{
+					execute store result entity @s ArmorItems[3].tag.AttributeModifiers[{Name:"disorder"}].Amount float -0.1 run scoreboard players get #GLOBAL temp
+					scoreboard players set @s weaken_from 1
 				}
 				
 				folder mob()
@@ -223,6 +237,19 @@ namespace 4() as virtual
 						
 						scoreboard players set @s wdef_drop 0
 						data modify entity @s ArmorItems[3].tag.AttributeModifiers[{Name:"disorder"}].Amount set value 0
+						execute if entity @s[tag=paired_mob] run function ARG(_PATH)reset_pair
+					}
+					
+					func reset_pair()
+					{
+						scoreboard players operation #PAIR_NUMBER temp = @s number
+						execute as @e[type=magma_cube,tag=enemy] if score @s number = #PAIR_NUMBER temp run function ARG(_PATH)pair_reset_effect
+					}
+					
+					func pair_reset_effect()
+					{
+						data modify entity @s ArmorItems[3].tag.AttributeModifiers[{Name:"disorder"}].Amount set value 0
+						scoreboard players reset @s weaken_from
 					}
 				}
 				

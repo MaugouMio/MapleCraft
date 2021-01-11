@@ -453,7 +453,34 @@ namespace 31() as virtual
 				scoreboard players operation #DISTANCE temp = @s amazon_eyes_dist
 				scoreboard players set #MAX_ENEMY temp 1
 				function skill:enemy_search/search_front/search
-				execute as @e[type=zombified_piglin,tag=target,limit=1] at @s run tag @e[type=zombified_piglin,tag=enemy,tag=!target,distance=..5,limit=5] add new_splashed
+				
+				scoreboard players set #FOUND_ENEMY temp 0
+				scoreboard players reset #PAIR_NUMBER temp
+				execute as @e[type=zombified_piglin,tag=target,limit=1] at @s positioned ~-3 ~-2 ~-3 as @e[type=#skill:enemy,tag=enemy,tag=!dead,dx=5,dy=4.5,dz=5] run function ARG(_PATH)try_splash
+			}
+			
+			func try_splash()
+			{
+				execute if score #FOUND_ENEMY temp matches ..4 run function ARG(_PATH)type_check
+			}
+			
+			func type_check()
+			{
+				execute if entity @s[type=zombified_piglin] run function ARG(_PATH)splash_mark
+				execute if entity @s[type=magma_cube] unless score @s number = #PAIR_NUMBER temp run function ARG(_PATH)splash_mark_owner
+			}
+			
+			func splash_mark()
+			{
+				tag @s add new_splashed
+				scoreboard players operation #PAIR_NUMBER temp = @s number
+				scoreboard players add #FOUND_ENEMY temp 1
+			}
+			
+			func splash_mark_owner()
+			{
+				scoreboard players operation #PAIR_NUMBER temp = @s number
+				execute as @e[type=zombified_piglin,tag=paired_mob] if score @s number = #PAIR_NUMBER temp run function ARG(_PATH)splash_mark
 			}
 			
 			func summon_bullet()

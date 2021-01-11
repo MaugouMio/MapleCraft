@@ -202,6 +202,7 @@ namespace bar_display()
 		{
 			execute unless score @s hurt_time matches 1.. run function ARG(_PATH)take
 			
+			tag @s remove magma_cube_hit
 			effect give @s minecraft:absorption 1000000 255 true
 			scoreboard players reset @s damage_taken
 		}

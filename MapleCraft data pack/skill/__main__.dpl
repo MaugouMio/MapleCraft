@@ -81,6 +81,7 @@ namespace attack_skill_template(skill_id) as virtual
 	
 	func did_hit()
 	{
+		scoreboard players set #EXP_GAIN temp 0
 		```
 		# mp eater
 		if "ARG(skill_id)"[0] == "2":
@@ -296,6 +297,7 @@ namespace bullet_skill_template(skill_id) as virtual
 	
 	func did_hit()
 	{
+		scoreboard players set #EXP_GAIN temp 0
 		```
 		# mp eater
 		if "ARG(skill_id)"[0] == "2" or "ARG(skill_id)" == "0001000":
@@ -991,6 +993,7 @@ namespace skill()
 			execute as @e[type=armor_stand,tag=model_animation] run function ARG(_PATH)model_animation_update
 			execute as @e[type=armor_stand,tag=afterimage] run function skill:afterimage/update
 			execute as @e[type=zombified_piglin,tag=enemy] run function ARG(_PATH)enemy/run
+			execute as @e[type=magma_cube,tag=!original] unless predicate skill:riding_enemy run function ARG(_PATH)clear_magma_cube
 			
 			execute as @a[scores={action_time=1..}] run function ARG(_PATH)action/countdown
 			execute as @a[scores={teleport_time=1..}] run function ARG(_PATH)tp_countdown
@@ -998,6 +1001,12 @@ namespace skill()
 			
 			# used skill check
 			execute as @a[scores={right_click=1..},tag=!dead] at @s run function skill:check_skill/run
+		}
+		
+		func clear_magma_cube()
+		{
+			tp @s 0 -10 0
+			kill @s
 		}
 		
 		folder font_effect_update()
@@ -1257,8 +1266,10 @@ namespace skill()
 			
 			func move_bullets()
 			{
+				scoreboard players set #HIT_BULLET temp 0
 				scoreboard players operation #GLOBAL temp = @s number
 				execute as @e[type=armor_stand,tag=bullet,scores={life=0..}] if score @s target_id = #GLOBAL temp run function skill:bullet/move
+				scoreboard players operation @s bullet_targeted -= #HIT_BULLET temp
 			}
 		}
 		
@@ -1493,7 +1504,7 @@ namespace skill()
 		func hit()
 		{
 			execute if entity @s[tag=first_bullet] run function ARG(_PATH)append_scheduler
-			execute as @e[type=zombified_piglin,tag=enemy] if score @s number = #GLOBAL temp run scoreboard players remove @s bullet_targeted 1
+			scoreboard players add #HIT_BULLET temp 1
 			kill @s
 		}
 		
@@ -1678,78 +1689,89 @@ namespace skill()
 			tag @s remove target
 		}
 		
-		folder search_front() from for_loop().for("#DISTANCE temp", "positioned ^ ^ ^0.7")
+		folder search_front() from for_loop().for("#DISTANCE temp", "if score #FOUND_ENEMY temp < #MAX_ENEMY temp positioned ^ ^ ^0.7")
 		{
 			func search()
 			{
+				scoreboard players reset #PAIR_NUMBER temp
 				scoreboard players reset #FIRST_DISTANCE temp
 				scoreboard players set #CUR_DISTANCE temp 0
+				scoreboard players set #FOUND_ENEMY temp 0
 				
+				execute at @s positioned ^ ^ ^100 run summon minecraft:area_effect_cloud ~ ~ ~ {Duration:1,UUID:[I;0,3,0,3]}
 				execute at @s rotated ~ 0 positioned ^ ^ ^-1.8 run function ARG(_PATH)run
-				execute at @s run function ARG(_PATH)order_mark
+				tag @e[type=magma_cube,tag=target] remove target
+				kill 00000000-0000-0003-0000-000000000003
 			}
 			
 			func execute()
 			{
-				execute as @e[type=minecraft:zombified_piglin,tag=enemy,tag=!temp_mark,tag=!dead,distance=..2] run function ARG(_PATH)pre_mark
+				# simulating sector detection, larger y axis detection on further distance
+				execute if score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-0.6 ~-1.8 as @e[type=#skill:enemy,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=2.2,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
+				execute unless score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~ ~-1.8 as @e[type=#skill:enemy,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=1,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
 				scoreboard players add #CUR_DISTANCE temp 1
 			}
 			
-			func pre_mark()
-			{
-				execute unless score #FIRST_DISTANCE temp matches 0.. run function ARG(_PATH)record_first
-				tag @s add temp_mark
-			}
-			
-			func record_first()
-			{
-				scoreboard players operation #FIRST_DISTANCE temp = #CUR_DISTANCE temp
-				tag @s add first_target
-			}
-			
-			func order_mark()
-			{
-				scoreboard players set #FOUND_ENEMY temp 0
-				# remove the mobs behind the player
-				execute rotated ~ 0 positioned ^ ^ ^100 run tag @e[type=zombified_piglin,tag=temp_mark,distance=100.2..] remove temp_mark
-				execute as @e[type=zombified_piglin,tag=temp_mark,sort=nearest] run function ARG(_PATH)try_mark
-				tag @e[type=zombified_piglin,tag=temp_mark] remove temp_mark
-			}
-			
 			func try_mark()
 			{
-				execute if score #FOUND_ENEMY temp < #MAX_ENEMY temp run tag @s add target
+				execute unless score #FIRST_DISTANCE temp matches 0.. run scoreboard players operation #FIRST_DISTANCE temp = #CUR_DISTANCE temp
+				execute if score #FOUND_ENEMY temp < #MAX_ENEMY temp run function ARG(_PATH)type_check
+			}
+			
+			func type_check()
+			{
+				execute if entity @s[type=zombified_piglin] run function ARG(_PATH)mark
+				# if both piglin and magma_cube pair are found, magma_cube must be right after the piglin
+				execute if entity @s[type=magma_cube] unless score @s number = #PAIR_NUMBER temp run function ARG(_PATH)mark_owner
+			}
+			
+			func mark()
+			{
+				tag @s add target
+				scoreboard players operation #PAIR_NUMBER temp = @s number
 				scoreboard players add #FOUND_ENEMY temp 1
+			}
+			
+			func mark_owner()
+			{
+				scoreboard players operation #PAIR_NUMBER temp = @s number
+				execute as @e[type=zombified_piglin,tag=paired_mob] if score @s number = #PAIR_NUMBER temp run function ARG(_PATH)mark
+				tag @s add target
 			}
 		}
 		
-		folder search_front_pure_order() from for_loop().for("#DISTANCE temp", "positioned ^ ^ ^0.7")
+		folder search_front_pure_order() from for_loop().for("#DISTANCE temp", "if score #FOUND_ENEMY temp < #MAX_ENEMY temp positioned ^ ^ ^0.7")
 		{
 			func search()
 			{
+				scoreboard players set #CUR_DISTANCE temp 0
+				scoreboard players set #FOUND_ENEMY temp 0
+				data modify storage skill:main temp set value []
+				
+				execute at @s positioned ^ ^ ^100 run summon minecraft:area_effect_cloud ~ ~ ~ {Duration:1,UUID:[I;0,3,0,3]}
 				execute at @s rotated ~ 0 positioned ^ ^ ^-1.8 run function ARG(_PATH)run
-				execute at @s run function ARG(_PATH)order_mark
+				tag @e[type=magma_cube,tag=target] remove target
+				kill 00000000-0000-0003-0000-000000000003
 			}
 			
 			func execute()
 			{
-				tag @e[type=minecraft:zombified_piglin,tag=enemy,tag=!dead,distance=..2] add temp_mark
-			}
-			
-			func order_mark()
-			{
-				data modify storage skill:main temp set value []
-				scoreboard players set #FOUND_ENEMY temp 0
-				
-				# remove the mobs behind the player
-				execute rotated ~ 0 positioned ^ ^ ^100 run tag @e[type=zombified_piglin,tag=temp_mark,distance=100.2..] remove temp_mark
-				execute as @e[type=zombified_piglin,tag=temp_mark,sort=nearest] run function ARG(_PATH)try_mark
-				tag @e[type=zombified_piglin,tag=temp_mark] remove temp_mark
+				# simulating sector detection, larger y axis detection on further distance
+				execute if score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-0.6 ~-1.8 as @e[type=#skill:enemy,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=2.2,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
+				execute unless score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~ ~-1.8 as @e[type=#skill:enemy,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=1,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
+				scoreboard players add #CUR_DISTANCE temp 1
 			}
 			
 			func try_mark()
 			{
-				execute if score #FOUND_ENEMY temp < #MAX_ENEMY temp run function ARG(_PATH)mark
+				execute if score #FOUND_ENEMY temp < #MAX_ENEMY temp run function ARG(_PATH)type_check
+			}
+			
+			func type_check()
+			{
+				execute if entity @s[type=zombified_piglin] run function ARG(_PATH)mark
+				# if both piglin and magma_cube pair are found, magma_cube must be right after the piglin
+				execute if entity @s[type=magma_cube] unless score @s number = #PAIR_NUMBER temp run function ARG(_PATH)mark_owner
 			}
 			
 			func mark()
@@ -1757,6 +1779,7 @@ namespace skill()
 				execute if score #FOUND_ENEMY temp matches ..4 run function ARG(_PATH)record_dists
 				
 				tag @s add target
+				scoreboard players operation #PAIR_NUMBER temp = @s number
 				execute store result score @s hit_distance run scoreboard players operation @s hit_order = #FOUND_ENEMY temp
 				scoreboard players remove @s[scores={hit_distance=5}] hit_distance 1
 				scoreboard players add #FOUND_ENEMY temp 1
@@ -1767,30 +1790,37 @@ namespace skill()
 				data modify storage skill:main temp append value 0
 				execute store result storage skill:main temp[-1] int 1 run scoreboard players get #FOUND_ENEMY temp
 			}
+			
+			func mark_owner()
+			{
+				scoreboard players operation #PAIR_NUMBER temp = @s number
+				execute as @e[type=zombified_piglin,tag=paired_mob] if score @s number = #PAIR_NUMBER temp run function ARG(_PATH)mark
+				tag @s add target
+			}
 		}
 		
-		folder search_front_rec_dist() from for_loop().for("#DISTANCE temp", "positioned ^ ^ ^0.7")
+		folder search_front_rec_dist() from for_loop().for("#DISTANCE temp", "if score #FOUND_ENEMY temp < #MAX_ENEMY temp positioned ^ ^ ^0.7")
 		{
 			func search()
 			{
 				scoreboard players reset #FIRST_DISTANCE temp
 				scoreboard players set #CUR_DISTANCE temp 0
+				scoreboard players set #GLOBAL hit_distance -1
+				scoreboard players set #FOUND_ENEMY temp 0
+				data modify storage skill:main temp set value []
 				
+				execute at @s positioned ^ ^ ^100 run summon minecraft:area_effect_cloud ~ ~ ~ {Duration:1,UUID:[I;0,3,0,3]}
 				execute at @s rotated ~ 0 positioned ^ ^ ^-1.8 run function ARG(_PATH)run
-				execute at @s run function ARG(_PATH)order_mark
+				tag @e[type=magma_cube,tag=target] remove target
+				kill 00000000-0000-0003-0000-000000000003
 			}
 			
 			func execute()
 			{
-				execute as @e[type=minecraft:zombified_piglin,tag=enemy,tag=!temp_mark,tag=!dead,distance=..2] run function ARG(_PATH)pre_mark
+				# simulating sector detection, larger y axis detection on further distance
+				execute if score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-0.6 ~-1.8 as @e[type=#skill:enemy,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=2.2,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
+				execute unless score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~ ~-1.8 as @e[type=#skill:enemy,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=1,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
 				scoreboard players add #CUR_DISTANCE temp 1
-			}
-			
-			func pre_mark()
-			{
-				execute unless score #FIRST_DISTANCE temp matches 0.. run function ARG(_PATH)record_first
-				scoreboard players operation @s hit_distance = #CUR_DISTANCE temp
-				tag @s add temp_mark
 			}
 			
 			func record_first()
@@ -1799,30 +1829,26 @@ namespace skill()
 				tag @s add first_target
 			}
 			
-			func order_mark()
-			{
-				data modify storage skill:main temp set value []
-				scoreboard players set #GLOBAL hit_distance -1
-				scoreboard players set #FOUND_ENEMY temp 0
-				
-				# remove the mobs behind the player
-				execute rotated ~ 0 positioned ^ ^ ^100 run tag @e[type=zombified_piglin,tag=temp_mark,distance=100.2..] remove temp_mark
-				execute as @e[type=zombified_piglin,tag=temp_mark,sort=nearest] run function ARG(_PATH)try_mark
-				execute as @e[type=zombified_piglin,tag=temp_mark] run function ARG(_PATH)reset_mark
-			}
-			
 			func try_mark()
 			{
-				execute if score #FOUND_ENEMY temp < #MAX_ENEMY temp run function ARG(_PATH)mark
+				execute if score #FOUND_ENEMY temp < #MAX_ENEMY temp run function ARG(_PATH)type_check
+			}
+			
+			func type_check()
+			{
+				execute if entity @s[type=zombified_piglin] run function ARG(_PATH)mark
+				# if both piglin and magma_cube pair are found, magma_cube must be right after the piglin
+				execute if entity @s[type=magma_cube] unless score @s number = #PAIR_NUMBER temp run function ARG(_PATH)mark_owner
 			}
 			
 			func mark()
 			{
-				# to remove the asyncness of the different distance formulas between 'pre_mark' and 'order_mark'
-				scoreboard players operation @s hit_distance > #GLOBAL hit_distance
-				execute unless score #GLOBAL hit_distance = @s hit_distance run function ARG(_PATH)record_dists
+				execute unless score #FIRST_DISTANCE temp matches 0.. run function ARG(_PATH)record_first
+				execute if score #GLOBAL hit_distance < #CUR_DISTANCE temp run function ARG(_PATH)record_dists
 				
 				tag @s add target
+				scoreboard players operation #PAIR_NUMBER temp = @s number
+				scoreboard players operation @s hit_distance = #CUR_DISTANCE temp
 				scoreboard players operation @s hit_order = #FOUND_ENEMY temp
 				scoreboard players add #FOUND_ENEMY temp 1
 			}
@@ -1830,14 +1856,15 @@ namespace skill()
 			func record_dists()
 			{
 				data modify storage skill:main temp append value 0
-				execute store result storage skill:main temp[-1] int 1 run scoreboard players get @s hit_distance
-				scoreboard players operation #GLOBAL hit_distance = @s hit_distance
+				execute store result storage skill:main temp[-1] int 1 run scoreboard players get #CUR_DISTANCE temp
+				scoreboard players operation #GLOBAL hit_distance = #CUR_DISTANCE temp
 			}
 			
-			func reset_mark()
+			func mark_owner()
 			{
-				tag @s remove temp_mark
-				scoreboard players set @s[tag=!target] hit_distance 0
+				scoreboard players operation #PAIR_NUMBER temp = @s number
+				execute as @e[type=zombified_piglin,tag=paired_mob] if score @s number = #PAIR_NUMBER temp run function ARG(_PATH)mark
+				tag @s add target
 			}
 		}
 	}
@@ -2703,7 +2730,15 @@ namespace skill()
 			function ARG(_PATH)traverse_damages/run
 			
 			execute if score #DID_HIT temp matches 1 run function ARG(_PATH)update_hp_display/run
+			scoreboard players set #KILLED_MOB temp 0
 			execute if score @s hp matches ..0 run function ARG(_PATH)record_dead
+			execute if score #KILLED_MOB temp matches 1 if entity @s[tag=paired_mob] run function ARG(_PATH)stop_magma_cube
+		}
+			
+		func stop_magma_cube()
+		{
+			scoreboard players operation #PAIR_NUMBER temp = @s number
+			execute as @e[type=magma_cube,tag=enemy] if score @s number = #PAIR_NUMBER temp run data merge entity @s {NoAI:1,Tags:[]}
 		}
 		
 		folder update_hp_display()
@@ -2807,6 +2842,8 @@ namespace skill()
 			
 			scoreboard players operation #EXP_GAIN temp += @s exp
 			tag @s add dead
+			
+			scoreboard players set #KILLED_MOB temp 1
 		}
 		
 		folder traverse_damages() from while_loop("if data storage skill:main damage_copy[0]")
@@ -4042,43 +4079,58 @@ namespace skill()
 		execute if score #NUMBER_HEIGHT temp matches 0.. positioned ~ ~0.4 ~ run function ARG(_PATH)show_num_at_height
 	}
 	
-	
-	
-	func mob_setting()
+	func hurt_by_magma_cube()
 	{
-		execute store result score @s level run data get entity @s ArmorItems[3].tag.info.level
-		execute store result score @s hp_max run data get entity @s ArmorItems[3].tag.info.hp_max
-		scoreboard players operation @s hp = @s hp_max
-		execute store result score @s mp_max run data get entity @s ArmorItems[3].tag.info.mp_max
-		scoreboard players operation @s mp = @s mp_max
-		execute store result score @s avoidability run data get entity @s ArmorItems[3].tag.info.avoidability
-		execute if data entity @s ArmorItems[3].tag.info.magic_attack store result score @s magic_attack run data get entity @s ArmorItems[3].tag.info.magic_attack
-		execute store result score @s weapon_defense run data get entity @s ArmorItems[3].tag.info.weapon_defense
-		execute store result score @s magic_defense run data get entity @s ArmorItems[3].tag.info.magic_defense
-		execute store result score @s kb run data get entity @s ArmorItems[3].tag.info.kb
-		execute store result score @s exp run data get entity @s ArmorItems[3].tag.info.exp
-		execute store result score @s hurt_sound run data get entity @s ArmorItems[3].tag.info.hurt_sound
-		execute store result score @s die_sound run data get entity @s ArmorItems[3].tag.info.die_sound
-		execute if data entity @s ArmorItems[3].tag.info.move_frame store result score @s move_frame run data get entity @s ArmorItems[3].tag.info.move_frame
-		execute if data entity @s ArmorItems[3].tag.info.stand_frame store result score @s stand_frame run data get entity @s ArmorItems[3].tag.info.stand_frame
-		execute store result score @s base_model run data get entity @s ArmorItems[3].tag.CustomModelData
+		tag @s add magma_cube_hit
+		advancement revoke @s only skill:hurt_by_magma_cube
+	}
+	
+	
+	
+	folder mob_setting()
+	{
+		func run()
+		{
+			execute if entity @s[type=zombified_piglin] run function ARG(_PATH)set_stats
+			scoreboard players operation @s number = #MOB_ID number
+			tag @s remove new
+		}
 		
-		data remove entity @s ArmorItems[3].tag.info
-		
-		scoreboard players set @s status 0
-		scoreboard players set @s hit_distance 0
-		execute store result score @s number run scoreboard players add #MOB_ID number 1
-		tag @s remove new
+		func set_stats()
+		{
+			execute store result score @s level run data get entity @s ArmorItems[3].tag.info.level
+			execute store result score @s hp_max run data get entity @s ArmorItems[3].tag.info.hp_max
+			scoreboard players operation @s hp = @s hp_max
+			execute store result score @s mp_max run data get entity @s ArmorItems[3].tag.info.mp_max
+			scoreboard players operation @s mp = @s mp_max
+			execute store result score @s avoidability run data get entity @s ArmorItems[3].tag.info.avoidability
+			execute if data entity @s ArmorItems[3].tag.info.magic_attack store result score @s magic_attack run data get entity @s ArmorItems[3].tag.info.magic_attack
+			execute store result score @s weapon_defense run data get entity @s ArmorItems[3].tag.info.weapon_defense
+			execute store result score @s magic_defense run data get entity @s ArmorItems[3].tag.info.magic_defense
+			execute store result score @s kb run data get entity @s ArmorItems[3].tag.info.kb
+			execute store result score @s exp run data get entity @s ArmorItems[3].tag.info.exp
+			execute store result score @s hurt_sound run data get entity @s ArmorItems[3].tag.info.hurt_sound
+			execute store result score @s die_sound run data get entity @s ArmorItems[3].tag.info.die_sound
+			execute if data entity @s ArmorItems[3].tag.info.move_frame store result score @s move_frame run data get entity @s ArmorItems[3].tag.info.move_frame
+			execute if data entity @s ArmorItems[3].tag.info.stand_frame store result score @s stand_frame run data get entity @s ArmorItems[3].tag.info.stand_frame
+			execute store result score @s base_model run data get entity @s ArmorItems[3].tag.CustomModelData
+			
+			data remove entity @s ArmorItems[3].tag.info
+			
+			scoreboard players set @s status 0
+			scoreboard players set @s hit_distance 0
+			scoreboard players add #MOB_ID number 1
+		}
 	}
 	
 	func test_mob()
 	{
-		execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["new","enemy","heal_target","holy_weakness"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:24,hp_max:500,mp_max:55,avoidability:8,weapon_defense:20,magic_defense:30,kb:1,exp:42,hurt_sound:1,die_sound:2},steal_loot:"skill:steal/20_29/zombie_mushroom",CustomModelData:10000,CustomPotionColor:-1,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.movement_speed",Name:"slow",Amount:0,Operation:0,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:9.5},{Name:"generic.movement_speed",Base:0.2}],ActiveEffects:[{Id:11b,Amplifier:4,Duration:2147483647,Ambient:1b,ShowParticles:0b}],DeathLootTable:"skill:mob/20_29/zombie_mushroom",OnGround:1b,AngerTime:2147483647,Team:"enemy"}
-		execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["new","enemy","fire_weakness","ice_resist","freeze_immune","no_jump"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:32,hp_max:1000,mp_max:80,avoidability:10,weapon_defense:90,magic_defense:80,kb:1,exp:120,hurt_sound:1,die_sound:3},steal_loot:"skill:steal/special/coupon_pq",CustomModelData:10004,CustomPotionColor:-1,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.movement_speed",Name:"slow",Amount:0,Operation:0,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:9.5},{Name:"generic.movement_speed",Base:0.1}],ActiveEffects:[{Id:11b,Amplifier:4,Duration:2147483647,Ambient:1b,ShowParticles:0b}],DeathLootTable:"skill:mob/special/coupon_pq",IsBaby:1b,OnGround:1b,AngerTime:2147483647,Team:"enemy"}
-		execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["new","enemy","no_jump"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:21,hp_max:320,mp_max:40,avoidability:15,weapon_defense:60,magic_defense:60,kb:50,exp:240,hurt_sound:1,die_sound:4},steal_loot:"skill:steal/special/pass_pq",CustomModelData:10008,CustomPotionColor:-1,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.movement_speed",Name:"slow",Amount:0,Operation:0,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:10.0},{Name:"generic.movement_speed",Base:0.1833}],ActiveEffects:[{Id:11b,Amplifier:4,Duration:2147483647,Ambient:1b,ShowParticles:0b}],DeathLootTable:"skill:mob/special/pass_pq",IsBaby:1b,OnGround:1b,AngerTime:2147483647,Team:"enemy"}
-		execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["new","enemy","poison_resist","poison_immune"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:35,hp_max:2000,mp_max:130,avoidability:8,weapon_defense:90,magic_defense:140,kb:1,exp:280,hurt_sound:1,die_sound:5},steal_loot:"skill:steal/special/pass_pq",CustomModelData:10012,CustomPotionColor:-1,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.movement_speed",Name:"slow",Amount:0,Operation:0,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:12.0},{Name:"generic.movement_speed",Base:0.1625}],ActiveEffects:[{Id:11b,Amplifier:4,Duration:2147483647,Ambient:1b,ShowParticles:0b}],DeathLootTable:"skill:mob/special/pass_pq",OnGround:1b,AngerTime:2147483647,Team:"enemy"}
-		execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["new","enemy","boss","king_slime","ice_resist","fire_resist","lightning_resist","holy_resist","poison_immune","freeze_immune"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:40,hp_max:8000,mp_max:100,avoidability:10,magic_attack:165,weapon_defense:160,magic_defense:160,kb:300,exp:800,move_frame:21,stand_frame:11,hurt_sound:2,die_sound:6},CustomModelData:10016,CustomPotionColor:-1,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.movement_speed",Name:"slow",Amount:0,Operation:0,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:13.0},{Name:"generic.movement_speed",Base:0.15}],ActiveEffects:[{Id:11b,Amplifier:4,Duration:2147483647,Ambient:1b,ShowParticles:0b}],DeathLootTable:"skill:mob/special/pass_pq",OnGround:1b,AngerTime:2147483647,Team:"enemy"}
+		execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["new","enemy","heal_target","holy_weakness"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:24,hp_max:500,mp_max:55,avoidability:8,weapon_defense:20,magic_defense:30,kb:1,exp:42,hurt_sound:1,die_sound:2},steal_loot:"skill:steal/20_29/zombie_mushroom",CustomModelData:10000,CustomPotionColor:-1,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.movement_speed",Name:"slow",Amount:0,Operation:0,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:9.5},{Name:"generic.movement_speed",Base:0.2}],DeathLootTable:"skill:mob/20_29/zombie_mushroom",Invulnerable:1b,OnGround:1b,AngerTime:2147483647,Team:"enemy"}
+		execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["new","enemy","fire_weakness","ice_resist","freeze_immune","no_jump"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:32,hp_max:1000,mp_max:80,avoidability:10,weapon_defense:90,magic_defense:80,kb:1,exp:120,hurt_sound:1,die_sound:3},steal_loot:"skill:steal/special/coupon_pq",CustomModelData:10004,CustomPotionColor:-1,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.movement_speed",Name:"slow",Amount:0,Operation:0,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:9.5},{Name:"generic.movement_speed",Base:0.1}],DeathLootTable:"skill:mob/special/coupon_pq",IsBaby:1b,Invulnerable:1b,OnGround:1b,AngerTime:2147483647,Team:"enemy"}
+		execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["new","enemy","no_jump"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:21,hp_max:320,mp_max:40,avoidability:15,weapon_defense:60,magic_defense:60,kb:50,exp:240,hurt_sound:1,die_sound:4},steal_loot:"skill:steal/special/pass_pq",CustomModelData:10008,CustomPotionColor:-1,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.movement_speed",Name:"slow",Amount:0,Operation:0,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:10.0},{Name:"generic.movement_speed",Base:0.1833}],DeathLootTable:"skill:mob/special/pass_pq",IsBaby:1b,Invulnerable:1b,OnGround:1b,AngerTime:2147483647,Team:"enemy"}
+		execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["new","enemy","poison_resist","poison_immune"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:35,hp_max:2000,mp_max:130,avoidability:8,weapon_defense:90,magic_defense:140,kb:1,exp:280,hurt_sound:1,die_sound:5},steal_loot:"skill:steal/special/pass_pq",CustomModelData:10012,CustomPotionColor:-1,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.movement_speed",Name:"slow",Amount:0,Operation:0,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:12.0},{Name:"generic.movement_speed",Base:0.1625}],DeathLootTable:"skill:mob/special/pass_pq",Invulnerable:1b,OnGround:1b,AngerTime:2147483647,Team:"enemy"}
+		execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["new","enemy","paired_mob","boss","king_slime","ice_resist","fire_resist","lightning_resist","holy_resist","poison_immune","freeze_immune"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:40,hp_max:8000,mp_max:100,avoidability:10,magic_attack:165,weapon_defense:160,magic_defense:160,kb:300,exp:800,move_frame:21,stand_frame:11,hurt_sound:2,die_sound:6},CustomModelData:10016,CustomPotionColor:-1,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.movement_speed",Name:"slow",Amount:0,Operation:0,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:13.0},{Name:"generic.movement_speed",Base:0.15}],DeathLootTable:"skill:mob/special/pass_pq",Invulnerable:1b,OnGround:1b,AngerTime:2147483647,Team:"enemy",Passengers:[{id:"minecraft:magma_cube",Tags:["enemy","original"],Invulnerable:1,Size:2.0,Attributes:[{Name:"generic.attack_damage",Base:13.0}],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Team:"enemy"}]}
 		
-		execute as @e[type=zombified_piglin,tag=enemy,tag=new] run function skill:mob_setting
+		execute as @e[type=#skill:enemy,tag=enemy,tag=new] run function skill:mob_setting/run
 	}
 }
