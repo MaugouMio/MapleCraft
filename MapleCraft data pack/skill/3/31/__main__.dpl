@@ -591,6 +591,8 @@ namespace 31() as virtual
 					#########################
 					
 					data modify entity @s ArmorItems[3].tag.damage_record append value {number:0,crit:0,height:1}
+					scoreboard players set #NUMBER_HEIGHT temp 1
+					execute store result entity @s ArmorItems[3].tag.damage_record[-1].height int 1 run scoreboard players operation #NUMBER_HEIGHT temp += @s default_size
 					
 					function main:rand_rate
 					execute if score #HIT_RATE temp > #RAND_RESULT temp run function ARG(_PATH)deal_damage
