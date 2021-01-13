@@ -96,10 +96,9 @@ namespace 0() as virtual
 					data modify entity @s ArmorItems[3].tag.bullet_list append value {}
 					execute store result entity @s ArmorItems[3].tag.bullet_list[-1].bullet_id int 1 run scoreboard players get #BULLET_ID number
 					################################################# replace record damage from damage_copy
-					data modify entity @s ArmorItems[3].tag.bullet_list[-1].damage_record set value [{number:0,crit:0,height:1}]
+					data modify entity @s ArmorItems[3].tag.bullet_list[-1].damage_record set value [{number:0,crit:0,height:0}]
 					execute store result entity @s ArmorItems[3].tag.bullet_list[-1].damage_record[-1].number int 1 run scoreboard players get #SNAIL_DAMAGE temp
-					scoreboard players set #NUMBER_HEIGHT temp 1
-					execute store result entity @s ArmorItems[3].tag.bullet_list[-1].damage_record[-1].height int 1 run scoreboard players operation #NUMBER_HEIGHT temp += @s default_size
+					execute store result entity @s ArmorItems[3].tag.bullet_list[-1].damage_record[-1].height int 1 run scoreboard players get @s default_size
 					#################################################
 					data modify entity @s ArmorItems[3].tag.bullet_list[-1].damage_info set from storage skill:main damage_info
 					
