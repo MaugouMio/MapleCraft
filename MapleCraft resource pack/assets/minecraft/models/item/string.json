@@ -4,7 +4,9 @@
 		"layer0": "item/string"
 	},
 	"overrides": [
+		{"predicate": {"custom_model_data": 4000004},"model": "item/etc/400/0004"},
 		{"predicate": {"custom_model_data": 4000008},"model": "item/etc/400/0008"},
+		{"predicate": {"custom_model_data": 4000010},"model": "item/etc/400/0010"},
 		{"predicate": {"custom_model_data": 4001007},"model": "item/etc/400/1007"},
 		{"predicate": {"custom_model_data": 4001008},"model": "item/etc/400/1008"}
 	]

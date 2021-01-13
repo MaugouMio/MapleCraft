@@ -14,8 +14,8 @@
                   "attribute": "minecraft:generic.attack_damage",
                   "operation": "addition",
                   "amount": {
-                    "min": 0.022,
-                    "max": 0.033
+                    "min": 0.006,
+                    "max": 0.009
                   },
                   "slot": "head"
                 }
@@ -31,22 +31,37 @@
             }
           ],
           "name": "minecraft:diamond",
-		  "weight": 13
+		  "weight": 65
         },
 		{
           "type": "minecraft:item",
           "functions": [
             {
               "function": "minecraft:set_name",
-              "name": {"translate": "item.etc.4000008"}
+              "name": {"translate": "item.etc.4000004"}
             },
             {
               "function": "minecraft:set_nbt",
-              "tag": "{HideFlags:127,CustomModelData:4000008}"
+              "tag": "{HideFlags:127,CustomModelData:4000004}"
             }
           ],
           "name": "minecraft:string",
-		  "weight": 11
+		  "weight": 55
+        },
+		{
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_name",
+              "name": {"translate": "item.etc.4000010"}
+            },
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{HideFlags:127,CustomModelData:4000010}"
+            }
+          ],
+          "name": "minecraft:string",
+		  "weight": 6
         }
       ]
     }

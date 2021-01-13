@@ -20,8 +20,8 @@
                   "attribute": "minecraft:generic.attack_damage",
                   "operation": "addition",
                   "amount": {
-                    "min": 0.044,
-                    "max": 0.066
+                    "min": 0.012,
+                    "max": 0.018
                   },
                   "slot": "head"
                 }
@@ -54,11 +54,36 @@
           "functions": [
             {
               "function": "minecraft:set_name",
-              "name": {"translate": "item.etc.4000008"}
+              "name": {"translate": "item.etc.4000004"}
             },
             {
               "function": "minecraft:set_nbt",
-              "tag": "{HideFlags:127,CustomModelData:4000008}"
+              "tag": "{HideFlags:127,CustomModelData:4000004}"
+            }
+          ],
+          "name": "minecraft:string"
+        }
+      ]
+    },
+    {
+      "rolls": 1.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.06
+            }
+          ],
+          "functions": [
+            {
+              "function": "minecraft:set_name",
+              "name": {"translate": "item.etc.4000010"}
+            },
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{HideFlags:127,CustomModelData:4000010}"
             }
           ],
           "name": "minecraft:string"
