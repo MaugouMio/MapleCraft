@@ -2,6 +2,8 @@ namespace stat()
 {
 	func install()
 	{
+		scoreboard objectives add stat_point dummy
+		
 		scoreboard objectives add STR dummy
 		scoreboard objectives add DEX dummy
 		scoreboard objectives add INT dummy
@@ -15,6 +17,286 @@ namespace stat()
 		scoreboard objectives add standard_pdd dummy
 		
 		scoreboard objectives add hp_recover_time dummy
+	}
+	
+	folder job()
+	{
+		func change()
+		{
+			scoreboard players add @s job_level 1
+			scoreboard players add @s skill_point 1
+			scoreboard players add @s[scores={job_level=4}] skill_point 2
+			scoreboard players add @s[scores={job_level=4}] stat_point 3
+			# effect
+			playsound minecraft:game.job_changed player @a ~ ~ ~ 1 1 0
+			function skill:summon_font_effect/0000000job_changed
+		}
+		
+		folder hp_mp()
+		{
+			folder warrior()
+			{
+				func warrior()
+				{
+					scoreboard players set #RANGE_MAX temp 51
+					function main:rand_range
+					scoreboard players add @s hp_max_base 200
+					scoreboard players operation @s hp_max_base += #RAND_RANGE_RESULT temp
+					
+					execute unless score @s hyper_buff_time matches 1.. run function stat:exp/update_hp_mp/max
+					execute if score @s hyper_buff_time matches 1.. run function skill:1/3/0/1007/set_hp_mp
+					
+					function stat:job/change
+				}
+				
+				func fighter()
+				{
+					scoreboard players set #RANGE_MAX temp 51
+					function main:rand_range
+					scoreboard players add @s hp_max_base 300
+					scoreboard players operation @s hp_max_base += #RAND_RANGE_RESULT temp
+					
+					execute unless score @s hyper_buff_time matches 1.. run function stat:exp/update_hp_mp/max
+					execute if score @s hyper_buff_time matches 1.. run function skill:1/3/0/1007/set_hp_mp
+					
+					function stat:job/change
+				}
+				
+				func page_spearman()
+				{
+					scoreboard players set #RANGE_MAX temp 51
+					function main:rand_range
+					scoreboard players add @s mp_max_base 100
+					scoreboard players operation @s mp_max_base += #RAND_RANGE_RESULT temp
+					
+					execute unless score @s hyper_buff_time matches 1.. run function stat:exp/update_hp_mp/max
+					execute if score @s hyper_buff_time matches 1.. run function skill:1/3/0/1007/set_hp_mp
+					
+					function stat:job/change
+				}
+			}
+			
+			folder magician()
+			{
+				func magician()
+				{
+					scoreboard players set #RANGE_MAX temp 51
+					function main:rand_range
+					scoreboard players add @s mp_max_base 100
+					scoreboard players operation @s mp_max_base += #RAND_RANGE_RESULT temp
+					
+					execute unless score @s hyper_buff_time matches 1.. run function stat:exp/update_hp_mp/max
+					execute if score @s hyper_buff_time matches 1.. run function skill:1/3/0/1007/set_hp_mp
+					
+					function stat:job/change
+				}
+				
+				func second()
+				{
+					scoreboard players set #RANGE_MAX temp 51
+					function main:rand_range
+					scoreboard players add @s mp_max_base 450
+					scoreboard players operation @s mp_max_base += #RAND_RANGE_RESULT temp
+					
+					execute unless score @s hyper_buff_time matches 1.. run function stat:exp/update_hp_mp/max
+					execute if score @s hyper_buff_time matches 1.. run function skill:1/3/0/1007/set_hp_mp
+					
+					function stat:job/change
+				}
+			}
+			
+			folder archer_thief()
+			{
+				func first()
+				{
+					scoreboard players set #RANGE_MAX temp 51
+					function main:rand_range
+					scoreboard players add @s hp_max_base 100
+					scoreboard players operation @s hp_max_base += #RAND_RANGE_RESULT temp
+					
+					scoreboard players set #RANGE_MAX temp 26
+					function main:rand_range
+					scoreboard players add @s mp_max_base 25
+					scoreboard players operation @s mp_max_base += #RAND_RANGE_RESULT temp
+					
+					execute unless score @s hyper_buff_time matches 1.. run function stat:exp/update_hp_mp/max
+					execute if score @s hyper_buff_time matches 1.. run function skill:1/3/0/1007/set_hp_mp
+					
+					function stat:job/change
+				}
+				
+				func second()
+				{
+					scoreboard players set #RANGE_MAX temp 51
+					function main:rand_range
+					scoreboard players add @s hp_max_base 300
+					scoreboard players operation @s hp_max_base += #RAND_RANGE_RESULT temp
+					
+					function main:rand_range
+					scoreboard players add @s mp_max_base 150
+					scoreboard players operation @s mp_max_base += #RAND_RANGE_RESULT temp
+					
+					execute unless score @s hyper_buff_time matches 1.. run function stat:exp/update_hp_mp/max
+					execute if score @s hyper_buff_time matches 1.. run function skill:1/3/0/1007/set_hp_mp
+					
+					function stat:job/change
+				}
+			}
+		}
+	}
+	
+	folder exp()
+	{
+		func level_up()
+		{
+			# effect
+			playsound minecraft:game.level_up player @a ~ ~ ~ 1 1 0
+			function skill:summon_font_effect/0000000levelup
+			# exp related
+			scoreboard players add @s level 1
+			scoreboard players operation @s exp -= @s exp_max
+			function ARG(_PATH)require/set
+			scoreboard players operation #GLOBAL temp = @s exp_max
+			scoreboard players remove #GLOBAL temp 1
+			scoreboard players operation @s exp < #GLOBAL temp
+			# raise hp mp
+			scoreboard players set #RANGE_MAX temp 5
+			function main:rand_range
+			scoreboard players operation @s hp_max_base += #RAND_RANGE_RESULT temp
+			scoreboard players set #RANGE_MAX temp 3
+			function main:rand_range
+			scoreboard players operation @s mp_max_base += #RAND_RANGE_RESULT temp
+			
+			execute if entity @s[tag=warrior] run function ARG(_PATH)update_hp_mp/warrior
+			execute if entity @s[tag=magician] run function ARG(_PATH)update_hp_mp/magician
+			execute if entity @s[tag=archer] run function ARG(_PATH)update_hp_mp/archer
+			execute if entity @s[tag=thief] run function ARG(_PATH)update_hp_mp/archer
+			execute if entity @s[tag=!warrior,tag=!magician,tag=!archer,tag=!thief] run function ARG(_PATH)update_hp_mp/beginner
+			# int contribute to mp
+			scoreboard players operation #GLOBAL temp = @s INT
+			scoreboard players operation #GLOBAL temp /= #10 const
+			scoreboard players operation @s mp_max_base += #GLOBAL temp
+			
+			execute unless score @s hyper_buff_time matches 1.. run function ARG(_PATH)update_hp_mp/max
+			execute if score @s hyper_buff_time matches 1.. run function skill:1/3/0/1007/set_hp_mp
+			
+			scoreboard players operation @s hp = @s hp_max
+			scoreboard players operation @s mp = @s mp_max
+			function bar_display:change/hp/recovered
+			function bar_display:change/mp/recovered
+			# some stat setting
+			execute if score @s 2000000_level matches 1.. run function skill:2/0/0/0000/calculate_recovery
+			function stat:standard_pdd/set
+		}
+		
+		folder update_hp_mp()
+		{
+			func warrior()
+			{
+				scoreboard players add @s hp_max_base 24
+				scoreboard players add @s mp_max_base 4
+				scoreboard players operation @s hp_max_base += @s addi_hp_level
+			}
+			
+			func magician()
+			{
+				scoreboard players add @s hp_max_base 10
+				scoreboard players add @s mp_max_base 22
+				scoreboard players operation @s hp_max_base += @s addi_mp_level
+			}
+			
+			func archer()
+			{
+				scoreboard players add @s hp_max_base 20
+				scoreboard players add @s mp_max_base 14
+			}
+			
+			func beginner()
+			{
+				scoreboard players add @s hp_max_base 12
+				scoreboard players add @s mp_max_base 10
+			}
+			
+			func max()
+			{
+				scoreboard players operation @s hp_max = @s hp_max_base
+				scoreboard players operation @s hp_max < #30000 const
+				scoreboard players operation @s mp_max = @s mp_max_base
+				scoreboard players operation @s mp_max < #30000 const
+			}
+		}
+		
+		folder require()
+		{
+			func set()
+			{
+				execute if score @s level matches ..3 run function ARG(_PATH)1_3
+				execute if score @s level matches 4..5 run function ARG(_PATH)4_5
+				execute if score @s level matches 6..50 run function ARG(_PATH)6_50/check
+				execute if score @s level matches 51.. run function ARG(_PATH)51_
+			}
+			
+			func 1_3()
+			{
+				scoreboard players operation #GLOBAL temp = @s level
+				scoreboard players operation #GLOBAL temp *= #GLOBAL temp
+				scoreboard players operation #GLOBAL temp *= #2 const
+				scoreboard players operation @s exp_max = @s level
+				scoreboard players operation @s exp_max *= #13 const
+				scoreboard players operation @s exp_max += #GLOBAL temp
+			}
+			
+			func 4_5()
+			{
+				scoreboard players operation #GLOBAL temp = @s level
+				scoreboard players operation #GLOBAL temp *= #GLOBAL temp
+				scoreboard players operation #GLOBAL temp *= #4 const
+				scoreboard players operation @s exp_max = @s level
+				scoreboard players operation @s exp_max *= #7 const
+				scoreboard players operation @s exp_max += #GLOBAL temp
+			}
+			
+			folder 6_50()
+			{
+				func check()
+				{
+					scoreboard players operation #GLOBAL temp = @s level
+					scoreboard players operation #GLOBAL temp %= #3 const
+					execute if score #GLOBAL temp matches 0 run function ARG(_PATH)multiple_3
+					execute unless score #GLOBAL temp matches 0 run function ARG(_PATH)else
+				}
+				
+				func multiple_3()
+				{
+					scoreboard players operation #GLOBAL temp = @s level
+					execute store result score @s exp_max run scoreboard players operation #GLOBAL temp *= #GLOBAL temp
+					scoreboard players operation #GLOBAL temp *= #GLOBAL temp
+					scoreboard players operation @s exp_max *= #57 const
+					scoreboard players operation @s exp_max += #GLOBAL temp
+					scoreboard players operation @s exp_max /= #9 const
+					# reset for next function check
+					scoreboard players set #GLOBAL temp 0
+				}
+				
+				func else()
+				{
+					scoreboard players operation #GLOBAL temp = @s level
+					execute store result score @s exp_max run scoreboard players operation #GLOBAL temp *= #GLOBAL temp
+					scoreboard players operation #GLOBAL temp *= #GLOBAL temp
+					scoreboard players operation @s exp_max *= #55 const
+					scoreboard players operation @s exp_max += #GLOBAL temp
+					scoreboard players remove @s exp_max 56
+					scoreboard players operation @s exp_max /= #9 const
+				}
+			}
+			
+			func 51_()
+			{
+				# only works for leveling up one by one
+				execute store result storage ui:main exp int 1.0548 run scoreboard players get @s exp_max
+				execute store result score @s exp_max run data get storage ui:main exp
+			}
+		}
 	}
 	
 	folder standard_pdd()
@@ -86,13 +368,562 @@ namespace stat()
 		}
 	}
 	
+	folder window()
+	{
+		func display()
+		{
+			function ARG(_PATH)add_trigger
+			scoreboard players reset #GLOBAL bullet_model
+			function ARG(_PATH)get_attack_range/run
+			
+			# title
+			tellraw @s {"text":"\n\n\n\n\n\n\n!\n#","font":"ui:window/stat"}
+			# job
+			function ARG(_PATH)set_job_text/run
+			tellraw @s [{"text":"&","font":"ui:window/stat"},{"text":"A982","font":"space:default"},{"nbt":"job","storage":"ui:main","interpret":true},"\n'",{"text":"A982","font":"space:default"},{"nbt":"sub_job","storage":"ui:main","interpret":true}]
+			# level and detail title
+			tellraw @s [{"text":"*","font":"ui:window/stat"},{"text":"A982","font":"space:default"},{"score":{"objective":"level","name":"@s"},"color":"black"},{"score":{"objective":"level","name":"@s"},"font":"ui:window/stat_back"},{"text":"\uF82A\uF829\uF828\uF821","font":"space:default"},"^"]
+			# hp and attack
+			execute if score @s watk_buff_num matches 1.. run data modify storage ui:main attack_format set value '{"text":"","color":"#ff0000","font":"ui:window/stat"}'
+			execute unless score @s watk_buff_num matches 1.. run data modify storage ui:main attack_format set value '{"text":"","color":"black","font":"ui:window/stat"}'
+			execute if score @s weapon_type matches 2.. run data modify storage ui:main attack_display set value '[{"score":{"objective":"temp","name":"#MIN_DAMAGE"}},"_~_",{"score":{"objective":"temp","name":"#MAX_DAMAGE"}}]'
+			execute unless score @s weapon_type matches 2.. run data modify storage ui:main attack_display set value '{"score":{"objective":"temp","name":"#MIN_DAMAGE"}}'
+			tellraw @s [{"nbt":"add_buttons[0]","storage":"ui:main","interpret":true},{"text":",","font":"ui:window/stat"},{"nbt":"add_buttons[-1]","storage":"ui:main","interpret":true},{"text":"A94","font":"space:default"},[{"score":{"objective":"hp","name":"@s"},"font":"ui:window/stat","color":"black"},"_/_",{"score":{"objective":"hp_max","name":"@s"}}],[{"score":{"objective":"hp","name":"@s"},"font":"ui:window/stat_back"},{"score":{"objective":"hp_max","name":"@s"}}],{"text":"\uF82A\uF829\uF824","font":"space:default"},{"text":"`","font":"ui:window/stat"},{"text":"A93","font":"space:default"},[{"nbt":"attack_format","storage":"ui:main","interpret":true},{"nbt":"attack_display","storage":"ui:main","interpret":true}]]
+			# mp and wdef
+			execute if score @s wdef_buff_num matches ..10000 run function ARG(_PATH)mp_wdef_buff/check
+			execute unless score @s wdef_buff_num matches ..10000 run tellraw @s [{"nbt":"add_buttons[1]","storage":"ui:main","interpret":true},{"text":".","font":"ui:window/stat"},{"nbt":"add_buttons[-1]","storage":"ui:main","interpret":true},{"text":"A94","font":"space:default"},[{"score":{"objective":"mp","name":"@s"},"font":"ui:window/stat","color":"black"},"_/_",{"score":{"objective":"mp_max","name":"@s"}}],[{"score":{"objective":"mp","name":"@s"},"font":"ui:window/stat_back"},{"score":{"objective":"mp_max","name":"@s"}}],{"text":"\uF82A\uF829\uF824","font":"space:default"},[{"text":"{","font":"ui:window/stat"},{"text":"A93","font":"space:default"},{"score":{"objective":"weapon_defense","name":"@s"},"color":"black"}]]
+			# exp and magic
+			scoreboard players operation #GLOBAL temp = @s exp
+			scoreboard players operation #GLOBAL temp *= #100 const
+			scoreboard players operation #GLOBAL temp /= @s exp_max
+			
+			scoreboard players operation #MAGIC_ATTACK temp = @s weapon_mattack
+			execute store result score #MAGIC_ATTACK_FINAL temp run scoreboard players operation #MAGIC_ATTACK temp += @s INT
+			scoreboard players operation #MAGIC_ATTACK_FINAL temp += @s matk_buff_num
+			
+			execute unless score @s matk_buff_num matches 1.. run data modify storage ui:main magic set value '[{"score":{"objective":"temp","name":"#MAGIC_ATTACK_FINAL"},"color":"black"}]'
+			execute if score @s matk_buff_num matches 1.. run data modify storage ui:main magic set value '[{"score":{"objective":"temp","name":"#MAGIC_ATTACK_FINAL"},"color":"#ff0000"},"_(",{"score":{"objective":"temp","name":"#MAGIC_ATTACK"}},"+",{"score":{"objective":"matk_buff_num","name":"@s"}},")"]'
+			
+			tellraw @s [{"text":":","font":"ui:window/stat"},{"text":"A982","font":"space:default"},[{"score":{"objective":"exp","name":"@s"},"color":"black"},"_(",{"score":{"objective":"temp","name":"#GLOBAL"}},"%)"],[{"score":{"objective":"exp","name":"@s"},"font":"ui:window/stat_back"},{"score":{"objective":"temp","name":"#GLOBAL"}}],{"text":"\uF82A\uF828\uF825","font":"space:default"},"|",{"text":"A93","font":"space:default"},{"nbt":"magic","storage":"ui:main","interpret":true}]
+			# sep line and mdef
+			execute unless score @s mdef_buff_num matches 1.. run data modify storage ui:main mdef set value '[{"score":{"objective":"magic_defense","name":"@s"},"color":"black"}]'
+			execute if score @s mdef_buff_num matches 1.. run function ARG(_PATH)sep_mdef_buff
+			
+			tellraw @s [{"text":";","font":"ui:window/stat"},{"text":"1","font":"space:default"},"}",{"text":"A93","font":"space:default"},{"nbt":"mdef","storage":"ui:main","interpret":true}]
+			# str and accuracy
+			execute unless score @s equip_str matches 1.. run data modify storage ui:main str set value '[{"score":{"objective":"STR","name":"@s"},"font":"ui:window/stat","color":"black"},{"score":{"objective":"STR","name":"@s"},"font":"ui:window/stat_back"}]'
+			execute if score @s equip_str matches 1.. run function ARG(_PATH)str_add
+			
+			execute unless score @s accu_buff_num matches 1.. run data modify storage ui:main accuracy set value '[{"score":{"objective":"temp","name":"#ACCURACY"},"font":"ui:window/stat","color":"black"}]'
+			execute if score @s accu_buff_num matches 1.. run function ARG(_PATH)accu_buff
+			
+			tellraw @s [{"nbt":"add_buttons[2]","storage":"ui:main","interpret":true},{"text":"<","font":"ui:window/stat"},{"nbt":"add_buttons[-1]","storage":"ui:main","interpret":true},{"text":"A94","font":"space:default"},{"nbt":"str","storage":"ui:main","interpret":true},{"text":"\uF82A\uF829\uF828\uF821","font":"space:default"},{"text":"\uE000","font":"ui:window/stat"},{"text":"A93","font":"space:default"},{"nbt":"accuracy","storage":"ui:main","interpret":true}]
+			# dex and avoid
+			execute unless score @s equip_dex matches 1.. run data modify storage ui:main dex set value '[{"score":{"objective":"DEX","name":"@s"},"font":"ui:window/stat","color":"black"},{"score":{"objective":"DEX","name":"@s"},"font":"ui:window/stat_back"}]'
+			execute if score @s equip_dex matches 1.. run function ARG(_PATH)dex_add
+			
+			tellraw @s [{"nbt":"add_buttons[3]","storage":"ui:main","interpret":true},{"text":"=","font":"ui:window/stat"},{"nbt":"add_buttons[-1]","storage":"ui:main","interpret":true},{"text":"A94","font":"space:default"},{"nbt":"dex","storage":"ui:main","interpret":true},{"text":"\uF82A\uF829\uF828\uF821","font":"space:default"},{"text":"\uE001","font":"ui:window/stat"},{"text":"A93","font":"space:default"}]
+			# int and speed
+			execute unless score @s equip_int matches 1.. run data modify storage ui:main int set value '[{"score":{"objective":"INT","name":"@s"},"font":"ui:window/stat","color":"black"},{"score":{"objective":"INT","name":"@s"},"font":"ui:window/stat_back"}]'
+			execute if score @s equip_int matches 1.. run function ARG(_PATH)int_add
+			
+			execute store result score #GLOBAL temp run attribute @s minecraft:generic.movement_speed get 10000
+			scoreboard players add #GLOBAL temp 1
+			scoreboard players operation #GLOBAL temp /= #10 const
+			
+			tellraw @s [{"nbt":"add_buttons[4]","storage":"ui:main","interpret":true},{"text":">","font":"ui:window/stat"},{"nbt":"add_buttons[-1]","storage":"ui:main","interpret":true},{"text":"A94","font":"space:default"},{"nbt":"int","storage":"ui:main","interpret":true},{"text":"\uF82A\uF829\uF828\uF821","font":"space:default"},{"text":"\uE002","font":"ui:window/stat"},{"text":"A93","font":"space:default"},[{"score":{"objective":"temp","name":"#GLOBAL"},"color":"black","font":"ui:window/stat"},"%"]]
+			# luk and jump
+			execute unless score @s equip_luk matches 1.. run data modify storage ui:main luk set value '[{"score":{"objective":"LUK","name":"@s"},"font":"ui:window/stat","color":"black"},{"score":{"objective":"LUK","name":"@s"},"font":"ui:window/stat_back"}]'
+			execute if score @s equip_luk matches 1.. run function ARG(_PATH)luk_add
+			
+			execute store result score #GLOBAL temp run data get entity @s ActiveEffects[{Id:8b}].Amplifier
+			execute if data entity @s ActiveEffects[{Id:8b}] run scoreboard players add #GLOBAL temp 1
+			scoreboard players operation #GLOBAL temp *= #10 const
+			scoreboard players add #GLOBAL temp 100
+			
+			tellraw @s [{"nbt":"add_buttons[5]","storage":"ui:main","interpret":true},{"text":"?","font":"ui:window/stat"},{"nbt":"add_buttons[-1]","storage":"ui:main","interpret":true},{"text":"A94","font":"space:default"},{"nbt":"luk","storage":"ui:main","interpret":true},{"text":"\uF82A\uF829\uF828\uF821","font":"space:default"},{"text":"\uE003","font":"ui:window/stat"},{"text":"A93","font":"space:default"},[{"score":{"objective":"temp","name":"#GLOBAL"},"color":"black","font":"ui:window/stat"},"%"]]
+			# tail
+			tellraw @s [{"text":"@","font":"ui:window/stat"},{"text":"1","font":"space:default"},"\uE004"]
+			# point left
+			tellraw @s [{"text":"[","font":"ui:window/stat"},{"text":"A","font":"space:default"},{"score":{"objective":"stat_point","name":"@s"},"font":"ui:window/stat_back"},{"score":{"objective":"stat_point","name":"@s"},"color":"black"},{"text":"\uF829\uF828\uF827","font":"space:default"},"\uE005"]
+			# tail2
+			tellraw @s [{"text":"]","font":"ui:window/stat"},{"text":"1","font":"space:default"},"\uE006"]
+		}
+		
+		func add_trigger()
+		{
+			data modify storage ui:main add_buttons set value ['""','""','""','""','""','""','{"text":"6","font":"space:default"}']
+			# hp add, mp add, str add, dex add, int add, luk add, display button
+			execute if score @s stat_point matches 1.. run data modify storage ui:main add_buttons set value ['[{"text":"\\uF82B\\uF828\\uF824","font":"space:default"},{"text":"5","font":"ui:main","clickEvent":{"action":"run_command","value":"/trigger command set 1"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},"B93"]','[{"text":"\\uF82B\\uF828\\uF824","font":"space:default"},{"text":"5","font":"ui:main","clickEvent":{"action":"run_command","value":"/trigger command set 2"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},"B93"]','[{"text":"\\uF82B\\uF828\\uF824","font":"space:default"},{"text":"5","font":"ui:main","clickEvent":{"action":"run_command","value":"/trigger command set 3"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},"B93"]','[{"text":"\\uF82B\\uF828\\uF824","font":"space:default"},{"text":"5","font":"ui:main","clickEvent":{"action":"run_command","value":"/trigger command set 4"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},"B93"]','[{"text":"\\uF82B\\uF828\\uF824","font":"space:default"},{"text":"5","font":"ui:main","clickEvent":{"action":"run_command","value":"/trigger command set 5"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},"B93"]','[{"text":"\\uF82B\\uF828\\uF824","font":"space:default"},{"text":"5","font":"ui:main","clickEvent":{"action":"run_command","value":"/trigger command set 6"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},"B93"]','[{"text":"85","font":"space:default"},{"text":"5","font":"ui:main"}]']
+		}
+		
+		folder set_job_text()
+		{
+			func run()
+			{
+				execute if entity @s[tag=warrior] run function ARG(_PATH)warrior/set
+				execute if entity @s[tag=archer] run function ARG(_PATH)archer/set
+				execute if entity @s[tag=magician] run function ARG(_PATH)magician/set
+				execute if entity @s[tag=thief] run function ARG(_PATH)thief/set
+				execute if entity @s[tag=!warrior,tag=!archer,tag=!magician,tag=!thief] run data merge storage ui:main {job:'"\\uE007"',sub_job:'"\\uF000"'}
+			}
+			
+			folder warrior()
+			{
+				func set()
+				{
+					data modify storage ui:main job set value '"\\uE008"'
+					execute if entity @s[tag=fighter] run function ARG(_PATH)fighter
+					execute if entity @s[tag=page] run function ARG(_PATH)page
+					execute if entity @s[tag=spearman] run function ARG(_PATH)spearman
+					execute if entity @s[tag=!fighter,tag=!page,tag=!spearman] run data modify storage ui:main sub_job set value '"\\uF100"'
+				}
+				
+				func fighter()
+				{
+					execute if entity @s[tag=!crusader] run data modify storage ui:main sub_job set value '"\\uF110"'
+					execute if entity @s[tag=crusader,tag=!hero] run data modify storage ui:main sub_job set value '"\\uF111"'
+					execute if entity @s[tag=hero] run data modify storage ui:main sub_job set value '"\\uF112"'
+				}
+				
+				func page()
+				{
+					execute if entity @s[tag=!white_knight] run data modify storage ui:main sub_job set value '"\\uF120"'
+					execute if entity @s[tag=white_knight,tag=!paladin] run data modify storage ui:main sub_job set value '"\\uF121"'
+					execute if entity @s[tag=paladin] run data modify storage ui:main sub_job set value '"\\uF122"'
+				}
+				
+				func spearman()
+				{
+					execute if entity @s[tag=!dragon_knight] run data modify storage ui:main sub_job set value '"\\uF130"'
+					execute if entity @s[tag=dragon_knight,tag=!dark_knight] run data modify storage ui:main sub_job set value '"\\uF131"'
+					execute if entity @s[tag=dark_knight] run data modify storage ui:main sub_job set value '"\\uF132"'
+				}
+			}
+			
+			folder archer()
+			{
+				func set()
+				{
+					data modify storage ui:main job set value '"\\uE009"'
+					execute if entity @s[tag=hunter] run function ARG(_PATH)hunter
+					execute if entity @s[tag=crossbowman] run function ARG(_PATH)crossbowman
+					execute if entity @s[tag=!hunter,tag=!crossbowman] run data modify storage ui:main sub_job set value '"\\uF300"'
+				}
+				
+				func hunter()
+				{
+					execute if entity @s[tag=!ranger] run data modify storage ui:main sub_job set value '"\\uF310"'
+					execute if entity @s[tag=ranger,tag=!bow_master] run data modify storage ui:main sub_job set value '"\\uF311"'
+					execute if entity @s[tag=bow_master] run data modify storage ui:main sub_job set value '"\\uF312"'
+				}
+				
+				func crossbowman()
+				{
+					execute if entity @s[tag=!sniper] run data modify storage ui:main sub_job set value '"\\uF320"'
+					execute if entity @s[tag=sniper,tag=!marksman] run data modify storage ui:main sub_job set value '"\\uF321"'
+					execute if entity @s[tag=marksman] run data modify storage ui:main sub_job set value '"\\uF322"'
+				}
+			}
+			
+			folder magician()
+			{
+				func set()
+				{
+					data modify storage ui:main job set value '"\\uE00A"'
+					execute if entity @s[tag=wizard_fp] run function ARG(_PATH)wizard_fp
+					execute if entity @s[tag=wizard_il] run function ARG(_PATH)wizard_il
+					execute if entity @s[tag=cleric] run function ARG(_PATH)cleric
+					execute if entity @s[tag=!wizard_fp,tag=!wizard_il,tag=!cleric] run data modify storage ui:main sub_job set value '"\\uF200"'
+				}
+				
+				func wizard_fp()
+				{
+					execute if entity @s[tag=!mage_fp] run data modify storage ui:main sub_job set value '"\\uF210"'
+					execute if entity @s[tag=mage_fp,tag=!arch_mage_fp] run data modify storage ui:main sub_job set value '"\\uF211"'
+					execute if entity @s[tag=arch_mage_fp] run data modify storage ui:main sub_job set value '"\\uF212"'
+				}
+				
+				func wizard_il()
+				{
+					execute if entity @s[tag=!mage_il] run data modify storage ui:main sub_job set value '"\\uF220"'
+					execute if entity @s[tag=mage_il,tag=!arch_mage_il] run data modify storage ui:main sub_job set value '"\\uF221"'
+					execute if entity @s[tag=arch_mage_il] run data modify storage ui:main sub_job set value '"\\uF222"'
+				}
+				
+				func cleric()
+				{
+					execute if entity @s[tag=!priest] run data modify storage ui:main sub_job set value '"\\uF230"'
+					execute if entity @s[tag=priest,tag=!bishop] run data modify storage ui:main sub_job set value '"\\uF231"'
+					execute if entity @s[tag=bishop] run data modify storage ui:main sub_job set value '"\\uF232"'
+				}
+			}
+			
+			folder thief()
+			{
+				func set()
+				{
+					data modify storage ui:main job set value '"\\uE00B"'
+					execute if entity @s[tag=assassin] run function ARG(_PATH)assassin
+					execute if entity @s[tag=bandit] run function ARG(_PATH)bandit
+					execute if entity @s[tag=!assassin,tag=!bandit] run data modify storage ui:main sub_job set value '"\\uF400"'
+				}
+				
+				func assassin()
+				{
+					execute if entity @s[tag=!hermit] run data modify storage ui:main sub_job set value '"\\uF410"'
+					execute if entity @s[tag=hermit,tag=!night_lord] run data modify storage ui:main sub_job set value '"\\uF411"'
+					execute if entity @s[tag=night_lord] run data modify storage ui:main sub_job set value '"\\uF412"'
+				}
+				
+				func bandit()
+				{
+					execute if entity @s[tag=!chief_bandit] run data modify storage ui:main sub_job set value '"\\uF420"'
+					execute if entity @s[tag=chief_bandit,tag=!shadower] run data modify storage ui:main sub_job set value '"\\uF421"'
+					execute if entity @s[tag=shadower] run data modify storage ui:main sub_job set value '"\\uF422"'
+				}
+			}
+		}
+		
+		func str_add()
+		{
+			scoreboard players operation #BASE_STR temp = @s STR
+			scoreboard players operation #BASE_STR temp -= @s equip_str
+			data modify storage ui:main str set value '[[{"score":{"objective":"STR","name":"@s"},"font":"ui:window/stat","color":"black"},"_(",{"score":{"objective":"temp","name":"#BASE_STR"}},"+",{"score":{"objective":"equip_str","name":"@s"}},")"],[{"score":{"objective":"STR","name":"@s"},"font":"ui:window/stat_back"},{"score":{"objective":"temp","name":"#BASE_STR"}},{"score":{"objective":"equip_str","name":"@s"}}],{"text":"82","font":"space:default"}]'
+		}
+		
+		func dex_add()
+		{
+			scoreboard players operation #BASE_DEX temp = @s DEX
+			scoreboard players operation #BASE_DEX temp -= @s equip_dex
+			data modify storage ui:main dex set value '[[{"score":{"objective":"DEX","name":"@s"},"font":"ui:window/stat","color":"black"},"_(",{"score":{"objective":"temp","name":"#BASE_DEX"}},"+",{"score":{"objective":"equip_dex","name":"@s"}},")"],[{"score":{"objective":"DEX","name":"@s"},"font":"ui:window/stat_back"},{"score":{"objective":"temp","name":"#BASE_DEX"}},{"score":{"objective":"equip_dex","name":"@s"}}],{"text":"82","font":"space:default"}]'
+		}
+		
+		func int_add()
+		{
+			scoreboard players operation #BASE_INT temp = @s INT
+			scoreboard players operation #BASE_INT temp -= @s equip_int
+			data modify storage ui:main int set value '[[{"score":{"objective":"INT","name":"@s"},"font":"ui:window/stat","color":"black"},"_(",{"score":{"objective":"temp","name":"#BASE_INT"}},"+",{"score":{"objective":"equip_int","name":"@s"}},")"],[{"score":{"objective":"INT","name":"@s"},"font":"ui:window/stat_back"},{"score":{"objective":"temp","name":"#BASE_INT"}},{"score":{"objective":"equip_int","name":"@s"}}],{"text":"82","font":"space:default"}]'
+		}
+		
+		func luk_add()
+		{
+			scoreboard players operation #BASE_LUK temp = @s LUK
+			scoreboard players operation #BASE_LUK temp -= @s equip_luk
+			data modify storage ui:main luk set value '[[{"score":{"objective":"LUK","name":"@s"},"font":"ui:window/stat","color":"black"},"_(",{"score":{"objective":"temp","name":"#BASE_LUK"}},"+",{"score":{"objective":"equip_luk","name":"@s"}},")"],[{"score":{"objective":"LUK","name":"@s"},"font":"ui:window/stat_back"},{"score":{"objective":"temp","name":"#BASE_LUK"}},{"score":{"objective":"equip_luk","name":"@s"}}],{"text":"82","font":"space:default"}]'
+		}
+		
+		func accu_buff()
+		{
+			scoreboard players operation #BASE_ACCURACY temp = #ACCURACY temp
+			scoreboard players operation #BASE_ACCURACY temp -= @s accu_buff_num
+			data modify storage ui:main accuracy set value '[{"score":{"objective":"temp","name":"#ACCURACY"},"font":"ui:window/stat","color":"#ff0000"},"_(",{"score":{"objective":"temp","name":"#BASE_ACCURACY"}},"+",{"score":{"objective":"accu_buff_num","name":"@s"}},")"]'
+		}
+		
+		func sep_mdef_buff()
+		{
+			scoreboard players operation #MAGIC_DEFENSE temp = @s magic_defense
+			scoreboard players operation #MAGIC_DEFENSE temp += @s mdef_buff_num
+			data modify storage ui:main mdef set value '[{"score":{"objective":"temp","name":"#MAGIC_DEFENSE"},"color":"#ff0000"},"_(",{"score":{"objective":"magic_defense","name":"@s"}},"+",{"score":{"objective":"mdef_buff_num","name":"@s"}},")"]'
+		}
+		
+		folder mp_wdef_buff()
+		{
+			func check()
+			{
+				scoreboard players operation #WEAPON_DEFENSE temp = @s weapon_defense
+				scoreboard players operation #WEAPON_DEFENSE temp += @s wdef_buff_num
+				execute if score @s wdef_buff_num matches ..-1 if score @s weapon_defense matches 1.. run function ARG(_PATH)decrease
+				execute if score @s wdef_buff_num matches ..-1 if score @s weapon_defense matches 0 run tellraw @s [{"nbt":"add_buttons[1]","storage":"ui:main","interpret":true},{"text":".","font":"ui:window/stat"},{"nbt":"add_buttons[-1]","storage":"ui:main","interpret":true},{"text":"A94","font":"space:default"},[{"score":{"objective":"mp","name":"@s"},"font":"ui:window/stat","color":"black"},"_/_",{"score":{"objective":"mp_max","name":"@s"}}],[{"score":{"objective":"mp","name":"@s"},"font":"ui:window/stat_back"},{"score":{"objective":"mp_max","name":"@s"}}],{"text":"\uF82A\uF829\uF824","font":"space:default"},[{"text":"{","font":"ui:window/stat"},{"text":"A93","font":"space:default"},{"score":{"objective":"weapon_defense","name":"@s"},"color":"black"}]]
+				execute if score @s wdef_buff_num matches 1.. run tellraw @s [{"nbt":"add_buttons[1]","storage":"ui:main","interpret":true},{"text":".","font":"ui:window/stat"},{"nbt":"add_buttons[-1]","storage":"ui:main","interpret":true},{"text":"A94","font":"space:default"},[{"score":{"objective":"mp","name":"@s"},"font":"ui:window/stat","color":"black"},"_/_",{"score":{"objective":"mp_max","name":"@s"}}],[{"score":{"objective":"mp","name":"@s"},"font":"ui:window/stat_back"},{"score":{"objective":"mp_max","name":"@s"}}],{"text":"\uF82A\uF829\uF824","font":"space:default"},{"text":"{","font":"ui:window/stat"},{"text":"A93","font":"space:default"},[{"score":{"objective":"temp","name":"#WEAPON_DEFENSE"},"font":"ui:window/stat","color":"#ff0000"},"_(",{"score":{"objective":"weapon_defense","name":"@s"}},"+",{"score":{"objective":"wdef_buff_num","name":"@s"}},")"]]
+			}
+			
+			func decrease()
+			{
+				scoreboard players operation #WDEF_DECREASE temp = @s wdef_buff_num
+				execute if score #WEAPON_DEFENSE temp matches ..-1 run scoreboard players operation #WDEF_DECREASE temp -= #WEAPON_DEFENSE temp
+				scoreboard players operation #WEAPON_DEFENSE temp > #0 const
+				tellraw @s [{"nbt":"add_buttons[1]","storage":"ui:main","interpret":true},{"text":".","font":"ui:window/stat"},{"nbt":"add_buttons[-1]","storage":"ui:main","interpret":true},{"text":"A94","font":"space:default"},[{"score":{"objective":"mp","name":"@s"},"font":"ui:window/stat","color":"black"},"_/_",{"score":{"objective":"mp_max","name":"@s"}}],[{"score":{"objective":"mp","name":"@s"},"font":"ui:window/stat_back"},{"score":{"objective":"mp_max","name":"@s"}}],{"text":"\uF82A\uF829\uF824","font":"space:default"},{"text":"{","font":"ui:window/stat"},{"text":"A93","font":"space:default"},[{"score":{"objective":"temp","name":"#WEAPON_DEFENSE"},"font":"ui:window/stat","color":"#0000ff"},"_(",{"score":{"objective":"weapon_defense","name":"@s"}},{"score":{"objective":"temp","name":"#WDEF_DECREASE"}},")"]]
+			}
+		}
+		
+		folder get_attack_range()
+		{
+			func run()
+			{
+				execute unless score @s weapon_type matches 2.. run function ARG(_PATH)none
+				execute if score @s weapon_type matches ..10 run function ARG(_PATH)2_10
+				execute if score @s weapon_type matches 12.. run function ARG(_PATH)12_24
+			}
+			
+			func none()
+			{
+				scoreboard players set #MIN_DAMAGE temp 0
+				function skill:damage_formula/accuracy/job_check
+			}
+			
+			func 2_10()
+			{
+				execute if score @s weapon_type matches ..6 run function ARG(_PATH)2_6
+				execute if score @s weapon_type matches 7.. run function ARG(_PATH)7_10
+			}
+			
+			func 2_6()
+			{
+				# execute if score @s weapon_type matches 2 run function skill:damage_formula/knuckle/normal
+				# execute if score @s weapon_type matches 4 run function skill:damage_formula/gun/normal
+				execute if score @s weapon_type matches 5 run function ARG(_PATH)5
+				execute if score @s weapon_type matches 6 run function ARG(_PATH)6
+			}
+			
+			func 5()
+			{
+				function skill:damage_formula/axe/one_hand/swing
+				scoreboard players operation #DISPLAY_MAX_DAMAGE temp = #MAX_DAMAGE temp
+				function skill:damage_formula/axe/one_hand/stab
+				scoreboard players operation #MAX_DAMAGE temp = #DISPLAY_MAX_DAMAGE temp
+			}
+			
+			func 6()
+			{
+				function skill:damage_formula/axe/two_hand/swing
+				scoreboard players operation #DISPLAY_MAX_DAMAGE temp = #MAX_DAMAGE temp
+				function skill:damage_formula/axe/two_hand/stab
+				scoreboard players operation #MAX_DAMAGE temp = #DISPLAY_MAX_DAMAGE temp
+			}
+			
+			func 7_10()
+			{
+				execute if score @s weapon_type matches 7 run function skill:damage_formula/sword/one_hand
+				execute if score @s weapon_type matches 8 run function skill:damage_formula/sword/two_hand
+				execute if score @s weapon_type matches 9 run function ARG(_PATH)9
+				execute if score @s weapon_type matches 10 run function ARG(_PATH)10
+			}
+			
+			func 9()
+			{
+				function skill:damage_formula/blunt/one_hand/swing
+				scoreboard players operation #DISPLAY_MAX_DAMAGE temp = #MAX_DAMAGE temp
+				function skill:damage_formula/blunt/one_hand/stab
+				scoreboard players operation #MAX_DAMAGE temp = #DISPLAY_MAX_DAMAGE temp
+			}
+			
+			func 10()
+			{
+				function skill:damage_formula/blunt/two_hand/swing
+				scoreboard players operation #DISPLAY_MAX_DAMAGE temp = #MAX_DAMAGE temp
+				function skill:damage_formula/blunt/two_hand/stab
+				scoreboard players operation #MAX_DAMAGE temp = #DISPLAY_MAX_DAMAGE temp
+			}
+			
+			func 12_24()
+			{
+				execute if score @s weapon_type matches ..18 run function ARG(_PATH)12_18
+				execute if score @s weapon_type matches 19.. run function ARG(_PATH)19_24
+			}
+			
+			func 12_18()
+			{
+				execute if score @s weapon_type matches 12 run function ARG(_PATH)12
+				execute if score @s weapon_type matches 14 run function ARG(_PATH)14
+				execute if score @s weapon_type matches 16 run function skill:damage_formula/bow/normal
+				execute if score @s weapon_type matches 18 run function skill:damage_formula/crossbow/normal
+			}
+			
+			func 12()
+			{
+				function skill:damage_formula/spear/stab
+				scoreboard players operation #DISPLAY_MAX_DAMAGE temp = #MAX_DAMAGE temp
+				function skill:damage_formula/spear/swing
+				scoreboard players operation #MAX_DAMAGE temp = #DISPLAY_MAX_DAMAGE temp
+			}
+			
+			func 14()
+			{
+				function skill:damage_formula/polearm/swing
+				scoreboard players operation #DISPLAY_MAX_DAMAGE temp = #MAX_DAMAGE temp
+				function skill:damage_formula/polearm/stab
+				scoreboard players operation #MAX_DAMAGE temp = #DISPLAY_MAX_DAMAGE temp
+			}
+			
+			func 19_24()
+			{
+				execute if score @s weapon_type matches 19..21 run function ARG(_PATH)19
+				execute if score @s weapon_type matches 23 run function ARG(_PATH)23
+				execute if score @s weapon_type matches 24 run function skill:damage_formula/claw/normal
+			}
+			
+			func 19()
+			{
+				function skill:damage_formula/staff/swing
+				scoreboard players operation #DISPLAY_MAX_DAMAGE temp = #MAX_DAMAGE temp
+				function skill:damage_formula/staff/stab
+				scoreboard players operation #MAX_DAMAGE temp = #DISPLAY_MAX_DAMAGE temp
+			}
+			
+			func 23()
+			{
+				execute if entity @s[tag=thief] run function skill:damage_formula/dagger/thief
+				execute if entity @s[tag=!thief] run function skill:damage_formula/dagger/non_thief
+			}
+		}
+		
+		folder add()
+		{
+			func after_addition()
+			{
+				scoreboard players remove @s stat_point 1
+				function ARG(__PATH)display
+			}
+			
+			folder hp()
+			{
+				func check()
+				{
+					execute at @s run playsound minecraft:ui.button.click player @s
+					scoreboard players operation #GLOBAL temp = @s hp_max_base
+					scoreboard players operation #GLOBAL temp -= @s equip_hp
+					execute if score #GLOBAL temp matches ..29999 run function ARG(_PATH)set
+				}
+				
+				func set()
+				{
+					scoreboard players set #RANGE_MAX temp 5
+					execute if entity @s[tag=magician] run scoreboard players add #RANGE_MAX temp 6
+					function main:rand_range
+					scoreboard players operation @s hp_max_base += #RAND_RANGE_RESULT temp
+					
+					execute if entity @s[tag=warrior] run scoreboard players add @s hp_max_base 20
+					execute if entity @s[tag=magician] run scoreboard players add @s hp_max_base 10
+					execute if entity @s[tag=archer] run scoreboard players add @s hp_max_base 16
+					execute if entity @s[tag=thief] run scoreboard players add @s hp_max_base 16
+					execute if entity @s[tag=!warrior,tag=!magician,tag=!archer,tag=!thief] run scoreboard players add @s hp_max_base 8
+					
+					scoreboard players operation @s hp_max_base += @s addi_hp_point
+					execute unless score @s hyper_buff_time matches 1.. run function ARG(_PATH)update_hp
+					execute if score @s hyper_buff_time matches 1.. run function skill:1/3/0/1007/set_hp_mp
+					function bar_display:change/hp/recovered
+					
+					function ARG(__PATH)after_addition
+				}
+				
+				func update_hp()
+				{
+					scoreboard players operation @s hp_max = @s hp_max_base
+					scoreboard players operation @s hp_max < #30000 const
+					scoreboard players operation @s hp < @s hp_max
+				}
+			}
+			
+			folder mp()
+			{
+				func check()
+				{
+					execute at @s run playsound minecraft:ui.button.click player @s
+					scoreboard players operation #GLOBAL temp = @s mp_max_base
+					scoreboard players operation #GLOBAL temp -= @s equip_mp
+					execute if score #GLOBAL temp matches ..29999 run function ARG(_PATH)set
+				}
+				
+				func set()
+				{
+					scoreboard players set #RANGE_MAX temp 3
+					function main:rand_range
+					scoreboard players operation @s mp_max_base += #RAND_RANGE_RESULT temp
+					
+					execute if entity @s[tag=warrior] run scoreboard players add @s mp_max_base 2
+					execute if entity @s[tag=magician] run scoreboard players add @s mp_max_base 18
+					execute if entity @s[tag=archer] run scoreboard players add @s mp_max_base 10
+					execute if entity @s[tag=thief] run scoreboard players add @s mp_max_base 10
+					execute if entity @s[tag=!warrior,tag=!magician,tag=!archer,tag=!thief] run scoreboard players add @s mp_max_base 6
+					
+					scoreboard players operation @s mp_max_base += @s addi_mp_point
+					execute unless score @s hyper_buff_time matches 1.. run function ARG(_PATH)update_mp
+					execute if score @s hyper_buff_time matches 1.. run function skill:1/3/0/1007/set_hp_mp
+					function bar_display:change/mp/recovered
+					
+					function ARG(__PATH)after_addition
+				}
+				
+				func update_mp()
+				{
+					scoreboard players operation @s mp_max = @s mp_max_base
+					scoreboard players operation @s mp_max < #30000 const
+					scoreboard players operation @s mp < @s mp_max
+				}
+			}
+			
+			folder str()
+			{
+				func check()
+				{
+					execute at @s run playsound minecraft:ui.button.click player @s
+					scoreboard players operation #GLOBAL temp = @s STR
+					scoreboard players operation #GLOBAL temp -= @s equip_str
+					execute if score #GLOBAL temp matches ..998 run function ARG(_PATH)set
+				}
+				
+				func set()
+				{
+					scoreboard players add @s STR 1
+					function ARG(__PATH)after_addition
+				}
+			}
+			
+			folder dex()
+			{
+				func check()
+				{
+					execute at @s run playsound minecraft:ui.button.click player @s
+					scoreboard players operation #GLOBAL temp = @s DEX
+					scoreboard players operation #GLOBAL temp -= @s equip_dex
+					execute if score #GLOBAL temp matches ..998 run function ARG(_PATH)set
+				}
+				
+				func set()
+				{
+					scoreboard players add @s DEX 1
+					function ARG(__PATH)after_addition
+				}
+			}
+			
+			folder int()
+			{
+				func check()
+				{
+					execute at @s run playsound minecraft:ui.button.click player @s
+					scoreboard players operation #GLOBAL temp = @s INT
+					scoreboard players operation #GLOBAL temp -= @s equip_int
+					execute if score #GLOBAL temp matches ..998 run function ARG(_PATH)set
+				}
+				
+				func set()
+				{
+					scoreboard players add @s INT 1
+					function ARG(__PATH)after_addition
+				}
+			}
+			
+			folder luk()
+			{
+				func check()
+				{
+					execute at @s run playsound minecraft:ui.button.click player @s
+					scoreboard players operation #GLOBAL temp = @s LUK
+					scoreboard players operation #GLOBAL temp -= @s equip_luk
+					execute if score #GLOBAL temp matches ..998 run function ARG(_PATH)set
+				}
+				
+				func set()
+				{
+					scoreboard players add @s LUK 1
+					function ARG(__PATH)after_addition
+				}
+			}
+		}
+	}
+
 	```
-	raise Warning("TODO: run function skill:2/0/0/0000/calculate_recovery when leveling up with 2000000_level score")
-	```
-	```
-	raise Warning("TODO: run function skill:1/3/0/1007/set_hp_mp after hp mp max changed with hyper_buff_time score")
-	```
-	```
-	raise Warning("TODO: run function stat:standard_pdd/set when leveling up or after first job transformation")
+	raise Warning("TODO: run function stat:standard_pdd/set after first job transformation")
 	```
 }

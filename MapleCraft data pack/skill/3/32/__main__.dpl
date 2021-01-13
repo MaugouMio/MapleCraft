@@ -30,12 +30,54 @@ namespace 32() as virtual
 		{
 			folder levels()
 			{
+				func add()
+				{
+					scoreboard players add @s 3200000_level 1
+					function ARG(_PATH)check
+					function skill:window/after_addition
+				}
+				
+				func check()
+				{
+					```
+					for i in range(1, 21):
+						print(f"execute if score @s 3200000_level matches {i} run function ARG(_PATH){i}")
+					```
+				}
+				
+				func set_description()
+				{
+					data modify block 0 0 0 Text1 set value '""'
+					data modify storage ui:main temp set value [0, 0, 0, 0, 0]
+					execute store result storage ui:main temp[0] int 1 run scoreboard players get @s 3200000_level
+					execute store result storage ui:main temp[1] int 1 run scoreboard players get @s cbow_mastery
+					execute store result storage ui:main temp[4] int 1 run scoreboard players get @s cbow_color
+					
+					execute if score @s 3200000_level matches ..19 run function ARG(_PATH)get_next_level
+					execute if score @s 3200000_level matches 1.. run data modify block 0 0 0 Text1 set value '[{"translate":"skill.description.level.current","with":[{"nbt":"temp[0]","storage":"ui:main"}]},{"translate":"skill.description.level.3200000","with":[{"nbt":"temp[1]","storage":"ui:main"},{"nbt":"temp[0]","storage":"ui:main"}]},{"nbt":"Text1","block":"0 0 0","interpret":true}]'
+					data modify storage ui:main skill_level_info append from block 0 0 0 Text1
+				}
+				
+				func get_next_level()
+				{
+					scoreboard players add @s 3200000_level 1
+					
+					function ARG(_PATH)check
+					execute store result storage ui:main temp[2] int 1 run scoreboard players get @s 3200000_level
+					execute store result storage ui:main temp[3] int 1 run scoreboard players get @s cbow_mastery
+					data modify block 0 0 0 Text1 set value '[{"translate":"skill.description.level.next","with":[{"nbt":"temp[2]","storage":"ui:main"}]},{"translate":"skill.description.level.3200000","with":[{"nbt":"temp[3]","storage":"ui:main"},{"nbt":"temp[2]","storage":"ui:main"}]}]'
+					
+					scoreboard players remove @s 3200000_level 1
+					scoreboard players remove @s cbow_accuracy 1
+					execute store result score @s cbow_mastery run data get storage ui:main temp[1]
+					execute store result score @s cbow_color run data get storage ui:main temp[4]
+					execute if score @s 3200000_level matches 1.. run data modify block 0 0 0 Text1 set value '["\\n",{"nbt":"Text1","block":"0 0 0","interpret":true}]'
+				}
 			```
 			for i in range(18):
 				print(f'''
 				func {i+1}()
 				{{
-					scoreboard players set @s 3200000_level {i+1}
 					scoreboard players set @s cbow_mastery {i//2*5+15}
 					scoreboard players set @s cbow_accuracy {i+1}
 					scoreboard players set @s cbow_color {mastery_colors[i//2]}
@@ -45,7 +87,6 @@ namespace 32() as virtual
 				print(f'''
 				func {i+1}()
 				{{
-					scoreboard players set @s 3200000_level {i+1}
 					scoreboard players set @s cbow_mastery {i//2*5+15}
 					scoreboard players set @s cbow_accuracy {i+1}
 				}}
@@ -58,21 +99,60 @@ namespace 32() as virtual
 		{
 			folder levels()
 			{
-			```
-			for i in range(30):
-				print(f'''
-				func {i+1}()
-				{{
-					scoreboard players set @s 3200001_level {i+1}
-					scoreboard players set @s cbow_final_atk {i*5+105}
-					scoreboard players set @s cbow_final_rate {i*2+2}
-				}}
-				''')
-			```
+				func add()
+				{
+					scoreboard players add @s 3200001_level 1
+					function ARG(_PATH)check
+					function skill:window/after_addition
+				}
+				
+				func check()
+				{
+					execute store result score @s cbow_final_atk run scoreboard players operation @s cbow_final_rate = @s 3200001_level
+					scoreboard players operation @s cbow_final_atk *= #5 const
+					scoreboard players add @s cbow_final_atk 100
+					scoreboard players operation @s cbow_final_rate *= #2 const
+				}
+				
+				func set_description()
+				{
+					data modify block 0 0 0 Text1 set value '""'
+					data modify storage ui:main temp set value [0, 0, 0, 0, 0, 0]
+					execute store result storage ui:main temp[0] int 1 run scoreboard players get @s 3200001_level
+					execute store result storage ui:main temp[1] int 1 run scoreboard players get @s cbow_final_rate
+					execute store result storage ui:main temp[2] int 1 run scoreboard players get @s cbow_final_atk
+					
+					execute if score @s 3200001_level matches ..29 run function ARG(_PATH)get_next_level
+					execute if score @s 3200001_level matches 1.. run data modify block 0 0 0 Text1 set value '[{"translate":"skill.description.level.current","with":[{"nbt":"temp[0]","storage":"ui:main"}]},{"translate":"skill.description.level.3200001","with":[{"nbt":"temp[1]","storage":"ui:main"},{"nbt":"temp[2]","storage":"ui:main"}]},{"nbt":"Text1","block":"0 0 0","interpret":true}]'
+					data modify storage ui:main skill_level_info append from block 0 0 0 Text1
+				}
+				
+				func get_next_level()
+				{
+					scoreboard players add @s 3200001_level 1
+					
+					function ARG(_PATH)check
+					execute store result storage ui:main temp[3] int 1 run scoreboard players get @s 3200001_level
+					execute store result storage ui:main temp[4] int 1 run scoreboard players get @s cbow_final_rate
+					execute store result storage ui:main temp[5] int 1 run scoreboard players get @s cbow_final_atk
+					data modify block 0 0 0 Text1 set value '[{"translate":"skill.description.level.next","with":[{"nbt":"temp[3]","storage":"ui:main"}]},{"translate":"skill.description.level.3200001","with":[{"nbt":"temp[4]","storage":"ui:main"},{"nbt":"temp[5]","storage":"ui:main"}]}]'
+					
+					scoreboard players remove @s 3200001_level 1
+					execute store result score @s cbow_final_rate run data get storage ui:main temp[1]
+					execute store result score @s cbow_final_atk run data get storage ui:main temp[2]
+					execute if score @s 3200001_level matches 1.. run data modify block 0 0 0 Text1 set value '["\\n",{"nbt":"Text1","block":"0 0 0","interpret":true}]'
+				}
 			}
 		}
 		
-		folder 1002() from booster_skill_template(3201002, crossbow, o);
+		folder 1002() from booster_skill_template(3201002, crossbow, o)
+		{
+			func get()
+			{
+				clear @s minecraft:carrot_on_a_stick{CustomModelData:117}
+				give @s minecraft:carrot_on_a_stick{CustomModelData:117,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.3201002","bold":true,"italic":false}'}}
+			}
+		}
 		
 		folder 1003()
 		{
@@ -84,8 +164,14 @@ namespace 32() as virtual
 			func other_check()
 			{
 				function skill:check_weapon/crossbow/run
-				execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 3101003_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
+				execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 3101003_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"#efb7ab"}
 				execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp >= @s 3101003_mp run function skill:3/1/0/1003/run
+			}
+			
+			func get()
+			{
+				clear @s minecraft:carrot_on_a_stick{CustomModelData:118}
+				give @s minecraft:carrot_on_a_stick{CustomModelData:118,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.3201003","bold":true,"italic":false}'}}
 			}
 		}
 		
@@ -99,8 +185,14 @@ namespace 32() as virtual
 			func other_check()
 			{
 				function skill:check_weapon/crossbow/run
-				execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 3101004_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
+				execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 3101004_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"#efb7ab"}
 				execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp >= @s 3101004_mp run function skill:3/1/0/1004/cast_effect
+			}
+			
+			func get()
+			{
+				clear @s minecraft:carrot_on_a_stick{CustomModelData:119}
+				give @s minecraft:carrot_on_a_stick{CustomModelData:119,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.3201004","bold":true,"italic":false}'}}
 			}
 		}
 		
@@ -114,7 +206,7 @@ namespace 32() as virtual
 			func other_check()
 			{
 				function skill:check_weapon/crossbow/run
-				execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 3201005_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"red"}
+				execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 3201005_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"#efb7ab"}
 				execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp >= @s 3201005_mp run function ARG(_PATH)arrow_check
 			}
 			
@@ -131,7 +223,7 @@ namespace 32() as virtual
 				
 			func lack_arrow()
 			{
-				tellraw @s {"translate":"warning.skill.lack_arrow","color":"red"}
+				tellraw @s {"translate":"warning.skill.lack_arrow","color":"#efb7ab"}
 				function skill:6/0/0/1003/mark_target
 			}
 			
@@ -226,17 +318,57 @@ namespace 32() as virtual
 				
 			folder levels()
 			{
-			```
-			for i in range(30):
-				print(f'''
-				func {i+1}()
-				{{
-					scoreboard players set @s 3201005_level {i+1}
-					scoreboard players set @s 3201005_mp {i//5+23}
-					scoreboard players set @s 3201005_attack {i*4+64}
-				}}
-				''')
-			```
+				func add()
+				{
+					scoreboard players add @s 3201005_level 1
+					function ARG(_PATH)check
+					function skill:window/after_addition
+				}
+				
+				func check()
+				{
+					execute store result score @s 3201005_mp run scoreboard players operation @s 3201005_attack = @s 3201005_level
+					scoreboard players remove @s 3201005_mp 1
+					scoreboard players operation @s 3201005_mp /= #5 const
+					scoreboard players add @s 3201005_mp 23
+					scoreboard players operation @s 3201005_attack *= #4 const
+					scoreboard players add @s 3201005_attack 60
+				}
+				
+				func set_description()
+				{
+					data modify block 0 0 0 Text1 set value '""'
+					data modify storage ui:main temp set value [0, 0, 0, 0, 0, 0]
+					execute store result storage ui:main temp[0] int 1 run scoreboard players get @s 3201005_level
+					execute store result storage ui:main temp[1] int 1 run scoreboard players get @s 3201005_mp
+					execute store result storage ui:main temp[2] int 1 run scoreboard players get @s 3201005_attack
+					
+					execute if score @s 3201005_level matches ..29 run function ARG(_PATH)get_next_level
+					execute if score @s 3201005_level matches 1.. run data modify block 0 0 0 Text1 set value '[{"translate":"skill.description.level.current","with":[{"nbt":"temp[0]","storage":"ui:main"}]},{"translate":"skill.description.level.3201005","with":[{"nbt":"temp[1]","storage":"ui:main"},{"nbt":"temp[2]","storage":"ui:main"}]},{"nbt":"Text1","block":"0 0 0","interpret":true}]'
+					data modify storage ui:main skill_level_info append from block 0 0 0 Text1
+				}
+				
+				func get_next_level()
+				{
+					scoreboard players add @s 3201005_level 1
+					
+					function ARG(_PATH)check
+					execute store result storage ui:main temp[3] int 1 run scoreboard players get @s 3201005_level
+					execute store result storage ui:main temp[4] int 1 run scoreboard players get @s 3201005_mp
+					execute store result storage ui:main temp[5] int 1 run scoreboard players get @s 3201005_attack
+					data modify block 0 0 0 Text1 set value '[{"translate":"skill.description.level.next","with":[{"nbt":"temp[3]","storage":"ui:main"}]},{"translate":"skill.description.level.3201005","with":[{"nbt":"temp[4]","storage":"ui:main"},{"nbt":"temp[5]","storage":"ui:main"}]}]'
+					
+					scoreboard players remove @s 3201005_level 1
+					execute store result score @s 3201005_mp run data get storage ui:main temp[1]
+					execute store result score @s 3201005_attack run data get storage ui:main temp[2]
+					execute if score @s 3201005_level matches 1.. run data modify block 0 0 0 Text1 set value '["\\n",{"nbt":"Text1","block":"0 0 0","interpret":true}]'
+				}
+			}
+			
+			func get()
+			{
+				clear @s minecraft:carrot_on_a_stick{CustomModelData:120}
+				give @s minecraft:carrot_on_a_stick{CustomModelData:120,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.3201005","bold":true,"italic":false}'}}
 			}
 		}
 	}

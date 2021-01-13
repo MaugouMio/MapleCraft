@@ -442,6 +442,22 @@
 			}
 		]
 	},
+	"mob.hurt.9300003": {
+		"sounds": [
+			{
+				"name": "mob/hurt/9300003",
+				"stream": true
+			}
+		]
+	},
+	"mob.hurt.0210100": {
+		"sounds": [
+			{
+				"name": "mob/hurt/0210100",
+				"stream": true
+			}
+		]
+	},
 	
 	
 	
@@ -457,6 +473,38 @@
 		"sounds": [
 			{
 				"name": "mob/die/1210102",
+				"stream": true
+			}
+		]
+	},
+	"mob.die.3110100": {
+		"sounds": [
+			{
+				"name": "mob/die/3110100",
+				"stream": true
+			}
+		]
+	},
+	"mob.die.2130103": {
+		"sounds": [
+			{
+				"name": "mob/die/2130103",
+				"stream": true
+			}
+		]
+	},
+	"mob.die.3230100": {
+		"sounds": [
+			{
+				"name": "mob/die/3230100",
+				"stream": true
+			}
+		]
+	},
+	"mob.die.0210100": {
+		"sounds": [
+			{
+				"name": "mob/die/0210100",
 				"stream": true
 			}
 		]
@@ -524,10 +572,75 @@
 			}
 		]
 	},
+	"game.dlg_notice": {
+		"sounds": [
+			{
+				"name": "game/dlg_notice",
+				"stream": true
+			}
+		]
+	},
+	"game.level_up": {
+		"sounds": [
+			{
+				"name": "game/level_up",
+				"stream": true
+			}
+		]
+	},
+	"game.enchant_success": {
+		"sounds": [
+			{
+				"name": "game/enchant_success",
+				"stream": true
+			}
+		]
+	},
+	"game.enchant_fail": {
+		"sounds": [
+			{
+				"name": "game/enchant_fail",
+				"stream": true
+			}
+		]
+	},
+	"game.job_changed": {
+		"sounds": [
+			{
+				"name": "game/job_changed",
+				"stream": true
+			}
+		]
+	},
+	
+	
+	
+	"ui.tab": {
+		"sounds": [
+			{
+				"name": "ui/tab",
+				"stream": true
+			}
+		]
+	},
+	"ui.menu_up": {
+		"sounds": [
+			{
+				"name": "ui/menu_up",
+				"stream": true
+			}
+		]
+	},
 	
 	
 	
 	"entity.item.pickup": {
+		"sounds": [
+			{ "name": "empty" }
+		],
+		"replace": true
+	},
+	"entity.player.hurt": {
 		"sounds": [
 			{ "name": "empty" }
 		],

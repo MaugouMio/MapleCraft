@@ -4,7 +4,8 @@ import loop
 description = "MapleCraft data pack"
 
 ```
-constants = [-7, -1, 0, 1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 13, 15, 17, 20, 25, 28, 30, 32, 34, 36, 40, 41, 44, 45, 46, 48, 50, 56, 66, 100, 150, 700, 1000, 2000, 10000, 30000, 99999, 100000]
+constants = [-7, -3, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 15, 17, 20, 25, 28, 30, 32, 34, 36, 40, 41, 44, 45, 46, 48, 50, 55, 56, 57, 66, 92, 100, 150, 700, 1000, 2000, 10000, 30000, 99999, 100000]
+menu_book = '''minecraft:written_book{menu:1b,author:"",title:"MENU",HideFlags:127,pages:['[{"translate":"text.menu.shortcut"},"\\\\n",[{"text":"0","font":"ui:menu","color":"white","clickEvent":{"action":"run_command","value":"/trigger command set 8"},"hoverEvent":{"action":"show_text","contents":[{"translate":"text.menu.shortcut.equip"}]}},{"text":"1","clickEvent":{"action":"run_command","value":"/trigger command set 9"},"hoverEvent":{"action":"show_text","contents":[{"translate":"text.menu.shortcut.stat"}]}},{"text":"2","clickEvent":{"action":"run_command","value":"/trigger command set 10"},"hoverEvent":{"action":"show_text","contents":[{"translate":"text.menu.shortcut.skill"}]}}],"\\\\n\\\\n",{"translate":"text.menu.sys_opt"},"\\\\n",[{"text":"3","font":"ui:menu","color":"white","clickEvent":{"action":"run_command","value":"/trigger command set 11"},"hoverEvent":{"action":"show_text","contents":[{"translate":"text.menu.sys_opt.hp_alert"}]}},{"text":"4","clickEvent":{"action":"run_command","value":"/trigger command set 12"},"hoverEvent":{"action":"show_text","contents":[{"translate":"text.menu.sys_opt.mp_alert"}]}},"\\\\n",{"text":"5","font":"ui:menu","color":"white","clickEvent":{"action":"run_command","value":"/trigger command set 11"},"hoverEvent":{"action":"show_text","contents":[{"translate":"text.menu.sys_opt.hp_alert"}]}},{"text":"6","clickEvent":{"action":"run_command","value":"/trigger command set 12"},"hoverEvent":{"action":"show_text","contents":[{"translate":"text.menu.sys_opt.mp_alert"}]}}],"\\\\n\\\\n",{"translate":"text.menu.key_reset"},"\\\\n",[{"text":"7","font":"ui:menu","color":"white","clickEvent":{"action":"run_command","value":"/trigger command set 153"},"hoverEvent":{"action":"show_text","contents":[{"translate":"skill.attack"}]}},"\\\\n",{"text":"8","font":"ui:menu","color":"white","clickEvent":{"action":"run_command","value":"/trigger command set 153"},"hoverEvent":{"action":"show_text","contents":[{"translate":"skill.attack"}]}}]]']}'''
 ```
 
 import math
@@ -38,7 +39,7 @@ namespace main()
 		gamerule logAdminCommands false
 		gamerule mobGriefing false
 		gamerule naturalRegeneration false
-		# gamerule sendCommandFeedback false
+		gamerule sendCommandFeedback false
 		gamerule showDeathMessages false
 		gamerule spawnRadius 0
 		gamerule universalAnger false
@@ -70,6 +71,7 @@ namespace main()
 		fill -1 0 -1 1 2 1 minecraft:bedrock
 		setblock 0 0 0 minecraft:acacia_wall_sign
 		setblock 0 1 0 minecraft:shulker_box
+		setblock 0 2 0 minecraft:chest
 		summon minecraft:snow_golem 0 -2 0 {NoAI:1,NoGravity:1,Invulnerable:1,Silent:1,UUID:[I;0,1,0,1]}
 		
 		function skill:install
@@ -87,8 +89,8 @@ namespace main()
 	
 	func main()
 	{
-		execute as @a[scores={jump=1..}] at @s run function ARG(_PATH)jump_effect
-		execute as @a[scores={just_jump=1..}] run function ARG(_PATH)jump_check_countdown
+		execute as @a[scores={jump=1..}] at @s run function ARG(_PATH)jump_effect/check
+		execute as @a[scores={just_jump=1..}] run function ARG(_PATH)jump_effect/countdown
 		execute as @a unless score @s command matches 0 run function ARG(_PATH)command/check
 		execute as @a[scores={login=1..}] run function ARG(_PATH)login_reset
 		
@@ -98,17 +100,26 @@ namespace main()
 		function item:main
 	}
 	
-	func jump_effect()
+	folder jump_effect()
 	{
-		playsound minecraft:game.jump player @a ~ ~ ~ 1 1 0
-		scoreboard players set @s just_jump 3
-		scoreboard players reset @s jump
-	}
-	
-	func jump_check_countdown()
-	{
-		scoreboard players remove @s just_jump 1
-		scoreboard players reset @s[scores={just_jump=0}] just_jump
+		func check()
+		{
+			execute if score @s action_time matches 1.. run tp @s @s
+			execute unless score @s action_time matches 1.. run function ARG(_PATH)effect
+			scoreboard players reset @s jump
+		}
+		
+		func effect()
+		{
+			playsound minecraft:game.jump player @a ~ ~ ~ 1 1 0
+			scoreboard players set @s just_jump 3
+		}
+		
+		func countdown()
+		{
+			scoreboard players remove @s just_jump 1
+			scoreboard players reset @s[scores={just_jump=0}] just_jump
+		}
 	}
 	
 	func new_player()
@@ -118,6 +129,9 @@ namespace main()
 		scoreboard players set @s display_num_type 2
 		
 		scoreboard players set @s level 1
+		scoreboard players set @s exp 0
+		scoreboard players set @s exp_max 15
+		scoreboard players set @s stat_point 0
 		scoreboard players set @s standard_pdd 7
 		
 		scoreboard players set @s hp_max_base 50
@@ -146,6 +160,15 @@ namespace main()
 		
 		scoreboard players set @s amazon_eyes_dist 9
 		scoreboard players set @s keen_eyes_dist 9
+		scoreboard players set @s skill_point 0
+		scoreboard players set @s skill_point_beg 0
+		scoreboard players set @s job_level 0
+		scoreboard players set @s skill_win_tab 0
+		scoreboard players set @s skill_win_page1 0
+		scoreboard players set @s skill_win_page2 0
+		scoreboard players set @s skill_win_page3 0
+		scoreboard players set @s skill_win_page4 0
+		scoreboard players set @s skill_win_page_m 0
 		
 		function skill:player/reset_mastery
 		function skill:test_all_skill
@@ -153,14 +176,17 @@ namespace main()
 		effect give @s minecraft:absorption 1000000 255 true
 		attribute @s minecraft:generic.attack_damage base set -100.0
 		replaceitem entity @s armor.head minecraft:potion{CustomModelData:1,display:{Name:'""'},HideFlags:127,Enchantments:[{id:"minecraft:binding_curse",lvl:1}],AttributeModifiers:[{AttributeName:"generic.movement_speed",Name:"equip",Amount:0,Operation:1,UUID:[I;0,1,0,1]}]}
-		
+		replaceitem entity @s hotbar.0 minecraft:carrot_on_a_stick{CustomModelData:199,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.attack","bold":true,"italic":false}'}}
+		```
+		print(f"replaceitem entity @s hotbar.8 {menu_book}")
+		```
 		team join player @s
 		
 		tp @s -79 4 43 0 10
 		
 		execute at @s run playsound minecraft:game.game_in player @s
 		title @s times 1 5 10
-		title @s title {"text":"0","font":"ui:transition"}
+		title @s title {"text":"4","font":"ui:main"}
 	}
 	
 	func login_reset()
@@ -170,8 +196,23 @@ namespace main()
 		
 		execute at @s run playsound minecraft:game.game_in player @s
 		title @s times 1 5 10
-		title @s title {"text":"0","font":"ui:transition"}
+		title @s title {"text":"4","font":"ui:main"}
 		scoreboard players reset @s login
+	}
+	
+	folder settings()
+	{
+		func hp_alert()
+		{
+			scoreboard players enable @s hp_warning
+			tellraw @s ["\n",{"translate":"text.tip.hp_alert","clickEvent":{"action":"suggest_command","value":"/trigger hp_warning set 0"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.tip.copy_to_chat"}}}]
+		}
+		
+		func mp_alert()
+		{
+			scoreboard players enable @s mp_warning
+			tellraw @s ["\n",{"translate":"text.tip.mp_alert","clickEvent":{"action":"suggest_command","value":"/trigger mp_warning set 0"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.tip.copy_to_chat"}}}]
+		}
 	}
 	
 	folder town_revive()
@@ -179,19 +220,59 @@ namespace main()
 		func run()
 		{
 			function bar_display:death/revive
-			
-			execute unless score @s login matches 1.. run function ARG(_PATH)reset_screen
 			```
 			raise Warning("TODO: teleport to the nearest town")
 			```
 			tp @s -80 4 55 -90 40
+			
+			execute unless score @s login matches 1.. run function ARG(_PATH)reset_screen
 		}
 		
 		func reset_screen()
 		{
+			execute at @s run playsound minecraft:ui.button.click player @s
+			
 			tellraw @s "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
 			title @s times 1 5 10
-			title @s title {"text":"0","font":"ui:transition"}
+			title @s title {"text":"4","font":"ui:main"}
+		}
+	}
+	
+	folder menu()
+	{
+		func reset()
+		{
+			clear @s minecraft:written_book{menu:1b}
+			```
+			print(f"give @s {menu_book}")
+			```
+		}
+		
+		func equip()
+		{
+			function item:equip_window/display
+			execute at @s run playsound minecraft:ui.menu_up player @s
+		}
+		
+		func stat()
+		{
+			function stat:window/display
+			execute at @s run playsound minecraft:ui.menu_up player @s
+		}
+		
+		func skill()
+		{
+			function skill:window/display
+			execute at @s run playsound minecraft:ui.menu_up player @s
+		}
+		
+		folder key_reset()
+		{
+			func attack()
+			{
+				clear @s minecraft:carrot_on_a_stick{CustomModelData:199}
+				give @s minecraft:carrot_on_a_stick{CustomModelData:199,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.attack","bold":true,"italic":false}'}}
+			}
 		}
 	}
 	
@@ -200,7 +281,7 @@ namespace main()
 		func check()
 		{
 			execute if score @s command matches 1.. run function ARG(_PATH)search/run
-			execute at @s run playsound minecraft:ui.button.click player @s
+			execute if score @s command matches ..-1 run function ARG(__PATH)menu/reset
 			
 			scoreboard players reset @s command
 			scoreboard players enable @s command
@@ -411,8 +492,8 @@ namespace main()
 	
 	func rand_rate()
 	{
-		loot replace block 0 1 0 container.0 loot main:percent_rate
-		execute store result score #RAND_RESULT temp run data get block 0 1 0 Items[0].tag.Damage
+		loot replace block 0 2 0 container.0 loot main:percent_rate
+		execute store result score #RAND_RESULT temp run data get block 0 2 0 Items[0].tag.Damage
 	}
 	
 	func rand_range() from random().generate("#0 const", "#RANGE_MAX temp", "#RAND_RANGE_RESULT temp");
@@ -437,6 +518,7 @@ namespace loop()
 		func execute()
 		{
 			function bar_display:loop/schedule_10s
+			function skill:loop/schedule_10s
 			
 			effect give @a minecraft:saturation 10 100 true
 			# unlock players that set command trigger to 0

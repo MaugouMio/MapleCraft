@@ -113,7 +113,7 @@ namespace simple_buff_template(name) as virtual
 			if buff == "speed":
 				print("	attribute @s minecraft:generic.movement_speed modifier remove f60188ac-3d9d-4c2b-be75-62abd26a2c44")
 			elif buff == "jump":
-				print("	effect clear @s minecraft:jump_boost")
+				print("	execute unless score @s action_time matches 1.. run effect clear @s minecraft:jump_boost")
 			else:
 				print(f"scoreboard players reset @s {buff}_buff_num")
 			print("}")
@@ -200,7 +200,8 @@ namespace buff_template(name) as virtual
 			if buff == "speed":
 				print("	attribute @s minecraft:generic.movement_speed modifier remove f60188ac-3d9d-4c2b-be75-62abd26a2c44")
 			elif buff == "jump":
-				print("	effect clear @s minecraft:jump_boost")
+				print("	execute unless score @s action_time matches 1.. run effect clear @s minecraft:jump_boost")
+				print(f"scoreboard players reset @s jump_buff_num")
 			else:
 				print(f"scoreboard players reset @s {buff}_buff_num")
 			print("}")
@@ -218,7 +219,7 @@ namespace buff() as virtual
 	{
 		```
 		for buff in buff_types:
-			if buff not in ["speed", "jump"]:
+			if buff not in ["speed"]:
 				print(f"scoreboard objectives add {buff}_buff_num dummy")
 			print(f"scoreboard objectives add {buff}_buff_id dummy")
 		

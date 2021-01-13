@@ -1,10 +1,13 @@
 import os, json
 from PIL import Image
 
-for item_type in ["etc", "consume"]:
+for item_type in ["etc"]:
 	texture_folder = "MapleCraft resource pack/assets/minecraft/textures/item/" + item_type
 	model_folder = "MapleCraft resource pack/assets/minecraft/models/item/" + item_type
 
+	if not os.path.isdir(model_folder):
+		os.mkdir(model_folder)
+		
 	try:
 		for folder in os.listdir(texture_folder):
 			texture_parent_path = os.path.join(texture_folder, folder)
