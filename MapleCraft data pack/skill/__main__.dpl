@@ -1191,7 +1191,7 @@ namespace skill()
 							execute positioned ~ ~0.8 ~ run function ARG(_PATH)show_particle_at_height
 							scoreboard players set @s poison_particle 7
 						}
-					
+						
 						func show_particle_at_height()
 						{
 							scoreboard players remove #DEFAULT_SIZE temp 1
@@ -1218,7 +1218,8 @@ namespace skill()
 							
 							scoreboard players operation @s display_number = @s poison_damage
 							scoreboard players set @s display_num_type 0
-							execute positioned ~ ~0.4 ~ run function number_display:show
+							scoreboard players operation #NUMBER_HEIGHT temp = @s default_size
+							execute positioned ~ ~0.4 ~ run function skill:show_num_at_height
 							
 							scoreboard players set @s[scores={hp=1}] poison_time 0
 						}
