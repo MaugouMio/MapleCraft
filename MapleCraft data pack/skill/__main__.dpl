@@ -1388,7 +1388,7 @@ namespace skill()
 		```
 		raise Warning("TODO: holy symbol rate calculation")
 		```
-		scoreboard players operation #EXP_GAIN *= #WORLD_EXP_RATE const
+		scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
 		scoreboard players operation @s exp += #EXP_GAIN temp
 		scoreboard players reset #EXP_GAIN temp
 		execute if score @s exp > @s exp_max run function stat:exp/level_up
