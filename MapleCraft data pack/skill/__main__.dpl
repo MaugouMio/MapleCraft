@@ -1187,8 +1187,16 @@ namespace skill()
 						
 						func show_particle()
 						{
-							execute positioned ~ ~0.8 ~ run function skill:summon_font_effect/2101005mob
+							scoreboard players operation #DEFAULT_SIZE temp = @s default_size
+							execute positioned ~ ~0.8 ~ run function ARG(_PATH)show_particle_at_height
 							scoreboard players set @s poison_particle 7
+						}
+					
+						func show_particle_at_height()
+						{
+							scoreboard players remove #DEFAULT_SIZE temp 1
+							execute if score #DEFAULT_SIZE temp matches -1 run function skill:summon_font_effect/2101005mob
+							execute if score #DEFAULT_SIZE temp matches 0.. positioned ~ ~0.4 ~ run function ARG(_PATH)show_particle_at_height
 						}
 						
 						func next()
@@ -1268,8 +1276,16 @@ namespace skill()
 							
 					func show_particle()
 					{
-						execute positioned ~ ~0.8 ~ run function skill:summon_font_effect/3101005mob
+						scoreboard players operation #DEFAULT_SIZE temp = @s default_size
+						execute positioned ~ ~0.8 ~ run function ARG(_PATH)show_particle_at_height
 						scoreboard players set @s stun_particle 6
+					}
+					
+					func show_particle_at_height()
+					{
+						scoreboard players remove #DEFAULT_SIZE temp 1
+						execute if score #DEFAULT_SIZE temp matches -1 run function skill:summon_font_effect/3101005mob
+						execute if score #DEFAULT_SIZE temp matches 0.. positioned ~ ~0.4 ~ run function ARG(_PATH)show_particle_at_height
 					}
 					
 					func reset()
@@ -1292,8 +1308,16 @@ namespace skill()
 							
 					func show_particle()
 					{
-						execute positioned ~ ~0.8 ~ run function skill:summon_font_effect/1201006mob
+						scoreboard players operation #DEFAULT_SIZE temp = @s default_size
+						execute positioned ~ ~0.8 ~ run function ARG(_PATH)show_particle_at_height
 						scoreboard players set @s threat_particle 11
+					}
+					
+					func show_particle_at_height()
+					{
+						scoreboard players remove #DEFAULT_SIZE temp 1
+						execute if score #DEFAULT_SIZE temp matches -1 run function skill:summon_font_effect/1201006mob
+						execute if score #DEFAULT_SIZE temp matches 0.. positioned ~ ~0.4 ~ run function ARG(_PATH)show_particle_at_height
 					}
 				}
 			}
