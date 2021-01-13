@@ -972,6 +972,7 @@ namespace skill()
 		scoreboard objectives add show_hp_time dummy
 		
 		scoreboard players set #WORLD_EXP_RATE const 1
+		scoreboard players set #WORLD_MESO_RATE const 1
 		```
 		for weapon in mastery_weapons:
 			print(f"scoreboard objectives add {weapon}_mastery dummy")
