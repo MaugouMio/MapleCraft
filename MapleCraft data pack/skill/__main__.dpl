@@ -1217,6 +1217,7 @@ namespace skill()
 							
 							scoreboard players operation @s hp -= @s poison_damage
 							scoreboard players operation @s hp > #1 const
+							function skill:calculate_damage/update_hp_display/run
 							
 							scoreboard players operation @s display_number = @s poison_damage
 							scoreboard players set @s display_num_type 0
