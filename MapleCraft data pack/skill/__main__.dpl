@@ -1076,7 +1076,7 @@ namespace skill()
 		{
 			func run()
 			{
-				execute unless score @s[tag=!dead] kb_time matches 1.. run function ARG(_PATH)status_change/run
+				execute unless score @s kb_time matches 1.. run function ARG(_PATH)status_change/run
 				execute if entity @s[tag=color_changed] run function ARG(_PATH)status_change/color/check
 				
 				execute if score @s kb_time matches 1.. run function ARG(_PATH)kb/countdown
@@ -1089,12 +1089,17 @@ namespace skill()
 			{
 				func run()
 				{
+					execute if entity @s[tag=!dead] run function ARG(_PATH)check
+					execute if score @s action_frame_max matches 1.. run function ARG(_PATH)update_frame
+				}
+				
+				func check()
+				{
 					scoreboard players set #GLOBAL temp -1
 					execute if data entity @s {OnGround:0b} run function ARG(_PATH)check_jump
 					execute if score #GLOBAL temp matches -1 run function ARG(_PATH)check_motion
 					
 					execute unless score @s status = #GLOBAL temp run function ARG(_PATH)change
-					execute if score @s action_frame_max matches 1.. run function ARG(_PATH)update_frame
 				}
 				
 				func check_jump()
