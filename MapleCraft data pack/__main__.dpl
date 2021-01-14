@@ -570,9 +570,23 @@ namespace main()
 			tag @s remove thief
 			tag @s remove assassin
 			tag @s remove bandit
+			
 			function skill:player/reset_all_skill
 			scoreboard players set @s skill_point_beg 6
 			scoreboard players set @s stat_point 0
+			
+			execute if entity @s[tag=cap_equipped] run function item:use/equip/cap/remove
+			execute if entity @s[tag=cloth_equipped] run function item:use/equip/cloth/remove
+			execute if entity @s[tag=pants_equipped] run function item:use/equip/pants/remove
+			execute if entity @s[tag=gloves_equipped] run function item:use/equip/gloves/remove
+			execute if entity @s[tag=shoes_equipped] run function item:use/equip/shoes/remove
+			execute if entity @s[tag=cape_equipped] run function item:use/equip/cape/remove
+			execute if entity @s[tag=shield_equipped] run function item:use/equip/shield/remove
+			execute if entity @s[tag=forehead_equipped] run function item:use/equip/eye/remove
+			execute if entity @s[tag=face_equipped] run function item:use/equip/face/remove
+			execute if entity @s[tag=ear_equipped] run function item:use/equip/ear/remove
+			execute if entity @s[tag=pendant_equipped] run function item:use/equip/pendant/remove
+			execute if score @s weapon_type matches 2.. run function item:use/weapon/remove
 		}
 		
 		func warrior()
