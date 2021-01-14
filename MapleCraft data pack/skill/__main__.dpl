@@ -972,6 +972,8 @@ namespace skill()
 		scoreboard objectives add show_hp_time dummy
 		
 		scoreboard players set #WORLD_EXP_RATE const 1
+		scoreboard players set #WORLD_DROP_RATE const 1
+		scoreboard players set #WORLD_MESO_RATE const 1
 		```
 		for weapon in mastery_weapons:
 			print(f"scoreboard objectives add {weapon}_mastery dummy")
@@ -1075,7 +1077,7 @@ namespace skill()
 		{
 			func run()
 			{
-				execute unless score @s[tag=!dead] kb_time matches 1.. run function ARG(_PATH)status_change/run
+				execute unless score @s kb_time matches 1.. run function ARG(_PATH)status_change/run
 				execute if entity @s[tag=color_changed] run function ARG(_PATH)status_change/color/check
 				
 				execute if score @s kb_time matches 1.. run function ARG(_PATH)kb/countdown
@@ -1088,12 +1090,17 @@ namespace skill()
 			{
 				func run()
 				{
+					execute if entity @s[tag=!dead] run function ARG(_PATH)check
+					execute if score @s action_frame_max matches 1.. run function ARG(_PATH)update_frame
+				}
+				
+				func check()
+				{
 					scoreboard players set #GLOBAL temp -1
 					execute if data entity @s {OnGround:0b} run function ARG(_PATH)check_jump
 					execute if score #GLOBAL temp matches -1 run function ARG(_PATH)check_motion
 					
 					execute unless score @s status = #GLOBAL temp run function ARG(_PATH)change
-					execute if score @s action_frame_max matches 1.. run function ARG(_PATH)update_frame
 				}
 				
 				func check_jump()
@@ -1216,6 +1223,7 @@ namespace skill()
 							
 							scoreboard players operation @s hp -= @s poison_damage
 							scoreboard players operation @s hp > #1 const
+							function skill:calculate_damage/update_hp_display/run
 							
 							scoreboard players operation @s display_number = @s poison_damage
 							scoreboard players set @s display_num_type 0
@@ -2904,6 +2912,8 @@ namespace skill()
 			attribute @s minecraft:generic.attack_damage base set -100.0
 			attribute @s minecraft:generic.movement_speed base set -100.0
 			
+			replaceitem entity @s weapon.mainhand minecraft:potion{CustomModelData:1,Enchantments:[{id:"minecraft:looting",lvl:1}]}
+			execute store result entity @s HandItems[0].tag.Enchantments[0].lvl int 1 run scoreboard players get #WORLD_DROP_RATE const
 			loot spawn ~ ~1 ~ kill @s
 			execute as @e[type=item,tag=!checked] at @s run function item:entity/check
 			
