@@ -449,8 +449,8 @@ namespace item()
 			{
 				func check()
 				{
-					execute if entity @s[tag=overall_equipped] run function ARG(_PATH)get_ori_equip_stats
-					execute unless entity @s[tag=overall_equipped] run function ARG(_PATH)reset_equip_stats
+					execute if entity @s[tag=cloth_equipped] run function ARG(_PATH)get_ori_equip_stats
+					execute unless entity @s[tag=cloth_equipped] run function ARG(_PATH)reset_equip_stats
 					execute if entity @s[tag=pants_equipped] run function ARG(_PATH)add_pants_numeric
 					function item:use/equip_qulification
 					
