@@ -56,11 +56,11 @@
           "functions": [
             {
               "function": "minecraft:set_name",
-              "name": {"translate": "item.etc.4000008"}
+              "name": {"translate": "item.etc.4000008", "font": "minecraft:uniform", "bold": true, "italic": false}
             },
             {
               "function": "minecraft:set_nbt",
-              "tag": "{HideFlags:127,CustomModelData:4000008}"
+              "tag": "{HideFlags:127,CustomModelData:4000008,price:15}"
             }
           ],
           "name": "minecraft:string"
