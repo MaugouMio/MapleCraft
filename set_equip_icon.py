@@ -3,12 +3,18 @@ from PIL import Image, ImageDraw
 
 font = []
 back_font = []
-equip_type = "pendant"
-font_index = int("0xD600", 16)
+equip_type = "weapon"
+font_index = int("0xB0cc", 16)
 
 if not os.path.isdir(f"MapleCraft resource pack/assets/ui/textures/font/window/equip/icon/{equip_type}"):
 	os.mkdir(f"MapleCraft resource pack/assets/ui/textures/font/window/equip/icon/{equip_type}")
-for w in os.walk(f"MapleCraft resource pack/assets/minecraft/textures/item/equip/{equip_type}"):
+
+if equip_type == "weapon":
+	target_root = f"MapleCraft resource pack/assets/minecraft/textures/item/weapon"
+else:
+	target_root = f"MapleCraft resource pack/assets/minecraft/textures/item/equip/{equip_type}"
+	
+for w in os.walk(target_root):
 	for file in w[2]:
 		img = Image.open(os.path.join(w[0], file))
 		size = ((img.size[0]+1)//4*4+2, (max(img.size[1], 36)+3)//4*4)
