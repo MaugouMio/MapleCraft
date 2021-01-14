@@ -972,6 +972,7 @@ namespace skill()
 		scoreboard objectives add show_hp_time dummy
 		
 		scoreboard players set #WORLD_EXP_RATE const 1
+		scoreboard players set #WORLD_DROP_RATE const 1
 		scoreboard players set #WORLD_MESO_RATE const 1
 		```
 		for weapon in mastery_weapons:
@@ -2911,6 +2912,8 @@ namespace skill()
 			attribute @s minecraft:generic.attack_damage base set -100.0
 			attribute @s minecraft:generic.movement_speed base set -100.0
 			
+			replaceitem entity @s weapon.mainhand minecraft:potion{CustomModelData:1,Enchantments:[{id:"minecraft:looting",lvl:1}]}
+			execute store result entity @s HandItems[0].tag.Enchantments[0].lvl int 1 run scoreboard players get #WORLD_DROP_RATE const
 			loot spawn ~ ~1 ~ kill @s
 			execute as @e[type=item,tag=!checked] at @s run function item:entity/check
 			
