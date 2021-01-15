@@ -27,6 +27,20 @@ namespace 12() as virtual
 	
 	folder 0()
 	{
+		folder transfer()
+		{
+			func check()
+			{
+				execute if score @s level matches 30.. unless score @s skill_point matches 1.. at @s run function ARG(_PATH)run
+			}
+			
+			func run()
+			{
+				tag @s add page
+				function stat:job/hp_mp/warrior/page_spearman
+			}
+		}
+		
 		# 1200000 shares the same functions with 1100000
 		
 		folder 0001()

@@ -41,6 +41,20 @@ namespace 11() as virtual
 	
 	folder 0()
 	{
+		folder transfer()
+		{
+			func check()
+			{
+				execute if score @s level matches 30.. unless score @s skill_point matches 1.. at @s run function ARG(_PATH)run
+			}
+			
+			func run()
+			{
+				tag @s add fighter
+				function stat:job/hp_mp/warrior/fighter
+			}
+		}
+		
 		folder 0000()
 		{
 			folder levels()
