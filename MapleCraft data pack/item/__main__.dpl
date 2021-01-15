@@ -1048,4 +1048,59 @@ namespace item()
 			}
 		}
 	}
+	
+	folder shop()
+	{
+		folder recharge()
+		{
+			func check()
+			{
+				execute store result score #USING_ITEM temp run data get entity @s[nbt={SelectedItem:{id:"minecraft:warped_fungus_on_a_stick"}}] SelectedItem.tag.CustomModelData
+				execute if score #USING_ITEM temp matches ..20 run function ARG(_PATH)check_amount
+			}
+			
+			func check_amount()
+			{
+				execute store result score #AMOUNT_LEFT temp run data get entity @s SelectedItem.tag.amount
+				execute store result score #AMOUNT_MAX temp run data get entity @s SelectedItem.tag.max_amount
+				
+				scoreboard players operation #GLOBAL temp = @s 4100000_level
+				scoreboard players operation #GLOBAL temp *= #10 const
+				scoreboard players operation #AMOUNT_MAX temp += #GLOBAL temp
+				
+				execute if score #AMOUNT_LEFT temp < #AMOUNT_MAX temp run function ARG(_PATH)check_meso
+			}
+			
+			func check_meso()
+			{
+				scoreboard players operation #AMOUNT_MAX temp -= #AMOUNT_LEFT temp
+				execute store result score #GLOBAL temp run data get entity @s SelectedItem.tag.unit_price 10
+				scoreboard players operation #GLOBAL temp *= #AMOUNT_MAX temp
+				scoreboard players operation #GLOBAL temp /= #10 const
+				scoreboard players operation #GLOBAL temp > #1 const
+				
+				execute if score @s meso < #GLOBAL temp run function ARG(_PATH)no_meso
+				execute if score @s meso >= #GLOBAL temp run function ARG(_PATH)run
+			}
+			
+			func no_meso()
+			{
+				tellraw @s {"translate":"warning.no_meso","color":"#efb7ab"}
+				playsound minecraft:game.dlg_notice player @s
+			}
+			
+			func run()
+			{
+				scoreboard players operation @s meso -= #GLOBAL temp
+				
+				replaceitem block 0 1 0 container.0 minecraft:warped_fungus_on_a_stick
+				data modify block 0 1 0 Items[0].tag set from entity @s SelectedItem.tag
+				execute store result block 0 1 0 Items[0].tag.amount int 1 run scoreboard players operation #AMOUNT_MAX temp += #AMOUNT_LEFT temp
+				
+				data modify block 0 0 0 Text1 set value '{"translate":"item.notice.weapon.left","with":[{"score":{"name":"#AMOUNT_MAX","objective":"temp"}}],"color":"white","italic":false,"font":"minecraft:uniform"}'
+				data modify block 0 1 0 Items[0].tag.display.Lore[-1] set from block 0 0 0 Text1
+				loot replace entity @s weapon.mainhand 1 mine 0 1 0 minecraft:air{modify_player:1b}
+			}
+		}
+	}
 }
