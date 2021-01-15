@@ -1051,6 +1051,35 @@ namespace item()
 	
 	folder shop()
 	{
+		folder sell()
+		{
+			func check()
+			{
+				execute if data entity @s SelectedItem run function ARG(_PATH)check_sellable
+			}
+			
+			func check_sellable()
+			{
+				execute unless data entity @s SelectedItem.tag.price run function ARG(_PATH)cannot_sell
+				execute if data entity @s SelectedItem.tag.price run function ARG(_PATH)run
+			}
+			
+			func cannot_sell()
+			{
+				tellraw @s {"translate":"warning.cannot_sell","color":"#efb7ab"}
+				playsound minecraft:game.dlg_notice player @s
+			}
+			
+			func run()
+			{
+				execute store result score #GLOBAL temp run data get entity @s SelectedItem.tag.price
+				execute store result score #AMOUNT_LEFT temp run data get entity @s SelectedItem.Count
+				scoreboard players operation #GLOBAL temp *= #AMOUNT_LEFT temp
+				scoreboard players operation @s meso += #GLOBAL temp
+				replaceitem entity @s weapon.mainhand minecraft:air
+			}
+		}
+		
 		folder recharge()
 		{
 			func check()
