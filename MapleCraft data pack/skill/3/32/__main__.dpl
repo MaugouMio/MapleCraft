@@ -30,7 +30,10 @@ namespace 32() as virtual
 		{
 			func check()
 			{
-				execute if score @s level matches 30.. unless score @s skill_point matches 1.. at @s run function ARG(_PATH)run
+				scoreboard players operation #GLOBAL temp = @s level
+				scoreboard players remove #GLOBAL temp 30
+				scoreboard players operation #GLOBAL temp *= #3 const
+				execute if score @s level matches 30.. unless score @s skill_point matches > #GLOBAL temp at @s run function ARG(_PATH)run
 			}
 			
 			func run()
