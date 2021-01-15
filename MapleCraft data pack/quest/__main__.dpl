@@ -1,0 +1,81 @@
+namespace quest()
+{
+	func install()
+	{
+		scoreboard objectives add playing_game dummy
+	}
+	
+	folder party_quest()
+	{
+		folder kpq()
+		{
+			func join()
+			{
+				title @s times 1 5 10
+				title @s title {"text":"4","font":"ui:main"}
+				# tp ...
+				scoreboard players set @s playing_game 1
+			}
+			
+			func leave()
+			{
+				title @s times 1 5 10
+				title @s title {"text":"4","font":"ui:main"}
+				# tp ...
+				scoreboard players reset @s playing_game
+				loot give @s loot quest:kpq_award
+			}
+			
+			folder title()
+			{
+				folder clear()
+				{
+					func run()
+					{
+						scoreboard players set #KPQ_TITLE_EFFECT temp 0
+						execute as @a[scores={playing_game=1}] at @s run function ARG(_PATH)start
+						schedule function ARG(_PATH)loop 2t
+					}
+					
+					func start()
+					{
+						title @s times 0 40 0
+						title @s title {"text":"0","font":"ui:title/pq_clear"}
+						playsound minecraft:game.pq_clear player @s
+					}
+					
+					func loop()
+					{
+						scoreboard players add #KPQ_TITLE_EFFECT temp 1
+						title @a[scores={playing_game=1}] title {"score":{"objective":"temp","name":"#KPQ_TITLE_EFFECT"},"font":"ui:title/pq_clear"}
+						execute if score #KPQ_TITLE_EFFECT temp matches ..3 run schedule function ARG(_PATH)loop 2t
+					}
+				}
+				
+				folder wrong()
+				{
+					func run()
+					{
+						scoreboard players set #KPQ_TITLE_EFFECT temp 0
+						execute as @a[scores={playing_game=1}] at @s run function ARG(_PATH)start
+						schedule function ARG(_PATH)loop 2t
+					}
+					
+					func start()
+					{
+						title @s times 0 30 0
+						title @s title {"text":"0","font":"ui:title/pq_wrong"}
+						playsound minecraft:game.pq_wrong player @s
+					}
+					
+					func loop()
+					{
+						scoreboard players add #KPQ_TITLE_EFFECT temp 1
+						title @a[scores={playing_game=1}] title {"score":{"objective":"temp","name":"#KPQ_TITLE_EFFECT"},"font":"ui:title/pq_wrong"}
+						execute if score #KPQ_TITLE_EFFECT temp matches ..3 run schedule function ARG(_PATH)loop 2t
+					}
+				}
+			}
+		}
+	}
+}

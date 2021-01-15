@@ -14,6 +14,7 @@ import bar_display
 import skill
 import stat
 import item
+import quest
 
 namespace main()
 {
@@ -79,6 +80,7 @@ namespace main()
 		function bar_display:install
 		function stat:install
 		function item:install
+		function quest:install
 		
 		function loop:schedule_1s/run
 		function loop:schedule_10s/run
