@@ -15,8 +15,29 @@ namespace stat()
 		scoreboard objectives add addi_mp_point dummy
 		
 		scoreboard objectives add standard_pdd dummy
+		scoreboard objectives add real_speed dummy
 		
 		scoreboard objectives add hp_recover_time dummy
+	}
+	
+	folder speed_changed()
+	{
+		func check()
+		{
+			scoreboard players operation #GLOBAL temp = @s speed
+			scoreboard players operation #GLOBAL temp < #40 const
+			execute unless score @s real_speed = #GLOBAL temp run function ARG(_PATH)set
+		}
+		
+		func set()
+		{
+			scoreboard players operation @s real_speed = #GLOBAL temp
+			
+			replaceitem block 0 1 0 container.0 minecraft:potion
+			data modify block 0 1 0 Items[0].tag set from entity @s Inventory[{Slot:103b}].tag
+			execute store result block 0 1 0 Items[0].tag.AttributeModifiers[0].Amount float 0.01 run scoreboard players get @s real_speed
+			loot replace entity @s armor.head 1 mine 0 1 0 minecraft:air{modify_player:1b}
+		}
 	}
 	
 	folder job()
@@ -430,6 +451,9 @@ namespace stat()
 			execute store result score #GLOBAL temp run attribute @s minecraft:generic.movement_speed get 10000
 			scoreboard players add #GLOBAL temp 1
 			scoreboard players operation #GLOBAL temp /= #10 const
+			
+			scoreboard players operation #GLOBAL temp = @s real_speed
+			scoreboard players add #GLOBAL temp 100
 			
 			tellraw @s [{"nbt":"add_buttons[4]","storage":"ui:main","interpret":true},{"text":">","font":"ui:window/stat"},{"nbt":"add_buttons[-1]","storage":"ui:main","interpret":true},{"text":"A94","font":"space:default"},{"nbt":"int","storage":"ui:main","interpret":true},{"text":"\uF82A\uF829\uF828\uF821","font":"space:default"},{"text":"\uE002","font":"ui:window/stat"},{"text":"A93","font":"space:default"},[{"score":{"objective":"temp","name":"#GLOBAL"},"color":"black","font":"ui:window/stat"},"%"]]
 			# luk and jump

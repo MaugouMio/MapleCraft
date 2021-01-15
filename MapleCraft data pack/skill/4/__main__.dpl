@@ -19,7 +19,9 @@ namespace 4() as virtual
 		
 		scoreboard objectives add 4001003_level dummy
 		scoreboard objectives add 4001003_mp dummy
+		scoreboard objectives add 4001003_speed dummy
 		scoreboard objectives add 4001003_time dummy
+		scoreboard objectives add invis_buff_speed dummy
 		
 		scoreboard objectives add 4001334_mp dummy
 		scoreboard objectives add 4001334_attack dummy
@@ -361,10 +363,14 @@ namespace 4() as virtual
 					
 					# set this buff values
 					scoreboard players operation @s invis_buff_time = @s 4001003_time
+					scoreboard players operation @s invis_buff_speed = @s 4001003_speed
+					
+					scoreboard players operation @s speed += @s invis_buff_speed
+					function stat:speed_changed/check
+					
 					effect give @s minecraft:invisibility 1000000 0 true
 					effect give @s minecraft:resistance 1000000 4 true
 					attribute @s minecraft:generic.knockback_resistance modifier add f7c5c3aa-4957-4321-8098-5ccef1ffdc8a invisible_knockback 1.0 add
-					function ARG(_PATH)reduce_speed/1_19
 					```
 					print(f"attribute @s minecraft:generic.luck modifier add {simple_buff_info_dict['invis']['uuid']} d 0 add")
 					```
@@ -378,36 +384,6 @@ namespace 4() as virtual
 					function bar_display:change/mp/dropped
 					
 					scoreboard players set @s action_time 4
-				}
-				
-				folder reduce_speed()
-				{
-					```
-					invisible_speed_uuid = "66586f5a-e0cc-422d-a854-cda6d49d93cc"
-					invisible_speed_list = [-0.3,-0.28,-0.26,-0.24,-0.22,-0.2,-0.18,-0.16,-0.14,-0.12,-0.1,-0.08,-0.07,-0.06,-0.05,-0.04,-0.03,-0.02,-0.01]
-					def bs_invisible_level(minlv, maxlv):
-						if minlv == maxlv:
-							return
-							
-						midlv = (maxlv + minlv) // 2
-						print(f"func {minlv}_{maxlv}()")
-						print("{")
-						if midlv == minlv:
-							print(f"execute if score @s 4001003_level matches {minlv} run attribute @s minecraft:generic.movement_speed modifier add {invisible_speed_uuid} invisible_restrict {invisible_speed_list[minlv-1]} multiply_base")
-						else:
-							print(f"execute if score @s 4001003_level matches {minlv}..{midlv} run function ARG(_PATH){minlv}_{midlv}")
-							
-						if midlv + 1 == maxlv:
-							print(f"execute if score @s 4001003_level matches {maxlv} run attribute @s minecraft:generic.movement_speed modifier add {invisible_speed_uuid} invisible_restrict {invisible_speed_list[maxlv-1]} multiply_base")
-						else:
-							print(f"execute if score @s 4001003_level matches {midlv+1}..{maxlv} run function ARG(_PATH){midlv+1}_{maxlv}")
-						print("}")
-						
-						bs_invisible_level(minlv, midlv)
-						bs_invisible_level(midlv+1, maxlv)
-						
-					bs_invisible_level(1, 19)
-					```
 				}
 				
 				func cancel()
@@ -482,11 +458,13 @@ namespace 4() as virtual
 						```
 					}
 				```
+				invisible_speed_list = [-30,-28,-26,-24,-22,-20,-18,-16,-14,-12,-10,-8,-7,-6,-5,-4,-3,-2,-1,0]
 				for i in range(20):
 					print(f'''
 					func {i+1}()
 					{{
 						scoreboard players set @s 4001003_mp {24-i}
+						scoreboard players set @s 4001003_speed {invisible_speed_list[i]}
 						scoreboard players set @s 4001003_time {i*10+10}
 					}}
 					''')

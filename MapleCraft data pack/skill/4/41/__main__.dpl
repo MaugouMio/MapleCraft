@@ -244,10 +244,12 @@ namespace 41() as virtual
 				function skill:use_constraint
 				scoreboard players set @s action_time 12
 				
+				scoreboard players operation #HASTE_LEVEL temp = @s 4101004_level
 				scoreboard players operation #HASTE_TIME temp = @s 4101004_time
 				
+				function ARG(_PATH)setting
 				tag @s add caster
-				function ARG(_PATH)level_effect/1_20
+				execute as @a[tag=!dead,tag=!caster,limit=5,distance=..5,sort=nearest] at @s run function ARG(_PATH)take_effect
 				tag @s remove caster
 				
 				# VVV since we got mp change below, no need to update the bar display VVV
@@ -260,65 +262,37 @@ namespace 41() as virtual
 				function bar_display:change/mp/dropped
 			}
 			
-			folder level_effect()
+			func take_effect()
 			{
-				```
-				def bs_haste_level(minlv, maxlv):
-					if minlv == maxlv:
-						print(f"func {minlv}()")
-						print("{")
-						print("		function ARG(__PATH)pre_set")
-									# set sub buff values
-						print(f"	attribute @s minecraft:generic.movement_speed modifier add f60188ac-3d9d-4c2b-be75-62abd26a2c44 speed_buff {minlv * 0.02} multiply_base")
-						if minlv >= 10:
-							print(f"effect give @s minecraft:jump_boost 1000000 {minlv//10-1} true")
-						print(f"	scoreboard players set @s jump_buff_num {minlv//10}")
-						print("		function ARG(__PATH)post_set")
-						print("}")
-						return
-						
-					midlv = (maxlv + minlv) // 2
-					print(f"func {minlv}_{maxlv}()")
-					print("{")
-					if midlv == minlv:
-						print(f"execute if score @s 4101004_level matches {minlv} as @a[tag=!dead,limit=6,distance=..5,sort=nearest] run function ARG(_PATH){minlv}")
-					else:
-						print(f"execute if score @s 4101004_level matches {minlv}..{midlv} run function ARG(_PATH){minlv}_{midlv}")
-						
-					if midlv + 1 == maxlv:
-						print(f"execute if score @s 4101004_level matches {maxlv} as @a[tag=!dead,limit=6,distance=..5,sort=nearest] run function ARG(_PATH){maxlv}")
-					else:
-						print(f"execute if score @s 4101004_level matches {midlv+1}..{maxlv} run function ARG(_PATH){midlv+1}_{maxlv}")
-					print("}")
-					
-					bs_haste_level(minlv, midlv)
-					bs_haste_level(midlv+1, maxlv)
-					
-				bs_haste_level(1, 20)
-				```
+				function ARG(_PATH)setting
+				execute if entity @s[tag=!hp_mp_varying] run function bar_display:update_bar/run
+				
+				execute positioned ~ ~-0.4 ~ run function skill:summon_font_effect/4101004affected
 			}
 			
-			func pre_set()
+			func setting()
 			{
 				function skill:buff/haste/run
-				attribute @s minecraft:generic.movement_speed modifier remove f60188ac-3d9d-4c2b-be75-62abd26a2c44
+				
+				# set sub buff values
+				scoreboard players operation @s speed -= @s speed_buff_num
+				scoreboard players operation @s speed_buff_num = #HASTE_LEVEL temp
+				scoreboard players operation @s speed_buff_num *= #2 const
+				scoreboard players operation @s speed += @s speed_buff_num
+				function stat:speed_changed/check
+				
 				execute unless score @s action_time matches 1.. run effect clear @s minecraft:jump_boost
-			}
-			
-			func post_set()
-			{
+				scoreboard players operation @s jump_buff_num = #HASTE_LEVEL temp
+				scoreboard players operation @s jump_buff_num /= #10 const
+				execute if score @s jump_buff_num matches 0 run effect give @s minecraft:jump_boost 1000000 0 true
+				execute if score @s jump_buff_num matches 1 run effect give @s minecraft:jump_boost 1000000 1 true
+				execute if score @s jump_buff_num matches 2 run effect give @s minecraft:jump_boost 1000000 2 true
+				
 				# set this buff values
 				scoreboard players operation @s haste_buff_time = #HASTE_TIME temp
 				```
 				print(f"attribute @s minecraft:generic.luck modifier add {buff_info_dict['haste']['uuid']} b 0 add")
 				```
-				execute if entity @s[tag=!caster] at @s run function ARG(_PATH)take_effect
-			}
-			
-			func take_effect()
-			{
-				execute if entity @s[tag=!hp_mp_varying] run function bar_display:update_bar/run
-				execute positioned ~ ~-0.4 ~ run function skill:summon_font_effect/4101004affected
 			}
 			
 			folder levels()

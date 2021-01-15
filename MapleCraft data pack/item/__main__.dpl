@@ -252,7 +252,9 @@ namespace item()
 				scoreboard players operation @s equip_accuracy += #GLOBAL temp
 				
 				execute store result score #GLOBAL temp run data get storage item:main equip.speed
-				execute store result block 0 1 0 Items[0].tag.AttributeModifiers[0].Amount float 0.01 run scoreboard players operation @s speed += #GLOBAL temp
+				execute store result score #GLOBAL temp run scoreboard players operation @s speed += #GLOBAL temp
+				scoreboard players operation #GLOBAL temp < #40 const
+				execute store result block 0 1 0 Items[0].tag.AttributeModifiers[0].Amount float 0.01 run scoreboard players operation @s real_speed = #GLOBAL temp
 				
 				execute store result score #GLOBAL temp run data get storage item:main equip.str
 				scoreboard players operation @s STR += #GLOBAL temp
@@ -323,7 +325,9 @@ namespace item()
 				# reset speed attribute modifier
 				replaceitem block 0 1 0 container.0 minecraft:potion
 				data modify block 0 1 0 Items[0].tag set from entity @s Inventory[{Slot:103b}].tag
-				execute store result block 0 1 0 Items[0].tag.AttributeModifiers[0].Amount float 0.01 run scoreboard players operation @s speed -= #GLOBAL temp
+				execute store result score #GLOBAL temp run scoreboard players operation @s speed -= #GLOBAL temp
+				scoreboard players operation #GLOBAL temp < #40 const
+				execute store result block 0 1 0 Items[0].tag.AttributeModifiers[0].Amount float 0.01 run scoreboard players operation @s real_speed = #GLOBAL temp
 				loot replace entity @s armor.head 1 mine 0 1 0 minecraft:air{modify_player:1b}
 			}
 		}

@@ -142,16 +142,6 @@ namespace 2() as virtual
 						execute store result score @s addi_mp_point run data get storage ui:main temp[2]
 						execute if score @s 2000001_level matches 1.. run data modify block 0 0 0 Text1 set value '["\\n",{"nbt":"Text1","block":"0 0 0","interpret":true}]'
 					}
-				```
-				for i in range(10):
-					print(f'''
-					func {i+1}()
-					{{
-						scoreboard players set @s addi_mp_level {i*2+2}
-						scoreboard players set @s addi_mp_point {i+1}
-					}}
-					''')
-				```
 				}
 			}
 			
