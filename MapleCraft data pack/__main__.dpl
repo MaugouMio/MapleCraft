@@ -591,8 +591,13 @@ namespace main()
 		
 		func warrior()
 		{
+			function ARG(_PATH)reset
+			
 			tag @s add warrior
 			scoreboard players set @s job_level 1
+			# effect
+			playsound minecraft:game.job_changed player @a ~ ~ ~ 1 1 0
+			function skill:summon_font_effect/0000000job_changed
 			
 			scoreboard players set @s level 25
 			scoreboard players set @s hp 1226
@@ -624,8 +629,13 @@ namespace main()
 		
 		func archer()
 		{
+			function ARG(_PATH)reset
+			
 			tag @s add archer
 			scoreboard players set @s job_level 1
+			# effect
+			playsound minecraft:game.job_changed player @a ~ ~ ~ 1 1 0
+			function skill:summon_font_effect/0000000job_changed
 			
 			scoreboard players set @s level 25
 			scoreboard players set @s hp 954
@@ -655,8 +665,13 @@ namespace main()
 		
 		func magician()
 		{
+			function ARG(_PATH)reset
+			
 			tag @s add magician
 			scoreboard players set @s job_level 1
+			# effect
+			playsound minecraft:game.job_changed player @a ~ ~ ~ 1 1 0
+			function skill:summon_font_effect/0000000job_changed
 			
 			scoreboard players set @s level 25
 			scoreboard players set @s hp 312
@@ -688,8 +703,13 @@ namespace main()
 		
 		func thief()
 		{
+			function ARG(_PATH)reset
+			
 			tag @s add thief
 			scoreboard players set @s job_level 1
+			# effect
+			playsound minecraft:game.job_changed player @a ~ ~ ~ 1 1 0
+			function skill:summon_font_effect/0000000job_changed
 			
 			scoreboard players set @s level 25
 			scoreboard players set @s hp 954
