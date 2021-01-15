@@ -34,6 +34,20 @@ namespace 1() as virtual
 	{
 		folder 0()
 		{
+			folder transfer()
+			{
+				func check()
+				{
+					execute if score @s level matches 10.. if score @s STR matches 35.. at @s run function ARG(_PATH)run
+				}
+				
+				func run()
+				{
+					tag @s add warrior
+					function stat:job/hp_mp/warrior/warrior
+				}
+			}
+			
 			folder 0000()
 			{
 				folder levels()

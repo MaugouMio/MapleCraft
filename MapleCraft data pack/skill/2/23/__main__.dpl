@@ -29,6 +29,20 @@ namespace 23() as virtual
 	
 	folder 0()
 	{
+		folder transfer()
+		{
+			func check()
+			{
+				execute if score @s level matches 30.. unless score @s skill_point matches 1.. at @s run function ARG(_PATH)run
+			}
+			
+			func run()
+			{
+				tag @s add cleric
+				function stat:job/hp_mp/magician/second
+			}
+		}
+		
 		# 2300000 shares the same functions with 2100000
 		# 2301001 shares the same functions with 2101002
 		
