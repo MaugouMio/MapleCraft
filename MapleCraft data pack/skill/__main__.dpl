@@ -917,6 +917,7 @@ namespace skill()
 		scoreboard objectives add motion_x dummy
 		scoreboard objectives add motion_y dummy
 		scoreboard objectives add motion_z dummy
+		scoreboard objectives add rand_jump dummy
 		# 0.4 block per unit
 		scoreboard objectives add default_width dummy
 		scoreboard objectives add default_height dummy
@@ -1101,6 +1102,31 @@ namespace skill()
 					execute if score #GLOBAL temp matches -1 run function ARG(_PATH)check_motion
 					
 					execute unless score @s status = #GLOBAL temp run function ARG(_PATH)change
+					
+					scoreboard players remove @s[tag=!no_jump,scores={status=2..}] rand_jump 1
+					execute if score @s rand_jump matches 0 run function ARG(_PATH)force_jump/try
+				}
+				
+				folder force_jump()
+				{
+					func try()
+					{
+						scoreboard players set @s rand_jump 20
+						execute unless data entity @s AngryAt run function ARG(_PATH)rand_jump
+						execute if data entity @s AngryAt run function ARG(_PATH)check_target
+					}
+				
+					func rand_jump()
+					{
+						function main:rand_rate
+						execute if score #RAND_RESULT temp matches ..9 store result entity @s Motion[1] double 0.1 run scoreboard players get #5 const
+					}
+					
+					func check_target()
+					{
+						execute if data entity @s {AngryAt:[I;0,2,0,2]} run function ARG(_PATH)rand_jump
+						execute unless data entity @s {AngryAt:[I;0,2,0,2]} if score @s status matches 3 store result entity @s Motion[1] double 0.1 run scoreboard players get #5 const
+					}
 				}
 				
 				func check_jump()
@@ -1141,6 +1167,8 @@ namespace skill()
 					execute if score #GLOBAL temp matches 3 if score @s stand_frame matches 1.. run scoreboard players operation @s action_frame_s += @s move_frame
 					execute if score #GLOBAL temp matches 3 if score @s stand_frame matches 1.. run scoreboard players operation @s action_frame_max = @s stand_frame
 					scoreboard players set @s action_frame -1
+					
+					scoreboard players set @s[tag=!no_jump] rand_jump 20
 					
 					scoreboard players operation @s status = #GLOBAL temp
 					execute unless score @s action_frame_max matches 1.. store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players operation #GLOBAL temp += @s base_model
@@ -4198,6 +4226,7 @@ namespace skill()
 			
 			scoreboard players set @s status 0
 			scoreboard players set @s hit_distance 0
+			scoreboard players set @s[tag=!no_jump] rand_jump 60
 			scoreboard players add #MOB_ID number 1
 		}
 	}
