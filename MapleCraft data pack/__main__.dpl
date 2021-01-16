@@ -58,6 +58,8 @@ namespace main()
 		scoreboard objectives add just_jump dummy
 		scoreboard objectives add command trigger
 		scoreboard objectives add login minecraft.custom:minecraft.leave_game
+		scoreboard objectives add bgm dummy
+		scoreboard objectives add bgm_time dummy
 		
 		team add enemy
 		team modify enemy collisionRule never
@@ -163,6 +165,8 @@ namespace main()
 		scoreboard players set @s weapon_defense 7
 		
 		scoreboard players enable @s command
+		scoreboard players set @s bgm 1
+		function ARG(_PATH)bgm/title
 		scoreboard players set @s meso 0
 		
 		scoreboard players set @s amazon_eyes_dist 9
@@ -198,6 +202,7 @@ namespace main()
 		execute if entity @s[tag=dead] run function ARG(_PATH)town_revive/run
 		# special map teleport to nearest town belongs here
 		
+		function ARG(_PATH)bgm/search/run
 		execute at @s run playsound minecraft:game.game_in player @s
 		title @s times 1 5 10
 		title @s title {"text":"4","font":"ui:main"}
@@ -225,9 +230,10 @@ namespace main()
 		{
 			function bar_display:death/revive
 			```
-			raise Warning("TODO: teleport to the nearest town")
+			raise Warning("TODO: teleport to the nearest town and set bgm")
 			```
 			tp @s -80 4 55 -90 40
+			function ARG(_PATH)bgm/search/run
 			
 			execute unless score @s login matches 1.. run function ARG(_PATH)reset_screen
 		}
@@ -337,6 +343,65 @@ namespace main()
 		}
 	}
 	
+	folder bgm()
+	{
+		func countdown()
+		{
+			scoreboard players remove @s bgm_time 1
+			execute if score @s bgm_time matches 0 run function ARG(_PATH)search/run
+		}
+		
+		folder search()
+		{
+		```
+		def binary_search_bgm(bgm_list, start, end):
+			if len(bgm_list) == 1:
+				print("func run()")
+				print("{")
+				print(f"\texecute if score @s bgm matches {bgm_list[0][0]} {bgm_list[0][1]}")
+				print("}")
+				return
+			
+			if start == end:
+				print(f"func {bgm_list[start][1]}()")
+				print("{")
+				print("stopsound @s")
+				print(f"playsound minecraft:bgm.{bgm_list[start][1]} record @s ~ ~ ~ 1 1 1")
+				print(f"scoreboard players set @s bgm_time {bgm_list[start][2]}")
+				print("}")
+				return
+			
+			mid = (start + end) // 2
+			mid_right = mid + 1
+			
+			if start == 0 and end == len(bgm_list) - 1:
+				print("func run()")
+			else:
+				print(f"func {start}_{end}()")
+			print("{")
+			if start == mid:
+				print(f"\texecute if score @s bgm matches {bgm_list[start][0]} run function ARG(_PATH){bgm_list[start][1]}")
+			else:
+				print(f"\texecute if score @s bgm matches {bgm_list[start][0]}..{bgm_list[mid][0]} run function ARG(_PATH){start}_{mid}")
+			if mid_right == end:
+				print(f"\texecute if score @s bgm matches {bgm_list[end][0]} run function ARG(_PATH){bgm_list[end][1]}")
+			else:
+				print(f"\texecute if score @s bgm matches {bgm_list[mid_right][0]}..{bgm_list[end][0]} run function ARG(_PATH){mid_right}_{end}")
+			print("}")
+			
+			binary_search_bgm(bgm_list, start, mid)
+			binary_search_bgm(bgm_list, mid_right, end)
+		
+		with open(PROJ_DIR + "/../bgm.csv") as f:
+			bgms = f.read().split("\n")
+			for i in range(len(bgms)):
+				bgms[i] = bgms[i].split(",")
+		
+		binary_search_bgm(bgms, 0, len(bgms) - 1)
+		```
+		}
+	}
+	
 	func rand_rate()
 	{
 		loot replace block 0 2 0 container.0 loot main:percent_rate
@@ -356,6 +421,7 @@ namespace loop()
 			function bar_display:loop/schedule_1s
 			function item:loop/schedule_1s
 			
+			execute as @a run function main:bgm/countdown
 			execute as @a[predicate=main:underground] at @s run tp @s ~ 10 ~
 		}
 	}
