@@ -804,7 +804,7 @@ namespace 21() as virtual
 			func effect()
 			{
 				execute if score @s display_number matches 1.. positioned ^ ^ ^0.5 run function skill:summon_font_effect/2101005hit
-				playsound minecraft:skill.2101005_hit hostile @a ~ ~ ~ 1 1 0
+				playsound minecraft:skill.2101005_hit player @a ~ ~ ~ 1 1 0
 			}
 			
 			func append_scheduler()

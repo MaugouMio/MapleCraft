@@ -334,7 +334,7 @@ namespace 42() as virtual
 			func effect()
 			{
 				execute if score @s display_number matches 1.. positioned ^ ^0.3 ^0.5 run function ARG(_PATH)rand_hit_effect
-				playsound minecraft:skill.4201005_hit hostile @a ~ ~ ~ 1 1 0
+				playsound minecraft:skill.4201005_hit player @a ~ ~ ~ 1 1 0
 			}
 			
 			func rand_hit_effect()
