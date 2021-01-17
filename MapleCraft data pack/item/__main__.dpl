@@ -230,7 +230,7 @@ namespace item()
 				execute store result score #GLOBAL temp run data get storage item:main equip.weapon_attack
 				scoreboard players operation @s weapon_attack += #GLOBAL temp
 				execute store result score #GLOBAL temp run data get storage item:main equip.magic_attack
-				scoreboard players operation @s magic_attack += #GLOBAL temp
+				scoreboard players operation @s weapon_mattack += #GLOBAL temp
 				
 				execute store result score #GLOBAL temp run data get storage item:main equip.hp
 				scoreboard players operation @s hp_max_base += #GLOBAL temp
@@ -286,7 +286,7 @@ namespace item()
 				execute store result score #GLOBAL temp run data get block 0 1 0 Items[0].tag.weapon_attack
 				scoreboard players operation @s weapon_attack -= #GLOBAL temp
 				execute store result score #GLOBAL temp run data get block 0 1 0 Items[0].tag.magic_attack
-				scoreboard players operation @s magic_attack -= #GLOBAL temp
+				scoreboard players operation @s weapon_mattack -= #GLOBAL temp
 				
 				execute store result score #GLOBAL temp run data get block 0 1 0 Items[0].tag.hp
 				scoreboard players operation @s hp_max_base -= #GLOBAL temp

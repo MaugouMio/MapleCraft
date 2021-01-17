@@ -8,6 +8,8 @@ namespace 42() as virtual
 	
 	func install()
 	{
+		scoreboard objectives add 4200000_level dummy
+		
 		scoreboard objectives add 4201002_level dummy
 		scoreboard objectives add 4201002_mp dummy
 		scoreboard objectives add 4201002_time dummy
@@ -32,13 +34,20 @@ namespace 42() as virtual
 				scoreboard players operation #GLOBAL temp = @s level
 				scoreboard players remove #GLOBAL temp 30
 				scoreboard players operation #GLOBAL temp *= #3 const
-				execute if score @s level matches 30.. unless score @s skill_point matches > #GLOBAL temp at @s run function ARG(_PATH)run
+				execute if score @s level matches 30.. unless score @s skill_point > #GLOBAL temp at @s run function ARG(_PATH)run
 			}
 			
 			func run()
 			{
 				tag @s add bandit
 				function stat:job/hp_mp/archer_thief/second
+				
+				scoreboard players set @s 4200000_level 0
+				scoreboard players set @s 4100002_level 0
+				scoreboard players set @s 4201002_level 0
+				scoreboard players set @s 4101004_level 0
+				scoreboard players set @s 4201004_level 0
+				scoreboard players set @s 4201005_level 0
 			}
 		}
 		

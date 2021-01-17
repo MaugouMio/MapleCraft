@@ -43,6 +43,13 @@ namespace 3() as virtual
 					tag @s add archer
 					function stat:job/hp_mp/archer_thief/first
 					function stat:standard_pdd/set
+					
+					scoreboard players set @s 3000000_level 0
+					scoreboard players set @s 3000001_level 0
+					scoreboard players set @s 3000002_level 0
+					scoreboard players set @s 3001003_level 0
+					scoreboard players set @s 3001004_level 0
+					scoreboard players set @s 3001005_level 0
 				}
 			}
 			

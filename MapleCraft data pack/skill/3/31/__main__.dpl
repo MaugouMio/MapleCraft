@@ -46,13 +46,20 @@ namespace 31() as virtual
 				scoreboard players operation #GLOBAL temp = @s level
 				scoreboard players remove #GLOBAL temp 30
 				scoreboard players operation #GLOBAL temp *= #3 const
-				execute if score @s level matches 30.. unless score @s skill_point matches > #GLOBAL temp at @s run function ARG(_PATH)run
+				execute if score @s level matches 30.. unless score @s skill_point > #GLOBAL temp at @s run function ARG(_PATH)run
 			}
 			
 			func run()
 			{
 				tag @s add hunter
 				function stat:job/hp_mp/archer_thief/second
+					
+				scoreboard players set @s 3100000_level 0
+				scoreboard players set @s 3100001_level 0
+				scoreboard players set @s 3101002_level 0
+				scoreboard players set @s 3101003_level 0
+				scoreboard players set @s 3101004_level 0
+				scoreboard players set @s 3101005_level 0
 			}
 		}
 		
@@ -610,9 +617,11 @@ namespace 31() as virtual
 					data modify entity @s ArmorItems[3].tag.damage_record append value {number:0,crit:0,height:0}
 					execute store result entity @s ArmorItems[3].tag.damage_record[-1].height int 1 run scoreboard players get @s default_height
 					
+					scoreboard players set #KILLED_MOB temp 0
 					function main:rand_rate
 					execute if score #HIT_RATE temp > #RAND_RESULT temp run function ARG(_PATH)deal_damage
 					execute if score #DID_HIT temp matches 1 run function skill:calculate_damage/update_hp_display/run
+					execute if score #KILLED_MOB temp matches 1 if entity @s[tag=paired_mob] run function ARG(_PATH)stop_magma_cube
 					#################################
 					
 					execute if score @s hp matches ..0 run function skill:calculate_damage/record_dead

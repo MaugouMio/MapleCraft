@@ -51,6 +51,13 @@ namespace 2() as virtual
 					tag @s add magician
 					function stat:job/hp_mp/magician/magician
 					function stat:standard_pdd/set
+					
+					scoreboard players set @s 2000000_level 0
+					scoreboard players set @s 2000001_level 0
+					scoreboard players set @s 2001002_level 0
+					scoreboard players set @s 2001003_level 0
+					scoreboard players set @s 2001004_level 0
+					scoreboard players set @s 2001005_level 0
 				}
 			}
 			

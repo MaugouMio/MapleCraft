@@ -46,6 +46,13 @@ namespace 1() as virtual
 					tag @s add warrior
 					function stat:job/hp_mp/warrior/warrior
 					function stat:standard_pdd/set
+					
+					scoreboard players set @s 1000000_level 0
+					scoreboard players set @s 1000001_level 0
+					scoreboard players set @s 1000002_level 0
+					scoreboard players set @s 1001003_level 0
+					scoreboard players set @s 1001004_level 0
+					scoreboard players set @s 1001005_level 0
 				}
 			}
 			

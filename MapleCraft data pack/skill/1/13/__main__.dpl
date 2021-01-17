@@ -49,13 +49,22 @@ namespace 13() as virtual
 				scoreboard players operation #GLOBAL temp = @s level
 				scoreboard players remove #GLOBAL temp 30
 				scoreboard players operation #GLOBAL temp *= #3 const
-				execute if score @s level matches 30.. unless score @s skill_point matches > #GLOBAL temp at @s run function ARG(_PATH)run
+				execute if score @s level matches 30.. unless score @s skill_point > #GLOBAL temp at @s run function ARG(_PATH)run
 			}
 			
 			func run()
 			{
 				tag @s add spearman
 				function stat:job/hp_mp/warrior/page_spearman
+					
+				scoreboard players set @s 1300000_level 0
+				scoreboard players set @s 1300001_level 0
+				scoreboard players set @s 1300002_level 0
+				scoreboard players set @s 1300003_level 0
+				scoreboard players set @s 1301004_level 0
+				scoreboard players set @s 1301005_level 0
+				scoreboard players set @s 1301006_level 0
+				scoreboard players set @s 1301007_level 0
 			}
 		}
 		

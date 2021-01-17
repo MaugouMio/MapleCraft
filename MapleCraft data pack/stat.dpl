@@ -67,6 +67,7 @@ namespace stat()
 					execute unless score @s hyper_buff_time matches 1.. run function stat:exp/update_hp_mp/max
 					execute if score @s hyper_buff_time matches 1.. run function skill:1/3/0/1007/set_hp_mp
 					
+					function bar_display:change/hp/recovered
 					function stat:job/change
 				}
 				
@@ -80,6 +81,7 @@ namespace stat()
 					execute unless score @s hyper_buff_time matches 1.. run function stat:exp/update_hp_mp/max
 					execute if score @s hyper_buff_time matches 1.. run function skill:1/3/0/1007/set_hp_mp
 					
+					function bar_display:change/hp/recovered
 					function stat:job/change
 				}
 				
@@ -93,6 +95,7 @@ namespace stat()
 					execute unless score @s hyper_buff_time matches 1.. run function stat:exp/update_hp_mp/max
 					execute if score @s hyper_buff_time matches 1.. run function skill:1/3/0/1007/set_hp_mp
 					
+					function bar_display:change/mp/recovered
 					function stat:job/change
 				}
 			}
@@ -109,6 +112,7 @@ namespace stat()
 					execute unless score @s hyper_buff_time matches 1.. run function stat:exp/update_hp_mp/max
 					execute if score @s hyper_buff_time matches 1.. run function skill:1/3/0/1007/set_hp_mp
 					
+					function bar_display:change/mp/recovered
 					function stat:job/change
 				}
 				
@@ -122,6 +126,7 @@ namespace stat()
 					execute unless score @s hyper_buff_time matches 1.. run function stat:exp/update_hp_mp/max
 					execute if score @s hyper_buff_time matches 1.. run function skill:1/3/0/1007/set_hp_mp
 					
+					function bar_display:change/mp/recovered
 					function stat:job/change
 				}
 			}
@@ -143,6 +148,8 @@ namespace stat()
 					execute unless score @s hyper_buff_time matches 1.. run function stat:exp/update_hp_mp/max
 					execute if score @s hyper_buff_time matches 1.. run function skill:1/3/0/1007/set_hp_mp
 					
+					function bar_display:change/hp/recovered
+					function bar_display:change/mp/recovered
 					function stat:job/change
 				}
 				
@@ -160,6 +167,8 @@ namespace stat()
 					execute unless score @s hyper_buff_time matches 1.. run function stat:exp/update_hp_mp/max
 					execute if score @s hyper_buff_time matches 1.. run function skill:1/3/0/1007/set_hp_mp
 					
+					function bar_display:change/hp/recovered
+					function bar_display:change/mp/recovered
 					function stat:job/change
 				}
 			}
@@ -180,6 +189,7 @@ namespace stat()
 			scoreboard players operation #GLOBAL temp = @s exp_max
 			scoreboard players remove #GLOBAL temp 1
 			scoreboard players operation @s exp < #GLOBAL temp
+			scoreboard players set @s[scores={level=200}] exp 0
 			# raise hp mp
 			scoreboard players set #RANGE_MAX temp 5
 			function main:rand_range
@@ -208,6 +218,10 @@ namespace stat()
 			# some stat setting
 			execute if score @s 2000000_level matches 1.. run function skill:2/0/0/0000/calculate_recovery
 			function stat:standard_pdd/set
+			
+			scoreboard players add @s stat_point 5
+			scoreboard players add @s[scores={job_level=1..}] skill_point 3
+			scoreboard players add @s[scores={job_level=0,level=..7}] skill_point_beg 1
 		}
 		
 		folder update_hp_mp()
