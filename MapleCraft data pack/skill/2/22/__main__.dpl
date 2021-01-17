@@ -58,7 +58,7 @@ namespace 22() as virtual
 		{
 			func check()
 			{
-				execute unless score @s action_time matches 0.. if score @s[nbt={OnGround:1b}] 2201004_level matches 1.. run function ARG(_PATH)other_check
+				execute unless score @s action_time matches 0.. if score @s[nbt={OnGround:1b}] 2201004_level matches 1.. unless block ~0.3 ~ ~0.3 #minecraft:climbable unless block ~0.3 ~ ~-0.3 #minecraft:climbable unless block ~-0.3 ~ ~0.3 #minecraft:climbable unless block ~-0.3 ~ ~-0.3 #minecraft:climbable run function ARG(_PATH)other_check
 			}
 			
 			func other_check()
@@ -187,7 +187,7 @@ namespace 22() as virtual
 		{
 			func check()
 			{
-				execute unless score @s action_time matches 0.. if score @s[nbt={OnGround:1b}] 2201005_level matches 1.. run function ARG(_PATH)other_check
+				execute unless score @s action_time matches 0.. if score @s[nbt={OnGround:1b}] 2201005_level matches 1.. unless block ~0.3 ~ ~0.3 #minecraft:climbable unless block ~0.3 ~ ~-0.3 #minecraft:climbable unless block ~-0.3 ~ ~0.3 #minecraft:climbable unless block ~-0.3 ~ ~-0.3 #minecraft:climbable run function ARG(_PATH)other_check
 			}
 			
 			func other_check()
