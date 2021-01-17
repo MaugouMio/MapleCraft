@@ -162,10 +162,22 @@ namespace 23() as virtual
 			
 			func rand_recovery() from random().generate("#MIN_HEAL_AMOUNT temp", "#MAX_HEAL_AMOUNT temp", "#FINAL_HEAL temp");
 			
-			func effect()
+			# override
+			folder forward_effect()
 			{
-				execute if score @s display_number matches 1.. positioned ~ ~1.2 ~ run function skill:summon_font_effect/2301002hit
-				function skill:mob_effect/play_hurt_sound/run
+				func run()
+				{
+					scoreboard players operation #DEFAULT_SIZE temp = @s default_height
+					execute positioned ~ ~0.4 ~ run function ARG(_PATH)loop
+					function skill:mob_effect/play_hurt_sound/run
+				}
+				
+				func loop()
+				{
+					scoreboard players remove #DEFAULT_SIZE temp 1
+					execute if score #DEFAULT_SIZE temp matches -1 run function skill:summon_font_effect/2301002hit
+					execute if score #DEFAULT_SIZE temp matches 0.. positioned ~ ~0.4 ~ run function ARG(_PATH)loop
+				}
 			}
 				
 			```
