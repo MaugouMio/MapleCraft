@@ -58,6 +58,7 @@ namespace main()
 		scoreboard objectives add meso dummy
 		scoreboard objectives add jump minecraft.custom:minecraft.jump
 		scoreboard objectives add just_jump dummy
+		scoreboard objectives add fall minecraft.custom:minecraft.fall_one_cm
 		scoreboard objectives add command trigger
 		scoreboard objectives add login minecraft.custom:minecraft.leave_game
 		scoreboard objectives add bgm dummy
@@ -103,6 +104,7 @@ namespace main()
 		execute as @a[scores={just_jump=1..}] run function ARG(_PATH)jump_effect/countdown
 		execute as @a unless score @s command matches 0 run function ARG(_PATH)command/check
 		execute as @a[scores={login=1..}] run function ARG(_PATH)login_reset
+		execute as @a[scores={fall=1..}] run function ARG(_PATH)fall/check
 		
 		function skill:main/run
 		# function number_display:main
@@ -129,6 +131,34 @@ namespace main()
 		{
 			scoreboard players remove @s just_jump 1
 			scoreboard players reset @s[scores={just_jump=0}] just_jump
+		}
+	}
+	
+	folder fall()
+	{
+		func check()
+		{
+			execute if score @s fall matches 1325.. unless score @s hurt_time matches 1.. at @s run function ARG(_PATH)damage
+			scoreboard players reset @s fall
+		}
+		
+		func damage()
+		{
+			scoreboard players operation @s next_hp_recover = @s hp_recover_time
+			
+			scoreboard players remove @s fall 1125
+			scoreboard players set @s display_number -5600
+			scoreboard players operation @s display_number /= @s fall
+			scoreboard players add @s display_number 36
+			scoreboard players operation @s hp -= @s display_number
+			
+			scoreboard players set @s display_num_type 2
+			function number_display:show
+			execute if score @s hp matches ..0 run function bar_display:death/die
+			function bar_display:change/hp/dropped
+			
+			scoreboard players set @s hurt_time 10
+			effect give @s minecraft:instant_damage 1 0 true
 		}
 	}
 	
