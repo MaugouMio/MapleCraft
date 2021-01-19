@@ -3125,7 +3125,7 @@ namespace skill()
 				
 				func poison()
 				{
-					execute if entity @s[tag=poison_r_resist] run function ARG(_PATH)strong_resist
+					execute if entity @s[tag=poison_s_resist] run function ARG(_PATH)strong_resist
 					execute if entity @s[tag=poison_resist] run function ARG(_PATH)resist
 					execute if entity @s[tag=poison_weakness] run function ARG(_PATH)weakness
 				}
