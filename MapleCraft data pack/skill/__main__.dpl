@@ -3125,6 +3125,7 @@ namespace skill()
 				
 				func poison()
 				{
+					execute if entity @s[tag=poison_r_resist] run function ARG(_PATH)strong_resist
 					execute if entity @s[tag=poison_resist] run function ARG(_PATH)resist
 					execute if entity @s[tag=poison_weakness] run function ARG(_PATH)weakness
 				}
@@ -3145,6 +3146,12 @@ namespace skill()
 				{
 					execute if entity @s[tag=holy_resist] run function ARG(_PATH)resist
 					execute if entity @s[tag=holy_weakness] run function ARG(_PATH)weakness
+				}
+				
+				func strong_resist()
+				{
+					scoreboard players set #MIN_DAMAGE temp 1
+					scoreboard players set #MAX_DAMAGE temp 1
 				}
 	
 				func resist()
