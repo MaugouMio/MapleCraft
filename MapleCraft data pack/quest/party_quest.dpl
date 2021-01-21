@@ -1,0 +1,139 @@
+namespace pq_title_template(name, id) as virtual
+{
+	folder clear()
+	{
+		func run()
+		{
+			scoreboard players set #ARG(name)_TITLE_EFFECT temp 0
+			execute as @a[scores={playing_game=ARG(id)}] at @s run function ARG(_PATH)start
+			schedule function ARG(_PATH)loop 2t
+		}
+		
+		func start()
+		{
+			title @s times 0 40 0
+			title @s title {"text":"0","font":"ui:title/pq_clear"}
+			playsound minecraft:game.pq_clear player @s
+		}
+		
+		func loop()
+		{
+			scoreboard players add #ARG(name)_TITLE_EFFECT temp 1
+			title @a[scores={playing_game=ARG(id)}] title {"score":{"objective":"temp","name":"#ARG(name)_TITLE_EFFECT"},"font":"ui:title/pq_clear"}
+			execute if score #ARG(name)_TITLE_EFFECT temp matches ..3 run schedule function ARG(_PATH)loop 2t
+		}
+	}
+	
+	folder wrong()
+	{
+		func run()
+		{
+			scoreboard players set #ARG(name)_TITLE_EFFECT temp 0
+			execute as @a[scores={playing_game=ARG(id)}] at @s run function ARG(_PATH)start
+			schedule function ARG(_PATH)loop 2t
+		}
+		
+		func start()
+		{
+			title @s times 0 30 0
+			title @s title {"text":"0","font":"ui:title/pq_wrong"}
+			playsound minecraft:game.pq_wrong player @s
+		}
+		
+		func loop()
+		{
+			scoreboard players add #ARG(name)_TITLE_EFFECT temp 1
+			title @a[scores={playing_game=ARG(id)}] title {"score":{"objective":"temp","name":"#ARG(name)_TITLE_EFFECT"},"font":"ui:title/pq_wrong"}
+			execute if score #ARG(name)_TITLE_EFFECT temp matches ..3 run schedule function ARG(_PATH)loop 2t
+		}
+	}
+}
+
+namespace pq_clock_template(name, id) as virtual
+{
+	```
+	party_quest_list.append("ARG(name)")
+	```
+	func start()
+	{
+		```
+		print(f'scoreboard players set #{"ARG(name)".upper()}_CLOCK_TIME temp 1800')
+		```
+		function ARG(_PATH)countdown
+	}
+	
+	func countdown()
+	{
+		```
+		print(f'scoreboard players remove #{"ARG(name)".upper()}_CLOCK_TIME temp 1')
+		print(f'execute if score #{"ARG(name)".upper()}_CLOCK_TIME temp matches 0.. run function ARG(_PATH)set_clock')
+		print(f'execute if score #{"ARG(name)".upper()}_CLOCK_TIME temp matches -1 as @a[scores={{playing_game=ARG(id)}}] run function ARG(__PATH)reset')
+		
+		print(f'execute if score #{"ARG(name)".upper()}_MEMBER temp matches 1.. run schedule function ARG(_PATH)countdown 1s')
+		```
+	}
+	
+	func set_clock()
+	{
+		```
+		print(f'scoreboard players operation #GLOBAL temp = #{"ARG(name)".upper()}_CLOCK_TIME temp')
+		print("function quest:get_clock_time")
+		print('bossbar set ui:clock/ARG(name) name [{"text":"a","font":"ui:title/clock"},{"text":"B95","font":"space:default"},{"score":{"objective":"temp","name":"#CLOCK_MIN_10"}},{"text":"1","font":"space:default"},{"score":{"objective":"temp","name":"#CLOCK_MIN_1"}},{"text":"\\uF829\\uF824","font":"space:default"},{"score":{"objective":"temp","name":"#CLOCK_SEC_10"}},{"text":"1","font":"space:default"},{"score":{"objective":"temp","name":"#CLOCK_SEC_1"}},{"text":"\\uF828\\uF825","font":"space:default"}]')
+		```
+	}
+}
+
+namespace party_quest() as virtual
+{
+	folder kpq()
+	{
+		func start()
+		{
+			execute as @a run function ARG(_PATH)join
+			function ARG(_PATH)clock/start
+			bossbar set ui:clock/kpq players @a[scores={playing_game=1}]
+		}
+		
+		func join()
+		{
+			title @s times 1 5 10
+			title @s title {"text":"4","font":"ui:main"}
+			# tp ...
+			scoreboard players set @s playing_game 1
+			scoreboard players add #KPQ_MEMBER temp 1
+			scoreboard players set @s bgm 3
+			function main:bgm/search/jungle_book
+		}
+		
+		func leave()
+		{
+			title @s times 1 5 10
+			title @s title {"text":"4","font":"ui:main"}
+			# tp ...
+			scoreboard players reset @s playing_game
+			scoreboard players remove #KPQ_MEMBER temp 1
+			loot give @s loot quest:kpq_award
+			
+			bossbar set ui:clock/kpq players @a[scores={playing_game=1}]
+		}
+		
+		func reset()
+		{
+			execute if entity @s[tag=dead] run function bar_display:death/revive
+			scoreboard players reset @s playing_game
+			scoreboard players remove #KPQ_MEMBER temp 1
+			
+			title @s times 1 5 10
+			title @s title {"text":"4","font":"ui:main"}
+			# tp ...
+			
+			scoreboard players set @s bgm 2
+			function main:bgm/search/kerning_city
+			
+			bossbar set ui:clock/kpq players @a[scores={playing_game=1}]
+		}
+		
+		folder title() from pq_title_template("KPQ", 1);
+		folder clock() from pq_clock_template("kpq", 1);
+	}
+}
