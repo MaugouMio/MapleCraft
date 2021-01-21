@@ -85,13 +85,24 @@ namespace pq_clock_template(name, id) as virtual
 
 namespace party_quest() as virtual
 {
+	func install()
+	{
+		scoreboard objectives add kpq_coupon dummy
+		scoreboard objectives add kpq_question dummy
+	}
+	
 	folder kpq()
 	{
 		func start()
 		{
 			execute as @a run function ARG(_PATH)join
 			function ARG(_PATH)clock/start
+			
 			bossbar set ui:clock/kpq players @a[scores={playing_game=1}]
+			scoreboard players set #KPQ_STAGE temp 1
+			
+			scoreboard players operation #KPQ_PASS_REQUIRED temp = #KPQ_MEMBER temp
+			execute if score #KPQ_PASS_REQUIRED temp matches 2.. run scoreboard players remove #KPQ_PASS_REQUIRED temp 1
 		}
 		
 		func join()
@@ -103,6 +114,16 @@ namespace party_quest() as virtual
 			scoreboard players add #KPQ_MEMBER temp 1
 			scoreboard players set @s bgm 3
 			function main:bgm/search/jungle_book
+			
+			scoreboard players set #RANGE_MAX temp 6
+			function main:rand_range
+			execute store result score @s kpq_question run scoreboard players add #RAND_RANGE_RESULT temp 1
+			execute if score #RAND_RANGE_RESULT temp matches 1 run scoreboard players set @s kpq_coupon 10
+			execute if score #RAND_RANGE_RESULT temp matches 2 run scoreboard players set @s kpq_coupon 35
+			execute if score #RAND_RANGE_RESULT temp matches 3 run scoreboard players set @s kpq_coupon 25
+			execute if score #RAND_RANGE_RESULT temp matches 4 run scoreboard players set @s kpq_coupon 8
+			execute if score #RAND_RANGE_RESULT temp matches 5 run scoreboard players set @s kpq_coupon 20
+			execute if score #RAND_RANGE_RESULT temp matches 6 run scoreboard players set @s kpq_coupon 15
 		}
 		
 		func leave()
@@ -120,6 +141,8 @@ namespace party_quest() as virtual
 		func reset()
 		{
 			execute if entity @s[tag=dead] run function bar_display:death/revive
+			scoreboard players reset @s kpq_coupon
+			scoreboard players reset @s kpq_question
 			scoreboard players reset @s playing_game
 			scoreboard players remove #KPQ_MEMBER temp 1
 			
@@ -131,6 +154,75 @@ namespace party_quest() as virtual
 			function main:bgm/search/kerning_city
 			
 			bossbar set ui:clock/kpq players @a[scores={playing_game=1}]
+		}
+		
+		folder stages()
+		{
+			folder 1()
+			{
+				folder npc()
+				{
+					folder cloto()
+					{
+						func talk()
+						{
+							execute if score #KPQ_STAGE temp matches 1 run function ARG(_PATH)check
+							execute if score #KPQ_STAGE temp matches 2.. run tellraw @s {"translate":"text.quest.party_quest.kpq.go_next"}
+						}
+						
+						func check()
+						{
+							execute if score @s kpq_coupon matches 1.. run function ARG(_PATH)coupon_check
+							execute unless score @s kpq_coupon matches 1.. run function ARG(_PATH)pass_check
+						}
+						
+						func pass_check()
+						{
+							execute store result score #GLOBAL temp run clear @s minecraft:string{CustomModelData:4001008} 0
+							execute unless score #GLOBAL temp = #KPQ_PASS_REQUIRED temp run tellraw @s {"translate":"text.quest.party_quest.kpq.stage1.require_pass","with":[{"score":{"objective":"temp","name":"#KPQ_PASS_REQUIRED"}}]}
+							execute if score #GLOBAL temp = #KPQ_PASS_REQUIRED temp run function ARG(_PATH)pass
+						}
+						
+						func pass()
+						{
+							function quest:party_quest/kpq/title/clear/run
+							scoreboard players add #KPQ_STAGE temp 1
+							
+							scoreboard players set #EXP_GAIN temp 100
+							scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
+							execute as @a[scores={playing_game=1}] at @s run function quest:get_exp
+							tellraw @s {"translate":"text.quest.party_quest.kpq.stage1.pass","with":[{"score":{"objective":"temp","name":"#KPQ_PASS_REQUIRED"}}]}
+						}
+						
+						func coupon_check()
+						{
+							execute store result score #GLOBAL temp run clear @s minecraft:string{CustomModelData:4001007} 0
+							execute unless score #GLOBAL temp = @s kpq_coupon run function ARG(_PATH)show_question
+							execute if score #GLOBAL temp = @s kpq_coupon run function ARG(_PATH)get_pass
+						}
+						
+						func show_question()
+						{
+							tellraw @s {"translate":"text.quest.party_quest.kpq.stage1.require_coupon"}
+							execute if score @s kpq_question matches 1 run tellraw @s {"translate":"text.quest.party_quest.kpq.stage1.question.1"}
+							execute if score @s kpq_question matches 2 run tellraw @s {"translate":"text.quest.party_quest.kpq.stage1.question.2"}
+							execute if score @s kpq_question matches 3 run tellraw @s {"translate":"text.quest.party_quest.kpq.stage1.question.3"}
+							execute if score @s kpq_question matches 4 run tellraw @s {"translate":"text.quest.party_quest.kpq.stage1.question.4"}
+							execute if score @s kpq_question matches 5 run tellraw @s {"translate":"text.quest.party_quest.kpq.stage1.question.5"}
+							execute if score @s kpq_question matches 6 run tellraw @s {"translate":"text.quest.party_quest.kpq.stage1.question.6"}
+						}
+						
+						func get_pass()
+						{
+							give @s minecraft:string{CustomModelData:4001008,HideFlags:127,display:{Name:'{"translate":"item.etc.4001008","font":"minecraft:uniform","bold":true,"italic":false}'}}
+							clear @s minecraft:string{CustomModelData:4001007}
+							scoreboard players reset @s kpq_coupon
+							scoreboard players reset @s kpq_question
+							tellraw @s {"translate":"text.quest.party_quest.kpq.stage1.get_pass"}
+						}
+					}
+				}
+			}
 		}
 		
 		folder title() from pq_title_template("KPQ", 1);
