@@ -180,7 +180,7 @@ namespace party_quest() as virtual
 						
 						func pass_check()
 						{
-							execute store result score #GLOBAL temp run clear @s minecraft:string{CustomModelData:4001008} 0
+							execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001008} 0
 							execute unless score #GLOBAL temp = #KPQ_PASS_REQUIRED temp run tellraw @s {"translate":"text.quest.party_quest.kpq.stage1.require_pass","with":[{"score":{"objective":"temp","name":"#KPQ_PASS_REQUIRED"}}]}
 							execute if score #GLOBAL temp = #KPQ_PASS_REQUIRED temp run function ARG(_PATH)pass
 						}
@@ -200,7 +200,7 @@ namespace party_quest() as virtual
 						
 						func coupon_check()
 						{
-							execute store result score #GLOBAL temp run clear @s minecraft:string{CustomModelData:4001007} 0
+							execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001007} 0
 							execute unless score #GLOBAL temp = @s kpq_coupon run function ARG(_PATH)show_question
 							execute if score #GLOBAL temp = @s kpq_coupon run function ARG(_PATH)get_pass
 						}
@@ -222,9 +222,9 @@ namespace party_quest() as virtual
 						
 						func get_pass()
 						{
-							clear @s minecraft:string{CustomModelData:4001007}
+							clear @s minecraft:stick{CustomModelData:4001007}
 							tellraw @s {"translate":"text.quest.item_lost_multiple","color":"gray","with":[{"score":{"objective":"kpq_coupon","name":"@s"}},{"translate":"item.etc.4001007"}]}
-							give @s minecraft:string{CustomModelData:4001008,HideFlags:127,display:{Name:'{"translate":"item.etc.4001008","font":"minecraft:uniform","bold":true,"italic":false}'}}
+							give @s minecraft:stick{CustomModelData:4001008,HideFlags:127,display:{Name:'{"translate":"item.etc.4001008","font":"minecraft:uniform","bold":true,"italic":false}'}}
 							tellraw @s {"translate":"text.quest.item_gain","color":"gray","with":[{"translate":"item.etc.4001008"}]}
 							
 							scoreboard players reset @s kpq_coupon

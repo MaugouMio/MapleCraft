@@ -68,7 +68,7 @@ namespace item()
 	func install()
 	{
 		scoreboard objectives add pick_meso minecraft.picked_up:minecraft.diamond
-		scoreboard objectives add pick_etc minecraft.picked_up:minecraft.string
+		scoreboard objectives add pick_etc minecraft.picked_up:minecraft.stick
 		scoreboard objectives add pick_weapon minecraft.picked_up:minecraft.diamond_axe
 		scoreboard objectives add pick_consume minecraft.picked_up:minecraft.warped_fungus_on_a_stick
 		
