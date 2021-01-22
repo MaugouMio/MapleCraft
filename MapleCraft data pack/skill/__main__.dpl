@@ -134,10 +134,12 @@ namespace attack_skill_template(skill_id) as virtual
 		
 		function skill:show_num_at_height
 		
-		scoreboard players reset @s ARG(skill_id)_eid
-		data remove entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0]
 		execute if score @s hp matches ..0 unless score @s queuing_effect matches 1.. run function skill:mob_effect/dead
-		execute if data entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0] store result score @s ARG(skill_id)_eid run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].time
+		data remove entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0]
+		execute unless data entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0] run scoreboard players reset @s ARG(skill_id)_eid
+		execute store result score #GLOBAL temp run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].time
+		execute if score #GLOBAL temp = @s ARG(skill_id)_eid run function ARG(_PATH)perform_effect
+		execute if data entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0] run scoreboard players operation @s ARG(skill_id)_eid = #GLOBAL temp
 	}
 	
 	func facing_effect()
@@ -361,10 +363,12 @@ namespace bullet_skill_template(skill_id) as virtual
 		
 		function skill:show_num_at_height
 		
-		scoreboard players reset @s ARG(skill_id)_eid
-		data remove entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0]
 		execute if score @s hp matches ..0 unless score @s queuing_effect matches 1.. run function skill:mob_effect/dead
-		execute if data entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0] store result score @s ARG(skill_id)_eid run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].time
+		data remove entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0]
+		execute unless data entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0] run scoreboard players reset @s ARG(skill_id)_eid
+		execute store result score #GLOBAL temp run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].time
+		execute if score #GLOBAL temp = @s ARG(skill_id)_eid run function ARG(_PATH)perform_effect
+		execute if data entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0] run scoreboard players operation @s ARG(skill_id)_eid = #GLOBAL temp
 	}
 	
 	func facing_effect()
