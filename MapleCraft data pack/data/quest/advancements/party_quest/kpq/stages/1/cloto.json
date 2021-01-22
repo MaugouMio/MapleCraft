@@ -1,0 +1,21 @@
+{
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:player_interacted_with_entity",
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "nbt": "Tags:[\"cloto_s1\"]"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "function": "quest:party_quest/kpq/stages/1/npc/cloto/talk"
+  }
+}

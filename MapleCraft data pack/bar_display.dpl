@@ -292,6 +292,7 @@ namespace bar_display()
 			tag @s remove dead
 			
 			gamemode adventure @s
+			effect give @s minecraft:invisibility 1 0 true
 		}
 		
 		folder tomb_check()

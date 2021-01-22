@@ -1,0 +1,241 @@
+namespace pq_title_template(name, id) as virtual
+{
+	folder clear()
+	{
+		func run()
+		{
+			scoreboard players set #ARG(name)_TITLE_EFFECT temp 0
+			execute as @a[scores={playing_game=ARG(id)}] at @s run function ARG(_PATH)start
+			schedule function ARG(_PATH)loop 2t
+		}
+		
+		func start()
+		{
+			title @s times 0 40 0
+			title @s title {"text":"0","font":"ui:title/pq_clear"}
+			playsound minecraft:game.pq_clear player @s
+		}
+		
+		func loop()
+		{
+			scoreboard players add #ARG(name)_TITLE_EFFECT temp 1
+			title @a[scores={playing_game=ARG(id)}] title {"score":{"objective":"temp","name":"#ARG(name)_TITLE_EFFECT"},"font":"ui:title/pq_clear"}
+			execute if score #ARG(name)_TITLE_EFFECT temp matches ..3 run schedule function ARG(_PATH)loop 2t
+		}
+	}
+	
+	folder wrong()
+	{
+		func run()
+		{
+			scoreboard players set #ARG(name)_TITLE_EFFECT temp 0
+			execute as @a[scores={playing_game=ARG(id)}] at @s run function ARG(_PATH)start
+			schedule function ARG(_PATH)loop 2t
+		}
+		
+		func start()
+		{
+			title @s times 0 30 0
+			title @s title {"text":"0","font":"ui:title/pq_wrong"}
+			playsound minecraft:game.pq_wrong player @s
+		}
+		
+		func loop()
+		{
+			scoreboard players add #ARG(name)_TITLE_EFFECT temp 1
+			title @a[scores={playing_game=ARG(id)}] title {"score":{"objective":"temp","name":"#ARG(name)_TITLE_EFFECT"},"font":"ui:title/pq_wrong"}
+			execute if score #ARG(name)_TITLE_EFFECT temp matches ..3 run schedule function ARG(_PATH)loop 2t
+		}
+	}
+}
+
+namespace pq_clock_template(name, id) as virtual
+{
+	```
+	party_quest_list.append("ARG(name)")
+	```
+	func start()
+	{
+		```
+		print(f'scoreboard players set #{"ARG(name)".upper()}_CLOCK_TIME temp 1800')
+		```
+		function ARG(_PATH)countdown
+	}
+	
+	func countdown()
+	{
+		```
+		print(f'scoreboard players remove #{"ARG(name)".upper()}_CLOCK_TIME temp 1')
+		print(f'execute if score #{"ARG(name)".upper()}_CLOCK_TIME temp matches 0.. run function ARG(_PATH)set_clock')
+		print(f'execute if score #{"ARG(name)".upper()}_CLOCK_TIME temp matches -1 as @a[scores={{playing_game=ARG(id)}}] run function ARG(__PATH)reset')
+		
+		print(f'execute if score #{"ARG(name)".upper()}_MEMBER temp matches 1.. run schedule function ARG(_PATH)countdown 1s')
+		```
+	}
+	
+	func set_clock()
+	{
+		```
+		print(f'scoreboard players operation #GLOBAL temp = #{"ARG(name)".upper()}_CLOCK_TIME temp')
+		print("function quest:get_clock_time")
+		print('bossbar set ui:clock/ARG(name) name [{"text":"a","font":"ui:title/clock"},{"text":"B95","font":"space:default"},{"score":{"objective":"temp","name":"#CLOCK_MIN_10"}},{"text":"1","font":"space:default"},{"score":{"objective":"temp","name":"#CLOCK_MIN_1"}},{"text":"\\uF829\\uF824","font":"space:default"},{"score":{"objective":"temp","name":"#CLOCK_SEC_10"}},{"text":"1","font":"space:default"},{"score":{"objective":"temp","name":"#CLOCK_SEC_1"}},{"text":"\\uF828\\uF825","font":"space:default"}]')
+		```
+	}
+}
+
+namespace party_quest() as virtual
+{
+	func install()
+	{
+		scoreboard objectives add kpq_coupon dummy
+		scoreboard objectives add kpq_question dummy
+	}
+	
+	folder kpq()
+	{
+		func start()
+		{
+			execute as @a run function ARG(_PATH)join
+			function ARG(_PATH)clock/start
+			
+			bossbar set ui:clock/kpq players @a[scores={playing_game=1}]
+			scoreboard players set #KPQ_STAGE temp 1
+			
+			scoreboard players operation #KPQ_PASS_REQUIRED temp = #KPQ_MEMBER temp
+			execute if score #KPQ_PASS_REQUIRED temp matches 2.. run scoreboard players remove #KPQ_PASS_REQUIRED temp 1
+		}
+		
+		func join()
+		{
+			title @s times 1 5 10
+			title @s title {"text":"4","font":"ui:main"}
+			# tp ...
+			scoreboard players set @s playing_game 1
+			scoreboard players add #KPQ_MEMBER temp 1
+			scoreboard players set @s bgm 3
+			function main:bgm/search/jungle_book
+			
+			scoreboard players set #RANGE_MAX temp 9
+			function main:rand_range
+			execute store result score @s kpq_question run scoreboard players add #RAND_RANGE_RESULT temp 1
+			execute if score #RAND_RANGE_RESULT temp matches 1..3 run scoreboard players set @s kpq_coupon 10
+			execute if score #RAND_RANGE_RESULT temp matches 4 run scoreboard players set @s kpq_coupon 35
+			execute if score #RAND_RANGE_RESULT temp matches 5..6 run scoreboard players set @s kpq_coupon 25
+			execute if score #RAND_RANGE_RESULT temp matches 7 run scoreboard players set @s kpq_coupon 8
+			execute if score #RAND_RANGE_RESULT temp matches 8 run scoreboard players set @s kpq_coupon 20
+			execute if score #RAND_RANGE_RESULT temp matches 9 run scoreboard players set @s kpq_coupon 15
+		}
+		
+		func leave()
+		{
+			title @s times 1 5 10
+			title @s title {"text":"4","font":"ui:main"}
+			# tp ...
+			scoreboard players reset @s playing_game
+			scoreboard players remove #KPQ_MEMBER temp 1
+			loot give @s loot quest:kpq_award
+			
+			bossbar set ui:clock/kpq players @a[scores={playing_game=1}]
+		}
+		
+		func reset()
+		{
+			execute if entity @s[tag=dead] run function bar_display:death/revive
+			scoreboard players reset @s kpq_coupon
+			scoreboard players reset @s kpq_question
+			scoreboard players reset @s playing_game
+			scoreboard players remove #KPQ_MEMBER temp 1
+			
+			title @s times 1 5 10
+			title @s title {"text":"4","font":"ui:main"}
+			# tp ...
+			
+			scoreboard players set @s bgm 2
+			function main:bgm/search/kerning_city
+			
+			bossbar set ui:clock/kpq players @a[scores={playing_game=1}]
+		}
+		
+		folder stages()
+		{
+			folder 1()
+			{
+				folder npc()
+				{
+					folder cloto()
+					{
+						func talk()
+						{
+							tellraw @s ""
+							execute if score #KPQ_STAGE temp matches 1 run function ARG(_PATH)check
+							execute if score #KPQ_STAGE temp matches 2.. run tellraw @s {"translate":"text.quest.party_quest.kpq.go_next"}
+							advancement revoke @s only quest:party_quest/kpq/stages/1/cloto
+						}
+						
+						func check()
+						{
+							execute if score @s kpq_coupon matches 1.. run function ARG(_PATH)coupon_check
+							execute unless score @s kpq_coupon matches 1.. run function ARG(_PATH)pass_check
+						}
+						
+						func pass_check()
+						{
+							execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001008} 0
+							execute unless score #GLOBAL temp = #KPQ_PASS_REQUIRED temp run tellraw @s {"translate":"text.quest.party_quest.kpq.stage1.require_pass","with":[{"score":{"objective":"temp","name":"#KPQ_PASS_REQUIRED"}}]}
+							execute if score #GLOBAL temp = #KPQ_PASS_REQUIRED temp run function ARG(_PATH)pass
+						}
+						
+						func pass()
+						{
+							function quest:party_quest/kpq/title/clear/run
+							scoreboard players add #KPQ_STAGE temp 1
+							
+							# open portal
+							
+							scoreboard players set #EXP_GAIN temp 100
+							scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
+							execute as @a[scores={playing_game=1}] at @s run function quest:get_exp
+							tellraw @s {"translate":"text.quest.party_quest.kpq.stage1.pass","with":[{"score":{"objective":"temp","name":"#KPQ_PASS_REQUIRED"}}]}
+						}
+						
+						func coupon_check()
+						{
+							execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001007} 0
+							execute unless score #GLOBAL temp = @s kpq_coupon run function ARG(_PATH)show_question
+							execute if score #GLOBAL temp = @s kpq_coupon run function ARG(_PATH)get_pass
+						}
+						
+						func show_question()
+						{
+							tellraw @s {"translate":"text.quest.party_quest.kpq.stage1.introduce"}
+							execute if score @s kpq_question matches 1 run data modify storage quest:main temp set value '{"translate":"text.quest.party_quest.kpq.stage1.question.1"}'
+							execute if score @s kpq_question matches 2 run data modify storage quest:main temp set value '{"translate":"text.quest.party_quest.kpq.stage1.question.2"}'
+							execute if score @s kpq_question matches 3 run data modify storage quest:main temp set value '{"translate":"text.quest.party_quest.kpq.stage1.question.3"}'
+							execute if score @s kpq_question matches 4 run data modify storage quest:main temp set value '{"translate":"text.quest.party_quest.kpq.stage1.question.4"}'
+							execute if score @s kpq_question matches 5 run data modify storage quest:main temp set value '{"translate":"text.quest.party_quest.kpq.stage1.question.5"}'
+							execute if score @s kpq_question matches 6 run data modify storage quest:main temp set value '{"translate":"text.quest.party_quest.kpq.stage1.question.6"}'
+							execute if score @s kpq_question matches 7 run data modify storage quest:main temp set value '{"translate":"text.quest.party_quest.kpq.stage1.question.7"}'
+							execute if score @s kpq_question matches 8 run data modify storage quest:main temp set value '{"translate":"text.quest.party_quest.kpq.stage1.question.8"}'
+							execute if score @s kpq_question matches 9 run data modify storage quest:main temp set value '{"translate":"text.quest.party_quest.kpq.stage1.question.9"}'
+							tellraw @s {"translate":"text.quest.party_quest.kpq.stage1.require_coupon","with":[{"nbt":"temp","storage":"quest:main","interpret":true}]}
+						}
+						
+						func get_pass()
+						{
+							clear @s minecraft:stick{CustomModelData:4001007}
+							tellraw @s {"translate":"text.quest.item_lost_multiple","color":"gray","with":[{"score":{"objective":"kpq_coupon","name":"@s"}},{"translate":"item.etc.4001007"}]}
+							give @s minecraft:stick{CustomModelData:4001008,HideFlags:127,display:{Name:'{"translate":"item.etc.4001008","font":"minecraft:uniform","bold":true,"italic":false}'}}
+							tellraw @s {"translate":"text.quest.item_gain","color":"gray","with":[{"translate":"item.etc.4001008"}]}
+							
+							scoreboard players reset @s kpq_coupon
+							scoreboard players reset @s kpq_question
+						}
+					}
+				}
+			}
+		}
+		
+		folder title() from pq_title_template("KPQ", 1);
+		folder clock() from pq_clock_template("kpq", 1);
+	}
+}

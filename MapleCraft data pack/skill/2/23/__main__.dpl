@@ -33,13 +33,23 @@ namespace 23() as virtual
 		{
 			func check()
 			{
-				execute if score @s level matches 30.. unless score @s skill_point matches 1.. at @s run function ARG(_PATH)run
+				scoreboard players operation #GLOBAL temp = @s level
+				scoreboard players remove #GLOBAL temp 30
+				scoreboard players operation #GLOBAL temp *= #3 const
+				execute if score @s level matches 30.. unless score @s skill_point > #GLOBAL temp at @s run function ARG(_PATH)run
 			}
 			
 			func run()
 			{
 				tag @s add cleric
 				function stat:job/hp_mp/magician/second
+					
+				scoreboard players set @s 2100000_level 0
+				scoreboard players set @s 2101002_level 0
+				scoreboard players set @s 2301002_level 0
+				scoreboard players set @s 2301003_level 0
+				scoreboard players set @s 2301004_level 0
+				scoreboard players set @s 2301005_level 0
 			}
 		}
 		
@@ -50,7 +60,7 @@ namespace 23() as virtual
 		{
 			func check()
 			{
-				execute unless score @s action_time matches 0.. if score @s 2301002_level matches 1.. run function ARG(_PATH)other_check
+				execute unless score @s action_time matches 0.. if score @s 2301002_level matches 1.. unless block ~0.3 ~ ~0.3 #minecraft:climbable unless block ~0.3 ~ ~-0.3 #minecraft:climbable unless block ~-0.3 ~ ~0.3 #minecraft:climbable unless block ~-0.3 ~ ~-0.3 #minecraft:climbable run function ARG(_PATH)other_check
 			}
 			
 			func other_check()
@@ -135,7 +145,7 @@ namespace 23() as virtual
 			
 			func heal()
 			{
-				execute if entity @s[tag=!caster] positioned ~ ~0.8 ~ run function skill:summon_font_effect/2301002hit
+				execute if entity @s[tag=!caster] positioned ~ ~1.2 ~ run function skill:summon_font_effect/2301002hit
 				execute if score @s hp < @s hp_max run function ARG(_PATH)did_need_heal
 				
 				tag @s remove target
@@ -152,10 +162,22 @@ namespace 23() as virtual
 			
 			func rand_recovery() from random().generate("#MIN_HEAL_AMOUNT temp", "#MAX_HEAL_AMOUNT temp", "#FINAL_HEAL temp");
 			
-			func effect()
+			# override
+			folder forward_effect()
 			{
-				execute if score @s display_number matches 1.. positioned ~ ~0.8 ~ run function skill:summon_font_effect/2301002hit
-				function skill:mob_effect/play_hurt_sound/run
+				func run()
+				{
+					scoreboard players operation #DEFAULT_SIZE temp = @s default_height
+					execute positioned ~ ~0.4 ~ run function ARG(_PATH)loop
+					function skill:mob_effect/play_hurt_sound/run
+				}
+				
+				func loop()
+				{
+					scoreboard players remove #DEFAULT_SIZE temp 1
+					execute if score #DEFAULT_SIZE temp matches -1 run function skill:summon_font_effect/2301002hit
+					execute if score #DEFAULT_SIZE temp matches 0.. positioned ~ ~0.4 ~ run function ARG(_PATH)loop
+				}
 			}
 				
 			```
@@ -442,7 +464,7 @@ namespace 23() as virtual
 		{
 			func check()
 			{
-				execute unless score @s action_time matches 0.. if score @s[nbt={OnGround:1b}] 2301005_level matches 1.. run function ARG(_PATH)other_check
+				execute unless score @s action_time matches 0.. if score @s[nbt={OnGround:1b}] 2301005_level matches 1.. unless block ~0.3 ~ ~0.3 #minecraft:climbable unless block ~0.3 ~ ~-0.3 #minecraft:climbable unless block ~-0.3 ~ ~0.3 #minecraft:climbable unless block ~-0.3 ~ ~-0.3 #minecraft:climbable run function ARG(_PATH)other_check
 			}
 			
 			func other_check()

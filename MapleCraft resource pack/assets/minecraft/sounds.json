@@ -509,6 +509,14 @@
 			}
 		]
 	},
+	"mob.die.2110200": {
+		"sounds": [
+			{
+				"name": "mob/die/2110200",
+				"stream": true
+			}
+		]
+	},
 	
 	
 	
@@ -612,6 +620,22 @@
 			}
 		]
 	},
+	"game.pq_clear": {
+		"sounds": [
+			{
+				"name": "game/pq_clear",
+				"stream": true
+			}
+		]
+	},
+	"game.pq_wrong": {
+		"sounds": [
+			{
+				"name": "game/pq_wrong",
+				"stream": true
+			}
+		]
+	},
 	
 	
 	
@@ -634,6 +658,41 @@
 	
 	
 	
+	"bgm.title": {
+		"sounds": [
+			{
+				"name": "bgm/title",
+				"stream": true
+			}
+		]
+	},
+	"bgm.kerning_city": {
+		"sounds": [
+			{
+				"name": "bgm/kerning_city",
+				"stream": true
+			}
+		]
+	},
+	"bgm.jungle_book": {
+		"sounds": [
+			{
+				"name": "bgm/jungle_book",
+				"stream": true
+			}
+		]
+	},
+	"bgm.sleepy_wood": {
+		"sounds": [
+			{
+				"name": "bgm/sleepy_wood",
+				"stream": true
+			}
+		]
+	},
+	
+	
+	
 	"entity.item.pickup": {
 		"sounds": [
 			{ "name": "empty" }
@@ -641,6 +700,12 @@
 		"replace": true
 	},
 	"entity.player.hurt": {
+		"sounds": [
+			{ "name": "empty" }
+		],
+		"replace": true
+	},
+	"block.chain.step": {
 		"sounds": [
 			{ "name": "empty" }
 		],

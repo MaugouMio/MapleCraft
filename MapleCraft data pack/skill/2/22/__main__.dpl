@@ -29,13 +29,23 @@ namespace 22() as virtual
 		{
 			func check()
 			{
-				execute if score @s level matches 30.. unless score @s skill_point matches 1.. at @s run function ARG(_PATH)run
+				scoreboard players operation #GLOBAL temp = @s level
+				scoreboard players remove #GLOBAL temp 30
+				scoreboard players operation #GLOBAL temp *= #3 const
+				execute if score @s level matches 30.. unless score @s skill_point > #GLOBAL temp at @s run function ARG(_PATH)run
 			}
 			
 			func run()
 			{
 				tag @s add wizard_il
 				function stat:job/hp_mp/magician/second
+					
+				scoreboard players set @s 2100000_level 0
+				scoreboard players set @s 2101001_level 0
+				scoreboard players set @s 2101002_level 0
+				scoreboard players set @s 2101003_level 0
+				scoreboard players set @s 2201004_level 0
+				scoreboard players set @s 2201005_level 0
 			}
 		}
 		
@@ -48,7 +58,7 @@ namespace 22() as virtual
 		{
 			func check()
 			{
-				execute unless score @s action_time matches 0.. if score @s[nbt={OnGround:1b}] 2201004_level matches 1.. run function ARG(_PATH)other_check
+				execute unless score @s action_time matches 0.. if score @s[nbt={OnGround:1b}] 2201004_level matches 1.. unless block ~0.3 ~ ~0.3 #minecraft:climbable unless block ~0.3 ~ ~-0.3 #minecraft:climbable unless block ~-0.3 ~ ~0.3 #minecraft:climbable unless block ~-0.3 ~ ~-0.3 #minecraft:climbable run function ARG(_PATH)other_check
 			}
 			
 			func other_check()
@@ -177,7 +187,7 @@ namespace 22() as virtual
 		{
 			func check()
 			{
-				execute unless score @s action_time matches 0.. if score @s[nbt={OnGround:1b}] 2201005_level matches 1.. run function ARG(_PATH)other_check
+				execute unless score @s action_time matches 0.. if score @s[nbt={OnGround:1b}] 2201005_level matches 1.. unless block ~0.3 ~ ~0.3 #minecraft:climbable unless block ~0.3 ~ ~-0.3 #minecraft:climbable unless block ~-0.3 ~ ~0.3 #minecraft:climbable unless block ~-0.3 ~ ~-0.3 #minecraft:climbable run function ARG(_PATH)other_check
 			}
 			
 			func other_check()

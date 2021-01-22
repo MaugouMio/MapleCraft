@@ -8,6 +8,8 @@ namespace 42() as virtual
 	
 	func install()
 	{
+		scoreboard objectives add 4200000_level dummy
+		
 		scoreboard objectives add 4201002_level dummy
 		scoreboard objectives add 4201002_mp dummy
 		scoreboard objectives add 4201002_time dummy
@@ -29,13 +31,23 @@ namespace 42() as virtual
 		{
 			func check()
 			{
-				execute if score @s level matches 30.. unless score @s skill_point matches 1.. at @s run function ARG(_PATH)run
+				scoreboard players operation #GLOBAL temp = @s level
+				scoreboard players remove #GLOBAL temp 30
+				scoreboard players operation #GLOBAL temp *= #3 const
+				execute if score @s level matches 30.. unless score @s skill_point > #GLOBAL temp at @s run function ARG(_PATH)run
 			}
 			
 			func run()
 			{
 				tag @s add bandit
 				function stat:job/hp_mp/archer_thief/second
+				
+				scoreboard players set @s 4200000_level 0
+				scoreboard players set @s 4100002_level 0
+				scoreboard players set @s 4201002_level 0
+				scoreboard players set @s 4101004_level 0
+				scoreboard players set @s 4201004_level 0
+				scoreboard players set @s 4201005_level 0
 			}
 		}
 		
@@ -125,7 +137,7 @@ namespace 42() as virtual
 		{
 			func check()
 			{
-				execute unless score @s action_time matches 0.. if score @s 4201004_level matches 1.. unless score @s invis_buff_time matches 1.. run function ARG(_PATH)other_check
+				execute unless score @s action_time matches 0.. if score @s 4201004_level matches 1.. unless score @s invis_buff_time matches 1.. unless block ~0.3 ~ ~0.3 #minecraft:climbable unless block ~0.3 ~ ~-0.3 #minecraft:climbable unless block ~-0.3 ~ ~0.3 #minecraft:climbable unless block ~-0.3 ~ ~-0.3 #minecraft:climbable run function ARG(_PATH)other_check
 			}
 			
 			func other_check()
@@ -280,7 +292,7 @@ namespace 42() as virtual
 		{
 			func check()
 			{
-				execute unless score @s action_time matches 0.. if score @s 4201005_level matches 1.. unless score @s invis_buff_time matches 1.. run function ARG(_PATH)other_check
+				execute unless score @s action_time matches 0.. if score @s 4201005_level matches 1.. unless score @s invis_buff_time matches 1.. unless block ~0.3 ~ ~0.3 #minecraft:climbable unless block ~0.3 ~ ~-0.3 #minecraft:climbable unless block ~-0.3 ~ ~0.3 #minecraft:climbable unless block ~-0.3 ~ ~-0.3 #minecraft:climbable run function ARG(_PATH)other_check
 			}
 			
 			func other_check()
@@ -331,7 +343,7 @@ namespace 42() as virtual
 			func effect()
 			{
 				execute if score @s display_number matches 1.. positioned ^ ^0.3 ^0.5 run function ARG(_PATH)rand_hit_effect
-				playsound minecraft:skill.4201005_hit hostile @a ~ ~ ~ 1 1 0
+				playsound minecraft:skill.4201005_hit player @a ~ ~ ~ 1 1 0
 			}
 			
 			func rand_hit_effect()
