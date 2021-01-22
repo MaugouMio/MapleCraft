@@ -115,15 +115,15 @@ namespace party_quest() as virtual
 			scoreboard players set @s bgm 3
 			function main:bgm/search/jungle_book
 			
-			scoreboard players set #RANGE_MAX temp 6
+			scoreboard players set #RANGE_MAX temp 9
 			function main:rand_range
 			execute store result score @s kpq_question run scoreboard players add #RAND_RANGE_RESULT temp 1
-			execute if score #RAND_RANGE_RESULT temp matches 1 run scoreboard players set @s kpq_coupon 10
-			execute if score #RAND_RANGE_RESULT temp matches 2 run scoreboard players set @s kpq_coupon 35
-			execute if score #RAND_RANGE_RESULT temp matches 3 run scoreboard players set @s kpq_coupon 25
-			execute if score #RAND_RANGE_RESULT temp matches 4 run scoreboard players set @s kpq_coupon 8
-			execute if score #RAND_RANGE_RESULT temp matches 5 run scoreboard players set @s kpq_coupon 20
-			execute if score #RAND_RANGE_RESULT temp matches 6 run scoreboard players set @s kpq_coupon 15
+			execute if score #RAND_RANGE_RESULT temp matches 1..3 run scoreboard players set @s kpq_coupon 10
+			execute if score #RAND_RANGE_RESULT temp matches 4 run scoreboard players set @s kpq_coupon 35
+			execute if score #RAND_RANGE_RESULT temp matches 5..6 run scoreboard players set @s kpq_coupon 25
+			execute if score #RAND_RANGE_RESULT temp matches 7 run scoreboard players set @s kpq_coupon 8
+			execute if score #RAND_RANGE_RESULT temp matches 8 run scoreboard players set @s kpq_coupon 20
+			execute if score #RAND_RANGE_RESULT temp matches 9 run scoreboard players set @s kpq_coupon 15
 		}
 		
 		func leave()
@@ -166,8 +166,10 @@ namespace party_quest() as virtual
 					{
 						func talk()
 						{
+							tellraw @s ""
 							execute if score #KPQ_STAGE temp matches 1 run function ARG(_PATH)check
 							execute if score #KPQ_STAGE temp matches 2.. run tellraw @s {"translate":"text.quest.party_quest.kpq.go_next"}
+							advancement revoke @s only quest:party_quest/kpq/stages/1/cloto
 						}
 						
 						func check()
@@ -188,6 +190,8 @@ namespace party_quest() as virtual
 							function quest:party_quest/kpq/title/clear/run
 							scoreboard players add #KPQ_STAGE temp 1
 							
+							# open portal
+							
 							scoreboard players set #EXP_GAIN temp 100
 							scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
 							execute as @a[scores={playing_game=1}] at @s run function quest:get_exp
@@ -203,22 +207,28 @@ namespace party_quest() as virtual
 						
 						func show_question()
 						{
-							tellraw @s {"translate":"text.quest.party_quest.kpq.stage1.require_coupon"}
-							execute if score @s kpq_question matches 1 run tellraw @s {"translate":"text.quest.party_quest.kpq.stage1.question.1"}
-							execute if score @s kpq_question matches 2 run tellraw @s {"translate":"text.quest.party_quest.kpq.stage1.question.2"}
-							execute if score @s kpq_question matches 3 run tellraw @s {"translate":"text.quest.party_quest.kpq.stage1.question.3"}
-							execute if score @s kpq_question matches 4 run tellraw @s {"translate":"text.quest.party_quest.kpq.stage1.question.4"}
-							execute if score @s kpq_question matches 5 run tellraw @s {"translate":"text.quest.party_quest.kpq.stage1.question.5"}
-							execute if score @s kpq_question matches 6 run tellraw @s {"translate":"text.quest.party_quest.kpq.stage1.question.6"}
+							tellraw @s {"translate":"text.quest.party_quest.kpq.stage1.introduce"}
+							execute if score @s kpq_question matches 1 run data modify storage quest:main temp set value '{"translate":"text.quest.party_quest.kpq.stage1.question.1"}'
+							execute if score @s kpq_question matches 2 run data modify storage quest:main temp set value '{"translate":"text.quest.party_quest.kpq.stage1.question.2"}'
+							execute if score @s kpq_question matches 3 run data modify storage quest:main temp set value '{"translate":"text.quest.party_quest.kpq.stage1.question.3"}'
+							execute if score @s kpq_question matches 4 run data modify storage quest:main temp set value '{"translate":"text.quest.party_quest.kpq.stage1.question.4"}'
+							execute if score @s kpq_question matches 5 run data modify storage quest:main temp set value '{"translate":"text.quest.party_quest.kpq.stage1.question.5"}'
+							execute if score @s kpq_question matches 6 run data modify storage quest:main temp set value '{"translate":"text.quest.party_quest.kpq.stage1.question.6"}'
+							execute if score @s kpq_question matches 7 run data modify storage quest:main temp set value '{"translate":"text.quest.party_quest.kpq.stage1.question.7"}'
+							execute if score @s kpq_question matches 8 run data modify storage quest:main temp set value '{"translate":"text.quest.party_quest.kpq.stage1.question.8"}'
+							execute if score @s kpq_question matches 9 run data modify storage quest:main temp set value '{"translate":"text.quest.party_quest.kpq.stage1.question.9"}'
+							tellraw @s {"translate":"text.quest.party_quest.kpq.stage1.require_coupon","with":[{"nbt":"temp","storage":"quest:main","interpret":true}]}
 						}
 						
 						func get_pass()
 						{
-							give @s minecraft:string{CustomModelData:4001008,HideFlags:127,display:{Name:'{"translate":"item.etc.4001008","font":"minecraft:uniform","bold":true,"italic":false}'}}
 							clear @s minecraft:string{CustomModelData:4001007}
+							tellraw @s {"translate":"text.quest.item_lost_multiple","color":"gray","with":[{"score":{"objective":"kpq_coupon","name":"@s"}},{"translate":"item.etc.4001007"}]}
+							give @s minecraft:string{CustomModelData:4001008,HideFlags:127,display:{Name:'{"translate":"item.etc.4001008","font":"minecraft:uniform","bold":true,"italic":false}'}}
+							tellraw @s {"translate":"text.quest.item_gain","color":"gray","with":[{"translate":"item.etc.4001008"}]}
+							
 							scoreboard players reset @s kpq_coupon
 							scoreboard players reset @s kpq_question
-							tellraw @s {"translate":"text.quest.party_quest.kpq.stage1.get_pass"}
 						}
 					}
 				}
