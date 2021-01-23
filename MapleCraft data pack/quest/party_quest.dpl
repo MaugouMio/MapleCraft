@@ -136,6 +136,7 @@ namespace party_quest() as virtual
 			loot give @s loot quest:kpq_award
 			
 			bossbar set ui:clock/kpq players @a[scores={playing_game=1}]
+			execute if score #KPQ_MEMBER temp matches 0 run kill @e[type=#skill:enemy,tag=kpq_mob]
 		}
 		
 		func reset()
@@ -154,6 +155,7 @@ namespace party_quest() as virtual
 			function main:bgm/search/kerning_city
 			
 			bossbar set ui:clock/kpq players @a[scores={playing_game=1}]
+			execute if score #KPQ_MEMBER temp matches 0 run kill @e[type=#skill:enemy,tag=kpq_mob]
 		}
 		
 		folder stages()
