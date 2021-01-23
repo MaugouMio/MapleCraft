@@ -129,19 +129,19 @@ namespace party_quest() as virtual
 			execute if score #RAND_RANGE_RESULT temp matches 9 run scoreboard players set @s kpq_coupon 15
 		}
 		
-		func complete()
-		{
-			title @s times 1 5 10
-			title @s title {"text":"4","font":"ui:main"}
-			# tp ...
-			scoreboard players reset @s playing_game
-			scoreboard players reset @s game_stage
-			scoreboard players remove #KPQ_MEMBER temp 1
-			loot give @s loot quest:kpq_award
+		# func complete()
+		# {
+			# title @s times 1 5 10
+			# title @s title {"text":"4","font":"ui:main"}
+			## tp ...
+			# scoreboard players reset @s playing_game
+			# scoreboard players reset @s game_stage
+			# scoreboard players remove #KPQ_MEMBER temp 1
+			# loot give @s loot quest:kpq_award
 			
-			bossbar set ui:clock/kpq players @a[scores={playing_game=1}]
-			execute if score #KPQ_MEMBER temp matches 0 run function ARG(_PATH)reset
-		}
+			# bossbar set ui:clock/kpq players @a[scores={playing_game=1}]
+			# execute if score #KPQ_MEMBER temp matches 0 run function ARG(_PATH)reset
+		# }
 		
 		func leave()
 		{
@@ -149,7 +149,15 @@ namespace party_quest() as virtual
 			scoreboard players reset @s kpq_coupon
 			scoreboard players reset @s kpq_question
 			scoreboard players reset @s playing_game
+			
+			execute if score @s game_stage matches 1 unless entity @a[scores={playing_game=1,game_stage=1}] run function ARG(_PATH)stages/1/reset
+			execute if score @s game_stage matches 2 unless entity @a[scores={playing_game=1,game_stage=2}] run function ARG(_PATH)stages/2/reset
+			execute if score @s game_stage matches 3 unless entity @a[scores={playing_game=1,game_stage=3}] run function ARG(_PATH)stages/3/reset
+			execute if score @s game_stage matches 4 unless entity @a[scores={playing_game=1,game_stage=4}] run function ARG(_PATH)stages/4/reset
+			execute if score @s game_stage matches 5 unless entity @a[scores={playing_game=1,game_stage=5}] run function ARG(_PATH)stages/5/reset
+			execute if score @s game_stage matches 6 unless entity @a[scores={playing_game=1,game_stage=6}] run function ARG(_PATH)stages/6/reset
 			scoreboard players reset @s game_stage
+			
 			scoreboard players remove #KPQ_MEMBER temp 1
 			
 			title @s times 1 5 10
@@ -160,7 +168,6 @@ namespace party_quest() as virtual
 			function main:bgm/search/kerning_city
 			
 			bossbar set ui:clock/kpq players @a[scores={playing_game=1}]
-			execute if score #KPQ_MEMBER temp matches 0 run function ARG(_PATH)reset
 		}
 		
 		func reset()
