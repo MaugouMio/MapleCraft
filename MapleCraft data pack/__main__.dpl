@@ -117,7 +117,7 @@ namespace main()
 		func check()
 		{
 			execute if score @s action_time matches 1.. run tp @s @s
-			execute unless score @s action_time matches 1.. run function ARG(_PATH)effect
+			execute unless score @s action_time matches 1.. unless block ~0.3 ~ ~0.3 #minecraft:climbable unless block ~0.3 ~ ~-0.3 #minecraft:climbable unless block ~-0.3 ~ ~0.3 #minecraft:climbable unless block ~-0.3 ~ ~-0.3 #minecraft:climbable run function ARG(_PATH)effect
 			scoreboard players reset @s jump
 		}
 		
