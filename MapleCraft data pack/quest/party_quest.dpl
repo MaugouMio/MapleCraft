@@ -19,7 +19,9 @@ namespace pq_title_template(name, id) as virtual
 		func loop()
 		{
 			scoreboard players add #ARG(name)_TITLE_EFFECT temp 1
-			title @a[scores={playing_game=ARG(id)}] title {"score":{"objective":"temp","name":"#ARG(name)_TITLE_EFFECT"},"font":"ui:title/pq_clear"}
+			scoreboard players remove #ARG(name)_STAGE temp 1
+			execute as @a[scores={playing_game=ARG(id)}] if score @s game_stage = #ARG(name)_STAGE temp run title @s title {"score":{"objective":"temp","name":"#ARG(name)_TITLE_EFFECT"},"font":"ui:title/pq_clear"}
+			scoreboard players add #ARG(name)_STAGE temp 1
 			execute if score #ARG(name)_TITLE_EFFECT temp matches ..3 run schedule function ARG(_PATH)loop 2t
 		}
 	}
@@ -43,7 +45,7 @@ namespace pq_title_template(name, id) as virtual
 		func loop()
 		{
 			scoreboard players add #ARG(name)_TITLE_EFFECT temp 1
-			title @a[scores={playing_game=ARG(id)}] title {"score":{"objective":"temp","name":"#ARG(name)_TITLE_EFFECT"},"font":"ui:title/pq_wrong"}
+			execute as @a[scores={playing_game=ARG(id)}] if score @s game_stage = #ARG(name)_STAGE temp run title @s title {"score":{"objective":"temp","name":"#ARG(name)_TITLE_EFFECT"},"font":"ui:title/pq_wrong"}
 			execute if score #ARG(name)_TITLE_EFFECT temp matches ..3 run schedule function ARG(_PATH)loop 2t
 		}
 	}
@@ -111,6 +113,7 @@ namespace party_quest() as virtual
 			title @s title {"text":"4","font":"ui:main"}
 			# tp ...
 			scoreboard players set @s playing_game 1
+			scoreboard players set @s game_stage 1
 			scoreboard players add #KPQ_MEMBER temp 1
 			scoreboard players set @s bgm 3
 			function main:bgm/search/jungle_book
@@ -126,25 +129,27 @@ namespace party_quest() as virtual
 			execute if score #RAND_RANGE_RESULT temp matches 9 run scoreboard players set @s kpq_coupon 15
 		}
 		
-		func leave()
+		func complete()
 		{
 			title @s times 1 5 10
 			title @s title {"text":"4","font":"ui:main"}
 			# tp ...
 			scoreboard players reset @s playing_game
+			scoreboard players reset @s game_stage
 			scoreboard players remove #KPQ_MEMBER temp 1
 			loot give @s loot quest:kpq_award
 			
 			bossbar set ui:clock/kpq players @a[scores={playing_game=1}]
-			execute if score #KPQ_MEMBER temp matches 0 run kill @e[type=#skill:enemy,tag=kpq_mob]
+			execute if score #KPQ_MEMBER temp matches 0 run function ARG(_PATH)reset
 		}
 		
-		func reset()
+		func leave()
 		{
 			execute if entity @s[tag=dead] run function bar_display:death/revive
 			scoreboard players reset @s kpq_coupon
 			scoreboard players reset @s kpq_question
 			scoreboard players reset @s playing_game
+			scoreboard players reset @s game_stage
 			scoreboard players remove #KPQ_MEMBER temp 1
 			
 			title @s times 1 5 10
@@ -155,13 +160,43 @@ namespace party_quest() as virtual
 			function main:bgm/search/kerning_city
 			
 			bossbar set ui:clock/kpq players @a[scores={playing_game=1}]
-			execute if score #KPQ_MEMBER temp matches 0 run kill @e[type=#skill:enemy,tag=kpq_mob]
+			execute if score #KPQ_MEMBER temp matches 0 run function ARG(_PATH)reset
+		}
+		
+		func reset()
+		{
+			execute if score #KPQ_STAGE temp matches 1..2 run function ARG(_PATH)stages/1/reset
+			execute if score #KPQ_STAGE temp matches 2..3 run function ARG(_PATH)stages/2/reset
+			execute if score #KPQ_STAGE temp matches 3..4 run function ARG(_PATH)stages/3/reset
+			execute if score #KPQ_STAGE temp matches 4..5 run function ARG(_PATH)stages/4/reset
+			execute if score #KPQ_STAGE temp matches 5..6 run function ARG(_PATH)stages/5/reset
+			execute if score #KPQ_STAGE temp matches 6 run function ARG(_PATH)stages/6/reset
 		}
 		
 		folder stages()
 		{
 			folder 1()
 			{
+				func portal()
+				{
+					execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001008}
+					execute if score #GLOBAL temp matches 1.. run tellraw @s {"translate":"text.quest.item_lost_multiple","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"translate":"item.etc.4001008"}]}
+					
+					scoreboard players add @s game_stage 1
+					execute unless entity @a[scores={playing_game=1,game_stage=1}] run function ARG(_PATH)reset
+					
+					title @s times 1 5 10
+					title @s title {"text":"4","font":"ui:main"}
+					# tp ...
+				}
+				
+				func reset()
+				{
+					kill @e[type=#skill:enemy,tag=kpq_mob]
+					# data modify block <portal sign position> Text1 set value '""'
+					kill @e[type=armor_stand,tag=kpq_portal]
+				}
+				
 				folder npc()
 				{
 					folder cloto()
@@ -183,8 +218,8 @@ namespace party_quest() as virtual
 						func pass_check()
 						{
 							execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001008} 0
-							execute unless score #GLOBAL temp = #KPQ_PASS_REQUIRED temp run tellraw @s {"translate":"text.quest.party_quest.kpq.stage1.require_pass","with":[{"score":{"objective":"temp","name":"#KPQ_PASS_REQUIRED"}}]}
-							execute if score #GLOBAL temp = #KPQ_PASS_REQUIRED temp run function ARG(_PATH)pass
+							execute unless score #GLOBAL temp >= #KPQ_PASS_REQUIRED temp run tellraw @s {"translate":"text.quest.party_quest.kpq.stage1.require_pass","with":[{"score":{"objective":"temp","name":"#KPQ_PASS_REQUIRED"}}]}
+							execute if score #GLOBAL temp >= #KPQ_PASS_REQUIRED temp run function ARG(_PATH)pass
 						}
 						
 						func pass()
@@ -192,11 +227,15 @@ namespace party_quest() as virtual
 							function quest:party_quest/kpq/title/clear/run
 							scoreboard players add #KPQ_STAGE temp 1
 							
-							# open portal
+							# data modify block <portal sign position> Text1 set value '{"text":"","clickEvent":{"action":"run_command","value":"function quest:party_quest/kpq/stages/1/portal"}}'
+							# summon minecraft:armor_stand <portal position> {Tags:["kpq_portal"],Marker:1,Fire:32767s,NoGravity:1,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:4,CustomPotionColor:-1}}]}
 							
 							scoreboard players set #EXP_GAIN temp 100
 							scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
 							execute as @a[scores={playing_game=1}] at @s run function quest:get_exp
+							
+							clear @s minecraft:stick{CustomModelData:4001008}
+							tellraw @s {"translate":"text.quest.item_lost_multiple","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"translate":"item.etc.4001008"}]}
 							tellraw @s {"translate":"text.quest.party_quest.kpq.stage1.pass","with":[{"score":{"objective":"temp","name":"#KPQ_PASS_REQUIRED"}}]}
 						}
 						

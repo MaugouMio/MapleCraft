@@ -35,6 +35,7 @@ namespace quest()
 	func install()
 	{
 		scoreboard objectives add playing_game dummy
+		scoreboard objectives add game_stage dummy
 		```
 		for pq in party_quest_list:
 			print(f'bossbar add ui:clock/{pq} ""')
