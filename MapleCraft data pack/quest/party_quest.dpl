@@ -1,3 +1,5 @@
+import loop
+
 namespace pq_title_template(name, id) as virtual
 {
 	folder clear()
@@ -573,6 +575,7 @@ namespace party_quest() as virtual
 			{
 				func portal()
 				{
+					execute unless entity @a[scores={playing_game=1,game_stage=5}] run function ARG(__PATH)5/king_slime_skills/run
 					scoreboard players add @s game_stage 1
 					execute unless entity @a[scores={playing_game=1,game_stage=4}] run function ARG(_PATH)reset
 					
@@ -650,6 +653,69 @@ namespace party_quest() as virtual
 							# forceload add chunks for mob summon
 							# summon mobs
 							# forceload remove chunks for mob summon
+						}
+					}
+				}
+			}
+			
+			folder 5()
+			{
+				func complete()
+				{
+					scoreboard players add @s game_stage 1
+					execute unless entity @a[scores={playing_game=1,game_stage=5}] run function ARG(_PATH)reset
+					
+					title @s times 1 5 10
+					title @s title {"text":"4","font":"ui:main"}
+					# tp ...
+				}
+				
+				func reset()
+				{
+					kill @e[type=#skill:enemy,tag=kpq_mob]
+					kill @e[type=armor_stand,tag=kpq_portal]
+				}
+				
+				folder king_slime_skills() from schedule_loop(1s, "if score #KPQ_STAGE temp matches 5")
+				{
+					func execute()
+					{
+						
+					}
+				}
+				
+				folder npc()
+				{
+					folder cloto()
+					{
+						func talk()
+						{
+							tellraw @s ""
+							execute if score #KPQ_STAGE temp matches 5 run function ARG(_PATH)check
+							execute if score #KPQ_STAGE temp matches 6 run function quest:party_quest/kpq/stages/5/complete
+						}
+						
+						func check()
+						{
+							execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001008} 0
+							execute unless score #GLOBAL temp matches 10 run tellraw @s {"translate":"text.quest.party_quest.kpq.stage5.require_pass"}
+							execute if score #GLOBAL temp matches 10 run function ARG(_PATH)pass
+						}
+						
+						func pass()
+						{
+							function quest:party_quest/kpq/title/clear/run
+							scoreboard players add #KPQ_STAGE temp 1
+							
+							# summon minecraft:armor_stand <portal position> {Tags:["kpq_portal"],Marker:1,Fire:32767s,NoGravity:1,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:4,CustomPotionColor:-1}}]}
+							
+							scoreboard players set #EXP_GAIN temp 1500
+							scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
+							execute as @a[scores={playing_game=1},tag=!dead] at @s run function quest:get_exp
+							
+							clear @s minecraft:stick{CustomModelData:4001008}
+							tellraw @s {"translate":"text.quest.item_lost_multiple","color":"gray","with":["10",{"translate":"item.etc.4001008"}]}
+							tellraw @s {"translate":"text.quest.party_quest.kpq.stage5.pass"}
 						}
 					}
 				}
