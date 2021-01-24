@@ -440,6 +440,7 @@ namespace party_quest() as virtual
 							execute if score #COMBINATION temp matches 1.. run scoreboard players add #GLOBAL temp 1
 							
 							execute unless score #GLOBAL temp matches 3 run tellraw @s {"translate":"text.quest.party_quest.kpq.stage2.wrong_amount"}
+							execute if score #GLOBAL temp matches 3 run function quest:party_quest/kpq/title/wrong/run
 						}
 						
 						func pass()
@@ -531,6 +532,7 @@ namespace party_quest() as virtual
 							execute if score #COMBINATION temp matches 1.. run scoreboard players add #GLOBAL temp 1
 							
 							execute unless score #GLOBAL temp matches 3 run tellraw @s {"translate":"text.quest.party_quest.kpq.stage3.wrong_amount"}
+							execute if score #GLOBAL temp matches 3 run function quest:party_quest/kpq/title/wrong/run
 						}
 						
 						func pass()
@@ -636,6 +638,7 @@ namespace party_quest() as virtual
 							execute if score #COMBINATION temp matches 1.. run scoreboard players add #GLOBAL temp 1
 							
 							execute unless score #GLOBAL temp matches 3 run tellraw @s {"translate":"text.quest.party_quest.kpq.stage4.wrong_amount"}
+							execute if score #GLOBAL temp matches 3 run function quest:party_quest/kpq/title/wrong/run
 						}
 						
 						func pass()
