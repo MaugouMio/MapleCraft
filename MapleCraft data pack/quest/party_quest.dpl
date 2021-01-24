@@ -181,6 +181,10 @@ namespace party_quest() as virtual
 			
 			scoreboard players operation #KPQ_PASS_REQUIRED temp = #KPQ_MEMBER temp
 			execute if score #KPQ_PASS_REQUIRED temp matches 2.. run scoreboard players remove #KPQ_PASS_REQUIRED temp 1
+			
+			# forceload add chunk for mob spawner
+			# summon minecraft:area_effect_cloud <spawner position> {Duration:2147483647,Tags:["mob_spawner","kpq_mob_spawner"]}
+			# forceload remove chunk for mob spawner
 		}
 		
 		func join()
@@ -295,6 +299,7 @@ namespace party_quest() as virtual
 				func reset()
 				{
 					kill @e[type=#skill:enemy,tag=kpq_mob]
+					kill @e[type=area_effect_cloud,tag=kpq_mob_spawner]
 					# data modify block <portal sign position> Text1 set value '""'
 					kill @e[type=armor_stand,tag=kpq_portal]
 				}
@@ -388,6 +393,9 @@ namespace party_quest() as virtual
 				{
 					scoreboard players add @s game_stage 1
 					execute unless entity @a[scores={playing_game=1,game_stage=2}] run function ARG(_PATH)reset
+					
+					scoreboard players set @s bgm 4
+					function main:bgm/search/sleepy_wood
 					
 					title @s times 1 5 10
 					title @s title {"text":"4","font":"ui:main"}
