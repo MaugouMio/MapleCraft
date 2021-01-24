@@ -8,7 +8,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "nbt": "{Tags:[\"cloto_s1\"]}"
+              "nbt": "{Tags:[\"npc_cloto\"]}"
             }
           }
         ]
@@ -16,6 +16,6 @@
     }
   },
   "rewards": {
-    "function": "quest:party_quest/kpq/stages/1/npc/cloto/talk"
+    "function": "quest:party_quest/kpq/npc_talk/cloto"
   }
 }
