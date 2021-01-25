@@ -182,9 +182,11 @@ namespace party_quest() as virtual
 			scoreboard players operation #KPQ_PASS_REQUIRED temp = #KPQ_MEMBER temp
 			execute if score #KPQ_PASS_REQUIRED temp matches 2.. run scoreboard players remove #KPQ_PASS_REQUIRED temp 1
 			
-			# forceload add chunk for mob spawner
-			# summon minecraft:area_effect_cloud <spawner position> {Duration:2147483647,Tags:["mob_spawner","kpq_mob_spawner"]}
-			# forceload remove chunk for mob spawner
+			forceload add -282 6
+			summon minecraft:area_effect_cloud -282 39 6 {Duration:2147483647,Tags:["mob_spawner","kpq_mob_spawner"]}
+			setblock -282 39 6 minecraft:command_block[facing=down]{TrackOutput:0b,Command:"function mob:map/party_quest/kpq/stage1/main"}
+			setblock -282 38 6 minecraft:chain_command_block[facing=down]{auto:1b,TrackOutput:0b,Command:"data modify block ~ ~1 ~ auto set value 0b"}
+			forceload remove -282 6
 		}
 		
 		func join()
@@ -299,10 +301,12 @@ namespace party_quest() as virtual
 				
 				func reset()
 				{
+					forceload add -266 -23 -314 23
 					kill @e[type=#skill:enemy,tag=kpq_mob]
 					kill @e[type=area_effect_cloud,tag=kpq_mob_spawner]
 					data modify block -310 47 0 Text1 set value '""'
 					kill @e[type=armor_stand,tag=kpq_portal]
+					forceload remove -266 -23 -314 23
 				}
 				
 				folder npc()

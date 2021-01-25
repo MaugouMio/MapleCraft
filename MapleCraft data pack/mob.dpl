@@ -49,6 +49,7 @@ namespace mob()
 	{
 		func schedule_10s()
 		{
+			function main:rand_rate
 			execute as @e[type=area_effect_cloud,tag=mob_spawner] at @s run function ARG(__PATH)spawn
 			schedule function ARG(__PATH)natural_spawn_set 10t
 		}
@@ -71,14 +72,45 @@ namespace mob()
 		{
 			folder kpq()
 			{
-				func stage1()
+				folder stage1()
 				{
+					func main()
+					{
+						```
+						spawn_positions = ["-280.4 51 1.5","-285.2 51 -4.5","-277.2 57 -9","-269 56 -4","-286.0 61 9.4","-275 63 -2.0","-277.0 70 -11.0","-273 69 -6.0","-273.0 75 -5","-277.8 76 2.2","-290 61 18","-295.0 62 19.3","-295.7 68 11.2","-290.6 69 7.3","-287.9 73 12.7","-291.0 73 19.2","-299.3 71 19.9","-301.9 77 22","-299.0 78 23","-287.3 78 13.4","-284.2 79 17"]
+						for pos in spawn_positions:
+							print('''execute store result score #GLOBAL temp run summon zombified_piglin %s {UUID:[I;1,0,1,%d],Tags:["kpq_mob","new_enemy","fire_weakness","ice_resist","freeze_immune","no_jump"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:32,hp_max:1000,mp_max:80,avoidability:10,weapon_defense:90,magic_defense:80,kb:1,exp:120,hurt_sound:1,die_sound:3},steal_loot:"skill:steal/special/coupon_pq",CustomModelData:10004,CustomPotionColor:-1,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.movement_speed",Name:"slow",Amount:0,Operation:0,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:9.5},{Name:"generic.movement_speed",Base:0.1},{Name:"generic.follow_range",Base:0.0}],DeathLootTable:"skill:mob/special/coupon_pq",IsBaby:1b,Invulnerable:1b,OnGround:1b,AngerTime:2147483647,Team:"enemy",CustomName:'{"text":"2","font":"space:default"}',CustomNameVisible:1b}''' %(pos, MOB_UUID))
+							print('''execute if score #GLOBAL temp matches 1 positioned %s run particle minecraft:sweep_attack ~ ~0.5 ~ 0 0 0 0 1''' %pos)
+							MOB_UUID += 1
+						```
+						execute if score #RAND_RESULT temp matches ..24 run function ARG(_PATH)rand0
+						execute if score #RAND_RESULT temp matches 25..49 run function ARG(_PATH)rand1
+						execute if score #RAND_RESULT temp matches 50..74 run function ARG(_PATH)rand2
+						execute if score #RAND_RESULT temp matches 75.. run function ARG(_PATH)rand3
+					}
+					
 					```
-					spawn_positions = ["-280.8 51 0.5","-282.76 51 -2.0","-285.4 51 -4.6","-270.4 56 -3.3","-277.26 57 -8.5","-289.5 61 8.4","-287.7 61 17.9","-291.6 61 20.7","-295.9 62 19.5","-277.5 63 1.1","-275.9 63 -0.6","-273.9 63 -2.5","-271.6 63 -3.8"]
-					for pos in spawn_positions:
-						print('''execute store result score #GLOBAL temp run summon zombified_piglin %s {UUID:[I;1,0,1,%d],Tags:["kpq_mob","new_enemy","fire_weakness","ice_resist","freeze_immune","no_jump"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:32,hp_max:1000,mp_max:80,avoidability:10,weapon_defense:90,magic_defense:80,kb:1,exp:120,hurt_sound:1,die_sound:3},steal_loot:"skill:steal/special/coupon_pq",CustomModelData:10004,CustomPotionColor:-1,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.movement_speed",Name:"slow",Amount:0,Operation:0,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:9.5},{Name:"generic.movement_speed",Base:0.1},{Name:"generic.follow_range",Base:0.0}],DeathLootTable:"skill:mob/special/coupon_pq",IsBaby:1b,Invulnerable:1b,OnGround:1b,AngerTime:2147483647,Team:"enemy",CustomName:'{"text":"2","font":"space:default"}',CustomNameVisible:1b}''' %(pos, MOB_UUID))
-						print('''execute if score #GLOBAL temp matches 1 positioned %s run particle minecraft:sweep_attack ~ ~0.5 ~ 0 0 0 0 1''' %pos)
+					spawn_positions_a = [("-271.0 56 -4.0","-282.76 51 -2.0"),("-273.7 69 -7.3","-276 75 -2"),("-287.4 69 6.0","-286.6 73 11.7"),("-300.2 78 22.9","-285.4 79 15.4")]
+					spawn_positions_b = [("-282.4 51 -1.6","-290 61 8"),("-278 63 1","-275 69 -9"),("-292.2 61 20.7","-296.9 68 13.0"),("-289.6 73 21","-303.2 72 21")]
+					rand_pairs = [[],[],[],[]]
+					for pos in spawn_positions_a:
+						for i in range(4):
+							rand_pairs[i].append((pos[i//2], MOB_UUID))
 						MOB_UUID += 1
+					for pos in spawn_positions_b:
+						for i in range(4):
+							rand_pairs[i].append((pos[i%2], MOB_UUID))
+						MOB_UUID += 1
+					
+					#####################################
+					
+					for i in range(4):
+						print(f"func rand{i}()")
+						print("{")
+						for j in range(len(spawn_positions_a) + len(spawn_positions_b)):
+							print('''execute store result score #GLOBAL temp run summon zombified_piglin %s {UUID:[I;1,0,1,%d],Tags:["kpq_mob","new_enemy","fire_weakness","ice_resist","freeze_immune","no_jump"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:32,hp_max:1000,mp_max:80,avoidability:10,weapon_defense:90,magic_defense:80,kb:1,exp:120,hurt_sound:1,die_sound:3},steal_loot:"skill:steal/special/coupon_pq",CustomModelData:10004,CustomPotionColor:-1,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.movement_speed",Name:"slow",Amount:0,Operation:0,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:9.5},{Name:"generic.movement_speed",Base:0.1},{Name:"generic.follow_range",Base:0.0}],DeathLootTable:"skill:mob/special/coupon_pq",IsBaby:1b,Invulnerable:1b,OnGround:1b,AngerTime:2147483647,Team:"enemy",CustomName:'{"text":"2","font":"space:default"}',CustomNameVisible:1b}''' %(rand_pairs[i][j][0], rand_pairs[i][j][1]))
+							print('''execute if score #GLOBAL temp matches 1 positioned %s run particle minecraft:sweep_attack ~ ~0.5 ~ 0 0 0 0 1''' %rand_pairs[i][j][0])
+						print("}")
 					```
 				}
 			}
