@@ -339,7 +339,7 @@ namespace party_quest() as virtual
 							function quest:party_quest/kpq/title/clear/run
 							scoreboard players add #KPQ_STAGE temp 1
 							
-							data modify block -310 47 0 Text1 set value '{"text":"","clickEvent":{"action":"run_command","value":"function quest:party_quest/kpq/stages/1/portal"}}'
+							data modify block -310 47 0 Text1 set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -310.0 46 -1.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/1/portal"}}'
 							summon minecraft:armor_stand -310 46 0 {Tags:["kpq_portal"],Marker:1,Fire:32767s,NoGravity:1,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:4,CustomPotionColor:-1}}],Rotation:[90.0f,0.0f]}
 							
 							scoreboard players set #EXP_GAIN temp 100
@@ -466,7 +466,7 @@ namespace party_quest() as virtual
 							function quest:party_quest/kpq/title/clear/run
 							scoreboard players add #KPQ_STAGE temp 1
 							
-							data modify block -540 43 0 Text1 set value '{"text":"","clickEvent":{"action":"run_command","value":"function quest:party_quest/kpq/stages/2/portal"}}'
+							data modify block -540 43 0 Text1 set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -540.0 42 -1.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/2/portal"}}'
 							summon minecraft:armor_stand -540 42 0 {Tags:["kpq_portal"],Marker:1,Fire:32767s,NoGravity:1,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:4,CustomPotionColor:-1}}],Rotation:[90.0f,0.0f]}
 							
 							scoreboard players set #EXP_GAIN temp 200
@@ -563,7 +563,7 @@ namespace party_quest() as virtual
 							function quest:party_quest/kpq/title/clear/run
 							scoreboard players add #KPQ_STAGE temp 1
 							
-							data modify block -850 47 0 Text1 set value '{"text":"","clickEvent":{"action":"run_command","value":"function quest:party_quest/kpq/stages/3/portal"}}'
+							data modify block -850 47 0 Text1 set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -850.0 46 -1.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/3/portal"}}'
 							summon minecraft:armor_stand -850 46 0 {Tags:["kpq_portal"],Marker:1,Fire:32767s,NoGravity:1,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:4,CustomPotionColor:-1}}],Rotation:[90.0f,0.0f]}
 							setblock -849 47 2 minecraft:fire
 							setblock -849 47 -2 minecraft:fire
@@ -671,7 +671,7 @@ namespace party_quest() as virtual
 							function quest:party_quest/kpq/title/clear/run
 							scoreboard players add #KPQ_STAGE temp 1
 							
-							# data modify block <portal sign position> Text1 set value '{"text":"","clickEvent":{"action":"run_command","value":"function quest:party_quest/kpq/stages/1/portal"}}'
+							# data modify block <portal sign position> Text1 set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned <x y z> if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/4/portal"}}'
 							# summon minecraft:armor_stand <portal position> {Tags:["kpq_portal"],Marker:1,Fire:32767s,NoGravity:1,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:4,CustomPotionColor:-1}}]}
 							
 							scoreboard players set #EXP_GAIN temp 800
