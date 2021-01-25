@@ -3265,7 +3265,40 @@ namespace skill()
 			execute as @e[type=armor_stand,tag=bullet] if score @s target_id = #GLOBAL temp run kill @s
 			
 			function ARG(_PATH)play_die_sound/run
+			execute if entity @s[tag=dead_effect] run function ARG(_PATH)dead_effect/check
 			kill @s
+		}
+		
+		folder dead_effect()
+		{
+			func check()
+			{
+				execute if entity @s[tag=king_slime] run function ARG(_PATH)king_slime/run
+			}
+			
+			folder king_slime()
+			{
+				func run()
+				{
+					summon minecraft:area_effect_cloud ~ ~ ~ {Duration:100,Tags:["dead_king_slime"]}
+					schedule function ARG(_PATH)call_summon 20t
+				}
+				
+				func call_summon()
+				{
+					execute as @e[type=area_effect_cloud,tag=dead_king_slime] at @s run function ARG(_PATH)summon
+				}
+				
+				func summon()
+				{
+					```
+					for i in range(10):
+						print('''summon zombified_piglin ~ ~0.5 ~ {Tags:["new_enemy","split_slime","lightning_weakness"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:6,hp_max:50,mp_max:35,avoidability:1,weapon_defense:5,magic_defense:10,kb:1,exp:10,height:2,move_frame:21,stand_frame:15,hurt_sound:3,die_sound:6},steal_loot:"skill:steal/0_9/slime",CustomModelData:10107,CustomPotionColor:-1,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.movement_speed",Name:"slow",Amount:0,Operation:0,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:4.2},{Name:"generic.movement_speed",Base:0.15},{Name:"generic.follow_range",Base:0.0}],DeathLootTable:"skill:mob/0_9/slime",Invulnerable:1b,OnGround:1b,AngerTime:2147483647,Team:"enemy",CustomName:'{"text":"2","font":"space:default"}',CustomNameVisible:1b}''')
+					```
+					execute as @e[type=#skill:enemy,tag=new_enemy,tag=split_slime] run function mob:setting/run
+					kill @s
+				}
+			}
 		}
 		
 		folder play_hurt_sound()
