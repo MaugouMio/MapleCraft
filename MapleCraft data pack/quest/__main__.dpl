@@ -8,7 +8,7 @@ namespace quest()
 {
 	func reset_check()
 	{
-		execute if score @s playing_game matches 1 run function ARG(_PATH)party_quest/kpq/reset
+		execute if score @s playing_game matches 1 run function ARG(_PATH)party_quest/kpq/leave
 	}
 	
 	func get_clock_time()
@@ -31,6 +31,14 @@ namespace quest()
 	}
 	
 	folder party_quest() from party_quest();
+	
+	folder loop()
+	{
+		func schedule_10s()
+		{
+			execute if score #KPQ_STAGE temp matches 1.. run function quest:party_quest/kpq/check
+		}
+	}
 	
 	func install()
 	{

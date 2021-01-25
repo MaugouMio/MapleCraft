@@ -171,6 +171,13 @@ namespace party_quest() as virtual
 	
 	folder kpq()
 	{
+		func check()
+		{
+			execute store result score #KPQ_MEMBER temp if entity @a[scores={playing_game=1}]
+			execute if score #KPQ_MEMBER temp matches 0 run function ARG(_PATH)reset
+		}
+		
+		
 		func start()
 		{
 			execute as @a run function ARG(_PATH)join
@@ -178,6 +185,7 @@ namespace party_quest() as virtual
 			
 			bossbar set ui:clock/kpq players @a[scores={playing_game=1}]
 			scoreboard players set #KPQ_STAGE temp 1
+			scoreboard players set #KPQ_S1_LOADED temp 1
 			
 			scoreboard players operation #KPQ_PASS_REQUIRED temp = #KPQ_MEMBER temp
 			execute if score #KPQ_PASS_REQUIRED temp matches 2.. run scoreboard players remove #KPQ_PASS_REQUIRED temp 1
@@ -233,34 +241,41 @@ namespace party_quest() as virtual
 			scoreboard players reset @s kpq_question
 			scoreboard players reset @s playing_game
 			
-			execute if score @s game_stage matches 1 unless entity @a[scores={playing_game=1,game_stage=1}] run function ARG(_PATH)stages/1/reset
-			execute if score @s game_stage matches 2 unless entity @a[scores={playing_game=1,game_stage=2}] run function ARG(_PATH)stages/2/reset
-			execute if score @s game_stage matches 3 unless entity @a[scores={playing_game=1,game_stage=3}] run function ARG(_PATH)stages/3/reset
-			execute if score @s game_stage matches 4 unless entity @a[scores={playing_game=1,game_stage=4}] run function ARG(_PATH)stages/4/reset
-			execute if score @s game_stage matches 5 unless entity @a[scores={playing_game=1,game_stage=5}] run function ARG(_PATH)stages/5/reset
-			execute if score @s game_stage matches 6 unless entity @a[scores={playing_game=1,game_stage=6}] run function ARG(_PATH)stages/6/reset
+			execute if score #KPQ_STAGE temp matches 1.. run function ARG(_PATH)leave_reset
 			scoreboard players reset @s game_stage
 			
-			scoreboard players remove #KPQ_MEMBER temp 1
+			function ARG(_PATH)check
 			
 			title @s times 1 5 10
 			title @s title {"text":"4","font":"ui:main"}
 			# tp ...
 			
-			scoreboard players set @s bgm 2
-			function main:bgm/search/kerning_city
+			execute unless score @s bgm matches 3 run function main:bgm/search/jungle_book
+			scoreboard players set @s bgm 3
 			
 			bossbar set ui:clock/kpq players @a[scores={playing_game=1}]
 		}
 		
+		func leave_reset()
+		{
+			execute if score @s game_stage matches 1 unless entity @a[scores={playing_game=1,game_stage=1}] run function ARG(_PATH)stages/1/reset
+			execute if score @s game_stage matches 2 unless entity @a[scores={playing_game=1,game_stage=2}] run function ARG(_PATH)stages/2/reset
+			execute if score @s game_stage matches 3 unless entity @a[scores={playing_game=1,game_stage=3}] run function ARG(_PATH)stages/3/reset
+			execute if score @s game_stage matches 4 unless entity @a[scores={playing_game=1,game_stage=4}] run function ARG(_PATH)stages/4/reset
+			execute if score @s game_stage matches 4 if score #KPQ_S5_LOADED temp matches 1 unless entity @a[scores={playing_game=1,game_stage=5}] run function ARG(_PATH)stages/5/reset
+			execute if score @s game_stage matches 5 unless entity @a[scores={playing_game=1,game_stage=5}] run function ARG(_PATH)stages/5/reset
+			execute if score @s game_stage matches 6 unless entity @a[scores={playing_game=1,game_stage=6}] run function ARG(_PATH)stages/6/reset
+		}
+		
 		func reset()
 		{
-			execute if score #KPQ_STAGE temp matches 1..2 run function ARG(_PATH)stages/1/reset
-			execute if score #KPQ_STAGE temp matches 2..3 run function ARG(_PATH)stages/2/reset
-			execute if score #KPQ_STAGE temp matches 3..4 run function ARG(_PATH)stages/3/reset
-			execute if score #KPQ_STAGE temp matches 4..5 run function ARG(_PATH)stages/4/reset
-			execute if score #KPQ_STAGE temp matches 5..6 run function ARG(_PATH)stages/5/reset
-			execute if score #KPQ_STAGE temp matches 6 run function ARG(_PATH)stages/6/reset
+			execute if score #KPQ_S1_LOADED temp matches 1 run function ARG(_PATH)stages/1/reset
+			execute if score #KPQ_S2_LOADED temp matches 1 run function ARG(_PATH)stages/2/reset
+			execute if score #KPQ_S3_LOADED temp matches 1 run function ARG(_PATH)stages/3/reset
+			execute if score #KPQ_S4_LOADED temp matches 1 run function ARG(_PATH)stages/4/reset
+			execute if score #KPQ_S5_LOADED temp matches 1 run function ARG(_PATH)stages/5/reset
+			execute if score #KPQ_S6_LOADED temp matches 1 run function ARG(_PATH)stages/6/reset
+			scoreboard players reset #KPQ_STAGE temp
 		}
 		
 		folder npc_talk()
@@ -291,6 +306,7 @@ namespace party_quest() as virtual
 					execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001008}
 					execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"translate":"item.etc.4001008"}]}
 					
+					scoreboard players set #KPQ_S2_LOADED temp 1
 					scoreboard players add @s game_stage 1
 					execute unless entity @a[scores={playing_game=1,game_stage=1}] run function ARG(_PATH)reset
 					
@@ -306,8 +322,10 @@ namespace party_quest() as virtual
 					kill @e[type=#skill:enemy,tag=kpq_mob]
 					kill @e[type=area_effect_cloud,tag=kpq_mob_spawner]
 					data modify block -310 47 0 Text1 set value '""'
-					kill @e[type=armor_stand,tag=kpq_portal]
+					kill @e[type=armor_stand,tag=kpq_portal_s1]
 					forceload remove -266 -23 -314 23
+					
+					scoreboard players reset #KPQ_S1_LOADED temp
 				}
 				
 				folder npc()
@@ -340,7 +358,7 @@ namespace party_quest() as virtual
 							scoreboard players add #KPQ_STAGE temp 1
 							
 							data modify block -310 47 0 Text1 set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -310.0 46 -1.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/1/portal"}}'
-							summon minecraft:armor_stand -310 46 0 {Tags:["kpq_portal"],Marker:1,Fire:32767s,NoGravity:1,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:4,CustomPotionColor:-1}}],Rotation:[90.0f,0.0f]}
+							summon minecraft:armor_stand -310 46 0 {Tags:["kpq_portal_s1"],Marker:1,Fire:32767s,NoGravity:1,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:4,CustomPotionColor:-1}}],Rotation:[90.0f,0.0f]}
 							
 							scoreboard players set #EXP_GAIN temp 100
 							scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
@@ -398,6 +416,7 @@ namespace party_quest() as virtual
 			{
 				func portal()
 				{
+					scoreboard players set #KPQ_S3_LOADED temp 1
 					scoreboard players add @s game_stage 1
 					execute unless entity @a[scores={playing_game=1,game_stage=2}] run function ARG(_PATH)reset
 					
@@ -414,8 +433,10 @@ namespace party_quest() as virtual
 					forceload add -550 -25 -500 25
 					execute positioned -565 41 -40 run kill @e[type=item,dx=80,dy=37,dz=80]
 					data modify block -540 43 0 Text1 set value '""'
-					kill @e[type=armor_stand,tag=kpq_portal]
+					kill @e[type=armor_stand,tag=kpq_portal_s2]
 					forceload remove -550 -25 -500 25
+					
+					scoreboard players reset #KPQ_S2_LOADED temp
 				}
 				
 				folder npc()
@@ -467,7 +488,7 @@ namespace party_quest() as virtual
 							scoreboard players add #KPQ_STAGE temp 1
 							
 							data modify block -540 43 0 Text1 set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -540.0 42 -1.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/2/portal"}}'
-							summon minecraft:armor_stand -540 42 0 {Tags:["kpq_portal"],Marker:1,Fire:32767s,NoGravity:1,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:4,CustomPotionColor:-1}}],Rotation:[90.0f,0.0f]}
+							summon minecraft:armor_stand -540 42 0 {Tags:["kpq_portal_s2"],Marker:1,Fire:32767s,NoGravity:1,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:4,CustomPotionColor:-1}}],Rotation:[90.0f,0.0f]}
 							
 							scoreboard players set #EXP_GAIN temp 200
 							scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
@@ -493,6 +514,7 @@ namespace party_quest() as virtual
 			{
 				func portal()
 				{
+					scoreboard players set #KPQ_S4_LOADED temp 1
 					scoreboard players add @s game_stage 1
 					execute unless entity @a[scores={playing_game=1,game_stage=3}] run function ARG(_PATH)reset
 					
@@ -506,10 +528,12 @@ namespace party_quest() as virtual
 					forceload add -852 -10 -800 10
 					execute positioned -852 31 -10 run kill @e[type=item,dx=52,dy=28,dz=20]
 					data modify block -850 47 0 Text1 set value '""'
-					kill @e[type=armor_stand,tag=kpq_portal]
+					kill @e[type=armor_stand,tag=kpq_portal_s3]
 					setblock -849 47 2 minecraft:air
 					setblock -849 47 -2 minecraft:air
 					forceload remove -852 -10 -800 10
+					
+					scoreboard players reset #KPQ_S3_LOADED temp
 				}
 				
 				folder npc()
@@ -564,7 +588,7 @@ namespace party_quest() as virtual
 							scoreboard players add #KPQ_STAGE temp 1
 							
 							data modify block -850 47 0 Text1 set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -850.0 46 -1.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/3/portal"}}'
-							summon minecraft:armor_stand -850 46 0 {Tags:["kpq_portal"],Marker:1,Fire:32767s,NoGravity:1,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:4,CustomPotionColor:-1}}],Rotation:[90.0f,0.0f]}
+							summon minecraft:armor_stand -850 46 0 {Tags:["kpq_portal_s3"],Marker:1,Fire:32767s,NoGravity:1,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:4,CustomPotionColor:-1}}],Rotation:[90.0f,0.0f]}
 							setblock -849 47 2 minecraft:fire
 							setblock -849 47 -2 minecraft:fire
 							
@@ -602,7 +626,6 @@ namespace party_quest() as virtual
 			{
 				func portal()
 				{
-					execute unless entity @a[scores={playing_game=1,game_stage=5}] run function ARG(__PATH)5/king_slime_skills/run
 					scoreboard players add @s game_stage 1
 					execute unless entity @a[scores={playing_game=1,game_stage=4}] run function ARG(_PATH)reset
 					
@@ -613,8 +636,13 @@ namespace party_quest() as virtual
 				
 				func reset()
 				{
+					# forceload add ...
+					# execute positioned <...> run kill @e[type=item,dx=...,dy=...,dz=...]
 					# data modify block <portal sign position> Text1 set value '""'
-					kill @e[type=armor_stand,tag=kpq_portal]
+					kill @e[type=armor_stand,tag=kpq_portal_s4]
+					# forceload remove ...
+					
+					scoreboard players reset #KPQ_S4_LOADED temp
 				}
 				
 				folder npc()
@@ -670,9 +698,10 @@ namespace party_quest() as virtual
 						{
 							function quest:party_quest/kpq/title/clear/run
 							scoreboard players add #KPQ_STAGE temp 1
+							scoreboard players set #KPQ_S5_LOADED temp 1
 							
 							# data modify block <portal sign position> Text1 set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned <x y z> if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/4/portal"}}'
-							# summon minecraft:armor_stand <portal position> {Tags:["kpq_portal"],Marker:1,Fire:32767s,NoGravity:1,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:4,CustomPotionColor:-1}}]}
+							# summon minecraft:armor_stand <portal position> {Tags:["kpq_portal_s4"],Marker:1,Fire:32767s,NoGravity:1,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:4,CustomPotionColor:-1}}]}
 							
 							scoreboard players set #EXP_GAIN temp 800
 							scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
@@ -680,6 +709,8 @@ namespace party_quest() as virtual
 							
 							# forceload add chunks for mob summon
 							# summon mobs
+							scoreboard players set #KING_SLIME_EXIST temp 1
+							function quest:party_quest/stages/5/king_slime_skills/run
 							# forceload remove chunks for mob summon
 						}
 					}
@@ -690,6 +721,7 @@ namespace party_quest() as virtual
 			{
 				func complete()
 				{
+					scoreboard players set #KPQ_S6_LOADED temp 1
 					scoreboard players add @s game_stage 1
 					execute unless entity @a[scores={playing_game=1,game_stage=5}] run function ARG(_PATH)reset
 					
@@ -700,15 +732,46 @@ namespace party_quest() as virtual
 				
 				func reset()
 				{
+					# forceload add ...
+					# execute positioned <...> run kill @e[type=item,dx=...,dy=...,dz=...]
 					kill @e[type=#skill:enemy,tag=kpq_mob]
-					kill @e[type=armor_stand,tag=kpq_portal]
+					kill @e[type=armor_stand,tag=kpq_portal_s5]
+					scoreboard players reset #KING_SLIME_EXIST temp
+					# forceload remove ...
+					
+					scoreboard players reset #KPQ_S5_LOADED temp
 				}
 				
-				folder king_slime_skills() from schedule_loop(1s, "if score #KPQ_STAGE temp matches 5")
+				folder king_slime_skills() from schedule_loop(1s, "if score #KING_SLIME_EXIST temp matches 1")
 				{
 					func execute()
 					{
-						
+						execute as @e[type=zombified_piglin,tag=king_slime,nbt={OnGround:1b}] at @s run function ARG(_PATH)skill_check
+					}
+					
+					func skill_check()
+					{
+						scoreboard players set #GLOBAL temp 0
+						execute if score @s hp matches ..4000 unless entity @s[tag=skill_used] store result score #GLOBAL temp run function ARG(_PATH)summon
+						execute if score #GLOBAL temp matches 1.. positioned ~-5 ~ ~-5 if entity @a[tag=!dead,dx=9,dy=1,dz=9] run function ARG(_PATH)attack
+					}
+					
+					func summon()
+					{
+						attribute @s minecraft:generic.movement_speed modifier add 495407c5-10c0-4270-84ed-c566e01e6952 move_control -100.0 add
+						scoreboard players set @s kb_time 24
+						scoreboard players set @s status 4
+						tag @s add skill_used
+					}
+					
+					func attack()
+					{
+						attribute @s minecraft:generic.movement_speed modifier add 495407c5-10c0-4270-84ed-c566e01e6952 move_control -100.0 add
+						scoreboard players set @s kb_time 33
+						scoreboard players set @s status 4
+						scoreboard players set @s action_frame 0
+						scoreboard players set @s action_frame_max 33
+						scoreboard players set @s action_frame_s 34
 					}
 				}
 				
@@ -735,7 +798,7 @@ namespace party_quest() as virtual
 							function quest:party_quest/kpq/title/clear/run
 							scoreboard players add #KPQ_STAGE temp 1
 							
-							# summon minecraft:armor_stand <portal position> {Tags:["kpq_portal"],Marker:1,Fire:32767s,NoGravity:1,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:4,CustomPotionColor:-1}}]}
+							# summon minecraft:armor_stand <portal position> {Tags:["kpq_portal_s5"],Marker:1,Fire:32767s,NoGravity:1,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:4,CustomPotionColor:-1}}]}
 							
 							scoreboard players set #EXP_GAIN temp 1500
 							scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
