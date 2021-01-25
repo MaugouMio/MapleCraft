@@ -302,6 +302,7 @@ namespace party_quest() as virtual
 				func reset()
 				{
 					forceload add -266 -23 -314 23
+					execute positioned -328 60 -43 run kill @e[type=item,dx=86,dy=28,dz=86]
 					kill @e[type=#skill:enemy,tag=kpq_mob]
 					kill @e[type=area_effect_cloud,tag=kpq_mob_spawner]
 					data modify block -310 47 0 Text1 set value '""'
@@ -410,8 +411,11 @@ namespace party_quest() as virtual
 				
 				func reset()
 				{
+					forceload add -550 -25 -500 25
+					execute positioned -565 41 -40 run kill @e[type=item,dx=80,dy=37,dz=80]
 					data modify block -540 43 0 Text1 set value '""'
 					kill @e[type=armor_stand,tag=kpq_portal]
+					forceload remove -550 -25 -500 25
 				}
 				
 				folder npc()
@@ -499,10 +503,13 @@ namespace party_quest() as virtual
 				
 				func reset()
 				{
+					forceload add -852 -10 -800 10
+					execute positioned -852 31 -10 run kill @e[type=item,dx=52,dy=28,dz=20]
 					data modify block -850 47 0 Text1 set value '""'
 					kill @e[type=armor_stand,tag=kpq_portal]
 					setblock -849 47 2 minecraft:air
 					setblock -849 47 -2 minecraft:air
+					forceload remove -852 -10 -800 10
 				}
 				
 				folder npc()
