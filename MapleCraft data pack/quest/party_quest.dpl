@@ -289,7 +289,7 @@ namespace party_quest() as virtual
 				func portal()
 				{
 					execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001008}
-					execute if score #GLOBAL temp matches 1.. run tellraw @s {"translate":"text.quest.item_lost_multiple","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"translate":"item.etc.4001008"}]}
+					execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"translate":"item.etc.4001008"}]}
 					
 					scoreboard players add @s game_stage 1
 					execute unless entity @a[scores={playing_game=1,game_stage=1}] run function ARG(_PATH)reset
@@ -346,7 +346,8 @@ namespace party_quest() as virtual
 							execute as @a[scores={playing_game=1},tag=!dead] at @s run function quest:get_exp
 							
 							clear @s minecraft:stick{CustomModelData:4001008}
-							tellraw @s {"translate":"text.quest.item_lost_multiple","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"translate":"item.etc.4001008"}]}
+							execute if score #GLOBAL temp matches 2.. run tellraw @s {"translate":"text.quest.item_lost_multiple","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"translate":"item.etc.4001008"}]}
+							execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","color":"gray","with":[{"translate":"item.etc.4001008"}]}
 							tellraw @s {"translate":"text.quest.party_quest.kpq.stage1.pass","with":[{"score":{"objective":"temp","name":"#KPQ_PASS_REQUIRED"}}]}
 							
 							function main:rand_rate
