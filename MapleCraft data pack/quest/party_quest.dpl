@@ -746,22 +746,53 @@ namespace party_quest() as virtual
 				{
 					func execute()
 					{
-						execute as @e[type=zombified_piglin,tag=king_slime,nbt={OnGround:1b}] at @s run function ARG(_PATH)skill_check
+						execute as @e[type=zombified_piglin,tag=king_slime,limit=1] unless score @s kb_time matches 1.. if data entity @s[nbt={OnGround:1b}] AngryAt unless data entity @s {AngryAt:[I;0,2,0,2]} at @s run function ARG(_PATH)skill_check
 					}
 					
 					func skill_check()
 					{
 						scoreboard players set #GLOBAL temp 0
-						execute if score @s hp matches ..4000 unless entity @s[tag=skill_used] store result score #GLOBAL temp run function ARG(_PATH)summon
-						execute if score #GLOBAL temp matches 1.. positioned ~-5 ~ ~-5 if entity @a[tag=!dead,dx=9,dy=1,dz=9] run function ARG(_PATH)attack
+						execute if score @s hp matches ..4000 unless entity @s[tag=skill_used] store result score #GLOBAL temp run function ARG(_PATH)skill
+						execute if score #GLOBAL temp matches 0 positioned ~-4.5 ~-0.5 ~-4.5 if entity @a[tag=!dead,dx=8,dy=0,dz=8] at @s run function ARG(_PATH)attack
 					}
 					
-					func summon()
+					func skill()
 					{
 						attribute @s minecraft:generic.movement_speed modifier add 495407c5-10c0-4270-84ed-c566e01e6952 move_control -100.0 add
 						scoreboard players set @s kb_time 24
 						scoreboard players set @s status 4
+						scoreboard players reset @s action_frame_max
+						data modify entity @s ArmorItems[3].tag.CustomModelData set value 10083
 						tag @s add skill_used
+						
+						playsound minecraft:mob.special.9300003_skill player @a ~ ~ ~ 1 1 0
+						schedule function ARG(_PATH)run_flash 8t
+						schedule function ARG(_PATH)call_summon 24t
+					}
+					
+					func run_flash()
+					{
+						execute at @e[type=zombified_piglin,tag=king_slime,limit=1] run function ARG(_PATH)flash
+					}
+					
+					func flash()
+					{
+						particle minecraft:flash ~ ~7 ~ 0 0 0 1 1
+						particle minecraft:explosion ~ ~7 ~ 0 0 0 0 1
+					}
+					
+					func call_summon()
+					{
+						execute at @e[type=zombified_piglin,tag=king_slime,limit=1] run function ARG(_PATH)summon
+					}
+					
+					func summon()
+					{
+						```
+						for i in range(3):
+							print('''summon zombified_piglin ~ ~2 ~ {Tags:["kpq_mob","new_enemy","summon_slime","lightning_weakness"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:6,hp_max:50,mp_max:35,avoidability:1,weapon_defense:5,magic_defense:10,kb:1,exp:10,height:2,move_frame:21,stand_frame:15,hurt_sound:3,die_sound:6},steal_loot:"skill:steal/0_9/slime",CustomModelData:10107,CustomPotionColor:-1,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.movement_speed",Name:"slow",Amount:0,Operation:0,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:4.2},{Name:"generic.movement_speed",Base:0.15},{Name:"generic.follow_range",Base:0.0}],DeathLootTable:"skill:mob/0_9/slime",Invulnerable:1b,OnGround:1b,AngerTime:2147483647,Team:"enemy",CustomName:'{"text":"2","font":"space:default"}',CustomNameVisible:1b}''')
+						```
+						execute as @e[type=#skill:enemy,tag=new_enemy,tag=summon_slime] run function mob:setting/run
 					}
 					
 					func attack()
@@ -772,6 +803,33 @@ namespace party_quest() as virtual
 						scoreboard players set @s action_frame 0
 						scoreboard players set @s action_frame_max 33
 						scoreboard players set @s action_frame_s 34
+						
+						playsound minecraft:mob.special.9300003_attack player @a ~ ~ ~ 1 1 0
+						schedule function ARG(_PATH)spawn_quake 20t
+					}
+					
+					func spawn_quake()
+					{
+						execute as @e[type=zombified_piglin,tag=king_slime,tag=!dead,limit=1] at @s run function ARG(_PATH)quake
+					}
+					
+					func quake()
+					{
+						particle minecraft:explosion_emitter ~ ~ ~ 0 0 0 1 1
+						particle minecraft:cloud ~ ~0.2 ~ 2 0 2 0.15 30
+						
+						scoreboard players set #GLOBAL temp 0
+						execute positioned ~-4.5 ~-0.5 ~-4.5 as @a[tag=!dead,dx=8,dy=0,dz=8] if data entity @s {OnGround:1b} at @s run function ARG(_PATH)hit
+						execute if score #GLOBAL temp matches 1 run playsound minecraft:mob.special.9300003_char_damage player @a ~ ~ ~ 1 1 0
+					}
+					
+					func hit()
+					{
+						scoreboard players set @s damage_taken 165
+						function bar_display:take_damage/check
+						effect give @s minecraft:instant_damage 1 0 true
+						
+						scoreboard players set #GLOBAL temp 1
 					}
 				}
 				
