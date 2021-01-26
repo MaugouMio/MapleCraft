@@ -299,9 +299,8 @@ namespace party_quest() as virtual
 			func lakelis()
 			{
 				tellraw @s ["\n",{"translate":"text.quest.party_quest.kpq.menu"}]
-				tellraw @s {"translate":"text.quest.party_quest.kpq.menu.enter","color":"blue","underlined":true,"clickEvent":{"action":"run_command","value":"trigger command set 171"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
-				tellraw @s {"translate":"text.quest.party_quest.kpq.menu.intro","color":"blue","underlined":true,"clickEvent":{"action":"run_command","value":"trigger command set 172"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
-				tellraw @s {"translate":"text.quest.party_quest.kpq.menu.reward","color":"blue","underlined":true,"clickEvent":{"action":"run_command","value":"trigger command set 173"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
+				tellraw @s {"translate":"text.quest.party_quest.kpq.menu.enter","clickEvent":{"action":"run_command","value":"trigger command set 171"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
+				tellraw @s {"translate":"text.quest.party_quest.kpq.menu.intro","clickEvent":{"action":"run_command","value":"trigger command set 172"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
 				advancement revoke @s only quest:party_quest/kpq/lakelis
 			}
 			
