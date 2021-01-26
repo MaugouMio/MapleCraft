@@ -185,10 +185,10 @@
 185,if score @s map matches 100000201 at @s run function skill:3/2/0/transfer/check
 186,if score @s map matches 103000003 at @s run function skill:4/1/0/transfer/check
 187,if score @s map matches 103000003 at @s run function skill:4/2/0/transfer/check
-188,
-189,
-190,
-191,
+188,if score @s map matches 103000000 run function main:test_job/warrior
+189,if score @s map matches 103000000 run function main:test_job/magician
+190,if score @s map matches 103000000 run function main:test_job/archer
+191,if score @s map matches 103000000 run function main:test_job/thief
 192,
 193,
 194,
