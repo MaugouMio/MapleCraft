@@ -134,10 +134,12 @@ namespace attack_skill_template(skill_id) as virtual
 		
 		function skill:show_num_at_height
 		
-		scoreboard players reset @s ARG(skill_id)_eid
-		data remove entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0]
 		execute if score @s hp matches ..0 unless score @s queuing_effect matches 1.. run function skill:mob_effect/dead
-		execute if data entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0] store result score @s ARG(skill_id)_eid run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].time
+		data remove entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0]
+		execute unless data entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0] run scoreboard players reset @s ARG(skill_id)_eid
+		execute store result score #GLOBAL temp run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].time
+		execute if score #GLOBAL temp = @s ARG(skill_id)_eid run function ARG(_PATH)perform_effect
+		execute if data entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0] run scoreboard players operation @s ARG(skill_id)_eid = #GLOBAL temp
 	}
 	
 	func facing_effect()
@@ -175,8 +177,7 @@ namespace attack_skill_template(skill_id) as virtual
 	{
 		scoreboard players set @s pushed_time 12
 		scoreboard players operation @s kb_time > @s pushed_time
-		execute store result score #GLOBAL temp run scoreboard players set @s status 1
-		execute store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players operation #GLOBAL temp += @s base_model
+		execute if score @s status matches ..3 run function skill:mob_effect/hit_model
 		
 		# face attacker player
 		tp @s ~ ~ ~ ~ ~
@@ -361,10 +362,12 @@ namespace bullet_skill_template(skill_id) as virtual
 		
 		function skill:show_num_at_height
 		
-		scoreboard players reset @s ARG(skill_id)_eid
-		data remove entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0]
 		execute if score @s hp matches ..0 unless score @s queuing_effect matches 1.. run function skill:mob_effect/dead
-		execute if data entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0] store result score @s ARG(skill_id)_eid run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].time
+		data remove entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0]
+		execute unless data entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0] run scoreboard players reset @s ARG(skill_id)_eid
+		execute store result score #GLOBAL temp run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].time
+		execute if score #GLOBAL temp = @s ARG(skill_id)_eid run function ARG(_PATH)perform_effect
+		execute if data entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0] run scoreboard players operation @s ARG(skill_id)_eid = #GLOBAL temp
 	}
 	
 	func facing_effect()
@@ -395,8 +398,7 @@ namespace bullet_skill_template(skill_id) as virtual
 	{
 		scoreboard players set @s pushed_time 12
 		scoreboard players operation @s kb_time > @s pushed_time
-		execute store result score #GLOBAL temp run scoreboard players set @s status 1
-		execute store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players operation #GLOBAL temp += @s base_model
+		execute if score @s status matches ..3 run function skill:mob_effect/hit_model
 		
 		# face attacker player
 		tp @s ~ ~ ~ ~ ~
@@ -1078,7 +1080,8 @@ namespace skill()
 		{
 			func run()
 			{
-				execute unless score @s kb_time matches 1.. run function ARG(_PATH)status_change/run
+				execute unless score @s kb_time matches 1.. if entity @s[tag=!dead] run function ARG(_PATH)status_change/check
+				execute if score @s action_frame_max matches 1.. unless entity @s[scores={kb_time=1..,status=..3}] run function ARG(_PATH)status_change/update_frame
 				execute if entity @s[tag=color_changed] run function ARG(_PATH)status_change/color/check
 				
 				execute if score @s kb_time matches 1.. run function ARG(_PATH)kb/countdown
@@ -1089,12 +1092,6 @@ namespace skill()
 			
 			folder status_change()
 			{
-				func run()
-				{
-					execute if entity @s[tag=!dead] run function ARG(_PATH)check
-					execute if score @s action_frame_max matches 1.. run function ARG(_PATH)update_frame
-				}
-				
 				func check()
 				{
 					scoreboard players set #GLOBAL temp -1
@@ -2869,16 +2866,31 @@ namespace skill()
 				execute if score #HP_LENGTH temp matches 1.. run function ARG(_PATH)1
 				
 				data modify block 0 0 0 Text1 set value '[{"text":"985","font":"space:default"},{"text":"0","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},{"nbt":"mob_hp[]","storage":"bar:main","font":"ui:mob_hp","interpret":true},{"nbt":"mob_hp_back","storage":"bar:main","font":"space:default","interpret":true},{"text":"\\uF829\\uF825","font":"space:default"}]'
-				data modify entity @s CustomName set from block 0 0 0 Text1
+				execute if entity @s[tag=!paired_mob] run data modify entity @s CustomName set from block 0 0 0 Text1
+				execute if entity @s[tag=paired_mob] run function ARG(_PATH)update_pair
 				data modify entity @s ArmorItems[3].tag.health_bar set from block 0 0 0 Text1
 				
 				scoreboard players set @s show_hp_time 5
 			}
 			
+			func update_pair()
+			{
+				scoreboard players operation #GLOBAL temp = @s number
+				execute as @e[type=magma_cube,tag=enemy] if score @s number = #GLOBAL temp run data modify entity @s CustomName set from block 0 0 0 Text1
+			}
+			
 			func show()
 			{
-				execute unless score @s show_hp_time matches 1.. run data modify entity @s CustomName set from entity @s ArmorItems[3].tag.health_bar
+				execute unless score @s show_hp_time matches 1.. if entity @s[tag=!paired_mob] run data modify entity @s CustomName set from entity @s ArmorItems[3].tag.health_bar
+				execute unless score @s show_hp_time matches 1.. if entity @s[tag=paired_mob] run function ARG(_PATH)show_pair
 				scoreboard players set @s show_hp_time 5
+			}
+			
+			func show_pair()
+			{
+				data modify storage bar:main temp set from entity @s ArmorItems[3].tag.health_bar
+				scoreboard players operation #GLOBAL temp = @s number
+				execute as @e[type=magma_cube,tag=enemy] if score @s number = #GLOBAL temp run data modify entity @s CustomName set from storage bar:main temp
 			}
 			
 			func countdown()
@@ -2889,8 +2901,15 @@ namespace skill()
 			
 			func hide()
 			{
-				data modify entity @s CustomName set value '{"text":"2","font":"space:default"}'
+				execute if entity @s[tag=!paired_mob] run data modify entity @s CustomName set value '{"text":"2","font":"space:default"}'
+				execute if entity @s[tag=paired_mob] run function ARG(_PATH)hide_pair
 				scoreboard players reset @s show_hp_time
+			}
+			
+			func hide_pair()
+			{
+				scoreboard players operation #GLOBAL temp = @s number
+				execute as @e[type=magma_cube,tag=enemy] if score @s number = #GLOBAL temp run data modify entity @s CustomName set value '{"text":"2","font":"space:default"}'
 			}
 			
 			func 32()
@@ -3233,13 +3252,53 @@ namespace skill()
 			}
 		}
 		
+		func hit_model()
+		{
+			execute store result score #GLOBAL temp run scoreboard players set @s status 1
+			execute store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players operation #GLOBAL temp += @s base_model
+		}
+		
 		func dead()
 		{
 			scoreboard players operation #GLOBAL temp = @s number
 			execute as @e[type=armor_stand,tag=bullet] if score @s target_id = #GLOBAL temp run kill @s
 			
 			function ARG(_PATH)play_die_sound/run
+			execute if entity @s[tag=dead_effect] run function ARG(_PATH)dead_effect/check
 			kill @s
+		}
+		
+		folder dead_effect()
+		{
+			func check()
+			{
+				execute if entity @s[tag=king_slime] run function ARG(_PATH)king_slime/run
+			}
+			
+			folder king_slime()
+			{
+				func run()
+				{
+					summon minecraft:area_effect_cloud ~ ~ ~ {Duration:100,Tags:["dead_king_slime"]}
+					scoreboard players reset #KING_SLIME_EXIST temp
+					schedule function ARG(_PATH)call_summon 20t
+				}
+				
+				func call_summon()
+				{
+					execute as @e[type=area_effect_cloud,tag=dead_king_slime] at @s run function ARG(_PATH)summon
+				}
+				
+				func summon()
+				{
+					```
+					for i in range(10):
+						print('''summon zombified_piglin ~ ~ ~ {Tags:["kpq_mob","new_enemy","split_slime","lightning_weakness"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:6,hp_max:50,mp_max:35,avoidability:1,weapon_defense:5,magic_defense:10,kb:1,exp:10,height:2,move_frame:21,stand_frame:15,hurt_sound:3,die_sound:6},steal_loot:"skill:steal/0_9/slime",CustomModelData:10107,CustomPotionColor:-1,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.movement_speed",Name:"slow",Amount:0,Operation:0,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:4.2},{Name:"generic.movement_speed",Base:0.15},{Name:"generic.follow_range",Base:0.0}],DeathLootTable:"skill:mob/0_9/slime",Invulnerable:1b,OnGround:1b,AngerTime:2147483647,Team:"enemy",CustomName:'{"text":"2","font":"space:default"}',CustomNameVisible:1b}''')
+					```
+					execute as @e[type=#skill:enemy,tag=new_enemy,tag=split_slime] run function mob:setting/run
+					kill @s
+				}
+			}
 		}
 		
 		folder play_hurt_sound()

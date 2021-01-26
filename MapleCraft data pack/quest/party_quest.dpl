@@ -1,3 +1,5 @@
+import loop
+
 namespace pq_title_template(name, id) as virtual
 {
 	folder clear()
@@ -19,7 +21,9 @@ namespace pq_title_template(name, id) as virtual
 		func loop()
 		{
 			scoreboard players add #ARG(name)_TITLE_EFFECT temp 1
-			title @a[scores={playing_game=ARG(id)}] title {"score":{"objective":"temp","name":"#ARG(name)_TITLE_EFFECT"},"font":"ui:title/pq_clear"}
+			scoreboard players remove #ARG(name)_STAGE temp 1
+			execute as @a[scores={playing_game=ARG(id)}] if score @s game_stage = #ARG(name)_STAGE temp run title @s title {"score":{"objective":"temp","name":"#ARG(name)_TITLE_EFFECT"},"font":"ui:title/pq_clear"}
+			scoreboard players add #ARG(name)_STAGE temp 1
 			execute if score #ARG(name)_TITLE_EFFECT temp matches ..3 run schedule function ARG(_PATH)loop 2t
 		}
 	}
@@ -89,10 +93,96 @@ namespace party_quest() as virtual
 	{
 		scoreboard objectives add kpq_coupon dummy
 		scoreboard objectives add kpq_question dummy
+		
+		forceload add -282 6
+		setblock -282 39 6 minecraft:command_block[facing=down]{TrackOutput:0b,Command:"function mob:map/party_quest/kpq/stage1/main"}
+		setblock -282 38 6 minecraft:chain_command_block[facing=down]{auto:1b,TrackOutput:0b,Command:"data modify block ~ ~1 ~ auto set value 0b"}
+		forceload remove -282 6
+	}
+						
+	folder add_combination()
+	{
+		func 1()
+		{
+			scoreboard players operation #GLOBAL temp = #COMBINATION temp
+			scoreboard players operation #GLOBAL temp %= #2 const
+			execute if score #GLOBAL temp matches 0 run scoreboard players add #COMBINATION temp 1
+		}
+		
+		func 2()
+		{
+			scoreboard players operation #GLOBAL temp = #COMBINATION temp
+			scoreboard players operation #GLOBAL temp /= #2 const
+			scoreboard players operation #GLOBAL temp %= #2 const
+			execute if score #GLOBAL temp matches 0 run scoreboard players add #COMBINATION temp 2
+		}
+		
+		func 3()
+		{
+			scoreboard players operation #GLOBAL temp = #COMBINATION temp
+			scoreboard players operation #GLOBAL temp /= #4 const
+			scoreboard players operation #GLOBAL temp %= #2 const
+			execute if score #GLOBAL temp matches 0 run scoreboard players add #COMBINATION temp 4
+		}
+		
+		func 4()
+		{
+			scoreboard players operation #GLOBAL temp = #COMBINATION temp
+			scoreboard players operation #GLOBAL temp /= #8 const
+			scoreboard players operation #GLOBAL temp %= #2 const
+			execute if score #GLOBAL temp matches 0 run scoreboard players add #COMBINATION temp 8
+		}
+		
+		func 5()
+		{
+			scoreboard players operation #GLOBAL temp = #COMBINATION temp
+			scoreboard players operation #GLOBAL temp /= #16 const
+			scoreboard players operation #GLOBAL temp %= #2 const
+			execute if score #GLOBAL temp matches 0 run scoreboard players add #COMBINATION temp 16
+		}
+		
+		func 6()
+		{
+			scoreboard players operation #GLOBAL temp = #COMBINATION temp
+			scoreboard players operation #GLOBAL temp /= #32 const
+			scoreboard players operation #GLOBAL temp %= #2 const
+			execute if score #GLOBAL temp matches 0 run scoreboard players add #COMBINATION temp 32
+		}
+		
+		func 7()
+		{
+			scoreboard players operation #GLOBAL temp = #COMBINATION temp
+			scoreboard players operation #GLOBAL temp /= #64 const
+			scoreboard players operation #GLOBAL temp %= #2 const
+			execute if score #GLOBAL temp matches 0 run scoreboard players add #COMBINATION temp 64
+		}
+		
+		func 8()
+		{
+			scoreboard players operation #GLOBAL temp = #COMBINATION temp
+			scoreboard players operation #GLOBAL temp /= #128 const
+			scoreboard players operation #GLOBAL temp %= #2 const
+			execute if score #GLOBAL temp matches 0 run scoreboard players add #COMBINATION temp 128
+		}
+		
+		func 9()
+		{
+			scoreboard players operation #GLOBAL temp = #COMBINATION temp
+			scoreboard players operation #GLOBAL temp /= #256 const
+			scoreboard players operation #GLOBAL temp %= #2 const
+			execute if score #GLOBAL temp matches 0 run scoreboard players add #COMBINATION temp 256
+		}
 	}
 	
 	folder kpq()
 	{
+		func check()
+		{
+			execute store result score #KPQ_MEMBER temp if entity @a[scores={playing_game=1}]
+			execute if score #KPQ_MEMBER temp matches 0 run function ARG(_PATH)reset
+		}
+		
+		
 		func start()
 		{
 			execute as @a run function ARG(_PATH)join
@@ -100,17 +190,24 @@ namespace party_quest() as virtual
 			
 			bossbar set ui:clock/kpq players @a[scores={playing_game=1}]
 			scoreboard players set #KPQ_STAGE temp 1
+			scoreboard players set #KPQ_S1_LOADED temp 1
 			
 			scoreboard players operation #KPQ_PASS_REQUIRED temp = #KPQ_MEMBER temp
 			execute if score #KPQ_PASS_REQUIRED temp matches 2.. run scoreboard players remove #KPQ_PASS_REQUIRED temp 1
+			
+			forceload add -282 6
+			summon minecraft:area_effect_cloud -282 39 6 {Duration:2147483647,Tags:["mob_spawner","kpq_mob_spawner"]}
+			forceload remove -282 6
 		}
 		
 		func join()
 		{
 			title @s times 1 5 10
 			title @s title {"text":"4","font":"ui:main"}
-			# tp ...
+			tp @s -260 45 0 90 50
+			
 			scoreboard players set @s playing_game 1
+			scoreboard players set @s game_stage 1
 			scoreboard players add #KPQ_MEMBER temp 1
 			scoreboard players set @s bgm 3
 			function main:bgm/search/jungle_book
@@ -126,40 +223,114 @@ namespace party_quest() as virtual
 			execute if score #RAND_RANGE_RESULT temp matches 9 run scoreboard players set @s kpq_coupon 15
 		}
 		
-		func leave()
-		{
-			title @s times 1 5 10
-			title @s title {"text":"4","font":"ui:main"}
-			# tp ...
-			scoreboard players reset @s playing_game
-			scoreboard players remove #KPQ_MEMBER temp 1
-			loot give @s loot quest:kpq_award
+		# func complete()
+		# {
+			# title @s times 1 5 10
+			# title @s title {"text":"4","font":"ui:main"}
+			## tp ...
+			# scoreboard players reset @s playing_game
+			# scoreboard players reset @s game_stage
+			# scoreboard players remove #KPQ_MEMBER temp 1
+			# loot give @s loot quest:kpq_award
 			
-			bossbar set ui:clock/kpq players @a[scores={playing_game=1}]
-		}
+			# bossbar set ui:clock/kpq players @a[scores={playing_game=1}]
+			# execute if score #KPQ_MEMBER temp matches 0 run function ARG(_PATH)reset
+		# }
 		
-		func reset()
+		func leave()
 		{
 			execute if entity @s[tag=dead] run function bar_display:death/revive
 			scoreboard players reset @s kpq_coupon
 			scoreboard players reset @s kpq_question
 			scoreboard players reset @s playing_game
-			scoreboard players remove #KPQ_MEMBER temp 1
+			
+			execute if score #KPQ_STAGE temp matches 1.. run function ARG(_PATH)leave_reset
+			scoreboard players reset @s game_stage
+			
+			function ARG(_PATH)check
 			
 			title @s times 1 5 10
 			title @s title {"text":"4","font":"ui:main"}
 			# tp ...
 			
-			scoreboard players set @s bgm 2
-			function main:bgm/search/kerning_city
+			execute unless score @s bgm matches 3 run function main:bgm/search/jungle_book
+			scoreboard players set @s bgm 3
 			
 			bossbar set ui:clock/kpq players @a[scores={playing_game=1}]
+		}
+		
+		func leave_reset()
+		{
+			execute if score @s game_stage matches 1 unless entity @a[scores={playing_game=1,game_stage=1}] run function ARG(_PATH)stages/1/reset
+			execute if score @s game_stage matches 2 unless entity @a[scores={playing_game=1,game_stage=2}] run function ARG(_PATH)stages/2/reset
+			execute if score @s game_stage matches 3 unless entity @a[scores={playing_game=1,game_stage=3}] run function ARG(_PATH)stages/3/reset
+			execute if score @s game_stage matches 4 unless entity @a[scores={playing_game=1,game_stage=4}] run function ARG(_PATH)stages/4/reset
+			execute if score @s game_stage matches 4 if score #KPQ_S5_LOADED temp matches 1 unless entity @a[scores={playing_game=1,game_stage=5}] run function ARG(_PATH)stages/5/reset
+			execute if score @s game_stage matches 5 unless entity @a[scores={playing_game=1,game_stage=5}] run function ARG(_PATH)stages/5/reset
+			execute if score @s game_stage matches 6 unless entity @a[scores={playing_game=1,game_stage=6}] run function ARG(_PATH)stages/6/reset
+		}
+		
+		func reset()
+		{
+			execute if score #KPQ_S1_LOADED temp matches 1 run function ARG(_PATH)stages/1/reset
+			execute if score #KPQ_S2_LOADED temp matches 1 run function ARG(_PATH)stages/2/reset
+			execute if score #KPQ_S3_LOADED temp matches 1 run function ARG(_PATH)stages/3/reset
+			execute if score #KPQ_S4_LOADED temp matches 1 run function ARG(_PATH)stages/4/reset
+			execute if score #KPQ_S5_LOADED temp matches 1 run function ARG(_PATH)stages/5/reset
+			execute if score #KPQ_S6_LOADED temp matches 1 run function ARG(_PATH)stages/6/reset
+			scoreboard players reset #KPQ_STAGE temp
+		}
+		
+		folder npc_talk()
+		{
+			func cloto()
+			{
+				execute if score @s game_stage matches 1 run function ARG(__PATH)stages/1/npc/cloto/talk
+				execute if score @s game_stage matches 2 run function ARG(__PATH)stages/2/npc/cloto/talk
+				execute if score @s game_stage matches 3 run function ARG(__PATH)stages/3/npc/cloto/talk
+				execute if score @s game_stage matches 4 run function ARG(__PATH)stages/4/npc/cloto/talk
+				execute if score @s game_stage matches 5 run function ARG(__PATH)stages/5/npc/cloto/talk
+				execute if score @s game_stage matches 6 run function ARG(__PATH)stages/6/npc/cloto/talk
+				advancement revoke @s only quest:party_quest/kpq/cloto
+			}
+			
+			func nella()
+			{
+				advancement revoke @s only quest:party_quest/kpq/nella
+			}
 		}
 		
 		folder stages()
 		{
 			folder 1()
 			{
+				func portal()
+				{
+					execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001008}
+					execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"translate":"item.etc.4001008"}]}
+					
+					scoreboard players set #KPQ_S2_LOADED temp 1
+					scoreboard players add @s game_stage 1
+					execute unless entity @a[scores={playing_game=1,game_stage=1}] run function ARG(_PATH)reset
+					
+					title @s times 1 5 10
+					title @s title {"text":"4","font":"ui:main"}
+					tp @s -511.0 42 0.0 90 45
+				}
+				
+				func reset()
+				{
+					forceload add -266 -23 -314 23
+					execute positioned -328 60 -43 run kill @e[type=item,dx=86,dy=28,dz=86]
+					kill @e[type=#skill:enemy,tag=kpq_mob]
+					kill @e[type=area_effect_cloud,tag=kpq_mob_spawner]
+					data modify block -310 47 0 Text1 set value '""'
+					kill @e[type=armor_stand,tag=kpq_portal_s1]
+					forceload remove -266 -23 -314 23
+					
+					scoreboard players reset #KPQ_S1_LOADED temp
+				}
+				
 				folder npc()
 				{
 					folder cloto()
@@ -169,7 +340,6 @@ namespace party_quest() as virtual
 							tellraw @s ""
 							execute if score #KPQ_STAGE temp matches 1 run function ARG(_PATH)check
 							execute if score #KPQ_STAGE temp matches 2.. run tellraw @s {"translate":"text.quest.party_quest.kpq.go_next"}
-							advancement revoke @s only quest:party_quest/kpq/stages/1/cloto
 						}
 						
 						func check()
@@ -181,8 +351,8 @@ namespace party_quest() as virtual
 						func pass_check()
 						{
 							execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001008} 0
-							execute unless score #GLOBAL temp = #KPQ_PASS_REQUIRED temp run tellraw @s {"translate":"text.quest.party_quest.kpq.stage1.require_pass","with":[{"score":{"objective":"temp","name":"#KPQ_PASS_REQUIRED"}}]}
-							execute if score #GLOBAL temp = #KPQ_PASS_REQUIRED temp run function ARG(_PATH)pass
+							execute unless score #GLOBAL temp >= #KPQ_PASS_REQUIRED temp run tellraw @s {"translate":"text.quest.party_quest.kpq.stage1.require_pass","with":[{"score":{"objective":"temp","name":"#KPQ_PASS_REQUIRED"}}]}
+							execute if score #GLOBAL temp >= #KPQ_PASS_REQUIRED temp run function ARG(_PATH)pass
 						}
 						
 						func pass()
@@ -190,12 +360,23 @@ namespace party_quest() as virtual
 							function quest:party_quest/kpq/title/clear/run
 							scoreboard players add #KPQ_STAGE temp 1
 							
-							# open portal
+							data modify block -310 47 0 Text1 set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -310.0 46 -1.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/1/portal"}}'
+							summon minecraft:armor_stand -310 46 0 {Tags:["kpq_portal_s1"],Marker:1,Fire:32767s,NoGravity:1,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:4,CustomPotionColor:-1}}],Rotation:[90.0f,0.0f]}
 							
 							scoreboard players set #EXP_GAIN temp 100
 							scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
-							execute as @a[scores={playing_game=1}] at @s run function quest:get_exp
+							execute as @a[scores={playing_game=1},tag=!dead] at @s run function quest:get_exp
+							
+							clear @s minecraft:stick{CustomModelData:4001008}
+							execute if score #GLOBAL temp matches 2.. run tellraw @s {"translate":"text.quest.item_lost_multiple","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"translate":"item.etc.4001008"}]}
+							execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","color":"gray","with":[{"translate":"item.etc.4001008"}]}
 							tellraw @s {"translate":"text.quest.party_quest.kpq.stage1.pass","with":[{"score":{"objective":"temp","name":"#KPQ_PASS_REQUIRED"}}]}
+							
+							function main:rand_rate
+							execute if score #RAND_RESULT temp matches ..24 run scoreboard players set #KPQ_PASS_REQUIRED temp 7
+							execute if score #RAND_RESULT temp matches 25..49 run scoreboard players set #KPQ_PASS_REQUIRED temp 11
+							execute if score #RAND_RESULT temp matches 50..74 run scoreboard players set #KPQ_PASS_REQUIRED temp 13
+							execute if score #RAND_RESULT temp matches 75.. run scoreboard players set #KPQ_PASS_REQUIRED temp 14
 						}
 						
 						func coupon_check()
@@ -229,6 +410,464 @@ namespace party_quest() as virtual
 							
 							scoreboard players reset @s kpq_coupon
 							scoreboard players reset @s kpq_question
+						}
+					}
+				}
+			}
+			
+			folder 2()
+			{
+				func portal()
+				{
+					scoreboard players set #KPQ_S3_LOADED temp 1
+					scoreboard players add @s game_stage 1
+					execute unless entity @a[scores={playing_game=1,game_stage=2}] run function ARG(_PATH)reset
+					
+					scoreboard players set @s bgm 4
+					function main:bgm/search/sleepy_wood
+					
+					title @s times 1 5 10
+					title @s title {"text":"4","font":"ui:main"}
+					tp @s -806 31 -6 90 30
+				}
+				
+				func reset()
+				{
+					forceload add -550 -25 -500 25
+					execute positioned -565 41 -40 run kill @e[type=item,dx=80,dy=37,dz=80]
+					data modify block -540 43 0 Text1 set value '""'
+					kill @e[type=armor_stand,tag=kpq_portal_s2]
+					forceload remove -550 -25 -500 25
+					
+					scoreboard players reset #KPQ_S2_LOADED temp
+				}
+				
+				folder npc()
+				{
+					folder cloto()
+					{
+						func talk()
+						{
+							tellraw @s ""
+							scoreboard players set #GLOBAL temp 0
+							execute store result score #GLOBAL temp if entity @a[scores={playing_game=1,game_stage=1}] run tellraw @s {"translate":"text.quest.party_quest.kpq.member_lost"}
+							execute if score #GLOBAL temp matches 0 run function ARG(_PATH)check
+						}
+						
+						func check()
+						{
+							scoreboard players set #COMBINATION temp 0
+							execute as @a[scores={playing_game=1}] run function ARG(_PATH)check_rope
+							execute unless score #COMBINATION temp = #KPQ_PASS_REQUIRED temp run function ARG(_PATH)check_amount
+							execute if score #COMBINATION temp = #KPQ_PASS_REQUIRED temp run function ARG(_PATH)pass
+						}
+						
+						func check_rope()
+						{
+							# execute positioned <rope1> if entity @s[dx=0,dy=6,dz=0] run function quest:party_quest/add_combination/1
+							# execute positioned <rope2> if entity @s[dx=0,dy=6,dz=0] run function quest:party_quest/add_combination/2
+							# execute positioned <rope3> if entity @s[dx=0,dy=6,dz=0] run function quest:party_quest/add_combination/3
+							# execute positioned <rope4> if entity @s[dx=0,dy=6,dz=0] run function quest:party_quest/add_combination/4
+						}
+						
+						func check_amount()
+						{
+							scoreboard players set #GLOBAL temp 0
+							execute if score #COMBINATION temp matches 8.. run scoreboard players add #GLOBAL temp 1
+							scoreboard players remove #COMBINATION temp 8
+							execute if score #COMBINATION temp matches 4.. run scoreboard players add #GLOBAL temp 1
+							scoreboard players remove #COMBINATION temp 4
+							execute if score #COMBINATION temp matches 2.. run scoreboard players add #GLOBAL temp 1
+							scoreboard players remove #COMBINATION temp 2
+							execute if score #COMBINATION temp matches 1.. run scoreboard players add #GLOBAL temp 1
+							
+							execute unless score #GLOBAL temp matches 3 run tellraw @s {"translate":"text.quest.party_quest.kpq.stage2.wrong_amount"}
+							execute if score #GLOBAL temp matches 3 run function quest:party_quest/kpq/title/wrong/run
+						}
+						
+						func pass()
+						{
+							function quest:party_quest/kpq/title/clear/run
+							scoreboard players add #KPQ_STAGE temp 1
+							
+							data modify block -540 43 0 Text1 set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -540.0 42 -1.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/2/portal"}}'
+							summon minecraft:armor_stand -540 42 0 {Tags:["kpq_portal_s2"],Marker:1,Fire:32767s,NoGravity:1,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:4,CustomPotionColor:-1}}],Rotation:[90.0f,0.0f]}
+							
+							scoreboard players set #EXP_GAIN temp 200
+							scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
+							execute as @a[scores={playing_game=1},tag=!dead] at @s run function quest:get_exp
+							
+							function main:rand_rate
+							execute if score #RAND_RESULT temp matches ..9 run scoreboard players set #KPQ_PASS_REQUIRED temp 7
+							execute if score #RAND_RESULT temp matches 10..19 run scoreboard players set #KPQ_PASS_REQUIRED temp 11
+							execute if score #RAND_RESULT temp matches 20..29 run scoreboard players set #KPQ_PASS_REQUIRED temp 19
+							execute if score #RAND_RESULT temp matches 30..39 run scoreboard players set #KPQ_PASS_REQUIRED temp 13
+							execute if score #RAND_RESULT temp matches 40..49 run scoreboard players set #KPQ_PASS_REQUIRED temp 21
+							execute if score #RAND_RESULT temp matches 50..59 run scoreboard players set #KPQ_PASS_REQUIRED temp 25
+							execute if score #RAND_RESULT temp matches 60..69 run scoreboard players set #KPQ_PASS_REQUIRED temp 14
+							execute if score #RAND_RESULT temp matches 70..79 run scoreboard players set #KPQ_PASS_REQUIRED temp 22
+							execute if score #RAND_RESULT temp matches 80..89 run scoreboard players set #KPQ_PASS_REQUIRED temp 26
+							execute if score #RAND_RESULT temp matches 90.. run scoreboard players set #KPQ_PASS_REQUIRED temp 28
+						}
+					}
+				}
+			}
+			
+			folder 3()
+			{
+				func portal()
+				{
+					scoreboard players set #KPQ_S4_LOADED temp 1
+					scoreboard players add @s game_stage 1
+					execute unless entity @a[scores={playing_game=1,game_stage=3}] run function ARG(_PATH)reset
+					
+					title @s times 1 5 10
+					title @s title {"text":"4","font":"ui:main"}
+					# tp ...
+				}
+				
+				func reset()
+				{
+					forceload add -852 -10 -800 10
+					execute positioned -852 31 -10 run kill @e[type=item,dx=52,dy=28,dz=20]
+					data modify block -850 47 0 Text1 set value '""'
+					kill @e[type=armor_stand,tag=kpq_portal_s3]
+					setblock -849 47 2 minecraft:air
+					setblock -849 47 -2 minecraft:air
+					forceload remove -852 -10 -800 10
+					
+					scoreboard players reset #KPQ_S3_LOADED temp
+				}
+				
+				folder npc()
+				{
+					folder cloto()
+					{
+						func talk()
+						{
+							tellraw @s ""
+							scoreboard players set #GLOBAL temp 0
+							execute store result score #GLOBAL temp if entity @a[scores={playing_game=1,game_stage=2}] run tellraw @s {"translate":"text.quest.party_quest.kpq.member_lost"}
+							execute if score #GLOBAL temp matches 0 run function ARG(_PATH)check
+						}
+						
+						func check()
+						{
+							scoreboard players set #COMBINATION temp 0
+							execute as @a[scores={playing_game=1}] run function ARG(_PATH)check_rope
+							execute unless score #COMBINATION temp = #KPQ_PASS_REQUIRED temp run function ARG(_PATH)check_amount
+							execute if score #COMBINATION temp = #KPQ_PASS_REQUIRED temp run function ARG(_PATH)pass
+						}
+						
+						func check_cat()
+						{
+							# execute positioned <cat1> if entity @s[dx=0,dy=0,dz=0] run function quest:party_quest/add_combination/1
+							# execute positioned <cat2> if entity @s[dx=0,dy=0,dz=0] run function quest:party_quest/add_combination/2
+							# execute positioned <cat3> if entity @s[dx=0,dy=0,dz=0] run function quest:party_quest/add_combination/3
+							# execute positioned <cat4> if entity @s[dx=0,dy=0,dz=0] run function quest:party_quest/add_combination/4
+							# execute positioned <cat5> if entity @s[dx=0,dy=0,dz=0] run function quest:party_quest/add_combination/5
+						}
+						
+						func check_amount()
+						{
+							scoreboard players set #GLOBAL temp 0
+							execute if score #COMBINATION temp matches 16.. run scoreboard players add #GLOBAL temp 1
+							scoreboard players remove #COMBINATION temp 16
+							execute if score #COMBINATION temp matches 8.. run scoreboard players add #GLOBAL temp 1
+							scoreboard players remove #COMBINATION temp 8
+							execute if score #COMBINATION temp matches 4.. run scoreboard players add #GLOBAL temp 1
+							scoreboard players remove #COMBINATION temp 4
+							execute if score #COMBINATION temp matches 2.. run scoreboard players add #GLOBAL temp 1
+							scoreboard players remove #COMBINATION temp 2
+							execute if score #COMBINATION temp matches 1.. run scoreboard players add #GLOBAL temp 1
+							
+							execute unless score #GLOBAL temp matches 3 run tellraw @s {"translate":"text.quest.party_quest.kpq.stage3.wrong_amount"}
+							execute if score #GLOBAL temp matches 3 run function quest:party_quest/kpq/title/wrong/run
+						}
+						
+						func pass()
+						{
+							function quest:party_quest/kpq/title/clear/run
+							scoreboard players add #KPQ_STAGE temp 1
+							
+							data modify block -850 47 0 Text1 set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -850.0 46 -1.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/3/portal"}}'
+							summon minecraft:armor_stand -850 46 0 {Tags:["kpq_portal_s3"],Marker:1,Fire:32767s,NoGravity:1,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:4,CustomPotionColor:-1}}],Rotation:[90.0f,0.0f]}
+							setblock -849 47 2 minecraft:fire
+							setblock -849 47 -2 minecraft:fire
+							
+							scoreboard players set #EXP_GAIN temp 400
+							scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
+							execute as @a[scores={playing_game=1},tag=!dead] at @s run function quest:get_exp
+							
+							function main:rand_rate
+							execute if score #RAND_RESULT temp matches ..4 run scoreboard players set #KPQ_PASS_REQUIRED temp 7
+							execute if score #RAND_RESULT temp matches 5..9 run scoreboard players set #KPQ_PASS_REQUIRED temp 11
+							execute if score #RAND_RESULT temp matches 10..14 run scoreboard players set #KPQ_PASS_REQUIRED temp 19
+							execute if score #RAND_RESULT temp matches 15..19 run scoreboard players set #KPQ_PASS_REQUIRED temp 35
+							execute if score #RAND_RESULT temp matches 20..24 run scoreboard players set #KPQ_PASS_REQUIRED temp 13
+							execute if score #RAND_RESULT temp matches 25..29 run scoreboard players set #KPQ_PASS_REQUIRED temp 21
+							execute if score #RAND_RESULT temp matches 30..34 run scoreboard players set #KPQ_PASS_REQUIRED temp 37
+							execute if score #RAND_RESULT temp matches 35..39 run scoreboard players set #KPQ_PASS_REQUIRED temp 25
+							execute if score #RAND_RESULT temp matches 40..44 run scoreboard players set #KPQ_PASS_REQUIRED temp 41
+							execute if score #RAND_RESULT temp matches 45..49 run scoreboard players set #KPQ_PASS_REQUIRED temp 49
+							execute if score #RAND_RESULT temp matches 50..54 run scoreboard players set #KPQ_PASS_REQUIRED temp 14
+							execute if score #RAND_RESULT temp matches 55..59 run scoreboard players set #KPQ_PASS_REQUIRED temp 22
+							execute if score #RAND_RESULT temp matches 60..64 run scoreboard players set #KPQ_PASS_REQUIRED temp 38
+							execute if score #RAND_RESULT temp matches 65..69 run scoreboard players set #KPQ_PASS_REQUIRED temp 26
+							execute if score #RAND_RESULT temp matches 70..74 run scoreboard players set #KPQ_PASS_REQUIRED temp 42
+							execute if score #RAND_RESULT temp matches 75..79 run scoreboard players set #KPQ_PASS_REQUIRED temp 50
+							execute if score #RAND_RESULT temp matches 80..84 run scoreboard players set #KPQ_PASS_REQUIRED temp 28
+							execute if score #RAND_RESULT temp matches 85..89 run scoreboard players set #KPQ_PASS_REQUIRED temp 44
+							execute if score #RAND_RESULT temp matches 90..94 run scoreboard players set #KPQ_PASS_REQUIRED temp 52
+							execute if score #RAND_RESULT temp matches 95..99 run scoreboard players set #KPQ_PASS_REQUIRED temp 56
+						}
+					}
+				}
+			}
+			
+			folder 4()
+			{
+				func portal()
+				{
+					scoreboard players add @s game_stage 1
+					execute unless entity @a[scores={playing_game=1,game_stage=4}] run function ARG(_PATH)reset
+					
+					title @s times 1 5 10
+					title @s title {"text":"4","font":"ui:main"}
+					# tp ...
+				}
+				
+				func reset()
+				{
+					# forceload add ...
+					# execute positioned <...> run kill @e[type=item,dx=...,dy=...,dz=...]
+					# data modify block <portal sign position> Text1 set value '""'
+					kill @e[type=armor_stand,tag=kpq_portal_s4]
+					# forceload remove ...
+					
+					scoreboard players reset #KPQ_S4_LOADED temp
+				}
+				
+				folder npc()
+				{
+					folder cloto()
+					{
+						func talk()
+						{
+							tellraw @s ""
+							scoreboard players set #GLOBAL temp 0
+							execute store result score #GLOBAL temp if entity @a[scores={playing_game=1,game_stage=3}] run tellraw @s {"translate":"text.quest.party_quest.kpq.member_lost"}
+							execute if score #GLOBAL temp matches 0 run function ARG(_PATH)check
+						}
+						
+						func check()
+						{
+							scoreboard players set #COMBINATION temp 0
+							execute as @a[scores={playing_game=1}] run function ARG(_PATH)check_barrel
+							execute unless score #COMBINATION temp = #KPQ_PASS_REQUIRED temp run function ARG(_PATH)check_amount
+							execute if score #COMBINATION temp = #KPQ_PASS_REQUIRED temp run function ARG(_PATH)pass
+						}
+						
+						func check_barrel()
+						{
+							# execute positioned <barrel1> if entity @s[dx=0,dy=0,dz=0] run function quest:party_quest/add_combination/1
+							# execute positioned <barrel2> if entity @s[dx=0,dy=0,dz=0] run function quest:party_quest/add_combination/2
+							# execute positioned <barrel3> if entity @s[dx=0,dy=0,dz=0] run function quest:party_quest/add_combination/3
+							# execute positioned <barrel4> if entity @s[dx=0,dy=0,dz=0] run function quest:party_quest/add_combination/4
+							# execute positioned <barrel5> if entity @s[dx=0,dy=0,dz=0] run function quest:party_quest/add_combination/5
+							# execute positioned <barrel6> if entity @s[dx=0,dy=0,dz=0] run function quest:party_quest/add_combination/6
+						}
+						
+						func check_amount()
+						{
+							scoreboard players set #GLOBAL temp 0
+							execute if score #COMBINATION temp matches 32.. run scoreboard players add #GLOBAL temp 1
+							scoreboard players remove #COMBINATION temp 32
+							execute if score #COMBINATION temp matches 16.. run scoreboard players add #GLOBAL temp 1
+							scoreboard players remove #COMBINATION temp 16
+							execute if score #COMBINATION temp matches 8.. run scoreboard players add #GLOBAL temp 1
+							scoreboard players remove #COMBINATION temp 8
+							execute if score #COMBINATION temp matches 4.. run scoreboard players add #GLOBAL temp 1
+							scoreboard players remove #COMBINATION temp 4
+							execute if score #COMBINATION temp matches 2.. run scoreboard players add #GLOBAL temp 1
+							scoreboard players remove #COMBINATION temp 2
+							execute if score #COMBINATION temp matches 1.. run scoreboard players add #GLOBAL temp 1
+							
+							execute unless score #GLOBAL temp matches 3 run tellraw @s {"translate":"text.quest.party_quest.kpq.stage4.wrong_amount"}
+							execute if score #GLOBAL temp matches 3 run function quest:party_quest/kpq/title/wrong/run
+						}
+						
+						func pass()
+						{
+							function quest:party_quest/kpq/title/clear/run
+							scoreboard players add #KPQ_STAGE temp 1
+							scoreboard players set #KPQ_S5_LOADED temp 1
+							
+							# data modify block <portal sign position> Text1 set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned <x y z> if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/4/portal"}}'
+							# summon minecraft:armor_stand <portal position> {Tags:["kpq_portal_s4"],Marker:1,Fire:32767s,NoGravity:1,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:4,CustomPotionColor:-1}}]}
+							
+							scoreboard players set #EXP_GAIN temp 800
+							scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
+							execute as @a[scores={playing_game=1},tag=!dead] at @s run function quest:get_exp
+							
+							# forceload add chunks for mob summon
+							# summon mobs
+							scoreboard players set #KING_SLIME_EXIST temp 1
+							function quest:party_quest/stages/5/king_slime_skills/run
+							# forceload remove chunks for mob summon
+						}
+					}
+				}
+			}
+			
+			folder 5()
+			{
+				func complete()
+				{
+					scoreboard players set #KPQ_S6_LOADED temp 1
+					scoreboard players add @s game_stage 1
+					execute unless entity @a[scores={playing_game=1,game_stage=5}] run function ARG(_PATH)reset
+					
+					title @s times 1 5 10
+					title @s title {"text":"4","font":"ui:main"}
+					# tp ...
+				}
+				
+				func reset()
+				{
+					# forceload add ...
+					# execute positioned <...> run kill @e[type=item,dx=...,dy=...,dz=...]
+					kill @e[type=#skill:enemy,tag=kpq_mob]
+					kill @e[type=armor_stand,tag=kpq_portal_s5]
+					scoreboard players reset #KING_SLIME_EXIST temp
+					# forceload remove ...
+					
+					scoreboard players reset #KPQ_S5_LOADED temp
+				}
+				
+				folder king_slime_skills() from schedule_loop(1s, "if score #KING_SLIME_EXIST temp matches 1")
+				{
+					func execute()
+					{
+						execute as @e[type=zombified_piglin,tag=king_slime,limit=1] unless score @s kb_time matches 1.. if data entity @s[nbt={OnGround:1b}] AngryAt unless data entity @s {AngryAt:[I;0,2,0,2]} at @s run function ARG(_PATH)skill_check
+					}
+					
+					func skill_check()
+					{
+						scoreboard players set #GLOBAL temp 0
+						execute if score @s hp matches ..4000 unless entity @s[tag=skill_used] store result score #GLOBAL temp run function ARG(_PATH)skill
+						execute if score #GLOBAL temp matches 0 positioned ~-4.5 ~-0.5 ~-4.5 if entity @a[tag=!dead,dx=8,dy=0,dz=8] at @s run function ARG(_PATH)attack
+					}
+					
+					func skill()
+					{
+						attribute @s minecraft:generic.movement_speed modifier add 495407c5-10c0-4270-84ed-c566e01e6952 move_control -100.0 add
+						scoreboard players set @s kb_time 24
+						scoreboard players set @s status 4
+						scoreboard players reset @s action_frame_max
+						data modify entity @s ArmorItems[3].tag.CustomModelData set value 10083
+						tag @s add skill_used
+						
+						playsound minecraft:mob.special.9300003_skill player @a ~ ~ ~ 1 1 0
+						schedule function ARG(_PATH)run_flash 8t
+						schedule function ARG(_PATH)call_summon 24t
+					}
+					
+					func run_flash()
+					{
+						execute at @e[type=zombified_piglin,tag=king_slime,limit=1] run function ARG(_PATH)flash
+					}
+					
+					func flash()
+					{
+						particle minecraft:flash ~ ~7 ~ 0 0 0 1 1
+						particle minecraft:explosion ~ ~7 ~ 0 0 0 0 1
+					}
+					
+					func call_summon()
+					{
+						execute at @e[type=zombified_piglin,tag=king_slime,limit=1] run function ARG(_PATH)summon
+					}
+					
+					func summon()
+					{
+						```
+						for i in range(3):
+							print('''summon zombified_piglin ~ ~2 ~ {Tags:["kpq_mob","new_enemy","summon_slime","lightning_weakness"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:6,hp_max:50,mp_max:35,avoidability:1,weapon_defense:5,magic_defense:10,kb:1,exp:10,height:2,move_frame:21,stand_frame:15,hurt_sound:3,die_sound:6},steal_loot:"skill:steal/0_9/slime",CustomModelData:10107,CustomPotionColor:-1,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.movement_speed",Name:"slow",Amount:0,Operation:0,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:4.2},{Name:"generic.movement_speed",Base:0.15},{Name:"generic.follow_range",Base:0.0}],DeathLootTable:"skill:mob/0_9/slime",Invulnerable:1b,OnGround:1b,AngerTime:2147483647,Team:"enemy",CustomName:'{"text":"2","font":"space:default"}',CustomNameVisible:1b}''')
+						```
+						execute as @e[type=#skill:enemy,tag=new_enemy,tag=summon_slime] run function mob:setting/run
+					}
+					
+					func attack()
+					{
+						attribute @s minecraft:generic.movement_speed modifier add 495407c5-10c0-4270-84ed-c566e01e6952 move_control -100.0 add
+						scoreboard players set @s kb_time 33
+						scoreboard players set @s status 4
+						scoreboard players set @s action_frame 0
+						scoreboard players set @s action_frame_max 33
+						scoreboard players set @s action_frame_s 34
+						
+						playsound minecraft:mob.special.9300003_attack player @a ~ ~ ~ 1 1 0
+						schedule function ARG(_PATH)spawn_quake 20t
+					}
+					
+					func spawn_quake()
+					{
+						execute as @e[type=zombified_piglin,tag=king_slime,tag=!dead,limit=1] at @s run function ARG(_PATH)quake
+					}
+					
+					func quake()
+					{
+						particle minecraft:explosion_emitter ~ ~ ~ 0 0 0 1 1
+						particle minecraft:cloud ~ ~0.2 ~ 2 0 2 0.15 30
+						
+						scoreboard players set #GLOBAL temp 0
+						execute positioned ~-4.5 ~-0.5 ~-4.5 as @a[tag=!dead,dx=8,dy=0,dz=8] if data entity @s {OnGround:1b} at @s run function ARG(_PATH)hit
+						execute if score #GLOBAL temp matches 1 run playsound minecraft:mob.special.9300003_char_damage player @a ~ ~ ~ 1 1 0
+					}
+					
+					func hit()
+					{
+						scoreboard players set @s damage_taken 165
+						function bar_display:take_damage/check
+						effect give @s minecraft:instant_damage 1 0 true
+						
+						scoreboard players set #GLOBAL temp 1
+					}
+				}
+				
+				folder npc()
+				{
+					folder cloto()
+					{
+						func talk()
+						{
+							tellraw @s ""
+							execute if score #KPQ_STAGE temp matches 5 run function ARG(_PATH)check
+							execute if score #KPQ_STAGE temp matches 6 run function quest:party_quest/kpq/stages/5/complete
+						}
+						
+						func check()
+						{
+							execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001008} 0
+							execute unless score #GLOBAL temp matches 10 run tellraw @s {"translate":"text.quest.party_quest.kpq.stage5.require_pass"}
+							execute if score #GLOBAL temp matches 10 run function ARG(_PATH)pass
+						}
+						
+						func pass()
+						{
+							function quest:party_quest/kpq/title/clear/run
+							scoreboard players add #KPQ_STAGE temp 1
+							
+							# summon minecraft:armor_stand <portal position> {Tags:["kpq_portal_s5"],Marker:1,Fire:32767s,NoGravity:1,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:4,CustomPotionColor:-1}}]}
+							
+							scoreboard players set #EXP_GAIN temp 1500
+							scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
+							execute as @a[scores={playing_game=1},tag=!dead] at @s run function quest:get_exp
+							
+							clear @s minecraft:stick{CustomModelData:4001008}
+							tellraw @s {"translate":"text.quest.item_lost_multiple","color":"gray","with":["10",{"translate":"item.etc.4001008"}]}
+							tellraw @s {"translate":"text.quest.party_quest.kpq.stage5.pass"}
 						}
 					}
 				}
