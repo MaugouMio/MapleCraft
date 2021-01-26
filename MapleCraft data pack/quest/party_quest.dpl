@@ -98,6 +98,10 @@ namespace party_quest() as virtual
 		setblock -282 39 6 minecraft:command_block[facing=down]{TrackOutput:0b,Command:"function mob:map/party_quest/kpq/stage1/main"}
 		setblock -282 38 6 minecraft:chain_command_block[facing=down]{auto:1b,TrackOutput:0b,Command:"data modify block ~ ~1 ~ auto set value 0b"}
 		forceload remove -282 6
+		# forceload add <kpq bonus stage>
+		# setblock <kpq bonus stage> minecraft:command_block[facing=down]{TrackOutput:0b,Command:"function mob:map/party_quest/kpq/stage6/main"}
+		# setblock <kpq bonus stage> minecraft:chain_command_block[facing=down]{auto:1b,TrackOutput:0b,Command:"data modify block ~ ~1 ~ auto set value 0b"}
+		# forceload remove <kpq bonus stage>
 	}
 						
 	folder add_combination()
@@ -182,10 +186,15 @@ namespace party_quest() as virtual
 			execute if score #KPQ_MEMBER temp matches 0 run function ARG(_PATH)reset
 		}
 		
+		func start_check()
+		{
+			execute if score #KPQ_STAGE temp matches 1.. run tellraw @s ["\n",{"translate":"text.quest.party_quest.kpq.menu.enter.fail"}]
+			execute unless score #KPQ_STAGE temp matches 1.. run function ARG(_PATH)start
+		}
 		
 		func start()
 		{
-			execute as @a run function ARG(_PATH)join
+			execute as @a if score @s map matches 103000000 run function ARG(_PATH)join
 			function ARG(_PATH)clock/start
 			
 			bossbar set ui:clock/kpq players @a[scores={playing_game=1}]
@@ -206,6 +215,7 @@ namespace party_quest() as virtual
 			title @s title {"text":"4","font":"ui:main"}
 			tp @s -260 45 0 90 50
 			
+			scoreboard players set @s map 103000890
 			scoreboard players set @s playing_game 1
 			scoreboard players set @s game_stage 1
 			scoreboard players add #KPQ_MEMBER temp 1
@@ -223,21 +233,24 @@ namespace party_quest() as virtual
 			execute if score #RAND_RANGE_RESULT temp matches 9 run scoreboard players set @s kpq_coupon 15
 		}
 		
-		# func complete()
-		# {
-			# title @s times 1 5 10
-			# title @s title {"text":"4","font":"ui:main"}
-			## tp ...
-			# scoreboard players reset @s playing_game
-			# scoreboard players reset @s game_stage
-			# scoreboard players remove #KPQ_MEMBER temp 1
-			# loot give @s loot quest:kpq_award
-			
-			# bossbar set ui:clock/kpq players @a[scores={playing_game=1}]
-			# execute if score #KPQ_MEMBER temp matches 0 run function ARG(_PATH)reset
-		# }
-		
 		func leave()
+		{
+			execute unless score @s playing_game matches 1 run function ARG(_PATH)leave_map
+			execute if score @s playing_game matches 1 run function ARG(_PATH)leave_stages
+		}
+		
+		func leave_map()
+		{
+			scoreboard players set @s map 103000000
+			scoreboard players set @s bgm 2
+			function main:bgm/search/bad_guys
+			
+			title @s times 1 5 10
+			title @s title {"text":"4","font":"ui:main"}
+			# tp @s ...
+		}
+		
+		func leave_stages()
 		{
 			execute if entity @s[tag=dead] run function bar_display:death/revive
 			scoreboard players reset @s kpq_coupon
@@ -283,6 +296,15 @@ namespace party_quest() as virtual
 		
 		folder npc_talk()
 		{
+			func lakelis()
+			{
+				tellraw @s ["\n",{"translate":"text.quest.party_quest.kpq.menu"}]
+				tellraw @s {"translate":"text.quest.party_quest.kpq.menu.enter","color":"blue","underlined":true,"clickEvent":{"action":"run_command","value":"trigger command set 171"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
+				tellraw @s {"translate":"text.quest.party_quest.kpq.menu.intro","color":"blue","underlined":true,"clickEvent":{"action":"run_command","value":"trigger command set 172"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
+				tellraw @s {"translate":"text.quest.party_quest.kpq.menu.reward","color":"blue","underlined":true,"clickEvent":{"action":"run_command","value":"trigger command set 173"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
+				advancement revoke @s only quest:party_quest/kpq/lakelis
+			}
+			
 			func cloto()
 			{
 				execute if score @s game_stage matches 1 run function ARG(__PATH)stages/1/npc/cloto/talk
@@ -296,6 +318,7 @@ namespace party_quest() as virtual
 			
 			func nella()
 			{
+				function ARG(__PATH)leave
 				advancement revoke @s only quest:party_quest/kpq/nella
 			}
 		}
@@ -722,11 +745,23 @@ namespace party_quest() as virtual
 			
 			folder 5()
 			{
+				func slot_check()
+				{
+					execute store result score #GLOBAL temp run data get entity @s Inventory
+					execute if data entity @s Inventory[{Slot:-106b}] run scoreboard players remove #GLOBAL temp 1
+					execute if score #GLOBAL temp matches 37 run tellraw @s ["\n",{"translate":"text.quest.party_quest.kpq.require_slot"}]
+					execute if score #GLOBAL temp matches ..36 run function ARG(_PATH)complete
+				}
+				
 				func complete()
 				{
 					scoreboard players set #KPQ_S6_LOADED temp 1
 					scoreboard players add @s game_stage 1
 					execute unless entity @a[scores={playing_game=1,game_stage=5}] run function ARG(_PATH)reset
+					
+					loot replace block 0 1 0 container.0 loot quest:kpq_award
+					tellraw @s {"translate":"text.quest.item_gain","color":"gray","with":[{"nbt":"Items[0].tag.display.Name","block":"0 1 0","interpret":true}]}
+					loot give @s mine 0 1 0 minecraft:air{modify_player:1b}
 					
 					title @s times 1 5 10
 					title @s title {"text":"4","font":"ui:main"}
@@ -842,13 +877,13 @@ namespace party_quest() as virtual
 					{
 						func talk()
 						{
-							tellraw @s ""
+							execute if score #KPQ_STAGE temp matches 6 run function quest:party_quest/kpq/stages/5/slot_check
 							execute if score #KPQ_STAGE temp matches 5 run function ARG(_PATH)check
-							execute if score #KPQ_STAGE temp matches 6 run function quest:party_quest/kpq/stages/5/complete
 						}
 						
 						func check()
 						{
+							tellraw @s ""
 							execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001008} 0
 							execute unless score #GLOBAL temp matches 10 run tellraw @s {"translate":"text.quest.party_quest.kpq.stage5.require_pass"}
 							execute if score #GLOBAL temp matches 10 run function ARG(_PATH)pass
@@ -858,6 +893,11 @@ namespace party_quest() as virtual
 						{
 							function quest:party_quest/kpq/title/clear/run
 							scoreboard players add #KPQ_STAGE temp 1
+							scoreboard players set #KPQ_S6_LOADED temp 1
+							
+							# forceload add ...
+							# summon minecraft:area_effect_cloud <spawner position> {Duration:2147483647,Tags:["mob_spawner","kpq_mob_spawner"]}
+							# forceload remove ...
 							
 							# summon minecraft:armor_stand <portal position> {Tags:["kpq_portal_s5"],Marker:1,Fire:32767s,NoGravity:1,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:4,CustomPotionColor:-1}}]}
 							
@@ -870,6 +910,20 @@ namespace party_quest() as virtual
 							tellraw @s {"translate":"text.quest.party_quest.kpq.stage5.pass"}
 						}
 					}
+				}
+			}
+			
+			folder 6()
+			{
+				func reset()
+				{
+					# forceload add ...
+					# execute positioned <...> run kill @e[type=item,dx=...,dy=...,dz=...]
+					kill @e[type=#skill:enemy,tag=kpq_mob]
+					kill @e[type=area_effect_cloud,tag=kpq_mob_spawner]
+					# forceload remove ...
+					
+					scoreboard players reset #KPQ_S6_LOADED temp
 				}
 			}
 		}

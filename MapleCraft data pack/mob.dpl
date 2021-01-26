@@ -113,6 +113,26 @@ namespace mob()
 						print("}")
 					```
 				}
+				
+				folder stage6()
+				{
+					func main()
+					{
+						```
+						g_mush_spawn_positions = []
+						for pos in spawn_positions:
+							print('''execute store result score #GLOBAL temp run summon zombified_piglin %s {UUID:[I;1,0,1,%d],Tags:["new_enemy","kpq_mob","poison_s_resist","poison_immune","no_jump"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:15,hp_max:250,mp_max:25,avoidability:5,weapon_defense:12,magic_defense:40,kb:1,exp:26,height:1,hurt_sound:1,die_sound:7},steal_loot:"skill:steal/10_19/green_mushroom",CustomModelData:10145,CustomPotionColor:-1,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.movement_speed",Name:"slow",Amount:0,Operation:0,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:8.2},{Name:"generic.movement_speed",Base:0.15},{Name:"generic.follow_range",Base:0.0}],DeathLootTable:"skill:mob/10_19/green_mushroom",Invulnerable:1b,OnGround:1b,AngerTime:2147483647,Team:"enemy",CustomName:'{"text":"2","font":"space:default"}',CustomNameVisible:1b}''' %(pos, MOB_UUID))
+							print('''execute if score #GLOBAL temp matches 1 positioned %s run particle minecraft:sweep_attack ~ ~0.5 ~ 0 0 0 0 1''' %pos)
+							MOB_UUID += 1
+							
+						h_mush_spawn_positions = []
+						for pos in spawn_positions:
+							print('''execute store result score #GLOBAL temp run summon zombified_piglin %s {UUID:[I;1,0,1,%d],Tags:["new_enemy","kpq_mob","no_jump"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:22,hp_max:300,mp_max:35,avoidability:7,weapon_defense:30,magic_defense:0,kb:1,exp:35,height:1,hurt_sound:1,die_sound:7},steal_loot:"skill:steal/20_29/horny_mushroom",CustomModelData:10149,CustomPotionColor:-1,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.movement_speed",Name:"slow",Amount:0,Operation:0,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:9.0},{Name:"generic.movement_speed",Base:0.15},{Name:"generic.follow_range",Base:0.0}],DeathLootTable:"skill:mob/20_29/horny_mushroom",Invulnerable:1b,OnGround:1b,AngerTime:2147483647,Team:"enemy",CustomName:'{"text":"2","font":"space:default"}',CustomNameVisible:1b}''' %(pos, MOB_UUID))
+							print('''execute if score #GLOBAL temp matches 1 positioned %s run particle minecraft:sweep_attack ~ ~0.5 ~ 0 0 0 0 1''' %pos)
+							MOB_UUID += 1
+						```
+					}
+				}
 			}
 		}
 	}
