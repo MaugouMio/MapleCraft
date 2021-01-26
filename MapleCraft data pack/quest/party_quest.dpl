@@ -98,6 +98,10 @@ namespace party_quest() as virtual
 		setblock -282 39 6 minecraft:command_block[facing=down]{TrackOutput:0b,Command:"function mob:map/party_quest/kpq/stage1/main"}
 		setblock -282 38 6 minecraft:chain_command_block[facing=down]{auto:1b,TrackOutput:0b,Command:"data modify block ~ ~1 ~ auto set value 0b"}
 		forceload remove -282 6
+		# forceload add <kpq bonus stage>
+		# setblock <kpq bonus stage> minecraft:command_block[facing=down]{TrackOutput:0b,Command:"function mob:map/party_quest/kpq/stage6/main"}
+		# setblock <kpq bonus stage> minecraft:chain_command_block[facing=down]{auto:1b,TrackOutput:0b,Command:"data modify block ~ ~1 ~ auto set value 0b"}
+		# forceload remove <kpq bonus stage>
 	}
 						
 	folder add_combination()
@@ -869,6 +873,11 @@ namespace party_quest() as virtual
 						{
 							function quest:party_quest/kpq/title/clear/run
 							scoreboard players add #KPQ_STAGE temp 1
+							scoreboard players set #KPQ_S6_LOADED temp 1
+							
+							# forceload add ...
+							# summon minecraft:area_effect_cloud <spawner position> {Duration:2147483647,Tags:["mob_spawner","kpq_mob_spawner"]}
+							# forceload remove ...
 							
 							# summon minecraft:armor_stand <portal position> {Tags:["kpq_portal_s5"],Marker:1,Fire:32767s,NoGravity:1,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:4,CustomPotionColor:-1}}]}
 							
@@ -886,7 +895,16 @@ namespace party_quest() as virtual
 			
 			folder 6()
 			{
-				
+				func reset()
+				{
+					# forceload add ...
+					# execute positioned <...> run kill @e[type=item,dx=...,dy=...,dz=...]
+					kill @e[type=#skill:enemy,tag=kpq_mob]
+					kill @e[type=area_effect_cloud,tag=kpq_mob_spawner]
+					# forceload remove ...
+					
+					scoreboard players reset #KPQ_S6_LOADED temp
+				}
 			}
 		}
 		
