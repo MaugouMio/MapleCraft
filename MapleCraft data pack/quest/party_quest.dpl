@@ -182,7 +182,6 @@ namespace party_quest() as virtual
 			execute if score #KPQ_MEMBER temp matches 0 run function ARG(_PATH)reset
 		}
 		
-		
 		func start()
 		{
 			execute as @a run function ARG(_PATH)join
@@ -722,11 +721,23 @@ namespace party_quest() as virtual
 			
 			folder 5()
 			{
+				func slot_check()
+				{
+					execute store result score #GLOBAL temp run data get entity @s Inventory
+					execute if data entity @s Inventory[{Slot:-106b}] run scoreboard players remove #GLOBAL temp 1
+					execute if score #GLOBAL temp matches 37 run tellraw @s ["\n",{"translate":"text.quest.party_quest.kpq.require_slot"}]
+					execute if score #GLOBAL temp matches ..36 run function ARG(_PATH)complete
+				}
+				
 				func complete()
 				{
 					scoreboard players set #KPQ_S6_LOADED temp 1
 					scoreboard players add @s game_stage 1
 					execute unless entity @a[scores={playing_game=1,game_stage=5}] run function ARG(_PATH)reset
+					
+					loot replace block 0 1 0 container.0 loot quest:kpq_award
+					tellraw @s {"translate":"text.quest.item_gain","color":"gray","with":[{"nbt":"Items[0].tag.display.Name","block":"0 1 0","interpret":true}]}
+					loot give @s mine 0 1 0 minecraft:air{modify_player:1b}
 					
 					title @s times 1 5 10
 					title @s title {"text":"4","font":"ui:main"}
@@ -842,13 +853,13 @@ namespace party_quest() as virtual
 					{
 						func talk()
 						{
-							tellraw @s ""
+							execute if score #KPQ_STAGE temp matches 6 run function quest:party_quest/kpq/stages/5/slot_check
 							execute if score #KPQ_STAGE temp matches 5 run function ARG(_PATH)check
-							execute if score #KPQ_STAGE temp matches 6 run function quest:party_quest/kpq/stages/5/complete
 						}
 						
 						func check()
 						{
+							tellraw @s ""
 							execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001008} 0
 							execute unless score #GLOBAL temp matches 10 run tellraw @s {"translate":"text.quest.party_quest.kpq.stage5.require_pass"}
 							execute if score #GLOBAL temp matches 10 run function ARG(_PATH)pass
@@ -871,6 +882,11 @@ namespace party_quest() as virtual
 						}
 					}
 				}
+			}
+			
+			folder 6()
+			{
+				
 			}
 		}
 		
