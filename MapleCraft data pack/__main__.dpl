@@ -61,6 +61,7 @@ namespace main()
 		scoreboard objectives add fall minecraft.custom:minecraft.fall_one_cm
 		scoreboard objectives add command trigger
 		scoreboard objectives add login minecraft.custom:minecraft.leave_game
+		scoreboard objectives add map dummy
 		scoreboard objectives add bgm dummy
 		scoreboard objectives add bgm_time dummy
 		

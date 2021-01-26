@@ -8,7 +8,7 @@ namespace quest()
 {
 	func reset_check()
 	{
-		execute if score @s playing_game matches 1 run function ARG(_PATH)party_quest/kpq/leave
+		execute if score @s playing_game matches 1 run function ARG(_PATH)party_quest/kpq/leave_stages
 	}
 	
 	func get_clock_time()

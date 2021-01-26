@@ -186,9 +186,15 @@ namespace party_quest() as virtual
 			execute if score #KPQ_MEMBER temp matches 0 run function ARG(_PATH)reset
 		}
 		
+		func start_check()
+		{
+			execute if score #KPQ_STAGE temp matches 1.. run tellraw @s ["\n",{"translate":"text.quest.party_quest.kpq.menu.enter.fail"}]
+			execute unless score #KPQ_STAGE temp matches 1.. run function ARG(_PATH)start
+		}
+		
 		func start()
 		{
-			execute as @a run function ARG(_PATH)join
+			execute as @a if score @s map matches 103000000 run function ARG(_PATH)join
 			function ARG(_PATH)clock/start
 			
 			bossbar set ui:clock/kpq players @a[scores={playing_game=1}]
@@ -209,6 +215,7 @@ namespace party_quest() as virtual
 			title @s title {"text":"4","font":"ui:main"}
 			tp @s -260 45 0 90 50
 			
+			scoreboard players set @s map 103000890
 			scoreboard players set @s playing_game 1
 			scoreboard players set @s game_stage 1
 			scoreboard players add #KPQ_MEMBER temp 1
@@ -226,21 +233,24 @@ namespace party_quest() as virtual
 			execute if score #RAND_RANGE_RESULT temp matches 9 run scoreboard players set @s kpq_coupon 15
 		}
 		
-		# func complete()
-		# {
-			# title @s times 1 5 10
-			# title @s title {"text":"4","font":"ui:main"}
-			## tp ...
-			# scoreboard players reset @s playing_game
-			# scoreboard players reset @s game_stage
-			# scoreboard players remove #KPQ_MEMBER temp 1
-			# loot give @s loot quest:kpq_award
-			
-			# bossbar set ui:clock/kpq players @a[scores={playing_game=1}]
-			# execute if score #KPQ_MEMBER temp matches 0 run function ARG(_PATH)reset
-		# }
-		
 		func leave()
+		{
+			execute unless score @s playing_game matches 1 run function ARG(_PATH)leave_map
+			execute if score @s playing_game matches 1 run function ARG(_PATH)leave_stages
+		}
+		
+		func leave_map()
+		{
+			scoreboard players set @s map 103000000
+			scoreboard players set @s bgm 2
+			function main:bgm/search/bad_guys
+			
+			title @s times 1 5 10
+			title @s title {"text":"4","font":"ui:main"}
+			# tp @s ...
+		}
+		
+		func leave_stages()
 		{
 			execute if entity @s[tag=dead] run function bar_display:death/revive
 			scoreboard players reset @s kpq_coupon
@@ -286,6 +296,15 @@ namespace party_quest() as virtual
 		
 		folder npc_talk()
 		{
+			func lakelis()
+			{
+				tellraw @s ["\n",{"translate":"text.quest.party_quest.kpq.menu"}]
+				tellraw @s {"translate":"text.quest.party_quest.kpq.menu.enter","color":"blue","underlined":true,"clickEvent":{"action":"run_command","value":"trigger command set 171"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
+				tellraw @s {"translate":"text.quest.party_quest.kpq.menu.intro","color":"blue","underlined":true,"clickEvent":{"action":"run_command","value":"trigger command set 172"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
+				tellraw @s {"translate":"text.quest.party_quest.kpq.menu.reward","color":"blue","underlined":true,"clickEvent":{"action":"run_command","value":"trigger command set 173"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
+				advancement revoke @s only quest:party_quest/kpq/lakelis
+			}
+			
 			func cloto()
 			{
 				execute if score @s game_stage matches 1 run function ARG(__PATH)stages/1/npc/cloto/talk
@@ -299,6 +318,7 @@ namespace party_quest() as virtual
 			
 			func nella()
 			{
+				function ARG(__PATH)leave
 				advancement revoke @s only quest:party_quest/kpq/nella
 			}
 		}
