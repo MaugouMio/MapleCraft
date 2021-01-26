@@ -8,7 +8,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "nbt": "{Tags:[\"npc_test_helper\"]}"
+              "nbt": "{Tags:[\"npc_a_pierce\"]}"
             }
           }
         ]
@@ -16,6 +16,6 @@
     }
   },
   "rewards": {
-    "function": "main:test_npc/helper"
+    "function": "main:test_npc/athena_pierce"
   }
 }
