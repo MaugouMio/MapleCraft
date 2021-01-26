@@ -32,6 +32,61 @@
           "functions": [
             {
               "function": "minecraft:set_nbt",
+              "tag": "{CustomModelData:500,price:1,equip_type:30,chance:10,destroy_chance:0,accuracy:1,defense:5,magic_defense:3,display:{Name:'{\"translate\":\"item.scroll.helmet.def.10\",\"bold\":true,\"italic\":false,\"font\":\"minecraft:uniform\"}',Lore:['{\"translate\":\"item.notice.scroll.chance\",\"with\":[\"10\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}','{\"translate\":\"item.notice.scroll.weapon_def\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"5\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll.magic_def\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"3\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll.accuracy\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"1\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{CustomModelData:500,price:1,equip_type:31,chance:10,destroy_chance:0,hp:10,defense:5,magic_defense:3,display:{Name:'{\"translate\":\"item.scroll.top.def.10\",\"bold\":true,\"italic\":false,\"font\":\"minecraft:uniform\"}',Lore:['{\"translate\":\"item.notice.scroll.chance\",\"with\":[\"10\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}','{\"translate\":\"item.notice.scroll.hp\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"10\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll.weapon_def\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"5\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll.magic_def\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"3\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{CustomModelData:500,price:1,equip_type:32,chance:10,destroy_chance:0,hp:10,defense:5,magic_defense:3,display:{Name:'{\"translate\":\"item.scroll.bottom.def.10\",\"bold\":true,\"italic\":false,\"font\":\"minecraft:uniform\"}',Lore:['{\"translate\":\"item.notice.scroll.chance\",\"with\":[\"10\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}','{\"translate\":\"item.notice.scroll.hp\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"10\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll.weapon_def\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"5\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll.magic_def\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"3\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{CustomModelData:500,price:1,equip_type:33,chance:10,destroy_chance:0,hp:10,defense:5,magic_defense:3,display:{Name:'{\"translate\":\"item.scroll.overall.def.10\",\"bold\":true,\"italic\":false,\"font\":\"minecraft:uniform\"}',Lore:['{\"translate\":\"item.notice.scroll.chance\",\"with\":[\"10\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}','{\"translate\":\"item.notice.scroll.hp\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"10\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll.weapon_def\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"5\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll.magic_def\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"3\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{CustomModelData:500,price:1,equip_type:34,chance:10,destroy_chance:0,accuracy:5,dex:3,display:{Name:'{\"translate\":\"item.scroll.gloves.dex.10\",\"bold\":true,\"italic\":false,\"font\":\"minecraft:uniform\"}',Lore:['{\"translate\":\"item.notice.scroll.chance\",\"with\":[\"10\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}','{\"translate\":\"item.notice.scroll.dex\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"3\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll.accuracy\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"5\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
               "tag": "{level:35,job:[1,1,1,1,1,1],stats:[0,0,0,0],equip_type:40,CustomModelData:13513,magic_defense:15,icon:['\"\\\\ud026\"','\"\\\\ud027\"'],scroll_left:5,price:27500,original_name:'{\"translate\":\"equip.ear.common.sapphire_earrings\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',display:{Name:'{\"translate\":\"equip.ear.common.sapphire_earrings\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',Lore:['{\"translate\":\"item.notice.require.level\",\"font\":\"minecraft:uniform\",\"with\":[\"35\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.str\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.dex\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.int\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.luk\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"text\":\"02468a\",\"font\":\"ui:equip\",\"color\":\"white\",\"italic\":false}','{\"text\":\"--------------------------------------\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.equip_category\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"translate\":\"item.notice.equip_category.ear\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.magic_def\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"15\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[5]}']},HideFlags:127,Unbreakable:1}"
             }
           ]
