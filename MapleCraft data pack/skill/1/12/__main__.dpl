@@ -34,7 +34,7 @@ namespace 12() as virtual
 				scoreboard players operation #GLOBAL temp = @s level
 				scoreboard players remove #GLOBAL temp 30
 				scoreboard players operation #GLOBAL temp *= #3 const
-				execute if score @s level matches 30.. unless score @s skill_point > #GLOBAL temp at @s run function ARG(_PATH)run
+				execute if score @s[tag=warrior] job_level matches 1 if score @s level matches 30.. unless score @s skill_point > #GLOBAL temp at @s run function ARG(_PATH)run
 			}
 			
 			func run()

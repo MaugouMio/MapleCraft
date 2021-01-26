@@ -38,7 +38,7 @@ namespace 1() as virtual
 			{
 				func check()
 				{
-					execute if score @s level matches 10.. if score @s STR matches 35.. at @s run function ARG(_PATH)run
+					execute if score @s job_level matches 0 if score @s level matches 10.. if score @s STR matches 35.. at @s run function ARG(_PATH)run
 				}
 				
 				func run()
