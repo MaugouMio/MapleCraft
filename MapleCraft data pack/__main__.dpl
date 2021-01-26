@@ -552,6 +552,17 @@ namespace main()
 		playsound minecraft:game.portal player @s ~ ~ ~ 1 1 1
 	}
 	
+	func test_helper()
+	{
+		tellraw @s ["\n",{"translate":"text.quest.test_server_helper.menu"}]
+		tellraw @s {"translate":"text.quest.test_server_helper.menu.level_up","clickEvent":{"action":"run_command","value":"trigger command set 192"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
+		tellraw @s {"translate":"text.quest.test_server_helper.menu.equip_warrior","clickEvent":{"action":"run_command","value":"trigger command set 193"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
+		tellraw @s {"translate":"text.quest.test_server_helper.menu.equip_magician","clickEvent":{"action":"run_command","value":"trigger command set 194"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
+		tellraw @s {"translate":"text.quest.test_server_helper.menu.equip_archer","clickEvent":{"action":"run_command","value":"trigger command set 195"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
+		tellraw @s {"translate":"text.quest.test_server_helper.menu.equip_thief","clickEvent":{"action":"run_command","value":"trigger command set 196"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
+		advancement revoke @s only main:npc/test_helper
+	}
+	
 	folder test_job()
 	{
 		func level_up()

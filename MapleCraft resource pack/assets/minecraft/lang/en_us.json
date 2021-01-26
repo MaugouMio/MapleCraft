@@ -1459,8 +1459,16 @@
 	"text.quest.item_gain_multiple": "You have gained items (%1$s %2$s)",
 	"text.quest.item_lost": "You have lost an item (%s)",
 	"text.quest.item_lost_multiple": "You have lost items (%1$s %2$s)",
-	"text.quest.party_quest.kpq.menu": "<Lakelis> What do you want to know about the §9First Time Together§r party quest?",
-	"text.quest.party_quest.kpq.menu.enter": "§7> §9I want to do the Party Quest!§r",
+	
+	"text.quest.test_server_helper.menu": "<Mr. Goldstein> I'm helping adventurers now. Which assistance do you need?",
+	"text.quest.test_server_helper.menu.level_up": "§7> §lPlease level me up. (Until level 70)§r",
+	"text.quest.test_server_helper.menu.equip_warrior": "§7> §lPlease give me some warrior equipments.§r",
+	"text.quest.test_server_helper.menu.equip_magician": "§7> §llease give me some magician equipments.§r",
+	"text.quest.test_server_helper.menu.equip_archer": "§7> §llease give me some archer equipments.§r",
+	"text.quest.test_server_helper.menu.equip_thief": "§7> §llease give me some thief equipments.§r",
+	
+	"text.quest.party_quest.kpq.menu": "<Lakelis> What do you want to know about the §lFirst Time Together§r party quest?",
+	"text.quest.party_quest.kpq.menu.enter": "§7> §1I want to do the Party Quest!§r",
 	"text.quest.party_quest.kpq.menu.enter.req_level": "<Lakelis> Only players over level 21 can join the §9First Time Together§r party quest.",
 	"text.quest.party_quest.kpq.menu.enter.fail": "<Lakelis> There is already a team doing the party quest. Please talk to me later.",
 	"text.quest.party_quest.kpq.menu.intro": "§7> §9I want to hear the details.§r",
