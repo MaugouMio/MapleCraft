@@ -904,6 +904,9 @@ namespace item()
 					# use sound check
 					execute store result score #GLOBAL temp run data get entity @s SelectedItem.tag.sound
 					execute if score #GLOBAL temp matches 0 run playsound minecraft:item.potion player @s
+					execute if score #GLOBAL temp matches 1 run playsound minecraft:item.apple player @s
+					execute if score #GLOBAL temp matches 2 run playsound minecraft:item.unagi player @s
+					execute if score #GLOBAL temp matches 3 run playsound minecraft:item.sap_of_ancient_tree player @s
 					
 					# potion type check
 					execute if score #USING_ITEM temp matches ..299 run function ARG(_PATH)recover/check
