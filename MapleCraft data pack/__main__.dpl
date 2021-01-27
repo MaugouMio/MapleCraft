@@ -651,6 +651,9 @@ namespace main()
 			execute if entity @s[tag=ear_equipped] run function item:use/equip/ear/remove
 			execute if entity @s[tag=pendant_equipped] run function item:use/equip/pendant/remove
 			execute if score @s weapon_type matches 2.. run function item:use/weapon/remove
+			
+			clear @s minecraft:carrot_on_a_stick
+			give @s minecraft:carrot_on_a_stick{CustomModelData:199,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.attack","bold":true,"italic":false}'}}
 		}
 		
 		func warrior()
