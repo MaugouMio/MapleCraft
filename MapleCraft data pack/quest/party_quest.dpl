@@ -94,10 +94,10 @@ namespace party_quest() as virtual
 		scoreboard objectives add kpq_coupon dummy
 		scoreboard objectives add kpq_question dummy
 		
-		forceload add -282 6
-		setblock -282 39 6 minecraft:command_block[facing=down]{TrackOutput:0b,Command:"function mob:map/party_quest/kpq/stage1/main"}
-		setblock -282 38 6 minecraft:chain_command_block[facing=down]{auto:1b,TrackOutput:0b,Command:"data modify block ~ ~1 ~ auto set value 0b"}
-		forceload remove -282 6
+		# forceload add -282 6
+		# setblock -282 39 6 minecraft:command_block[facing=down]{TrackOutput:0b,Command:"function mob:map/party_quest/kpq/stage1/main"}
+		# setblock -282 38 6 minecraft:chain_command_block[facing=down]{auto:1b,TrackOutput:0b,Command:"data modify block ~ ~1 ~ auto set value 0b"}
+		# forceload remove -282 6
 		# forceload add <kpq bonus stage>
 		# setblock <kpq bonus stage> minecraft:command_block[facing=down]{TrackOutput:0b,Command:"function mob:map/party_quest/kpq/stage6/main"}
 		# setblock <kpq bonus stage> minecraft:chain_command_block[facing=down]{auto:1b,TrackOutput:0b,Command:"data modify block ~ ~1 ~ auto set value 0b"}
@@ -241,6 +241,13 @@ namespace party_quest() as virtual
 		
 		func leave_map()
 		{
+			execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001007}
+			execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","color":"gray","with":[{"translate":"item.etc.4001007"}]}
+			execute if score #GLOBAL temp matches 2.. run tellraw @s {"translate":"text.quest.item_lost_multiple","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"translate":"item.etc.4001007"}]}
+			execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001008}
+			execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","color":"gray","with":[{"translate":"item.etc.4001008"}]}
+			execute if score #GLOBAL temp matches 2.. run tellraw @s {"translate":"text.quest.item_lost_multiple","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"translate":"item.etc.4001008"}]}
+			
 			scoreboard players set @s map 103000000
 			scoreboard players set @s bgm 2
 			function main:bgm/search/bad_guys
