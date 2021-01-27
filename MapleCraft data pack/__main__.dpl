@@ -565,6 +565,12 @@ namespace main()
 			advancement revoke @s only main:npc/test_helper
 		}
 		
+		func shop()
+		{
+			tellraw @s ["\n",{"translate":"text.quest.test_shop.menu"}]
+			advancement revoke @s only main:npc/test_shop
+		}
+		
 		func dance_with_balrog()
 		{
 			tellraw @s ["\n",{"translate":"text.quest.test_warrior_transfer.menu"}]
