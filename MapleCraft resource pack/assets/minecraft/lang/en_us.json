@@ -1115,6 +1115,7 @@
 	"item.etc.4001007": "Coupon",
 	"item.etc.4001008": "Pass",
 	
+	"npc.maple_administrator": "Maple Administrator",
 	"npc.dances_with_balrog": "Dances with Balrog",
 	"npc.grendel_the_really_old": "Grendel the Really Old",
 	"npc.athena_pierce": "Athena Pierce",
@@ -1138,6 +1139,16 @@
 	"text.scroll.success": "The scroll lights up, and then its mysterious power has been transferred to the item.",
 	"text.scroll.fail": "The scroll lights up, but the item winds up as if nothing happened.",
 	"text.scroll.destroy": "The item is destroyed due to the overwhelming power of the scroll.",
+	
+	"text.npc.maple_administrator.menu": "<Maple Administrator> How may I help you?",
+	"text.npc.maple_administrator.menu.reset_menu": "§7> §1I lost my MENU book.§r",
+	"text.npc.maple_administrator.menu.reset_menu.response": "<Maple Administrator> I have reset your MENU book. Enter §7\"/trigger command set -1\"§r to reset the book anytime.",
+	"text.npc.maple_administrator.menu.how_to_projectile": "§7> §1How to use throwing-stars or arrows?§r",
+	"text.npc.maple_administrator.menu.how_to_projectile.response": "<Maple Administrator> Place the throwing-stars or arrows in your §cmainhand§r, and right click to equip them. Equipped throwing-stars or arrows will be consumed automatically when you attack.",
+	"text.npc.maple_administrator.menu.how_to_equip": "§7> §1How to equip an item?§r",
+	"text.npc.maple_administrator.menu.how_to_equip.response": "<Maple Administrator> Place the equipment in your §cmainhand§r, and right click to equip it.",
+	"text.npc.maple_administrator.menu.how_to_scroll": "§7> §1How to use a scroll?§r",
+	"text.npc.maple_administrator.menu.how_to_scroll.response": "<Maple Administrator> Place the equipment you want to scroll in your §coffhand§r, and place the scroll in your §cmainhand§r, then right click to scroll the equipment.",
 	
 	"text.quest.exp_gain": "You have gained experience (+%s)",
 	"text.quest.item_gain": "You have gained an item (%s)",

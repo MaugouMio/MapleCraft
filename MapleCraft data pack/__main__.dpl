@@ -310,6 +310,7 @@ namespace main()
 			```
 			print(f"give @s {menu_book}")
 			```
+			tellraw @s {"translate":"text.npc.maple_administrator.menu.reset_menu.response"}
 		}
 		
 		func equip()
@@ -336,6 +337,22 @@ namespace main()
 			{
 				clear @s minecraft:carrot_on_a_stick{CustomModelData:199}
 				give @s minecraft:carrot_on_a_stick{CustomModelData:199,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.attack","bold":true,"italic":false}'}}
+			}
+		}
+	}
+	
+	folder npc()
+	{
+		folder maple_administrator()
+		{
+			func talk()
+			{
+				tellraw @s ["\n",{"translate":"text.npc.maple_administrator.menu"}]
+				tellraw @s {"translate":"text.npc.maple_administrator.menu.reset_menu","clickEvent":{"action":"run_command","value":"trigger command set -1"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
+				tellraw @s {"translate":"text.npc.maple_administrator.menu.how_to_projectile","clickEvent":{"action":"run_command","value":"trigger command set 197"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
+				tellraw @s {"translate":"text.npc.maple_administrator.menu.how_to_equip","clickEvent":{"action":"run_command","value":"trigger command set 198"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
+				tellraw @s {"translate":"text.npc.maple_administrator.menu.how_to_scroll","clickEvent":{"action":"run_command","value":"trigger command set 199"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
+				advancement revoke @s only main:npc/maple_administrator
 			}
 		}
 	}

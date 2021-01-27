@@ -1143,6 +1143,7 @@
 	"item.etc.4001007": "優惠券",
 	"item.etc.4001008": "通行證",
 	
+	"npc.maple_administrator": "楓之谷GM",
 	"npc.dances_with_balrog": "武術教練",
 	"npc.grendel_the_really_old": "漢斯",
 	"npc.athena_pierce": "赫麗娜",
@@ -1166,6 +1167,16 @@
 	"text.scroll.success": "道具瞬間發出光芒。",
 	"text.scroll.fail": "道具瞬間發出光芒，但沒有任何變化。",
 	"text.scroll.destroy": "透過卷軸的力量，道具已經被破壞。",
+	
+	"text.npc.maple_administrator.menu": "<楓之谷GM> 需要什麼幫助嗎？",
+	"text.npc.maple_administrator.menu.reset_menu": "§7> §1我遺失了MENU書本§r",
+	"text.npc.maple_administrator.menu.reset_menu.response": "<楓之谷GM> 重新發給你MENU書本了，輸入§7\"/trigger command set -1\"§r可以隨時補發。",
+	"text.npc.maple_administrator.menu.how_to_projectile": "§7> §1如何使用飛鏢或箭矢？§r",
+	"text.npc.maple_administrator.menu.how_to_projectile.response": "<楓之谷GM> 將飛鏢或箭矢放在§c主手§r並點擊右鍵即可裝備，攻擊時會自動消耗裝備中的飛鏢或箭矢。",
+	"text.npc.maple_administrator.menu.how_to_equip": "§7> §1如何裝備道具？§r",
+	"text.npc.maple_administrator.menu.how_to_equip.response": "<楓之谷GM> 將裝備放在§c主手§r並點擊右鍵即可。",
+	"text.npc.maple_administrator.menu.how_to_scroll": "§7> §1如何使用卷軸？§r",
+	"text.npc.maple_administrator.menu.how_to_scroll.response": "<楓之谷GM> 將要強化的裝備放在§c副手§r，要使用的卷軸放在§c主手§r並點擊右鍵即可。",
 	
 	"text.quest.exp_gain": "獲得經驗值。 (+%s)",
 	"text.quest.item_gain": "獲得道具。 (%s)",
