@@ -171,20 +171,20 @@
 171,if score @s map matches 103000000 run function quest:party_quest/kpq/start_check
 172,if score @s map matches 103000000 run tellraw @s ["\n",{"translate":"text.quest.party_quest.kpq.menu.intro.detail"}]
 173,
-174,if score @s map matches 102000003 run function skill:1/0/0/transfer/check
-175,if score @s map matches 101000003 run function skill:2/0/0/transfer/check
-176,if score @s map matches 100000201 run function skill:3/0/0/transfer/check
-177,if score @s map matches 103000003 run function skill:4/0/0/transfer/check
-178,if score @s map matches 102000003 run function skill:1/1/0/transfer/check
-179,if score @s map matches 102000003 run function skill:1/2/0/transfer/check
-180,if score @s map matches 102000003 run function skill:1/3/0/transfer/check
-181,if score @s map matches 101000003 run function skill:2/1/0/transfer/check
-182,if score @s map matches 101000003 run function skill:2/2/0/transfer/check
-183,if score @s map matches 101000003 run function skill:2/3/0/transfer/check
-184,if score @s map matches 100000201 run function skill:3/1/0/transfer/check
-185,if score @s map matches 100000201 run function skill:3/2/0/transfer/check
-186,if score @s map matches 103000003 run function skill:4/1/0/transfer/check
-187,if score @s map matches 103000003 run function skill:4/2/0/transfer/check
+174,if score @s map matches 102000003 at @s run function skill:1/0/0/transfer/check
+175,if score @s map matches 101000003 at @s run function skill:2/0/0/transfer/check
+176,if score @s map matches 100000201 at @s run function skill:3/0/0/transfer/check
+177,if score @s map matches 103000003 at @s run function skill:4/0/0/transfer/check
+178,if score @s map matches 102000003 at @s run function skill:1/1/0/transfer/check
+179,if score @s map matches 102000003 at @s run function skill:1/2/0/transfer/check
+180,if score @s map matches 102000003 at @s run function skill:1/3/0/transfer/check
+181,if score @s map matches 101000003 at @s run function skill:2/1/0/transfer/check
+182,if score @s map matches 101000003 at @s run function skill:2/2/0/transfer/check
+183,if score @s map matches 101000003 at @s run function skill:2/3/0/transfer/check
+184,if score @s map matches 100000201 at @s run function skill:3/1/0/transfer/check
+185,if score @s map matches 100000201 at @s run function skill:3/2/0/transfer/check
+186,if score @s map matches 103000003 at @s run function skill:4/1/0/transfer/check
+187,if score @s map matches 103000003 at @s run function skill:4/2/0/transfer/check
 188,
 189,
 190,
