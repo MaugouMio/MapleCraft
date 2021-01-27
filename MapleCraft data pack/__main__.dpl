@@ -55,7 +55,7 @@ namespace main()
 		scoreboard objectives add temp dummy
 		scoreboard objectives add life dummy
 		scoreboard objectives add max_life dummy
-		scoreboard objectives add meso dummy
+		scoreboard objectives add meso dummy {"translate":"item.meso"}
 		scoreboard objectives add jump minecraft.custom:minecraft.jump
 		scoreboard objectives add just_jump dummy
 		scoreboard objectives add fall minecraft.custom:minecraft.fall_one_cm
@@ -71,6 +71,8 @@ namespace main()
 		team modify player collisionRule never
 		
 		scoreboard objectives setdisplay belowName hp
+		scoreboard objectives setdisplay sidebar meso
+		scoreboard objectives setdisplay list level
 		```
 		constants = set(constants)
 		for i in constants:
