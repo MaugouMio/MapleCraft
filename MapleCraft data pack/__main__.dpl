@@ -554,6 +554,11 @@ namespace main()
 	
 	folder test_npc()
 	{
+		func roger()
+		{
+			advancement revoke @s only main:npc/roger
+		}
+		
 		func helper()
 		{
 			tellraw @s ["\n",{"translate":"text.quest.test_server_helper.menu"}]
