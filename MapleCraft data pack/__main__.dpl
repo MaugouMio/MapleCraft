@@ -567,21 +567,39 @@ namespace main()
 		
 		func dance_with_balrog()
 		{
+			tellraw @s ["\n",{"translate":"text.quest.test_warrior_transfer.menu"}]
+			tellraw @s {"translate":"text.quest.test_warrior_transfer.menu.warrior","clickEvent":{"action":"run_command","value":"trigger command set 188"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
+			tellraw @s {"translate":"text.quest.test_warrior_transfer.menu.fighter","clickEvent":{"action":"run_command","value":"trigger command set 178"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
+			tellraw @s {"translate":"text.quest.test_warrior_transfer.menu.page","clickEvent":{"action":"run_command","value":"trigger command set 179"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
+			tellraw @s {"translate":"text.quest.test_warrior_transfer.menu.spearman","clickEvent":{"action":"run_command","value":"trigger command set 180"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
 			advancement revoke @s only main:npc/dance_with_balrog
 		}
 		
 		func grendel_the_really_old()
 		{
+			tellraw @s ["\n",{"translate":"text.quest.test_magician_transfer.menu"}]
+			tellraw @s {"translate":"text.quest.test_magician_transfer.menu.magician","clickEvent":{"action":"run_command","value":"trigger command set 189"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
+			tellraw @s {"translate":"text.quest.test_magician_transfer.menu.wizard_fp","clickEvent":{"action":"run_command","value":"trigger command set 181"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
+			tellraw @s {"translate":"text.quest.test_magician_transfer.menu.wizard_il","clickEvent":{"action":"run_command","value":"trigger command set 182"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
+			tellraw @s {"translate":"text.quest.test_magician_transfer.menu.cleric","clickEvent":{"action":"run_command","value":"trigger command set 183"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
 			advancement revoke @s only main:npc/grendel_the_really_old
 		}
 		
 		func athena_pierce()
 		{
+			tellraw @s ["\n",{"translate":"text.quest.test_archer_transfer.menu"}]
+			tellraw @s {"translate":"text.quest.test_archer_transfer.menu.archer","clickEvent":{"action":"run_command","value":"trigger command set 190"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
+			tellraw @s {"translate":"text.quest.test_archer_transfer.menu.hunter","clickEvent":{"action":"run_command","value":"trigger command set 184"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
+			tellraw @s {"translate":"text.quest.test_archer_transfer.menu.crossbowman","clickEvent":{"action":"run_command","value":"trigger command set 185"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
 			advancement revoke @s only main:npc/athena_pierce
 		}
 		
 		func dark_lord()
 		{
+			tellraw @s ["\n",{"translate":"text.quest.test_thief_transfer.menu"}]
+			tellraw @s {"translate":"text.quest.test_thief_transfer.menu.thief","clickEvent":{"action":"run_command","value":"trigger command set 191"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
+			tellraw @s {"translate":"text.quest.test_thief_transfer.menu.assassin","clickEvent":{"action":"run_command","value":"trigger command set 186"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
+			tellraw @s {"translate":"text.quest.test_thief_transfer.menu.bandit","clickEvent":{"action":"run_command","value":"trigger command set 187"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
 			advancement revoke @s only main:npc/dark_lord
 		}
 	}
