@@ -521,6 +521,7 @@ namespace party_quest() as virtual
 							
 							execute unless score #GLOBAL temp matches 3 run tellraw @s {"translate":"text.quest.party_quest.kpq.stage2.wrong_amount"}
 							execute if score #GLOBAL temp matches 3 run function quest:party_quest/kpq/title/wrong/run
+							kill @e[type=creeper,tag=kpq_player]
 						}
 						
 						func pass()
@@ -628,6 +629,7 @@ namespace party_quest() as virtual
 							
 							execute unless score #GLOBAL temp matches 3 run tellraw @s {"translate":"text.quest.party_quest.kpq.stage3.wrong_amount"}
 							execute if score #GLOBAL temp matches 3 run function quest:party_quest/kpq/title/wrong/run
+							kill @e[type=creeper,tag=kpq_player]
 						}
 						
 						func pass()
@@ -747,6 +749,7 @@ namespace party_quest() as virtual
 							
 							execute unless score #GLOBAL temp matches 3 run tellraw @s {"translate":"text.quest.party_quest.kpq.stage4.wrong_amount"}
 							execute if score #GLOBAL temp matches 3 run function quest:party_quest/kpq/title/wrong/run
+							kill @e[type=creeper,tag=kpq_player]
 						}
 						
 						func pass()
