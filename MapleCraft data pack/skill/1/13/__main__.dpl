@@ -311,7 +311,7 @@ namespace 13() as virtual
 			func get()
 			{
 				clear @s minecraft:carrot_on_a_stick{CustomModelData:40}
-				give @s minecraft:carrot_on_a_stick{CustomModelData:40,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.1301004","bold":true,"italic":false}'}}
+				give @s minecraft:carrot_on_a_stick{CustomModelData:40,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.1301004","font":"minecraft:uniform","bold":true,"italic":false}'}}
 			}
 		}
 		
@@ -320,7 +320,7 @@ namespace 13() as virtual
 			func get()
 			{
 				clear @s minecraft:carrot_on_a_stick{CustomModelData:41}
-				give @s minecraft:carrot_on_a_stick{CustomModelData:41,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.1301005","bold":true,"italic":false}'}}
+				give @s minecraft:carrot_on_a_stick{CustomModelData:41,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.1301005","font":"minecraft:uniform","bold":true,"italic":false}'}}
 			}
 		}
 		
@@ -333,7 +333,7 @@ namespace 13() as virtual
 			
 			func other_check()
 			{
-				execute if score @s mp < @s 1301006_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"#efb7ab"}
+				execute if score @s mp < @s 1301006_mp run tellraw @s {"translate":"warning.skill.lack_mp","font":"minecraft:uniform","color":"#efb7ab"}
 				execute if score @s mp >= @s 1301006_mp run function ARG(_PATH)cast_effect
 			}
 			
@@ -434,7 +434,7 @@ namespace 13() as virtual
 			func get()
 			{
 				clear @s minecraft:carrot_on_a_stick{CustomModelData:42}
-				give @s minecraft:carrot_on_a_stick{CustomModelData:42,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.1301006","bold":true,"italic":false}'}}
+				give @s minecraft:carrot_on_a_stick{CustomModelData:42,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.1301006","font":"minecraft:uniform","bold":true,"italic":false}'}}
 			}
 		}
 		
@@ -447,7 +447,7 @@ namespace 13() as virtual
 			
 			func other_check()
 			{
-				execute if score @s mp < @s 1301007_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"#efb7ab"}
+				execute if score @s mp < @s 1301007_mp run tellraw @s {"translate":"warning.skill.lack_mp","font":"minecraft:uniform","color":"#efb7ab"}
 				execute if score @s mp >= @s 1301007_mp run function ARG(_PATH)cast_effect
 			}
 			
@@ -582,7 +582,7 @@ namespace 13() as virtual
 			func get()
 			{
 				clear @s minecraft:carrot_on_a_stick{CustomModelData:43}
-				give @s minecraft:carrot_on_a_stick{CustomModelData:43,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.1301007","bold":true,"italic":false}'}}
+				give @s minecraft:carrot_on_a_stick{CustomModelData:43,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.1301007","font":"minecraft:uniform","bold":true,"italic":false}'}}
 			}
 		}
 	}

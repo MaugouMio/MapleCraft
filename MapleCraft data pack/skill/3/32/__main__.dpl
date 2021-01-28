@@ -174,7 +174,7 @@ namespace 32() as virtual
 			func get()
 			{
 				clear @s minecraft:carrot_on_a_stick{CustomModelData:117}
-				give @s minecraft:carrot_on_a_stick{CustomModelData:117,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.3201002","bold":true,"italic":false}'}}
+				give @s minecraft:carrot_on_a_stick{CustomModelData:117,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.3201002","font":"minecraft:uniform","bold":true,"italic":false}'}}
 			}
 		}
 		
@@ -188,14 +188,14 @@ namespace 32() as virtual
 			func other_check()
 			{
 				function skill:check_weapon/crossbow/run
-				execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 3101003_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"#efb7ab"}
+				execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 3101003_mp run tellraw @s {"translate":"warning.skill.lack_mp","font":"minecraft:uniform","color":"#efb7ab"}
 				execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp >= @s 3101003_mp run function skill:3/1/0/1003/run
 			}
 			
 			func get()
 			{
 				clear @s minecraft:carrot_on_a_stick{CustomModelData:118}
-				give @s minecraft:carrot_on_a_stick{CustomModelData:118,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.3201003","bold":true,"italic":false}'}}
+				give @s minecraft:carrot_on_a_stick{CustomModelData:118,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.3201003","font":"minecraft:uniform","bold":true,"italic":false}'}}
 			}
 		}
 		
@@ -209,14 +209,14 @@ namespace 32() as virtual
 			func other_check()
 			{
 				function skill:check_weapon/crossbow/run
-				execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 3101004_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"#efb7ab"}
+				execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 3101004_mp run tellraw @s {"translate":"warning.skill.lack_mp","font":"minecraft:uniform","color":"#efb7ab"}
 				execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp >= @s 3101004_mp run function skill:3/1/0/1004/cast_effect
 			}
 			
 			func get()
 			{
 				clear @s minecraft:carrot_on_a_stick{CustomModelData:119}
-				give @s minecraft:carrot_on_a_stick{CustomModelData:119,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.3201004","bold":true,"italic":false}'}}
+				give @s minecraft:carrot_on_a_stick{CustomModelData:119,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.3201004","font":"minecraft:uniform","bold":true,"italic":false}'}}
 			}
 		}
 		
@@ -230,7 +230,7 @@ namespace 32() as virtual
 			func other_check()
 			{
 				function skill:check_weapon/crossbow/run
-				execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 3201005_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"#efb7ab"}
+				execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 3201005_mp run tellraw @s {"translate":"warning.skill.lack_mp","font":"minecraft:uniform","color":"#efb7ab"}
 				execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp >= @s 3201005_mp run function ARG(_PATH)arrow_check
 			}
 			
@@ -247,7 +247,7 @@ namespace 32() as virtual
 				
 			func lack_arrow()
 			{
-				tellraw @s {"translate":"warning.skill.lack_arrow","color":"#efb7ab"}
+				tellraw @s {"translate":"warning.skill.lack_arrow","font":"minecraft:uniform","color":"#efb7ab"}
 				function skill:6/0/0/1003/mark_target
 			}
 			
@@ -392,7 +392,7 @@ namespace 32() as virtual
 			func get()
 			{
 				clear @s minecraft:carrot_on_a_stick{CustomModelData:120}
-				give @s minecraft:carrot_on_a_stick{CustomModelData:120,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.3201005","bold":true,"italic":false}'}}
+				give @s minecraft:carrot_on_a_stick{CustomModelData:120,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.3201005","font":"minecraft:uniform","bold":true,"italic":false}'}}
 			}
 		}
 	}

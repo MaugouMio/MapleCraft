@@ -127,7 +127,7 @@ namespace 42() as virtual
 			func get()
 			{
 				clear @s minecraft:carrot_on_a_stick{CustomModelData:148}
-				give @s minecraft:carrot_on_a_stick{CustomModelData:148,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.4201002","bold":true,"italic":false}'}}
+				give @s minecraft:carrot_on_a_stick{CustomModelData:148,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.4201002","font":"minecraft:uniform","bold":true,"italic":false}'}}
 			}
 		}
 		
@@ -143,7 +143,7 @@ namespace 42() as virtual
 			func other_check()
 			{
 				function skill:check_weapon/check_empty
-				execute if score #USED_WEAPON temp matches 1.. if score @s mp < @s 4201004_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"#efb7ab"}
+				execute if score #USED_WEAPON temp matches 1.. if score @s mp < @s 4201004_mp run tellraw @s {"translate":"warning.skill.lack_mp","font":"minecraft:uniform","color":"#efb7ab"}
 				execute if score #USED_WEAPON temp matches 1.. if score @s mp >= @s 4201004_mp run function ARG(_PATH)run
 			}
 			
@@ -284,7 +284,7 @@ namespace 42() as virtual
 			func get()
 			{
 				clear @s minecraft:carrot_on_a_stick{CustomModelData:149}
-				give @s minecraft:carrot_on_a_stick{CustomModelData:149,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.4201004","bold":true,"italic":false}'}}
+				give @s minecraft:carrot_on_a_stick{CustomModelData:149,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.4201004","font":"minecraft:uniform","bold":true,"italic":false}'}}
 			}
 		}
 		
@@ -298,7 +298,7 @@ namespace 42() as virtual
 			func other_check()
 			{
 				function skill:check_weapon/dagger/run
-				execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 4201005_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"#efb7ab"}
+				execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 4201005_mp run tellraw @s {"translate":"warning.skill.lack_mp","font":"minecraft:uniform","color":"#efb7ab"}
 				execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp >= @s 4201005_mp run function ARG(_PATH)run
 			}
 			
@@ -437,7 +437,7 @@ namespace 42() as virtual
 			func get()
 			{
 				clear @s minecraft:carrot_on_a_stick{CustomModelData:150}
-				give @s minecraft:carrot_on_a_stick{CustomModelData:150,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.4201005","bold":true,"italic":false}'}}
+				give @s minecraft:carrot_on_a_stick{CustomModelData:150,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.4201005","font":"minecraft:uniform","bold":true,"italic":false}'}}
 			}
 		}
 	}

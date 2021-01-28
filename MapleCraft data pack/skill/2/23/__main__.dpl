@@ -65,7 +65,7 @@ namespace 23() as virtual
 			
 			func other_check()
 			{
-				execute if score @s mp < @s 2301002_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"#efb7ab"}
+				execute if score @s mp < @s 2301002_mp run tellraw @s {"translate":"warning.skill.lack_mp","font":"minecraft:uniform","color":"#efb7ab"}
 				execute if score @s mp >= @s 2301002_mp run function ARG(_PATH)run
 			}
 			
@@ -232,7 +232,7 @@ namespace 23() as virtual
 			func get()
 			{
 				clear @s minecraft:carrot_on_a_stick{CustomModelData:84}
-				give @s minecraft:carrot_on_a_stick{CustomModelData:84,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.2301002","bold":true,"italic":false}'}}
+				give @s minecraft:carrot_on_a_stick{CustomModelData:84,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.2301002","font":"minecraft:uniform","bold":true,"italic":false}'}}
 			}
 		}
 		
@@ -245,7 +245,7 @@ namespace 23() as virtual
 			
 			func other_check()
 			{
-				execute if score @s mp < @s 2301003_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"#efb7ab"}
+				execute if score @s mp < @s 2301003_mp run tellraw @s {"translate":"warning.skill.lack_mp","font":"minecraft:uniform","color":"#efb7ab"}
 				execute if score @s mp >= @s 2301003_mp run function ARG(_PATH)cast_effect
 			}
 			
@@ -339,7 +339,7 @@ namespace 23() as virtual
 			func get()
 			{
 				clear @s minecraft:carrot_on_a_stick{CustomModelData:85}
-				give @s minecraft:carrot_on_a_stick{CustomModelData:85,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.2301003","bold":true,"italic":false}'}}
+				give @s minecraft:carrot_on_a_stick{CustomModelData:85,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.2301003","font":"minecraft:uniform","bold":true,"italic":false}'}}
 			}
 		}
 		
@@ -352,7 +352,7 @@ namespace 23() as virtual
 			
 			func other_check()
 			{
-				execute if score @s mp < @s 2301004_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"#efb7ab"}
+				execute if score @s mp < @s 2301004_mp run tellraw @s {"translate":"warning.skill.lack_mp","font":"minecraft:uniform","color":"#efb7ab"}
 				execute if score @s mp >= @s 2301004_mp run function ARG(_PATH)cast_effect
 			}
 			
@@ -456,7 +456,7 @@ namespace 23() as virtual
 			func get()
 			{
 				clear @s minecraft:carrot_on_a_stick{CustomModelData:86}
-				give @s minecraft:carrot_on_a_stick{CustomModelData:86,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.2301004","bold":true,"italic":false}'}}
+				give @s minecraft:carrot_on_a_stick{CustomModelData:86,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.2301004","font":"minecraft:uniform","bold":true,"italic":false}'}}
 			}
 		}
 		
@@ -470,9 +470,9 @@ namespace 23() as virtual
 			func other_check()
 			{
 				scoreboard players operation #USED_WEAPON temp = @s weapon_type
-				execute if score #USED_WEAPON temp matches 0 run tellraw @s {"translate":"warning.skill.no_weapon","color":"#efb7ab"}
+				execute if score #USED_WEAPON temp matches 0 run tellraw @s {"translate":"warning.skill.no_weapon","font":"minecraft:uniform","color":"#efb7ab"}
 				
-				execute if score #USED_WEAPON temp matches 1.. if score @s mp < @s 2301005_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"#efb7ab"}
+				execute if score #USED_WEAPON temp matches 1.. if score @s mp < @s 2301005_mp run tellraw @s {"translate":"warning.skill.lack_mp","font":"minecraft:uniform","color":"#efb7ab"}
 				execute if score #USED_WEAPON temp matches 1.. if score @s mp >= @s 2301005_mp run function ARG(_PATH)run
 			}
 			
@@ -587,7 +587,7 @@ namespace 23() as virtual
 			func get()
 			{
 				clear @s minecraft:carrot_on_a_stick{CustomModelData:87}
-				give @s minecraft:carrot_on_a_stick{CustomModelData:87,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.2301005","bold":true,"italic":false}'}}
+				give @s minecraft:carrot_on_a_stick{CustomModelData:87,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.2301005","font":"minecraft:uniform","bold":true,"italic":false}'}}
 			}
 		}
 	}

@@ -221,7 +221,7 @@ namespace 1() as virtual
 				
 				func other_check()
 				{
-					execute if score @s mp < @s 1001003_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"#efb7ab"}
+					execute if score @s mp < @s 1001003_mp run tellraw @s {"translate":"warning.skill.lack_mp","font":"minecraft:uniform","color":"#efb7ab"}
 					execute if score @s mp >= @s 1001003_mp run function ARG(_PATH)cast_effect
 				}
 				
@@ -316,7 +316,7 @@ namespace 1() as virtual
 				func get()
 				{
 					clear @s minecraft:carrot_on_a_stick{CustomModelData:4}
-					give @s minecraft:carrot_on_a_stick{CustomModelData:4,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.1001003","bold":true,"italic":false}'}}
+					give @s minecraft:carrot_on_a_stick{CustomModelData:4,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.1001003","font":"minecraft:uniform","bold":true,"italic":false}'}}
 				}
 			}
 			
@@ -330,9 +330,9 @@ namespace 1() as virtual
 				func other_check()
 				{
 					scoreboard players operation #USED_WEAPON temp = @s weapon_type
-					execute if score #USED_WEAPON temp matches 0 run tellraw @s {"translate":"warning.skill.no_weapon","color":"#efb7ab"}
+					execute if score #USED_WEAPON temp matches 0 run tellraw @s {"translate":"warning.skill.no_weapon","font":"minecraft:uniform","color":"#efb7ab"}
 					
-					execute if score #USED_WEAPON temp matches 1.. if score @s mp < @s 1001004_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"#efb7ab"}
+					execute if score #USED_WEAPON temp matches 1.. if score @s mp < @s 1001004_mp run tellraw @s {"translate":"warning.skill.lack_mp","font":"minecraft:uniform","color":"#efb7ab"}
 					execute if score #USED_WEAPON temp matches 1.. if score @s mp >= @s 1001004_mp run function ARG(_PATH)run
 				}
 				
@@ -442,7 +442,7 @@ namespace 1() as virtual
 				func get()
 				{
 					clear @s minecraft:carrot_on_a_stick{CustomModelData:5}
-					give @s minecraft:carrot_on_a_stick{CustomModelData:5,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.1001004","bold":true,"italic":false}'}}
+					give @s minecraft:carrot_on_a_stick{CustomModelData:5,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.1001004","font":"minecraft:uniform","bold":true,"italic":false}'}}
 				}
 			}
 			
@@ -456,15 +456,15 @@ namespace 1() as virtual
 				func other_check()
 				{
 					scoreboard players operation #USED_WEAPON temp = @s weapon_type
-					execute if score #USED_WEAPON temp matches 0 run tellraw @s {"translate":"warning.skill.no_weapon","color":"#efb7ab"}
+					execute if score #USED_WEAPON temp matches 0 run tellraw @s {"translate":"warning.skill.no_weapon","font":"minecraft:uniform","color":"#efb7ab"}
 					
-					execute if score #USED_WEAPON temp matches 1.. if score @s hp <= @s 1001005_hp run tellraw @s {"translate":"warning.skill.lack_hp","color":"#efb7ab"}
+					execute if score #USED_WEAPON temp matches 1.. if score @s hp <= @s 1001005_hp run tellraw @s {"translate":"warning.skill.lack_hp","font":"minecraft:uniform","color":"#efb7ab"}
 					execute if score #USED_WEAPON temp matches 1.. if score @s hp > @s 1001005_hp run function ARG(_PATH)mp_check
 				}
 				
 				func mp_check()
 				{
-					execute if score @s mp < @s 1001005_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"#efb7ab"}
+					execute if score @s mp < @s 1001005_mp run tellraw @s {"translate":"warning.skill.lack_mp","font":"minecraft:uniform","color":"#efb7ab"}
 					execute if score @s mp >= @s 1001005_mp run function ARG(_PATH)run
 				}
 				
@@ -587,7 +587,7 @@ namespace 1() as virtual
 				func get()
 				{
 					clear @s minecraft:carrot_on_a_stick{CustomModelData:6}
-					give @s minecraft:carrot_on_a_stick{CustomModelData:6,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.1001005","bold":true,"italic":false}'}}
+					give @s minecraft:carrot_on_a_stick{CustomModelData:6,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.1001005","font":"minecraft:uniform","bold":true,"italic":false}'}}
 				}
 			}
 			

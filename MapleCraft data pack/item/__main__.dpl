@@ -35,7 +35,7 @@ namespace use_equip_template(equip) as virtual
 		playsound minecraft:item.equip player @s
 		
 		data modify storage item:main equip set from entity @s SelectedItem.tag
-		tellraw @s {"translate":"item.notice.equip_item","with":[{"nbt":"equip.display.Name","storage":"item:main","interpret":true}]}
+		tellraw @s {"translate":"item.notice.equip_item","font":"minecraft:uniform","with":[{"nbt":"equip.display.Name","storage":"item:main","interpret":true}]}
 		replaceitem entity @s weapon.mainhand minecraft:air
 		
 		# replace original ARG(equip)
@@ -357,7 +357,7 @@ namespace item()
 			scoreboard players operation #GLOBAL temp += #EQUIP_LUK temp
 			execute if score @s LUK < #GLOBAL temp run scoreboard players set #ACCEPTED_EQUIP temp 0
 			
-			execute if score #ACCEPTED_EQUIP temp matches 0 run tellraw @s {"translate":"warning.equip.invalid_stat","color":"#efb7ab"}
+			execute if score #ACCEPTED_EQUIP temp matches 0 run tellraw @s {"translate":"warning.equip.invalid_stat","font":"minecraft:uniform","color":"#efb7ab"}
 		}
 		
 		folder equip()
@@ -430,7 +430,7 @@ namespace item()
 					playsound minecraft:item.equip player @s
 					
 					data modify storage item:main equip set from entity @s SelectedItem.tag
-					tellraw @s {"translate":"item.notice.equip_item","with":[{"nbt":"equip.display.Name","storage":"item:main","interpret":true}]}
+					tellraw @s {"translate":"item.notice.equip_item","font":"minecraft:uniform","with":[{"nbt":"equip.display.Name","storage":"item:main","interpret":true}]}
 					replaceitem entity @s weapon.mainhand minecraft:air
 					
 					# replace original equip
@@ -495,7 +495,7 @@ namespace item()
 					playsound minecraft:item.equip player @s
 					
 					data modify storage item:main equip set from entity @s SelectedItem.tag
-					tellraw @s {"translate":"item.notice.equip_item","with":[{"nbt":"equip.display.Name","storage":"item:main","interpret":true}]}
+					tellraw @s {"translate":"item.notice.equip_item","font":"minecraft:uniform","with":[{"nbt":"equip.display.Name","storage":"item:main","interpret":true}]}
 					replaceitem entity @s weapon.mainhand minecraft:air
 					
 					# replace original equips
@@ -562,7 +562,7 @@ namespace item()
 					playsound minecraft:item.equip player @s
 					
 					data modify storage item:main equip set from entity @s SelectedItem.tag
-					tellraw @s {"translate":"item.notice.equip_item","with":[{"nbt":"equip.display.Name","storage":"item:main","interpret":true}]}
+					tellraw @s {"translate":"item.notice.equip_item","font":"minecraft:uniform","with":[{"nbt":"equip.display.Name","storage":"item:main","interpret":true}]}
 					replaceitem entity @s weapon.mainhand minecraft:air
 					
 					# replace original equip
@@ -633,7 +633,7 @@ namespace item()
 				playsound minecraft:item.equip player @s
 				
 				data modify storage item:main equip set from entity @s SelectedItem.tag
-				tellraw @s {"translate":"item.notice.equip_item","with":[{"nbt":"equip.display.Name","storage":"item:main","interpret":true}]}
+				tellraw @s {"translate":"item.notice.equip_item","font":"minecraft:uniform","with":[{"nbt":"equip.display.Name","storage":"item:main","interpret":true}]}
 				
 				# replace original weapon
 				execute if score @s weapon_type matches 1.. run function ARG(_PATH)remove
@@ -721,7 +721,7 @@ namespace item()
 				{
 					execute positioned ~ ~1.7 ~ run function skill:summon_font_effect/0000000enchant_success
 					playsound minecraft:game.enchant_success player @a ~ ~ ~ 1 1 0
-					tellraw @s {"translate":"text.scroll.success","color":"#efb7ab"}
+					tellraw @s {"translate":"text.scroll.success","font":"minecraft:uniform","color":"#efb7ab"}
 					
 					execute store result score #SCROLL_QUALITY temp run data get block 0 1 0 Items[0].tag.quality
 					```
@@ -884,13 +884,13 @@ namespace item()
 				
 				func destroy()
 				{
-					tellraw @s {"translate":"text.scroll.destroy","color":"#efb7ab"}
+					tellraw @s {"translate":"text.scroll.destroy","font":"minecraft:uniform","color":"#efb7ab"}
 					data remove block 0 1 0 Items[0]
 				}
 				
 				func pure_fail()
 				{
-					tellraw @s {"translate":"text.scroll.fail","color":"#efb7ab"}
+					tellraw @s {"translate":"text.scroll.fail","font":"minecraft:uniform","color":"#efb7ab"}
 					execute store result block 0 1 0 Items[0].tag.scroll_left int 1 run scoreboard players remove #SCROLL_LEFT temp 1
 					data modify block 0 0 0 Text1 set value '{"translate":"item.notice.scroll","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#SCROLL_LEFT"}}]}'
 					data modify block 0 1 0 Items[0].tag.display.Lore[-1] set from block 0 0 0 Text1
@@ -984,7 +984,7 @@ namespace item()
 					execute store result score @s bullet_model run data get entity @s SelectedItem.tag.bullet_model
 					execute store result score #GLOBAL bullet_damage run data get entity @s SelectedItem.tag.attack
 					execute store result score #GLOBAL bullet_amount run data get entity @s SelectedItem.tag.amount
-					tellraw @s {"translate":"item.notice.used_weapon","with":[{"nbt":"SelectedItem.tag.display.Name","entity":"@s","interpret":true},{"score":{"name":"#GLOBAL","objective":"bullet_amount"}}]}
+					tellraw @s {"translate":"item.notice.used_weapon","font":"minecraft:uniform","with":[{"nbt":"SelectedItem.tag.display.Name","entity":"@s","interpret":true},{"score":{"name":"#GLOBAL","objective":"bullet_amount"}}]}
 					
 					playsound minecraft:item.equip player @s
 					replaceitem entity @s weapon.mainhand minecraft:air
@@ -1074,7 +1074,7 @@ namespace item()
 			
 			func cannot_sell()
 			{
-				tellraw @s {"translate":"warning.cannot_sell","color":"#efb7ab"}
+				tellraw @s {"translate":"warning.cannot_sell","font":"minecraft:uniform","color":"#efb7ab"}
 				playsound minecraft:game.dlg_notice player @s
 			}
 			
@@ -1122,7 +1122,7 @@ namespace item()
 			
 			func no_meso()
 			{
-				tellraw @s {"translate":"warning.no_meso","color":"#efb7ab"}
+				tellraw @s {"translate":"warning.no_meso","font":"minecraft:uniform","color":"#efb7ab"}
 				playsound minecraft:game.dlg_notice player @s
 			}
 			

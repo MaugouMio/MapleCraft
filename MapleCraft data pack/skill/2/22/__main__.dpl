@@ -64,7 +64,7 @@ namespace 22() as virtual
 			func other_check()
 			{
 				function skill:check_weapon/single_hand/run
-				execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 2201004_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"#efb7ab"}
+				execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 2201004_mp run tellraw @s {"translate":"warning.skill.lack_mp","font":"minecraft:uniform","color":"#efb7ab"}
 				execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp >= @s 2201004_mp run function ARG(_PATH)run
 			}
 			
@@ -179,7 +179,7 @@ namespace 22() as virtual
 			func get()
 			{
 				clear @s minecraft:carrot_on_a_stick{CustomModelData:75}
-				give @s minecraft:carrot_on_a_stick{CustomModelData:75,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.2201004","bold":true,"italic":false}'}}
+				give @s minecraft:carrot_on_a_stick{CustomModelData:75,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.2201004","font":"minecraft:uniform","bold":true,"italic":false}'}}
 			}
 		}
 		
@@ -193,7 +193,7 @@ namespace 22() as virtual
 			func other_check()
 			{
 				function skill:check_weapon/single_hand/run
-				execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 2201005_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"#efb7ab"}
+				execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 2201005_mp run tellraw @s {"translate":"warning.skill.lack_mp","font":"minecraft:uniform","color":"#efb7ab"}
 				execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp >= @s 2201005_mp run function ARG(_PATH)run
 			}
 			
@@ -321,7 +321,7 @@ namespace 22() as virtual
 			func get()
 			{
 				clear @s minecraft:carrot_on_a_stick{CustomModelData:76}
-				give @s minecraft:carrot_on_a_stick{CustomModelData:76,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.2201005","bold":true,"italic":false}'}}
+				give @s minecraft:carrot_on_a_stick{CustomModelData:76,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.2201005","font":"minecraft:uniform","bold":true,"italic":false}'}}
 			}
 		}
 	}

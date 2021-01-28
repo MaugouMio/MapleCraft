@@ -183,7 +183,7 @@ namespace 12() as virtual
 			func get()
 			{
 				clear @s minecraft:carrot_on_a_stick{CustomModelData:25}
-				give @s minecraft:carrot_on_a_stick{CustomModelData:25,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.1201005","bold":true,"italic":false}'}}
+				give @s minecraft:carrot_on_a_stick{CustomModelData:25,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.1201005","font":"minecraft:uniform","bold":true,"italic":false}'}}
 			}
 		}
 		
@@ -196,7 +196,7 @@ namespace 12() as virtual
 			
 			func other_check()
 			{
-				execute if score @s mp < @s 1201006_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"#efb7ab"}
+				execute if score @s mp < @s 1201006_mp run tellraw @s {"translate":"warning.skill.lack_mp","font":"minecraft:uniform","color":"#efb7ab"}
 				execute if score @s mp >= @s 1201006_mp run function ARG(_PATH)cast_effect
 			}
 			
@@ -321,7 +321,7 @@ namespace 12() as virtual
 			func get()
 			{
 				clear @s minecraft:carrot_on_a_stick{CustomModelData:26}
-				give @s minecraft:carrot_on_a_stick{CustomModelData:26,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.1201006","bold":true,"italic":false}'}}
+				give @s minecraft:carrot_on_a_stick{CustomModelData:26,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.1201006","font":"minecraft:uniform","bold":true,"italic":false}'}}
 			}
 		}
 		
