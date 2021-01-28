@@ -221,7 +221,7 @@ namespace 1() as virtual
 				
 				func other_check()
 				{
-					execute if score @s mp < @s 1001003_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"#efb7ab"}
+					execute if score @s mp < @s 1001003_mp run tellraw @s {"translate":"warning.skill.lack_mp","font":"minecraft:uniform","color":"#efb7ab"}
 					execute if score @s mp >= @s 1001003_mp run function ARG(_PATH)cast_effect
 				}
 				
@@ -330,9 +330,9 @@ namespace 1() as virtual
 				func other_check()
 				{
 					scoreboard players operation #USED_WEAPON temp = @s weapon_type
-					execute if score #USED_WEAPON temp matches 0 run tellraw @s {"translate":"warning.skill.no_weapon","color":"#efb7ab"}
+					execute if score #USED_WEAPON temp matches 0 run tellraw @s {"translate":"warning.skill.no_weapon","font":"minecraft:uniform","color":"#efb7ab"}
 					
-					execute if score #USED_WEAPON temp matches 1.. if score @s mp < @s 1001004_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"#efb7ab"}
+					execute if score #USED_WEAPON temp matches 1.. if score @s mp < @s 1001004_mp run tellraw @s {"translate":"warning.skill.lack_mp","font":"minecraft:uniform","color":"#efb7ab"}
 					execute if score #USED_WEAPON temp matches 1.. if score @s mp >= @s 1001004_mp run function ARG(_PATH)run
 				}
 				
@@ -456,15 +456,15 @@ namespace 1() as virtual
 				func other_check()
 				{
 					scoreboard players operation #USED_WEAPON temp = @s weapon_type
-					execute if score #USED_WEAPON temp matches 0 run tellraw @s {"translate":"warning.skill.no_weapon","color":"#efb7ab"}
+					execute if score #USED_WEAPON temp matches 0 run tellraw @s {"translate":"warning.skill.no_weapon","font":"minecraft:uniform","color":"#efb7ab"}
 					
-					execute if score #USED_WEAPON temp matches 1.. if score @s hp <= @s 1001005_hp run tellraw @s {"translate":"warning.skill.lack_hp","color":"#efb7ab"}
+					execute if score #USED_WEAPON temp matches 1.. if score @s hp <= @s 1001005_hp run tellraw @s {"translate":"warning.skill.lack_hp","font":"minecraft:uniform","color":"#efb7ab"}
 					execute if score #USED_WEAPON temp matches 1.. if score @s hp > @s 1001005_hp run function ARG(_PATH)mp_check
 				}
 				
 				func mp_check()
 				{
-					execute if score @s mp < @s 1001005_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"#efb7ab"}
+					execute if score @s mp < @s 1001005_mp run tellraw @s {"translate":"warning.skill.lack_mp","font":"minecraft:uniform","color":"#efb7ab"}
 					execute if score @s mp >= @s 1001005_mp run function ARG(_PATH)run
 				}
 				

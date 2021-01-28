@@ -153,7 +153,7 @@ namespace 4() as virtual
 				func other_check()
 				{
 					function skill:check_weapon/check_empty
-					execute if score #USED_WEAPON temp matches 1.. if score @s mp < @s 4001002_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"#efb7ab"}
+					execute if score #USED_WEAPON temp matches 1.. if score @s mp < @s 4001002_mp run tellraw @s {"translate":"warning.skill.lack_mp","font":"minecraft:uniform","color":"#efb7ab"}
 					execute if score #USED_WEAPON temp matches 1.. if score @s mp >= @s 4001002_mp run function ARG(_PATH)run
 				}
 				
@@ -358,7 +358,7 @@ namespace 4() as virtual
 				
 				func other_check()
 				{
-					execute if score @s mp < @s 4001003_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"#efb7ab"}
+					execute if score @s mp < @s 4001003_mp run tellraw @s {"translate":"warning.skill.lack_mp","font":"minecraft:uniform","color":"#efb7ab"}
 					execute if score @s mp >= @s 4001003_mp run function ARG(_PATH)cast_effect
 				}
 				
@@ -495,7 +495,7 @@ namespace 4() as virtual
 				func other_check()
 				{
 					function skill:check_weapon/dagger/run
-					execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 4001334_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"#efb7ab"}
+					execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 4001334_mp run tellraw @s {"translate":"warning.skill.lack_mp","font":"minecraft:uniform","color":"#efb7ab"}
 					execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp >= @s 4001334_mp run function ARG(_PATH)run
 				}
 				
@@ -629,7 +629,7 @@ namespace 4() as virtual
 				func other_check()
 				{
 					function skill:check_weapon/claw/run
-					execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 4001344_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"#efb7ab"}
+					execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 4001344_mp run tellraw @s {"translate":"warning.skill.lack_mp","font":"minecraft:uniform","color":"#efb7ab"}
 					execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp >= @s 4001344_mp run function ARG(_PATH)star_check
 				}
 				
@@ -645,7 +645,7 @@ namespace 4() as virtual
 				
 				func lack_star()
 				{
-					tellraw @s {"translate":"warning.skill.lack_throwing_star","color":"#efb7ab"}
+					tellraw @s {"translate":"warning.skill.lack_throwing_star","font":"minecraft:uniform","color":"#efb7ab"}
 					function skill:6/0/0/1001/mark_target
 				}
 				

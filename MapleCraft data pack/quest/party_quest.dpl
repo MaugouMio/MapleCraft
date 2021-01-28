@@ -188,7 +188,7 @@ namespace party_quest() as virtual
 		
 		func start_check()
 		{
-			execute if score #KPQ_STAGE temp matches 1.. run tellraw @s ["\n",{"translate":"text.quest.party_quest.kpq.menu.enter.fail"}]
+			execute if score #KPQ_STAGE temp matches 1.. run tellraw @s ["\n",{"translate":"text.quest.party_quest.kpq.menu.enter.fail","font":"minecraft:uniform"}]
 			execute unless score #KPQ_STAGE temp matches 1.. run function ARG(_PATH)start
 		}
 		
@@ -243,11 +243,11 @@ namespace party_quest() as virtual
 		func leave_map()
 		{
 			execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001007}
-			execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","color":"gray","with":[{"translate":"item.etc.4001007"}]}
-			execute if score #GLOBAL temp matches 2.. run tellraw @s {"translate":"text.quest.item_lost_multiple","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"translate":"item.etc.4001007"}]}
+			execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4001007"}]}
+			execute if score #GLOBAL temp matches 2.. run tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"translate":"item.etc.4001007"}]}
 			execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001008}
-			execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","color":"gray","with":[{"translate":"item.etc.4001008"}]}
-			execute if score #GLOBAL temp matches 2.. run tellraw @s {"translate":"text.quest.item_lost_multiple","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"translate":"item.etc.4001008"}]}
+			execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4001008"}]}
+			execute if score #GLOBAL temp matches 2.. run tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"translate":"item.etc.4001008"}]}
 			
 			scoreboard players set @s map 103000000
 			scoreboard players set @s bgm 2
@@ -307,9 +307,9 @@ namespace party_quest() as virtual
 		{
 			func lakelis()
 			{
-				tellraw @s ["\n",{"translate":"text.quest.party_quest.kpq.menu"}]
-				tellraw @s {"translate":"text.quest.party_quest.kpq.menu.enter","clickEvent":{"action":"run_command","value":"trigger command set 171"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
-				tellraw @s {"translate":"text.quest.party_quest.kpq.menu.intro","clickEvent":{"action":"run_command","value":"trigger command set 172"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
+				tellraw @s ["\n",{"translate":"text.quest.party_quest.kpq.menu","font":"minecraft:uniform"}]
+				tellraw @s {"translate":"text.quest.party_quest.kpq.menu.enter","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"trigger command set 171"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
+				tellraw @s {"translate":"text.quest.party_quest.kpq.menu.intro","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"trigger command set 172"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
 				advancement revoke @s only quest:party_quest/kpq/lakelis
 			}
 			
@@ -338,7 +338,7 @@ namespace party_quest() as virtual
 				func portal()
 				{
 					execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001008}
-					execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"translate":"item.etc.4001008"}]}
+					execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","font":"minecraft:uniform","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"translate":"item.etc.4001008"}]}
 					
 					scoreboard players set #KPQ_S2_LOADED temp 1
 					scoreboard players add @s game_stage 1
@@ -370,7 +370,7 @@ namespace party_quest() as virtual
 						{
 							tellraw @s ""
 							execute if score #KPQ_STAGE temp matches 1 run function ARG(_PATH)check
-							execute if score #KPQ_STAGE temp matches 2.. run tellraw @s {"translate":"text.quest.party_quest.kpq.go_next"}
+							execute if score #KPQ_STAGE temp matches 2.. run tellraw @s {"translate":"text.quest.party_quest.kpq.go_next","font":"minecraft:uniform"}
 						}
 						
 						func check()
@@ -382,7 +382,7 @@ namespace party_quest() as virtual
 						func pass_check()
 						{
 							execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001008} 0
-							execute unless score #GLOBAL temp >= #KPQ_PASS_REQUIRED temp run tellraw @s {"translate":"text.quest.party_quest.kpq.stage1.require_pass","with":[{"score":{"objective":"temp","name":"#KPQ_PASS_REQUIRED"}}]}
+							execute unless score #GLOBAL temp >= #KPQ_PASS_REQUIRED temp run tellraw @s {"translate":"text.quest.party_quest.kpq.stage1.require_pass","font":"minecraft:uniform","with":[{"score":{"objective":"temp","name":"#KPQ_PASS_REQUIRED"}}]}
 							execute if score #GLOBAL temp >= #KPQ_PASS_REQUIRED temp run function ARG(_PATH)pass
 						}
 						
@@ -399,9 +399,9 @@ namespace party_quest() as virtual
 							execute as @a[scores={playing_game=1},tag=!dead] at @s run function quest:get_exp
 							
 							clear @s minecraft:stick{CustomModelData:4001008}
-							execute if score #GLOBAL temp matches 2.. run tellraw @s {"translate":"text.quest.item_lost_multiple","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"translate":"item.etc.4001008"}]}
-							execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","color":"gray","with":[{"translate":"item.etc.4001008"}]}
-							tellraw @s {"translate":"text.quest.party_quest.kpq.stage1.pass","with":[{"score":{"objective":"temp","name":"#KPQ_PASS_REQUIRED"}}]}
+							execute if score #GLOBAL temp matches 2.. run tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"translate":"item.etc.4001008"}]}
+							execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4001008"}]}
+							tellraw @s {"translate":"text.quest.party_quest.kpq.stage1.pass","font":"minecraft:uniform","with":[{"score":{"objective":"temp","name":"#KPQ_PASS_REQUIRED"}}]}
 							
 							function main:rand_rate
 							execute if score #RAND_RESULT temp matches ..24 run scoreboard players set #KPQ_PASS_REQUIRED temp 7
@@ -419,7 +419,7 @@ namespace party_quest() as virtual
 						
 						func show_question()
 						{
-							tellraw @s {"translate":"text.quest.party_quest.kpq.stage1.introduce"}
+							tellraw @s {"translate":"text.quest.party_quest.kpq.stage1.introduce","font":"minecraft:uniform"}
 							execute if score @s kpq_question matches 1 run data modify storage quest:main temp set value '{"translate":"text.quest.party_quest.kpq.stage1.question.1"}'
 							execute if score @s kpq_question matches 2 run data modify storage quest:main temp set value '{"translate":"text.quest.party_quest.kpq.stage1.question.2"}'
 							execute if score @s kpq_question matches 3 run data modify storage quest:main temp set value '{"translate":"text.quest.party_quest.kpq.stage1.question.3"}'
@@ -429,15 +429,15 @@ namespace party_quest() as virtual
 							execute if score @s kpq_question matches 7 run data modify storage quest:main temp set value '{"translate":"text.quest.party_quest.kpq.stage1.question.7"}'
 							execute if score @s kpq_question matches 8 run data modify storage quest:main temp set value '{"translate":"text.quest.party_quest.kpq.stage1.question.8"}'
 							execute if score @s kpq_question matches 9 run data modify storage quest:main temp set value '{"translate":"text.quest.party_quest.kpq.stage1.question.9"}'
-							tellraw @s {"translate":"text.quest.party_quest.kpq.stage1.require_coupon","with":[{"nbt":"temp","storage":"quest:main","interpret":true}]}
+							tellraw @s {"translate":"text.quest.party_quest.kpq.stage1.require_coupon","font":"minecraft:uniform","with":[{"nbt":"temp","storage":"quest:main","interpret":true}]}
 						}
 						
 						func get_pass()
 						{
 							clear @s minecraft:stick{CustomModelData:4001007}
-							tellraw @s {"translate":"text.quest.item_lost_multiple","color":"gray","with":[{"score":{"objective":"kpq_coupon","name":"@s"}},{"translate":"item.etc.4001007"}]}
+							tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":[{"score":{"objective":"kpq_coupon","name":"@s"}},{"translate":"item.etc.4001007"}]}
 							give @s minecraft:stick{CustomModelData:4001008,HideFlags:127,display:{Name:'{"translate":"item.etc.4001008","font":"minecraft:uniform","bold":true,"italic":false}'}}
-							tellraw @s {"translate":"text.quest.item_gain","color":"gray","with":[{"translate":"item.etc.4001008"}]}
+							tellraw @s {"translate":"text.quest.item_gain","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4001008"}]}
 							
 							scoreboard players reset @s kpq_coupon
 							scoreboard players reset @s kpq_question
@@ -488,7 +488,7 @@ namespace party_quest() as virtual
 						{
 							tellraw @s ""
 							scoreboard players set #GLOBAL temp 0
-							execute store result score #GLOBAL temp if entity @a[scores={playing_game=1,game_stage=1}] run tellraw @s {"translate":"text.quest.party_quest.kpq.member_lost"}
+							execute store result score #GLOBAL temp if entity @a[scores={playing_game=1,game_stage=1}] run tellraw @s {"translate":"text.quest.party_quest.kpq.member_lost","font":"minecraft:uniform"}
 							execute if score #GLOBAL temp matches 0 run function ARG(_PATH)check
 						}
 						
@@ -519,7 +519,7 @@ namespace party_quest() as virtual
 							scoreboard players remove #COMBINATION temp 2
 							execute if score #COMBINATION temp matches 1.. run scoreboard players add #GLOBAL temp 1
 							
-							execute unless score #GLOBAL temp matches 3 run tellraw @s {"translate":"text.quest.party_quest.kpq.stage2.wrong_amount"}
+							execute unless score #GLOBAL temp matches 3 run tellraw @s {"translate":"text.quest.party_quest.kpq.stage2.wrong_amount","font":"minecraft:uniform"}
 							execute if score #GLOBAL temp matches 3 run function quest:party_quest/kpq/title/wrong/run
 							kill @e[type=creeper,tag=kpq_player]
 						}
@@ -593,7 +593,7 @@ namespace party_quest() as virtual
 						{
 							tellraw @s ""
 							scoreboard players set #GLOBAL temp 0
-							execute store result score #GLOBAL temp if entity @a[scores={playing_game=1,game_stage=2}] run tellraw @s {"translate":"text.quest.party_quest.kpq.member_lost"}
+							execute store result score #GLOBAL temp if entity @a[scores={playing_game=1,game_stage=2}] run tellraw @s {"translate":"text.quest.party_quest.kpq.member_lost","font":"minecraft:uniform"}
 							execute if score #GLOBAL temp matches 0 run function ARG(_PATH)check
 						}
 						
@@ -627,7 +627,7 @@ namespace party_quest() as virtual
 							scoreboard players remove #COMBINATION temp 2
 							execute if score #COMBINATION temp matches 1.. run scoreboard players add #GLOBAL temp 1
 							
-							execute unless score #GLOBAL temp matches 3 run tellraw @s {"translate":"text.quest.party_quest.kpq.stage3.wrong_amount"}
+							execute unless score #GLOBAL temp matches 3 run tellraw @s {"translate":"text.quest.party_quest.kpq.stage3.wrong_amount","font":"minecraft:uniform"}
 							execute if score #GLOBAL temp matches 3 run function quest:party_quest/kpq/title/wrong/run
 							kill @e[type=creeper,tag=kpq_player]
 						}
@@ -710,7 +710,7 @@ namespace party_quest() as virtual
 						{
 							tellraw @s ""
 							scoreboard players set #GLOBAL temp 0
-							execute store result score #GLOBAL temp if entity @a[scores={playing_game=1,game_stage=3}] run tellraw @s {"translate":"text.quest.party_quest.kpq.member_lost"}
+							execute store result score #GLOBAL temp if entity @a[scores={playing_game=1,game_stage=3}] run tellraw @s {"translate":"text.quest.party_quest.kpq.member_lost","font":"minecraft:uniform"}
 							execute if score #GLOBAL temp matches 0 run function ARG(_PATH)check
 						}
 						
@@ -747,7 +747,7 @@ namespace party_quest() as virtual
 							scoreboard players remove #COMBINATION temp 2
 							execute if score #COMBINATION temp matches 1.. run scoreboard players add #GLOBAL temp 1
 							
-							execute unless score #GLOBAL temp matches 3 run tellraw @s {"translate":"text.quest.party_quest.kpq.stage4.wrong_amount"}
+							execute unless score #GLOBAL temp matches 3 run tellraw @s {"translate":"text.quest.party_quest.kpq.stage4.wrong_amount","font":"minecraft:uniform"}
 							execute if score #GLOBAL temp matches 3 run function quest:party_quest/kpq/title/wrong/run
 							kill @e[type=creeper,tag=kpq_player]
 						}
@@ -781,7 +781,7 @@ namespace party_quest() as virtual
 				{
 					execute store result score #GLOBAL temp run data get entity @s Inventory
 					execute if data entity @s Inventory[{Slot:-106b}] run scoreboard players remove #GLOBAL temp 1
-					execute if score #GLOBAL temp matches 37 run tellraw @s ["\n",{"translate":"text.quest.party_quest.kpq.require_slot"}]
+					execute if score #GLOBAL temp matches 37 run tellraw @s ["\n",{"translate":"text.quest.party_quest.kpq.require_slot","font":"minecraft:uniform"}]
 					execute if score #GLOBAL temp matches ..36 run function ARG(_PATH)complete
 				}
 				
@@ -792,7 +792,7 @@ namespace party_quest() as virtual
 					execute unless entity @a[scores={playing_game=1,game_stage=5}] run function ARG(_PATH)reset
 					
 					loot replace block 0 1 0 container.0 loot quest:kpq_award
-					tellraw @s {"translate":"text.quest.item_gain","color":"gray","with":[{"nbt":"Items[0].tag.display.Name","block":"0 1 0","interpret":true}]}
+					tellraw @s {"translate":"text.quest.item_gain","font":"minecraft:uniform","color":"gray","with":[{"nbt":"Items[0].tag.display.Name","block":"0 1 0","interpret":true}]}
 					loot give @s mine 0 1 0 minecraft:air{modify_player:1b}
 					
 					title @s times 1 5 10
@@ -917,7 +917,7 @@ namespace party_quest() as virtual
 						{
 							tellraw @s ""
 							execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001008} 0
-							execute unless score #GLOBAL temp matches 10 run tellraw @s {"translate":"text.quest.party_quest.kpq.stage5.require_pass"}
+							execute unless score #GLOBAL temp matches 10 run tellraw @s {"translate":"text.quest.party_quest.kpq.stage5.require_pass","font":"minecraft:uniform"}
 							execute if score #GLOBAL temp matches 10 run function ARG(_PATH)pass
 						}
 						
@@ -938,8 +938,8 @@ namespace party_quest() as virtual
 							execute as @a[scores={playing_game=1},tag=!dead] at @s run function quest:get_exp
 							
 							clear @s minecraft:stick{CustomModelData:4001008}
-							tellraw @s {"translate":"text.quest.item_lost_multiple","color":"gray","with":["10",{"translate":"item.etc.4001008"}]}
-							tellraw @s {"translate":"text.quest.party_quest.kpq.stage5.pass"}
+							tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":["10",{"translate":"item.etc.4001008"}]}
+							tellraw @s {"translate":"text.quest.party_quest.kpq.stage5.pass","font":"minecraft:uniform"}
 						}
 					}
 				}

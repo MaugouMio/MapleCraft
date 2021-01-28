@@ -547,13 +547,13 @@ namespace booster_skill_template(skill_id, weapon, icon) as virtual
 	func other_check()
 	{
 		function skill:check_weapon/ARG(weapon)/run
-		execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s hp <= @s ARG(skill_id)_mp run tellraw @s {"translate":"warning.skill.lack_hp","color":"#efb7ab"}
+		execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s hp <= @s ARG(skill_id)_mp run tellraw @s {"translate":"warning.skill.lack_hp","font":"minecraft:uniform","color":"#efb7ab"}
 		execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s hp > @s ARG(skill_id)_mp run function ARG(_PATH)mp_check
 	}
 	
 	func mp_check()
 	{
-		execute if score @s mp < @s ARG(skill_id)_mp run tellraw @s {"translate":"warning.skill.lack_mp","color":"#efb7ab"}
+		execute if score @s mp < @s ARG(skill_id)_mp run tellraw @s {"translate":"warning.skill.lack_mp","font":"minecraft:uniform","color":"#efb7ab"}
 		execute if score @s mp >= @s ARG(skill_id)_mp run function ARG(_PATH)cast_effect
 	}
 	
@@ -1719,7 +1719,7 @@ namespace skill()
 			scoreboard players set #ACCEPTED_WEAPON temp 0
 			
 			scoreboard players operation #USED_WEAPON temp = @s weapon_type
-			execute if score #USED_WEAPON temp matches 0 run tellraw @s {"translate":"warning.skill.no_weapon","color":"#efb7ab"}
+			execute if score #USED_WEAPON temp matches 0 run tellraw @s {"translate":"warning.skill.no_weapon","font":"minecraft:uniform","color":"#efb7ab"}
 		}
 		
 		folder single_hand()
@@ -1734,7 +1734,7 @@ namespace skill()
 			{
 				scoreboard players operation #ACCEPTED_WEAPON temp = #USED_WEAPON temp
 				scoreboard players operation #ACCEPTED_WEAPON temp %= #2 const
-				execute if score #ACCEPTED_WEAPON temp matches 0 run tellraw @s {"translate":"warning.skill.wrong_weapon","color":"#efb7ab"}
+				execute if score #ACCEPTED_WEAPON temp matches 0 run tellraw @s {"translate":"warning.skill.wrong_weapon","font":"minecraft:uniform","color":"#efb7ab"}
 			}
 		}
 		
@@ -1750,7 +1750,7 @@ namespace skill()
 			func check()
 			{{
 				execute store success score #ACCEPTED_WEAPON temp if score #USED_WEAPON temp matches {range_string}
-				execute if score #ACCEPTED_WEAPON temp matches 0 run tellraw @s {{"translate":"warning.skill.wrong_weapon","color":"#efb7ab"}}
+				execute if score #ACCEPTED_WEAPON temp matches 0 run tellraw @s {{"translate":"warning.skill.wrong_weapon","font":"minecraft:uniform","color":"#efb7ab"}}
 			}}''')
 		
 		type_id_dict = {

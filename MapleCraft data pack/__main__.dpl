@@ -259,13 +259,13 @@ namespace main()
 		func hp_alert()
 		{
 			scoreboard players enable @s hp_warning
-			tellraw @s ["\n",{"translate":"text.tip.hp_alert","clickEvent":{"action":"suggest_command","value":"/trigger hp_warning set 0"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.tip.copy_to_chat"}}}]
+			tellraw @s ["\n",{"translate":"text.tip.hp_alert","font":"minecraft:uniform","clickEvent":{"action":"suggest_command","value":"/trigger hp_warning set 0"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.tip.copy_to_chat"}}}]
 		}
 		
 		func mp_alert()
 		{
 			scoreboard players enable @s mp_warning
-			tellraw @s ["\n",{"translate":"text.tip.mp_alert","clickEvent":{"action":"suggest_command","value":"/trigger mp_warning set 0"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.tip.copy_to_chat"}}}]
+			tellraw @s ["\n",{"translate":"text.tip.mp_alert","font":"minecraft:uniform","clickEvent":{"action":"suggest_command","value":"/trigger mp_warning set 0"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.tip.copy_to_chat"}}}]
 		}
 	}
 	
@@ -310,7 +310,7 @@ namespace main()
 			```
 			print(f"give @s {menu_book}")
 			```
-			tellraw @s {"translate":"text.npc.maple_administrator.menu.reset_menu.response"}
+			tellraw @s {"translate":"text.npc.maple_administrator.menu.reset_menu.response","font":"minecraft:uniform"}
 		}
 		
 		func equip()
@@ -347,11 +347,11 @@ namespace main()
 		{
 			func talk()
 			{
-				tellraw @s ["\n",{"translate":"text.npc.maple_administrator.menu"}]
-				tellraw @s {"translate":"text.npc.maple_administrator.menu.reset_menu","clickEvent":{"action":"run_command","value":"trigger command set -1"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
-				tellraw @s {"translate":"text.npc.maple_administrator.menu.how_to_projectile","clickEvent":{"action":"run_command","value":"trigger command set 197"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
-				tellraw @s {"translate":"text.npc.maple_administrator.menu.how_to_equip","clickEvent":{"action":"run_command","value":"trigger command set 198"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
-				tellraw @s {"translate":"text.npc.maple_administrator.menu.how_to_scroll","clickEvent":{"action":"run_command","value":"trigger command set 199"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
+				tellraw @s ["\n",{"translate":"text.npc.maple_administrator.menu","font":"minecraft:uniform"}]
+				tellraw @s {"translate":"text.npc.maple_administrator.menu.reset_menu","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"trigger command set -1"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
+				tellraw @s {"translate":"text.npc.maple_administrator.menu.how_to_projectile","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"trigger command set 197"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
+				tellraw @s {"translate":"text.npc.maple_administrator.menu.how_to_equip","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"trigger command set 198"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
+				tellraw @s {"translate":"text.npc.maple_administrator.menu.how_to_scroll","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"trigger command set 199"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
 				advancement revoke @s only main:npc/maple_administrator
 			}
 		}
