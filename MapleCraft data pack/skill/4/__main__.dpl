@@ -345,7 +345,7 @@ namespace 4() as virtual
 				func get()
 				{
 					clear @s minecraft:carrot_on_a_stick{CustomModelData:130}
-					give @s minecraft:carrot_on_a_stick{CustomModelData:130,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.4001002","bold":true,"italic":false}'}}
+					give @s minecraft:carrot_on_a_stick{CustomModelData:130,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.4001002","font":"minecraft:uniform","bold":true,"italic":false}'}}
 				}
 			}
 			
@@ -481,7 +481,7 @@ namespace 4() as virtual
 				func get()
 				{
 					clear @s minecraft:carrot_on_a_stick{CustomModelData:131}
-					give @s minecraft:carrot_on_a_stick{CustomModelData:131,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.4001003","bold":true,"italic":false}'}}
+					give @s minecraft:carrot_on_a_stick{CustomModelData:131,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.4001003","font":"minecraft:uniform","bold":true,"italic":false}'}}
 				}
 			}
 			
@@ -615,7 +615,7 @@ namespace 4() as virtual
 				func get()
 				{
 					clear @s minecraft:carrot_on_a_stick{CustomModelData:132}
-					give @s minecraft:carrot_on_a_stick{CustomModelData:132,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.4001334","bold":true,"italic":false}'}}
+					give @s minecraft:carrot_on_a_stick{CustomModelData:132,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.4001334","font":"minecraft:uniform","bold":true,"italic":false}'}}
 				}
 			}
 			
@@ -789,7 +789,7 @@ namespace 4() as virtual
 				func get()
 				{
 					clear @s minecraft:carrot_on_a_stick{CustomModelData:133}
-					give @s minecraft:carrot_on_a_stick{CustomModelData:133,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.4001344","bold":true,"italic":false}'}}
+					give @s minecraft:carrot_on_a_stick{CustomModelData:133,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.4001344","font":"minecraft:uniform","bold":true,"italic":false}'}}
 				}
 			}
 		}

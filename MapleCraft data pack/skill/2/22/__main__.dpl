@@ -179,7 +179,7 @@ namespace 22() as virtual
 			func get()
 			{
 				clear @s minecraft:carrot_on_a_stick{CustomModelData:75}
-				give @s minecraft:carrot_on_a_stick{CustomModelData:75,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.2201004","bold":true,"italic":false}'}}
+				give @s minecraft:carrot_on_a_stick{CustomModelData:75,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.2201004","font":"minecraft:uniform","bold":true,"italic":false}'}}
 			}
 		}
 		
@@ -321,7 +321,7 @@ namespace 22() as virtual
 			func get()
 			{
 				clear @s minecraft:carrot_on_a_stick{CustomModelData:76}
-				give @s minecraft:carrot_on_a_stick{CustomModelData:76,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.2201005","bold":true,"italic":false}'}}
+				give @s minecraft:carrot_on_a_stick{CustomModelData:76,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.2201005","font":"minecraft:uniform","bold":true,"italic":false}'}}
 			}
 		}
 	}
