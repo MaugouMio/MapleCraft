@@ -586,7 +586,7 @@
           "functions": [
             {
               "function": "minecraft:set_nbt",
-              "tag": "{CustomModelData:104,amount:100,sound:2,hp:1000,display:{Name:'{\"translate\":\"item.consume.2022003\",\"bold\":true,\"italic\":false,\"font\":\"minecraft:uniform\"}',Lore:['{\"translate\":\"item.notice.potion.hp\",\"with\":[\"1000\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}']},HideFlags:127,Unbreakable:1}"
+              "tag": "{CustomModelData:104,price:1100,sound:2,hp:1000,display:{Name:'{\"translate\":\"item.consume.2022003\",\"bold\":true,\"italic\":false,\"font\":\"minecraft:uniform\"}',Lore:['{\"translate\":\"item.notice.potion.hp\",\"with\":[\"1000\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}','{\"translate\":\"item.notice.potion.meso\",\"with\":[\"1100\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}']},HideFlags:127,Unbreakable:1}"
             }
           ]
         },
@@ -597,7 +597,7 @@
           "functions": [
             {
               "function": "minecraft:set_nbt",
-              "tag": "{CustomModelData:172,amount:100,sound:3,mp:800,display:{Name:'{\"translate\":\"item.consume.2022000\",\"bold\":true,\"italic\":false,\"font\":\"minecraft:uniform\"}',Lore:['{\"translate\":\"item.notice.potion.mp\",\"with\":[\"800\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}']},HideFlags:127,Unbreakable:1}"
+              "tag": "{CustomModelData:172,price:1650,sound:3,mp:800,display:{Name:'{\"translate\":\"item.consume.2022000\",\"bold\":true,\"italic\":false,\"font\":\"minecraft:uniform\"}',Lore:['{\"translate\":\"item.notice.potion.mp\",\"with\":[\"800\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}','{\"translate\":\"item.notice.potion.meso\",\"with\":[\"1650\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}']},HideFlags:127,Unbreakable:1}"
             }
           ]
         },
@@ -608,7 +608,7 @@
           "functions": [
             {
               "function": "minecraft:set_nbt",
-              "tag": "{CustomModelData:230,amount:100,sound:0,hp_rate:50,mp_rate:50,display:{Name:'{\"translate\":\"item.consume.2000004\",\"bold\":true,\"italic\":false,\"font\":\"minecraft:uniform\"}',Lore:['{\"translate\":\"item.notice.potion.hp_mp\",\"with\":[\"50%\",\"50%\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}']},HideFlags:127,Unbreakable:1}"
+              "tag": "{CustomModelData:230,price:3000,sound:0,hp_rate:50,mp_rate:50,display:{Name:'{\"translate\":\"item.consume.2000004\",\"bold\":true,\"italic\":false,\"font\":\"minecraft:uniform\"}',Lore:['{\"translate\":\"item.notice.potion.hp_mp\",\"with\":[\"50%\",\"50%\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}','{\"translate\":\"item.notice.potion.meso\",\"with\":[\"3000\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}']},HideFlags:127,Unbreakable:1}"
             }
           ]
         }
