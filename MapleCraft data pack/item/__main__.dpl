@@ -1105,6 +1105,7 @@ namespace item()
 					
 					func hp()
 					{
+						scoreboard players set @s[scores={tutorial=2}] tutorial 3
 						execute store result score #GLOBAL temp run data get entity @s SelectedItem.tag.hp
 						scoreboard players operation @s hp += #GLOBAL temp
 						scoreboard players operation @s hp < @s hp_max
