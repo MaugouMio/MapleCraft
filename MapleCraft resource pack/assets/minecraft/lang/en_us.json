@@ -925,6 +925,7 @@
 	"item.notice.used_weapon": "You are using [%s]. Amount: %s",
 	"item.notice.for_display": "For display only",
 	"item.notice.equip_item": "You have equiped [%s]",
+	"item.notice.untradeable": "Untradeable",
 	
 	"item.notice.weapon_category": "CATEGORY: %s",
 	"item.notice.weapon_category.oh_sword": "ONE-HANDED SWORD",
@@ -1006,6 +1007,7 @@
 	"item.notice.potion.hp": "Recovers %s HP.",
 	"item.notice.potion.mp": "Recovers %s MP.",
 	"item.notice.potion.hp_mp": "Recovers %1$s HP and %2$s MP",
+	"item.notice.potion.meso": "Costs Meso: %s",
 	
 	"item.consume.2000000": "Red Potion",
 	"item.consume.2000001": "Orange Potion",
@@ -1117,6 +1119,7 @@
 	"item.etc.4000010": "Slime Bubble",
 	"item.etc.4000012": "Green Mushroom Cap",
 	"item.etc.4000015": "Horny Mushroom Cap",
+	"item.etc.4000083": "Jr. Sentinel Shellpiece",
 	"item.etc.4001007": "Coupon",
 	"item.etc.4001008": "Pass",
 	
@@ -1155,8 +1158,8 @@
 	"text.npc.maple_administrator.menu.reset_menu.response": "<Maple Administrator> I have reset your MENU book. Enter §7\"/trigger command set -1\"§r to reset the book anytime.",
 	"text.npc.maple_administrator.menu.how_to_projectile": "§7> §1How to use throwing-stars or arrows?§r",
 	"text.npc.maple_administrator.menu.how_to_projectile.response": "<Maple Administrator> Place the throwing-stars or arrows in your §cmainhand§r, and right click to equip them. Equipped throwing-stars or arrows will be consumed automatically when you attack.",
-	"text.npc.maple_administrator.menu.how_to_equip": "§7> §1How to equip an item?§r",
-	"text.npc.maple_administrator.menu.how_to_equip.response": "<Maple Administrator> Place the equipment in your §cmainhand§r, and right click to equip it.",
+	"text.npc.maple_administrator.menu.how_to_equip": "§7> §1How to equip an item or consume a potion?§r",
+	"text.npc.maple_administrator.menu.how_to_equip.response": "<Maple Administrator> Place the item in your §cmainhand§r and right click on it.",
 	"text.npc.maple_administrator.menu.how_to_scroll": "§7> §1How to use a scroll?§r",
 	"text.npc.maple_administrator.menu.how_to_scroll.response": "<Maple Administrator> Place the equipment you want to scroll in your §coffhand§r, and place the scroll in your §cmainhand§r, then right click to scroll the equipment.",
 	
