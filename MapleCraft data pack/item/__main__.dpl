@@ -124,11 +124,10 @@ namespace item()
 			execute if data entity @s Item{id:"minecraft:diamond"} run function ARG(_PATH)set_meso
 			# skill items can not pick back
 			execute if data entity @s Item{id:"minecraft:carrot_on_a_stick"} run kill @s
-			# only the thrower can pick display weapon and menu book
-			execute if data entity @s Item{id:"minecraft:diamond_axe"} run data modify entity @s Owner set from entity @s Thrower
-			execute if data entity @s Item{id:"minecraft:written_book"} run data modify entity @s Owner set from entity @s Thrower
 			# set loot item
 			execute unless data entity @s Thrower unless data entity @s Owner run function ARG(_PATH)loot
+			# no_trade item can not be picked up by other players
+			execute if data entity @s[tag=!loot_item] Item{tag:{no_trade:1b}} run data modify entity @s Owner set from entity @s Thrower
 			
 			data modify entity @s Age set value 2400
 			tag @s[tag=!loot_item] add checked
@@ -645,8 +644,9 @@ namespace item()
 				replaceitem block 0 1 0 container.0 minecraft:diamond_axe
 				data modify block 0 1 0 Items[0].tag set from entity @s SelectedItem.tag
 				data remove block 0 1 0 Items[0].tag.price
+				data modify block 0 1 0 Items[0].tag.no_trade set value 1b
 				data modify block 0 1 0 Items[0].tag.display.Name set from entity @s SelectedItem.tag.original_name
-				data modify block 0 1 0 Items[0].tag.display.Lore set value ['{"translate":"item.notice.for_display"}']
+				data modify block 0 1 0 Items[0].tag.display.Lore set value ['{"translate":"item.notice.untradeable","font":"minecraft:uniform","color":"#FE8811","italic":false}','{"translate":"item.notice.for_display","font":"minecraft:uniform","color":"white","italic":false}']
 				loot replace entity @s weapon.mainhand 1 mine 0 1 0 minecraft:air{modify_player:1b}
 				
 				# equip new weapon

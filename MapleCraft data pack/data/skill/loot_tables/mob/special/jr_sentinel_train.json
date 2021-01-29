@@ -10,9 +10,20 @@
               "function": "minecraft:set_name",
               "name": {"translate": "item.etc.4000083", "font": "minecraft:uniform", "bold": true, "italic": false}
             },
+			{
+              "function": "minecraft:set_lore",
+              "lore": [
+                {
+                  "translate": "item.notice.untradeable",
+                  "color": "#FE8811",
+                  "font": "minecraft:uniform",
+                  "italic": false
+                }
+              ]
+            },
             {
               "function": "minecraft:set_nbt",
-              "tag": "{HideFlags:127,CustomModelData:4000083}"
+              "tag": "{no_trade:1b,HideFlags:127,CustomModelData:4000083}"
             }
           ],
           "name": "minecraft:stick"
