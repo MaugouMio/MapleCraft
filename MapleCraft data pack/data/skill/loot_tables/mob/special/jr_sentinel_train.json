@@ -1,0 +1,23 @@
+{
+  "pools": [
+    {
+      "rolls": 1.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_name",
+              "name": {"translate": "item.etc.4000083", "font": "minecraft:uniform", "bold": true, "italic": false}
+            },
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{HideFlags:127,CustomModelData:4000083}"
+            }
+          ],
+          "name": "minecraft:stick"
+        }
+      ]
+    }
+  ]
+}
