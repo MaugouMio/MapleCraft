@@ -564,7 +564,7 @@ namespace main()
 				execute if score @s tutorial matches 6 run tellraw @s ["\n",{"translate":"text.quest.tutorial.skill_teach","font":"minecraft:uniform"}]
 				execute if score @s tutorial matches 5 run function ARG(_PATH)attack_check
 				execute if score @s tutorial matches 4 run function ARG(_PATH)attack
-				execute if score @s tutorial matches 3 run function ARG(_PATH)apple_complete
+				execute if score @s tutorial matches 3 at @s run function ARG(_PATH)apple_complete
 				execute if score @s tutorial matches 2 run tellraw @s ["\n",{"translate":"text.quest.tutorial.apple_teach","font":"minecraft:uniform"}]
 				execute if score @s tutorial matches 1 run function ARG(_PATH)apple
 				execute unless score @s tutorial matches 1.. run function ARG(_PATH)greet
@@ -593,6 +593,11 @@ namespace main()
 			
 			func apple_complete()
 			{
+				scoreboard players set #EXP_GAIN temp 5
+				scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
+				function quest:get_exp
+				function quest:complete_effect
+				
 				tellraw @s ["\n",{"translate":"text.quest.tutorial.apple_complete","font":"minecraft:uniform"}]
 				scoreboard players set @s tutorial 4
 			}
@@ -613,11 +618,12 @@ namespace main()
 			func attack_complete()
 			{
 				tellraw @s {"translate":"text.quest.item_lost","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4000083"}]}
-				scoreboard players set #EXP_GAIN temp 13
+				scoreboard players set #EXP_GAIN temp 10
 				scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
 				function quest:get_exp
-				tellraw @s ["\n",{"translate":"text.quest.tutorial.attack_complete","font":"minecraft:uniform"}]
+				function quest:complete_effect
 				
+				tellraw @s ["\n",{"translate":"text.quest.tutorial.attack_complete","font":"minecraft:uniform"}]
 				scoreboard players set @s tutorial 6
 			}
 			
