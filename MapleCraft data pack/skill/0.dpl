@@ -61,6 +61,7 @@ namespace 0() as virtual
 				func cast_effect()
 				{
 					playsound minecraft:skill.1001004 player @a ~ ~ ~ 1 1 0
+					scoreboard players set @s[scores={tutorial=6}] tutorial 7
 				}
 				
 				func effect()
@@ -212,6 +213,8 @@ namespace 0() as virtual
 					
 					scoreboard players set @s 0001001_cd 120
 					function ARG(_PATH)cd_counter/add
+					
+					scoreboard players set @s[scores={tutorial=6}] tutorial 7
 				}
 				
 				folder cd_counter() from cd_counter(0001001);
@@ -340,6 +343,8 @@ namespace 0() as virtual
 					
 					scoreboard players set @s 0001002_cd 60
 					function ARG(_PATH)cd_counter/add
+					
+					scoreboard players set @s[scores={tutorial=6}] tutorial 7
 				}
 				
 				folder cd_counter() from cd_counter(0001002);
