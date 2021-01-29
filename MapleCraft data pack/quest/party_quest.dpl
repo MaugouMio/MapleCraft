@@ -356,7 +356,8 @@ namespace party_quest() as virtual
 					kill @e[type=#skill:enemy,tag=kpq_mob]
 					kill @e[type=area_effect_cloud,tag=kpq_mob_spawner]
 					data modify block -310 47 0 Text1 set value '""'
-					kill @e[type=armor_stand,tag=kpq_portal_s1]
+					setblock -310 47 -1 minecraft:air
+					setblock -310 47 1 minecraft:air
 					forceload remove -266 -23 -314 23
 					
 					scoreboard players reset #KPQ_S1_LOADED temp
@@ -392,7 +393,8 @@ namespace party_quest() as virtual
 							scoreboard players add #KPQ_STAGE temp 1
 							
 							data modify block -310 47 0 Text1 set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -310.0 46 -1.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/1/portal"}}'
-							summon minecraft:armor_stand -310 46 0 {Tags:["kpq_portal_s1"],Marker:1,Fire:32767s,NoGravity:1,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:4,CustomPotionColor:-1}}],Rotation:[90.0f,0.0f]}
+							setblock -310 47 -1 minecraft:tripwire[attached=false,disarmed=false,east=false,north=false,south=false,west=false]
+							setblock -310 47 1 minecraft:tripwire[attached=true,disarmed=false,east=false,north=false,south=false,west=false]
 							
 							scoreboard players set #EXP_GAIN temp 100
 							scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
@@ -468,7 +470,8 @@ namespace party_quest() as virtual
 					forceload add -550 -25 -500 25
 					execute positioned -565 41 -40 run kill @e[type=item,dx=80,dy=37,dz=80]
 					data modify block -540 43 0 Text1 set value '""'
-					kill @e[type=armor_stand,tag=kpq_portal_s2]
+					setblock -540 43 -1 minecraft:air
+					setblock -540 43 1 minecraft:air
 					kill @e[type=creeper,tag=kpq_player]
 					forceload remove -550 -25 -500 25
 					
@@ -530,7 +533,8 @@ namespace party_quest() as virtual
 							scoreboard players add #KPQ_STAGE temp 1
 							
 							data modify block -540 43 0 Text1 set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -540.0 42 -1.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/2/portal"}}'
-							summon minecraft:armor_stand -540 42 0 {Tags:["kpq_portal_s2"],Marker:1,Fire:32767s,NoGravity:1,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:4,CustomPotionColor:-1}}],Rotation:[90.0f,0.0f]}
+							setblock -540 43 -1 minecraft:tripwire[attached=false,disarmed=false,east=false,north=false,south=false,west=false]
+							setblock -540 43 1 minecraft:tripwire[attached=true,disarmed=false,east=false,north=false,south=false,west=false]
 							
 							scoreboard players set #EXP_GAIN temp 200
 							scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
@@ -571,7 +575,8 @@ namespace party_quest() as virtual
 					forceload add -852 -10 -800 10
 					execute positioned -852 31 -10 run kill @e[type=item,dx=52,dy=28,dz=20]
 					data modify block -850 47 0 Text1 set value '""'
-					kill @e[type=armor_stand,tag=kpq_portal_s3]
+					setblock -850 47 -1 minecraft:air
+					setblock -850 47 1 minecraft:air
 					setblock -849 47 2 minecraft:air
 					setblock -849 47 -2 minecraft:air
 					kill @e[type=creeper,tag=kpq_player]
@@ -638,7 +643,8 @@ namespace party_quest() as virtual
 							scoreboard players add #KPQ_STAGE temp 1
 							
 							data modify block -850 47 0 Text1 set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -850.0 46 -1.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/3/portal"}}'
-							summon minecraft:armor_stand -850 46 0 {Tags:["kpq_portal_s3"],Marker:1,Fire:32767s,NoGravity:1,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:4,CustomPotionColor:-1}}],Rotation:[90.0f,0.0f]}
+							setblock -850 47 -1 minecraft:tripwire[attached=false,disarmed=false,east=false,north=false,south=false,west=false]
+							setblock -850 47 1 minecraft:tripwire[attached=true,disarmed=false,east=false,north=false,south=false,west=false]
 							setblock -849 47 2 minecraft:fire
 							setblock -849 47 -2 minecraft:fire
 							
@@ -690,7 +696,8 @@ namespace party_quest() as virtual
 					# forceload add ...
 					# execute positioned <...> run kill @e[type=item,dx=...,dy=...,dz=...]
 					# data modify block <portal sign position> Text1 set value '""'
-					kill @e[type=armor_stand,tag=kpq_portal_s4]
+					# setblock -310 47 -1 minecraft:air
+					# setblock -310 47 1 minecraft:air
 					kill @e[type=creeper,tag=kpq_player]
 					# forceload remove ...
 					
@@ -759,7 +766,8 @@ namespace party_quest() as virtual
 							scoreboard players set #KPQ_S5_LOADED temp 1
 							
 							# data modify block <portal sign position> Text1 set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned <x y z> if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/4/portal"}}'
-							# summon minecraft:armor_stand <portal position> {Tags:["kpq_portal_s4"],Marker:1,Fire:32767s,NoGravity:1,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:4,CustomPotionColor:-1}}]}
+							# setblock -310 47 -1 minecraft:tripwire[attached=false,disarmed=false,east=false,north=false,south=false,west=false]
+							# setblock -310 47 1 minecraft:tripwire[attached=true,disarmed=false,east=false,north=false,south=false,west=false]
 							
 							scoreboard players set #EXP_GAIN temp 800
 							scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
@@ -805,7 +813,8 @@ namespace party_quest() as virtual
 					# forceload add ...
 					# execute positioned <...> run kill @e[type=item,dx=...,dy=...,dz=...]
 					kill @e[type=#skill:enemy,tag=kpq_mob]
-					kill @e[type=armor_stand,tag=kpq_portal_s5]
+					# setblock -310 47 -1 minecraft:air
+					# setblock -310 47 1 minecraft:air
 					scoreboard players reset #KING_SLIME_EXIST temp
 					# forceload remove ...
 					
@@ -931,7 +940,8 @@ namespace party_quest() as virtual
 							# summon minecraft:area_effect_cloud <spawner position> {Duration:2147483647,Tags:["mob_spawner","kpq_mob_spawner"]}
 							# forceload remove ...
 							
-							# summon minecraft:armor_stand <portal position> {Tags:["kpq_portal_s5"],Marker:1,Fire:32767s,NoGravity:1,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:4,CustomPotionColor:-1}}]}
+							# setblock -310 47 -1 minecraft:tripwire[attached=false,disarmed=false,east=false,north=false,south=false,west=false]
+							# setblock -310 47 1 minecraft:tripwire[attached=true,disarmed=false,east=false,north=false,south=false,west=false]
 							
 							scoreboard players set #EXP_GAIN temp 1500
 							scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const

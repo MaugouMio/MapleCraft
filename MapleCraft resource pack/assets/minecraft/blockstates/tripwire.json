@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "attached=false,disarmed=false,east=false,north=false,south=false,west=false": {
+      "model": "minecraft:map/kpq_portal_l"
+    },
+    "attached=true,disarmed=false,east=false,north=false,south=false,west=false": {
+      "model": "minecraft:map/kpq_portal_r"
+    },
+    "attached=false,disarmed=true,east=false,north=false,south=false,west=false": {
+      "model": "minecraft:map/portal_l"
+    },
+    "attached=true,disarmed=true,east=false,north=false,south=false,west=false": {
+      "model": "minecraft:map/portal_r"
+    }
+  }
+}
