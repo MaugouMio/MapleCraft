@@ -239,7 +239,7 @@ namespace bar_display()
 		{
 			gamemode spectator @s
 			scoreboard players set @s hp 0
-			execute unless entity @s[tag=!warrior,tag=!archer,tag=!magician,tag=!thief] run function ARG(_PATH)drop_exp
+			execute if score @s job_level matches 1.. run function ARG(_PATH)drop_exp
 			function skill:buff/reset_all
 			tag @s add dead
 			

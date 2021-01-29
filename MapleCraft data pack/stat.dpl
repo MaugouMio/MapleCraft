@@ -342,7 +342,7 @@ namespace stat()
 			execute if entity @s[tag=archer] run function ARG(_PATH)archer/set
 			execute if entity @s[tag=magician] run function ARG(_PATH)magician/set
 			execute if entity @s[tag=thief] run function ARG(_PATH)thief/set
-			execute if entity @s[tag=!warrior,tag=!archer,tag=!magician,tag=!thief] run function ARG(_PATH)beginner
+			execute if score @s job_level matches 0 run function ARG(_PATH)beginner
 		}
 		
 		func beginner()
@@ -503,7 +503,7 @@ namespace stat()
 				execute if entity @s[tag=archer] run function ARG(_PATH)archer/set
 				execute if entity @s[tag=magician] run function ARG(_PATH)magician/set
 				execute if entity @s[tag=thief] run function ARG(_PATH)thief/set
-				execute if entity @s[tag=!warrior,tag=!archer,tag=!magician,tag=!thief] run data merge storage ui:main {job:'"\\uE007"',sub_job:'"\\uF000"'}
+				execute if score @s job_level matches 0 run data merge storage ui:main {job:'"\\uE007"',sub_job:'"\\uF000"'}
 			}
 			
 			folder warrior()
