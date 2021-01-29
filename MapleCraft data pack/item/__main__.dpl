@@ -334,7 +334,7 @@ namespace item()
 		func equip_qulification()
 		{
 			# job check
-			execute if entity @s[tag=!warrior,tag=!archer,tag=!magician,tag=!thief] store result score #ACCEPTED_EQUIP temp run data get entity @s SelectedItem.tag.job[0]
+			execute if score @s job_level matches 0 store result score #ACCEPTED_EQUIP temp run data get entity @s SelectedItem.tag.job[0]
 			execute if entity @s[tag=warrior] store result score #ACCEPTED_EQUIP temp run data get entity @s SelectedItem.tag.job[1]
 			execute if entity @s[tag=archer] store result score #ACCEPTED_EQUIP temp run data get entity @s SelectedItem.tag.job[2]
 			execute if entity @s[tag=magician] store result score #ACCEPTED_EQUIP temp run data get entity @s SelectedItem.tag.job[3]
