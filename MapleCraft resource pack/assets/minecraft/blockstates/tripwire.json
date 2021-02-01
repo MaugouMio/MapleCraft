@@ -11,6 +11,26 @@
     },
     "attached=true,disarmed=true,east=false,north=false,south=false,west=false": {
       "model": "minecraft:map/portal_r"
+    },
+    "attached=false,disarmed=false,east=true,north=false,south=false,west=false": {
+      "model": "minecraft:map/rope/swamp/0"
+    },
+    "attached=true,disarmed=false,east=true,north=false,south=false,west=false": [
+      {"model": "minecraft:map/rope/swamp/1", "weight": 1},
+      {"model": "minecraft:map/rope/swamp/1_1", "weight": 1}
+    ],
+    "attached=false,disarmed=true,east=true,north=false,south=false,west=false": {
+      "model": "minecraft:map/rope/swamp/2"
+    },
+    "attached=true,disarmed=true,east=true,north=false,south=false,west=false": {
+      "model": "minecraft:map/rope/swamp/0", "y": 180
+    },
+    "attached=false,disarmed=false,east=false,north=true,south=false,west=false": [
+      {"model": "minecraft:map/rope/swamp/1", "y": 180, "weight": 1},
+      {"model": "minecraft:map/rope/swamp/1_1", "y": 180, "weight": 1}
+    ],
+    "attached=true,disarmed=false,east=false,north=true,south=false,west=false": {
+      "model": "minecraft:map/rope/swamp/2", "y": 180
     }
   }
 }
