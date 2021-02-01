@@ -67,7 +67,7 @@ namespace main()
 		scoreboard objectives add temp dummy
 		scoreboard objectives add life dummy
 		scoreboard objectives add max_life dummy
-		scoreboard objectives add meso dummy {"text":"7","font":"ui:main"}
+		scoreboard objectives add meso dummy
 		scoreboard objectives add jump minecraft.custom:minecraft.jump
 		scoreboard objectives add just_jump dummy
 		scoreboard objectives add fall minecraft.custom:minecraft.fall_one_cm
