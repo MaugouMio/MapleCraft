@@ -67,10 +67,86 @@ namespace main()
 		
 		team add enemy
 		team modify enemy collisionRule never
-		team add player
-		team modify player collisionRule never
 		
-		scoreboard objectives setdisplay belowName hp
+		team add hp0
+		team modify hp0 collisionRule never
+		team modify hp0 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A95","font":"space:default"}]
+		team add hp1
+		team modify hp1 collisionRule never
+		team modify hp1 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"8",{"text":"6","font":"space:default"}]
+		team add hp2
+		team modify hp2 collisionRule never
+		team modify hp2 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"7, 8",{"text":"7","font":"space:default"}]
+		team add hp3
+		team modify hp3 collisionRule never
+		team modify hp3 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"7, 9",{"text":"18","font":"space:default"}]
+		team add hp4
+		team modify hp4 collisionRule never
+		team modify hp4 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"7, 8, 9",{"text":"38","font":"space:default"}]
+		team add hp5
+		team modify hp5 collisionRule never
+		team modify hp5 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"7, A",{"text":"58","font":"space:default"}]
+		team add hp6
+		team modify hp6 collisionRule never
+		team modify hp6 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"7, 8, A",{"text":"78","font":"space:default"}]
+		team add hp7
+		team modify hp7 collisionRule never
+		team modify hp7 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"7, 9, A",{"text":"19","font":"space:default"}]
+		team add hp8
+		team modify hp8 collisionRule never
+		team modify hp8 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"8, 9, A",{"text":"29","font":"space:default"}]
+		team add hp9
+		team modify hp9 collisionRule never
+		team modify hp9 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"B",{"text":"49","font":"space:default"}]
+		team add hp10
+		team modify hp10 collisionRule never
+		team modify hp10 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"8, B",{"text":"69","font":"space:default"}]
+		team add hp11
+		team modify hp11 collisionRule never
+		team modify hp11 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"9, B",{"text":"89","font":"space:default"}]
+		team add hp12
+		team modify hp12 collisionRule never
+		team modify hp12 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"8, 9, B",{"text":"289","font":"space:default"}]
+		team add hp13
+		team modify hp13 collisionRule never
+		team modify hp13 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"A, B",{"text":"489","font":"space:default"}]
+		team add hp14
+		team modify hp14 collisionRule never
+		team modify hp14 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"7, A, B",{"text":"589","font":"space:default"}]
+		team add hp15
+		team modify hp15 collisionRule never
+		team modify hp15 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"7, 8, A, B",{"text":"789","font":"space:default"}]
+		team add hp16
+		team modify hp16 collisionRule never
+		team modify hp16 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"7, 9, A, B",{"text":"1A","font":"space:default"}]
+		team add hp17
+		team modify hp17 collisionRule never
+		team modify hp17 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"7, 8, 9, A, B",{"text":"3A","font":"space:default"}]
+		team add hp18
+		team modify hp18 collisionRule never
+		team modify hp18 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"7, C",{"text":"5A","font":"space:default"}]
+		team add hp19
+		team modify hp19 collisionRule never
+		team modify hp19 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"7, 8, C",{"text":"7A","font":"space:default"}]
+		team add hp20
+		team modify hp20 collisionRule never
+		team modify hp20 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"9, C",{"text":"8A","font":"space:default"}]
+		team add hp21
+		team modify hp21 collisionRule never
+		team modify hp21 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"8, 9, C",{"text":"28A","font":"space:default"}]
+		team add hp22
+		team modify hp22 collisionRule never
+		team modify hp22 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"A, C",{"text":"48A","font":"space:default"}]
+		team add hp23
+		team modify hp23 collisionRule never
+		team modify hp23 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"8, A, C",{"text":"68A","font":"space:default"}]
+		team add hp24
+		team modify hp24 collisionRule never
+		team modify hp24 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"9, A, C",{"text":"9A","font":"space:default"}]
+		team add hp25
+		team modify hp25 collisionRule never
+		team modify hp25 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"8, 9, A, C",{"text":"29A","font":"space:default"}]
+		
 		```
 		constants = set(constants)
 		for i in constants:
@@ -179,12 +255,13 @@ namespace main()
 		scoreboard players set @s hp_max 50
 		scoreboard players set @s hp 50
 		scoreboard players set @s display_hp 100
-		scoreboard players set @s hp_warning 30
+		scoreboard players set @s hp_warning 50
 		scoreboard players set @s mp_max_base 5
 		scoreboard players set @s mp_max 5
 		scoreboard players set @s mp 5
 		scoreboard players set @s display_mp 100
-		scoreboard players set @s mp_warning 30
+		scoreboard players set @s mp_warning 50
+		scoreboard players set @s hp_level 25
 		function bar_display:update_bar/run
 		
 		scoreboard players set @s hp_recover_time 10
@@ -234,7 +311,7 @@ namespace main()
 		```
 		print(f"replaceitem entity @s hotbar.8 {menu_book}")
 		```
-		team join player @s
+		team join hp25 @s
 		
 		execute at @s run playsound minecraft:game.game_in player @s
 		title @s times 1 5 10

@@ -11,6 +11,7 @@ namespace bar_display()
 		scoreboard objectives add display_mp dummy
 		scoreboard objectives add target_hp dummy
 		scoreboard objectives add target_mp dummy
+		scoreboard objectives add hp_level dummy
 		
 		scoreboard objectives add hp_vary_time dummy
 		scoreboard objectives add mp_vary_time dummy
@@ -353,9 +354,40 @@ namespace bar_display()
 				scoreboard players operation @s target_hp /= @s hp_max
 				scoreboard players operation @s[scores={hp=1..}] target_hp > #1 const
 				
+				scoreboard players operation #GLOBAL temp = @s target_hp
+				scoreboard players add #GLOBAL temp 1
+				scoreboard players operation #GLOBAL temp /= #4 const
+				execute unless score #GLOBAL temp = @s hp_level run function ARG(_PATH)set_display/run
+				
 				scoreboard players set @s hp_vary_time 20
 				tag @s add hp_mp_varying
-				execute if score #HP_DROPPED temp matches 1 if score @s target_hp < @s hp_warning run scoreboard players set @s hp_flash 10
+				execute if score #HP_DROPPED temp matches 1 if score @s target_hp <= @s hp_warning run scoreboard players set @s hp_flash 10
+			}
+			
+			folder set_display()
+			{
+				func run()
+				{
+					execute if score #GLOBAL temp matches ..12 run function ARG(_PATH)0_12
+					execute if score #GLOBAL temp matches 13.. run function ARG(_PATH)13_25
+					scoreboard players operation @s hp_level = #GLOBAL temp
+				}
+				
+				func 0_12()
+				{
+					```
+					for i in range(13):
+						print("execute if score #GLOBAL temp matches {i} run team join hp{i} @s")
+					```
+				}
+				
+				func 13_25()
+				{
+					```
+					for i in range(13, 26):
+						print("execute if score #GLOBAL temp matches {i} run team join hp{i} @s")
+					```
+				}
 			}
 		}
 		
