@@ -169,7 +169,7 @@
 169,if entity @s[tag=ring3_equipped] run function item:equip_window/fifth_line/ring3/take_off
 170,if entity @s[tag=ring4_equipped] run function item:equip_window/fifth_line/ring4/take_off
 171,if score @s map matches 103000000 run function quest:party_quest/kpq/start_check
-172,if score @s map matches 103000000 run tellraw @s ["\n",{"translate":"text.quest.party_quest.kpq.menu.intro.detail"}]
+172,if score @s map matches 103000000 run tellraw @s ["\n",{"translate":"text.quest.party_quest.kpq.menu.intro.detail","font":"minecraft:uniform"}]
 173,
 174,if score @s map matches 102000003 at @s run function skill:1/0/0/transfer/check
 175,if score @s map matches 101000003 at @s run function skill:2/0/0/transfer/check
@@ -194,7 +194,7 @@
 194,
 195,
 196,
-197,run tellraw @s ["\n",{"translate":"text.npc.maple_administrator.menu.how_to_projectile.response"}]
-198,run tellraw @s ["\n",{"translate":"text.npc.maple_administrator.menu.how_to_equip.response"}]
-199,run tellraw @s ["\n",{"translate":"text.npc.maple_administrator.menu.how_to_scroll.response"}]
-200,run tellraw @s [{"translate":"text.meso.own","with":[{"score":{"objective":"meso","name":"@s"}}]}]
+197,run tellraw @s ["\n",{"translate":"text.npc.maple_administrator.menu.how_to_projectile.response","font":"minecraft:uniform"}]
+198,run tellraw @s ["\n",{"translate":"text.npc.maple_administrator.menu.how_to_equip.response","font":"minecraft:uniform"}]
+199,run tellraw @s ["\n",{"translate":"text.npc.maple_administrator.menu.how_to_scroll.response","font":"minecraft:uniform"}]
+200,run tellraw @s [{"translate":"text.meso.own","font":"minecraft:uniform","with":[{"score":{"objective":"meso","name":"@s"}}]}]
