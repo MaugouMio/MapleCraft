@@ -377,7 +377,7 @@ namespace bar_display()
 				{
 					```
 					for i in range(13):
-						print("execute if score #GLOBAL temp matches {i} run team join hp{i} @s")
+						print(f"execute if score #GLOBAL temp matches {i} run team join hp{i} @s")
 					```
 				}
 				
@@ -385,7 +385,7 @@ namespace bar_display()
 				{
 					```
 					for i in range(13, 26):
-						print("execute if score #GLOBAL temp matches {i} run team join hp{i} @s")
+						print(f"execute if score #GLOBAL temp matches {i} run team join hp{i} @s")
 					```
 				}
 			}
