@@ -265,7 +265,14 @@ namespace 21() as virtual
 		{
 			func check()
 			{
-				execute unless score @s teleport_time matches 1.. if score @s[tag=!delay_tp] 2101002_level matches 1.. unless block ~0.3 ~ ~0.3 #minecraft:climbable unless block ~0.3 ~ ~-0.3 #minecraft:climbable unless block ~-0.3 ~ ~0.3 #minecraft:climbable unless block ~-0.3 ~ ~-0.3 #minecraft:climbable run function ARG(_PATH)other_check
+				execute unless score @s teleport_time matches 1.. if score @s[tag=!delay_tp] 2101002_level matches 1.. run function ARG(_PATH)rope_check
+			}
+			
+			func rope_check()
+			{
+				scoreboard players set #GLOBAL temp 0
+				execute if block ~0.3 ~-0.4 ~0.3 #minecraft:climbable if block ~0.3 ~-0.4 ~-0.3 #minecraft:climbable if block ~-0.3 ~-0.4 ~0.3 #minecraft:climbable if block ~-0.3 ~-0.4 ~-0.3 #minecraft:climbable run scoreboard players set #GLOBAL temp 1
+				execute if score #GLOBAL temp matches 0 unless block ~0.3 ~ ~0.3 #minecraft:climbable unless block ~0.3 ~ ~-0.3 #minecraft:climbable unless block ~-0.3 ~ ~0.3 #minecraft:climbable unless block ~-0.3 ~ ~-0.3 #minecraft:climbable run function ARG(_PATH)other_check
 			}
 			
 			func other_check()
@@ -616,7 +623,14 @@ namespace 21() as virtual
 		{
 			func check()
 			{
-				execute unless score @s action_time matches 0.. if score @s[nbt={OnGround:1b}] 2101004_level matches 1.. unless block ~0.3 ~ ~0.3 #minecraft:climbable unless block ~0.3 ~ ~-0.3 #minecraft:climbable unless block ~-0.3 ~ ~0.3 #minecraft:climbable unless block ~-0.3 ~ ~-0.3 #minecraft:climbable run function ARG(_PATH)other_check
+				execute unless score @s action_time matches 0.. if score @s[nbt={OnGround:1b}] 2101004_level matches 1.. run function ARG(_PATH)rope_check
+			}
+			
+			func rope_check()
+			{
+				scoreboard players set #GLOBAL temp 0
+				execute if block ~0.3 ~-0.4 ~0.3 #minecraft:climbable if block ~0.3 ~-0.4 ~-0.3 #minecraft:climbable if block ~-0.3 ~-0.4 ~0.3 #minecraft:climbable if block ~-0.3 ~-0.4 ~-0.3 #minecraft:climbable run scoreboard players set #GLOBAL temp 1
+				execute if score #GLOBAL temp matches 0 unless block ~0.3 ~ ~0.3 #minecraft:climbable unless block ~0.3 ~ ~-0.3 #minecraft:climbable unless block ~-0.3 ~ ~0.3 #minecraft:climbable unless block ~-0.3 ~ ~-0.3 #minecraft:climbable run function ARG(_PATH)other_check
 			}
 			
 			func other_check()
@@ -747,7 +761,14 @@ namespace 21() as virtual
 		{
 			func check()
 			{
-				execute unless score @s action_time matches 0.. if score @s[nbt={OnGround:1b}] 2101005_level matches 1.. unless block ~0.3 ~ ~0.3 #minecraft:climbable unless block ~0.3 ~ ~-0.3 #minecraft:climbable unless block ~-0.3 ~ ~0.3 #minecraft:climbable unless block ~-0.3 ~ ~-0.3 #minecraft:climbable run function ARG(_PATH)other_check
+				execute unless score @s action_time matches 0.. if score @s[nbt={OnGround:1b}] 2101005_level matches 1.. run function ARG(_PATH)rope_check
+			}
+			
+			func rope_check()
+			{
+				scoreboard players set #GLOBAL temp 0
+				execute if block ~0.3 ~-0.4 ~0.3 #minecraft:climbable if block ~0.3 ~-0.4 ~-0.3 #minecraft:climbable if block ~-0.3 ~-0.4 ~0.3 #minecraft:climbable if block ~-0.3 ~-0.4 ~-0.3 #minecraft:climbable run scoreboard players set #GLOBAL temp 1
+				execute if score #GLOBAL temp matches 0 unless block ~0.3 ~ ~0.3 #minecraft:climbable unless block ~0.3 ~ ~-0.3 #minecraft:climbable unless block ~-0.3 ~ ~0.3 #minecraft:climbable unless block ~-0.3 ~ ~-0.3 #minecraft:climbable run function ARG(_PATH)other_check
 			}
 			
 			func other_check()
