@@ -1,0 +1,24 @@
+{
+    "targets": [
+        "final",
+        "trans"
+    ],
+    "passes": [
+        {
+            "name": "depths",
+            "intarget": "final",
+            "outtarget": "trans",
+            "auxtargets": [
+                {
+                    "name": "ColorSampler",
+                    "id": "minecraft:main"
+                }
+            ]
+        },
+        {
+            "name": "blit",
+            "intarget": "trans",
+            "outtarget": "final"
+        }
+    ]
+}
