@@ -1,13 +1,12 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"2": "npc/dark_lord",
+		"2": "npc/dark_lord"
 	},
 	"elements": [
 		{
 			"from": [-5.625, -16, 8],
 			"to": [20.625, 13.25, 8],
-			"rotation": {"angle": 0, "axis": "y", "origin": [2.375, 10, 8]},
 			"faces": {
 				"north": {"uv": [16, 0, 0, 16], "texture": "#2"},
 				"east": {"uv": [0, 0, 0, 16], "texture": "#2"},
