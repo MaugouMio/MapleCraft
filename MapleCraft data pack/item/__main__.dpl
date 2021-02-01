@@ -1091,6 +1091,8 @@ namespace item()
 				scoreboard players operation #GLOBAL temp *= #AMOUNT_LEFT temp
 				scoreboard players operation @s meso += #GLOBAL temp
 				replaceitem entity @s weapon.mainhand minecraft:air
+				
+				tellraw @s {"translate":"text.meso.after_sell","font":"minecraft:uniform","color":"#efb7ab","with":[{"score":{"objective":"meso","name":"@s"}}]}
 			}
 		}
 		
@@ -1143,6 +1145,8 @@ namespace item()
 				data modify block 0 0 0 Text1 set value '{"translate":"item.notice.weapon.left","with":[{"score":{"name":"#AMOUNT_MAX","objective":"temp"}}],"color":"white","italic":false,"font":"minecraft:uniform"}'
 				data modify block 0 1 0 Items[0].tag.display.Lore[-1] set from block 0 0 0 Text1
 				loot replace entity @s weapon.mainhand 1 mine 0 1 0 minecraft:air{modify_player:1b}
+				
+				tellraw @s {"translate":"text.meso.after_recharge","font":"minecraft:uniform","color":"#efb7ab","with":[{"score":{"objective":"meso","name":"@s"}}]}
 			}
 		}
 	}

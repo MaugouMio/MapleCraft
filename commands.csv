@@ -197,3 +197,4 @@
 197,run tellraw @s ["\n",{"translate":"text.npc.maple_administrator.menu.how_to_projectile.response"}]
 198,run tellraw @s ["\n",{"translate":"text.npc.maple_administrator.menu.how_to_equip.response"}]
 199,run tellraw @s ["\n",{"translate":"text.npc.maple_administrator.menu.how_to_scroll.response"}]
+200,run tellraw @s [{"translate":"text.meso.own","with":[{"score":{"objective":"meso","name":"@s"}}]}]
