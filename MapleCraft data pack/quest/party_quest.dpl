@@ -94,14 +94,13 @@ namespace party_quest() as virtual
 		scoreboard objectives add kpq_coupon dummy
 		scoreboard objectives add kpq_question dummy
 		
-		# forceload add -282 6
 		# setblock -282 39 6 minecraft:command_block[facing=down]{TrackOutput:0b,Command:"function mob:map/party_quest/kpq/stage1/main"}
 		# setblock -282 38 6 minecraft:chain_command_block[facing=down]{auto:1b,TrackOutput:0b,Command:"data modify block ~ ~1 ~ auto set value 0b"}
-		# forceload remove -282 6
-		# forceload add <kpq bonus stage>
 		# setblock <kpq bonus stage> minecraft:command_block[facing=down]{TrackOutput:0b,Command:"function mob:map/party_quest/kpq/stage6/main"}
 		# setblock <kpq bonus stage> minecraft:chain_command_block[facing=down]{auto:1b,TrackOutput:0b,Command:"data modify block ~ ~1 ~ auto set value 0b"}
-		# forceload remove <kpq bonus stage>
+		# setblock -310 47 0 oak_sign
+		# setblock -540 43 0 oak_sign
+		# setblock -850 47 0 oak_sign
 	}
 						
 	folder add_combination()
@@ -255,7 +254,7 @@ namespace party_quest() as virtual
 			
 			title @s times 1 5 10
 			title @s title {"text":"4","font":"ui:main"}
-			# tp @s ...
+			tp @s -1 35 -2 90 50
 		}
 		
 		func leave_stages()
@@ -505,10 +504,10 @@ namespace party_quest() as virtual
 						
 						func check_rope()
 						{
-							# execute positioned <rope1> if entity @s[dx=0,dy=6,dz=0] run function quest:party_quest/add_combination/1
-							# execute positioned <rope2> if entity @s[dx=0,dy=6,dz=0] run function quest:party_quest/add_combination/2
-							# execute positioned <rope3> if entity @s[dx=0,dy=6,dz=0] run function quest:party_quest/add_combination/3
-							# execute positioned <rope4> if entity @s[dx=0,dy=6,dz=0] run function quest:party_quest/add_combination/4
+							execute positioned -515.0 49.0 3.0 if entity @s[dx=0,dy=5,dz=0] run function quest:party_quest/add_combination/1
+							execute positioned -520.0 42.0 7.0 if entity @s[dx=0,dy=7,dz=0] run function quest:party_quest/add_combination/2
+							execute positioned -528.0 42.0 -8.0 if entity @s[dx=0,dy=7,dz=0] run function quest:party_quest/add_combination/3
+							execute positioned -533.0 49.0 -4.0 if entity @s[dx=0,dy=6,dz=0] run function quest:party_quest/add_combination/4
 						}
 						
 						func check_amount()
@@ -612,11 +611,11 @@ namespace party_quest() as virtual
 						
 						func check_cat()
 						{
-							# execute positioned <cat1> if entity @s[dx=0,dy=0,dz=0] run function quest:party_quest/add_combination/1
-							# execute positioned <cat2> if entity @s[dx=0,dy=0,dz=0] run function quest:party_quest/add_combination/2
-							# execute positioned <cat3> if entity @s[dx=0,dy=0,dz=0] run function quest:party_quest/add_combination/3
-							# execute positioned <cat4> if entity @s[dx=0,dy=0,dz=0] run function quest:party_quest/add_combination/4
-							# execute positioned <cat5> if entity @s[dx=0,dy=0,dz=0] run function quest:party_quest/add_combination/5
+							execute positioned -824.0 43.0 -3.0 if entity @s[dx=2,dy=2,dz=4] run function quest:party_quest/add_combination/1
+							execute positioned -831.0 42.0 -6.0 if entity @s[dx=5,dy=2,dz=2] run function quest:party_quest/add_combination/2
+							execute positioned -835.0 43.0 -3.0 if entity @s[dx=2,dy=2,dz=4] run function quest:party_quest/add_combination/3
+							execute positioned -832.0 44.0 3.0 if entity @s[dx=2,dy=2,dz=3] run function quest:party_quest/add_combination/4
+							execute positioned -827.0 44.0 4.0 if entity @s[dx=3,dy=2,dz=2] run function quest:party_quest/add_combination/5
 						}
 						
 						func check_amount()
