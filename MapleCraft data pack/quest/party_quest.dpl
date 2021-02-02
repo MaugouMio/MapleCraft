@@ -855,8 +855,8 @@ namespace party_quest() as virtual
 					
 					func flash()
 					{
-						particle minecraft:flash ~ ~7 ~ 0 0 0 1 1
-						particle minecraft:explosion ~ ~7 ~ 0 0 0 0 1
+						particle minecraft:flash ~ ~7 ~ 0 0 0 1 1 force
+						particle minecraft:explosion ~ ~7 ~ 0 0 0 0 1 force
 					}
 					
 					func call_summon()
@@ -893,8 +893,8 @@ namespace party_quest() as virtual
 					
 					func quake()
 					{
-						particle minecraft:explosion_emitter ~ ~ ~ 0 0 0 1 1
-						particle minecraft:cloud ~ ~0.2 ~ 2 0 2 0.15 30
+						particle minecraft:explosion_emitter ~ ~ ~ 0 0 0 1 1 force
+						particle minecraft:cloud ~ ~0.2 ~ 2 0 2 0.15 30 force
 						
 						scoreboard players set #GLOBAL temp 0
 						execute positioned ~-4.5 ~-0.5 ~-4.5 as @a[tag=!dead,dx=8,dy=0,dz=8] if data entity @s {OnGround:1b} at @s run function ARG(_PATH)hit
