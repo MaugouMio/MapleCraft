@@ -31,6 +31,15 @@
     ],
     "attached=true,disarmed=false,east=false,north=true,south=false,west=false": {
       "model": "minecraft:map/rope/swamp/2", "y": 180
+    },
+    "attached=false,disarmed=true,east=false,north=true,south=false,west=false": {
+      "model": "minecraft:map/rope/tube/0", "y": 270
+    },
+    "attached=true,disarmed=true,east=false,north=true,south=false,west=false": {
+      "model": "minecraft:map/rope/tube/1", "y": 270
+    },
+    "attached=false,disarmed=false,east=true,north=true,south=false,west=false": {
+      "model": "minecraft:map/rope/tube/2", "y": 270
     }
   }
 }
