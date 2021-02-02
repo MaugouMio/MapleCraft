@@ -316,6 +316,8 @@ namespace main()
 		execute at @s run playsound minecraft:game.game_in player @s
 		title @s times 1 5 10
 		title @s title {"text":"4","font":"ui:main"}
+		
+		# tp @s ...
 	}
 	
 	func login_reset()
@@ -359,13 +361,26 @@ namespace main()
 			func run()
 			{
 				function bar_display:death/revive
-				```
-				raise Warning("TODO: teleport to the nearest town and set bgm")
-				```
-				tp @s -80 4 55 -90 40
-				function main:bgm/search/run
+				
+				# check nearest town accoring to map score
+				execute if score @s map matches 103000000 run function ARG(_PATH)kerning_city
+				execute if score @s map matches 103000890 run function ARG(_PATH)kpq_leave
 				
 				execute unless score @s login matches 1.. run function ARG(__PATH)reset_screen
+			}
+			
+			func kerning_city()
+			{
+				tp @s -1 35 -2 90 50
+				scoreboard players set @s bgm 2
+				function main:bgm/search/bad_guys
+			}
+			
+			func kpq_leave()
+			{
+				# tp @s ...
+				scoreboard players set @s bgm 3
+				function main:bgm/search/jungle_book
 			}
 		}
 		
