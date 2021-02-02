@@ -278,8 +278,8 @@ namespace bar_display()
 		func set_name()
 		{
 			data modify storage bar:main name set from entity @s ArmorItems[3].tag.SkullOwner.Name
-			data modify block 0 0 0 Text1 set value '{"nbt":"name","storage":"bar:main"}'
-			data modify entity @s CustomName set from block 0 0 0 Text1
+			data modify block 250 0 0 Text1 set value '{"nbt":"name","storage":"bar:main"}'
+			data modify entity @s CustomName set from block 250 0 0 Text1
 		}
 		
 		func revive()

@@ -799,9 +799,9 @@ namespace party_quest() as virtual
 					scoreboard players add @s game_stage 1
 					execute unless entity @a[scores={playing_game=1,game_stage=5}] run function ARG(_PATH)reset
 					
-					loot replace block 0 1 0 container.0 loot quest:kpq_award
-					tellraw @s {"translate":"text.quest.item_gain","font":"minecraft:uniform","color":"gray","with":[{"nbt":"Items[0].tag.display.Name","block":"0 1 0","interpret":true}]}
-					loot give @s mine 0 1 0 minecraft:air{modify_player:1b}
+					loot replace block 250 1 0 container.0 loot quest:kpq_award
+					tellraw @s {"translate":"text.quest.item_gain","font":"minecraft:uniform","color":"gray","with":[{"nbt":"Items[0].tag.display.Name","block":"250 1 0","interpret":true}]}
+					loot give @s mine 250 1 0 minecraft:air{modify_player:1b}
 					
 					title @s times 1 5 10
 					title @s title {"text":"4","font":"ui:main"}

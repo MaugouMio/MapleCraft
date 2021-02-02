@@ -55,15 +55,15 @@ namespace equip_window() as virtual
 		func set()
 		{
 			data modify storage ui:main equip.cap set from entity @s Inventory[{Slot:103b}].tag.cap
-			data modify block 0 0 0 Text1 set value '["",{"nbt":"equip.cap.display.Name","storage":"ui:main","interpret":true}]'
+			data modify block 250 0 0 Text1 set value '["",{"nbt":"equip.cap.display.Name","storage":"ui:main","interpret":true}]'
 			function ARG(_PATH)set_display
-			data modify block 0 0 0 Text1 set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 156"},"hoverEvent":{"action":"show_text","contents":{"nbt":"Text1","block":"0 0 0","interpret":true}}}'
-			data modify storage ui:main equip.cap.event set from block 0 0 0 Text1
+			data modify block 250 0 0 Text1 set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 156"},"hoverEvent":{"action":"show_text","contents":{"nbt":"Text1","block":"250 0 0","interpret":true}}}'
+			data modify storage ui:main equip.cap.event set from block 250 0 0 Text1
 		}
 		
 		func set_display()
 		{
-			data modify block 0 0 0 Text1 set value '[{"nbt":"Text1","block":"0 0 0","interpret":true},"\\n",{"nbt":"equip.cap.display.Lore[0]","storage":"ui:main","interpret":true}]'
+			data modify block 250 0 0 Text1 set value '[{"nbt":"Text1","block":"250 0 0","interpret":true},"\\n",{"nbt":"equip.cap.display.Lore[0]","storage":"ui:main","interpret":true}]'
 			data remove storage ui:main equip.cap.display.Lore[0]
 			execute if data storage ui:main equip.cap.display.Lore[0] run function ARG(_PATH)set_display
 		}
@@ -96,15 +96,15 @@ namespace equip_window() as virtual
 			func set()
 			{
 				data modify storage ui:main equip.forehead set from entity @s Inventory[{Slot:103b}].tag.forehead
-				data modify block 0 0 0 Text1 set value '["",{"nbt":"equip.forehead.display.Name","storage":"ui:main","interpret":true}]'
+				data modify block 250 0 0 Text1 set value '["",{"nbt":"equip.forehead.display.Name","storage":"ui:main","interpret":true}]'
 				function ARG(_PATH)set_display
-				data modify block 0 0 0 Text1 set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 157"},"hoverEvent":{"action":"show_text","contents":{"nbt":"Text1","block":"0 0 0","interpret":true}}}'
-				data modify storage ui:main equip.forehead.event set from block 0 0 0 Text1
+				data modify block 250 0 0 Text1 set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 157"},"hoverEvent":{"action":"show_text","contents":{"nbt":"Text1","block":"250 0 0","interpret":true}}}'
+				data modify storage ui:main equip.forehead.event set from block 250 0 0 Text1
 			}
 			
 			func set_display()
 			{
-				data modify block 0 0 0 Text1 set value '[{"nbt":"Text1","block":"0 0 0","interpret":true},"\\n",{"nbt":"equip.forehead.display.Lore[0]","storage":"ui:main","interpret":true}]'
+				data modify block 250 0 0 Text1 set value '[{"nbt":"Text1","block":"250 0 0","interpret":true},"\\n",{"nbt":"equip.forehead.display.Lore[0]","storage":"ui:main","interpret":true}]'
 				data remove storage ui:main equip.forehead.display.Lore[0]
 				execute if data storage ui:main equip.forehead.display.Lore[0] run function ARG(_PATH)set_display
 			}
@@ -128,15 +128,15 @@ namespace equip_window() as virtual
 			func set()
 			{
 				data modify storage ui:main equip.ring1 set from entity @s Inventory[{Slot:103b}].tag.ring1
-				data modify block 0 0 0 Text1 set value '["",{"nbt":"equip.ring1.display.Name","storage":"ui:main","interpret":true}]'
+				data modify block 250 0 0 Text1 set value '["",{"nbt":"equip.ring1.display.Name","storage":"ui:main","interpret":true}]'
 				function ARG(_PATH)set_display
-				data modify block 0 0 0 Text1 set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 158"},"hoverEvent":{"action":"show_text","contents":{"nbt":"Text1","block":"0 0 0","interpret":true}}}'
-				data modify storage ui:main equip.ring1.event set from block 0 0 0 Text1
+				data modify block 250 0 0 Text1 set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 158"},"hoverEvent":{"action":"show_text","contents":{"nbt":"Text1","block":"250 0 0","interpret":true}}}'
+				data modify storage ui:main equip.ring1.event set from block 250 0 0 Text1
 			}
 			
 			func set_display()
 			{
-				data modify block 0 0 0 Text1 set value '[{"nbt":"Text1","block":"0 0 0","interpret":true},"\\n",{"nbt":"equip.ring1.display.Lore[0]","storage":"ui:main","interpret":true}]'
+				data modify block 250 0 0 Text1 set value '[{"nbt":"Text1","block":"250 0 0","interpret":true},"\\n",{"nbt":"equip.ring1.display.Lore[0]","storage":"ui:main","interpret":true}]'
 				data remove storage ui:main equip.ring1.display.Lore[0]
 				execute if data storage ui:main equip.ring1.display.Lore[0] run function ARG(_PATH)set_display
 			}
@@ -160,15 +160,15 @@ namespace equip_window() as virtual
 			func set()
 			{
 				data modify storage ui:main equip.ring2 set from entity @s Inventory[{Slot:103b}].tag.ring2
-				data modify block 0 0 0 Text1 set value '["",{"nbt":"equip.ring2.display.Name","storage":"ui:main","interpret":true}]'
+				data modify block 250 0 0 Text1 set value '["",{"nbt":"equip.ring2.display.Name","storage":"ui:main","interpret":true}]'
 				function ARG(_PATH)set_display
-				data modify block 0 0 0 Text1 set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 159"},"hoverEvent":{"action":"show_text","contents":{"nbt":"Text1","block":"0 0 0","interpret":true}}}'
-				data modify storage ui:main equip.ring2.event set from block 0 0 0 Text1
+				data modify block 250 0 0 Text1 set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 159"},"hoverEvent":{"action":"show_text","contents":{"nbt":"Text1","block":"250 0 0","interpret":true}}}'
+				data modify storage ui:main equip.ring2.event set from block 250 0 0 Text1
 			}
 			
 			func set_display()
 			{
-				data modify block 0 0 0 Text1 set value '[{"nbt":"Text1","block":"0 0 0","interpret":true},"\\n",{"nbt":"equip.ring2.display.Lore[0]","storage":"ui:main","interpret":true}]'
+				data modify block 250 0 0 Text1 set value '[{"nbt":"Text1","block":"250 0 0","interpret":true},"\\n",{"nbt":"equip.ring2.display.Lore[0]","storage":"ui:main","interpret":true}]'
 				data remove storage ui:main equip.ring2.display.Lore[0]
 				execute if data storage ui:main equip.ring2.display.Lore[0] run function ARG(_PATH)set_display
 			}
@@ -201,15 +201,15 @@ namespace equip_window() as virtual
 			func set()
 			{
 				data modify storage ui:main equip.face set from entity @s Inventory[{Slot:103b}].tag.face
-				data modify block 0 0 0 Text1 set value '["",{"nbt":"equip.face.display.Name","storage":"ui:main","interpret":true}]'
+				data modify block 250 0 0 Text1 set value '["",{"nbt":"equip.face.display.Name","storage":"ui:main","interpret":true}]'
 				function ARG(_PATH)set_display
-				data modify block 0 0 0 Text1 set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 160"},"hoverEvent":{"action":"show_text","contents":{"nbt":"Text1","block":"0 0 0","interpret":true}}}'
-				data modify storage ui:main equip.face.event set from block 0 0 0 Text1
+				data modify block 250 0 0 Text1 set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 160"},"hoverEvent":{"action":"show_text","contents":{"nbt":"Text1","block":"250 0 0","interpret":true}}}'
+				data modify storage ui:main equip.face.event set from block 250 0 0 Text1
 			}
 			
 			func set_display()
 			{
-				data modify block 0 0 0 Text1 set value '[{"nbt":"Text1","block":"0 0 0","interpret":true},"\\n",{"nbt":"equip.face.display.Lore[0]","storage":"ui:main","interpret":true}]'
+				data modify block 250 0 0 Text1 set value '[{"nbt":"Text1","block":"250 0 0","interpret":true},"\\n",{"nbt":"equip.face.display.Lore[0]","storage":"ui:main","interpret":true}]'
 				data remove storage ui:main equip.face.display.Lore[0]
 				execute if data storage ui:main equip.face.display.Lore[0] run function ARG(_PATH)set_display
 			}
@@ -233,15 +233,15 @@ namespace equip_window() as virtual
 			func set()
 			{
 				data modify storage ui:main equip.ear set from entity @s Inventory[{Slot:103b}].tag.ear
-				data modify block 0 0 0 Text1 set value '["",{"nbt":"equip.ear.display.Name","storage":"ui:main","interpret":true}]'
+				data modify block 250 0 0 Text1 set value '["",{"nbt":"equip.ear.display.Name","storage":"ui:main","interpret":true}]'
 				function ARG(_PATH)set_display
-				data modify block 0 0 0 Text1 set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 161"},"hoverEvent":{"action":"show_text","contents":{"nbt":"Text1","block":"0 0 0","interpret":true}}}'
-				data modify storage ui:main equip.ear.event set from block 0 0 0 Text1
+				data modify block 250 0 0 Text1 set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 161"},"hoverEvent":{"action":"show_text","contents":{"nbt":"Text1","block":"250 0 0","interpret":true}}}'
+				data modify storage ui:main equip.ear.event set from block 250 0 0 Text1
 			}
 			
 			func set_display()
 			{
-				data modify block 0 0 0 Text1 set value '[{"nbt":"Text1","block":"0 0 0","interpret":true},"\\n",{"nbt":"equip.ear.display.Lore[0]","storage":"ui:main","interpret":true}]'
+				data modify block 250 0 0 Text1 set value '[{"nbt":"Text1","block":"250 0 0","interpret":true},"\\n",{"nbt":"equip.ear.display.Lore[0]","storage":"ui:main","interpret":true}]'
 				data remove storage ui:main equip.ear.display.Lore[0]
 				execute if data storage ui:main equip.ear.display.Lore[0] run function ARG(_PATH)set_display
 			}
@@ -277,15 +277,15 @@ namespace equip_window() as virtual
 			func set()
 			{
 				data modify storage ui:main equip.cape set from entity @s Inventory[{Slot:103b}].tag.cape
-				data modify block 0 0 0 Text1 set value '["",{"nbt":"equip.cape.display.Name","storage":"ui:main","interpret":true}]'
+				data modify block 250 0 0 Text1 set value '["",{"nbt":"equip.cape.display.Name","storage":"ui:main","interpret":true}]'
 				function ARG(_PATH)set_display
-				data modify block 0 0 0 Text1 set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 162"},"hoverEvent":{"action":"show_text","contents":{"nbt":"Text1","block":"0 0 0","interpret":true}}}'
-				data modify storage ui:main equip.cape.event set from block 0 0 0 Text1
+				data modify block 250 0 0 Text1 set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 162"},"hoverEvent":{"action":"show_text","contents":{"nbt":"Text1","block":"250 0 0","interpret":true}}}'
+				data modify storage ui:main equip.cape.event set from block 250 0 0 Text1
 			}
 			
 			func set_display()
 			{
-				data modify block 0 0 0 Text1 set value '[{"nbt":"Text1","block":"0 0 0","interpret":true},"\\n",{"nbt":"equip.cape.display.Lore[0]","storage":"ui:main","interpret":true}]'
+				data modify block 250 0 0 Text1 set value '[{"nbt":"Text1","block":"250 0 0","interpret":true},"\\n",{"nbt":"equip.cape.display.Lore[0]","storage":"ui:main","interpret":true}]'
 				data remove storage ui:main equip.cape.display.Lore[0]
 				execute if data storage ui:main equip.cape.display.Lore[0] run function ARG(_PATH)set_display
 			}
@@ -309,15 +309,15 @@ namespace equip_window() as virtual
 			func set()
 			{
 				data modify storage ui:main equip.cloth set from entity @s Inventory[{Slot:103b}].tag.cloth
-				data modify block 0 0 0 Text1 set value '["",{"nbt":"equip.cloth.display.Name","storage":"ui:main","interpret":true}]'
+				data modify block 250 0 0 Text1 set value '["",{"nbt":"equip.cloth.display.Name","storage":"ui:main","interpret":true}]'
 				function ARG(_PATH)set_display
-				data modify block 0 0 0 Text1 set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 163"},"hoverEvent":{"action":"show_text","contents":{"nbt":"Text1","block":"0 0 0","interpret":true}}}'
-				data modify storage ui:main equip.cloth.event set from block 0 0 0 Text1
+				data modify block 250 0 0 Text1 set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 163"},"hoverEvent":{"action":"show_text","contents":{"nbt":"Text1","block":"250 0 0","interpret":true}}}'
+				data modify storage ui:main equip.cloth.event set from block 250 0 0 Text1
 			}
 			
 			func set_display()
 			{
-				data modify block 0 0 0 Text1 set value '[{"nbt":"Text1","block":"0 0 0","interpret":true},"\\n",{"nbt":"equip.cloth.display.Lore[0]","storage":"ui:main","interpret":true}]'
+				data modify block 250 0 0 Text1 set value '[{"nbt":"Text1","block":"250 0 0","interpret":true},"\\n",{"nbt":"equip.cloth.display.Lore[0]","storage":"ui:main","interpret":true}]'
 				data remove storage ui:main equip.cloth.display.Lore[0]
 				execute if data storage ui:main equip.cloth.display.Lore[0] run function ARG(_PATH)set_display
 			}
@@ -341,15 +341,15 @@ namespace equip_window() as virtual
 			func set()
 			{
 				data modify storage ui:main equip.pendant set from entity @s Inventory[{Slot:103b}].tag.pendant
-				data modify block 0 0 0 Text1 set value '["",{"nbt":"equip.pendant.display.Name","storage":"ui:main","interpret":true}]'
+				data modify block 250 0 0 Text1 set value '["",{"nbt":"equip.pendant.display.Name","storage":"ui:main","interpret":true}]'
 				function ARG(_PATH)set_display
-				data modify block 0 0 0 Text1 set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 164"},"hoverEvent":{"action":"show_text","contents":{"nbt":"Text1","block":"0 0 0","interpret":true}}}'
-				data modify storage ui:main equip.pendant.event set from block 0 0 0 Text1
+				data modify block 250 0 0 Text1 set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 164"},"hoverEvent":{"action":"show_text","contents":{"nbt":"Text1","block":"250 0 0","interpret":true}}}'
+				data modify storage ui:main equip.pendant.event set from block 250 0 0 Text1
 			}
 			
 			func set_display()
 			{
-				data modify block 0 0 0 Text1 set value '[{"nbt":"Text1","block":"0 0 0","interpret":true},"\\n",{"nbt":"equip.pendant.display.Lore[0]","storage":"ui:main","interpret":true}]'
+				data modify block 250 0 0 Text1 set value '[{"nbt":"Text1","block":"250 0 0","interpret":true},"\\n",{"nbt":"equip.pendant.display.Lore[0]","storage":"ui:main","interpret":true}]'
 				data remove storage ui:main equip.pendant.display.Lore[0]
 				execute if data storage ui:main equip.pendant.display.Lore[0] run function ARG(_PATH)set_display
 			}
@@ -373,15 +373,15 @@ namespace equip_window() as virtual
 			func set()
 			{
 				data modify storage ui:main equip.weapon set from entity @s Inventory[{Slot:103b}].tag.weapon
-				data modify block 0 0 0 Text1 set value '["",{"nbt":"equip.weapon.display.Name","storage":"ui:main","interpret":true}]'
+				data modify block 250 0 0 Text1 set value '["",{"nbt":"equip.weapon.display.Name","storage":"ui:main","interpret":true}]'
 				function ARG(_PATH)set_display
-				data modify block 0 0 0 Text1 set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 155"},"hoverEvent":{"action":"show_text","contents":{"nbt":"Text1","block":"0 0 0","interpret":true}}}'
-				data modify storage ui:main equip.weapon.event set from block 0 0 0 Text1
+				data modify block 250 0 0 Text1 set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 155"},"hoverEvent":{"action":"show_text","contents":{"nbt":"Text1","block":"250 0 0","interpret":true}}}'
+				data modify storage ui:main equip.weapon.event set from block 250 0 0 Text1
 			}
 			
 			func set_display()
 			{
-				data modify block 0 0 0 Text1 set value '[{"nbt":"Text1","block":"0 0 0","interpret":true},"\\n",{"nbt":"equip.weapon.display.Lore[0]","storage":"ui:main","interpret":true}]'
+				data modify block 250 0 0 Text1 set value '[{"nbt":"Text1","block":"250 0 0","interpret":true},"\\n",{"nbt":"equip.weapon.display.Lore[0]","storage":"ui:main","interpret":true}]'
 				data remove storage ui:main equip.weapon.display.Lore[0]
 				execute if data storage ui:main equip.weapon.display.Lore[0] run function ARG(_PATH)set_display
 			}
@@ -405,15 +405,15 @@ namespace equip_window() as virtual
 			func set()
 			{
 				data modify storage ui:main equip.shield set from entity @s Inventory[{Slot:103b}].tag.shield
-				data modify block 0 0 0 Text1 set value '["",{"nbt":"equip.shield.display.Name","storage":"ui:main","interpret":true}]'
+				data modify block 250 0 0 Text1 set value '["",{"nbt":"equip.shield.display.Name","storage":"ui:main","interpret":true}]'
 				function ARG(_PATH)set_display
-				data modify block 0 0 0 Text1 set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 165"},"hoverEvent":{"action":"show_text","contents":{"nbt":"Text1","block":"0 0 0","interpret":true}}}'
-				data modify storage ui:main equip.shield.event set from block 0 0 0 Text1
+				data modify block 250 0 0 Text1 set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 165"},"hoverEvent":{"action":"show_text","contents":{"nbt":"Text1","block":"250 0 0","interpret":true}}}'
+				data modify storage ui:main equip.shield.event set from block 250 0 0 Text1
 			}
 			
 			func set_display()
 			{
-				data modify block 0 0 0 Text1 set value '[{"nbt":"Text1","block":"0 0 0","interpret":true},"\\n",{"nbt":"equip.shield.display.Lore[0]","storage":"ui:main","interpret":true}]'
+				data modify block 250 0 0 Text1 set value '[{"nbt":"Text1","block":"250 0 0","interpret":true},"\\n",{"nbt":"equip.shield.display.Lore[0]","storage":"ui:main","interpret":true}]'
 				data remove storage ui:main equip.shield.display.Lore[0]
 				execute if data storage ui:main equip.shield.display.Lore[0] run function ARG(_PATH)set_display
 			}
@@ -449,15 +449,15 @@ namespace equip_window() as virtual
 			func set()
 			{
 				data modify storage ui:main equip.gloves set from entity @s Inventory[{Slot:103b}].tag.gloves
-				data modify block 0 0 0 Text1 set value '["",{"nbt":"equip.gloves.display.Name","storage":"ui:main","interpret":true}]'
+				data modify block 250 0 0 Text1 set value '["",{"nbt":"equip.gloves.display.Name","storage":"ui:main","interpret":true}]'
 				function ARG(_PATH)set_display
-				data modify block 0 0 0 Text1 set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 166"},"hoverEvent":{"action":"show_text","contents":{"nbt":"Text1","block":"0 0 0","interpret":true}}}'
-				data modify storage ui:main equip.gloves.event set from block 0 0 0 Text1
+				data modify block 250 0 0 Text1 set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 166"},"hoverEvent":{"action":"show_text","contents":{"nbt":"Text1","block":"250 0 0","interpret":true}}}'
+				data modify storage ui:main equip.gloves.event set from block 250 0 0 Text1
 			}
 			
 			func set_display()
 			{
-				data modify block 0 0 0 Text1 set value '[{"nbt":"Text1","block":"0 0 0","interpret":true},"\\n",{"nbt":"equip.gloves.display.Lore[0]","storage":"ui:main","interpret":true}]'
+				data modify block 250 0 0 Text1 set value '[{"nbt":"Text1","block":"250 0 0","interpret":true},"\\n",{"nbt":"equip.gloves.display.Lore[0]","storage":"ui:main","interpret":true}]'
 				data remove storage ui:main equip.gloves.display.Lore[0]
 				execute if data storage ui:main equip.gloves.display.Lore[0] run function ARG(_PATH)set_display
 			}
@@ -481,15 +481,15 @@ namespace equip_window() as virtual
 			func set()
 			{
 				data modify storage ui:main equip.pants set from entity @s Inventory[{Slot:103b}].tag.pants
-				data modify block 0 0 0 Text1 set value '["",{"nbt":"equip.pants.display.Name","storage":"ui:main","interpret":true}]'
+				data modify block 250 0 0 Text1 set value '["",{"nbt":"equip.pants.display.Name","storage":"ui:main","interpret":true}]'
 				function ARG(_PATH)set_display
-				data modify block 0 0 0 Text1 set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 167"},"hoverEvent":{"action":"show_text","contents":{"nbt":"Text1","block":"0 0 0","interpret":true}}}'
-				data modify storage ui:main equip.pants.event set from block 0 0 0 Text1
+				data modify block 250 0 0 Text1 set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 167"},"hoverEvent":{"action":"show_text","contents":{"nbt":"Text1","block":"250 0 0","interpret":true}}}'
+				data modify storage ui:main equip.pants.event set from block 250 0 0 Text1
 			}
 			
 			func set_display()
 			{
-				data modify block 0 0 0 Text1 set value '[{"nbt":"Text1","block":"0 0 0","interpret":true},"\\n",{"nbt":"equip.pants.display.Lore[0]","storage":"ui:main","interpret":true}]'
+				data modify block 250 0 0 Text1 set value '[{"nbt":"Text1","block":"250 0 0","interpret":true},"\\n",{"nbt":"equip.pants.display.Lore[0]","storage":"ui:main","interpret":true}]'
 				data remove storage ui:main equip.pants.display.Lore[0]
 				execute if data storage ui:main equip.pants.display.Lore[0] run function ARG(_PATH)set_display
 			}
@@ -513,15 +513,15 @@ namespace equip_window() as virtual
 			func set()
 			{
 				data modify storage ui:main equip.shoes set from entity @s Inventory[{Slot:103b}].tag.shoes
-				data modify block 0 0 0 Text1 set value '["",{"nbt":"equip.shoes.display.Name","storage":"ui:main","interpret":true}]'
+				data modify block 250 0 0 Text1 set value '["",{"nbt":"equip.shoes.display.Name","storage":"ui:main","interpret":true}]'
 				function ARG(_PATH)set_display
-				data modify block 0 0 0 Text1 set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 168"},"hoverEvent":{"action":"show_text","contents":{"nbt":"Text1","block":"0 0 0","interpret":true}}}'
-				data modify storage ui:main equip.shoes.event set from block 0 0 0 Text1
+				data modify block 250 0 0 Text1 set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 168"},"hoverEvent":{"action":"show_text","contents":{"nbt":"Text1","block":"250 0 0","interpret":true}}}'
+				data modify storage ui:main equip.shoes.event set from block 250 0 0 Text1
 			}
 			
 			func set_display()
 			{
-				data modify block 0 0 0 Text1 set value '[{"nbt":"Text1","block":"0 0 0","interpret":true},"\\n",{"nbt":"equip.shoes.display.Lore[0]","storage":"ui:main","interpret":true}]'
+				data modify block 250 0 0 Text1 set value '[{"nbt":"Text1","block":"250 0 0","interpret":true},"\\n",{"nbt":"equip.shoes.display.Lore[0]","storage":"ui:main","interpret":true}]'
 				data remove storage ui:main equip.shoes.display.Lore[0]
 				execute if data storage ui:main equip.shoes.display.Lore[0] run function ARG(_PATH)set_display
 			}
@@ -545,15 +545,15 @@ namespace equip_window() as virtual
 			func set()
 			{
 				data modify storage ui:main equip.ring3 set from entity @s Inventory[{Slot:103b}].tag.ring3
-				data modify block 0 0 0 Text1 set value '["",{"nbt":"equip.ring3.display.Name","storage":"ui:main","interpret":true}]'
+				data modify block 250 0 0 Text1 set value '["",{"nbt":"equip.ring3.display.Name","storage":"ui:main","interpret":true}]'
 				function ARG(_PATH)set_display
-				data modify block 0 0 0 Text1 set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 169"},"hoverEvent":{"action":"show_text","contents":{"nbt":"Text1","block":"0 0 0","interpret":true}}}'
-				data modify storage ui:main equip.ring3.event set from block 0 0 0 Text1
+				data modify block 250 0 0 Text1 set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 169"},"hoverEvent":{"action":"show_text","contents":{"nbt":"Text1","block":"250 0 0","interpret":true}}}'
+				data modify storage ui:main equip.ring3.event set from block 250 0 0 Text1
 			}
 			
 			func set_display()
 			{
-				data modify block 0 0 0 Text1 set value '[{"nbt":"Text1","block":"0 0 0","interpret":true},"\\n",{"nbt":"equip.ring3.display.Lore[0]","storage":"ui:main","interpret":true}]'
+				data modify block 250 0 0 Text1 set value '[{"nbt":"Text1","block":"250 0 0","interpret":true},"\\n",{"nbt":"equip.ring3.display.Lore[0]","storage":"ui:main","interpret":true}]'
 				data remove storage ui:main equip.ring3.display.Lore[0]
 				execute if data storage ui:main equip.ring3.display.Lore[0] run function ARG(_PATH)set_display
 			}
@@ -577,15 +577,15 @@ namespace equip_window() as virtual
 			func set()
 			{
 				data modify storage ui:main equip.ring4 set from entity @s Inventory[{Slot:103b}].tag.ring4
-				data modify block 0 0 0 Text1 set value '["",{"nbt":"equip.ring4.display.Name","storage":"ui:main","interpret":true}]'
+				data modify block 250 0 0 Text1 set value '["",{"nbt":"equip.ring4.display.Name","storage":"ui:main","interpret":true}]'
 				function ARG(_PATH)set_display
-				data modify block 0 0 0 Text1 set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 170"},"hoverEvent":{"action":"show_text","contents":{"nbt":"Text1","block":"0 0 0","interpret":true}}}'
-				data modify storage ui:main equip.ring4.event set from block 0 0 0 Text1
+				data modify block 250 0 0 Text1 set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 170"},"hoverEvent":{"action":"show_text","contents":{"nbt":"Text1","block":"250 0 0","interpret":true}}}'
+				data modify storage ui:main equip.ring4.event set from block 250 0 0 Text1
 			}
 			
 			func set_display()
 			{
-				data modify block 0 0 0 Text1 set value '[{"nbt":"Text1","block":"0 0 0","interpret":true},"\\n",{"nbt":"equip.ring4.display.Lore[0]","storage":"ui:main","interpret":true}]'
+				data modify block 250 0 0 Text1 set value '[{"nbt":"Text1","block":"250 0 0","interpret":true},"\\n",{"nbt":"equip.ring4.display.Lore[0]","storage":"ui:main","interpret":true}]'
 				data remove storage ui:main equip.ring4.display.Lore[0]
 				execute if data storage ui:main equip.ring4.display.Lore[0] run function ARG(_PATH)set_display
 			}

@@ -601,15 +601,15 @@ namespace booster_skill_template(skill_id, weapon, icon) as virtual
 		
 		func set_description()
 		{
-			data modify block 0 0 0 Text1 set value '""'
+			data modify block 250 0 0 Text1 set value '""'
 			data modify storage ui:main temp set value [0, 0, 0, 0, 0, 0]
 			execute store result storage ui:main temp[0] int 1 run scoreboard players get @s ARG(skill_id)_level
 			execute store result storage ui:main temp[1] int 1 run scoreboard players get @s ARG(skill_id)_mp
 			execute store result storage ui:main temp[2] int 1 run scoreboard players get @s ARG(skill_id)_time
 			
 			execute if score @s ARG(skill_id)_level matches ..19 run function ARG(_PATH)get_next_level
-			execute if score @s ARG(skill_id)_level matches 1.. run data modify block 0 0 0 Text1 set value '[{"translate":"skill.description.level.current","with":[{"nbt":"temp[0]","storage":"ui:main"}]},{"translate":"skill.description.level.ARG(skill_id)","with":[{"nbt":"temp[1]","storage":"ui:main"},{"nbt":"temp[2]","storage":"ui:main"}]},{"nbt":"Text1","block":"0 0 0","interpret":true}]'
-			data modify storage ui:main skill_level_info append from block 0 0 0 Text1
+			execute if score @s ARG(skill_id)_level matches 1.. run data modify block 250 0 0 Text1 set value '[{"translate":"skill.description.level.current","with":[{"nbt":"temp[0]","storage":"ui:main"}]},{"translate":"skill.description.level.ARG(skill_id)","with":[{"nbt":"temp[1]","storage":"ui:main"},{"nbt":"temp[2]","storage":"ui:main"}]},{"nbt":"Text1","block":"250 0 0","interpret":true}]'
+			data modify storage ui:main skill_level_info append from block 250 0 0 Text1
 		}
 		
 		func get_next_level()
@@ -620,12 +620,12 @@ namespace booster_skill_template(skill_id, weapon, icon) as virtual
 			execute store result storage ui:main temp[3] int 1 run scoreboard players get @s ARG(skill_id)_level
 			execute store result storage ui:main temp[4] int 1 run scoreboard players get @s ARG(skill_id)_mp
 			execute store result storage ui:main temp[5] int 1 run scoreboard players get @s ARG(skill_id)_time
-			data modify block 0 0 0 Text1 set value '[{"translate":"skill.description.level.next","with":[{"nbt":"temp[3]","storage":"ui:main"}]},{"translate":"skill.description.level.ARG(skill_id)","with":[{"nbt":"temp[4]","storage":"ui:main"},{"nbt":"temp[5]","storage":"ui:main"}]}]'
+			data modify block 250 0 0 Text1 set value '[{"translate":"skill.description.level.next","with":[{"nbt":"temp[3]","storage":"ui:main"}]},{"translate":"skill.description.level.ARG(skill_id)","with":[{"nbt":"temp[4]","storage":"ui:main"},{"nbt":"temp[5]","storage":"ui:main"}]}]'
 			
 			scoreboard players remove @s ARG(skill_id)_level 1
 			execute store result score @s ARG(skill_id)_mp run data get storage ui:main temp[1]
 			execute store result score @s ARG(skill_id)_time run data get storage ui:main temp[2]
-			execute if score @s ARG(skill_id)_level matches 1.. run data modify block 0 0 0 Text1 set value '["\\n",{"nbt":"Text1","block":"0 0 0","interpret":true}]'
+			execute if score @s ARG(skill_id)_level matches 1.. run data modify block 250 0 0 Text1 set value '["\\n",{"nbt":"Text1","block":"250 0 0","interpret":true}]'
 		}
 	}
 }
@@ -1063,8 +1063,8 @@ namespace skill()
 				execute if score #GLOBAL temp matches 0 run data remove entity @s Tags[0]
 				
 				data modify storage skill:main effect_font set from entity @s Tags[0]
-				data modify block 0 0 0 Text1 set value '[{"nbt":"effect_font","storage":"skill:main","interpret":true},{"text":"F","font":"space:default"},{"score":{"name":"#GLOBAL","objective":"temp"}},{"text":"F","font":"space:default"}]'
-				data modify entity @s CustomName set from block 0 0 0 Text1
+				data modify block 250 0 0 Text1 set value '[{"nbt":"effect_font","storage":"skill:main","interpret":true},{"text":"F","font":"space:default"},{"score":{"name":"#GLOBAL","objective":"temp"}},{"text":"F","font":"space:default"}]'
+				data modify entity @s CustomName set from block 250 0 0 Text1
 			}
 		}
 		
@@ -2865,10 +2865,10 @@ namespace skill()
 				execute if score #HP_LENGTH temp matches 2.. run function ARG(_PATH)2
 				execute if score #HP_LENGTH temp matches 1.. run function ARG(_PATH)1
 				
-				data modify block 0 0 0 Text1 set value '[{"text":"985","font":"space:default"},{"text":"0","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},{"nbt":"mob_hp[]","storage":"bar:main","font":"ui:mob_hp","interpret":true},{"nbt":"mob_hp_back","storage":"bar:main","font":"space:default","interpret":true},{"text":"\\uF829\\uF825","font":"space:default"}]'
-				execute if entity @s[tag=!paired_mob] run data modify entity @s CustomName set from block 0 0 0 Text1
+				data modify block 250 0 0 Text1 set value '[{"text":"985","font":"space:default"},{"text":"0","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},{"nbt":"mob_hp[]","storage":"bar:main","font":"ui:mob_hp","interpret":true},{"nbt":"mob_hp_back","storage":"bar:main","font":"space:default","interpret":true},{"text":"\\uF829\\uF825","font":"space:default"}]'
+				execute if entity @s[tag=!paired_mob] run data modify entity @s CustomName set from block 250 0 0 Text1
 				execute if entity @s[tag=paired_mob] run function ARG(_PATH)update_pair
-				data modify entity @s ArmorItems[3].tag.health_bar set from block 0 0 0 Text1
+				data modify entity @s ArmorItems[3].tag.health_bar set from block 250 0 0 Text1
 				
 				scoreboard players set @s show_hp_time 5
 			}
@@ -2876,7 +2876,7 @@ namespace skill()
 			func update_pair()
 			{
 				scoreboard players operation #GLOBAL temp = @s number
-				execute as @e[type=magma_cube,tag=enemy] if score @s number = #GLOBAL temp run data modify entity @s CustomName set from block 0 0 0 Text1
+				execute as @e[type=magma_cube,tag=enemy] if score @s number = #GLOBAL temp run data modify entity @s CustomName set from block 250 0 0 Text1
 			}
 			
 			func show()

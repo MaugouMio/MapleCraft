@@ -42,21 +42,21 @@ namespace use_equip_template(equip) as virtual
 		execute if entity @s[tag=ARG(equip)_equipped] run function ARG(_PATH)remove
 		
 		# equip new ARG(equip)
-		replaceitem block 0 1 0 container.0 minecraft:potion
-		data modify block 0 1 0 Items[0].tag set from entity @s Inventory[{Slot:103b}].tag
-		data modify block 0 1 0 Items[0].tag.ARG(equip) set from storage item:main equip
+		replaceitem block 250 1 0 container.0 minecraft:potion
+		data modify block 250 1 0 Items[0].tag set from entity @s Inventory[{Slot:103b}].tag
+		data modify block 250 1 0 Items[0].tag.ARG(equip) set from storage item:main equip
 		
 		function item:use/equip_numeric/apply
 		
-		loot replace entity @s armor.head 1 mine 0 1 0 minecraft:air{modify_player:1b}
+		loot replace entity @s armor.head 1 mine 250 1 0 minecraft:air{modify_player:1b}
 		tag @s add ARG(equip)_equipped
 	}
 	
 	func remove()
 	{
-		replaceitem block 0 1 0 container.0 minecraft:warped_fungus_on_a_stick
-		data modify block 0 1 0 Items[0].tag set from entity @s Inventory[{Slot:103b}].tag.ARG(equip)
-		loot give @s mine 0 1 0 minecraft:air{modify_player:1b}
+		replaceitem block 250 1 0 container.0 minecraft:warped_fungus_on_a_stick
+		data modify block 250 1 0 Items[0].tag set from entity @s Inventory[{Slot:103b}].tag.ARG(equip)
+		loot give @s mine 250 1 0 minecraft:air{modify_player:1b}
 		
 		function item:use/equip_numeric/remove
 		tag @s remove ARG(equip)_equipped
@@ -253,7 +253,7 @@ namespace item()
 				execute store result score #GLOBAL temp run data get storage item:main equip.speed
 				execute store result score #GLOBAL temp run scoreboard players operation @s speed += #GLOBAL temp
 				scoreboard players operation #GLOBAL temp < #40 const
-				execute store result block 0 1 0 Items[0].tag.AttributeModifiers[0].Amount float 0.01 run scoreboard players operation @s real_speed = #GLOBAL temp
+				execute store result block 250 1 0 Items[0].tag.AttributeModifiers[0].Amount float 0.01 run scoreboard players operation @s real_speed = #GLOBAL temp
 				
 				execute store result score #GLOBAL temp run data get storage item:main equip.str
 				scoreboard players operation @s STR += #GLOBAL temp
@@ -281,16 +281,16 @@ namespace item()
 			
 			func remove()
 			{
-				# removed item is stored in block 0 1 0 Items[0]
-				execute store result score #GLOBAL temp run data get block 0 1 0 Items[0].tag.weapon_attack
+				# removed item is stored in block 250 1 0 Items[0]
+				execute store result score #GLOBAL temp run data get block 250 1 0 Items[0].tag.weapon_attack
 				scoreboard players operation @s weapon_attack -= #GLOBAL temp
-				execute store result score #GLOBAL temp run data get block 0 1 0 Items[0].tag.magic_attack
+				execute store result score #GLOBAL temp run data get block 250 1 0 Items[0].tag.magic_attack
 				scoreboard players operation @s weapon_mattack -= #GLOBAL temp
 				
-				execute store result score #GLOBAL temp run data get block 0 1 0 Items[0].tag.hp
+				execute store result score #GLOBAL temp run data get block 250 1 0 Items[0].tag.hp
 				scoreboard players operation @s hp_max_base -= #GLOBAL temp
 				scoreboard players operation @s equip_hp -= #GLOBAL temp
-				execute store result score #GLOBAL temp run data get block 0 1 0 Items[0].tag.mp
+				execute store result score #GLOBAL temp run data get block 250 1 0 Items[0].tag.mp
 				scoreboard players operation @s mp_max_base -= #GLOBAL temp
 				scoreboard players operation @s equip_mp -= #GLOBAL temp
 				execute unless score @s hyper_buff_time matches 1.. run function ARG(_PATH)update_hp_mp
@@ -299,35 +299,35 @@ namespace item()
 				function bar_display:change/hp/recovered
 				function bar_display:change/mp/recovered
 				
-				execute store result score #GLOBAL temp run data get block 0 1 0 Items[0].tag.defense
+				execute store result score #GLOBAL temp run data get block 250 1 0 Items[0].tag.defense
 				scoreboard players operation @s weapon_defense -= #GLOBAL temp
-				execute store result score #GLOBAL temp run data get block 0 1 0 Items[0].tag.magic_defense
+				execute store result score #GLOBAL temp run data get block 250 1 0 Items[0].tag.magic_defense
 				scoreboard players operation @s magic_defense -= #GLOBAL temp
-				execute store result score #GLOBAL temp run data get block 0 1 0 Items[0].tag.accuracy
+				execute store result score #GLOBAL temp run data get block 250 1 0 Items[0].tag.accuracy
 				scoreboard players operation @s equip_accuracy -= #GLOBAL temp
 				
-				execute store result score #GLOBAL temp run data get block 0 1 0 Items[0].tag.str
+				execute store result score #GLOBAL temp run data get block 250 1 0 Items[0].tag.str
 				scoreboard players operation @s STR -= #GLOBAL temp
 				scoreboard players operation @s equip_str -= #GLOBAL temp
-				execute store result score #GLOBAL temp run data get block 0 1 0 Items[0].tag.dex
+				execute store result score #GLOBAL temp run data get block 250 1 0 Items[0].tag.dex
 				scoreboard players operation @s DEX -= #GLOBAL temp
 				scoreboard players operation @s equip_dex -= #GLOBAL temp
-				execute store result score #GLOBAL temp run data get block 0 1 0 Items[0].tag.int
+				execute store result score #GLOBAL temp run data get block 250 1 0 Items[0].tag.int
 				scoreboard players operation @s INT -= #GLOBAL temp
 				scoreboard players operation @s equip_int -= #GLOBAL temp
-				execute store result score #GLOBAL temp run data get block 0 1 0 Items[0].tag.luk
+				execute store result score #GLOBAL temp run data get block 250 1 0 Items[0].tag.luk
 				scoreboard players operation @s LUK -= #GLOBAL temp
 				scoreboard players operation @s equip_luk -= #GLOBAL temp
 				
-				execute store result score #GLOBAL temp run data get block 0 1 0 Items[0].tag.speed
+				execute store result score #GLOBAL temp run data get block 250 1 0 Items[0].tag.speed
 				
 				# reset speed attribute modifier
-				replaceitem block 0 1 0 container.0 minecraft:potion
-				data modify block 0 1 0 Items[0].tag set from entity @s Inventory[{Slot:103b}].tag
+				replaceitem block 250 1 0 container.0 minecraft:potion
+				data modify block 250 1 0 Items[0].tag set from entity @s Inventory[{Slot:103b}].tag
 				execute store result score #GLOBAL temp run scoreboard players operation @s speed -= #GLOBAL temp
 				scoreboard players operation #GLOBAL temp < #40 const
-				execute store result block 0 1 0 Items[0].tag.AttributeModifiers[0].Amount float 0.01 run scoreboard players operation @s real_speed = #GLOBAL temp
-				loot replace entity @s armor.head 1 mine 0 1 0 minecraft:air{modify_player:1b}
+				execute store result block 250 1 0 Items[0].tag.AttributeModifiers[0].Amount float 0.01 run scoreboard players operation @s real_speed = #GLOBAL temp
+				loot replace entity @s armor.head 1 mine 250 1 0 minecraft:air{modify_player:1b}
 			}
 		}
 		
@@ -437,13 +437,13 @@ namespace item()
 					execute unless score #EQUIP_TYPE temp matches 33 if entity @s[tag=pants_equipped] run function ARG(_PATH)remove
 					
 					# equip new pants
-					replaceitem block 0 1 0 container.0 minecraft:potion
-					data modify block 0 1 0 Items[0].tag set from entity @s Inventory[{Slot:103b}].tag
-					data modify block 0 1 0 Items[0].tag.pants set from storage item:main equip
+					replaceitem block 250 1 0 container.0 minecraft:potion
+					data modify block 250 1 0 Items[0].tag set from entity @s Inventory[{Slot:103b}].tag
+					data modify block 250 1 0 Items[0].tag.pants set from storage item:main equip
 					
 					function item:use/equip_numeric/apply
 					
-					loot replace entity @s armor.head 1 mine 0 1 0 minecraft:air{modify_player:1b}
+					loot replace entity @s armor.head 1 mine 250 1 0 minecraft:air{modify_player:1b}
 					tag @s add pants_equipped
 				}
 			}
@@ -502,13 +502,13 @@ namespace item()
 					execute if entity @s[tag=pants_equipped] run function ARG(__PATH)pants/remove
 					
 					# equip new ARG(equip)
-					replaceitem block 0 1 0 container.0 minecraft:potion
-					data modify block 0 1 0 Items[0].tag set from entity @s Inventory[{Slot:103b}].tag
-					data modify block 0 1 0 Items[0].tag.cloth set from storage item:main equip
+					replaceitem block 250 1 0 container.0 minecraft:potion
+					data modify block 250 1 0 Items[0].tag set from entity @s Inventory[{Slot:103b}].tag
+					data modify block 250 1 0 Items[0].tag.cloth set from storage item:main equip
 					
 					function item:use/equip_numeric/apply
 					
-					loot replace entity @s armor.head 1 mine 0 1 0 minecraft:air{modify_player:1b}
+					loot replace entity @s armor.head 1 mine 250 1 0 minecraft:air{modify_player:1b}
 					tag @s add cloth_equipped
 				}
 			}
@@ -571,13 +571,13 @@ namespace item()
 					execute if entity @s[tag=shield_equipped] run function ARG(_PATH)remove
 					
 					# equip new shield
-					replaceitem block 0 1 0 container.0 minecraft:potion
-					data modify block 0 1 0 Items[0].tag set from entity @s Inventory[{Slot:103b}].tag
-					data modify block 0 1 0 Items[0].tag.shield set from storage item:main equip
+					replaceitem block 250 1 0 container.0 minecraft:potion
+					data modify block 250 1 0 Items[0].tag set from entity @s Inventory[{Slot:103b}].tag
+					data modify block 250 1 0 Items[0].tag.shield set from storage item:main equip
 					
 					function item:use/equip_numeric/apply
 					
-					loot replace entity @s armor.head 1 mine 0 1 0 minecraft:air{modify_player:1b}
+					loot replace entity @s armor.head 1 mine 250 1 0 minecraft:air{modify_player:1b}
 					tag @s add shield_equipped
 				}
 			}
@@ -641,25 +641,25 @@ namespace item()
 				execute if score #GLOBAL temp matches 0 if entity @s[tag=shield_equipped] run function ARG(__PATH)equip/shield/remove
 				
 				# give weapon for display
-				replaceitem block 0 1 0 container.0 minecraft:diamond_axe
-				data modify block 0 1 0 Items[0].tag set from entity @s SelectedItem.tag
-				data remove block 0 1 0 Items[0].tag.price
-				data modify block 0 1 0 Items[0].tag.no_trade set value 1b
-				data modify block 0 1 0 Items[0].tag.display.Name set from entity @s SelectedItem.tag.original_name
-				data modify block 0 1 0 Items[0].tag.display.Lore set value ['{"translate":"item.notice.untradeable","font":"minecraft:uniform","color":"#FE8811","italic":false}','{"translate":"item.notice.for_display","font":"minecraft:uniform","color":"white","italic":false}']
-				loot replace entity @s weapon.mainhand 1 mine 0 1 0 minecraft:air{modify_player:1b}
+				replaceitem block 250 1 0 container.0 minecraft:diamond_axe
+				data modify block 250 1 0 Items[0].tag set from entity @s SelectedItem.tag
+				data remove block 250 1 0 Items[0].tag.price
+				data modify block 250 1 0 Items[0].tag.no_trade set value 1b
+				data modify block 250 1 0 Items[0].tag.display.Name set from entity @s SelectedItem.tag.original_name
+				data modify block 250 1 0 Items[0].tag.display.Lore set value ['{"translate":"item.notice.untradeable","font":"minecraft:uniform","color":"#FE8811","italic":false}','{"translate":"item.notice.for_display","font":"minecraft:uniform","color":"white","italic":false}']
+				loot replace entity @s weapon.mainhand 1 mine 250 1 0 minecraft:air{modify_player:1b}
 				
 				# equip new weapon
-				replaceitem block 0 1 0 container.0 minecraft:potion
-				data modify block 0 1 0 Items[0].tag set from entity @s Inventory[{Slot:103b}].tag
-				data modify block 0 1 0 Items[0].tag.weapon set from storage item:main equip
+				replaceitem block 250 1 0 container.0 minecraft:potion
+				data modify block 250 1 0 Items[0].tag set from entity @s Inventory[{Slot:103b}].tag
+				data modify block 250 1 0 Items[0].tag.weapon set from storage item:main equip
 				
 				execute store result score @s weapon_type run data get storage item:main equip.equip_type
 				execute store result score @s weapon_speed run data get storage item:main equip.action_time
 				execute store result score @s weapon_knock run data get storage item:main equip.knockback
 				function ARG(__PATH)equip_numeric/apply
 				
-				loot replace entity @s armor.head 1 mine 0 1 0 minecraft:air{modify_player:1b}
+				loot replace entity @s armor.head 1 mine 250 1 0 minecraft:air{modify_player:1b}
 				
 				execute if score @s boost_buff_time matches 1.. run function skill:buff/boost/reset/run
 			}
@@ -669,9 +669,9 @@ namespace item()
 				# clear display weapon
 				clear @s diamond_axe
 				
-				replaceitem block 0 1 0 container.0 minecraft:warped_fungus_on_a_stick
-				data modify block 0 1 0 Items[0].tag set from entity @s Inventory[{Slot:103b}].tag.weapon
-				loot give @s mine 0 1 0 minecraft:air{modify_player:1b}
+				replaceitem block 250 1 0 container.0 minecraft:warped_fungus_on_a_stick
+				data modify block 250 1 0 Items[0].tag set from entity @s Inventory[{Slot:103b}].tag.weapon
+				loot give @s mine 250 1 0 minecraft:air{modify_player:1b}
 				
 				function ARG(__PATH)equip_numeric/remove
 				scoreboard players reset @s weapon_type
@@ -705,15 +705,15 @@ namespace item()
 				
 				func set_chance()
 				{
-					replaceitem block 0 1 0 container.0 minecraft:warped_fungus_on_a_stick
-					data modify block 0 1 0 Items[0].tag set from entity @s Inventory[{Slot:-106b}].tag
+					replaceitem block 250 1 0 container.0 minecraft:warped_fungus_on_a_stick
+					data modify block 250 1 0 Items[0].tag set from entity @s Inventory[{Slot:-106b}].tag
 					
 					execute store result score #SCROLL_CHANCE temp run data get entity @s SelectedItem.tag.chance
 					function main:rand_rate
 					execute if score #RAND_RESULT temp < #SCROLL_CHANCE temp run function ARG(_PATH)success
 					execute unless score #RAND_RESULT temp < #SCROLL_CHANCE temp run function ARG(_PATH)fail
 					
-					loot replace entity @s weapon.offhand 1 mine 0 1 0 minecraft:air{modify_player:1b}
+					loot replace entity @s weapon.offhand 1 mine 250 1 0 minecraft:air{modify_player:1b}
 					replaceitem entity @s weapon.mainhand minecraft:air
 				}
 				
@@ -723,24 +723,24 @@ namespace item()
 					playsound minecraft:game.enchant_success player @a ~ ~ ~ 1 1 0
 					tellraw @s {"translate":"text.scroll.success","font":"minecraft:uniform","color":"#efb7ab"}
 					
-					execute store result score #SCROLL_QUALITY temp run data get block 0 1 0 Items[0].tag.quality
+					execute store result score #SCROLL_QUALITY temp run data get block 250 1 0 Items[0].tag.quality
 					```
 					for attr in ["str", "dex", "int", "luk", "hp", "mp", "weapon_attack", "magic_attack", "defense", "magic_defense", "accuracy", "speed"]:
-						print(f"execute store result score #{attr.upper()} temp run data get block 0 1 0 Items[0].tag.{attr}")
+						print(f"execute store result score #{attr.upper()} temp run data get block 250 1 0 Items[0].tag.{attr}")
 						print(f"execute store result score #GLOBAL temp run data get entity @s SelectedItem.tag.{attr}")
 						print(f"execute if score #GLOBAL temp matches 1.. run function ARG(_PATH)update_numeric/{attr}")
 					```
-					execute store result score #KNOCKBACK temp run data get block 0 1 0 Items[0].tag.knockback
+					execute store result score #KNOCKBACK temp run data get block 250 1 0 Items[0].tag.knockback
 					
-					execute store result block 0 1 0 Items[0].tag.quality int 1 run scoreboard players get #SCROLL_QUALITY temp
-					execute store result score #SCROLL_PASSED temp run data get block 0 1 0 Items[0].tag.scroll_passed
-					execute store result block 0 1 0 Items[0].tag.scroll_passed int 1 run scoreboard players add #SCROLL_PASSED temp 1
-					execute if score #SCROLL_QUALITY temp matches ..-1 run data modify block 0 0 0 Text1 set value '[{"nbt":"Items[0].tag.original_name","block":"0 1 0","interpret":true,"color":"#9c9c9c"}," (+",{"score":{"objective":"temp","name":"#SCROLL_PASSED"}},")"]'
-					execute if score #SCROLL_QUALITY temp matches 0..4 run data modify block 0 0 0 Text1 set value '[{"nbt":"Items[0].tag.original_name","block":"0 1 0","interpret":true,"color":"#ffbc2b"}," (+",{"score":{"objective":"temp","name":"#SCROLL_PASSED"}},")"]'
-					execute if score #SCROLL_QUALITY temp matches 5..21 run data modify block 0 0 0 Text1 set value '[{"nbt":"Items[0].tag.original_name","block":"0 1 0","interpret":true,"color":"#53a9ff"}," (+",{"score":{"objective":"temp","name":"#SCROLL_PASSED"}},")"]'
-					execute if score #SCROLL_QUALITY temp matches 22..39 run data modify block 0 0 0 Text1 set value '[{"nbt":"Items[0].tag.original_name","block":"0 1 0","interpret":true,"color":"#cc66ff"}," (+",{"score":{"objective":"temp","name":"#SCROLL_PASSED"}},")"]'
-					execute if score #SCROLL_QUALITY temp matches 40.. run data modify block 0 0 0 Text1 set value '[{"nbt":"Items[0].tag.original_name","block":"0 1 0","interpret":true,"color":"#ffff11"}," (+",{"score":{"objective":"temp","name":"#SCROLL_PASSED"}},")"]'
-					data modify block 0 1 0 Items[0].tag.display.Name set from block 0 0 0 Text1
+					execute store result block 250 1 0 Items[0].tag.quality int 1 run scoreboard players get #SCROLL_QUALITY temp
+					execute store result score #SCROLL_PASSED temp run data get block 250 1 0 Items[0].tag.scroll_passed
+					execute store result block 250 1 0 Items[0].tag.scroll_passed int 1 run scoreboard players add #SCROLL_PASSED temp 1
+					execute if score #SCROLL_QUALITY temp matches ..-1 run data modify block 250 0 0 Text1 set value '[{"nbt":"Items[0].tag.original_name","block":"250 1 0","interpret":true,"color":"#9c9c9c"}," (+",{"score":{"objective":"temp","name":"#SCROLL_PASSED"}},")"]'
+					execute if score #SCROLL_QUALITY temp matches 0..4 run data modify block 250 0 0 Text1 set value '[{"nbt":"Items[0].tag.original_name","block":"250 1 0","interpret":true,"color":"#ffbc2b"}," (+",{"score":{"objective":"temp","name":"#SCROLL_PASSED"}},")"]'
+					execute if score #SCROLL_QUALITY temp matches 5..21 run data modify block 250 0 0 Text1 set value '[{"nbt":"Items[0].tag.original_name","block":"250 1 0","interpret":true,"color":"#53a9ff"}," (+",{"score":{"objective":"temp","name":"#SCROLL_PASSED"}},")"]'
+					execute if score #SCROLL_QUALITY temp matches 22..39 run data modify block 250 0 0 Text1 set value '[{"nbt":"Items[0].tag.original_name","block":"250 1 0","interpret":true,"color":"#cc66ff"}," (+",{"score":{"objective":"temp","name":"#SCROLL_PASSED"}},")"]'
+					execute if score #SCROLL_QUALITY temp matches 40.. run data modify block 250 0 0 Text1 set value '[{"nbt":"Items[0].tag.original_name","block":"250 1 0","interpret":true,"color":"#ffff11"}," (+",{"score":{"objective":"temp","name":"#SCROLL_PASSED"}},")"]'
+					data modify block 250 1 0 Items[0].tag.display.Name set from block 250 0 0 Text1
 					
 					execute if score #EQUIP_TYPE temp matches ..24 run function ARG(_PATH)set_display/clear/weapon
 					execute if score #EQUIP_TYPE temp matches 30.. run function ARG(_PATH)set_display/clear/equip
@@ -748,9 +748,9 @@ namespace item()
 					for attr in ["str", "dex", "int", "luk", "hp", "mp", "weapon_attack", "magic_attack", "defense", "magic_defense", "accuracy", "speed", "knockback"]:
 						print(f"execute if score #{attr.upper()} temp matches 1.. run function ARG(_PATH)set_display/{attr}")
 					```
-					execute store result block 0 1 0 Items[0].tag.scroll_left int 1 run scoreboard players remove #SCROLL_LEFT temp 1
-					data modify block 0 0 0 Text1 set value '{"translate":"item.notice.scroll","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#SCROLL_LEFT"}}]}'
-					data modify block 0 1 0 Items[0].tag.display.Lore append from block 0 0 0 Text1
+					execute store result block 250 1 0 Items[0].tag.scroll_left int 1 run scoreboard players remove #SCROLL_LEFT temp 1
+					data modify block 250 0 0 Text1 set value '{"translate":"item.notice.scroll","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#SCROLL_LEFT"}}]}'
+					data modify block 250 1 0 Items[0].tag.display.Lore append from block 250 0 0 Text1
 				}
 				
 				folder update_numeric()
@@ -759,13 +759,13 @@ namespace item()
 				def scroll_update_numeric(attr):
 					print(f"func {attr}()")
 					print("{")
-					print(f"	execute store result block 0 1 0 Items[0].tag.{attr} int 1 run scoreboard players operation #{attr.upper()} temp += #GLOBAL temp")
+					print(f"	execute store result block 250 1 0 Items[0].tag.{attr} int 1 run scoreboard players operation #{attr.upper()} temp += #GLOBAL temp")
 					if attr in ["hp", "mp"]:
-						print(f"execute store result score #EQUIP_{attr.upper()} temp run data get block 0 1 0 Items[0].tag.scroll.{attr}")
+						print(f"execute store result score #EQUIP_{attr.upper()} temp run data get block 250 1 0 Items[0].tag.scroll.{attr}")
 						print(f"scoreboard players operation #EQUIP_{attr.upper()}_QUALITY temp = #EQUIP_{attr.upper()} temp")
 						print(f"scoreboard players operation #EQUIP_{attr.upper()}_QUALITY temp /= #10 const")
 						print(f"scoreboard players operation #SCROLL_QUALITY temp -= #EQUIP_{attr.upper()}_QUALITY temp")
-						print(f"execute store result block 0 1 0 Items[0].tag.scroll.{attr} int 1 run scoreboard players operation #GLOBAL temp += #EQUIP_{attr.upper()} temp")
+						print(f"execute store result block 250 1 0 Items[0].tag.scroll.{attr} int 1 run scoreboard players operation #GLOBAL temp += #EQUIP_{attr.upper()} temp")
 						print("scoreboard players operation #GLOBAL temp /= #10 const")
 					print(f"	scoreboard players operation #SCROLL_QUALITY temp += #GLOBAL temp")
 					print("}")
@@ -781,93 +781,93 @@ namespace item()
 					{
 						func weapon()
 						{
-							data remove block 0 1 0 Items[0].tag.display.Lore[9]
-							execute if data block 0 1 0 Items[0].tag.display.Lore[9] run function ARG(_PATH)weapon
+							data remove block 250 1 0 Items[0].tag.display.Lore[9]
+							execute if data block 250 1 0 Items[0].tag.display.Lore[9] run function ARG(_PATH)weapon
 						}
 						
 						func equip()
 						{
-							data remove block 0 1 0 Items[0].tag.display.Lore[8]
-							execute if data block 0 1 0 Items[0].tag.display.Lore[8] run function ARG(_PATH)equip
+							data remove block 250 1 0 Items[0].tag.display.Lore[8]
+							execute if data block 250 1 0 Items[0].tag.display.Lore[8] run function ARG(_PATH)equip
 						}
 					}
 					
 					func str()
 					{
-						data modify block 0 0 0 Text1 set value '{"translate":"item.notice.str","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#STR"}}]}'
-						data modify block 0 1 0 Items[0].tag.display.Lore append from block 0 0 0 Text1
+						data modify block 250 0 0 Text1 set value '{"translate":"item.notice.str","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#STR"}}]}'
+						data modify block 250 1 0 Items[0].tag.display.Lore append from block 250 0 0 Text1
 					}
 					
 					func dex()
 					{
-						data modify block 0 0 0 Text1 set value '{"translate":"item.notice.dex","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#DEX"}}]}'
-						data modify block 0 1 0 Items[0].tag.display.Lore append from block 0 0 0 Text1
+						data modify block 250 0 0 Text1 set value '{"translate":"item.notice.dex","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#DEX"}}]}'
+						data modify block 250 1 0 Items[0].tag.display.Lore append from block 250 0 0 Text1
 					}
 					
 					func int()
 					{
-						data modify block 0 0 0 Text1 set value '{"translate":"item.notice.int","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#INT"}}]}'
-						data modify block 0 1 0 Items[0].tag.display.Lore append from block 0 0 0 Text1
+						data modify block 250 0 0 Text1 set value '{"translate":"item.notice.int","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#INT"}}]}'
+						data modify block 250 1 0 Items[0].tag.display.Lore append from block 250 0 0 Text1
 					}
 					
 					func luk()
 					{
-						data modify block 0 0 0 Text1 set value '{"translate":"item.notice.luk","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#LUK"}}]}'
-						data modify block 0 1 0 Items[0].tag.display.Lore append from block 0 0 0 Text1
+						data modify block 250 0 0 Text1 set value '{"translate":"item.notice.luk","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#LUK"}}]}'
+						data modify block 250 1 0 Items[0].tag.display.Lore append from block 250 0 0 Text1
 					}
 					
 					func hp()
 					{
-						data modify block 0 0 0 Text1 set value '{"translate":"item.notice.hp","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#HP"}}]}'
-						data modify block 0 1 0 Items[0].tag.display.Lore append from block 0 0 0 Text1
+						data modify block 250 0 0 Text1 set value '{"translate":"item.notice.hp","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#HP"}}]}'
+						data modify block 250 1 0 Items[0].tag.display.Lore append from block 250 0 0 Text1
 					}
 					
 					func mp()
 					{
-						data modify block 0 0 0 Text1 set value '{"translate":"item.notice.mp","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#MP"}}]}'
-						data modify block 0 1 0 Items[0].tag.display.Lore append from block 0 0 0 Text1
+						data modify block 250 0 0 Text1 set value '{"translate":"item.notice.mp","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#MP"}}]}'
+						data modify block 250 1 0 Items[0].tag.display.Lore append from block 250 0 0 Text1
 					}
 					
 					func weapon_attack()
 					{
-						data modify block 0 0 0 Text1 set value '{"translate":"item.notice.weapon_attack","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#WEAPON_ATTACK"}}]}'
-						data modify block 0 1 0 Items[0].tag.display.Lore append from block 0 0 0 Text1
+						data modify block 250 0 0 Text1 set value '{"translate":"item.notice.weapon_attack","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#WEAPON_ATTACK"}}]}'
+						data modify block 250 1 0 Items[0].tag.display.Lore append from block 250 0 0 Text1
 					}
 					
 					func magic_attack()
 					{
-						data modify block 0 0 0 Text1 set value '{"translate":"item.notice.magic_attack","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#MAGIC_ATTACK"}}]}'
-						data modify block 0 1 0 Items[0].tag.display.Lore append from block 0 0 0 Text1
+						data modify block 250 0 0 Text1 set value '{"translate":"item.notice.magic_attack","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#MAGIC_ATTACK"}}]}'
+						data modify block 250 1 0 Items[0].tag.display.Lore append from block 250 0 0 Text1
 					}
 					
 					func defense()
 					{
-						data modify block 0 0 0 Text1 set value '{"translate":"item.notice.weapon_def","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#DEFENSE"}}]}'
-						data modify block 0 1 0 Items[0].tag.display.Lore append from block 0 0 0 Text1
+						data modify block 250 0 0 Text1 set value '{"translate":"item.notice.weapon_def","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#DEFENSE"}}]}'
+						data modify block 250 1 0 Items[0].tag.display.Lore append from block 250 0 0 Text1
 					}
 					
 					func magic_defense()
 					{
-						data modify block 0 0 0 Text1 set value '{"translate":"item.notice.magic_def","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#MAGIC_DEFENSE"}}]}'
-						data modify block 0 1 0 Items[0].tag.display.Lore append from block 0 0 0 Text1
+						data modify block 250 0 0 Text1 set value '{"translate":"item.notice.magic_def","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#MAGIC_DEFENSE"}}]}'
+						data modify block 250 1 0 Items[0].tag.display.Lore append from block 250 0 0 Text1
 					}
 					
 					func accuracy()
 					{
-						data modify block 0 0 0 Text1 set value '{"translate":"item.notice.accuracy","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#ACCURACY"}}]}'
-						data modify block 0 1 0 Items[0].tag.display.Lore append from block 0 0 0 Text1
+						data modify block 250 0 0 Text1 set value '{"translate":"item.notice.accuracy","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#ACCURACY"}}]}'
+						data modify block 250 1 0 Items[0].tag.display.Lore append from block 250 0 0 Text1
 					}
 					
 					func speed()
 					{
-						data modify block 0 0 0 Text1 set value '{"translate":"item.notice.speed","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#SPEED"}}]}'
-						data modify block 0 1 0 Items[0].tag.display.Lore append from block 0 0 0 Text1
+						data modify block 250 0 0 Text1 set value '{"translate":"item.notice.speed","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#SPEED"}}]}'
+						data modify block 250 1 0 Items[0].tag.display.Lore append from block 250 0 0 Text1
 					}
 					
 					func knockback()
 					{
-						data modify block 0 0 0 Text1 set value '{"translate":"item.notice.knockback","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#KNOCKBACK"}}]}'
-						data modify block 0 1 0 Items[0].tag.display.Lore append from block 0 0 0 Text1
+						data modify block 250 0 0 Text1 set value '{"translate":"item.notice.knockback","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#KNOCKBACK"}}]}'
+						data modify block 250 1 0 Items[0].tag.display.Lore append from block 250 0 0 Text1
 					}
 				}
 				
@@ -885,15 +885,15 @@ namespace item()
 				func destroy()
 				{
 					tellraw @s {"translate":"text.scroll.destroy","font":"minecraft:uniform","color":"#efb7ab"}
-					data remove block 0 1 0 Items[0]
+					data remove block 250 1 0 Items[0]
 				}
 				
 				func pure_fail()
 				{
 					tellraw @s {"translate":"text.scroll.fail","font":"minecraft:uniform","color":"#efb7ab"}
-					execute store result block 0 1 0 Items[0].tag.scroll_left int 1 run scoreboard players remove #SCROLL_LEFT temp 1
-					data modify block 0 0 0 Text1 set value '{"translate":"item.notice.scroll","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#SCROLL_LEFT"}}]}'
-					data modify block 0 1 0 Items[0].tag.display.Lore[-1] set from block 0 0 0 Text1
+					execute store result block 250 1 0 Items[0].tag.scroll_left int 1 run scoreboard players remove #SCROLL_LEFT temp 1
+					data modify block 250 0 0 Text1 set value '{"translate":"item.notice.scroll","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#SCROLL_LEFT"}}]}'
+					data modify block 250 1 0 Items[0].tag.display.Lore[-1] set from block 250 0 0 Text1
 				}
 			}
 			
@@ -1015,22 +1015,22 @@ namespace item()
 					
 					func give()
 					{
-						execute store result block 0 1 0 Items[0].tag.amount int 1 run scoreboard players operation #GLOBAL temp = @s bullet_amount
-						data modify block 0 0 0 Text1 set value '{"translate":"item.notice.weapon.left","with":[{"score":{"name":"#GLOBAL","objective":"temp"}}],"color":"white","italic":false,"font":"minecraft:uniform"}'
-						data modify block 0 1 0 Items[0].tag.display.Lore[-1] set from block 0 0 0 Text1
-						loot give @s mine 0 1 0 minecraft:air{modify_player:1b}
+						execute store result block 250 1 0 Items[0].tag.amount int 1 run scoreboard players operation #GLOBAL temp = @s bullet_amount
+						data modify block 250 0 0 Text1 set value '{"translate":"item.notice.weapon.left","with":[{"score":{"name":"#GLOBAL","objective":"temp"}}],"color":"white","italic":false,"font":"minecraft:uniform"}'
+						data modify block 250 1 0 Items[0].tag.display.Lore[-1] set from block 250 0 0 Text1
+						loot give @s mine 250 1 0 minecraft:air{modify_player:1b}
 					}
 					
 					func throwing_star()
 					{
 						# nbt is stored in google cloud sheet
-						execute if score @s bullet_item matches 1 run replaceitem block 0 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:1,attack:15,amount:500,bullet_model:4000,max_amount:500,unit_price:0.8f,display:{Name:'{"translate":"item.consume.2070000","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["15"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["500"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
-						execute if score @s bullet_item matches 2 run replaceitem block 0 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:2,attack:17,amount:500,bullet_model:4001,max_amount:500,unit_price:0.7f,display:{Name:'{"translate":"item.consume.2070001","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["17"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["500"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
-						execute if score @s bullet_item matches 3 run replaceitem block 0 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:3,attack:19,amount:700,bullet_model:4002,max_amount:700,unit_price:0.6f,display:{Name:'{"translate":"item.consume.2070002","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["19"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["700"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
-						execute if score @s bullet_item matches 4 run replaceitem block 0 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:4,attack:21,amount:500,bullet_model:4003,max_amount:500,unit_price:0.6f,display:{Name:'{"translate":"item.consume.2070003","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["21"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["500"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
-						execute if score @s bullet_item matches 5 run replaceitem block 0 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:5,attack:23,amount:1000,bullet_model:4004,max_amount:1000,unit_price:0.5f,display:{Name:'{"translate":"item.consume.2070004","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["23"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["1000"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
-						execute if score @s bullet_item matches 6 run replaceitem block 0 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:6,attack:25,amount:1000,bullet_model:4005,max_amount:1000,unit_price:0.4f,display:{Name:'{"translate":"item.consume.2070005","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["25"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["1000"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
-						execute if score @s bullet_item matches 7 run replaceitem block 0 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:7,attack:27,amount:800,bullet_model:4006,max_amount:800,unit_price:0.3f,display:{Name:'{"translate":"item.consume.2070006","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["27"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["800"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
+						execute if score @s bullet_item matches 1 run replaceitem block 250 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:1,attack:15,amount:500,bullet_model:4000,max_amount:500,unit_price:0.8f,display:{Name:'{"translate":"item.consume.2070000","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["15"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["500"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
+						execute if score @s bullet_item matches 2 run replaceitem block 250 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:2,attack:17,amount:500,bullet_model:4001,max_amount:500,unit_price:0.7f,display:{Name:'{"translate":"item.consume.2070001","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["17"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["500"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
+						execute if score @s bullet_item matches 3 run replaceitem block 250 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:3,attack:19,amount:700,bullet_model:4002,max_amount:700,unit_price:0.6f,display:{Name:'{"translate":"item.consume.2070002","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["19"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["700"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
+						execute if score @s bullet_item matches 4 run replaceitem block 250 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:4,attack:21,amount:500,bullet_model:4003,max_amount:500,unit_price:0.6f,display:{Name:'{"translate":"item.consume.2070003","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["21"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["500"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
+						execute if score @s bullet_item matches 5 run replaceitem block 250 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:5,attack:23,amount:1000,bullet_model:4004,max_amount:1000,unit_price:0.5f,display:{Name:'{"translate":"item.consume.2070004","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["23"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["1000"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
+						execute if score @s bullet_item matches 6 run replaceitem block 250 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:6,attack:25,amount:1000,bullet_model:4005,max_amount:1000,unit_price:0.4f,display:{Name:'{"translate":"item.consume.2070005","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["25"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["1000"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
+						execute if score @s bullet_item matches 7 run replaceitem block 250 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:7,attack:27,amount:800,bullet_model:4006,max_amount:800,unit_price:0.3f,display:{Name:'{"translate":"item.consume.2070006","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["27"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["800"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
 						
 						function ARG(_PATH)give
 					}
@@ -1038,11 +1038,11 @@ namespace item()
 					func arrow_bow()
 					{
 						# nbt is stored in google cloud sheet
-						execute if score @s bullet_item matches 21 run replaceitem block 0 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:21,attack:0,amount:2000,bullet_model:3101,display:{Name:'{"translate":"item.consume.2060000","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.weapon.left","with":["2000"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
-						execute if score @s bullet_item matches 22 run replaceitem block 0 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:22,attack:1,amount:2000,bullet_model:3102,display:{Name:'{"translate":"item.consume.2060001","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["1"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["2000"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
-						execute if score @s bullet_item matches 23 run replaceitem block 0 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:23,attack:2,amount:2000,bullet_model:3103,display:{Name:'{"translate":"item.consume.2060002","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["2"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["2000"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
-						execute if score @s bullet_item matches 24 run replaceitem block 0 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:24,attack:4,amount:2000,bullet_model:3104,display:{Name:'{"translate":"item.consume.2060003","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["4"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["2000"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
-						execute if score @s bullet_item matches 25 run replaceitem block 0 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:25,attack:4,amount:2000,bullet_model:3105,display:{Name:'{"translate":"item.consume.2060004","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["4"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["2000"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
+						execute if score @s bullet_item matches 21 run replaceitem block 250 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:21,attack:0,amount:2000,bullet_model:3101,display:{Name:'{"translate":"item.consume.2060000","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.weapon.left","with":["2000"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
+						execute if score @s bullet_item matches 22 run replaceitem block 250 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:22,attack:1,amount:2000,bullet_model:3102,display:{Name:'{"translate":"item.consume.2060001","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["1"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["2000"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
+						execute if score @s bullet_item matches 23 run replaceitem block 250 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:23,attack:2,amount:2000,bullet_model:3103,display:{Name:'{"translate":"item.consume.2060002","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["2"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["2000"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
+						execute if score @s bullet_item matches 24 run replaceitem block 250 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:24,attack:4,amount:2000,bullet_model:3104,display:{Name:'{"translate":"item.consume.2060003","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["4"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["2000"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
+						execute if score @s bullet_item matches 25 run replaceitem block 250 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:25,attack:4,amount:2000,bullet_model:3105,display:{Name:'{"translate":"item.consume.2060004","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["4"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["2000"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
 						
 						function ARG(_PATH)give
 					}
@@ -1050,11 +1050,11 @@ namespace item()
 					func arrow_crossbow()
 					{
 						# nbt is stored in google cloud sheet
-						execute if score @s bullet_item matches 26 run replaceitem block 0 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:26,attack:0,amount:2000,bullet_model:3201,display:{Name:'{"translate":"item.consume.2061000","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.weapon.left","with":["2000"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
-						execute if score @s bullet_item matches 27 run replaceitem block 0 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:27,attack:1,amount:2000,bullet_model:3202,display:{Name:'{"translate":"item.consume.2061001","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["1"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["2000"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
-						execute if score @s bullet_item matches 28 run replaceitem block 0 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:28,attack:2,amount:2000,bullet_model:3203,display:{Name:'{"translate":"item.consume.2061002","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["2"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["2000"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
-						execute if score @s bullet_item matches 29 run replaceitem block 0 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:29,attack:4,amount:2000,bullet_model:3204,display:{Name:'{"translate":"item.consume.2061003","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["4"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["2000"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
-						execute if score @s bullet_item matches 30 run replaceitem block 0 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:30,attack:4,amount:2000,bullet_model:3205,display:{Name:'{"translate":"item.consume.2061004","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["4"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["2000"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
+						execute if score @s bullet_item matches 26 run replaceitem block 250 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:26,attack:0,amount:2000,bullet_model:3201,display:{Name:'{"translate":"item.consume.2061000","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.weapon.left","with":["2000"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
+						execute if score @s bullet_item matches 27 run replaceitem block 250 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:27,attack:1,amount:2000,bullet_model:3202,display:{Name:'{"translate":"item.consume.2061001","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["1"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["2000"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
+						execute if score @s bullet_item matches 28 run replaceitem block 250 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:28,attack:2,amount:2000,bullet_model:3203,display:{Name:'{"translate":"item.consume.2061002","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["2"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["2000"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
+						execute if score @s bullet_item matches 29 run replaceitem block 250 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:29,attack:4,amount:2000,bullet_model:3204,display:{Name:'{"translate":"item.consume.2061003","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["4"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["2000"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
+						execute if score @s bullet_item matches 30 run replaceitem block 250 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:30,attack:4,amount:2000,bullet_model:3205,display:{Name:'{"translate":"item.consume.2061004","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["4"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["2000"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
 						
 						function ARG(_PATH)give
 					}
@@ -1138,13 +1138,13 @@ namespace item()
 			{
 				scoreboard players operation @s meso -= #GLOBAL temp
 				
-				replaceitem block 0 1 0 container.0 minecraft:warped_fungus_on_a_stick
-				data modify block 0 1 0 Items[0].tag set from entity @s SelectedItem.tag
-				execute store result block 0 1 0 Items[0].tag.amount int 1 run scoreboard players operation #AMOUNT_MAX temp += #AMOUNT_LEFT temp
+				replaceitem block 250 1 0 container.0 minecraft:warped_fungus_on_a_stick
+				data modify block 250 1 0 Items[0].tag set from entity @s SelectedItem.tag
+				execute store result block 250 1 0 Items[0].tag.amount int 1 run scoreboard players operation #AMOUNT_MAX temp += #AMOUNT_LEFT temp
 				
-				data modify block 0 0 0 Text1 set value '{"translate":"item.notice.weapon.left","with":[{"score":{"name":"#AMOUNT_MAX","objective":"temp"}}],"color":"white","italic":false,"font":"minecraft:uniform"}'
-				data modify block 0 1 0 Items[0].tag.display.Lore[-1] set from block 0 0 0 Text1
-				loot replace entity @s weapon.mainhand 1 mine 0 1 0 minecraft:air{modify_player:1b}
+				data modify block 250 0 0 Text1 set value '{"translate":"item.notice.weapon.left","with":[{"score":{"name":"#AMOUNT_MAX","objective":"temp"}}],"color":"white","italic":false,"font":"minecraft:uniform"}'
+				data modify block 250 1 0 Items[0].tag.display.Lore[-1] set from block 250 0 0 Text1
+				loot replace entity @s weapon.mainhand 1 mine 250 1 0 minecraft:air{modify_player:1b}
 				
 				tellraw @s {"translate":"text.meso.after_recharge","font":"minecraft:uniform","with":[{"score":{"objective":"meso","name":"@s"}}]}
 			}
