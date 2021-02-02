@@ -40,6 +40,15 @@
     },
     "attached=false,disarmed=false,east=true,north=true,south=false,west=false": {
       "model": "minecraft:map/rope/tube/2", "y": 270
+    },
+    "attached=true,disarmed=false,east=true,north=true,south=false,west=false": {
+      "model": "minecraft:map/ladder/basic/0", "y": 270
+    },
+    "attached=false,disarmed=true,east=true,north=true,south=false,west=false": {
+      "model": "minecraft:map/ladder/basic/1", "y": 270
+    },
+    "attached=true,disarmed=true,east=true,north=true,south=false,west=false": {
+      "model": "minecraft:map/ladder/basic/2", "y": 270
     }
   }
 }
