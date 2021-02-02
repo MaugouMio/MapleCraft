@@ -586,7 +586,7 @@ namespace party_quest() as virtual
 				
 				func get_dummy()
 				{
-					give @s minecraft:creeper_spawn_egg{display:{Name:'{"translate":"item.etc.dummy","font":"minecraft:uniform","bold":true,"italic":false}'},CanPlaceOn:["minecraft:oak_log"],HideFlags:111,EntityTag:{NoAI:1,Invulnerable:1,Tags:["kpq_player"]}}
+					give @s minecraft:creeper_spawn_egg{display:{Name:'{"translate":"item.etc.dummy","font":"minecraft:uniform","bold":true,"italic":false}'},CanPlaceOn:["minecraft:spruce_log"],HideFlags:111,EntityTag:{NoAI:1,Invulnerable:1,Tags:["kpq_player"]}}
 				}
 				
 				folder npc()
