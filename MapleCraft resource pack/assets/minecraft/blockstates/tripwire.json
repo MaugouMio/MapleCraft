@@ -42,13 +42,22 @@
       "model": "minecraft:map/rope/tube/2", "y": 270
     },
     "attached=true,disarmed=false,east=true,north=true,south=false,west=false": {
-      "model": "minecraft:map/ladder/basic/0", "y": 270
+      "model": "minecraft:map/ladder/basic/0"
     },
     "attached=false,disarmed=true,east=true,north=true,south=false,west=false": {
-      "model": "minecraft:map/ladder/basic/1", "y": 270
+      "model": "minecraft:map/ladder/basic/1"
     },
     "attached=true,disarmed=true,east=true,north=true,south=false,west=false": {
-      "model": "minecraft:map/ladder/basic/2", "y": 270
+      "model": "minecraft:map/ladder/basic/2"
+    },
+    "attached=false,disarmed=false,east=false,north=false,south=true,west=false": {
+      "model": "minecraft:map/ladder/basic/0", "y": 180
+    },
+    "attached=true,disarmed=false,east=false,north=false,south=true,west=false": {
+      "model": "minecraft:map/ladder/basic/1", "y": 180
+    },
+    "attached=false,disarmed=true,east=false,north=false,south=true,west=false": {
+      "model": "minecraft:map/ladder/basic/2", "y": 180
     }
   }
 }
