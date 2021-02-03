@@ -364,23 +364,15 @@ namespace main()
 				
 				# check nearest town accoring to map score
 				execute if score @s map matches 103000000 run function ARG(_PATH)kerning_city
-				execute if score @s map matches 103000890 run function ARG(_PATH)kpq_leave
 				
 				execute unless score @s login matches 1.. run function ARG(__PATH)reset_screen
 			}
 			
 			func kerning_city()
 			{
-				tp @s -1 35 -2 90 50
+				tp @s -1 34 -6 90 40
 				scoreboard players set @s bgm 2
 				function main:bgm/search/bad_guys
-			}
-			
-			func kpq_leave()
-			{
-				# tp @s ...
-				scoreboard players set @s bgm 3
-				function main:bgm/search/jungle_book
 			}
 		}
 		
