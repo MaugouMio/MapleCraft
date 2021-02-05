@@ -555,7 +555,19 @@ namespace main()
 	
 	folder test_npc()
 	{
-		func leave_tutorial()
+		func start_tutorial()
+		{
+			scoreboard players set @s bgm 5
+			function main:bgm/search/rest_n_peace
+			
+			title @s times 1 5 10
+			title @s title {"text":"4","font":"ui:main"}
+			# tp @s ...
+			
+			playsound minecraft:game.portal player @s
+		}
+		
+		func start_game()
 		{
 			scoreboard players set @s map 103000000
 			scoreboard players set @s bgm 2
