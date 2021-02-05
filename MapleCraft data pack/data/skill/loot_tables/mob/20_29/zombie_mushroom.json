@@ -308,6 +308,28 @@
           ]
         }
       ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{CustomModelData:505,price:1,equip_type:-1,chance:60,destroy_chance:0,display:{Name:'{\"translate\":\"item.scroll.chaos_scroll\",\"bold\":true,\"italic\":false,\"font\":\"minecraft:uniform\"}',Lore:['{\"translate\":\"item.notice.scroll.chaos\",\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}','{\"translate\":\"item.notice.scroll.chance\",\"with\":[\"60\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}']},HideFlags:127,Unbreakable:1}"
+            }
+          ],
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance_with_looting",
+              "chance": 0,
+              "looting_multiplier": 0.001
+            }
+          ]
+        }
+      ]
     }
   ]
 }

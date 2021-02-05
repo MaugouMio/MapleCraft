@@ -171,6 +171,61 @@
             }
           ],
           "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{CustomModelData:500,price:1,equip_type:32,chance:10,destroy_chance:0,hp:10,defense:5,magic_defense:3,display:{Name:'{\"translate\":\"item.scroll.bottom.def.10\",\"bold\":true,\"italic\":false,\"font\":\"minecraft:uniform\"}',Lore:['{\"translate\":\"item.notice.scroll.chance\",\"with\":[\"10\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}','{\"translate\":\"item.notice.scroll.hp\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"10\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll.weapon_def\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"5\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll.magic_def\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"3\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}']},HideFlags:127,Unbreakable:1}"
+            }
+          ],
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{CustomModelData:504,price:1,equip_type:32,chance:100,destroy_chance:0,defense:1,display:{Name:'{\"translate\":\"item.scroll.bottom.def.100\",\"bold\":true,\"italic\":false,\"font\":\"minecraft:uniform\"}',Lore:['{\"translate\":\"item.notice.scroll.chance\",\"with\":[\"100\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}','{\"translate\":\"item.notice.scroll.weapon_def\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"1\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}']},HideFlags:127,Unbreakable:1}"
+            }
+          ],
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{CustomModelData:500,price:1,equip_type:33,chance:10,destroy_chance:0,hp:10,defense:5,magic_defense:3,display:{Name:'{\"translate\":\"item.scroll.overall.def.10\",\"bold\":true,\"italic\":false,\"font\":\"minecraft:uniform\"}',Lore:['{\"translate\":\"item.notice.scroll.chance\",\"with\":[\"10\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}','{\"translate\":\"item.notice.scroll.hp\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"10\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll.weapon_def\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"5\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll.magic_def\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"3\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}']},HideFlags:127,Unbreakable:1}"
+            }
+          ],
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{CustomModelData:504,price:1,equip_type:36,chance:100,destroy_chance:0,dex:1,display:{Name:'{\"translate\":\"item.scroll.cape.dex.100\",\"bold\":true,\"italic\":false,\"font\":\"minecraft:uniform\"}',Lore:['{\"translate\":\"item.notice.scroll.chance\",\"with\":[\"100\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}','{\"translate\":\"item.notice.scroll.dex\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"1\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}']},HideFlags:127,Unbreakable:1}"
+            }
+          ],
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{CustomModelData:502,price:1,equip_type:36,chance:60,destroy_chance:0,defense:1,magic_defense:3,display:{Name:'{\"translate\":\"item.scroll.cape.mdef.60\",\"bold\":true,\"italic\":false,\"font\":\"minecraft:uniform\"}',Lore:['{\"translate\":\"item.notice.scroll.chance\",\"with\":[\"60\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}','{\"translate\":\"item.notice.scroll.weapon_def\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"1\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll.magic_def\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"3\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}']},HideFlags:127,Unbreakable:1}"
+            }
+          ],
+          "weight": 1
         }
       ]
     }
