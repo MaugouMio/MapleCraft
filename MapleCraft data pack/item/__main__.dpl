@@ -724,12 +724,8 @@ namespace item()
 					tellraw @s {"translate":"text.scroll.success","font":"minecraft:uniform","color":"#efb7ab"}
 					
 					execute store result score #SCROLL_QUALITY temp run data get block 250 1 0 Items[0].tag.quality
-					```
-					for attr in ["str", "dex", "int", "luk", "hp", "mp", "weapon_attack", "magic_attack", "defense", "magic_defense", "accuracy", "speed"]:
-						print(f"execute store result score #{attr.upper()} temp run data get block 250 1 0 Items[0].tag.{attr}")
-						print(f"execute store result score #GLOBAL temp run data get entity @s SelectedItem.tag.{attr}")
-						print(f"execute if score #GLOBAL temp matches 1.. run function ARG(_PATH)update_numeric/{attr}")
-					```
+					execute if score #SCROLL_TYPE temp matches -1 run function ARG(_PATH)chaos_scroll
+					execute if score #SCROLL_TYPE temp matches 1.. run function ARG(_PATH)normal_scroll
 					execute store result score #KNOCKBACK temp run data get block 250 1 0 Items[0].tag.knockback
 					
 					execute store result block 250 1 0 Items[0].tag.quality int 1 run scoreboard players get #SCROLL_QUALITY temp
@@ -753,21 +749,64 @@ namespace item()
 					data modify block 250 1 0 Items[0].tag.display.Lore append from block 250 0 0 Text1
 				}
 				
+				func chaos_scroll()
+				{
+					scoreboard players set #RANGE_MAX temp 11
+					```
+					for attr in ["str", "dex", "int", "luk", "hp", "mp", "weapon_attack", "magic_attack", "defense", "magic_defense", "accuracy", "speed"]:
+						print(f"execute store result score #{attr.upper()} temp run data get block 250 1 0 Items[0].tag.{attr}")
+						print(f"execute if score #{attr.upper()} temp matches 1.. run function ARG(_PATH)rand_numeric/{attr}")
+					```
+				}
+				
+				folder rand_numeric()
+				{
+					func set()
+					{
+						function main:rand_range
+						scoreboard players remove #RAND_RANGE_RESULT temp 5
+					}
+					
+					```
+					for attr in ["str", "dex", "int", "luk", "hp", "mp", "weapon_attack", "magic_attack", "defense", "magic_defense", "accuracy", "speed"]:
+						print(f"func {attr}()")
+						print("{")
+						print(f"	function ARG(_PATH)set")
+						if attr in ["hp", "mp"]:
+							print("	scoreboard players operation #RAND_RANGE_RESULT temp *= #10 const")
+						print(f"	execute unless score #RAND_RANGE_RESULT temp matches 0 run function ARG(_PATH)update_numeric/{attr}")
+						print("}")
+					```
+				}
+				
+				func normal_scroll()
+				{
+					```
+					for attr in ["str", "dex", "int", "luk", "hp", "mp", "weapon_attack", "magic_attack", "defense", "magic_defense", "accuracy", "speed"]:
+						print(f"execute store result score #{attr.upper()} temp run data get block 250 1 0 Items[0].tag.{attr}")
+						print(f"execute store result score #RAND_RANGE_RESULT temp run data get entity @s SelectedItem.tag.{attr}")
+						print(f"execute if score #RAND_RANGE_RESULT temp matches 1.. run function ARG(_PATH)update_numeric/{attr}")
+					```
+				}
+				
 				folder update_numeric()
 				{
 				```
 				def scroll_update_numeric(attr):
 					print(f"func {attr}()")
 					print("{")
-					print(f"	execute store result block 250 1 0 Items[0].tag.{attr} int 1 run scoreboard players operation #{attr.upper()} temp += #GLOBAL temp")
+					print(f"	scoreboard players operation #{attr.upper()} temp += #RAND_RANGE_RESULT temp")
+					print(f"	execute if score #{attr.upper()} temp matches ..-1 run scoreboard players operation #RAND_RANGE_RESULT temp -= #{attr.upper()} temp")
+					print(f"	execute store result block 250 1 0 Items[0].tag.{attr} int 1 run scoreboard players operation #{attr.upper()} temp > #0 const")
 					if attr in ["hp", "mp"]:
 						print(f"execute store result score #EQUIP_{attr.upper()} temp run data get block 250 1 0 Items[0].tag.scroll.{attr}")
 						print(f"scoreboard players operation #EQUIP_{attr.upper()}_QUALITY temp = #EQUIP_{attr.upper()} temp")
 						print(f"scoreboard players operation #EQUIP_{attr.upper()}_QUALITY temp /= #10 const")
 						print(f"scoreboard players operation #SCROLL_QUALITY temp -= #EQUIP_{attr.upper()}_QUALITY temp")
-						print(f"execute store result block 250 1 0 Items[0].tag.scroll.{attr} int 1 run scoreboard players operation #GLOBAL temp += #EQUIP_{attr.upper()} temp")
-						print("scoreboard players operation #GLOBAL temp /= #10 const")
-					print(f"	scoreboard players operation #SCROLL_QUALITY temp += #GLOBAL temp")
+						print(f"execute store result block 250 1 0 Items[0].tag.scroll.{attr} int 1 run scoreboard players operation #RAND_RANGE_RESULT temp += #EQUIP_{attr.upper()} temp")
+						print("	scoreboard players operation #RAND_RANGE_RESULT temp /= #10 const")
+						
+					print(f"	scoreboard players operation #SCROLL_QUALITY temp += #RAND_RANGE_RESULT temp")
 					print("}")
 				
 				for attr in ["str", "dex", "int", "luk", "hp", "mp", "weapon_attack", "magic_attack", "defense", "magic_defense", "accuracy", "speed"]:
