@@ -157,7 +157,7 @@ namespace main()
 		setworldspawn 250 4 0
 		fill 249 0 -1 251 2 1 minecraft:bedrock
 		setblock 250 0 0 minecraft:acacia_wall_sign
-		setblock 25250 1 0 minecraft:shulker_box
+		setblock 250 1 0 minecraft:shulker_box
 		setblock 250 2 0 minecraft:chest
 		summon minecraft:snow_golem 250 -2 0 {NoAI:1,NoGravity:1,Invulnerable:1,Silent:1,UUID:[I;0,1,0,1]}
 		
