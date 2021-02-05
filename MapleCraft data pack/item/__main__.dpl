@@ -774,7 +774,7 @@ namespace item()
 						print(f"	function ARG(_PATH)set")
 						if attr in ["hp", "mp"]:
 							print("	scoreboard players operation #RAND_RANGE_RESULT temp *= #10 const")
-						print(f"	execute unless score #RAND_RANGE_RESULT temp matches 0 run function ARG(_PATH)update_numeric/{attr}")
+						print(f"	execute unless score #RAND_RANGE_RESULT temp matches 0 run function ARG(__PATH)update_numeric/{attr}")
 						print("}")
 					```
 				}
