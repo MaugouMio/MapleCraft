@@ -317,7 +317,7 @@ namespace main()
 		title @s times 1 5 10
 		title @s title {"text":"4","font":"ui:main"}
 		
-		# tp @s ...
+		tp @s 4 39 -521 60 30
 	}
 	
 	func login_reset()
