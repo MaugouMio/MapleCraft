@@ -562,7 +562,7 @@ namespace main()
 			
 			title @s times 1 5 10
 			title @s title {"text":"4","font":"ui:main"}
-			# tp @s ...
+			tp @s -8 30 488 -60 50
 			
 			playsound minecraft:game.portal player @s
 		}
