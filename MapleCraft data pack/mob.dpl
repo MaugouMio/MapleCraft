@@ -68,15 +68,18 @@ namespace mob()
 	
 	folder map()
 	{
-		func tutorial()
+		folder maple_island()
 		{
-			```
-			spawn_positions = ["0 31 496","-4 31 500","-2 31 503"]
-			for pos in spawn_positions:
-				print('''execute store result score #GLOBAL temp run summon zombified_piglin %s {UUID:[I;1,0,1,%d],Tags:["new_enemy","no_jump"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:1,hp_max:8,mp_max:0,avoidability:0,weapon_defense:0,magic_defense:0,kb:1,exp:1,move_frame:8,stand_frame:22,hurt_sound:4,die_sound:8},steal_loot:"skill:steal/special/jr_sentinel_train",CustomModelData:10153,CustomPotionColor:-1,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.movement_speed",Name:"slow",Amount:0,Operation:0,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:0.0},{Name:"generic.movement_speed",Base:0.15},{Name:"generic.follow_range",Base:0.0}],DeathLootTable:"skill:mob/special/jr_sentinel_train",IsBaby:1b,Invulnerable:1b,OnGround:1b,AngerTime:2147483647,Team:"enemy",CustomName:'{"text":"2","font":"space:default"}',CustomNameVisible:1b}''' %(pos, MOB_UUID))
-				print('''execute if score #GLOBAL temp matches 1 positioned %s run particle minecraft:sweep_attack ~ ~0.5 ~ 0 0 0 0 1 force''' %pos)
-				MOB_UUID += 1
-			```
+			func tutorial()
+			{
+				```
+				spawn_positions = []
+				for pos in spawn_positions:
+					print('''execute store result score #GLOBAL temp run summon zombified_piglin %s {UUID:[I;1,0,1,%d],Tags:["new_enemy","no_jump"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:1,hp_max:8,mp_max:0,avoidability:0,weapon_defense:0,magic_defense:0,kb:1,exp:1,move_frame:8,stand_frame:22,hurt_sound:4,die_sound:8},steal_loot:"skill:steal/special/jr_sentinel_train",CustomModelData:10153,CustomPotionColor:-1,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.movement_speed",Name:"slow",Amount:0,Operation:0,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:0.0},{Name:"generic.movement_speed",Base:0.15},{Name:"generic.follow_range",Base:0.0}],DeathLootTable:"skill:mob/special/jr_sentinel_train",IsBaby:1b,Invulnerable:1b,OnGround:1b,AngerTime:2147483647,Team:"enemy",CustomName:'{"text":"2","font":"space:default"}',CustomNameVisible:1b}''' %(pos, MOB_UUID))
+					print('''execute if score #GLOBAL temp matches 1 positioned %s run particle minecraft:sweep_attack ~ ~0.5 ~ 0 0 0 0 1''' %pos)
+					MOB_UUID += 1
+				```
+			}
 		}
 		
 		folder party_quest()
