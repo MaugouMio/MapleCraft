@@ -584,13 +584,13 @@ namespace main()
 		{
 			func talk()
 			{
-				execute if score @s tutorial matches 8 run tellraw @s ["\n",{"translate":"text.quest.tutorial.bye","font":"minecraft:uniform"}]
+				execute if score @s tutorial matches 8 run tellraw @s ["\n",{"translate":"text.quest.tutorial.bye","font":"minecraft:uniform"},{"text":"==================","font":"minecraft:uniform"}]
 				execute if score @s tutorial matches 7 run function ARG(_PATH)skill_complete
-				execute if score @s tutorial matches 6 run tellraw @s ["\n",{"translate":"text.quest.tutorial.skill_teach","font":"minecraft:uniform"}]
+				execute if score @s tutorial matches 6 run tellraw @s ["\n",{"translate":"text.quest.tutorial.skill_teach","font":"minecraft:uniform"},{"text":"==================","font":"minecraft:uniform"}]
 				execute if score @s tutorial matches 5 run function ARG(_PATH)attack_check
 				execute if score @s tutorial matches 4 run function ARG(_PATH)attack
 				execute if score @s tutorial matches 3 at @s run function ARG(_PATH)apple_complete
-				execute if score @s tutorial matches 2 run tellraw @s ["\n",{"translate":"text.quest.tutorial.apple_teach","font":"minecraft:uniform"}]
+				execute if score @s tutorial matches 2 run tellraw @s ["\n",{"translate":"text.quest.tutorial.apple_teach","font":"minecraft:uniform"},{"text":"==================","font":"minecraft:uniform"}]
 				execute if score @s tutorial matches 1 run function ARG(_PATH)apple
 				execute unless score @s tutorial matches 1.. run function ARG(_PATH)greet
 				advancement revoke @s only main:npc/roger
@@ -598,7 +598,7 @@ namespace main()
 			
 			func greet()
 			{
-				tellraw @s ["\n",{"translate":"text.quest.tutorial.greet","font":"minecraft:uniform"}]
+				tellraw @s ["\n",{"translate":"text.quest.tutorial.greet","font":"minecraft:uniform"},{"text":"==================","font":"minecraft:uniform"}]
 				scoreboard players set @s tutorial 1
 			}
 			
@@ -612,7 +612,7 @@ namespace main()
 				give @s minecraft:warped_fungus_on_a_stick{CustomModelData:103,price:30,sound:1,hp:30,display:{Name:'{"translate":"item.consume.2010000","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.potion.hp","with":["30"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.potion.meso","with":["30"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
 				scoreboard players add @s meso 30
 				
-				tellraw @s ["\n",{"translate":"text.quest.tutorial.apple","font":"minecraft:uniform"}]
+				tellraw @s ["\n",{"translate":"text.quest.tutorial.apple","font":"minecraft:uniform"},{"text":"==================","font":"minecraft:uniform"}]
 				scoreboard players set @s tutorial 2
 			}
 			
@@ -623,7 +623,7 @@ namespace main()
 				function quest:get_exp
 				function quest:complete_effect
 				
-				tellraw @s ["\n",{"translate":"text.quest.tutorial.apple_complete","font":"minecraft:uniform"}]
+				tellraw @s ["\n",{"translate":"text.quest.tutorial.apple_complete","font":"minecraft:uniform"},{"text":"==================","font":"minecraft:uniform"}]
 				scoreboard players set @s tutorial 4
 			}
 			
@@ -648,13 +648,13 @@ namespace main()
 				function quest:get_exp
 				function quest:complete_effect
 				
-				tellraw @s ["\n",{"translate":"text.quest.tutorial.attack_complete","font":"minecraft:uniform"}]
+				tellraw @s ["\n",{"translate":"text.quest.tutorial.attack_complete","font":"minecraft:uniform"},{"text":"==================","font":"minecraft:uniform"}]
 				scoreboard players set @s tutorial 6
 			}
 			
 			func skill_complete()
 			{
-				tellraw @s ["\n",{"translate":"text.quest.tutorial.skill_complete","font":"minecraft:uniform"}]
+				tellraw @s ["\n",{"translate":"text.quest.tutorial.skill_complete","font":"minecraft:uniform"},{"text":"==================","font":"minecraft:uniform"}]
 				scoreboard players set @s tutorial 8
 			}
 		}
@@ -667,6 +667,7 @@ namespace main()
 			tellraw @s {"translate":"text.quest.test_server_helper.menu.equip_magician","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 194"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
 			tellraw @s {"translate":"text.quest.test_server_helper.menu.equip_archer","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 195"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
 			tellraw @s {"translate":"text.quest.test_server_helper.menu.equip_thief","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 196"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
+			tellraw @s {"text":"==================","font":"minecraft:uniform"}
 			advancement revoke @s only main:npc/test_helper
 		}
 		
@@ -683,6 +684,7 @@ namespace main()
 			tellraw @s {"translate":"text.quest.test_warrior_transfer.menu.fighter","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 178"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
 			tellraw @s {"translate":"text.quest.test_warrior_transfer.menu.page","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 179"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
 			tellraw @s {"translate":"text.quest.test_warrior_transfer.menu.spearman","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 180"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
+			tellraw @s {"text":"==================","font":"minecraft:uniform"}
 			advancement revoke @s only main:npc/dance_with_balrog
 		}
 		
@@ -693,6 +695,7 @@ namespace main()
 			tellraw @s {"translate":"text.quest.test_magician_transfer.menu.wizard_fp","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 181"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
 			tellraw @s {"translate":"text.quest.test_magician_transfer.menu.wizard_il","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 182"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
 			tellraw @s {"translate":"text.quest.test_magician_transfer.menu.cleric","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 183"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
+			tellraw @s {"text":"==================","font":"minecraft:uniform"}
 			advancement revoke @s only main:npc/grendel_the_really_old
 		}
 		
@@ -702,6 +705,7 @@ namespace main()
 			tellraw @s {"translate":"text.quest.test_archer_transfer.menu.archer","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 190"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
 			tellraw @s {"translate":"text.quest.test_archer_transfer.menu.hunter","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 184"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
 			tellraw @s {"translate":"text.quest.test_archer_transfer.menu.crossbowman","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 185"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
+			tellraw @s {"text":"==================","font":"minecraft:uniform"}
 			advancement revoke @s only main:npc/athena_pierce
 		}
 		
@@ -711,6 +715,7 @@ namespace main()
 			tellraw @s {"translate":"text.quest.test_thief_transfer.menu.thief","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 191"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
 			tellraw @s {"translate":"text.quest.test_thief_transfer.menu.assassin","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 186"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
 			tellraw @s {"translate":"text.quest.test_thief_transfer.menu.bandit","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 187"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
+			tellraw @s {"text":"==================","font":"minecraft:uniform"}
 			advancement revoke @s only main:npc/dark_lord
 		}
 	}
