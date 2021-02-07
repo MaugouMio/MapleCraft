@@ -627,14 +627,14 @@ namespace main()
 			
 			func attack()
 			{
-				tellraw @s ["\n",{"translate":"text.quest.tutorial.attack","font":"minecraft:uniform"}]
+				tellraw @s ["\n",{"translate":"text.quest.tutorial.attack","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 				scoreboard players set @s tutorial 5
 			}
 			
 			func attack_check()
 			{
 				execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4000083} 1
-				execute if score #GLOBAL temp matches 0 run tellraw @s ["\n",{"translate":"text.quest.tutorial.attack_teach","font":"minecraft:uniform"}]
+				execute if score #GLOBAL temp matches 0 run tellraw @s ["\n",{"translate":"text.quest.tutorial.attack_teach","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 				execute if score #GLOBAL temp matches 1 at @s run function ARG(_PATH)attack_complete
 			}
 			
@@ -671,11 +671,11 @@ namespace main()
 		
 		func shop()
 		{
-			tellraw @s ["\n",{"translate":"text.quest.test_shop.menu","font":"minecraft:uniform"}]
+			tellraw @s ["\n",{"translate":"text.quest.test_shop.menu","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 			advancement revoke @s only main:npc/test_shop
 		}
 		
-		func dance_with_balrog()
+		func dances_with_balrog()
 		{
 			tellraw @s ["\n",{"translate":"text.quest.test_warrior_transfer.menu","font":"minecraft:uniform"}]
 			tellraw @s {"translate":"text.quest.test_warrior_transfer.menu.warrior","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 188"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
@@ -683,7 +683,7 @@ namespace main()
 			tellraw @s {"translate":"text.quest.test_warrior_transfer.menu.page","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 179"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
 			tellraw @s {"translate":"text.quest.test_warrior_transfer.menu.spearman","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 180"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
 			tellraw @s {"text":"==================","font":"minecraft:uniform"}
-			advancement revoke @s only main:npc/dance_with_balrog
+			advancement revoke @s only main:npc/dances_with_balrog
 		}
 		
 		func grendel_the_really_old()
