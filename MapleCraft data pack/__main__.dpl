@@ -394,7 +394,7 @@ namespace main()
 			```
 			print(f"give @s {menu_book}")
 			```
-			tellraw @s ["\n",{"translate":"text.npc.maple_administrator.menu.reset_menu.response","font":"minecraft:uniform"},{"text":"==================","font":"minecraft:uniform"}]
+			tellraw @s ["\n",{"translate":"text.npc.maple_administrator.menu.reset_menu.response","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 		}
 		
 		func equip()
