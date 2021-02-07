@@ -194,7 +194,7 @@
 194,
 195,
 196,
-197,run tellraw @s ["\n",{"translate":"text.npc.maple_administrator.menu.how_to_projectile.response","font":"minecraft:uniform"}]
-198,run tellraw @s ["\n",{"translate":"text.npc.maple_administrator.menu.how_to_equip.response","font":"minecraft:uniform"}]
-199,run tellraw @s ["\n",{"translate":"text.npc.maple_administrator.menu.how_to_scroll.response","font":"minecraft:uniform"}]
-200,run tellraw @s [{"translate":"text.meso.own","font":"minecraft:uniform","with":[{"score":{"objective":"meso","name":"@s"}}]}]
+197,run tellraw @s ["\n",{"translate":"text.npc.maple_administrator.menu.how_to_projectile.response","font":"minecraft:uniform"},{"text":"==================","font":"minecraft:uniform"}]
+198,run tellraw @s ["\n",{"translate":"text.npc.maple_administrator.menu.how_to_equip.response","font":"minecraft:uniform"},{"text":"==================","font":"minecraft:uniform"}]
+199,run tellraw @s ["\n",{"translate":"text.npc.maple_administrator.menu.how_to_scroll.response","font":"minecraft:uniform"},{"text":"==================","font":"minecraft:uniform"}]
+200,run tellraw @s [{"translate":"text.meso.own","font":"minecraft:uniform","with":[{"score":{"objective":"meso","name":"@s"}}]},{"text":"==================","font":"minecraft:uniform"}]
