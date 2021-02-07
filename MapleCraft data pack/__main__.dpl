@@ -432,10 +432,11 @@ namespace main()
 			func talk()
 			{
 				tellraw @s ["\n",{"translate":"text.npc.maple_administrator.menu","font":"minecraft:uniform"}]
-				tellraw @s {"translate":"text.npc.maple_administrator.menu.reset_menu","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"trigger command set -1"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
-				tellraw @s {"translate":"text.npc.maple_administrator.menu.how_to_projectile","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"trigger command set 197"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
-				tellraw @s {"translate":"text.npc.maple_administrator.menu.how_to_equip","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"trigger command set 198"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
-				tellraw @s {"translate":"text.npc.maple_administrator.menu.how_to_scroll","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"trigger command set 199"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
+				tellraw @s {"translate":"text.npc.maple_administrator.menu.reset_menu","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set -1"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
+				tellraw @s {"translate":"text.npc.maple_administrator.menu.how_to_projectile","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 197"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
+				tellraw @s {"translate":"text.npc.maple_administrator.menu.how_to_equip","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 198"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
+				tellraw @s {"translate":"text.npc.maple_administrator.menu.how_to_scroll","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 199"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
+				tellraw @s {"text":"==================","font":"minecraft:uniform"}
 				advancement revoke @s only main:npc/maple_administrator
 			}
 		}

@@ -71,7 +71,7 @@ namespace pq_clock_template(name, id) as virtual
 		```
 		print(f'scoreboard players remove #{"ARG(name)".upper()}_CLOCK_TIME temp 1')
 		print(f'execute if score #{"ARG(name)".upper()}_CLOCK_TIME temp matches 0.. run function ARG(_PATH)set_clock')
-		print(f'execute if score #{"ARG(name)".upper()}_CLOCK_TIME temp matches -1 as @a[scores={{playing_game=ARG(id)}}] run function ARG(__PATH)reset')
+		print(f'execute if score #{"ARG(name)".upper()}_CLOCK_TIME temp matches -1 as @a[scores={{playing_game=ARG(id)}}] run function ARG(__PATH)leave_stages')
 		
 		print(f'execute if score #{"ARG(name)".upper()}_MEMBER temp matches 1.. run schedule function ARG(_PATH)countdown 1s')
 		```
@@ -270,6 +270,7 @@ namespace party_quest() as virtual
 			scoreboard players set @s bgm 3
 			
 			bossbar set ui:clock/kpq players @a[scores={playing_game=1}]
+			clear @s minecraft:creeper_spawn_egg
 		}
 		
 		func leave_reset()
@@ -299,8 +300,8 @@ namespace party_quest() as virtual
 			func lakelis()
 			{
 				tellraw @s ["\n",{"translate":"text.quest.party_quest.kpq.menu","font":"minecraft:uniform"}]
-				tellraw @s {"translate":"text.quest.party_quest.kpq.menu.enter","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"trigger command set 171"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
-				tellraw @s {"translate":"text.quest.party_quest.kpq.menu.intro","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"trigger command set 172"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
+				tellraw @s {"translate":"text.quest.party_quest.kpq.menu.enter","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 171"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
+				tellraw @s {"translate":"text.quest.party_quest.kpq.menu.intro","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 172"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
 				advancement revoke @s only quest:party_quest/kpq/lakelis
 			}
 			
@@ -361,8 +362,8 @@ namespace party_quest() as virtual
 						func talk()
 						{
 							tellraw @s ""
-							execute if score #KPQ_STAGE temp matches 1 run function ARG(_PATH)check
 							execute if score #KPQ_STAGE temp matches 2.. run tellraw @s {"translate":"text.quest.party_quest.kpq.go_next","font":"minecraft:uniform"}
+							execute if score #KPQ_STAGE temp matches 1 run function ARG(_PATH)check
 						}
 						
 						func check()
@@ -384,8 +385,8 @@ namespace party_quest() as virtual
 							scoreboard players add #KPQ_STAGE temp 1
 							
 							data modify block -310 47 0 Text1 set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -310.0 46 -1.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/1/portal"}}'
-							setblock -310 47 -1 minecraft:tripwire[attached=false,disarmed=false,east=false,north=false,south=false,west=false]
-							setblock -310 47 1 minecraft:tripwire[attached=true,disarmed=false,east=false,north=false,south=false,west=false]
+							setblock -310 47 1 minecraft:tripwire[attached=false,disarmed=false,east=false,north=false,south=false,west=false]
+							setblock -310 47 -1 minecraft:tripwire[attached=true,disarmed=false,east=false,north=false,south=false,west=false]
 							
 							scoreboard players set #EXP_GAIN temp 100
 							scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
@@ -481,6 +482,12 @@ namespace party_quest() as virtual
 						func talk()
 						{
 							tellraw @s ""
+							execute if score #KPQ_STAGE temp matches 3.. run tellraw @s {"translate":"text.quest.party_quest.kpq.go_next","font":"minecraft:uniform"}
+							execute if score #KPQ_STAGE temp matches 2 run function ARG(_PATH)check_member
+						}
+						
+						func check_member()
+						{
 							scoreboard players set #GLOBAL temp 0
 							execute store result score #GLOBAL temp if entity @a[scores={playing_game=1,game_stage=1}] run tellraw @s {"translate":"text.quest.party_quest.kpq.member_lost","font":"minecraft:uniform"}
 							execute if score #GLOBAL temp matches 0 run function ARG(_PATH)check
@@ -506,11 +513,11 @@ namespace party_quest() as virtual
 						{
 							scoreboard players set #GLOBAL temp 0
 							execute if score #COMBINATION temp matches 8.. run scoreboard players add #GLOBAL temp 1
-							scoreboard players remove #COMBINATION temp 8
+							execute if score #COMBINATION temp matches 8.. run scoreboard players remove #COMBINATION temp 8
 							execute if score #COMBINATION temp matches 4.. run scoreboard players add #GLOBAL temp 1
-							scoreboard players remove #COMBINATION temp 4
+							execute if score #COMBINATION temp matches 4.. run scoreboard players remove #COMBINATION temp 4
 							execute if score #COMBINATION temp matches 2.. run scoreboard players add #GLOBAL temp 1
-							scoreboard players remove #COMBINATION temp 2
+							execute if score #COMBINATION temp matches 2.. run scoreboard players remove #COMBINATION temp 2
 							execute if score #COMBINATION temp matches 1.. run scoreboard players add #GLOBAL temp 1
 							
 							execute unless score #GLOBAL temp matches 3 run tellraw @s {"translate":"text.quest.party_quest.kpq.stage2.wrong_amount","font":"minecraft:uniform"}
@@ -524,8 +531,8 @@ namespace party_quest() as virtual
 							scoreboard players add #KPQ_STAGE temp 1
 							
 							data modify block -540 43 0 Text1 set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -540.0 42 -1.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/2/portal"}}'
-							setblock -540 43 -1 minecraft:tripwire[attached=false,disarmed=false,east=false,north=false,south=false,west=false]
-							setblock -540 43 1 minecraft:tripwire[attached=true,disarmed=false,east=false,north=false,south=false,west=false]
+							setblock -540 43 1 minecraft:tripwire[attached=false,disarmed=false,east=false,north=false,south=false,west=false]
+							setblock -540 43 -1 minecraft:tripwire[attached=true,disarmed=false,east=false,north=false,south=false,west=false]
 							
 							scoreboard players set #EXP_GAIN temp 200
 							scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
@@ -568,8 +575,8 @@ namespace party_quest() as virtual
 					data modify block -850 47 0 Text1 set value '""'
 					setblock -850 47 -1 minecraft:air
 					setblock -850 47 1 minecraft:air
-					setblock -849 47 2 minecraft:air
-					setblock -849 47 -2 minecraft:air
+					setblock -849 47 3 minecraft:air
+					setblock -849 47 -3 minecraft:air
 					kill @e[type=creeper,tag=kpq_player]
 					forceload remove -852 -10 -800 10
 					
@@ -588,6 +595,12 @@ namespace party_quest() as virtual
 						func talk()
 						{
 							tellraw @s ""
+							execute if score #KPQ_STAGE temp matches 4.. run tellraw @s {"translate":"text.quest.party_quest.kpq.go_next","font":"minecraft:uniform"}
+							execute if score #KPQ_STAGE temp matches 3 run function ARG(_PATH)check_member
+						}
+						
+						func check_member()
+						{
 							scoreboard players set #GLOBAL temp 0
 							execute store result score #GLOBAL temp if entity @a[scores={playing_game=1,game_stage=2}] run tellraw @s {"translate":"text.quest.party_quest.kpq.member_lost","font":"minecraft:uniform"}
 							execute if score #GLOBAL temp matches 0 run function ARG(_PATH)check
@@ -614,13 +627,13 @@ namespace party_quest() as virtual
 						{
 							scoreboard players set #GLOBAL temp 0
 							execute if score #COMBINATION temp matches 16.. run scoreboard players add #GLOBAL temp 1
-							scoreboard players remove #COMBINATION temp 16
+							execute if score #COMBINATION temp matches 16.. run scoreboard players remove #COMBINATION temp 16
 							execute if score #COMBINATION temp matches 8.. run scoreboard players add #GLOBAL temp 1
-							scoreboard players remove #COMBINATION temp 8
+							execute if score #COMBINATION temp matches 8.. run scoreboard players remove #COMBINATION temp 8
 							execute if score #COMBINATION temp matches 4.. run scoreboard players add #GLOBAL temp 1
-							scoreboard players remove #COMBINATION temp 4
+							execute if score #COMBINATION temp matches 4.. run scoreboard players remove #COMBINATION temp 4
 							execute if score #COMBINATION temp matches 2.. run scoreboard players add #GLOBAL temp 1
-							scoreboard players remove #COMBINATION temp 2
+							execute if score #COMBINATION temp matches 2.. run scoreboard players remove #COMBINATION temp 2
 							execute if score #COMBINATION temp matches 1.. run scoreboard players add #GLOBAL temp 1
 							
 							execute unless score #GLOBAL temp matches 3 run tellraw @s {"translate":"text.quest.party_quest.kpq.stage3.wrong_amount","font":"minecraft:uniform"}
@@ -634,10 +647,10 @@ namespace party_quest() as virtual
 							scoreboard players add #KPQ_STAGE temp 1
 							
 							data modify block -850 47 0 Text1 set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -850.0 46 -1.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/3/portal"}}'
-							setblock -850 47 -1 minecraft:tripwire[attached=false,disarmed=false,east=false,north=false,south=false,west=false]
-							setblock -850 47 1 minecraft:tripwire[attached=true,disarmed=false,east=false,north=false,south=false,west=false]
-							setblock -849 47 2 minecraft:fire
-							setblock -849 47 -2 minecraft:fire
+							setblock -850 47 1 minecraft:tripwire[attached=false,disarmed=false,east=false,north=false,south=false,west=false]
+							setblock -850 47 -1 minecraft:tripwire[attached=true,disarmed=false,east=false,north=false,south=false,west=false]
+							setblock -849 47 3 minecraft:fire
+							setblock -849 47 -3 minecraft:fire
 							
 							scoreboard players set #EXP_GAIN temp 400
 							scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
@@ -679,7 +692,7 @@ namespace party_quest() as virtual
 					
 					title @s times 1 5 10
 					title @s title {"text":"4","font":"ui:main"}
-					tp -1502 100 5 90 60
+					tp @s -1502 100 5 90 60
 				}
 				
 				func reset()
@@ -709,6 +722,12 @@ namespace party_quest() as virtual
 						func talk()
 						{
 							tellraw @s ""
+							execute if score #KPQ_STAGE temp matches 3.. run tellraw @s {"translate":"text.quest.party_quest.kpq.go_next","font":"minecraft:uniform"}
+							execute if score #KPQ_STAGE temp matches 2 run function ARG(_PATH)check_member
+						}
+						
+						func check_member()
+						{
 							scoreboard players set #GLOBAL temp 0
 							execute store result score #GLOBAL temp if entity @a[scores={playing_game=1,game_stage=3}] run tellraw @s {"translate":"text.quest.party_quest.kpq.member_lost","font":"minecraft:uniform"}
 							execute if score #GLOBAL temp matches 0 run function ARG(_PATH)check
@@ -729,22 +748,22 @@ namespace party_quest() as virtual
 							execute positioned -1185.9 54.0 24.1 if entity @s[dx=0,dy=0,dz=0] positioned -1186.1 54.0 23.9 if entity @s[dx=0,dy=0,dz=0] run function quest:party_quest/add_combination/3
 							execute positioned -1182.9 53.0 23.1 if entity @s[dx=0,dy=0,dz=0] positioned -1183.1 53.0 22.9 if entity @s[dx=0,dy=0,dz=0] run function quest:party_quest/add_combination/4
 							execute positioned -1184.9 53.0 23.1 if entity @s[dx=0,dy=0,dz=0] positioned -1185.1 53.0 22.9 if entity @s[dx=0,dy=0,dz=0] run function quest:party_quest/add_combination/5
-							execute positioned -1186.9 53.0 23.1 if entity @s[dx=0,dy=0,dz=0] positioned -1185.1 53.0 22.9 if entity @s[dx=0,dy=0,dz=0] run function quest:party_quest/add_combination/6
+							execute positioned -1186.9 53.0 23.1 if entity @s[dx=0,dy=0,dz=0] positioned -1187.1 53.0 22.9 if entity @s[dx=0,dy=0,dz=0] run function quest:party_quest/add_combination/6
 						}
 						
 						func check_amount()
 						{
 							scoreboard players set #GLOBAL temp 0
 							execute if score #COMBINATION temp matches 32.. run scoreboard players add #GLOBAL temp 1
-							scoreboard players remove #COMBINATION temp 32
+							execute if score #COMBINATION temp matches 32.. run scoreboard players remove #COMBINATION temp 32
 							execute if score #COMBINATION temp matches 16.. run scoreboard players add #GLOBAL temp 1
-							scoreboard players remove #COMBINATION temp 16
+							execute if score #COMBINATION temp matches 16.. run scoreboard players remove #COMBINATION temp 16
 							execute if score #COMBINATION temp matches 8.. run scoreboard players add #GLOBAL temp 1
-							scoreboard players remove #COMBINATION temp 8
+							execute if score #COMBINATION temp matches 8.. run scoreboard players remove #COMBINATION temp 8
 							execute if score #COMBINATION temp matches 4.. run scoreboard players add #GLOBAL temp 1
-							scoreboard players remove #COMBINATION temp 4
+							execute if score #COMBINATION temp matches 4.. run scoreboard players remove #COMBINATION temp 4
 							execute if score #COMBINATION temp matches 2.. run scoreboard players add #GLOBAL temp 1
-							scoreboard players remove #COMBINATION temp 2
+							execute if score #COMBINATION temp matches 2.. run scoreboard players remove #COMBINATION temp 2
 							execute if score #COMBINATION temp matches 1.. run scoreboard players add #GLOBAL temp 1
 							
 							execute unless score #GLOBAL temp matches 3 run tellraw @s {"translate":"text.quest.party_quest.kpq.stage4.wrong_amount","font":"minecraft:uniform"}
@@ -758,7 +777,7 @@ namespace party_quest() as virtual
 							scoreboard players add #KPQ_STAGE temp 1
 							scoreboard players set #KPQ_S5_LOADED temp 1
 							
-							data modify block -1195 55 24 Text1 set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned <x y z> if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/4/portal"}}'
+							data modify block -1195 55 24 Text1 set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -1195.0 54.0 23.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/4/portal"}}'
 							setblock -1195 55 25 minecraft:tripwire[attached=false,disarmed=false,east=false,north=false,south=false,west=false]
 							setblock -1195 55 23 minecraft:tripwire[attached=true,disarmed=false,east=false,north=false,south=false,west=false]
 							setblock -1194 55 21 fire
@@ -925,12 +944,50 @@ namespace party_quest() as virtual
 				
 				folder npc()
 				{
+					folder elevator()
+					{
+						func 1()
+						{
+							tp @s -1501 76 17
+							playsound minecraft:game.portal player @s ~ ~ ~ 1 1 1
+							execute positioned ~ ~-0.7 ~ run function skill:summon_font_effect/2101002effect
+						}
+						
+						func 2()
+						{
+							tp @s -1498 84 17
+							playsound minecraft:game.portal player @s ~ ~ ~ 1 1 1
+							execute positioned ~ ~-0.7 ~ run function skill:summon_font_effect/2101002effect
+						}
+						
+						func 3()
+						{
+							tp @s -1523 58 7
+							playsound minecraft:game.portal player @s ~ ~ ~ 1 1 1
+							execute positioned ~ ~-0.7 ~ run function skill:summon_font_effect/2101002effect
+						}
+						
+						func 4()
+						{
+							tp @s -1521 68 6
+							playsound minecraft:game.portal player @s ~ ~ ~ 1 1 1
+							execute positioned ~ ~-0.7 ~ run function skill:summon_font_effect/2101002effect
+						}
+					}
+					
 					folder cloto()
 					{
 						func talk()
 						{
 							execute if score #KPQ_STAGE temp matches 6 run function quest:party_quest/kpq/stages/5/slot_check
-							execute if score #KPQ_STAGE temp matches 5 run function ARG(_PATH)check
+							execute if score #KPQ_STAGE temp matches 5 run function ARG(_PATH)check_member
+						}
+						
+						func check_member()
+						{
+							scoreboard players set #GLOBAL temp 0
+							execute store result score #GLOBAL temp if entity @a[scores={playing_game=1,game_stage=4}] run tellraw @s {"translate":"text.quest.party_quest.kpq.member_lost","font":"minecraft:uniform"}
+							execute if score #GLOBAL temp matches 0 run function ARG(_PATH)check
 						}
 						
 						func check()
