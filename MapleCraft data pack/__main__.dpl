@@ -582,13 +582,13 @@ namespace main()
 		{
 			func talk()
 			{
-				execute if score @s tutorial matches 8 run tellraw @s ["\n",{"translate":"text.quest.tutorial.bye","font":"minecraft:uniform"},{"text":"==================","font":"minecraft:uniform"}]
+				execute if score @s tutorial matches 8 run tellraw @s ["\n",{"translate":"text.quest.tutorial.bye","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 				execute if score @s tutorial matches 7 run function ARG(_PATH)skill_complete
-				execute if score @s tutorial matches 6 run tellraw @s ["\n",{"translate":"text.quest.tutorial.skill_teach","font":"minecraft:uniform"},{"text":"==================","font":"minecraft:uniform"}]
+				execute if score @s tutorial matches 6 run tellraw @s ["\n",{"translate":"text.quest.tutorial.skill_teach","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 				execute if score @s tutorial matches 5 run function ARG(_PATH)attack_check
 				execute if score @s tutorial matches 4 run function ARG(_PATH)attack
 				execute if score @s tutorial matches 3 at @s run function ARG(_PATH)apple_complete
-				execute if score @s tutorial matches 2 run tellraw @s ["\n",{"translate":"text.quest.tutorial.apple_teach","font":"minecraft:uniform"},{"text":"==================","font":"minecraft:uniform"}]
+				execute if score @s tutorial matches 2 run tellraw @s ["\n",{"translate":"text.quest.tutorial.apple_teach","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 				execute if score @s tutorial matches 1 run function ARG(_PATH)apple
 				execute unless score @s tutorial matches 1.. run function ARG(_PATH)greet
 				advancement revoke @s only main:npc/roger
@@ -596,7 +596,7 @@ namespace main()
 			
 			func greet()
 			{
-				tellraw @s ["\n",{"translate":"text.quest.tutorial.greet","font":"minecraft:uniform"},{"text":"==================","font":"minecraft:uniform"}]
+				tellraw @s ["\n",{"translate":"text.quest.tutorial.greet","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 				scoreboard players set @s tutorial 1
 			}
 			
@@ -610,7 +610,7 @@ namespace main()
 				give @s minecraft:warped_fungus_on_a_stick{CustomModelData:103,price:30,sound:1,hp:30,display:{Name:'{"translate":"item.consume.2010000","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.potion.hp","with":["30"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.potion.meso","with":["30"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
 				scoreboard players add @s meso 30
 				
-				tellraw @s ["\n",{"translate":"text.quest.tutorial.apple","font":"minecraft:uniform"},{"text":"==================","font":"minecraft:uniform"}]
+				tellraw @s ["\n",{"translate":"text.quest.tutorial.apple","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 				scoreboard players set @s tutorial 2
 			}
 			
@@ -621,7 +621,7 @@ namespace main()
 				function quest:get_exp
 				function quest:complete_effect
 				
-				tellraw @s ["\n",{"translate":"text.quest.tutorial.apple_complete","font":"minecraft:uniform"},{"text":"==================","font":"minecraft:uniform"}]
+				tellraw @s ["\n",{"translate":"text.quest.tutorial.apple_complete","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 				scoreboard players set @s tutorial 4
 			}
 			
@@ -646,13 +646,13 @@ namespace main()
 				function quest:get_exp
 				function quest:complete_effect
 				
-				tellraw @s ["\n",{"translate":"text.quest.tutorial.attack_complete","font":"minecraft:uniform"},{"text":"==================","font":"minecraft:uniform"}]
+				tellraw @s ["\n",{"translate":"text.quest.tutorial.attack_complete","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 				scoreboard players set @s tutorial 6
 			}
 			
 			func skill_complete()
 			{
-				tellraw @s ["\n",{"translate":"text.quest.tutorial.skill_complete","font":"minecraft:uniform"},{"text":"==================","font":"minecraft:uniform"}]
+				tellraw @s ["\n",{"translate":"text.quest.tutorial.skill_complete","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 				scoreboard players set @s tutorial 8
 			}
 		}
