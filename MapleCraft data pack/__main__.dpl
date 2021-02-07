@@ -564,7 +564,7 @@ namespace main()
 			title @s title {"text":"4","font":"ui:main"}
 			tp @s -8 30 488 -60 50
 			
-			playsound minecraft:game.portal player @s
+			execute at @s run playsound minecraft:game.portal player @s
 		}
 		
 		func start_game()
@@ -577,7 +577,7 @@ namespace main()
 			title @s title {"text":"4","font":"ui:main"}
 			tp @s -1 34 -6 90 40
 			
-			playsound minecraft:game.portal player @s
+			execute at @s run playsound minecraft:game.portal player @s
 		}
 		
 		folder roger()
@@ -662,11 +662,11 @@ namespace main()
 		func helper()
 		{
 			tellraw @s ["\n",{"translate":"text.quest.test_server_helper.menu","font":"minecraft:uniform"}]
-			tellraw @s {"translate":"text.quest.test_server_helper.menu.level_up","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"trigger command set 192"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
-			tellraw @s {"translate":"text.quest.test_server_helper.menu.equip_warrior","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"trigger command set 193"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
-			tellraw @s {"translate":"text.quest.test_server_helper.menu.equip_magician","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"trigger command set 194"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
-			tellraw @s {"translate":"text.quest.test_server_helper.menu.equip_archer","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"trigger command set 195"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
-			tellraw @s {"translate":"text.quest.test_server_helper.menu.equip_thief","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"trigger command set 196"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
+			tellraw @s {"translate":"text.quest.test_server_helper.menu.level_up","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 192"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
+			tellraw @s {"translate":"text.quest.test_server_helper.menu.equip_warrior","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 193"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
+			tellraw @s {"translate":"text.quest.test_server_helper.menu.equip_magician","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 194"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
+			tellraw @s {"translate":"text.quest.test_server_helper.menu.equip_archer","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 195"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
+			tellraw @s {"translate":"text.quest.test_server_helper.menu.equip_thief","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 196"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
 			advancement revoke @s only main:npc/test_helper
 		}
 		
@@ -679,38 +679,38 @@ namespace main()
 		func dance_with_balrog()
 		{
 			tellraw @s ["\n",{"translate":"text.quest.test_warrior_transfer.menu","font":"minecraft:uniform"}]
-			tellraw @s {"translate":"text.quest.test_warrior_transfer.menu.warrior","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"trigger command set 188"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
-			tellraw @s {"translate":"text.quest.test_warrior_transfer.menu.fighter","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"trigger command set 178"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
-			tellraw @s {"translate":"text.quest.test_warrior_transfer.menu.page","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"trigger command set 179"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
-			tellraw @s {"translate":"text.quest.test_warrior_transfer.menu.spearman","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"trigger command set 180"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
+			tellraw @s {"translate":"text.quest.test_warrior_transfer.menu.warrior","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 188"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
+			tellraw @s {"translate":"text.quest.test_warrior_transfer.menu.fighter","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 178"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
+			tellraw @s {"translate":"text.quest.test_warrior_transfer.menu.page","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 179"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
+			tellraw @s {"translate":"text.quest.test_warrior_transfer.menu.spearman","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 180"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
 			advancement revoke @s only main:npc/dance_with_balrog
 		}
 		
 		func grendel_the_really_old()
 		{
 			tellraw @s ["\n",{"translate":"text.quest.test_magician_transfer.menu","font":"minecraft:uniform"}]
-			tellraw @s {"translate":"text.quest.test_magician_transfer.menu.magician","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"trigger command set 189"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
-			tellraw @s {"translate":"text.quest.test_magician_transfer.menu.wizard_fp","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"trigger command set 181"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
-			tellraw @s {"translate":"text.quest.test_magician_transfer.menu.wizard_il","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"trigger command set 182"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
-			tellraw @s {"translate":"text.quest.test_magician_transfer.menu.cleric","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"trigger command set 183"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
+			tellraw @s {"translate":"text.quest.test_magician_transfer.menu.magician","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 189"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
+			tellraw @s {"translate":"text.quest.test_magician_transfer.menu.wizard_fp","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 181"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
+			tellraw @s {"translate":"text.quest.test_magician_transfer.menu.wizard_il","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 182"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
+			tellraw @s {"translate":"text.quest.test_magician_transfer.menu.cleric","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 183"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
 			advancement revoke @s only main:npc/grendel_the_really_old
 		}
 		
 		func athena_pierce()
 		{
 			tellraw @s ["\n",{"translate":"text.quest.test_archer_transfer.menu","font":"minecraft:uniform"}]
-			tellraw @s {"translate":"text.quest.test_archer_transfer.menu.archer","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"trigger command set 190"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
-			tellraw @s {"translate":"text.quest.test_archer_transfer.menu.hunter","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"trigger command set 184"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
-			tellraw @s {"translate":"text.quest.test_archer_transfer.menu.crossbowman","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"trigger command set 185"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
+			tellraw @s {"translate":"text.quest.test_archer_transfer.menu.archer","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 190"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
+			tellraw @s {"translate":"text.quest.test_archer_transfer.menu.hunter","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 184"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
+			tellraw @s {"translate":"text.quest.test_archer_transfer.menu.crossbowman","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 185"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
 			advancement revoke @s only main:npc/athena_pierce
 		}
 		
 		func dark_lord()
 		{
 			tellraw @s ["\n",{"translate":"text.quest.test_thief_transfer.menu","font":"minecraft:uniform"}]
-			tellraw @s {"translate":"text.quest.test_thief_transfer.menu.thief","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"trigger command set 191"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
-			tellraw @s {"translate":"text.quest.test_thief_transfer.menu.assassin","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"trigger command set 186"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
-			tellraw @s {"translate":"text.quest.test_thief_transfer.menu.bandit","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"trigger command set 187"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
+			tellraw @s {"translate":"text.quest.test_thief_transfer.menu.thief","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 191"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
+			tellraw @s {"translate":"text.quest.test_thief_transfer.menu.assassin","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 186"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
+			tellraw @s {"translate":"text.quest.test_thief_transfer.menu.bandit","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 187"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
 			advancement revoke @s only main:npc/dark_lord
 		}
 	}
