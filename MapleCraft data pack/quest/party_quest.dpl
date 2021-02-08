@@ -228,7 +228,7 @@ namespace party_quest() as virtual
 		func leave()
 		{
 			execute unless score @s playing_game matches 1 run function ARG(_PATH)leave_map
-			execute if score @s playing_game matches 1 run function ARG(_PATH)leave_stages
+			execute if score @s playing_game matches 1 run function ARG(_PATH)leave_confirm
 		}
 		
 		func leave_map()
@@ -247,6 +247,13 @@ namespace party_quest() as virtual
 			title @s times 1 5 10
 			title @s title {"text":"4","font":"ui:main"}
 			tp @s -1 34 -6 90 40
+		}
+		
+		func leave_confirm()
+		{
+			tellraw @s ["\n",{"translate":"text.quest.party_quest.kpq.leave_confirm","font":"minecraft:uniform"}]
+			tellraw @s {"translate":"text.answer.yes","font":"minecraft:uniform","color":"yellow","bold":true,"clickEvent":{"action":"run_command","value":"/trigger command set 173"}}
+			tellraw @s {"text":"==================","font":"minecraft:uniform"}
 		}
 		
 		func leave_stages()
