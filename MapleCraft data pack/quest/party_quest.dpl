@@ -362,7 +362,6 @@ namespace party_quest() as virtual
 					{
 						func talk()
 						{
-							tellraw @s ""
 							execute if score #KPQ_STAGE temp matches 2.. run tellraw @s ["\n",{"translate":"text.quest.party_quest.kpq.go_next","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 							execute if score #KPQ_STAGE temp matches 1 run function ARG(_PATH)check
 						}
@@ -414,7 +413,7 @@ namespace party_quest() as virtual
 						
 						func show_question()
 						{
-							tellraw @s {"translate":"text.quest.party_quest.kpq.stage1.introduce","font":"minecraft:uniform","with":[{"score":{"objective":"temp","name":"#KPQ_PASS_REQUIRED"},"color":"blue"}]}
+							tellraw @s ["\n",{"translate":"text.quest.party_quest.kpq.stage1.introduce","font":"minecraft:uniform","with":[{"score":{"objective":"temp","name":"#KPQ_PASS_REQUIRED"},"color":"blue"}]}]
 							execute if score @s kpq_question matches 1 run data modify storage quest:main temp set value '{"translate":"text.quest.party_quest.kpq.stage1.question.1"}'
 							execute if score @s kpq_question matches 2 run data modify storage quest:main temp set value '{"translate":"text.quest.party_quest.kpq.stage1.question.2"}'
 							execute if score @s kpq_question matches 3 run data modify storage quest:main temp set value '{"translate":"text.quest.party_quest.kpq.stage1.question.3"}'
@@ -434,6 +433,7 @@ namespace party_quest() as virtual
 							tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":[{"score":{"objective":"kpq_coupon","name":"@s"}},{"translate":"item.etc.4001007"}]}
 							give @s minecraft:stick{CustomModelData:4001008,HideFlags:127,display:{Name:'{"translate":"item.etc.4001008","font":"minecraft:uniform","bold":true,"italic":false}'}}
 							tellraw @s {"translate":"text.quest.item_gain","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4001008"}]}
+							tellraw @s ["\n",{"translate":"text.quest.party_quest.kpq.stage1.get_pass","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 							
 							scoreboard players reset @s kpq_coupon
 							scoreboard players reset @s kpq_question
