@@ -216,7 +216,7 @@ namespace main()
 	{
 		func check()
 		{
-			execute if score @s fall matches 1325.. unless score @s hurt_time matches 1.. at @s run function ARG(_PATH)damage
+			execute if score @s fall matches 1625.. unless score @s hurt_time matches 1.. at @s run function ARG(_PATH)damage
 			scoreboard players reset @s fall
 		}
 		
@@ -224,7 +224,7 @@ namespace main()
 		{
 			scoreboard players operation @s next_hp_recover = @s hp_recover_time
 			
-			scoreboard players remove @s fall 1125
+			scoreboard players remove @s fall 1425
 			scoreboard players set @s display_number -5600
 			scoreboard players operation @s display_number /= @s fall
 			scoreboard players add @s display_number 36
