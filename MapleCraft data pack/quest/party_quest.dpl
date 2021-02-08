@@ -376,7 +376,7 @@ namespace party_quest() as virtual
 						func pass_check()
 						{
 							execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001008} 0
-							execute unless score #GLOBAL temp >= #KPQ_PASS_REQUIRED temp run tellraw @s ["\n",{"translate":"text.quest.party_quest.kpq.stage1.require_pass","font":"minecraft:uniform","with":[{"score":{"objective":"temp","name":"#KPQ_PASS_REQUIRED"}}]},{"text":"\n==================","font":"minecraft:uniform"}]
+							execute unless score #GLOBAL temp >= #KPQ_PASS_REQUIRED temp run tellraw @s ["\n",{"translate":"text.quest.party_quest.kpq.stage1.require_pass","font":"minecraft:uniform","with":[{"score":{"objective":"temp","name":"#KPQ_PASS_REQUIRED"},"color":"blue"}]},{"text":"\n==================","font":"minecraft:uniform"}]
 							execute if score #GLOBAL temp >= #KPQ_PASS_REQUIRED temp run function ARG(_PATH)pass
 						}
 						
@@ -396,7 +396,7 @@ namespace party_quest() as virtual
 							clear @s minecraft:stick{CustomModelData:4001008}
 							execute if score #GLOBAL temp matches 2.. run tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"translate":"item.etc.4001008"}]}
 							execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4001008"}]}
-							tellraw @s ["\n",{"translate":"text.quest.party_quest.kpq.stage1.pass","font":"minecraft:uniform","with":[{"score":{"objective":"temp","name":"#KPQ_PASS_REQUIRED"}}]},{"text":"\n==================","font":"minecraft:uniform"}]
+							tellraw @s ["\n",{"translate":"text.quest.party_quest.kpq.stage1.pass","font":"minecraft:uniform","with":[{"score":{"objective":"temp","name":"#KPQ_PASS_REQUIRED"},"color":"blue"}]},{"text":"\n==================","font":"minecraft:uniform"}]
 							
 							function main:rand_rate
 							execute if score #RAND_RESULT temp matches ..24 run scoreboard players set #KPQ_PASS_REQUIRED temp 7
@@ -414,7 +414,7 @@ namespace party_quest() as virtual
 						
 						func show_question()
 						{
-							tellraw @s {"translate":"text.quest.party_quest.kpq.stage1.introduce","font":"minecraft:uniform","with":[{"score":{"objective":"temp","name":"#KPQ_PASS_REQUIRED"}}]}
+							tellraw @s {"translate":"text.quest.party_quest.kpq.stage1.introduce","font":"minecraft:uniform","with":[{"score":{"objective":"temp","name":"#KPQ_PASS_REQUIRED"},"color":"blue"}]}
 							execute if score @s kpq_question matches 1 run data modify storage quest:main temp set value '{"translate":"text.quest.party_quest.kpq.stage1.question.1"}'
 							execute if score @s kpq_question matches 2 run data modify storage quest:main temp set value '{"translate":"text.quest.party_quest.kpq.stage1.question.2"}'
 							execute if score @s kpq_question matches 3 run data modify storage quest:main temp set value '{"translate":"text.quest.party_quest.kpq.stage1.question.3"}'
