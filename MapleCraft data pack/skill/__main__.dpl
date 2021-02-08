@@ -90,7 +90,7 @@ namespace attack_skill_template(skill_id) as virtual
 		data modify storage skill:main damage_info.attacker set from entity @s UUID
 		execute store result storage skill:main damage_info.attacker_id int 1 run scoreboard players get @s number
 		
-		execute positioned 0.0 0.0 0.0 rotated ~ 0 run summon area_effect_cloud ^ ^ ^0.2 {Duration:0,Tags:["knockback_motion"]}
+		execute positioned 250.0 0.0 0.0 rotated ~ 0 run summon area_effect_cloud ^ ^ ^0.2 {Duration:0,Tags:["knockback_motion"]}
 		data modify storage skill:main damage_info.knock_back set from entity @e[type=area_effect_cloud,tag=knockback_motion,limit=1] Pos
 		kill @e[type=area_effect_cloud,tag=knockback_motion,limit=1]
 		
@@ -323,7 +323,7 @@ namespace bullet_skill_template(skill_id) as virtual
 		data modify storage skill:main damage_info.attacker set from entity @s UUID
 		execute store result storage skill:main damage_info.attacker_id int 1 run scoreboard players get @s number
 		
-		execute positioned 0.0 0.0 0.0 rotated ~ 0 run summon area_effect_cloud ^ ^ ^0.2 {Duration:0,Tags:["knockback_motion"]}
+		execute positioned 250.0 0.0 0.0 rotated ~ 0 run summon area_effect_cloud ^ ^ ^0.2 {Duration:0,Tags:["knockback_motion"]}
 		data modify storage skill:main damage_info.knock_back set from entity @e[type=area_effect_cloud,tag=knockback_motion,limit=1] Pos
 		kill @e[type=area_effect_cloud,tag=knockback_motion,limit=1]
 		

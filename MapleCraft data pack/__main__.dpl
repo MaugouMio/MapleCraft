@@ -47,6 +47,7 @@ namespace main()
 		gamerule spawnRadius 0
 		gamerule universalAnger false
 		
+		defaultgamemode adventure
 		difficulty normal
 		
 		scoreboard objectives add const dummy
@@ -312,6 +313,7 @@ namespace main()
 		print(f"replaceitem entity @s hotbar.8 {menu_book}")
 		```
 		team join hp25 @s
+		gamemode adventure @s
 		
 		execute at @s run playsound minecraft:game.game_in player @s
 		title @s times 1 5 10
