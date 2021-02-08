@@ -356,6 +356,8 @@ namespace main()
 		{
 			execute unless score @s playing_game matches 1.. run function ARG(_PATH)town_search/run
 			execute if score @s playing_game matches 1.. run function quest:reset_check
+			
+			execute unless score @s login matches 1.. run function ARG(_PATH)reset_screen
 		}
 		
 		folder town_search()
@@ -366,8 +368,6 @@ namespace main()
 				
 				# check nearest town accoring to map score
 				execute if score @s map matches 103000000 run function ARG(_PATH)kerning_city
-				
-				execute unless score @s login matches 1.. run function ARG(__PATH)reset_screen
 			}
 			
 			func kerning_city()
