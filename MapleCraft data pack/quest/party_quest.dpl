@@ -185,7 +185,7 @@ namespace party_quest() as virtual
 		
 		func start()
 		{
-			execute as @a if score @s map matches 103000000 run function ARG(_PATH)join
+			execute as @a[scores={level=21..}] if score @s map matches 103000000 run function ARG(_PATH)join
 			function ARG(_PATH)clock/start
 			
 			bossbar set ui:clock/kpq players @a[scores={playing_game=1}]
@@ -369,8 +369,8 @@ namespace party_quest() as virtual
 						
 						func check()
 						{
-							execute if score @s kpq_coupon matches 1.. run function ARG(_PATH)coupon_check
 							execute unless score @s kpq_coupon matches 1.. run function ARG(_PATH)pass_check
+							execute if score @s kpq_coupon matches 1.. run function ARG(_PATH)coupon_check
 						}
 						
 						func pass_check()
@@ -414,7 +414,7 @@ namespace party_quest() as virtual
 						
 						func show_question()
 						{
-							tellraw @s {"translate":"text.quest.party_quest.kpq.stage1.introduce","font":"minecraft:uniform"}
+							tellraw @s {"translate":"text.quest.party_quest.kpq.stage1.introduce","font":"minecraft:uniform","with":[{"score":{"objective":"temp","name":"#KPQ_PASS_REQUIRED"}}]}
 							execute if score @s kpq_question matches 1 run data modify storage quest:main temp set value '{"translate":"text.quest.party_quest.kpq.stage1.question.1"}'
 							execute if score @s kpq_question matches 2 run data modify storage quest:main temp set value '{"translate":"text.quest.party_quest.kpq.stage1.question.2"}'
 							execute if score @s kpq_question matches 3 run data modify storage quest:main temp set value '{"translate":"text.quest.party_quest.kpq.stage1.question.3"}'
@@ -474,7 +474,7 @@ namespace party_quest() as virtual
 				
 				func get_dummy()
 				{
-					give @s minecraft:creeper_spawn_egg{display:{Name:'{"translate":"item.etc.dummy","font":"minecraft:uniform","bold":true,"italic":false}'},CanPlaceOn:["minecraft:scaffolding"],HideFlags:111,EntityTag:{NoAI:1,Invulnerable:1,Tags:["kpq_player"]}}
+					give @s minecraft:creeper_spawn_egg{display:{Name:'{"translate":"item.etc.dummy","font":"minecraft:uniform","bold":true,"italic":false}'},CanPlaceOn:["minecraft:scaffolding"],HideFlags:111,EntityTag:{NoAI:1,Silent:1,Invulnerable:1,Tags:["kpq_player"]}}
 				}
 				
 				folder npc()
@@ -483,10 +483,8 @@ namespace party_quest() as virtual
 					{
 						func talk()
 						{
-							tellraw @s ""
-							execute if score #KPQ_STAGE temp matches 3.. run tellraw @s {"translate":"text.quest.party_quest.kpq.go_next","font":"minecraft:uniform"}
+							execute if score #KPQ_STAGE temp matches 3.. run tellraw @s ["\n",{"translate":"text.quest.party_quest.kpq.go_next","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 							execute if score #KPQ_STAGE temp matches 2 run function ARG(_PATH)check_member
-							tellraw @s {"text":"==================","font":"minecraft:uniform"}
 						}
 						
 						func check_member()
@@ -588,7 +586,7 @@ namespace party_quest() as virtual
 				
 				func get_dummy()
 				{
-					give @s minecraft:creeper_spawn_egg{display:{Name:'{"translate":"item.etc.dummy","font":"minecraft:uniform","bold":true,"italic":false}'},CanPlaceOn:["minecraft:spruce_log"],HideFlags:111,EntityTag:{NoAI:1,Invulnerable:1,Tags:["kpq_player"]}}
+					give @s minecraft:creeper_spawn_egg{display:{Name:'{"translate":"item.etc.dummy","font":"minecraft:uniform","bold":true,"italic":false}'},CanPlaceOn:["minecraft:spruce_log"],HideFlags:111,EntityTag:{NoAI:1,Silent:1,Invulnerable:1,Tags:["kpq_player"]}}
 				}
 				
 				folder npc()
@@ -597,10 +595,8 @@ namespace party_quest() as virtual
 					{
 						func talk()
 						{
-							tellraw @s ""
-							execute if score #KPQ_STAGE temp matches 4.. run tellraw @s {"translate":"text.quest.party_quest.kpq.go_next","font":"minecraft:uniform"}
+							execute if score #KPQ_STAGE temp matches 4.. run tellraw @s ["\n",{"translate":"text.quest.party_quest.kpq.go_next","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 							execute if score #KPQ_STAGE temp matches 3 run function ARG(_PATH)check_member
-							tellraw @s {"text":"==================","font":"minecraft:uniform"}
 						}
 						
 						func check_member()
@@ -716,7 +712,7 @@ namespace party_quest() as virtual
 				
 				func get_dummy()
 				{
-					give @s minecraft:creeper_spawn_egg{display:{Name:'{"translate":"item.etc.dummy","font":"minecraft:uniform","bold":true,"italic":false}'},CanPlaceOn:["minecraft:barrel"],HideFlags:111,EntityTag:{NoAI:1,Invulnerable:1,Tags:["kpq_player"]}}
+					give @s minecraft:creeper_spawn_egg{display:{Name:'{"translate":"item.etc.dummy","font":"minecraft:uniform","bold":true,"italic":false}'},CanPlaceOn:["minecraft:barrel"],HideFlags:111,EntityTag:{NoAI:1,Silent:1,Invulnerable:1,Tags:["kpq_player"]}}
 				}
 				
 				folder npc()
@@ -725,10 +721,8 @@ namespace party_quest() as virtual
 					{
 						func talk()
 						{
-							tellraw @s ""
-							execute if score #KPQ_STAGE temp matches 3.. run tellraw @s {"translate":"text.quest.party_quest.kpq.go_next","font":"minecraft:uniform"}
-							execute if score #KPQ_STAGE temp matches 2 run function ARG(_PATH)check_member
-							tellraw @s {"text":"==================","font":"minecraft:uniform"}
+							execute if score #KPQ_STAGE temp matches 5.. run tellraw @s ["\n",{"translate":"text.quest.party_quest.kpq.go_next","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+							execute if score #KPQ_STAGE temp matches 4 run function ARG(_PATH)check_member
 						}
 						
 						func check_member()
@@ -810,7 +804,7 @@ namespace party_quest() as virtual
 							execute as @e[type=#skill:enemy,tag=new_enemy,tag=kpq_mob] run function mob:setting/run
 							
 							scoreboard players set #KING_SLIME_EXIST temp 1
-							function quest:party_quest/stages/5/king_slime_skills/run
+							function quest:party_quest/kpq/stages/5/king_slime_skills/run
 							forceload remove -1530 1 -1490 21
 						}
 					}
@@ -903,9 +897,9 @@ namespace party_quest() as virtual
 					
 					func summon()
 					{
-						summon zombified_piglin ~ ~2 ~ {Motion:[0.26,0.5,0.15],Tags:["kpq_mob","new_enemy","summon_slime","lightning_weakness"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:6,hp_max:50,mp_max:35,avoidability:1,weapon_defense:5,magic_defense:10,kb:1,exp:10,height:2,move_frame:21,stand_frame:15,hurt_sound:3,die_sound:6},steal_loot:"skill:steal/0_9/slime",CustomModelData:10107,CustomPotionColor:-1,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.movement_speed",Name:"slow",Amount:0,Operation:0,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:4.2},{Name:"generic.movement_speed",Base:0.15},{Name:"generic.follow_range",Base:0.0}],DeathLootTable:"skill:mob/0_9/slime",Invulnerable:1b,OnGround:1b,AngerTime:2147483647,Team:"enemy",CustomName:'{"text":"2","font":"space:default"}',CustomNameVisible:1b}
-						summon zombified_piglin ~ ~2 ~ {Motion:[0.0,0.5,-0.3],Tags:["kpq_mob","new_enemy","summon_slime","lightning_weakness"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:6,hp_max:50,mp_max:35,avoidability:1,weapon_defense:5,magic_defense:10,kb:1,exp:10,height:2,move_frame:21,stand_frame:15,hurt_sound:3,die_sound:6},steal_loot:"skill:steal/0_9/slime",CustomModelData:10107,CustomPotionColor:-1,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.movement_speed",Name:"slow",Amount:0,Operation:0,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:4.2},{Name:"generic.movement_speed",Base:0.15},{Name:"generic.follow_range",Base:0.0}],DeathLootTable:"skill:mob/0_9/slime",Invulnerable:1b,OnGround:1b,AngerTime:2147483647,Team:"enemy",CustomName:'{"text":"2","font":"space:default"}',CustomNameVisible:1b}
-						summon zombified_piglin ~ ~2 ~ {Motion:[-0.26,0.5,0.15],Tags:["kpq_mob","new_enemy","summon_slime","lightning_weakness"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:6,hp_max:50,mp_max:35,avoidability:1,weapon_defense:5,magic_defense:10,kb:1,exp:10,height:2,move_frame:21,stand_frame:15,hurt_sound:3,die_sound:6},steal_loot:"skill:steal/0_9/slime",CustomModelData:10107,CustomPotionColor:-1,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.movement_speed",Name:"slow",Amount:0,Operation:0,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:4.2},{Name:"generic.movement_speed",Base:0.15},{Name:"generic.follow_range",Base:0.0}],DeathLootTable:"skill:mob/0_9/slime",Invulnerable:1b,OnGround:1b,AngerTime:2147483647,Team:"enemy",CustomName:'{"text":"2","font":"space:default"}',CustomNameVisible:1b}
+						summon zombified_piglin ~ ~2 ~ {Motion:[0.26,0.5,0.15],Tags:["kpq_mob","new_enemy","summon_slime","lightning_weakness"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:6,hp_max:50,mp_max:35,avoidability:1,weapon_defense:5,magic_defense:10,kb:1,exp:10,width:1,height:2,move_frame:21,stand_frame:15,hurt_sound:3,die_sound:6},steal_loot:"skill:steal/0_9/slime",CustomModelData:10107,CustomPotionColor:-1,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.movement_speed",Name:"slow",Amount:0,Operation:0,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:4.2},{Name:"generic.movement_speed",Base:0.15},{Name:"generic.follow_range",Base:0.0}],DeathLootTable:"skill:mob/0_9/slime",Invulnerable:1b,OnGround:1b,AngerTime:2147483647,Team:"enemy",CustomName:'{"text":"2","font":"space:default"}',CustomNameVisible:1b}
+						summon zombified_piglin ~ ~2 ~ {Motion:[0.0,0.5,-0.3],Tags:["kpq_mob","new_enemy","summon_slime","lightning_weakness"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:6,hp_max:50,mp_max:35,avoidability:1,weapon_defense:5,magic_defense:10,kb:1,exp:10,width:1,height:2,move_frame:21,stand_frame:15,hurt_sound:3,die_sound:6},steal_loot:"skill:steal/0_9/slime",CustomModelData:10107,CustomPotionColor:-1,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.movement_speed",Name:"slow",Amount:0,Operation:0,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:4.2},{Name:"generic.movement_speed",Base:0.15},{Name:"generic.follow_range",Base:0.0}],DeathLootTable:"skill:mob/0_9/slime",Invulnerable:1b,OnGround:1b,AngerTime:2147483647,Team:"enemy",CustomName:'{"text":"2","font":"space:default"}',CustomNameVisible:1b}
+						summon zombified_piglin ~ ~2 ~ {Motion:[-0.26,0.5,0.15],Tags:["kpq_mob","new_enemy","summon_slime","lightning_weakness"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:6,hp_max:50,mp_max:35,avoidability:1,weapon_defense:5,magic_defense:10,kb:1,exp:10,width:1,height:2,move_frame:21,stand_frame:15,hurt_sound:3,die_sound:6},steal_loot:"skill:steal/0_9/slime",CustomModelData:10107,CustomPotionColor:-1,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.movement_speed",Name:"slow",Amount:0,Operation:0,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:4.2},{Name:"generic.movement_speed",Base:0.15},{Name:"generic.follow_range",Base:0.0}],DeathLootTable:"skill:mob/0_9/slime",Invulnerable:1b,OnGround:1b,AngerTime:2147483647,Team:"enemy",CustomName:'{"text":"2","font":"space:default"}',CustomNameVisible:1b}
 						execute as @e[type=#skill:enemy,tag=new_enemy,tag=summon_slime] run function mob:setting/run
 					}
 					
@@ -955,28 +949,28 @@ namespace party_quest() as virtual
 						{
 							tp @s -1501 76 17
 							playsound minecraft:game.portal player @s ~ ~ ~ 1 1 1
-							execute positioned ~ ~-0.7 ~ run function skill:summon_font_effect/2101002effect
+							execute positioned -1501 76.3 17 run function skill:summon_font_effect/2101002effect
 						}
 						
 						func 2()
 						{
 							tp @s -1498 84 17
 							playsound minecraft:game.portal player @s ~ ~ ~ 1 1 1
-							execute positioned ~ ~-0.7 ~ run function skill:summon_font_effect/2101002effect
+							execute positioned -1498 84.3 17 run function skill:summon_font_effect/2101002effect
 						}
 						
 						func 3()
 						{
 							tp @s -1523 58 7
 							playsound minecraft:game.portal player @s ~ ~ ~ 1 1 1
-							execute positioned ~ ~-0.7 ~ run function skill:summon_font_effect/2101002effect
+							execute positioned -1523 58.3 7 run function skill:summon_font_effect/2101002effect
 						}
 						
 						func 4()
 						{
 							tp @s -1521 68 6
 							playsound minecraft:game.portal player @s ~ ~ ~ 1 1 1
-							execute positioned ~ ~-0.7 ~ run function skill:summon_font_effect/2101002effect
+							execute positioned -1521 68.3 6 run function skill:summon_font_effect/2101002effect
 						}
 					}
 					
@@ -997,11 +991,9 @@ namespace party_quest() as virtual
 						
 						func check()
 						{
-							tellraw @s ""
 							execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001008} 0
-							execute unless score #GLOBAL temp matches 10 run tellraw @s {"translate":"text.quest.party_quest.kpq.stage5.require_pass","font":"minecraft:uniform"}
+							execute unless score #GLOBAL temp matches 10 run tellraw @s ["\n",{"translate":"text.quest.party_quest.kpq.stage5.require_pass","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 							execute if score #GLOBAL temp matches 10 run function ARG(_PATH)pass
-							tellraw @s {"text":"==================","font":"minecraft:uniform"}
 						}
 						
 						func pass()
@@ -1010,9 +1002,9 @@ namespace party_quest() as virtual
 							scoreboard players add #KPQ_STAGE temp 1
 							scoreboard players set #KPQ_S6_LOADED temp 1
 							
-							forceload add -1831 30 2
+							forceload add -1831 2
 							summon minecraft:area_effect_cloud -1831 30 2 {Duration:2147483647,Tags:["mob_spawner","kpq_mob_spawner"]}
-							forceload remove -1831 30 2
+							forceload remove -1831 2
 							
 							setblock -1526 103 13 minecraft:tripwire[attached=false,disarmed=false,east=false,north=false,south=false,west=false]
 							setblock -1526 103 11 minecraft:tripwire[attached=true,disarmed=false,east=false,north=false,south=false,west=false]
