@@ -511,10 +511,10 @@ namespace party_quest() as virtual
 						
 						func check_rope()
 						{
-							execute positioned -515.0 49.0 3.0 if entity @s[dx=0,dy=5,dz=0] run function quest:party_quest/add_combination/1
-							execute positioned -520.0 42.0 7.0 if entity @s[dx=0,dy=7,dz=0] run function quest:party_quest/add_combination/2
-							execute positioned -528.0 42.0 -8.0 if entity @s[dx=0,dy=7,dz=0] run function quest:party_quest/add_combination/3
-							execute positioned -533.0 49.0 -4.0 if entity @s[dx=0,dy=6,dz=0] run function quest:party_quest/add_combination/4
+							execute positioned -516.0 49.0 2.0 if entity @s[dx=2,dy=5,dz=2] run function quest:party_quest/add_combination/1
+							execute positioned -521.0 42.0 6.0 if entity @s[dx=2,dy=7,dz=2] run function quest:party_quest/add_combination/2
+							execute positioned -529.0 42.0 -9.0 if entity @s[dx=2,dy=7,dz=2] run function quest:party_quest/add_combination/3
+							execute positioned -534.0 49.0 -5.0 if entity @s[dx=2,dy=6,dz=2] run function quest:party_quest/add_combination/4
 						}
 						
 						func check_amount()
