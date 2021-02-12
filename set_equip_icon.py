@@ -4,7 +4,7 @@ from PIL import Image, ImageDraw
 font = []
 back_font = []
 equip_type = "weapon"
-font_index = int("0xB0cc", 16)
+font_index = int("0xB1a6", 16)
 
 if not os.path.isdir(f"MapleCraft resource pack/assets/ui/textures/font/window/equip/icon/{equip_type}"):
 	os.mkdir(f"MapleCraft resource pack/assets/ui/textures/font/window/equip/icon/{equip_type}")
