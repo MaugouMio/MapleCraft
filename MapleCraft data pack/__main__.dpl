@@ -582,8 +582,10 @@ namespace main()
 		{
 			func talk()
 			{
-				execute if score @s tutorial matches 8 run tellraw @s ["\n",{"translate":"text.quest.tutorial.bye","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
-				execute if score @s tutorial matches 7 run function ARG(_PATH)skill_complete
+				execute if score @s tutorial matches 10 run tellraw @s ["\n",{"translate":"text.quest.tutorial.bye","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+				execute if score @s tutorial matches 9 run function ARG(_PATH)equip_check
+				execute if score @s tutorial matches 8 run function ARG(_PATH)equip
+				execute if score @s tutorial matches 7 at @s run function ARG(_PATH)skill_complete
 				execute if score @s tutorial matches 6 run tellraw @s ["\n",{"translate":"text.quest.tutorial.skill_teach","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 				execute if score @s tutorial matches 5 run function ARG(_PATH)attack_check
 				execute if score @s tutorial matches 4 run function ARG(_PATH)attack
@@ -616,7 +618,7 @@ namespace main()
 			
 			func apple_complete()
 			{
-				scoreboard players set #EXP_GAIN temp 5
+				scoreboard players set #EXP_GAIN temp 48
 				scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
 				function quest:get_exp
 				function quest:complete_effect
@@ -641,7 +643,7 @@ namespace main()
 			func attack_complete()
 			{
 				tellraw @s {"translate":"text.quest.item_lost","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4000083"}]}
-				scoreboard players set #EXP_GAIN temp 10
+				scoreboard players set #EXP_GAIN temp 57
 				scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
 				function quest:get_exp
 				function quest:complete_effect
@@ -652,8 +654,36 @@ namespace main()
 			
 			func skill_complete()
 			{
+				scoreboard players set #EXP_GAIN temp 92
+				scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
+				function quest:get_exp
+				function quest:complete_effect
+				
 				tellraw @s ["\n",{"translate":"text.quest.tutorial.skill_complete","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 				scoreboard players set @s tutorial 8
+			}
+			
+			func equip()
+			{
+				tellraw @s {"translate":"text.quest.item_gain","font":"minecraft:uniform","color":"gray","with":[{"translate":"weapon.dagger.5"}]}
+				give @s minecraft:warped_fungus_on_a_stick{level:5,job:[1,1,1,1,1,1],stats:[0,0,0,0],equip_type:23,CustomModelData:10076,weapon_attack:20,action_time:-1,icon:['"\\uB1a6"','"\\uB1a7"'],scroll_left:7,price:250,original_name:'{"translate":"weapon.dagger.5","font":"minecraft:uniform","bold":true,"italic":false}',display:{Name:'{"translate":"weapon.dagger.5","font":"minecraft:uniform","bold":true,"italic":false}',Lore:['{"translate":"item.notice.require.level","font":"minecraft:uniform","with":["5"],"color":"white","italic":false}','{"translate":"item.notice.require.str","font":"minecraft:uniform","with":["0"],"color":"white","italic":false}','{"translate":"item.notice.require.dex","font":"minecraft:uniform","with":["0"],"color":"white","italic":false}','{"translate":"item.notice.require.int","font":"minecraft:uniform","with":["0"],"color":"white","italic":false}','{"translate":"item.notice.require.luk","font":"minecraft:uniform","with":["0"],"color":"white","italic":false}','{"text":"02468a","font":"ui:equip","color":"white","italic":false}','{"text":"--------------------------------------","font":"minecraft:uniform","color":"white","italic":false}','{"translate":"item.notice.weapon_category","font":"minecraft:uniform","color":"white","italic":false,"with":[{"translate":"item.notice.weapon_category.dagger","font":"minecraft:uniform","color":"white","italic":false}]}','{"translate":"item.notice.attack_speed","font":"minecraft:uniform","color":"white","italic":false,"with":[{"translate":"item.notice.attack_speed.fast","font":"minecraft:uniform","color":"white","italic":false}]}','{"translate":"item.notice.weapon_attack","font":"minecraft:uniform","color":"white","italic":false,"with":[{"text":"20","font":"minecraft:uniform","color":"white","italic":false}]}','{"translate":"item.notice.scroll","font":"minecraft:uniform","color":"white","italic":false,"with":[7]}']},HideFlags:127,Unbreakable:1}
+				
+				tellraw @s ["\n",{"translate":"text.quest.tutorial.equip","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+				scoreboard players set @s tutorial 9
+			}
+			
+			func equip_check()
+			{
+				execute unless score @s weapon_type matches 23 run tellraw @s ["\n",{"translate":"text.quest.tutorial.equip_teach","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+				execute if score @s weapon_type matches 23 at @s run function ARG(_PATH)equip_complete
+			}
+			
+			func equip_complete()
+			{
+				function quest:complete_effect
+				
+				tellraw @s ["\n",{"translate":"text.quest.tutorial.equip_complete","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+				scoreboard players set @s tutorial 10
 			}
 		}
 		
