@@ -252,7 +252,7 @@ namespace party_quest() as virtual
 		func leave_confirm()
 		{
 			tellraw @s ["\n",{"translate":"text.quest.party_quest.kpq.leave_confirm","font":"minecraft:uniform"}]
-			tellraw @s {"translate":"text.answer.yes","font":"minecraft:uniform","color":"yellow","bold":true,"clickEvent":{"action":"run_command","value":"/trigger command set 173"}}
+			tellraw @s [{"text":"> ","color":"gray","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 173"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},{"translate":"text.answer.yes","color":"yellow","bold":true}]
 			tellraw @s {"text":"==================","font":"minecraft:uniform"}
 		}
 		
@@ -1024,7 +1024,7 @@ namespace party_quest() as virtual
 							
 							clear @s minecraft:stick{CustomModelData:4001008}
 							tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":["10",{"translate":"item.etc.4001008"}]}
-							tellraw @s ["\n",{"translate":"text.quest.party_quest.kpq.stage5.pass","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+							tellraw @a[scores={playing_game=1}] ["\n",{"translate":"text.quest.party_quest.kpq.stage5.pass","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 						}
 					}
 				}
