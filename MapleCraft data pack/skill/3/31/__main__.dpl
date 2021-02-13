@@ -782,7 +782,7 @@ namespace 31() as virtual
 				data modify storage skill:main new_queue[-1].attacker set from entity @s ArmorItems[3].tag.bullet_list[0].damage_info.attacker
 				data modify storage skill:main new_queue[-1].attacker_id set from entity @s ArmorItems[3].tag.bullet_list[0].damage_info.attacker_id
 				data modify storage skill:main new_queue[-1].hit_effect set from entity @s ArmorItems[3].tag.bullet_list[0].damage_info.hit_effect
-				data modify storage skill:main new_queue[-1].knock_back set from storage skill:main damage_info.knock_back
+				data modify storage skill:main new_queue[-1].knock_back set from entity @s ArmorItems[3].tag.bullet_list[0].damage_info.knock_back
 				
 				scoreboard players add @s queuing_effect 1
 			}
