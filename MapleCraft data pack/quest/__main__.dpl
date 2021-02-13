@@ -28,7 +28,7 @@ namespace quest()
 	{
 		execute if score @s level matches ..199 run scoreboard players operation @s exp += #EXP_GAIN temp
 		tellraw @s {"translate":"text.quest.exp_gain","font":"minecraft:uniform","color":"gray","with":[{"score":{"objective":"temp","name":"#EXP_GAIN"}}]}
-		execute if score @s exp > @s exp_max run function stat:exp/level_up
+		execute if score @s exp >= @s exp_max run function stat:exp/level_up
 	}
 	
 	func complete_effect()
