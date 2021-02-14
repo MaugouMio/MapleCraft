@@ -589,8 +589,7 @@ namespace main()
 				execute if score @s tutorial matches 6 run tellraw @s ["\n",{"translate":"text.quest.tutorial.skill_teach","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 				execute if score @s tutorial matches 5 run function ARG(_PATH)attack_check
 				execute if score @s tutorial matches 4 run function ARG(_PATH)attack
-				execute if score @s tutorial matches 3 at @s run function ARG(_PATH)apple_complete
-				execute if score @s tutorial matches 2 run tellraw @s ["\n",{"translate":"text.quest.tutorial.apple_teach","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+				execute if score @s tutorial matches 2 run function ARG(_PATH)apple_check
 				execute if score @s tutorial matches 1 run function ARG(_PATH)apple
 				execute unless score @s tutorial matches 1.. run function ARG(_PATH)greet
 				advancement revoke @s only main:npc/roger
@@ -614,6 +613,12 @@ namespace main()
 				
 				tellraw @s ["\n",{"translate":"text.quest.tutorial.apple","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 				scoreboard players set @s tutorial 2
+			}
+			
+			func apple_check()
+			{
+				execute unless score @s meso matches ..1000000 run tellraw @s ["\n",{"translate":"text.quest.tutorial.apple_teach","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+				execute if score @s meso matches ..1000000 at @s run function ARG(_PATH)apple_complete
 			}
 			
 			func apple_complete()
@@ -776,6 +781,11 @@ namespace main()
 			function skill:player/reset_all_skill
 			scoreboard players set @s skill_point_beg 6
 			scoreboard players set @s stat_point 0
+			scoreboard players set @s skill_win_tab 0
+			scoreboard players set @s skill_win_page1 0
+			scoreboard players set @s skill_win_page2 0
+			scoreboard players set @s skill_win_page3 0
+			scoreboard players set @s skill_win_page4 0
 			
 			execute if entity @s[tag=cap_equipped] run function item:use/equip/cap/remove
 			execute if entity @s[tag=cloth_equipped] run function item:use/equip/cloth/remove
