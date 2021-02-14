@@ -177,6 +177,12 @@ namespace party_quest() as virtual
 			execute if score #KPQ_MEMBER temp matches 0 run function ARG(_PATH)reset
 		}
 		
+		func level_check()
+		{
+			execute unless score @s level matches 21.. run tellraw @s ["\n",{"translate":"text.quest.party_quest.kpq.menu.enter.req_level","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+			execute if score @s level matches 21.. run function ARG(_PATH)start_check
+		}
+		
 		func start_check()
 		{
 			execute if score #KPQ_STAGE temp matches 1.. run tellraw @s ["\n",{"translate":"text.quest.party_quest.kpq.menu.enter.fail","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
