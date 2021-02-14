@@ -177,6 +177,12 @@ namespace party_quest() as virtual
 			execute if score #KPQ_MEMBER temp matches 0 run function ARG(_PATH)reset
 		}
 		
+		func level_check()
+		{
+			execute unless score @s level matches 21.. run tellraw @s ["\n",{"translate":"text.quest.party_quest.kpq.menu.enter.req_level","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+			execute if score @s level matches 21.. run function ARG(_PATH)start_check
+		}
+		
 		func start_check()
 		{
 			execute if score #KPQ_STAGE temp matches 1.. run tellraw @s ["\n",{"translate":"text.quest.party_quest.kpq.menu.enter.fail","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
@@ -954,12 +960,22 @@ namespace party_quest() as virtual
 					{
 						func 1()
 						{
+							execute positioned -1498.0 84.0 17.0 if entity @s[dx=0,dy=1,dz=0] run function ARG(_PATH)1_tp
+						}
+						
+						func 1_tp()
+						{
 							tp @s -1501 76 17
 							playsound minecraft:game.portal player @s ~ ~ ~ 1 1 1
 							execute positioned -1501 76.3 17 run function skill:summon_font_effect/2101002effect
 						}
 						
 						func 2()
+						{
+							execute positioned -1501.0 76.0 17.0 if entity @s[dx=0,dy=1,dz=0] run function ARG(_PATH)2_tp
+						}
+						
+						func 2_tp()
 						{
 							tp @s -1498 84 17
 							playsound minecraft:game.portal player @s ~ ~ ~ 1 1 1
@@ -968,12 +984,22 @@ namespace party_quest() as virtual
 						
 						func 3()
 						{
+							execute positioned -1521.0 68.0 6.0 if entity @s[dx=0,dy=1,dz=0] run function ARG(_PATH)3_tp
+						}
+						
+						func 3_tp()
+						{
 							tp @s -1523 58 7
 							playsound minecraft:game.portal player @s ~ ~ ~ 1 1 1
 							execute positioned -1523 58.3 7 run function skill:summon_font_effect/2101002effect
 						}
 						
 						func 4()
+						{
+							execute positioned -1523.0 58.0 7.0 if entity @s[dx=0,dy=1,dz=0] run function ARG(_PATH)4_tp
+						}
+						
+						func 4_tp()
 						{
 							tp @s -1521 68 6
 							playsound minecraft:game.portal player @s ~ ~ ~ 1 1 1
