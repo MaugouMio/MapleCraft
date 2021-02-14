@@ -954,12 +954,22 @@ namespace party_quest() as virtual
 					{
 						func 1()
 						{
+							execute positioned -1498.0 84.0 17.0 if entity @s[dx=0,dy=1,dz=0] run function ARG(_PATH)1_tp
+						}
+						
+						func 1_tp()
+						{
 							tp @s -1501 76 17
 							playsound minecraft:game.portal player @s ~ ~ ~ 1 1 1
 							execute positioned -1501 76.3 17 run function skill:summon_font_effect/2101002effect
 						}
 						
 						func 2()
+						{
+							execute positioned -1501.0 76.0 17.0 if entity @s[dx=0,dy=1,dz=0] run function ARG(_PATH)2_tp
+						}
+						
+						func 2_tp()
 						{
 							tp @s -1498 84 17
 							playsound minecraft:game.portal player @s ~ ~ ~ 1 1 1
@@ -968,12 +978,22 @@ namespace party_quest() as virtual
 						
 						func 3()
 						{
+							execute positioned -1521.0 68.0 6.0 if entity @s[dx=0,dy=1,dz=0] run function ARG(_PATH)3_tp
+						}
+						
+						func 3_tp()
+						{
 							tp @s -1523 58 7
 							playsound minecraft:game.portal player @s ~ ~ ~ 1 1 1
 							execute positioned -1523 58.3 7 run function skill:summon_font_effect/2101002effect
 						}
 						
 						func 4()
+						{
+							execute positioned -1523.0 58.0 7.0 if entity @s[dx=0,dy=1,dz=0] run function ARG(_PATH)4_tp
+						}
+						
+						func 4_tp()
 						{
 							tp @s -1521 68 6
 							playsound minecraft:game.portal player @s ~ ~ ~ 1 1 1
