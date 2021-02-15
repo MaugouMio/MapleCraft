@@ -294,9 +294,8 @@ namespace 41() as virtual
 				execute unless score @s action_time matches 1.. run effect clear @s minecraft:jump_boost
 				scoreboard players operation @s jump_buff_num = #HASTE_LEVEL temp
 				scoreboard players operation @s jump_buff_num /= #10 const
-				execute if score @s jump_buff_num matches 0 run effect give @s minecraft:jump_boost 1000000 0 true
-				execute if score @s jump_buff_num matches 1 run effect give @s minecraft:jump_boost 1000000 1 true
-				execute if score @s jump_buff_num matches 2 run effect give @s minecraft:jump_boost 1000000 2 true
+				execute if score @s jump_buff_num matches 1 run effect give @s minecraft:jump_boost 1000000 0 true
+				execute if score @s jump_buff_num matches 2 run effect give @s minecraft:jump_boost 1000000 1 true
 				
 				# set this buff values
 				scoreboard players operation @s haste_buff_time = #HASTE_TIME temp

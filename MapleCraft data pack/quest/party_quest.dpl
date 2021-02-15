@@ -344,7 +344,7 @@ namespace party_quest() as virtual
 				func portal()
 				{
 					execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001008}
-					execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","font":"minecraft:uniform","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"translate":"item.etc.4001008"}]}
+					execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4001008"}]}
 					
 					scoreboard players set #KPQ_S2_LOADED temp 1
 					scoreboard players add @s game_stage 1
