@@ -671,8 +671,15 @@ namespace skill()
 					
 					func invisible_check()
 					{
-						execute unless score @s invis_buff_time matches 1.. run function ARG(_PATH)weapon_check
+						execute unless score @s invis_buff_time matches 1.. run function ARG(_PATH)rope_check
 						execute if score @s invis_buff_time matches 1.. run function skill:4/0/0/1003/cancel
+					}
+					
+					func rope_check()
+					{
+						scoreboard players set #GLOBAL temp 0
+						execute if block ~0.3 ~-0.4 ~0.3 #minecraft:climbable if block ~0.3 ~-0.4 ~-0.3 #minecraft:climbable if block ~-0.3 ~-0.4 ~0.3 #minecraft:climbable if block ~-0.3 ~-0.4 ~-0.3 #minecraft:climbable run scoreboard players set #GLOBAL temp 1
+						execute if score #GLOBAL temp matches 0 unless block ~0.3 ~ ~0.3 #minecraft:climbable unless block ~0.3 ~ ~-0.3 #minecraft:climbable unless block ~-0.3 ~ ~0.3 #minecraft:climbable unless block ~-0.3 ~ ~-0.3 #minecraft:climbable run function ARG(_PATH)weapon_check
 					}
 				
 					func weapon_check()
