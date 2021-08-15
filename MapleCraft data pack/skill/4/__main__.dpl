@@ -496,7 +496,7 @@ namespace 4() as virtual
 			{
 				func check()
 				{
-					execute unless score @s action_time matches 0.. if score @s 4001334_level matches 1.. run function ARG(_PATH)rope_check
+					execute unless score @s action_time matches 0.. if score @s 4001334_level matches 1.. unless score @s invis_buff_time matches 1.. run function ARG(_PATH)rope_check
 				}
 				
 				func rope_check()
@@ -637,7 +637,7 @@ namespace 4() as virtual
 			{
 				func check()
 				{
-					execute unless score @s action_time matches 0.. if score @s 4001344_level matches 1.. run function ARG(_PATH)rope_check
+					execute unless score @s action_time matches 0.. if score @s 4001344_level matches 1.. unless score @s invis_buff_time matches 1.. run function ARG(_PATH)rope_check
 				}
 				
 				func rope_check()

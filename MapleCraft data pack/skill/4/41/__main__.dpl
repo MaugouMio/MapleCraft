@@ -240,7 +240,7 @@ namespace 41() as virtual
 		{
 			func check()
 			{
-				execute unless score @s action_time matches 1.. if score @s 4101004_level matches 1.. run function ARG(_PATH)other_check
+				execute unless score @s action_time matches 1.. if score @s 4101004_level matches 1.. unless score @s invis_buff_time matches 1.. run function ARG(_PATH)other_check
 			}
 			
 			func other_check()

@@ -38,6 +38,7 @@ namespace mob()
 			data remove entity @s ArmorItems[3].tag.info
 			
 			attribute @s minecraft:generic.follow_range base set 10.0
+			attribute @s[tag=boss] minecraft:generic.follow_range base set 20.0
 			scoreboard players set @s status 0
 			scoreboard players set @s hit_distance 0
 			scoreboard players set @s[tag=!no_jump] rand_jump 60
