@@ -184,6 +184,7 @@ namespace main()
 		execute as @a unless score @s command matches 0 run function ARG(_PATH)command/check
 		execute as @a[scores={login=1..}] run function ARG(_PATH)login_reset
 		execute as @a[scores={fall=1..}] run function ARG(_PATH)fall/check
+		execute as @a at @s if block ~ ~ ~ minecraft:scaffolding run function ARG(_PATH)rope/check
 		
 		function skill:main/run
 		# function number_display:main
@@ -238,6 +239,21 @@ namespace main()
 			
 			scoreboard players set @s hurt_time 10
 			effect give @s minecraft:instant_damage 1 0 true
+		}
+	}
+	
+	folder rope()
+	{
+		func check()
+		{
+			execute unless predicate main:sprinting align xz positioned ~0.5 ~ ~0.5 unless entity @s[distance=..0.3] run function ARG(_PATH)climb
+			# execute if predicate main:sprinting run function ARG(_PATH)jump
+		}
+		
+		func climb()
+		{
+			tp @s ~ ~ ~
+			tp @s @s
 		}
 	}
 	
