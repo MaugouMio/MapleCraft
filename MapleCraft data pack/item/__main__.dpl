@@ -36,13 +36,13 @@ namespace use_equip_template(equip) as virtual
 		
 		data modify storage item:main equip set from entity @s SelectedItem.tag
 		tellraw @s {"translate":"item.notice.equip_item","font":"minecraft:uniform","with":[{"nbt":"equip.display.Name","storage":"item:main","interpret":true}]}
-		replaceitem entity @s weapon.mainhand minecraft:air
+		item replace entity @s weapon.mainhand with minecraft:air
 		
 		# replace original ARG(equip)
 		execute if entity @s[tag=ARG(equip)_equipped] run function ARG(_PATH)remove
 		
 		# equip new ARG(equip)
-		replaceitem block 250 1 0 container.0 minecraft:potion
+		item replace block 250 1 0 container.0 with minecraft:potion
 		data modify block 250 1 0 Items[0].tag set from entity @s Inventory[{Slot:103b}].tag
 		data modify block 250 1 0 Items[0].tag.ARG(equip) set from storage item:main equip
 		
@@ -54,7 +54,7 @@ namespace use_equip_template(equip) as virtual
 	
 	func remove()
 	{
-		replaceitem block 250 1 0 container.0 minecraft:warped_fungus_on_a_stick
+		item replace block 250 1 0 container.0 with minecraft:warped_fungus_on_a_stick
 		data modify block 250 1 0 Items[0].tag set from entity @s Inventory[{Slot:103b}].tag.ARG(equip)
 		loot give @s mine 250 1 0 minecraft:air{modify_player:1b}
 		
@@ -322,7 +322,7 @@ namespace item()
 				execute store result score #GLOBAL temp run data get block 250 1 0 Items[0].tag.speed
 				
 				# reset speed attribute modifier
-				replaceitem block 250 1 0 container.0 minecraft:potion
+				item replace block 250 1 0 container.0 with minecraft:potion
 				data modify block 250 1 0 Items[0].tag set from entity @s Inventory[{Slot:103b}].tag
 				execute store result score #GLOBAL temp run scoreboard players operation @s speed -= #GLOBAL temp
 				scoreboard players operation #GLOBAL temp < #40 const
@@ -430,14 +430,14 @@ namespace item()
 					
 					data modify storage item:main equip set from entity @s SelectedItem.tag
 					tellraw @s {"translate":"item.notice.equip_item","font":"minecraft:uniform","with":[{"nbt":"equip.display.Name","storage":"item:main","interpret":true}]}
-					replaceitem entity @s weapon.mainhand minecraft:air
+					item replace entity @s weapon.mainhand with minecraft:air
 					
 					# replace original equip
 					execute if score #EQUIP_TYPE temp matches 33 if entity @s[tag=cloth_equipped] run function ARG(__PATH)cloth/remove
 					execute unless score #EQUIP_TYPE temp matches 33 if entity @s[tag=pants_equipped] run function ARG(_PATH)remove
 					
 					# equip new pants
-					replaceitem block 250 1 0 container.0 minecraft:potion
+					item replace block 250 1 0 container.0 with minecraft:potion
 					data modify block 250 1 0 Items[0].tag set from entity @s Inventory[{Slot:103b}].tag
 					data modify block 250 1 0 Items[0].tag.pants set from storage item:main equip
 					
@@ -495,14 +495,14 @@ namespace item()
 					
 					data modify storage item:main equip set from entity @s SelectedItem.tag
 					tellraw @s {"translate":"item.notice.equip_item","font":"minecraft:uniform","with":[{"nbt":"equip.display.Name","storage":"item:main","interpret":true}]}
-					replaceitem entity @s weapon.mainhand minecraft:air
+					item replace entity @s weapon.mainhand with minecraft:air
 					
 					# replace original equips
 					execute if entity @s[tag=cloth_equipped] run function ARG(__PATH)cloth/remove
 					execute if entity @s[tag=pants_equipped] run function ARG(__PATH)pants/remove
 					
 					# equip new ARG(equip)
-					replaceitem block 250 1 0 container.0 minecraft:potion
+					item replace block 250 1 0 container.0 with minecraft:potion
 					data modify block 250 1 0 Items[0].tag set from entity @s Inventory[{Slot:103b}].tag
 					data modify block 250 1 0 Items[0].tag.cloth set from storage item:main equip
 					
@@ -562,7 +562,7 @@ namespace item()
 					
 					data modify storage item:main equip set from entity @s SelectedItem.tag
 					tellraw @s {"translate":"item.notice.equip_item","font":"minecraft:uniform","with":[{"nbt":"equip.display.Name","storage":"item:main","interpret":true}]}
-					replaceitem entity @s weapon.mainhand minecraft:air
+					item replace entity @s weapon.mainhand with minecraft:air
 					
 					# replace original equip
 					scoreboard players operation #GLOBAL temp = @s weapon_type
@@ -571,7 +571,7 @@ namespace item()
 					execute if entity @s[tag=shield_equipped] run function ARG(_PATH)remove
 					
 					# equip new shield
-					replaceitem block 250 1 0 container.0 minecraft:potion
+					item replace block 250 1 0 container.0 with minecraft:potion
 					data modify block 250 1 0 Items[0].tag set from entity @s Inventory[{Slot:103b}].tag
 					data modify block 250 1 0 Items[0].tag.shield set from storage item:main equip
 					
@@ -641,7 +641,7 @@ namespace item()
 				execute if score #GLOBAL temp matches 0 if entity @s[tag=shield_equipped] run function ARG(__PATH)equip/shield/remove
 				
 				# give weapon for display
-				replaceitem block 250 1 0 container.0 minecraft:diamond_axe
+				item replace block 250 1 0 container.0 with minecraft:diamond_axe
 				data modify block 250 1 0 Items[0].tag set from entity @s SelectedItem.tag
 				data remove block 250 1 0 Items[0].tag.price
 				data modify block 250 1 0 Items[0].tag.no_trade set value 1b
@@ -650,7 +650,7 @@ namespace item()
 				loot replace entity @s weapon.mainhand 1 mine 250 1 0 minecraft:air{modify_player:1b}
 				
 				# equip new weapon
-				replaceitem block 250 1 0 container.0 minecraft:potion
+				item replace block 250 1 0 container.0 with minecraft:potion
 				data modify block 250 1 0 Items[0].tag set from entity @s Inventory[{Slot:103b}].tag
 				data modify block 250 1 0 Items[0].tag.weapon set from storage item:main equip
 				
@@ -669,7 +669,7 @@ namespace item()
 				# clear display weapon
 				clear @s diamond_axe
 				
-				replaceitem block 250 1 0 container.0 minecraft:warped_fungus_on_a_stick
+				item replace block 250 1 0 container.0 with minecraft:warped_fungus_on_a_stick
 				data modify block 250 1 0 Items[0].tag set from entity @s Inventory[{Slot:103b}].tag.weapon
 				loot give @s mine 250 1 0 minecraft:air{modify_player:1b}
 				
@@ -705,7 +705,7 @@ namespace item()
 				
 				func set_chance()
 				{
-					replaceitem block 250 1 0 container.0 minecraft:warped_fungus_on_a_stick
+					item replace block 250 1 0 container.0 with minecraft:warped_fungus_on_a_stick
 					data modify block 250 1 0 Items[0].tag set from entity @s Inventory[{Slot:-106b}].tag
 					
 					execute store result score #SCROLL_CHANCE temp run data get entity @s SelectedItem.tag.chance
@@ -714,7 +714,7 @@ namespace item()
 					execute unless score #RAND_RESULT temp < #SCROLL_CHANCE temp run function ARG(_PATH)fail
 					
 					loot replace entity @s weapon.offhand 1 mine 250 1 0 minecraft:air{modify_player:1b}
-					replaceitem entity @s weapon.mainhand minecraft:air
+					item replace entity @s weapon.mainhand with minecraft:air
 				}
 				
 				func success()
@@ -1032,7 +1032,7 @@ namespace item()
 					tellraw @s {"translate":"item.notice.used_weapon","font":"minecraft:uniform","with":[{"nbt":"SelectedItem.tag.display.Name","entity":"@s","interpret":true},{"score":{"name":"#GLOBAL","objective":"bullet_amount"}}]}
 					
 					playsound minecraft:item.equip player @s
-					replaceitem entity @s weapon.mainhand minecraft:air
+					item replace entity @s weapon.mainhand with minecraft:air
 					execute if score @s bullet_item matches 1.. run function ARG(_PATH)restore/check
 					
 					scoreboard players operation @s bullet_damage = #GLOBAL bullet_damage
@@ -1063,13 +1063,13 @@ namespace item()
 					func throwing_star()
 					{
 						# nbt is stored in google cloud sheet
-						execute if score @s bullet_item matches 1 run replaceitem block 250 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:1,attack:15,amount:500,bullet_model:4000,max_amount:500,unit_price:0.8f,display:{Name:'{"translate":"item.consume.2070000","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["15"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["500"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
-						execute if score @s bullet_item matches 2 run replaceitem block 250 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:2,attack:17,amount:500,bullet_model:4001,max_amount:500,unit_price:0.7f,display:{Name:'{"translate":"item.consume.2070001","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["17"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["500"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
-						execute if score @s bullet_item matches 3 run replaceitem block 250 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:3,attack:19,amount:700,bullet_model:4002,max_amount:700,unit_price:0.6f,display:{Name:'{"translate":"item.consume.2070002","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["19"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["700"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
-						execute if score @s bullet_item matches 4 run replaceitem block 250 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:4,attack:21,amount:500,bullet_model:4003,max_amount:500,unit_price:0.6f,display:{Name:'{"translate":"item.consume.2070003","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["21"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["500"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
-						execute if score @s bullet_item matches 5 run replaceitem block 250 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:5,attack:23,amount:1000,bullet_model:4004,max_amount:1000,unit_price:0.5f,display:{Name:'{"translate":"item.consume.2070004","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["23"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["1000"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
-						execute if score @s bullet_item matches 6 run replaceitem block 250 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:6,attack:25,amount:1000,bullet_model:4005,max_amount:1000,unit_price:0.4f,display:{Name:'{"translate":"item.consume.2070005","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["25"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["1000"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
-						execute if score @s bullet_item matches 7 run replaceitem block 250 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:7,attack:27,amount:800,bullet_model:4006,max_amount:800,unit_price:0.3f,display:{Name:'{"translate":"item.consume.2070006","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["27"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["800"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
+						execute if score @s bullet_item matches 1 run item replace block 250 1 0 container.0 with minecraft:warped_fungus_on_a_stick{CustomModelData:1,attack:15,amount:500,bullet_model:4000,max_amount:500,unit_price:0.8f,display:{Name:'{"translate":"item.consume.2070000","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["15"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["500"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
+						execute if score @s bullet_item matches 2 run item replace block 250 1 0 container.0 with minecraft:warped_fungus_on_a_stick{CustomModelData:2,attack:17,amount:500,bullet_model:4001,max_amount:500,unit_price:0.7f,display:{Name:'{"translate":"item.consume.2070001","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["17"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["500"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
+						execute if score @s bullet_item matches 3 run item replace block 250 1 0 container.0 with minecraft:warped_fungus_on_a_stick{CustomModelData:3,attack:19,amount:700,bullet_model:4002,max_amount:700,unit_price:0.6f,display:{Name:'{"translate":"item.consume.2070002","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["19"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["700"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
+						execute if score @s bullet_item matches 4 run item replace block 250 1 0 container.0 with minecraft:warped_fungus_on_a_stick{CustomModelData:4,attack:21,amount:500,bullet_model:4003,max_amount:500,unit_price:0.6f,display:{Name:'{"translate":"item.consume.2070003","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["21"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["500"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
+						execute if score @s bullet_item matches 5 run item replace block 250 1 0 container.0 with minecraft:warped_fungus_on_a_stick{CustomModelData:5,attack:23,amount:1000,bullet_model:4004,max_amount:1000,unit_price:0.5f,display:{Name:'{"translate":"item.consume.2070004","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["23"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["1000"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
+						execute if score @s bullet_item matches 6 run item replace block 250 1 0 container.0 with minecraft:warped_fungus_on_a_stick{CustomModelData:6,attack:25,amount:1000,bullet_model:4005,max_amount:1000,unit_price:0.4f,display:{Name:'{"translate":"item.consume.2070005","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["25"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["1000"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
+						execute if score @s bullet_item matches 7 run item replace block 250 1 0 container.0 with minecraft:warped_fungus_on_a_stick{CustomModelData:7,attack:27,amount:800,bullet_model:4006,max_amount:800,unit_price:0.3f,display:{Name:'{"translate":"item.consume.2070006","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["27"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["800"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
 						
 						function ARG(_PATH)give
 					}
@@ -1077,11 +1077,11 @@ namespace item()
 					func arrow_bow()
 					{
 						# nbt is stored in google cloud sheet
-						execute if score @s bullet_item matches 21 run replaceitem block 250 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:21,attack:0,amount:2000,bullet_model:3101,display:{Name:'{"translate":"item.consume.2060000","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.weapon.left","with":["2000"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
-						execute if score @s bullet_item matches 22 run replaceitem block 250 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:22,attack:1,amount:2000,bullet_model:3102,display:{Name:'{"translate":"item.consume.2060001","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["1"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["2000"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
-						execute if score @s bullet_item matches 23 run replaceitem block 250 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:23,attack:2,amount:2000,bullet_model:3103,display:{Name:'{"translate":"item.consume.2060002","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["2"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["2000"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
-						execute if score @s bullet_item matches 24 run replaceitem block 250 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:24,attack:4,amount:2000,bullet_model:3104,display:{Name:'{"translate":"item.consume.2060003","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["4"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["2000"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
-						execute if score @s bullet_item matches 25 run replaceitem block 250 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:25,attack:4,amount:2000,bullet_model:3105,display:{Name:'{"translate":"item.consume.2060004","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["4"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["2000"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
+						execute if score @s bullet_item matches 21 run item replace block 250 1 0 container.0 with minecraft:warped_fungus_on_a_stick{CustomModelData:21,attack:0,amount:2000,bullet_model:3101,display:{Name:'{"translate":"item.consume.2060000","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.weapon.left","with":["2000"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
+						execute if score @s bullet_item matches 22 run item replace block 250 1 0 container.0 with minecraft:warped_fungus_on_a_stick{CustomModelData:22,attack:1,amount:2000,bullet_model:3102,display:{Name:'{"translate":"item.consume.2060001","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["1"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["2000"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
+						execute if score @s bullet_item matches 23 run item replace block 250 1 0 container.0 with minecraft:warped_fungus_on_a_stick{CustomModelData:23,attack:2,amount:2000,bullet_model:3103,display:{Name:'{"translate":"item.consume.2060002","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["2"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["2000"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
+						execute if score @s bullet_item matches 24 run item replace block 250 1 0 container.0 with minecraft:warped_fungus_on_a_stick{CustomModelData:24,attack:4,amount:2000,bullet_model:3104,display:{Name:'{"translate":"item.consume.2060003","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["4"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["2000"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
+						execute if score @s bullet_item matches 25 run item replace block 250 1 0 container.0 with minecraft:warped_fungus_on_a_stick{CustomModelData:25,attack:4,amount:2000,bullet_model:3105,display:{Name:'{"translate":"item.consume.2060004","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["4"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["2000"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
 						
 						function ARG(_PATH)give
 					}
@@ -1089,11 +1089,11 @@ namespace item()
 					func arrow_crossbow()
 					{
 						# nbt is stored in google cloud sheet
-						execute if score @s bullet_item matches 26 run replaceitem block 250 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:26,attack:0,amount:2000,bullet_model:3201,display:{Name:'{"translate":"item.consume.2061000","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.weapon.left","with":["2000"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
-						execute if score @s bullet_item matches 27 run replaceitem block 250 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:27,attack:1,amount:2000,bullet_model:3202,display:{Name:'{"translate":"item.consume.2061001","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["1"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["2000"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
-						execute if score @s bullet_item matches 28 run replaceitem block 250 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:28,attack:2,amount:2000,bullet_model:3203,display:{Name:'{"translate":"item.consume.2061002","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["2"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["2000"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
-						execute if score @s bullet_item matches 29 run replaceitem block 250 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:29,attack:4,amount:2000,bullet_model:3204,display:{Name:'{"translate":"item.consume.2061003","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["4"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["2000"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
-						execute if score @s bullet_item matches 30 run replaceitem block 250 1 0 container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:30,attack:4,amount:2000,bullet_model:3205,display:{Name:'{"translate":"item.consume.2061004","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["4"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["2000"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
+						execute if score @s bullet_item matches 26 run item replace block 250 1 0 container.0 with container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:26,attack:0,amount:2000,bullet_model:3201,display:{Name:'{"translate":"item.consume.2061000","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.weapon.left","with":["2000"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
+						execute if score @s bullet_item matches 27 run item replace block 250 1 0 container.0 with container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:27,attack:1,amount:2000,bullet_model:3202,display:{Name:'{"translate":"item.consume.2061001","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["1"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["2000"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
+						execute if score @s bullet_item matches 28 run item replace block 250 1 0 container.0 with container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:28,attack:2,amount:2000,bullet_model:3203,display:{Name:'{"translate":"item.consume.2061002","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["2"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["2000"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
+						execute if score @s bullet_item matches 29 run item replace block 250 1 0 container.0 with container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:29,attack:4,amount:2000,bullet_model:3204,display:{Name:'{"translate":"item.consume.2061003","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["4"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["2000"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
+						execute if score @s bullet_item matches 30 run item replace block 250 1 0 container.0 with container.0 minecraft:warped_fungus_on_a_stick{CustomModelData:30,attack:4,amount:2000,bullet_model:3205,display:{Name:'{"translate":"item.consume.2061004","bold":true,"italic":false,"font":"minecraft:uniform"}',Lore:['{"translate":"item.notice.projectile_attack","with":["4"],"color":"white","italic":false,"font":"minecraft:uniform"}','{"translate":"item.notice.weapon.left","with":["2000"],"color":"white","italic":false,"font":"minecraft:uniform"}']},HideFlags:127,Unbreakable:1}
 						
 						function ARG(_PATH)give
 					}
@@ -1129,7 +1129,7 @@ namespace item()
 				execute store result score #AMOUNT_LEFT temp run data get entity @s SelectedItem.Count
 				scoreboard players operation #GLOBAL temp *= #AMOUNT_LEFT temp
 				scoreboard players operation @s meso += #GLOBAL temp
-				replaceitem entity @s weapon.mainhand minecraft:air
+				item replace entity @s weapon.mainhand with minecraft:air
 				
 				tellraw @s {"translate":"text.meso.after_sell","font":"minecraft:uniform","with":[{"score":{"objective":"meso","name":"@s"}}]}
 			}
@@ -1177,7 +1177,7 @@ namespace item()
 			{
 				scoreboard players operation @s meso -= #GLOBAL temp
 				
-				replaceitem block 250 1 0 container.0 minecraft:warped_fungus_on_a_stick
+				item replace block 250 1 0 container.0 with minecraft:warped_fungus_on_a_stick
 				data modify block 250 1 0 Items[0].tag set from entity @s SelectedItem.tag
 				execute store result block 250 1 0 Items[0].tag.amount int 1 run scoreboard players operation #AMOUNT_MAX temp += #AMOUNT_LEFT temp
 				
