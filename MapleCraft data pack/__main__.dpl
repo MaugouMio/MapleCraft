@@ -4,7 +4,7 @@ import loop
 description = "MapleCraft data pack"
 
 ```
-constants = [-7, -3, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 15, 16, 17, 20, 25, 28, 30, 32, 34, 36, 40, 41, 44, 45, 46, 48, 50, 55, 56, 57, 60, 64, 66, 92, 100, 128, 150, 256, 700, 1000, 2000, 10000, 30000, 99999, 100000]
+constants = [-7, -3, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 15, 16, 17, 20, 23, 25, 28, 30, 32, 34, 36, 40, 41, 44, 45, 46, 48, 50, 55, 56, 57, 60, 64, 66, 92, 100, 128, 150, 256, 700, 1000, 2000, 10000, 30000, 99999, 100000]
 menu_book = '''minecraft:written_book{no_trade:1b,menu:1b,author:"",title:"MENU",HideFlags:127,pages:['["",{"translate":"text.menu.shortcut","font":"minecraft:uniform","bold":true},"\\\\n",[{"text":"0","font":"ui:menu","color":"white","clickEvent":{"action":"run_command","value":"/trigger command set 8"},"hoverEvent":{"action":"show_text","contents":[{"translate":"text.menu.shortcut.equip","font":"minecraft:uniform"}]}},{"text":"1","clickEvent":{"action":"run_command","value":"/trigger command set 9"},"hoverEvent":{"action":"show_text","contents":[{"translate":"text.menu.shortcut.stat","font":"minecraft:uniform"}]}},{"text":"2","clickEvent":{"action":"run_command","value":"/trigger command set 10"},"hoverEvent":{"action":"show_text","contents":[{"translate":"text.menu.shortcut.skill","font":"minecraft:uniform"}]}},{"text":"9","clickEvent":{"action":"run_command","value":"/trigger command set 200"},"hoverEvent":{"action":"show_text","contents":[{"translate":"text.menu.shortcut.meso","font":"minecraft:uniform"}]}}],"\\\\n\\\\n",{"translate":"text.menu.sys_opt","font":"minecraft:uniform","bold":true},"\\\\n",[{"text":"3","font":"ui:menu","color":"white","clickEvent":{"action":"run_command","value":"/trigger command set 11"},"hoverEvent":{"action":"show_text","contents":[{"translate":"text.menu.sys_opt.hp_alert","font":"minecraft:uniform"}]}},{"text":"4","clickEvent":{"action":"run_command","value":"/trigger command set 12"},"hoverEvent":{"action":"show_text","contents":[{"translate":"text.menu.sys_opt.mp_alert","font":"minecraft:uniform"}]}},"\\\\n",{"text":"5","font":"ui:menu","color":"white","clickEvent":{"action":"run_command","value":"/trigger command set 11"},"hoverEvent":{"action":"show_text","contents":[{"translate":"text.menu.sys_opt.hp_alert","font":"minecraft:uniform"}]}},{"text":"6","clickEvent":{"action":"run_command","value":"/trigger command set 12"},"hoverEvent":{"action":"show_text","contents":[{"translate":"text.menu.sys_opt.mp_alert","font":"minecraft:uniform"}]}}],"\\\\n\\\\n",{"translate":"text.menu.key_reset","font":"minecraft:uniform","bold":true},"\\\\n",[{"text":"7","font":"ui:menu","color":"white","clickEvent":{"action":"run_command","value":"/trigger command set 153"},"hoverEvent":{"action":"show_text","contents":[{"translate":"skill.attack","font":"minecraft:uniform"}]}},"\\\\n",{"text":"8","font":"ui:menu","color":"white","clickEvent":{"action":"run_command","value":"/trigger command set 153"},"hoverEvent":{"action":"show_text","contents":[{"translate":"skill.attack","font":"minecraft:uniform"}]}}]]']}'''
 ```
 
@@ -70,84 +70,88 @@ namespace main()
 		team add enemy
 		team modify enemy collisionRule never
 		
-		team add hp0
-		team modify hp0 collisionRule never
-		team modify hp0 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A95","font":"space:default"}]
-		team add hp1
-		team modify hp1 collisionRule never
-		team modify hp1 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"8",{"text":"6","font":"space:default"}]
-		team add hp2
-		team modify hp2 collisionRule never
-		team modify hp2 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"7, 8",{"text":"7","font":"space:default"}]
-		team add hp3
-		team modify hp3 collisionRule never
-		team modify hp3 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"7, 9",{"text":"18","font":"space:default"}]
-		team add hp4
-		team modify hp4 collisionRule never
-		team modify hp4 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"7, 8, 9",{"text":"38","font":"space:default"}]
-		team add hp5
-		team modify hp5 collisionRule never
-		team modify hp5 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"7, A",{"text":"58","font":"space:default"}]
-		team add hp6
-		team modify hp6 collisionRule never
-		team modify hp6 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"7, 8, A",{"text":"78","font":"space:default"}]
-		team add hp7
-		team modify hp7 collisionRule never
-		team modify hp7 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"7, 9, A",{"text":"19","font":"space:default"}]
-		team add hp8
-		team modify hp8 collisionRule never
-		team modify hp8 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"8, 9, A",{"text":"29","font":"space:default"}]
-		team add hp9
-		team modify hp9 collisionRule never
-		team modify hp9 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"B",{"text":"49","font":"space:default"}]
-		team add hp10
-		team modify hp10 collisionRule never
-		team modify hp10 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"8, B",{"text":"69","font":"space:default"}]
-		team add hp11
-		team modify hp11 collisionRule never
-		team modify hp11 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"9, B",{"text":"89","font":"space:default"}]
-		team add hp12
-		team modify hp12 collisionRule never
-		team modify hp12 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"8, 9, B",{"text":"289","font":"space:default"}]
-		team add hp13
-		team modify hp13 collisionRule never
-		team modify hp13 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"A, B",{"text":"489","font":"space:default"}]
-		team add hp14
-		team modify hp14 collisionRule never
-		team modify hp14 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"7, A, B",{"text":"589","font":"space:default"}]
-		team add hp15
-		team modify hp15 collisionRule never
-		team modify hp15 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"7, 8, A, B",{"text":"789","font":"space:default"}]
-		team add hp16
-		team modify hp16 collisionRule never
-		team modify hp16 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"7, 9, A, B",{"text":"1A","font":"space:default"}]
-		team add hp17
-		team modify hp17 collisionRule never
-		team modify hp17 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"7, 8, 9, A, B",{"text":"3A","font":"space:default"}]
-		team add hp18
-		team modify hp18 collisionRule never
-		team modify hp18 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"7, C",{"text":"5A","font":"space:default"}]
-		team add hp19
-		team modify hp19 collisionRule never
-		team modify hp19 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"7, 8, C",{"text":"7A","font":"space:default"}]
-		team add hp20
-		team modify hp20 collisionRule never
-		team modify hp20 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"9, C",{"text":"8A","font":"space:default"}]
-		team add hp21
-		team modify hp21 collisionRule never
-		team modify hp21 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"8, 9, C",{"text":"28A","font":"space:default"}]
-		team add hp22
-		team modify hp22 collisionRule never
-		team modify hp22 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"A, C",{"text":"48A","font":"space:default"}]
-		team add hp23
-		team modify hp23 collisionRule never
-		team modify hp23 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"8, A, C",{"text":"68A","font":"space:default"}]
-		team add hp24
-		team modify hp24 collisionRule never
-		team modify hp24 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"9, A, C",{"text":"9A","font":"space:default"}]
-		team add hp25
-		team modify hp25 collisionRule never
-		team modify hp25 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"8, 9, A, C",{"text":"29A","font":"space:default"}]
+		team add player
+		team modify player collisionRule pushOwnTeam
+		team modify player seeFriendlyInvisibles true
+		
+		# team add hp0
+		# team modify hp0 collisionRule never
+		# team modify hp0 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A95","font":"space:default"}]
+		# team add hp1
+		# team modify hp1 collisionRule never
+		# team modify hp1 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"8",{"text":"6","font":"space:default"}]
+		# team add hp2
+		# team modify hp2 collisionRule never
+		# team modify hp2 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"7, 8",{"text":"7","font":"space:default"}]
+		# team add hp3
+		# team modify hp3 collisionRule never
+		# team modify hp3 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"7, 9",{"text":"18","font":"space:default"}]
+		# team add hp4
+		# team modify hp4 collisionRule never
+		# team modify hp4 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"7, 8, 9",{"text":"38","font":"space:default"}]
+		# team add hp5
+		# team modify hp5 collisionRule never
+		# team modify hp5 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"7, A",{"text":"58","font":"space:default"}]
+		# team add hp6
+		# team modify hp6 collisionRule never
+		# team modify hp6 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"7, 8, A",{"text":"78","font":"space:default"}]
+		# team add hp7
+		# team modify hp7 collisionRule never
+		# team modify hp7 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"7, 9, A",{"text":"19","font":"space:default"}]
+		# team add hp8
+		# team modify hp8 collisionRule never
+		# team modify hp8 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"8, 9, A",{"text":"29","font":"space:default"}]
+		# team add hp9
+		# team modify hp9 collisionRule never
+		# team modify hp9 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"B",{"text":"49","font":"space:default"}]
+		# team add hp10
+		# team modify hp10 collisionRule never
+		# team modify hp10 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"8, B",{"text":"69","font":"space:default"}]
+		# team add hp11
+		# team modify hp11 collisionRule never
+		# team modify hp11 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"9, B",{"text":"89","font":"space:default"}]
+		# team add hp12
+		# team modify hp12 collisionRule never
+		# team modify hp12 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"8, 9, B",{"text":"289","font":"space:default"}]
+		# team add hp13
+		# team modify hp13 collisionRule never
+		# team modify hp13 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"A, B",{"text":"489","font":"space:default"}]
+		# team add hp14
+		# team modify hp14 collisionRule never
+		# team modify hp14 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"7, A, B",{"text":"589","font":"space:default"}]
+		# team add hp15
+		# team modify hp15 collisionRule never
+		# team modify hp15 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"7, 8, A, B",{"text":"789","font":"space:default"}]
+		# team add hp16
+		# team modify hp16 collisionRule never
+		# team modify hp16 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"7, 9, A, B",{"text":"1A","font":"space:default"}]
+		# team add hp17
+		# team modify hp17 collisionRule never
+		# team modify hp17 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"7, 8, 9, A, B",{"text":"3A","font":"space:default"}]
+		# team add hp18
+		# team modify hp18 collisionRule never
+		# team modify hp18 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"7, C",{"text":"5A","font":"space:default"}]
+		# team add hp19
+		# team modify hp19 collisionRule never
+		# team modify hp19 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"7, 8, C",{"text":"7A","font":"space:default"}]
+		# team add hp20
+		# team modify hp20 collisionRule never
+		# team modify hp20 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"9, C",{"text":"8A","font":"space:default"}]
+		# team add hp21
+		# team modify hp21 collisionRule never
+		# team modify hp21 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"8, 9, C",{"text":"28A","font":"space:default"}]
+		# team add hp22
+		# team modify hp22 collisionRule never
+		# team modify hp22 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"A, C",{"text":"48A","font":"space:default"}]
+		# team add hp23
+		# team modify hp23 collisionRule never
+		# team modify hp23 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"8, A, C",{"text":"68A","font":"space:default"}]
+		# team add hp24
+		# team modify hp24 collisionRule never
+		# team modify hp24 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"9, A, C",{"text":"9A","font":"space:default"}]
+		# team add hp25
+		# team modify hp25 collisionRule never
+		# team modify hp25 prefix [{"text":"D","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},"8, 9, A, C",{"text":"29A","font":"space:default"}]
 		
 		```
 		constants = set(constants)

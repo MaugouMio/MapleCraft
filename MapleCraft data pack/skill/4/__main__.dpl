@@ -382,7 +382,7 @@ namespace 4() as virtual
 					scoreboard players operation @s speed += @s invis_buff_speed
 					function stat:speed_changed/check
 					
-					effect give @s minecraft:glowing 1000000 0 true
+					effect give @s minecraft:invisibility 1000000 0 true
 					effect give @s minecraft:resistance 1000000 4 true
 					attribute @s minecraft:generic.knockback_resistance modifier add f7c5c3aa-4957-4321-8098-5ccef1ffdc8a invisible_knockback 1.0 add
 					```

@@ -96,7 +96,7 @@ namespace simple_buff_template(name) as virtual
 			print(f"attribute @s minecraft:generic.luck modifier remove {simple_buff_info_dict['ARG(name)']['uuid']}")
 			print(f"scoreboard players remove #{'ARG(name)'.upper()}_BUFF_PEOPLE temp 1")
 			if "ARG(name)" == "invis":
-				print("effect clear @s minecraft:glowing")
+				print("effect clear @s minecraft:invisibility")
 				print("effect clear @s minecraft:resistance")
 				print("scoreboard players operation @s speed -= @s invis_buff_speed")
 				print("scoreboard players reset @s invis_buff_speed")

@@ -26,6 +26,8 @@ namespace bar_display()
 		
 		scoreboard objectives add hurt_time dummy
 		scoreboard objectives add damage_taken minecraft.custom:minecraft.damage_absorbed
+		
+		summon marker 240 0 0 {UUID:[I;0,4,0,4]}
 	}
 	
 	func main()
@@ -33,6 +35,7 @@ namespace bar_display()
 		execute as @a[scores={damage_taken=1..}] at @s run function ARG(_PATH)take_damage/check
 		execute as @a[scores={hurt_time=1..}] run function ARG(_PATH)hurt_time_countdown
 		execute as @a[tag=hp_mp_varying] run function ARG(_PATH)bar_vary/check
+		function ARG(_PATH)show_head/run
 	}
 	
 	func hurt_time_countdown()
@@ -356,39 +359,42 @@ namespace bar_display()
 				
 				scoreboard players operation #GLOBAL temp = @s target_hp
 				scoreboard players add #GLOBAL temp 1
-				scoreboard players operation #GLOBAL temp /= #4 const
-				execute unless score #GLOBAL temp = @s hp_level run function ARG(_PATH)set_display/run
+				scoreboard players operation #GLOBAL temp *= #23 const
+				scoreboard players operation #GLOBAL temp /= #100 const
+				
+				# execute unless score #GLOBAL temp = @s hp_level run function ARG(_PATH)set_display/run
+				scoreboard players operation @s hp_level = #GLOBAL temp
 				
 				scoreboard players set @s hp_vary_time 20
 				tag @s add hp_mp_varying
 				execute if score #HP_DROPPED temp matches 1 if score @s target_hp <= @s hp_warning run scoreboard players set @s hp_flash 10
 			}
 			
-			folder set_display()
-			{
-				func run()
-				{
-					execute if score #GLOBAL temp matches ..12 run function ARG(_PATH)0_12
-					execute if score #GLOBAL temp matches 13.. run function ARG(_PATH)13_25
-					scoreboard players operation @s hp_level = #GLOBAL temp
-				}
+			# folder set_display()
+			# {
+				# func run()
+				# {
+					# execute if score #GLOBAL temp matches ..12 run function ARG(_PATH)0_12
+					# execute if score #GLOBAL temp matches 13.. run function ARG(_PATH)13_25
+					# scoreboard players operation @s hp_level = #GLOBAL temp
+				# }
 				
-				func 0_12()
-				{
-					```
-					for i in range(13):
-						print(f"execute if score #GLOBAL temp matches {i} run team join hp{i} @s")
-					```
-				}
+				# func 0_12()
+				# {
+					# ```
+					# for i in range(13):
+						# print(f"execute if score #GLOBAL temp matches {i} run team join hp{i} @s")
+					# ```
+				# }
 				
-				func 13_25()
-				{
-					```
-					for i in range(13, 26):
-						print(f"execute if score #GLOBAL temp matches {i} run team join hp{i} @s")
-					```
-				}
-			}
+				# func 13_25()
+				# {
+					# ```
+					# for i in range(13, 26):
+						# print(f"execute if score #GLOBAL temp matches {i} run team join hp{i} @s")
+					# ```
+				# }
+			# }
 		}
 		
 		folder mp()
@@ -524,6 +530,118 @@ namespace bar_display()
 			function number_display:show
 			
 			function ARG(__PATH)change/hp/recovered
+		}
+	}
+	
+	folder show_head()
+	{
+		func run()
+		{
+			data modify storage bar:main head_pos set value []
+			data modify storage bar:main head set value []
+			
+			execute as @a[gamemode=!spectator] at @s run function ARG(_PATH)write_data
+			execute as @e[type=area_effect_cloud,tag=head_hp] run function ARG(_PATH)update_pos
+			execute as @e[type=area_effect_cloud,tag=head_hp_display] run function ARG(_PATH)update
+			
+			execute if data storage bar:main head[0] run function ARG(_PATH)spawn
+		}
+		
+		func write_data()
+		{
+			tp 00000000-0000-0004-0000-000000000004 ~ ~1.2 ~
+			data modify storage bar:main head_pos append from entity 00000000-0000-0004-0000-000000000004 Pos
+			tp 00000000-0000-0004-0000-000000000004 250 0 0
+			
+			data modify storage bar:main head append value 0b
+			execute store result storage bar:main head[-1] byte 1 run scoreboard players get @s hp_level
+		}
+		
+		func update_pos()
+		{
+			execute unless data storage bar:main head_pos[0] run kill @s
+			execute if data storage bar:main head_pos[0] run function ARG(_PATH)read_pos
+		}
+		
+		func update()
+		{
+			execute unless data storage bar:main head[0] run kill @s
+			execute if data storage bar:main head[0] run function ARG(_PATH)read_data
+		}
+		
+		func read_pos()
+		{
+			data modify entity @s Pos set from storage bar:main head_pos[-1]
+			execute store result entity @s Air short 1 run time query gametime
+			
+			data remove storage bar:main head_pos[-1]
+		}
+		
+		func read_data()
+		{
+			execute store result score #GLOBAL temp run data get storage bar:main head[-1]
+			execute unless score @s hp_level = #GLOBAL temp run function ARG(_PATH)set_name/check
+			
+			data remove storage bar:main head[-1]
+		}
+		
+		folder set_name()
+		{
+			func check()
+			{
+				scoreboard players operation @s hp_level = #GLOBAL temp
+				execute if score @s hp_level matches 0..5 run function ARG(_PATH)0_5
+				execute if score @s hp_level matches 6..11 run function ARG(_PATH)6_11
+				execute if score @s hp_level matches 12..17 run function ARG(_PATH)12_17
+				execute if score @s hp_level matches 18..23 run function ARG(_PATH)18_23
+			}
+			
+			func 0_5()
+			{
+				execute if score @s hp_level matches 0 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"0","font":"ui:player_hp"},{"text":"FF","font":"space:default"}]'
+				execute if score @s hp_level matches 1 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"1","font":"ui:player_hp"},{"text":"FF","font":"space:default"}]'
+				execute if score @s hp_level matches 2 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"2","font":"ui:player_hp"},{"text":"FF","font":"space:default"}]'
+				execute if score @s hp_level matches 3 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"3","font":"ui:player_hp"},{"text":"FF","font":"space:default"}]'
+				execute if score @s hp_level matches 4 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"4","font":"ui:player_hp"},{"text":"FF","font":"space:default"}]'
+				execute if score @s hp_level matches 5 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"5","font":"ui:player_hp"},{"text":"FF","font":"space:default"}]'
+			}
+			
+			func 6_11()
+			{
+				execute if score @s hp_level matches 6 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"6","font":"ui:player_hp"},{"text":"FF","font":"space:default"}]'
+				execute if score @s hp_level matches 7 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"7","font":"ui:player_hp"},{"text":"FF","font":"space:default"}]'
+				execute if score @s hp_level matches 8 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"8","font":"ui:player_hp"},{"text":"FF","font":"space:default"}]'
+				execute if score @s hp_level matches 9 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"9","font":"ui:player_hp"},{"text":"FF","font":"space:default"}]'
+				execute if score @s hp_level matches 10 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"A","font":"ui:player_hp"},{"text":"FF","font":"space:default"}]'
+				execute if score @s hp_level matches 11 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"B","font":"ui:player_hp"},{"text":"FF","font":"space:default"}]'
+			}
+			
+			func 12_17()
+			{
+				execute if score @s hp_level matches 12 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"C","font":"ui:player_hp"},{"text":"FF","font":"space:default"}]'
+				execute if score @s hp_level matches 13 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"D","font":"ui:player_hp"},{"text":"FF","font":"space:default"}]'
+				execute if score @s hp_level matches 14 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"E","font":"ui:player_hp"},{"text":"FF","font":"space:default"}]'
+				execute if score @s hp_level matches 15 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"F","font":"ui:player_hp"},{"text":"FF","font":"space:default"}]'
+				execute if score @s hp_level matches 16 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"G","font":"ui:player_hp"},{"text":"FF","font":"space:default"}]'
+				execute if score @s hp_level matches 17 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"H","font":"ui:player_hp"},{"text":"FF","font":"space:default"}]'
+			}
+			
+			func 18_23()
+			{
+				execute if score @s hp_level matches 18 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"I","font":"ui:player_hp"},{"text":"FF","font":"space:default"}]'
+				execute if score @s hp_level matches 19 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"J","font":"ui:player_hp"},{"text":"FF","font":"space:default"}]'
+				execute if score @s hp_level matches 20 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"K","font":"ui:player_hp"},{"text":"FF","font":"space:default"}]'
+				execute if score @s hp_level matches 21 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"L","font":"ui:player_hp"},{"text":"FF","font":"space:default"}]'
+				execute if score @s hp_level matches 22 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"M","font":"ui:player_hp"},{"text":"FF","font":"space:default"}]'
+				execute if score @s hp_level matches 23 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"N","font":"ui:player_hp"},{"text":"FF","font":"space:default"}]'
+			}
+		}
+		
+		func spawn()
+		{
+			summon area_effect_cloud 250 0 0 {Duration:2147483647,Tags:["head_hp"],Passengers:[{id:"minecraft:area_effect_cloud",CustomNameVisible:1b,Duration:2147483647,Tags:["head_hp_display"]}]}
+			data remove storage bar:main head[-1]
+			execute if data storage bar:main head[0] run function ARG(_PATH)spawn
 		}
 	}
 	
