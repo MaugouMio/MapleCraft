@@ -333,7 +333,7 @@ namespace main()
 		```
 		print(f"item replace entity @s hotbar.8 with {menu_book}")
 		```
-		team join hp25 @s
+		team join player @s
 		gamemode adventure @s
 		
 		execute at @s run playsound minecraft:game.game_in player @s
