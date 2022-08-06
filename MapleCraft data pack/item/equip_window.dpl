@@ -656,7 +656,7 @@ namespace equip_window() as virtual
 			execute if score @s bullet_item matches 6 run data modify storage ui:main equip.projectile set value {icon:['"\\uA00A"','"\\uA00B"'],event:'{"text":"\\uF829\\uF822","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 154"},"hoverEvent":{"action":"show_text","contents":[{"translate":"item.consume.2070005","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["25"]}]}}'}
 			execute if score @s bullet_item matches 7 run data modify storage ui:main equip.projectile set value {icon:['"\\uA00C"','"\\uA00D"'],event:'{"text":"\\uF829\\uF822","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 154"},"hoverEvent":{"action":"show_text","contents":[{"translate":"item.consume.2070006","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["27"]}]}}'}
 		}
-					
+		
 		func arrow_bow()
 		{
 			execute if score @s bullet_item matches 21 run data modify storage ui:main equip.projectile set value {icon:['"\\uA020"','"\\uA021"'],event:'{"text":"\\uF829\\uF822","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 154"},"hoverEvent":{"action":"show_text","contents":{"translate":"item.consume.2060000","font":"minecraft:uniform","bold":true}}}'}

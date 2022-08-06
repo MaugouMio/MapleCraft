@@ -48,7 +48,7 @@ namespace use_equip_template(equip) as virtual
 		
 		function item:use/equip_numeric/apply
 		
-		loot replace entity @s armor.head 1 mine 250 1 0 minecraft:air{modify_player:1b}
+		item replace entity @s armor.head from block 250 1 0 container.0
 		tag @s add ARG(equip)_equipped
 	}
 	
@@ -327,7 +327,7 @@ namespace item()
 				execute store result score #GLOBAL temp run scoreboard players operation @s speed -= #GLOBAL temp
 				scoreboard players operation #GLOBAL temp < #40 const
 				execute store result block 250 1 0 Items[0].tag.AttributeModifiers[0].Amount float 0.01 run scoreboard players operation @s real_speed = #GLOBAL temp
-				loot replace entity @s armor.head 1 mine 250 1 0 minecraft:air{modify_player:1b}
+				item replace entity @s armor.head from block 250 1 0 container.0
 			}
 		}
 		
@@ -443,7 +443,7 @@ namespace item()
 					
 					function item:use/equip_numeric/apply
 					
-					loot replace entity @s armor.head 1 mine 250 1 0 minecraft:air{modify_player:1b}
+					item replace entity @s armor.head from block 250 1 0 container.0
 					tag @s add pants_equipped
 				}
 			}
@@ -508,7 +508,7 @@ namespace item()
 					
 					function item:use/equip_numeric/apply
 					
-					loot replace entity @s armor.head 1 mine 250 1 0 minecraft:air{modify_player:1b}
+					item replace entity @s armor.head from block 250 1 0 container.0
 					tag @s add cloth_equipped
 				}
 			}
@@ -577,7 +577,7 @@ namespace item()
 					
 					function item:use/equip_numeric/apply
 					
-					loot replace entity @s armor.head 1 mine 250 1 0 minecraft:air{modify_player:1b}
+					item replace entity @s armor.head from block 250 1 0 container.0
 					tag @s add shield_equipped
 				}
 			}
@@ -647,7 +647,7 @@ namespace item()
 				data modify block 250 1 0 Items[0].tag.no_trade set value 1b
 				data modify block 250 1 0 Items[0].tag.display.Name set from entity @s SelectedItem.tag.original_name
 				data modify block 250 1 0 Items[0].tag.display.Lore set value ['{"translate":"item.notice.untradeable","font":"minecraft:uniform","color":"#FE8811","italic":false}','{"translate":"item.notice.for_display","font":"minecraft:uniform","color":"white","italic":false}']
-				loot replace entity @s weapon.mainhand 1 mine 250 1 0 minecraft:air{modify_player:1b}
+				item replace entity @s weapon.mainhand from block 250 1 0 container.0
 				
 				# equip new weapon
 				item replace block 250 1 0 container.0 with minecraft:potion
@@ -659,7 +659,7 @@ namespace item()
 				execute store result score @s weapon_knock run data get storage item:main equip.knockback
 				function ARG(__PATH)equip_numeric/apply
 				
-				loot replace entity @s armor.head 1 mine 250 1 0 minecraft:air{modify_player:1b}
+				item replace entity @s armor.head from block 250 1 0 container.0
 				
 				execute if score @s boost_buff_time matches 1.. run function skill:buff/boost/reset/run
 			}
@@ -713,7 +713,7 @@ namespace item()
 					execute if score #RAND_RESULT temp < #SCROLL_CHANCE temp run function ARG(_PATH)success
 					execute unless score #RAND_RESULT temp < #SCROLL_CHANCE temp run function ARG(_PATH)fail
 					
-					loot replace entity @s weapon.offhand 1 mine 250 1 0 minecraft:air{modify_player:1b}
+					item replace entity @s weapon.offhand from block 250 1 0 container.0
 					item replace entity @s weapon.mainhand with minecraft:air
 				}
 				
@@ -1183,7 +1183,7 @@ namespace item()
 				
 				data modify block 250 0 0 Text1 set value '{"translate":"item.notice.weapon.left","with":[{"score":{"name":"#AMOUNT_MAX","objective":"temp"}}],"color":"white","italic":false,"font":"minecraft:uniform"}'
 				data modify block 250 1 0 Items[0].tag.display.Lore[-1] set from block 250 0 0 Text1
-				loot replace entity @s weapon.mainhand 1 mine 250 1 0 minecraft:air{modify_player:1b}
+				item replace entity @s weapon.mainhand from block 250 1 0 container.0
 				
 				tellraw @s {"translate":"text.meso.after_recharge","font":"minecraft:uniform","with":[{"score":{"objective":"meso","name":"@s"}}]}
 			}
