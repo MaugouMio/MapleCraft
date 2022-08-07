@@ -202,7 +202,7 @@ namespace party_quest() as virtual
 			execute if score #KPQ_PASS_REQUIRED temp matches 2.. run scoreboard players remove #KPQ_PASS_REQUIRED temp 1
 			
 			forceload add -282 6
-			summon minecraft:area_effect_cloud -282 39 6 {Duration:2147483647,Tags:["mob_spawner","kpq_mob_spawner"]}
+			summon minecraft:marker -282 39 6 {Tags:["mob_spawner","kpq_mob_spawner"]}
 			forceload remove -282 6
 		}
 		
@@ -360,7 +360,7 @@ namespace party_quest() as virtual
 					forceload add -266 -23 -314 23
 					execute positioned -328 60 -43 run kill @e[type=item,dx=86,dy=28,dz=86]
 					kill @e[type=#skill:enemy,tag=kpq_mob]
-					kill @e[type=area_effect_cloud,tag=kpq_mob_spawner]
+					kill @e[type=marker,tag=kpq_mob_spawner]
 					data modify block -310 47 0 Text1 set value '""'
 					setblock -310 47 -1 minecraft:air
 					setblock -310 47 1 minecraft:air
@@ -1036,7 +1036,7 @@ namespace party_quest() as virtual
 							scoreboard players set #KPQ_S6_LOADED temp 1
 							
 							forceload add -1831 2
-							summon minecraft:area_effect_cloud -1831 30 2 {Duration:2147483647,Tags:["mob_spawner","kpq_mob_spawner"]}
+							summon minecraft:marker -1831 30 2 {Tags:["mob_spawner","kpq_mob_spawner"]}
 							forceload remove -1831 2
 							
 							setblock -1526 103 13 minecraft:tripwire[attached=false,disarmed=false,east=false,north=false,south=false,west=false]
@@ -1063,7 +1063,7 @@ namespace party_quest() as virtual
 					forceload add -1847 -7 -1815 11
 					execute positioned -1847 36 -7 run kill @e[type=item,dx=32,dy=24,dz=18]
 					kill @e[type=#skill:enemy,tag=kpq_mob]
-					kill @e[type=area_effect_cloud,tag=kpq_mob_spawner]
+					kill @e[type=marker,tag=kpq_mob_spawner]
 					forceload remove -1847 -7 -1815 11
 					
 					scoreboard players reset #KPQ_S6_LOADED temp

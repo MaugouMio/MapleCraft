@@ -27,7 +27,7 @@ namespace bar_display()
 		scoreboard objectives add hurt_time dummy
 		scoreboard objectives add damage_taken minecraft.custom:minecraft.damage_absorbed
 		
-		summon marker 240 0 0 {UUID:[I;0,4,0,4]}
+		summon marker 250 0 0 {UUID:[I;0,4,0,4]}
 	}
 	
 	func main()
@@ -536,6 +536,11 @@ namespace bar_display()
 	folder show_head()
 	{
 		func run()
+		{
+			execute if entity 00000000-0000-0004-0000-000000000004 run function ARG(_PATH)process
+		}
+
+		func process()
 		{
 			data modify storage bar:main head_pos set value []
 			data modify storage bar:main head set value []

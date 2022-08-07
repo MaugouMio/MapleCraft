@@ -367,8 +367,8 @@ namespace 21() as virtual
 						tag @s add delay_tp
 						scoreboard players operation #GLOBAL temp = @s number
 						
-						summon minecraft:area_effect_cloud ~ ~ ~ {Tags:["tp_check","new"],Duration:2}
-						execute as @e[type=area_effect_cloud,tag=tp_check,tag=new] run function ARG(_PATH)set_point
+						summon minecraft:marker ~ ~ ~ {Tags:["tp_check","new"]}
+						execute as @e[type=marker,tag=tp_check,tag=new] run function ARG(_PATH)set_point
 					}
 					
 					func set_point()
@@ -383,7 +383,7 @@ namespace 21() as virtual
 						
 						tag @s add tp_player
 						scoreboard players operation #GLOBAL temp = @s number
-						execute as @e[type=area_effect_cloud,tag=tp_check] if score @s number = #GLOBAL temp run function ARG(_PATH)tp_player
+						execute as @e[type=marker,tag=tp_check] if score @s number = #GLOBAL temp run function ARG(_PATH)tp_player
 						tag @s remove tp_player
 					}
 					

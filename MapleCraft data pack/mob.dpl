@@ -51,7 +51,7 @@ namespace mob()
 		func schedule_10s()
 		{
 			function random:rand_rate
-			execute as @e[type=area_effect_cloud,tag=mob_spawner] at @s run function ARG(__PATH)spawn
+			execute as @e[type=marker,tag=mob_spawner] at @s run function ARG(__PATH)spawn
 			schedule function ARG(__PATH)natural_spawn_set 10t
 		}
 	}
