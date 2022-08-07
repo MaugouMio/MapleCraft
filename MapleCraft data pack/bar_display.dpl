@@ -51,7 +51,7 @@ namespace bar_display()
 			# base damage
 			scoreboard players operation @s damage_taken *= @s damage_taken
 			
-			scoreboard players set #RANGE_MAX temp 51
+			scoreboard players set #RANGE_MAX temp 50
 			function main:rand_range
 			scoreboard players operation #RAND_RANGE_RESULT temp *= @s damage_taken
 			scoreboard players operation #RAND_RANGE_RESULT temp /= #100000 const
@@ -89,7 +89,7 @@ namespace bar_display()
 			# base damage
 			scoreboard players operation @s damage_taken *= @s damage_taken
 			
-			scoreboard players set #RANGE_MAX temp 51
+			scoreboard players set #RANGE_MAX temp 50
 			function main:rand_range
 			scoreboard players operation #RAND_RANGE_RESULT temp *= @s damage_taken
 			scoreboard players operation #RAND_RANGE_RESULT temp /= #100000 const

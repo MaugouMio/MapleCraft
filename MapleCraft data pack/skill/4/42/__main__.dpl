@@ -218,8 +218,8 @@ namespace 42() as virtual
 			
 			func try_steal()
 			{
-				function main:rand_rate
-				execute if score #RAND_RESULT temp < #STEAL_RATE temp run function ARG(_PATH)steal
+				function random:rand_rate
+				execute if score #RAND_RESULT number < #STEAL_RATE temp run function ARG(_PATH)steal
 			}
 			
 			func steal()
@@ -349,7 +349,7 @@ namespace 42() as virtual
 				execute positioned ~ ~0.3 ~ run function skill:summon_font_effect/4201005effect
 				playsound minecraft:skill.4201005_use player @a ~ ~ ~ 1 1 0
 				# borrow hit_effect variable to set custom hit effect
-				scoreboard players set #RANGE_MAX temp 3
+				scoreboard players set #RANGE_MAX temp 2
 				function main:rand_range
 				execute store result storage skill:main damage_info.hit_effect int 1 run scoreboard players add #RAND_RANGE_RESULT temp 3
 			}

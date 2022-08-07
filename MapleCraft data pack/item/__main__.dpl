@@ -1,5 +1,5 @@
 import loop
-import random
+import ../utils
 import equip_window as virtual
 
 namespace use_equip_template(equip) as virtual
@@ -709,9 +709,9 @@ namespace item()
 					data modify block 250 1 0 Items[0].tag set from entity @s Inventory[{Slot:-106b}].tag
 					
 					execute store result score #SCROLL_CHANCE temp run data get entity @s SelectedItem.tag.chance
-					function main:rand_rate
-					execute if score #RAND_RESULT temp < #SCROLL_CHANCE temp run function ARG(_PATH)success
-					execute unless score #RAND_RESULT temp < #SCROLL_CHANCE temp run function ARG(_PATH)fail
+					function random:rand_rate
+					execute if score #RAND_RESULT number < #SCROLL_CHANCE temp run function ARG(_PATH)success
+					execute unless score #RAND_RESULT number < #SCROLL_CHANCE temp run function ARG(_PATH)fail
 					
 					item replace entity @s weapon.offhand from block 250 1 0 container.0
 					item replace entity @s weapon.mainhand with minecraft:air
@@ -751,7 +751,7 @@ namespace item()
 				
 				func chaos_scroll()
 				{
-					scoreboard players set #RANGE_MAX temp 11
+					scoreboard players set #RANGE_MAX temp 10
 					```
 					for attr in ["str", "dex", "int", "luk", "hp", "mp", "weapon_attack", "magic_attack", "defense", "magic_defense", "accuracy", "speed"]:
 						print(f"execute store result score #{attr.upper()} temp run data get block 250 1 0 Items[0].tag.{attr}")
@@ -916,9 +916,9 @@ namespace item()
 					playsound minecraft:game.enchant_fail player @a ~ ~ ~ 1 1 0
 					
 					execute store result score #DESTROY_CHANCE temp run data get entity @s SelectedItem.tag.destroy_chance
-					function main:rand_rate
-					execute if score #RAND_RESULT temp < #DESTROY_CHANCE temp run function ARG(_PATH)destroy
-					execute unless score #RAND_RESULT temp < #DESTROY_CHANCE temp run function ARG(_PATH)pure_fail
+					function random:rand_rate
+					execute if score #RAND_RESULT number < #DESTROY_CHANCE temp run function ARG(_PATH)destroy
+					execute unless score #RAND_RESULT number < #DESTROY_CHANCE temp run function ARG(_PATH)pure_fail
 				}
 				
 				func destroy()

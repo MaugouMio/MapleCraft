@@ -85,8 +85,8 @@ namespace 21() as virtual
 				
 			func try_absorb()
 			{
-				function main:rand_rate
-				execute if score #RAND_RESULT temp < #ABSORB_RATE temp run function ARG(_PATH)absorb
+				function random:rand_rate
+				execute if score #RAND_RESULT number < #ABSORB_RATE temp run function ARG(_PATH)absorb
 			}
 			
 			func absorb()
@@ -825,8 +825,8 @@ namespace 21() as virtual
 			
 			func try_poison()
 			{
-				function main:rand_rate
-				execute if score #RAND_RESULT temp < #POISON_RATE temp run function skill:mob_effect/debuff/poison
+				function random:rand_rate
+				execute if score #RAND_RESULT number < #POISON_RATE temp run function skill:mob_effect/debuff/poison
 			}
 			
 			func effect()

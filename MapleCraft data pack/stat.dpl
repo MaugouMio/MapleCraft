@@ -59,7 +59,7 @@ namespace stat()
 			{
 				func warrior()
 				{
-					scoreboard players set #RANGE_MAX temp 51
+					scoreboard players set #RANGE_MAX temp 50
 					function main:rand_range
 					scoreboard players add @s hp_max_base 200
 					scoreboard players operation @s hp_max_base += #RAND_RANGE_RESULT temp
@@ -73,7 +73,7 @@ namespace stat()
 				
 				func fighter()
 				{
-					scoreboard players set #RANGE_MAX temp 51
+					scoreboard players set #RANGE_MAX temp 50
 					function main:rand_range
 					scoreboard players add @s hp_max_base 300
 					scoreboard players operation @s hp_max_base += #RAND_RANGE_RESULT temp
@@ -87,7 +87,7 @@ namespace stat()
 				
 				func page_spearman()
 				{
-					scoreboard players set #RANGE_MAX temp 51
+					scoreboard players set #RANGE_MAX temp 50
 					function main:rand_range
 					scoreboard players add @s mp_max_base 100
 					scoreboard players operation @s mp_max_base += #RAND_RANGE_RESULT temp
@@ -104,7 +104,7 @@ namespace stat()
 			{
 				func magician()
 				{
-					scoreboard players set #RANGE_MAX temp 51
+					scoreboard players set #RANGE_MAX temp 50
 					function main:rand_range
 					scoreboard players add @s mp_max_base 100
 					scoreboard players operation @s mp_max_base += #RAND_RANGE_RESULT temp
@@ -118,7 +118,7 @@ namespace stat()
 				
 				func second()
 				{
-					scoreboard players set #RANGE_MAX temp 51
+					scoreboard players set #RANGE_MAX temp 50
 					function main:rand_range
 					scoreboard players add @s mp_max_base 450
 					scoreboard players operation @s mp_max_base += #RAND_RANGE_RESULT temp
@@ -135,12 +135,12 @@ namespace stat()
 			{
 				func first()
 				{
-					scoreboard players set #RANGE_MAX temp 51
+					scoreboard players set #RANGE_MAX temp 50
 					function main:rand_range
 					scoreboard players add @s hp_max_base 100
 					scoreboard players operation @s hp_max_base += #RAND_RANGE_RESULT temp
 					
-					scoreboard players set #RANGE_MAX temp 26
+					scoreboard players set #RANGE_MAX temp 25
 					function main:rand_range
 					scoreboard players add @s mp_max_base 25
 					scoreboard players operation @s mp_max_base += #RAND_RANGE_RESULT temp
@@ -155,7 +155,7 @@ namespace stat()
 				
 				func second()
 				{
-					scoreboard players set #RANGE_MAX temp 51
+					scoreboard players set #RANGE_MAX temp 50
 					function main:rand_range
 					scoreboard players add @s hp_max_base 300
 					scoreboard players operation @s hp_max_base += #RAND_RANGE_RESULT temp
@@ -191,10 +191,10 @@ namespace stat()
 			scoreboard players operation @s exp < #GLOBAL temp
 			scoreboard players set @s[scores={level=200}] exp 0
 			# raise hp mp
-			scoreboard players set #RANGE_MAX temp 5
+			scoreboard players set #RANGE_MAX temp 4
 			function main:rand_range
 			scoreboard players operation @s hp_max_base += #RAND_RANGE_RESULT temp
-			scoreboard players set #RANGE_MAX temp 3
+			scoreboard players set #RANGE_MAX temp 2
 			function main:rand_range
 			scoreboard players operation @s mp_max_base += #RAND_RANGE_RESULT temp
 			
@@ -826,7 +826,7 @@ namespace stat()
 				
 				func set()
 				{
-					scoreboard players set #RANGE_MAX temp 5
+					scoreboard players set #RANGE_MAX temp 4
 					execute if entity @s[tag=magician] run scoreboard players add #RANGE_MAX temp 6
 					function main:rand_range
 					scoreboard players operation @s hp_max_base += #RAND_RANGE_RESULT temp
@@ -865,7 +865,7 @@ namespace stat()
 				
 				func set()
 				{
-					scoreboard players set #RANGE_MAX temp 3
+					scoreboard players set #RANGE_MAX temp 2
 					function main:rand_range
 					scoreboard players operation @s mp_max_base += #RAND_RANGE_RESULT temp
 					

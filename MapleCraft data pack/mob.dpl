@@ -50,7 +50,7 @@ namespace mob()
 	{
 		func schedule_10s()
 		{
-			function main:rand_rate
+			function random:rand_rate
 			execute as @e[type=area_effect_cloud,tag=mob_spawner] at @s run function ARG(__PATH)spawn
 			schedule function ARG(__PATH)natural_spawn_set 10t
 		}
@@ -98,10 +98,10 @@ namespace mob()
 							print('''execute if score #GLOBAL temp matches 1 positioned %s run particle minecraft:sweep_attack ~ ~0.5 ~ 0 0 0 0 1 force''' %pos)
 							MOB_UUID += 1
 						```
-						execute if score #RAND_RESULT temp matches ..24 run function ARG(_PATH)rand0
-						execute if score #RAND_RESULT temp matches 25..49 run function ARG(_PATH)rand1
-						execute if score #RAND_RESULT temp matches 50..74 run function ARG(_PATH)rand2
-						execute if score #RAND_RESULT temp matches 75.. run function ARG(_PATH)rand3
+						execute if score #RAND_RESULT number matches ..24 run function ARG(_PATH)rand0
+						execute if score #RAND_RESULT number matches 25..49 run function ARG(_PATH)rand1
+						execute if score #RAND_RESULT number matches 50..74 run function ARG(_PATH)rand2
+						execute if score #RAND_RESULT number matches 75.. run function ARG(_PATH)rand3
 					}
 					
 					```

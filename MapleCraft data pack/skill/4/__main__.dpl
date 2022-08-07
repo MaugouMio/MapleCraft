@@ -542,7 +542,7 @@ namespace 4() as virtual
 					function skill:afterimage/dagger/stab
 					playsound minecraft:skill.4001334 player @a ~ ~ ~ 1 1 0
 					# borrow hit_effect variable to set custom hit effect
-					scoreboard players set #RANGE_MAX temp 6
+					scoreboard players set #RANGE_MAX temp 5
 					function main:rand_range
 					execute store result storage skill:main damage_info.hit_effect int 1 run scoreboard players add #RAND_RANGE_RESULT temp 3
 				}

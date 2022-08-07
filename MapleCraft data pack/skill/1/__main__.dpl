@@ -525,7 +525,7 @@ namespace 1() as virtual
 				
 				func rand_hit_effect()
 				{
-					scoreboard players set #RANGE_MAX temp 6
+					scoreboard players set #RANGE_MAX temp 5
 					function main:rand_range
 					execute if score #RAND_RANGE_RESULT temp matches 0..2 run function skill:summon_font_effect/1001005hit0
 					execute if score #RAND_RANGE_RESULT temp matches 3..5 run function skill:summon_font_effect/1001005hit1

@@ -1,4 +1,4 @@
-import random
+import utils
 import loop
 
 description = "MapleCraft data pack"
@@ -165,6 +165,7 @@ namespace main()
 		setblock 250 0 0 minecraft:acacia_wall_sign
 		setblock 250 1 0 minecraft:shulker_box
 		setblock 250 2 0 minecraft:chest
+		item replace block 250 2 0 container.0 with minecraft:suspicious_stew
 		summon minecraft:snow_golem 250 -2 0 {NoAI:1,NoGravity:1,Invulnerable:1,Silent:1,UUID:[I;0,1,0,1]}
 		
 		function skill:install
@@ -579,12 +580,6 @@ namespace main()
 		binary_search_bgm(bgms, 0, len(bgms) - 1)
 		```
 		}
-	}
-	
-	func rand_rate()
-	{
-		loot replace block 250 2 0 container.0 loot main:percent_rate
-		execute store result score #RAND_RESULT temp run data get block 250 2 0 Items[0].tag.Damage
 	}
 	
 	func rand_range() from random().generate("#0 const", "#RANGE_MAX temp", "#RAND_RANGE_RESULT temp");

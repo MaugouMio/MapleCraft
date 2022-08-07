@@ -1,5 +1,5 @@
 import loop
-import random
+import ../utils
 
 ```
 skill_ids = []
@@ -194,7 +194,7 @@ namespace attack_skill_template(skill_id) as virtual
 		function skill:calculate_damage/run
 		```
 		if "ARG(skill_id)" in ["3101003","6001003"]:
-			print("execute if entity @s[tag=!dead] run function main:rand_rate")
+			print("execute if entity @s[tag=!dead] run function random:rand_rate")
 		```
 		execute if score #DID_HIT temp matches 1 run function ARG(_PATH)add_debuff
 		```
@@ -244,9 +244,9 @@ namespace attack_skill_template(skill_id) as virtual
 			data modify storage skill:main new_queue[-1].hit_effect set from storage skill:main damage_info.hit_effect
 			```
 			if "ARG(skill_id)" in ["3101003","6001003"]:
-				print("execute if score #RAND_RESULT temp >= #SELF_KNOCKBACK_RATE temp run data modify storage skill:main new_queue[-1].knock_back set from storage skill:main damage_info.knock_back")
-				print("execute if score #RAND_RESULT temp < #SELF_KNOCKBACK_RATE temp run data modify storage skill:main new_queue[-1].knock_back set from storage skill:main damage_info.power_knock_back")
-				print("execute if score #RAND_RESULT temp < #SELF_KNOCKBACK_RATE temp run data modify storage skill:main new_queue[-1].force_knock set value 1b")
+				print("execute if score #RAND_RESULT number >= #SELF_KNOCKBACK_RATE temp run data modify storage skill:main new_queue[-1].knock_back set from storage skill:main damage_info.knock_back")
+				print("execute if score #RAND_RESULT number < #SELF_KNOCKBACK_RATE temp run data modify storage skill:main new_queue[-1].knock_back set from storage skill:main damage_info.power_knock_back")
+				print("execute if score #RAND_RESULT number < #SELF_KNOCKBACK_RATE temp run data modify storage skill:main new_queue[-1].force_knock set value 1b")
 			else:
 				print("data modify storage skill:main new_queue[-1].knock_back set from storage skill:main damage_info.knock_back")
 			```
@@ -1126,8 +1126,8 @@ namespace skill()
 				
 					func rand_jump()
 					{
-						function main:rand_rate
-						execute if score #RAND_RESULT temp matches ..9 store result entity @s Motion[1] double 0.1 run scoreboard players get #5 const
+						function random:rand_rate
+						execute if score #RAND_RESULT number matches ..9 store result entity @s Motion[1] double 0.1 run scoreboard players get #5 const
 					}
 					
 					func check_target()
@@ -2991,8 +2991,8 @@ namespace skill()
 				data modify entity @s ArmorItems[3].tag.damage_record append value {number:0,crit:0}
 				execute store result entity @s ArmorItems[3].tag.damage_record[-1].height int 1 run scoreboard players add #NUMBER_HEIGHT temp 1
 				
-				function main:rand_rate
-				execute if score #HIT_RATE temp > #RAND_RESULT temp run function ARG(_PATH)deal_damage
+				function random:rand_rate
+				execute if score #HIT_RATE temp > #RAND_RESULT number run function ARG(_PATH)deal_damage
 			}
 			
 			func record_value()
@@ -3103,9 +3103,9 @@ namespace skill()
 				scoreboard players operation @s display_number = #MAX_DAMAGE temp
 				execute unless score #MAX_DAMAGE temp = #MIN_DAMAGE temp run function ARG(_PATH)rand_damage
 				
-				execute if score #CRIT_RATE temp matches 1.. run function main:rand_rate
-				execute if score #CRIT_RATE temp > #RAND_RESULT temp run function ARG(_PATH)crit_multiply
-				execute unless score #CRIT_RATE temp > #RAND_RESULT temp run function ARG(_PATH)skill_multiply
+				execute if score #CRIT_RATE temp matches 1.. run function random:rand_rate
+				execute if score #CRIT_RATE temp > #RAND_RESULT number run function ARG(_PATH)crit_multiply
+				execute unless score #CRIT_RATE temp > #RAND_RESULT number run function ARG(_PATH)skill_multiply
 				
 				scoreboard players operation @s display_number < #99999 const
 				scoreboard players operation @s display_number > #1 const
@@ -3432,7 +3432,7 @@ namespace skill()
 		{
 			func mace()
 			{
-				scoreboard players set #RANGE_MAX temp 6
+				scoreboard players set #RANGE_MAX temp 5
 				function main:rand_range
 				execute if score #RAND_RANGE_RESULT temp matches ..2 run function skill:summon_font_effect/0000000mace0
 				execute if score #RAND_RANGE_RESULT temp matches 3.. run function skill:summon_font_effect/0000000mace1
@@ -3440,7 +3440,7 @@ namespace skill()
 			
 			func sword()
 			{
-				scoreboard players set #RANGE_MAX temp 6
+				scoreboard players set #RANGE_MAX temp 5
 				function main:rand_range
 				execute if score #RAND_RANGE_RESULT temp matches ..2 run function skill:summon_font_effect/0000000sword0
 				execute if score #RAND_RANGE_RESULT temp matches 3.. run function skill:summon_font_effect/0000000sword1
@@ -3503,7 +3503,7 @@ namespace skill()
 		{
 			func swing()
 			{
-				scoreboard players set #RANGE_MAX temp 9
+				scoreboard players set #RANGE_MAX temp 8
 				function main:rand_range
 				scoreboard players add #RAND_RANGE_RESULT temp 1000000
 				execute if score @s claw_mastery matches ..55 run function ARG(_PATH)set_color
@@ -3534,7 +3534,7 @@ namespace skill()
 		{
 			func random()
 			{
-				scoreboard players set #RANGE_MAX temp 15
+				scoreboard players set #RANGE_MAX temp 14
 				function main:rand_range
 				scoreboard players add #RAND_RANGE_RESULT temp 1000021
 				execute if score @s dagger_mastery matches ..55 run function ARG(_PATH)set_color
@@ -3566,7 +3566,7 @@ namespace skill()
 		{
 			func swing()
 			{
-				scoreboard players set #RANGE_MAX temp 6
+				scoreboard players set #RANGE_MAX temp 5
 				function main:rand_range
 				scoreboard players add #RAND_RANGE_RESULT temp 1000015
 				execute if score @s bow_mastery matches ..55 run function ARG(_PATH)set_color
@@ -3591,8 +3591,8 @@ namespace skill()
 			{
 				func try()
 				{
-					function main:rand_rate
-					execute if score #RAND_RESULT temp < @s bow_final_rate run function ARG(_PATH)set
+					function random:rand_rate
+					execute if score #RAND_RESULT number < @s bow_final_rate run function ARG(_PATH)set
 				}
 				
 				func set()
@@ -3615,7 +3615,7 @@ namespace skill()
 		{
 			func swing()
 			{
-				scoreboard players set #RANGE_MAX temp 6
+				scoreboard players set #RANGE_MAX temp 5
 				function main:rand_range
 				scoreboard players add #RAND_RANGE_RESULT temp 1000012
 				execute if score @s cbow_mastery matches ..55 run function ARG(_PATH)set_color
@@ -3640,8 +3640,8 @@ namespace skill()
 			{
 				func try()
 				{
-					function main:rand_rate
-					execute if score #RAND_RESULT temp < @s cbow_final_rate run function ARG(_PATH)set
+					function random:rand_rate
+					execute if score #RAND_RESULT number < @s cbow_final_rate run function ARG(_PATH)set
 				}
 				
 				func set()
@@ -3678,7 +3678,7 @@ namespace skill()
 		{
 			func random()
 			{
-				scoreboard players set #RANGE_MAX temp 15
+				scoreboard players set #RANGE_MAX temp 14
 				function main:rand_range
 				scoreboard players add #RAND_RANGE_RESULT temp 1000036
 				
@@ -3709,8 +3709,8 @@ namespace skill()
 			{
 				func try()
 				{
-					function main:rand_rate
-					execute if score #RAND_RESULT temp < @s p_arm_final_rate run function ARG(_PATH)set
+					function random:rand_rate
+					execute if score #RAND_RESULT number < @s p_arm_final_rate run function ARG(_PATH)set
 				}
 				
 				func set()
@@ -3722,7 +3722,7 @@ namespace skill()
 					execute if score #LAST_ACTION_TYPE temp matches 1 run scoreboard players add @s action_time 1
 					
 					# set final attack action
-					scoreboard players set #RANGE_MAX temp 6
+					scoreboard players set #RANGE_MAX temp 5
 					function main:rand_range
 					execute store result score @s f_attack_action run scoreboard players add #RAND_RANGE_RESULT temp 1000106
 				}
@@ -3751,7 +3751,7 @@ namespace skill()
 		{
 			func random()
 			{
-				scoreboard players set #RANGE_MAX temp 15
+				scoreboard players set #RANGE_MAX temp 14
 				function main:rand_range
 				scoreboard players add #RAND_RANGE_RESULT temp 1000036
 				
@@ -3782,8 +3782,8 @@ namespace skill()
 			{
 				func try()
 				{
-					function main:rand_rate
-					execute if score #RAND_RESULT temp < @s spear_final_rate run function ARG(_PATH)set
+					function random:rand_rate
+					execute if score #RAND_RESULT number < @s spear_final_rate run function ARG(_PATH)set
 				}
 				
 				func set()
@@ -3795,7 +3795,7 @@ namespace skill()
 					execute if score #LAST_ACTION_TYPE temp matches 1 run scoreboard players add @s action_time 1
 					
 					# set final attack action
-					scoreboard players set #RANGE_MAX temp 6
+					scoreboard players set #RANGE_MAX temp 5
 					function main:rand_range
 					execute store result score @s f_attack_action run scoreboard players add #RAND_RANGE_RESULT temp 1000106
 				}
@@ -3824,7 +3824,7 @@ namespace skill()
 		{
 			func random()
 			{
-				scoreboard players set #RANGE_MAX temp 15
+				scoreboard players set #RANGE_MAX temp 14
 				function main:rand_range
 				scoreboard players add #RAND_RANGE_RESULT temp 1000000
 				
@@ -3845,8 +3845,8 @@ namespace skill()
 			{
 				func try()
 				{
-					function main:rand_rate
-					execute if score #RAND_RESULT temp < @s sword_final_rate run function ARG(_PATH)set
+					function random:rand_rate
+					execute if score #RAND_RESULT number < @s sword_final_rate run function ARG(_PATH)set
 				}
 				
 				func set()
@@ -3855,7 +3855,7 @@ namespace skill()
 					scoreboard players remove @s f_attack_time 2
 					
 					# set final attack action
-					scoreboard players set #RANGE_MAX temp 6
+					scoreboard players set #RANGE_MAX temp 5
 					function main:rand_range
 					execute store result score @s f_attack_action run scoreboard players add #RAND_RANGE_RESULT temp 1000100
 					
@@ -3885,7 +3885,7 @@ namespace skill()
 		{
 			func random()
 			{
-				scoreboard players set #RANGE_MAX temp 15
+				scoreboard players set #RANGE_MAX temp 14
 				function main:rand_range
 				scoreboard players add #RAND_RANGE_RESULT temp 1000000
 				
@@ -3916,8 +3916,8 @@ namespace skill()
 			{
 				func try()
 				{
-					function main:rand_rate
-					execute if score #RAND_RESULT temp < @s axe_final_rate run function ARG(_PATH)set
+					function random:rand_rate
+					execute if score #RAND_RESULT number < @s axe_final_rate run function ARG(_PATH)set
 				}
 				
 				func set()
@@ -3926,7 +3926,7 @@ namespace skill()
 					scoreboard players remove @s f_attack_time 2
 					
 					# set final attack action
-					scoreboard players set #RANGE_MAX temp 6
+					scoreboard players set #RANGE_MAX temp 5
 					function main:rand_range
 					execute store result score @s f_attack_action run scoreboard players add #RAND_RANGE_RESULT temp 1000100
 					
@@ -3958,7 +3958,7 @@ namespace skill()
 		{
 			func random()
 			{
-				scoreboard players set #RANGE_MAX temp 15
+				scoreboard players set #RANGE_MAX temp 14
 				function main:rand_range
 				scoreboard players add #RAND_RANGE_RESULT temp 1000066
 				
@@ -3989,8 +3989,8 @@ namespace skill()
 			{
 				func try()
 				{
-					function main:rand_rate
-					execute if score #RAND_RESULT temp < @s blunt_final_rate run function ARG(_PATH)set
+					function random:rand_rate
+					execute if score #RAND_RESULT number < @s blunt_final_rate run function ARG(_PATH)set
 				}
 				
 				func set()
@@ -3999,7 +3999,7 @@ namespace skill()
 					scoreboard players remove @s f_attack_time 2
 					
 					# set final attack action
-					scoreboard players set #RANGE_MAX temp 6
+					scoreboard players set #RANGE_MAX temp 5
 					function main:rand_range
 					execute store result score @s f_attack_action run scoreboard players add #RAND_RANGE_RESULT temp 1000118
 					
@@ -4031,7 +4031,7 @@ namespace skill()
 		{
 			func random()
 			{
-				scoreboard players set #RANGE_MAX temp 15
+				scoreboard players set #RANGE_MAX temp 14
 				function main:rand_range
 				scoreboard players add #RAND_RANGE_RESULT temp 1000081
 				
@@ -4052,8 +4052,8 @@ namespace skill()
 			{
 				func try()
 				{
-					function main:rand_rate
-					execute if score #RAND_RESULT temp < @s sword_final_rate run function ARG(_PATH)set
+					function random:rand_rate
+					execute if score #RAND_RESULT number < @s sword_final_rate run function ARG(_PATH)set
 				}
 				
 				func set()
@@ -4062,7 +4062,7 @@ namespace skill()
 					scoreboard players remove @s f_attack_time 2
 					
 					# set final attack action
-					scoreboard players set #RANGE_MAX temp 6
+					scoreboard players set #RANGE_MAX temp 5
 					function main:rand_range
 					execute store result score @s f_attack_action run scoreboard players add #RAND_RANGE_RESULT temp 1000124
 					
@@ -4086,7 +4086,7 @@ namespace skill()
 		{
 			func random()
 			{
-				scoreboard players set #RANGE_MAX temp 15
+				scoreboard players set #RANGE_MAX temp 14
 				function main:rand_range
 				scoreboard players add #RAND_RANGE_RESULT temp 1000051
 				
@@ -4117,8 +4117,8 @@ namespace skill()
 			{
 				func try()
 				{
-					function main:rand_rate
-					execute if score #RAND_RESULT temp < @s axe_final_rate run function ARG(_PATH)set
+					function random:rand_rate
+					execute if score #RAND_RESULT number < @s axe_final_rate run function ARG(_PATH)set
 				}
 				
 				func set()
@@ -4127,7 +4127,7 @@ namespace skill()
 					scoreboard players remove @s f_attack_time 2
 					
 					# set final attack action
-					scoreboard players set #RANGE_MAX temp 6
+					scoreboard players set #RANGE_MAX temp 5
 					function main:rand_range
 					execute store result score @s f_attack_action run scoreboard players add #RAND_RANGE_RESULT temp 1000112
 					
@@ -4153,7 +4153,7 @@ namespace skill()
 		{
 			func random()
 			{
-				scoreboard players set #RANGE_MAX temp 15
+				scoreboard players set #RANGE_MAX temp 14
 				function main:rand_range
 				scoreboard players add #RAND_RANGE_RESULT temp 1000051
 				
@@ -4184,8 +4184,8 @@ namespace skill()
 			{
 				func try()
 				{
-					function main:rand_rate
-					execute if score #RAND_RESULT temp < @s blunt_final_rate run function ARG(_PATH)set
+					function random:rand_rate
+					execute if score #RAND_RESULT number < @s blunt_final_rate run function ARG(_PATH)set
 				}
 				
 				func set()
@@ -4194,7 +4194,7 @@ namespace skill()
 					scoreboard players remove @s f_attack_time 2
 					
 					# set final attack action
-					scoreboard players set #RANGE_MAX temp 6
+					scoreboard players set #RANGE_MAX temp 5
 					function main:rand_range
 					execute store result score @s f_attack_action run scoreboard players add #RAND_RANGE_RESULT temp 1000112
 					

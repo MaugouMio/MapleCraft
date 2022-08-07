@@ -249,7 +249,7 @@ namespace 31() as virtual
 			
 			func rand_hit_effect()
 			{
-				scoreboard players set #RANGE_MAX temp 6
+				scoreboard players set #RANGE_MAX temp 5
 				function main:rand_range
 				execute if score #RAND_RANGE_RESULT temp matches 0..2 run function skill:summon_font_effect/1001005hit0
 				execute if score #RAND_RANGE_RESULT temp matches 3..5 run function skill:summon_font_effect/1001005hit1
@@ -572,7 +572,7 @@ namespace 31() as virtual
 				
 				scoreboard players set #BOMB_DIRECT_HIT temp 1
 				function ARG(_PATH)calculate_damage/run
-				scoreboard players set #RAND_RESULT temp 100
+				scoreboard players set #RAND_RESULT number 100
 				execute if score #DID_HIT temp matches 1 run function ARG(_PATH)add_debuff
 				
 				scoreboard players add @s queuing_effect 1
@@ -592,7 +592,7 @@ namespace 31() as virtual
 			func splashed()
 			{
 				function ARG(_PATH)calculate_damage/run
-				scoreboard players set #RAND_RESULT temp 100
+				scoreboard players set #RAND_RESULT number 100
 				execute if score #DID_HIT temp matches 1 run function ARG(_PATH)add_debuff
 				
 				scoreboard players add @s queuing_effect 1
@@ -632,8 +632,8 @@ namespace 31() as virtual
 					execute store result entity @s ArmorItems[3].tag.damage_record[-1].height int 1 run scoreboard players get @s default_height
 					
 					scoreboard players set #KILLED_MOB temp 0
-					function main:rand_rate
-					execute if score #HIT_RATE temp > #RAND_RESULT temp run function ARG(_PATH)deal_damage
+					function random:rand_rate
+					execute if score #HIT_RATE temp > #RAND_RESULT number run function ARG(_PATH)deal_damage
 					execute if score #DID_HIT temp matches 1 run function skill:calculate_damage/update_hp_display/run
 					execute if score #KILLED_MOB temp matches 1 if entity @s[tag=paired_mob] run function ARG(_PATH)stop_magma_cube
 					#################################
@@ -655,8 +655,8 @@ namespace 31() as virtual
 					scoreboard players operation @s display_number *= #BASE_PERCENT temp
 					scoreboard players operation @s display_number /= #100 const
 					
-					execute if score #CRIT_RATE temp matches 1.. run function main:rand_rate
-					execute if score #CRIT_RATE temp > #RAND_RESULT temp run function ARG(_PATH)crit_multiply
+					execute if score #CRIT_RATE temp matches 1.. run function random:rand_rate
+					execute if score #CRIT_RATE temp > #RAND_RESULT number run function ARG(_PATH)crit_multiply
 					
 					scoreboard players operation @s display_number < #99999 const
 					scoreboard players operation @s display_number > #1 const
@@ -685,8 +685,8 @@ namespace 31() as virtual
 			
 			func try_stun()
 			{
-				function main:rand_rate
-				execute if score #RAND_RESULT temp < #STUN_RATE temp run function skill:mob_effect/debuff/stun
+				function random:rand_rate
+				execute if score #RAND_RESULT number < #STUN_RATE temp run function skill:mob_effect/debuff/stun
 			}
 			
 			# override bullet_hit/run function
