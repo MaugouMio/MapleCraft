@@ -178,7 +178,7 @@ namespace 2() as virtual
 					print(f"attribute @s minecraft:generic.luck modifier add {simple_buff_info_dict['mguar']['uuid']} h 0 add")
 					```
 					# VVV since we got mp change below, no need to update the bar display VVV
-					# execute if entity @s[tag=!hp_mp_varying] run function bar_display:update_bar/run
+					# tag @s add hp_mp_varying
 					
 					execute positioned ~ ~1.7 ~ run function skill:summon_font_effect/2001002effect
 					playsound minecraft:skill.2001002 player @a ~ ~ ~ 1 1 0
@@ -300,7 +300,7 @@ namespace 2() as virtual
 					print(f"attribute @s minecraft:generic.luck modifier add {buff_info_dict['wdef']['uuid']} 1 0 add")
 					```
 					# VVV since we got mp change below, no need to update the bar display VVV
-					# execute if entity @s[tag=!hp_mp_varying] run function bar_display:update_bar/run
+					# tag @s add hp_mp_varying
 					
 					particle minecraft:explosion ~ ~1 ~ 0 0 0 1 3 force
 					playsound minecraft:skill.2001003 player @a ~ ~ ~ 1 1 0

@@ -350,7 +350,7 @@ namespace 13() as virtual
 				tag @s remove caster
 				
 				# VVV since we got mp change below, no need to update the bar display VVV
-				# execute if entity @s[tag=!hp_mp_varying] run function bar_display:update_bar/run
+				# tag @s add hp_mp_varying
 				
 				execute positioned ~ ~-0.4 ~ run function skill:summon_font_effect/1301006effect
 				playsound minecraft:skill.1301006 player @a ~ ~ ~ 1 1 0
@@ -364,7 +364,7 @@ namespace 13() as virtual
 			func take_effect()
 			{
 				function ARG(_PATH)setting
-				execute if entity @s[tag=!hp_mp_varying] run function bar_display:update_bar/run
+				tag @s add hp_mp_varying
 				
 				execute positioned ~ ~-0.4 ~ run function skill:summon_font_effect/1301006affected
 			}
@@ -464,7 +464,7 @@ namespace 13() as virtual
 				tag @s remove caster
 				
 				# VVV since we got mp change below, no need to update the bar display VVV
-				# execute if entity @s[tag=!hp_mp_varying] run function bar_display:update_bar/run
+				# tag @s add hp_mp_varying
 				
 				execute positioned ~ ~-0.4 ~ run function skill:summon_font_effect/1301007effect
 				playsound minecraft:skill.1301007 player @a ~ ~ ~ 1 1 0

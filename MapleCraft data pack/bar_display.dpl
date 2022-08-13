@@ -471,16 +471,74 @@ namespace bar_display()
 			data modify storage bar:main hp set value []
 			scoreboard players operation #VALUE_TO_INSERT temp = @s display_hp
 			function ARG(_PATH)insert_hp_digit
+			
 			data modify storage bar:main mp set value []
 			scoreboard players operation #VALUE_TO_INSERT temp = @s display_mp
 			function ARG(_PATH)insert_mp_digit
+			
+			function ARG(_PATH)get_exp_show/calculate
 			
 			execute unless score @s hp_flash matches 0.. run data modify storage bar:main hp_flash set value "-"
 			execute unless score @s mp_flash matches 0.. run data modify storage bar:main mp_flash set value "-"
 			execute if score @s hp_flash matches 0.. run execute store result storage bar:main hp_flash int 1 run scoreboard players get @s hp_flash
 			execute if score @s mp_flash matches 0.. run execute store result storage bar:main mp_flash int 1 run scoreboard players get @s mp_flash
 			
-			title @s actionbar [{"text":"0","font":"ui:stats_bar/hp_mp"},{"text":"CA86","font":"space:default"},{"nbt":"hp[0]","storage":"bar:main","font":"ui:stats_bar/hp1"},{"text":"1","font":"space:default"},{"nbt":"hp[1]","storage":"bar:main","font":"ui:stats_bar/hp10"},{"nbt":"hp[2]","storage":"bar:main","font":"ui:stats_bar/hp100"},{"nbt":"hp[0]","storage":"bar:main","font":"ui:stats_bar/bar_back1"},{"nbt":"hp[1]","storage":"bar:main","font":"ui:stats_bar/bar_back10"},{"nbt":"hp[2]","storage":"bar:main","font":"ui:stats_bar/bar_back100"},{"text":"\uF828\uF827","font":"space:default"},[{"text":"[","font":"ui:stats_bar/bar_num"},{"score":{"name":"@s","objective":"hp"}},"/",{"score":{"name":"@s","objective":"hp_max"}},"]"],{"text":"87","font":"space:default"},[{"text":"[","font":"ui:stats_bar/bar_num_back"},{"score":{"name":"@s","objective":"hp"}},"/",{"score":{"name":"@s","objective":"hp_max"}},"]"],{"text":"\uF82B\uF829\uF828\uF821","font":"space:default"},{"nbt":"mp[0]","storage":"bar:main","font":"ui:stats_bar/mp1"},{"text":"1","font":"space:default"},{"nbt":"mp[1]","storage":"bar:main","font":"ui:stats_bar/mp10"},{"nbt":"mp[2]","storage":"bar:main","font":"ui:stats_bar/mp100"},{"nbt":"mp[0]","storage":"bar:main","font":"ui:stats_bar/bar_back1"},{"nbt":"mp[1]","storage":"bar:main","font":"ui:stats_bar/bar_back10"},{"nbt":"mp[2]","storage":"bar:main","font":"ui:stats_bar/bar_back100"},{"text":"\uF829\uF822","font":"space:default"},[{"text":"[","font":"ui:stats_bar/bar_num"},{"score":{"name":"@s","objective":"mp"}},"/",{"score":{"name":"@s","objective":"mp_max"}},"]"],{"text":"92","font":"space:default"},[{"text":"[","font":"ui:stats_bar/bar_num_back"},{"score":{"name":"@s","objective":"mp"}},"/",{"score":{"name":"@s","objective":"mp_max"}},"]"],{"text":"B97","font":"space:default"},{"text":"1","font":"ui:stats_bar/hp_mp"},{"text":"CA9","font":"space:default"},{"nbt":"hp_flash","storage":"bar:main","font":"ui:stats_bar/bar_flash"},{"text":"2","font":"space:default"},{"nbt":"mp_flash","storage":"bar:main","font":"ui:stats_bar/bar_flash"},{"text":"\uF826","font":"space:default"},{"nbt":"Attributes[{Name:\"minecraft:generic.luck\"}].Modifiers[].Name","entity":"@s","font":"skill:buff"},{"nbt":"Attributes[{Name:\"minecraft:generic.luck\"}].Modifiers[].Name","entity":"@s","font":"skill:buff_back"},{"text":"6","font":"space:default"}]
+			title @s actionbar [{"text":"A83","font":"space:default"},{"text":"4","font":"ui:stats_bar/hp_mp"},{"text":"92","font":"space:default"},{"score":{"name":"@s","objective":"level"},"font":"ui:stats_bar/lv_num_back"},{"score":{"name":"@s","objective":"level"},"font":"ui:stats_bar/lv_num"},{"score":{"name":"@s","objective":"level"},"font":"ui:stats_bar/lv_num_back2"},{"text":"\uF822","font":"space:default"},{"text":"0","font":"ui:stats_bar/hp_mp"},{"text":"CA86","font":"space:default"},{"nbt":"hp[0]","storage":"bar:main","font":"ui:stats_bar/hp1"},{"text":"1","font":"space:default"},{"nbt":"hp[1]","storage":"bar:main","font":"ui:stats_bar/hp10"},{"nbt":"hp[2]","storage":"bar:main","font":"ui:stats_bar/hp100"},{"nbt":"hp[0]","storage":"bar:main","font":"ui:stats_bar/bar_back1"},{"nbt":"hp[1]","storage":"bar:main","font":"ui:stats_bar/bar_back10"},{"nbt":"hp[2]","storage":"bar:main","font":"ui:stats_bar/bar_back100"},{"text":"\uF828\uF827","font":"space:default"},[{"text":"[","font":"ui:stats_bar/bar_num"},{"score":{"name":"@s","objective":"hp"}},"/",{"score":{"name":"@s","objective":"hp_max"}},"]"],{"text":"87","font":"space:default"},[{"text":"[","font":"ui:stats_bar/bar_num_back"},{"score":{"name":"@s","objective":"hp"}},"/",{"score":{"name":"@s","objective":"hp_max"}},"]"],{"text":"\uF82B\uF829\uF828\uF821","font":"space:default"},{"nbt":"mp[0]","storage":"bar:main","font":"ui:stats_bar/mp1"},{"text":"1","font":"space:default"},{"nbt":"mp[1]","storage":"bar:main","font":"ui:stats_bar/mp10"},{"nbt":"mp[2]","storage":"bar:main","font":"ui:stats_bar/mp100"},{"nbt":"mp[0]","storage":"bar:main","font":"ui:stats_bar/bar_back1"},{"nbt":"mp[1]","storage":"bar:main","font":"ui:stats_bar/bar_back10"},{"nbt":"mp[2]","storage":"bar:main","font":"ui:stats_bar/bar_back100"},{"text":"\uF829\uF822","font":"space:default"},[{"text":"[","font":"ui:stats_bar/bar_num"},{"score":{"name":"@s","objective":"mp"}},"/",{"score":{"name":"@s","objective":"mp_max"}},"]"],{"text":"92","font":"space:default"},[{"text":"[","font":"ui:stats_bar/bar_num_back"},{"score":{"name":"@s","objective":"mp"}},"/",{"score":{"name":"@s","objective":"mp_max"}},"]"],{"text":"B97","font":"space:default"},{"text":"1","font":"ui:stats_bar/hp_mp"},{"text":"CA9","font":"space:default"},{"nbt":"hp_flash","storage":"bar:main","font":"ui:stats_bar/bar_flash"},{"text":"2","font":"space:default"},{"nbt":"mp_flash","storage":"bar:main","font":"ui:stats_bar/bar_flash"},{"text":"2","font":"ui:stats_bar/hp_mp"},{"text":"B987","font":"space:default"},{"nbt":"exp[0]","storage":"bar:main","font":"ui:stats_bar/exp1"},{"text":"1","font":"space:default"},{"nbt":"exp[1]","storage":"bar:main","font":"ui:stats_bar/exp10"},{"nbt":"exp[2]","storage":"bar:main","font":"ui:stats_bar/exp100"},{"nbt":"exp[0]","storage":"bar:main","font":"ui:stats_bar/exp_bar_back1"},{"nbt":"exp[1]","storage":"bar:main","font":"ui:stats_bar/exp_bar_back10"},{"nbt":"exp[2]","storage":"bar:main","font":"ui:stats_bar/exp_bar_back100"},{"text":"\uF829\uF826","font":"space:default"},[{"score":{"name":"@s","objective":"exp"},"font":"ui:stats_bar/bar_num"},"[",{"score":{"name":"#PERC","objective":"temp"}},".",{"score":{"name":"#PERC_POINT","objective":"temp"}},{"score":{"name":"#PERC_POINT2","objective":"temp"}},"%]"],[{"score":{"name":"@s","objective":"exp"},"font":"ui:stats_bar/bar_num_back"},"[",{"score":{"name":"#PERC","objective":"temp"}},".",{"score":{"name":"#PERC_POINT","objective":"temp"}},{"score":{"name":"#PERC_POINT2","objective":"temp"}},"%]"],{"text":"96","font":"space:default"},{"text":"3","font":"ui:stats_bar/hp_mp"},{"text":"A7","font":"space:default"},{"nbt":"Attributes[{Name:\"minecraft:generic.luck\"}].Modifiers[].Name","entity":"@s","font":"skill:buff"},{"nbt":"Attributes[{Name:\"minecraft:generic.luck\"}].Modifiers[].Name","entity":"@s","font":"skill:buff_back"},{"text":"\uF82A\uF828\uF827","font":"space:default"}]
+		}
+		
+		folder get_exp_show()
+		{
+			func calculate()
+			{
+				scoreboard players operation #PERC temp = @s exp
+				scoreboard players operation #PERC_POINT temp = @s exp_max
+				# 在不 overflow 的情況下做誤差最小化
+				execute if score @s exp matches ..210000 run scoreboard players operation #PERC temp *= #10000 const
+				execute if score @s exp matches 210001..2100000 run function ARG(_PATH)times1000
+				execute if score @s exp matches 2100001..21000000 run function ARG(_PATH)times100
+				execute if score @s exp matches 21000001..210000000 run function ARG(_PATH)times10
+				execute if score @s exp matches 210000001.. run scoreboard players operation #PERC_POINT temp /= #10000 const
+				scoreboard players operation #PERC temp /= #PERC_POINT temp
+				scoreboard players operation #PERC_POINT temp = #PERC temp
+				scoreboard players operation #PERC temp /= #100 const
+				
+				scoreboard players operation #PERC_POINT temp %= #100 const
+				scoreboard players operation #PERC_POINT2 temp = #PERC_POINT temp
+				scoreboard players operation #PERC_POINT temp /= #10 const
+				scoreboard players operation #PERC_POINT2 temp %= #10 const
+				
+				data modify storage bar:main exp set value []
+				scoreboard players operation #VALUE_TO_INSERT temp = #PERC temp
+				function ARG(_PATH)insert_exp_digit
+			}
+			
+			func times1000()
+			{
+				scoreboard players operation #PERC temp *= #1000 const
+				scoreboard players operation #PERC_POINT temp /= #10 const
+			}
+			
+			func times100()
+			{
+				scoreboard players operation #PERC temp *= #100 const
+				scoreboard players operation #PERC_POINT temp /= #100 const
+			}
+			
+			func times10()
+			{
+				scoreboard players operation #PERC temp *= #10 const
+				scoreboard players operation #PERC_POINT temp /= #1000 const
+			}
+		
+			func insert_exp_digit()
+			{
+				data modify storage bar:main exp append value 0
+				scoreboard players operation #GLOBAL temp = #VALUE_TO_INSERT temp
+				execute store result storage bar:main exp[-1] int 1 run scoreboard players operation #GLOBAL temp %= #10 const
+				
+				scoreboard players operation #VALUE_TO_INSERT temp /= #10 const
+				execute if score #VALUE_TO_INSERT temp matches 1.. run function ARG(_PATH)insert_exp_digit
+			}
 		}
 		
 		func insert_hp_digit()

@@ -116,6 +116,24 @@
 			"chars": [
 				"/"
 			]
+		},
+		{
+			"type": "bitmap",
+			"file": "ui:font/stats_bar/bar_num/percent.png",
+			"ascent": -16,
+			"height": 6,
+			"chars": [
+				"%"
+			]
+		},
+		{
+			"type": "bitmap",
+			"file": "ui:font/stats_bar/bar_num/dot.png",
+			"ascent": -16,
+			"height": 6,
+			"chars": [
+				"."
+			]
 		}
 	]
 }

@@ -228,7 +228,7 @@ namespace 3() as virtual
 					print(f"attribute @s minecraft:generic.luck modifier add {buff_info_dict['focus']['uuid']} 9 0 add")
 					```
 					# VVV since we got mp change below, no need to update the bar display VVV
-					# execute if entity @s[tag=!hp_mp_varying] run function bar_display:update_bar/run
+					# tag @s add hp_mp_varying
 					
 					execute positioned ~ ~1.7 ~ run function skill:summon_font_effect/3001003effect
 					playsound minecraft:skill.3001003 player @a ~ ~ ~ 1 1 0

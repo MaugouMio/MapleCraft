@@ -285,7 +285,7 @@ namespace main()
 		scoreboard players set @s display_mp 100
 		scoreboard players set @s mp_warning 50
 		scoreboard players set @s hp_level 25
-		function bar_display:update_bar/run
+		tag @s add hp_mp_varying
 		
 		scoreboard players set @s hp_recover_time 10
 		scoreboard players set @s next_hp_recover 10
