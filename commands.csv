@@ -197,4 +197,4 @@
 197,run tellraw @s ["\n",{"translate":"text.npc.maple_administrator.menu.how_to_projectile.response","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 198,run tellraw @s ["\n",{"translate":"text.npc.maple_administrator.menu.how_to_equip.response","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 199,run tellraw @s ["\n",{"translate":"text.npc.maple_administrator.menu.how_to_scroll.response","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
-200,run tellraw @s [{"translate":"text.meso.own","font":"minecraft:uniform","with":[{"score":{"objective":"meso","name":"@s"}}]},{"text":"\n==================","font":"minecraft:uniform"}]
+200,run tellraw @s ["\n",{"translate":"text.tip.drop_meso","font":"minecraft:uniform","clickEvent":{"action":"suggest_command","value":"/trigger drop_meso set 10"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.tip.copy_to_chat"}}},"\n",{"translate":"text.meso.own","font":"minecraft:uniform","with":[{"score":{"objective":"meso","name":"@s"}}]}]

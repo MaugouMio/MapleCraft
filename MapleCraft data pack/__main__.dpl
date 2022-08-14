@@ -304,6 +304,7 @@ namespace main()
 		scoreboard players set @s bgm 1
 		function ARG(_PATH)bgm/search/title
 		scoreboard players set @s meso 0
+		scoreboard players enable @s drop_meso
 		
 		scoreboard players set @s amazon_eyes_dist 9
 		scoreboard players set @s keen_eyes_dist 9
@@ -612,6 +613,7 @@ namespace loop()
 			effect give @a minecraft:saturation 10 100 true
 			# unlock players that set command trigger to 0
 			scoreboard players enable @a[scores={command=0}] command
+			scoreboard players enable @a[scores={drop_meso=0}] drop_meso
 		}
 	}
 	

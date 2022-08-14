@@ -90,6 +90,8 @@ namespace item()
 		scoreboard objectives add equip_dex dummy
 		scoreboard objectives add equip_int dummy
 		scoreboard objectives add equip_luk dummy
+		
+		scoreboard objectives add drop_meso trigger
 	}
 	
 	folder equip_window() from equip_window();
@@ -99,6 +101,7 @@ namespace item()
 		func schedule_1s()
 		{
 			execute as @e[type=item,tag=!checked] at @s run function ARG(__PATH)entity/check
+			execute as @e[type=item,tag=loot_meso] at @s run function ARG(__PATH)drop_meso/free_loot
 		}
 	}
 	
@@ -108,6 +111,83 @@ namespace item()
 		execute as @a[scores={right_click_item=1..},tag=!dead] at @s run function ARG(_PATH)use/check
 		# pick item check
 		execute as @a[predicate=item:pickup] at @s run function ARG(_PATH)pick/check
+		# drop meso check
+		execute as @a unless score @s drop_meso matches 0 run function ARG(_PATH)drop_meso/check
+		# pick dropped meso check
+		execute as @a[predicate=main:sneaking] at @s run function ARG(_PATH)drop_meso/pick
+	}
+	
+	folder drop_meso()
+	{
+		func check()
+		{
+			execute if entity @s[tag=!dead] at @s run function ARG(_PATH)check_amount
+			scoreboard players reset @s drop_meso
+			scoreboard players enable @s drop_meso
+		}
+		
+		func check_amount()
+		{
+			# 可以丟的上限值
+			scoreboard players operation #GLOBAL temp = @s meso
+			execute if score #GLOBAL temp matches 50001.. run scoreboard players set #GLOBAL temp 50000
+			
+			execute unless predicate item:valid_drop_meso run function ARG(_PATH)fail
+			execute if predicate item:valid_drop_meso run function ARG(_PATH)drop
+		}
+		
+		func fail()
+		{
+			execute if score @s drop_meso matches ..9 run tellraw @s {"translate":"text.meso.drop.min","font":"minecraft:uniform"}
+			execute if score @s drop_meso > #GLOBAL temp run tellraw @s {"translate":"text.meso.drop.max","font":"minecraft:uniform","with":[{"score":{"name":"#GLOBAL","objective":"temp"}}]}
+			playsound minecraft:game.dlg_notice player @s
+		}
+		
+		func drop()
+		{
+			scoreboard players operation @s meso -= @s drop_meso
+			scoreboard players operation #GLOBAL temp = @s drop_meso
+			
+			summon item ~ ~1 ~ {Age:2400,PickupDelay:32767s,Motion:[0.0,0.35,0.0],Item:{id:"minecraft:diamond",Count:1b},Tags:["drop_meso","checked","new"]}
+			execute as @e[type=item,tag=drop_meso,tag=new,limit=1] run function ARG(_PATH)setting
+			
+			playsound minecraft:game.drop_item player @a ~ ~ ~ 1 1 0
+		}
+		
+		func setting()
+		{
+			execute store result entity @s Item.tag.CustomModelData int 1 run scoreboard players get #GLOBAL temp
+			tag @s remove new
+		}
+		
+		func pick()
+		{
+			scoreboard players operation #GLOBAL temp = @s number
+			data modify storage item:main picker set from entity @s UUID
+			execute as @e[type=item,distance=..1.2,tag=drop_meso] run function ARG(_PATH)check_owner
+		}
+		
+		func check_owner()
+		{
+			```
+			raise Warning("TODO: Pickpocket dropped meso should have 'loot_meso' tag and set score number as attacker player number")
+			```
+			scoreboard players set #CAN_PICK temp 1
+			execute if entity @s[tag=loot_meso] unless score @s number = #GLOBAL temp run scoreboard players set #CAN_PICK temp 0
+			execute if score #CAN_PICK temp matches 1 run function ARG(_PATH)set_owner
+		}
+		
+		func set_owner()
+		{
+			data modify entity @s Owner set from storage item:main picker
+			data modify entity @s PickupDelay set value 0s
+		}
+		
+		func free_loot()
+		{
+			execute store result score #GLOBAL temp run data get entity @s Age
+			execute if score #GLOBAL temp matches 4800.. run tag @s remove loot_meso
+		}
 	}
 	
 	folder entity()
@@ -186,7 +266,7 @@ namespace item()
 		{
 			func record()
 			{
-				data modify storage main:item picked_meso append from entity @s Inventory[{id:"minecraft:diamond"}].tag.CustomModelData
+				data modify storage main:item picked_meso append from entity @s Inventory[{id:"minecraft:diamond"}]
 				function ARG(_PATH)run
 				
 				clear @s minecraft:diamond
@@ -195,9 +275,11 @@ namespace item()
 			
 			func execute()
 			{
-				execute store result score #GLOBAL temp run data get storage main:item picked_meso[0]
+				execute store result score #GLOBAL temp run data get storage main:item picked_meso[0].tag.CustomModelData
+				execute store result score #ITEM_COUNT temp run data get storage main:item picked_meso[0].Count
 				data remove storage main:item picked_meso[0]
 				
+				scoreboard players operation #GLOBAL temp *= #ITEM_COUNT temp
 				scoreboard players operation @s meso += #GLOBAL temp
 			}
 		}
