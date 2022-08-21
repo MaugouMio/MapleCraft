@@ -685,6 +685,134 @@ namespace skill()
 					func weapon_check()
 					{
 						function skill:check_weapon/check_empty
+						execute if score #USED_WEAPON temp matches 1.. run function ARG(_PATH)box/check
+					}
+					
+					folder box()
+					{
+						func check()
+						{
+							# 預設弓、弩、拳套攻擊距離
+							scoreboard players set #DISTANCE temp 4
+							execute if score #USED_WEAPON temp matches 5.. unless score #USED_WEAPON temp matches 16..18 unless score #USED_WEAPON temp matches 24 run function ARG(_PATH)check_weapon_distance
+							function ARG(_PATH)search_box/search
+							
+							execute if score #FOUND_ENEMY temp matches 1 run function ARG(_PATH)hit
+							execute if score #FOUND_ENEMY temp matches 0 run function ARG(__PATH)attack_check
+						}
+						
+						func check_weapon_distance()
+						{
+							scoreboard players operation #DISTANCE temp = #USED_WEAPON temp
+							# make single hand weapon %2 be 0
+							scoreboard players add #DISTANCE temp 1
+							scoreboard players operation #DISTANCE temp %= #2 const
+							scoreboard players add #DISTANCE temp 4
+						}
+						
+						folder search_box() from for_loop().for("#DISTANCE temp", "if score #FOUND_ENEMY temp matches 0 positioned ^ ^ ^0.7")
+						{
+							func search()
+							{
+								scoreboard players set #CUR_DISTANCE temp 0
+								scoreboard players set #FOUND_ENEMY temp 0
+								
+								execute at @s rotated ~ 0 positioned ^ ^ ^100 run summon minecraft:marker ~ ~ ~ {UUID:[I;0,3,0,3]}
+								execute at @s rotated ~ 0 positioned ^ ^ ^-1.8 run function ARG(_PATH)run
+								kill 00000000-0000-0003-0000-000000000003
+							}
+							
+							func execute()
+							{
+								# simulating sector detection, larger y axis detection on further distance
+								execute if score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-0.6 ~-1.8 as @e[type=zombie,tag=box,dx=2.6,dy=2.2,dz=2.6] unless score @s status matches 1.. positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] if score #FOUND_ENEMY temp matches 0 run function ARG(_PATH)hit
+								execute unless score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~ ~-1.8 as @e[type=zombie,tag=box,dx=2.6,dy=1,dz=2.6] unless score @s status matches 1.. positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] if score #FOUND_ENEMY temp matches 0 run function ARG(_PATH)hit
+								scoreboard players add #CUR_DISTANCE temp 1
+							}
+							
+							func setting()
+							{
+								execute store result score @s health run data get entity @s ArmorItems[3].tag.info.hp_max
+								execute store result score @s hurt_sound run data get entity @s ArmorItems[3].tag.info.hurt_sound
+								execute store result score @s die_sound run data get entity @s ArmorItems[3].tag.info.die_sound
+								execute store result score @s base_model run data get entity @s ArmorItems[3].tag.CustomModelData
+							}
+							
+							func hit()
+							{
+								execute unless score @s health matches 0.. run function ARG(_PATH)setting
+								
+								scoreboard players set @s status 20
+								scoreboard players remove @s health 1
+								execute if score @s health matches 1.. run function skill:mob_effect/play_hurt_sound/run
+								execute if score @s health matches 0 run function ARG(_PATH)break
+								
+								scoreboard players add #FOUND_ENEMY temp 1
+							}
+							
+							func break()
+							{
+								loot spawn ~ ~1 ~ kill @s
+								execute if entity @s[tag=break_event] run function ARG(__PATH)check_break_event/run
+							}
+						}
+						
+						func update()
+						{
+							scoreboard players remove @s status 1
+							execute store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players add @s base_model 1
+							
+							execute if score @s status matches 0 if score @s health matches 0 run kill @s
+						}
+						
+						folder check_break_event()
+						{
+							```
+							def bs_break_event(event_list, start, end):
+								if len(event_list) == 1:
+									print("func run()")
+									print("{")
+									print(f"\texecute if score @s die_sound matches {event_list[0][0]} run {event_list[0][1]}")
+									print("}")
+									return
+								
+								if start == end:
+									return
+								
+								mid = (start + end) // 2
+								mid_right = mid + 1
+								
+								if start == 0 and end == len(event_list) - 1:
+									print("func run()")
+								else:
+									print(f"func {start}_{end}()")
+								print("{")
+								if start == mid:
+									print(f"\texecute if score @s die_sound matches {event_list[start][0]} run {event_list[start][1]}")
+								else:
+									print(f"\texecute if score @s die_sound matches {event_list[start][0]}..{event_list[mid][0]} run function ARG(_PATH){start}_{mid}")
+								if mid_right == end:
+									print(f"\texecute if score @s die_sound matches {event_list[end][0]} run {event_list[end][1]}")
+								else:
+									print(f"\texecute if score @s die_sound matches {event_list[mid_right][0]}..{event_list[end][0]} run function ARG(_PATH){mid_right}_{end}")
+								print("}")
+								
+								bs_break_event(event_list, start, mid)
+								bs_break_event(event_list, mid_right, end)
+							
+							with open(PROJ_DIR + "/../box_events.csv") as f:
+								break_events = f.read().split("\n")
+								for i in range(len(break_events)):
+									break_events[i] = break_events[i].split(",")
+									break_events[i][0] = int(break_events[i][0])
+							
+							bs_break_event(break_events, 0, len(break_events) - 1)
+							```
+						}
+					}
+					
+					func attack_check()
+					{
 						execute if score #USED_WEAPON temp matches 5.. unless score #USED_WEAPON temp matches 16..18 unless score #USED_WEAPON temp matches 24 run function ARG(__PATH)1001/mark_target
 						execute if score #USED_WEAPON temp matches 16..18 run function ARG(_PATH)archer_check
 						execute if score #USED_WEAPON temp matches 24 run function ARG(_PATH)claw_check
@@ -1045,6 +1173,7 @@ namespace skill()
 			execute as @e[type=armor_stand,tag=bullet] run function skill:bullet/check
 			execute as @e[type=armor_stand,tag=model_animation] run function ARG(_PATH)model_animation_update
 			execute as @e[type=armor_stand,tag=afterimage] run function skill:afterimage/update
+			execute as @e[type=zombie,tag=box] if score @s status matches 1.. run function skill:6/0/0/1000/box/update
 			execute as @e[type=zombified_piglin,tag=enemy] run function ARG(_PATH)enemy/run
 			execute as @e[type=magma_cube,tag=!original] unless predicate skill:riding_enemy run function ARG(_PATH)clear_magma_cube
 			
