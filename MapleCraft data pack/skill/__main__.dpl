@@ -695,9 +695,10 @@ namespace skill()
 							# 預設弓、弩、拳套攻擊距離
 							scoreboard players set #DISTANCE temp 4
 							execute if score #USED_WEAPON temp matches 5.. unless score #USED_WEAPON temp matches 16..18 unless score #USED_WEAPON temp matches 24 run function ARG(_PATH)check_weapon_distance
+							
+							data modify storage skill:main damage_info.attacker set from entity @s UUID
 							function ARG(_PATH)search_box/search
 							
-							execute if score #FOUND_ENEMY temp matches 1 run function ARG(_PATH)hit
 							execute if score #FOUND_ENEMY temp matches 0 run function ARG(__PATH)attack_check
 						}
 						
@@ -734,6 +735,7 @@ namespace skill()
 							{
 								execute store result score @s health run data get entity @s ArmorItems[3].tag.info.hp_max
 								execute store result score @s hurt_sound run data get entity @s ArmorItems[3].tag.info.hurt_sound
+								# die_sound 這邊不是死亡音效編號，是箱子破壞事件編號 (對應 function 自己播放音效)
 								execute store result score @s die_sound run data get entity @s ArmorItems[3].tag.info.die_sound
 								execute store result score @s base_model run data get entity @s ArmorItems[3].tag.CustomModelData
 							}
@@ -753,7 +755,9 @@ namespace skill()
 							func break()
 							{
 								loot spawn ~ ~1 ~ kill @s
-								execute if entity @s[tag=break_event] run function ARG(__PATH)check_break_event/run
+								execute as @e[type=item,tag=!checked] at @s run function item:entity/check
+								
+								function ARG(__PATH)check_break_event/run
 							}
 						}
 						
