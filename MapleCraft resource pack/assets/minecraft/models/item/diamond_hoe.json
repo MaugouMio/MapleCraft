@@ -1,0 +1,19 @@
+{
+    "parent": "item/handheld",
+    "textures": {
+        "layer0": "item/diamond_hoe"
+    },
+	"overrides": [
+		{"predicate": {"custom_model_data": 1},"model": "box/2202002/0"},
+		{"predicate": {"custom_model_data": 2},"model": "box/2202002/1"},
+		{"predicate": {"custom_model_data": 5},"model": "box/2202002/0"},
+		{"predicate": {"custom_model_data": 22},"model": "box/2202002/2"},
+		{"predicate": {"custom_model_data": 25},"model": "box/2202002/0"},
+		{"predicate": {"custom_model_data": 42},"model": "box/2202002/1"},
+		{"predicate": {"custom_model_data": 45},"model": "box/2202002/0"},
+		{"predicate": {"custom_model_data": 62},"model": "box/2202002/3"},
+		{"predicate": {"custom_model_data": 65},"model": "box/2202002/4"},
+		{"predicate": {"custom_model_data": 68},"model": "box/2202002/5"},
+		{"predicate": {"custom_model_data": 71},"model": "item/empty"}
+	]
+}

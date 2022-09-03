@@ -1074,4 +1074,64 @@ namespace party_quest() as virtual
 		folder title() from pq_title_template("KPQ", 1);
 		folder clock() from pq_clock_template("kpq", 1);
 	}
+	
+	folder ldpq()
+	{
+		folder stages()
+		{
+			folder 1()
+			{
+				
+			}
+			
+			folder 2()
+			{
+				func summon_box()
+				{
+					summon zombie ~ ~ ~ {Tags:["ldpq_mob","box"],ArmorItems:[{},{},{},{id:"minecraft:diamond_hoe",Count:1b,tag:{info:{hp_max:4,hurt_sound:5,die_sound:1},CustomModelData:1}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1b,PersistenceRequired:1b,NoAI:1b,Invulnerable:1b,DeathLootTable:"skill:mob/special/pass_pq",Team:"enemy"}
+				}
+				
+				func box_break()
+				{
+					playsound minecraft:mob.hurt.b_22020024 player @a ~ ~ ~ 1 1 0
+					particle minecraft:poof ~ ~0.5 ~ 0.3 0.1 0.3 0.01 7 force
+				}
+			}
+			
+			folder 3()
+			{
+				
+			}
+			
+			folder 4()
+			{
+				
+			}
+			
+			folder 5()
+			{
+				
+			}
+			
+			folder 6()
+			{
+				
+			}
+			
+			folder 7()
+			{
+				
+			}
+			
+			folder 8()
+			{
+				
+			}
+			
+			folder 9()
+			{
+				
+			}
+		}
+	}
 }

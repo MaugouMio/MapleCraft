@@ -583,6 +583,12 @@ namespace main()
 		}
 	}
 	
+	func deep_kill()
+	{
+		tp @s ~ -200 ~
+		kill @s
+	}
+	
 	func rand_range() from random().generate("#0 const", "#RANGE_MAX temp", "#RAND_RANGE_RESULT temp");
 }
 
