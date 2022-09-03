@@ -699,6 +699,7 @@ namespace skill()
 							data modify storage skill:main damage_info.attacker set from entity @s UUID
 							function ARG(_PATH)search_box/search
 							
+							execute if score #FOUND_ENEMY temp matches 1 run function ARG(_PATH)cast_effect
 							execute if score #FOUND_ENEMY temp matches 0 run function ARG(__PATH)attack_check
 						}
 						
@@ -726,39 +727,44 @@ namespace skill()
 							func execute()
 							{
 								# simulating sector detection, larger y axis detection on further distance
-								execute if score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-0.6 ~-1.8 as @e[type=zombie,tag=box,dx=2.6,dy=2.2,dz=2.6] unless score @s status matches 1.. positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] if score #FOUND_ENEMY temp matches 0 at @s run function ARG(_PATH)hit
-								execute unless score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~ ~-1.8 as @e[type=zombie,tag=box,dx=2.6,dy=1,dz=2.6] unless score @s status matches 1.. positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] if score #FOUND_ENEMY temp matches 0 at @s run function ARG(_PATH)hit
+								execute if score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-0.6 ~-1.8 as @e[type=zombie,tag=box,dx=2.6,dy=2.2,dz=2.6] unless score @s status matches 1.. positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)hit_check
+								execute unless score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~ ~-1.8 as @e[type=zombie,tag=box,dx=2.6,dy=1,dz=2.6] unless score @s status matches 1.. positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)hit_check
 								scoreboard players add #CUR_DISTANCE temp 1
 							}
 							
-							func setting()
+							func hit_check()
 							{
-								execute store result score @s health run data get entity @s ArmorItems[3].tag.info.hp_max
-								execute store result score @s hurt_sound run data get entity @s ArmorItems[3].tag.info.hurt_sound
-								# die_sound 這邊不是死亡音效編號，是箱子破壞事件編號 (對應 function 自己播放音效)
-								execute store result score @s die_sound run data get entity @s ArmorItems[3].tag.info.die_sound
-								execute store result score @s base_model run data get entity @s ArmorItems[3].tag.CustomModelData
+								execute if score #FOUND_ENEMY temp matches 0 at @s run function ARG(_PATH)hit
 							}
 							
 							func hit()
 							{
-								execute unless score @s health matches 0.. run function ARG(_PATH)setting
+								execute unless score @s hp matches 0.. run function ARG(_PATH)setting
 								
 								scoreboard players set @s status 20
-								scoreboard players remove @s health 1
-								execute if score @s health matches 1.. run function skill:mob_effect/play_hurt_sound/run
-								execute if score @s health matches 0 run function ARG(_PATH)break
+								scoreboard players remove @s hp 1
+								execute if score @s hp matches 0 run data modify entity @s ArmorItems[3].tag.killer set from storage skill:main damage_info.attacker
 								
 								scoreboard players add #FOUND_ENEMY temp 1
 							}
 							
-							func break()
+							func setting()
 							{
-								loot spawn ~ ~1 ~ kill @s
-								execute as @e[type=item,tag=!checked] at @s run function item:entity/check
-								
-								function ARG(__PATH)check_break_event/run
+								execute store result score @s hp run data get entity @s ArmorItems[3].tag.info.hp_max
+								execute store result score @s hurt_sound run data get entity @s ArmorItems[3].tag.info.hurt_sound
+								# die_sound 這邊不是死亡音效編號，是箱子破壞事件編號 (對應 function 自己播放音效)
+								execute store result score @s die_sound run data get entity @s ArmorItems[3].tag.info.die_sound
+								execute store result score @s base_model run data get entity @s ArmorItems[3].tag.CustomModelData
+								scoreboard players remove @s base_model 1
 							}
+						}
+						
+						func cast_effect()
+						{
+							execute if score #USED_WEAPON temp matches 16 run function skill:afterimage/bow/swing
+							execute if score #USED_WEAPON temp matches 18 run function skill:afterimage/crossbow/swing
+							execute if score #USED_WEAPON temp matches 24 run function skill:afterimage/claw/stab
+							execute unless score #USED_WEAPON temp matches 16..18 unless score #USED_WEAPON temp matches 24 run function skill:afterimage/warrior_swing/check
 						}
 						
 						func update()
@@ -766,7 +772,24 @@ namespace skill()
 							scoreboard players remove @s status 1
 							execute store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players add @s base_model 1
 							
-							execute if score @s status matches 0 if score @s health matches 0 run function main:deep_kill
+							execute if score @s status matches 13 run function ARG(_PATH)hit_effect
+							execute if score @s status matches 0 if score @s hp matches 0 run function main:deep_kill
+						}
+						
+						func hit_effect()
+						{
+							execute if score @s hp matches 1.. run function skill:mob_effect/play_hurt_sound/run
+							execute if score @s hp matches 0 run function ARG(_PATH)break_effect
+						}
+						
+						func break_effect()
+						{
+							data modify storage skill:main damage_info.attacker set from entity @s ArmorItems[3].tag.killer
+							
+							loot spawn ~ ~1 ~ kill @s
+							execute as @e[type=item,tag=!checked] at @s run function item:entity/check
+							
+							function ARG(_PATH)check_break_event/run
 						}
 						
 						folder check_break_event()
@@ -1177,7 +1200,7 @@ namespace skill()
 			execute as @e[type=armor_stand,tag=bullet] run function skill:bullet/check
 			execute as @e[type=armor_stand,tag=model_animation] run function ARG(_PATH)model_animation_update
 			execute as @e[type=armor_stand,tag=afterimage] run function skill:afterimage/update
-			execute as @e[type=zombie,tag=box] if score @s status matches 1.. run function skill:6/0/0/1000/box/update
+			execute as @e[type=zombie,tag=box] if score @s status matches 1.. at @s run function skill:6/0/0/1000/box/update
 			execute as @e[type=zombified_piglin,tag=enemy] run function ARG(_PATH)enemy/run
 			execute as @e[type=magma_cube,tag=!original] unless predicate skill:riding_enemy run function ARG(_PATH)clear_magma_cube
 			
