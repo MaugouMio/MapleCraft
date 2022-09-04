@@ -761,6 +761,10 @@ namespace skill()
 						
 						func cast_effect()
 						{
+							# melee *RANDOM* swing damage formula and default attack speed is done by afterimage functions
+							scoreboard players operation @s action_time = @s weapon_speed
+							scoreboard players remove @s[scores={boost_buff_time=1..}] action_time 1
+							
 							execute if score #USED_WEAPON temp matches 16 run function skill:afterimage/bow/swing
 							execute if score #USED_WEAPON temp matches 18 run function skill:afterimage/crossbow/swing
 							execute if score #USED_WEAPON temp matches 24 run function skill:afterimage/claw/stab
@@ -895,6 +899,7 @@ namespace skill()
 					{
 						# melee *RANDOM* swing damage formula and default attack speed is done by afterimage functions
 						scoreboard players operation @s action_time = @s weapon_speed
+						scoreboard players remove @s[scores={boost_buff_time=1..}] action_time 1
 					}
 				
 					func cast_effect()
