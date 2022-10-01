@@ -1255,7 +1255,7 @@ namespace skill()
 			func run()
 			{
 				execute unless score @s kb_time matches 1.. if entity @s[tag=!dead] run function ARG(_PATH)status_change/check
-				execute if score @s action_frame_max matches 1.. unless entity @s[scores={kb_time=1..,status=..3}] run function ARG(_PATH)status_change/update_frame
+				execute if score @s action_frame_max matches 2.. unless entity @s[scores={kb_time=1..,status=..3}] run function ARG(_PATH)status_change/update_frame
 				execute if entity @s[tag=color_changed] run function ARG(_PATH)status_change/color/check
 				
 				execute if score @s kb_time matches 1.. run function ARG(_PATH)kb/countdown
@@ -1334,15 +1334,15 @@ namespace skill()
 				{
 					scoreboard players reset @s action_frame_max
 					scoreboard players set @s action_frame_s 2
-					execute if score #GLOBAL temp matches 2 if score @s move_frame matches 1.. run scoreboard players operation @s action_frame_max = @s move_frame
-					execute if score #GLOBAL temp matches 3 if score @s stand_frame matches 1.. run scoreboard players operation @s action_frame_s += @s move_frame
-					execute if score #GLOBAL temp matches 3 if score @s stand_frame matches 1.. run scoreboard players operation @s action_frame_max = @s stand_frame
+					execute if score #GLOBAL temp matches 2 if score @s move_frame matches 2.. run scoreboard players operation @s action_frame_max = @s move_frame
+					execute if score #GLOBAL temp matches 3 if score @s stand_frame matches 2.. run scoreboard players operation @s action_frame_s += @s move_frame
+					execute if score #GLOBAL temp matches 3 if score @s stand_frame matches 2.. run scoreboard players operation @s action_frame_max = @s stand_frame
 					scoreboard players set @s action_frame -1
 					
 					scoreboard players set @s[tag=!no_jump] rand_jump 20
 					
 					scoreboard players operation @s status = #GLOBAL temp
-					execute unless score @s action_frame_max matches 1.. store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players operation #GLOBAL temp += @s base_model
+					execute unless score @s action_frame_max matches 2.. store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players operation #GLOBAL temp += @s base_model
 				}
 				
 				folder color()
