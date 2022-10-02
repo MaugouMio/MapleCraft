@@ -21,6 +21,7 @@ in vec2 texCoord;
 in vec2 texCoord2;
 in vec3 Pos;
 in float transition;
+in float alpha;
 
 flat in int isCustom;
 flat in int isGUI;
@@ -32,9 +33,13 @@ out vec4 fragColor;
 void main() {
     vec4 color = texture(Sampler0, texCoord);
 
-    //custom lighting
-    #define ENTITY
-    #moj_import<objmc_light.glsl>
+	// alpha fade in
+	if (isCustom == 0 && color.a > 0.01 && alpha >= 0.0)
+		color.a = alpha;
+	
+	//custom lighting
+	#define ENTITY
+	#moj_import<objmc_light.glsl>
 
     if (color.a < 0.01) discard;
     fragColor = linear_fog(color, vertexDistance, FogStart, FogEnd, FogColor);

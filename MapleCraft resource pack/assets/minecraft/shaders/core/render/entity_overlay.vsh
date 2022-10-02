@@ -32,6 +32,7 @@ out vec2 texCoord;
 out vec2 texCoord2;
 out vec3 Pos;
 out float transition;
+out float alpha;
 
 flat out int isCustom;
 flat out int isGUI;
@@ -47,6 +48,8 @@ void main() {
     overlayColor = texelFetch(Sampler1, UV1, 0);
     vertexColor = minecraft_mix_light(Light0_Direction, Light1_Direction, Normal, Color);
     lightColor = minecraft_sample_lightmap(Sampler2, UV2);
+	
+	alpha = -1.0;
 
     //objmc
     #define ENTITY
