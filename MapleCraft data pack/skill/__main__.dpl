@@ -1469,6 +1469,9 @@ namespace skill()
 			{
 				scoreboard players remove @s pushed_time 1
 				scoreboard players reset @s[scores={pushed_time=0}] pushed_time
+				
+				# 順便做懸崖檢查
+				execute at @s rotated ~ 0 if block ^ ^-0.7 ^-0.7 #skill:passable run data modify entity @s Motion set value [0.0,0.0,0.0]
 			}
 			
 			folder mob_effect()
