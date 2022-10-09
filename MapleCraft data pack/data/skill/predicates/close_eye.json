@@ -1,0 +1,29 @@
+{
+  "condition": "minecraft:alternative",
+  "terms": [
+    {
+      "condition": "minecraft:entity_scores",
+      "entity": "this",
+      "scores": {
+        "action_frame": {
+          "min": 0,
+          "max": 53
+        },
+        "status": 2,
+        "base_model": 10231
+      }
+    },
+    {
+      "condition": "minecraft:entity_scores",
+      "entity": "this",
+      "scores": {
+        "action_frame": {
+          "min": 0,
+          "max": 53
+        },
+        "status": 2,
+        "base_model": 10407
+      }
+    }
+  ]
+}

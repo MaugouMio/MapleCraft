@@ -116,7 +116,7 @@ namespace attack_skill_template(skill_id) as virtual
 	func hit_effect()
 	{
 		execute store result score #GLOBAL ARG(skill_id)_eid run time query gametime
-		execute as @e[type=zombified_piglin,tag=enemy] if score @s ARG(skill_id)_eid = #GLOBAL ARG(skill_id)_eid at @s run function ARG(_PATH)perform_effect
+		execute as @e[type=zombified_piglin] if score @s ARG(skill_id)_eid = #GLOBAL ARG(skill_id)_eid at @s run function ARG(_PATH)perform_effect
 	}
 	
 	func perform_effect()
@@ -346,7 +346,7 @@ namespace bullet_skill_template(skill_id) as virtual
 	func hit_effect()
 	{
 		execute store result score #GLOBAL ARG(skill_id)_eid run time query gametime
-		execute as @e[type=zombified_piglin,tag=enemy] if score @s ARG(skill_id)_eid = #GLOBAL ARG(skill_id)_eid at @s run function ARG(_PATH)perform_effect
+		execute as @e[type=zombified_piglin] if score @s ARG(skill_id)_eid = #GLOBAL ARG(skill_id)_eid at @s run function ARG(_PATH)perform_effect
 	}
 	
 	func perform_effect()
@@ -1176,7 +1176,7 @@ namespace skill()
 	{
 		func schedule_1s()
 		{
-			execute as @e[type=zombified_piglin,tag=enemy,tag=!dead] run function ARG(_PATH)enemy
+			execute as @e[type=zombified_piglin,tag=!dead] run function ARG(_PATH)enemy
 		}
 		
 		func enemy()
@@ -1188,7 +1188,7 @@ namespace skill()
 		
 		func schedule_10s()
 		{
-			execute as @e[type=zombified_piglin,tag=enemy,tag=!dead] run data modify entity @s AngerTime set value 2147483647
+			execute as @e[type=zombified_piglin,tag=!dead] run data modify entity @s AngerTime set value 2147483647
 		}
 		
 		func schedule_1d()
@@ -1206,7 +1206,7 @@ namespace skill()
 			execute as @e[type=armor_stand,tag=model_animation] run function ARG(_PATH)model_animation_update
 			execute as @e[type=armor_stand,tag=afterimage] run function skill:afterimage/update
 			execute as @e[type=zombie,tag=box] if score @s status matches 1.. at @s run function skill:6/0/0/1000/box/update
-			execute as @e[type=zombified_piglin,tag=enemy] run function ARG(_PATH)enemy/run
+			execute as @e[type=zombified_piglin] run function ARG(_PATH)enemy/run
 			execute as @e[type=magma_cube,tag=!original] unless predicate skill:riding_enemy run function ARG(_PATH)clear_magma_cube
 			
 			execute as @a[scores={action_time=1..}] run function ARG(_PATH)action/countdown
@@ -1302,14 +1302,15 @@ namespace skill()
 				
 				func check_jump()
 				{
-					execute if entity @s[tag=no_jump] run function ARG(_PATH)prevent_jump
 					scoreboard players set #GLOBAL temp 0
+					execute if entity @s[tag=no_jump] run function ARG(_PATH)prevent_jump
 				}
 				
 				func prevent_jump()
 				{
 					execute store result score @s motion_y run data get entity @s Motion[1] 100
 					execute if score @s motion_y matches 1.. run data modify entity @s Motion[1] set value 0.0
+					scoreboard players set #GLOBAL temp -1
 				}
 				
 				func check_motion()
@@ -1328,6 +1329,10 @@ namespace skill()
 					scoreboard players operation #GLOBAL temp = @s base_model
 					scoreboard players operation #GLOBAL temp += @s action_frame_s
 					execute store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players operation #GLOBAL temp += @s action_frame
+					
+					# 眼睛特殊處理
+					execute if predicate skill:close_eye unless entity @s[tag=close_eye] run function quest:party_quest/ldpq/stages/4/eyes/close
+					execute unless predicate skill:close_eye if entity @s[tag=close_eye] run function quest:party_quest/ldpq/stages/4/eyes/open
 				}
 				
 				func change()
@@ -1341,6 +1346,7 @@ namespace skill()
 					
 					scoreboard players set @s[tag=!no_jump] rand_jump 20
 					
+					execute if score @s[tag=ldpq_eye] status matches 1 run function quest:party_quest/ldpq/stages/4/eyes/face_after_hit
 					scoreboard players operation @s status = #GLOBAL temp
 					execute unless score @s action_frame_max matches 2.. store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players operation #GLOBAL temp += @s base_model
 				}
@@ -1791,7 +1797,7 @@ namespace skill()
 					print("func run()")
 					print("{")
 					print(f"\texecute if score @s skill_id matches {id_list[0][1]} run function skill:{id_list[0][0][0]}/{id_list[0][0][1]}/{id_list[0][0][2]}/{id_list[0][0][3:]}/append_scheduler")
-					print(f"\texecute if score @s skill_id matches {id_list[0][1]} as @e[type=zombified_piglin,tag=enemy] if score @s number = #GLOBAL temp run function skill:{id_list[0][0][0]}/{id_list[0][0][1]}/{id_list[0][0][2]}/{id_list[0][0][3:]}/bullet_hit/run")
+					print(f"\texecute if score @s skill_id matches {id_list[0][1]} as @e[type=zombified_piglin] if score @s number = #GLOBAL temp run function skill:{id_list[0][0][0]}/{id_list[0][0][1]}/{id_list[0][0][2]}/{id_list[0][0][3:]}/bullet_hit/run")
 					print("}")
 					return
 				
@@ -1808,12 +1814,12 @@ namespace skill()
 				print("{")
 				if start == mid:
 					print(f"\texecute if score @s skill_id matches {id_list[start][1]} run function skill:{id_list[start][0][0]}/{id_list[start][0][1]}/{id_list[start][0][2]}/{id_list[start][0][3:]}/append_scheduler")
-					print(f"\texecute if score @s skill_id matches {id_list[start][1]} as @e[type=zombified_piglin,tag=enemy] if score @s number = #GLOBAL temp run function skill:{id_list[start][0][0]}/{id_list[start][0][1]}/{id_list[start][0][2]}/{id_list[start][0][3:]}/bullet_hit/run")
+					print(f"\texecute if score @s skill_id matches {id_list[start][1]} as @e[type=zombified_piglin] if score @s number = #GLOBAL temp run function skill:{id_list[start][0][0]}/{id_list[start][0][1]}/{id_list[start][0][2]}/{id_list[start][0][3:]}/bullet_hit/run")
 				else:
 					print(f"\texecute if score @s skill_id matches {id_list[start][1]}..{id_list[mid][1]} run function ARG(_PATH){start}_{mid}")
 				if mid_right == end:
 					print(f"\texecute if score @s skill_id matches {id_list[end][1]} run function skill:{id_list[end][0][0]}/{id_list[end][0][1]}/{id_list[end][0][2]}/{id_list[end][0][3:]}/append_scheduler")
-					print(f"\texecute if score @s skill_id matches {id_list[end][1]} as @e[type=zombified_piglin,tag=enemy] if score @s number = #GLOBAL temp run function skill:{id_list[end][0][0]}/{id_list[end][0][1]}/{id_list[end][0][2]}/{id_list[end][0][3:]}/bullet_hit/run")
+					print(f"\texecute if score @s skill_id matches {id_list[end][1]} as @e[type=zombified_piglin] if score @s number = #GLOBAL temp run function skill:{id_list[end][0][0]}/{id_list[end][0][1]}/{id_list[end][0][2]}/{id_list[end][0][3:]}/bullet_hit/run")
 				else:
 					print(f"\texecute if score @s skill_id matches {id_list[mid_right][1]}..{id_list[end][1]} run function ARG(_PATH){mid_right}_{end}")
 				print("}")
@@ -3431,6 +3437,9 @@ namespace skill()
 		{
 			execute store result score #GLOBAL temp run scoreboard players set @s status 1
 			execute store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players operation #GLOBAL temp += @s base_model
+
+			# 次元怒目哀目開眼特殊處理
+			execute if entity @s[tag=close_eye] run function quest:party_quest/ldpq/stages/4/eyes/open
 		}
 		
 		func dead()
