@@ -1153,7 +1153,7 @@ namespace party_quest() as virtual
 					
 					func run_ai()
 					{
-						execute unless score @s eye_move_dir matches 0 run function ARG(_PATH)move
+						execute unless score @s eye_move_dir matches 0 rotated ~ 0 if block ^ ^ ^0.2 #skill:passable unless block ^ ^-0.5 ^0.2 #skill:passable run function ARG(_PATH)move
 						
 						scoreboard players remove @s eye_move_time 1
 						execute unless score @s eye_move_time matches 1.. run function ARG(_PATH)change_status
