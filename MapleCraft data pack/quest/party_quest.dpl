@@ -1131,6 +1131,7 @@ namespace party_quest() as virtual
 					
 					func launch()
 					{
+						data modify entity @s CustomNameVisible set value 1b
 						tag @s add enemy
 						data modify entity @s NoAI set value 0b
 					}
@@ -1145,6 +1146,7 @@ namespace party_quest() as virtual
 					
 					func shutdown()
 					{
+						data modify entity @s CustomNameVisible set value 0b
 						tag @s remove enemy
 						data modify entity @s NoAI set value 1b
 					}
