@@ -532,7 +532,7 @@ namespace 11() as virtual
 				# hit effect
 				scoreboard players set @s display_num_type 0
 				execute unless score @s display_number matches 0 run function number_display:show
-				data modify entity @s AngryAt set from storage skill:main damage_info.attacker
+				data modify entity @s[tag=!no_anger] AngryAt set from storage skill:main damage_info.attacker
 				function skill:mob_effect/play_hurt_sound/run
 				execute if score @s hp matches ..0 unless score @s queuing_effect matches 1.. run function skill:mob_effect/dead
 			}

@@ -127,7 +127,7 @@ namespace attack_skill_template(skill_id) as virtual
 		execute store result score @s display_num_type run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].damage.crit
 		execute store result score #NUMBER_HEIGHT temp run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].damage.height
 		execute store result score #HIT_EFFECT temp run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].hit_effect
-		data modify entity @s AngryAt set from entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].attacker
+		data modify entity @s[tag=!no_anger] AngryAt set from entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].attacker
 		
 		execute store result score #GLOBAL temp run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].attacker_id
 		execute as @a if score @s number = #GLOBAL temp run tag @s add face_target
@@ -357,7 +357,7 @@ namespace bullet_skill_template(skill_id) as virtual
 		execute store result score @s display_num_type run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].damage.crit
 		execute store result score #NUMBER_HEIGHT temp run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].damage.height
 		execute store result score #HIT_EFFECT temp run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].hit_effect
-		data modify entity @s AngryAt set from entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].attacker
+		data modify entity @s[tag=!no_anger] AngryAt set from entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].attacker
 		
 		execute store result score #GLOBAL temp run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].attacker_id
 		execute as @a if score @s number = #GLOBAL temp run tag @s add face_target
