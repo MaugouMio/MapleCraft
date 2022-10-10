@@ -187,6 +187,7 @@ namespace attack_skill_template(skill_id) as virtual
 		data modify entity @s Motion set from entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].knock_back
 		
 		attribute @s minecraft:generic.movement_speed modifier add 495407c5-10c0-4270-84ed-c566e01e6952 move_control -100.0 add
+		attribute @s minecraft:generic.follow_range modifier add 7fcb1292-6c1e-41b0-bd14-431d0d1daf12 face_control -30.0 add
 	}
 	
 	func hit()
@@ -1206,7 +1207,7 @@ namespace skill()
 			execute as @e[type=armor_stand,tag=model_animation] run function ARG(_PATH)model_animation_update
 			execute as @e[type=armor_stand,tag=afterimage] run function skill:afterimage/update
 			execute as @e[type=zombie,tag=box] if score @s status matches 1.. at @s run function skill:6/0/0/1000/box/update
-			execute as @e[type=zombified_piglin] run function ARG(_PATH)enemy/run
+			execute as @e[type=zombified_piglin,tag=!new_enemy] run function ARG(_PATH)enemy/run
 			execute as @e[type=magma_cube,tag=!original] unless predicate skill:riding_enemy run function ARG(_PATH)clear_magma_cube
 			
 			execute as @a[scores={action_time=1..}] run function ARG(_PATH)action/countdown
@@ -1428,6 +1429,8 @@ namespace skill()
 							
 							scoreboard players operation @s hp -= @s poison_damage
 							scoreboard players operation @s hp > #1 const
+							
+							scoreboard players set #SILENT_UPDATE_HP temp 1
 							function skill:calculate_damage/update_hp_display/run
 							
 							scoreboard players operation @s display_number = @s poison_damage
@@ -1468,10 +1471,24 @@ namespace skill()
 			func push_countdown()
 			{
 				scoreboard players remove @s pushed_time 1
+				attribute @s[scores={pushed_time=0}] minecraft:generic.follow_range modifier remove 7fcb1292-6c1e-41b0-bd14-431d0d1daf12
 				scoreboard players reset @s[scores={pushed_time=0}] pushed_time
 				
 				# 順便做懸崖檢查
-				execute at @s rotated ~ 0 if block ^ ^-0.7 ^-0.7 #skill:passable run data modify entity @s Motion set value [0.0,0.0,0.0]
+				execute at @s[tag=!fly_enemy] rotated ~ 0 if block ^ ^-1 ^-1 #skill:passable run function ARG(_PATH)cliff_stop
+			}
+
+			func cliff_stop()
+			{
+				tp @s ^ ^0.2 ^0.7
+				execute positioned as @s unless block ~ ~-1 ~ #skill:passable run data modify entity @s Motion set value [0.0,0.0,0.0]
+				execute positioned as @s run function ARG(_PATH)force_land
+			}
+
+			func force_land()
+			{
+				execute unless block ~ ~-1 ~ #skill:passable align y run tp @s ~ ~0.1 ~
+				execute if block ~ ~-1 ~ #skill:passable positioned ~ ~-1 ~ run function ARG(_PATH)force_land
 			}
 			
 			folder mob_effect()
@@ -3007,6 +3024,7 @@ namespace skill()
 			scoreboard players set #DID_HIT temp 0
 			function ARG(_PATH)traverse_damages/run
 			
+			scoreboard players set #SILENT_UPDATE_HP temp 0
 			execute if score #DID_HIT temp matches 1 run function ARG(_PATH)update_hp_display/run
 			scoreboard players set #KILLED_MOB temp 0
 			execute if score @s hp matches ..0 run function ARG(_PATH)record_dead
@@ -3032,7 +3050,7 @@ namespace skill()
 				scoreboard players operation #HP_LENGTH temp *= #46 const
 				scoreboard players operation #HP_LENGTH temp /= @s hp_max
 				
-				execute if score @s mob_hp_length = #HP_LENGTH temp run function ARG(_PATH)show
+				execute if score #SILENT_UPDATE_HP temp matches 0 if score @s mob_hp_length = #HP_LENGTH temp run function ARG(_PATH)show
 				execute unless score @s mob_hp_length = #HP_LENGTH temp run function ARG(_PATH)update
 			}
 			
@@ -3049,12 +3067,15 @@ namespace skill()
 				execute if score #HP_LENGTH temp matches 2.. run function ARG(_PATH)2
 				execute if score #HP_LENGTH temp matches 1.. run function ARG(_PATH)1
 				
+				# 不顯示純刷新為2
+				execute if score #SILENT_UPDATE_HP temp matches 1 unless score @s show_hp_time matches 1.. run scoreboard players set #SILENT_UPDATE_HP temp 2
+
 				data modify block 250 0 0 Text1 set value '[{"text":"985","font":"space:default"},{"text":"0","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},{"nbt":"mob_hp[]","storage":"bar:main","font":"ui:mob_hp","interpret":true},{"nbt":"mob_hp_back","storage":"bar:main","font":"space:default","interpret":true},{"text":"\\uF829\\uF825","font":"space:default"}]'
-				execute if entity @s[tag=!paired_mob] run data modify entity @s CustomName set from block 250 0 0 Text1
-				execute if entity @s[tag=paired_mob] run function ARG(_PATH)update_pair
+				execute unless score #SILENT_UPDATE_HP temp matches 2 if entity @s[tag=!paired_mob] run data modify entity @s CustomName set from block 250 0 0 Text1
+				execute unless score #SILENT_UPDATE_HP temp matches 2 if entity @s[tag=paired_mob] run function ARG(_PATH)update_pair
 				data modify entity @s ArmorItems[3].tag.health_bar set from block 250 0 0 Text1
 				
-				scoreboard players set @s show_hp_time 5
+				execute if score #SILENT_UPDATE_HP temp matches 0 run scoreboard players set @s show_hp_time 5
 			}
 			
 			func update_pair()
@@ -3418,6 +3439,8 @@ namespace skill()
 				tag @s add color_changed
 				scoreboard players operation @s poison_time = #POISON_TIME temp
 				scoreboard players operation @s poison_damage = @s hp_max
+				scoreboard players operation @s poison_damage += #POISON_HP_RATE temp
+				scoreboard players remove @s poison_damage 1
 				scoreboard players operation @s poison_damage /= #POISON_HP_RATE temp
 				
 				execute unless score @s next_poison matches 1.. run scoreboard players set @s poison_particle 7

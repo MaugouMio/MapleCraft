@@ -634,6 +634,7 @@ namespace 31() as virtual
 					scoreboard players set #KILLED_MOB temp 0
 					function random:rand_rate
 					execute if score #HIT_RATE temp > #RAND_RESULT number run function ARG(_PATH)deal_damage
+					scoreboard players set #SILENT_UPDATE_HP temp 0
 					execute if score #DID_HIT temp matches 1 run function skill:calculate_damage/update_hp_display/run
 					execute if score #KILLED_MOB temp matches 1 if entity @s[tag=paired_mob] run function ARG(_PATH)stop_magma_cube
 					#################################

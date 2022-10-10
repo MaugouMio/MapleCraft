@@ -87,6 +87,7 @@ namespace 0() as virtual
 					
 					################################################# replace calculate damage
 					scoreboard players operation @s hp -= #SNAIL_DAMAGE temp
+					scoreboard players set #SILENT_UPDATE_HP temp 0
 					function skill:calculate_damage/update_hp_display/run
 					scoreboard players set #KILLED_MOB temp 0
 					execute if score @s hp matches ..0 run function skill:calculate_damage/record_dead

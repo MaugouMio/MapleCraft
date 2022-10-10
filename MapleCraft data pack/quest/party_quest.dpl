@@ -816,7 +816,7 @@ namespace party_quest() as virtual
 							summon zombified_piglin -1515 68 11 {Tags:["kpq_mob","new_enemy","no_jump"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:21,hp_max:320,mp_max:40,avoidability:15,weapon_defense:60,magic_defense:60,kb:50,exp:240,hurt_sound:1,die_sound:4},steal_loot:"skill:steal/special/pass_pq",CustomModelData:10008,CustomPotionColor:0,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.movement_speed",Name:"slow",Amount:0,Operation:0,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:10.0},{Name:"generic.movement_speed",Base:0.1833},{Name:"generic.follow_range",Base:0.0}],DeathLootTable:"skill:mob/special/pass_pq",IsBaby:1b,Invulnerable:1b,OnGround:1b,AngerTime:2147483647,Team:"enemy",CustomName:'{"text":"2","font":"space:default"}',CustomNameVisible:1b}
 							summon zombified_piglin -1521 68 16 {Tags:["kpq_mob","new_enemy","no_jump"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:21,hp_max:320,mp_max:40,avoidability:15,weapon_defense:60,magic_defense:60,kb:50,exp:240,hurt_sound:1,die_sound:4},steal_loot:"skill:steal/special/pass_pq",CustomModelData:10008,CustomPotionColor:0,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.movement_speed",Name:"slow",Amount:0,Operation:0,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:10.0},{Name:"generic.movement_speed",Base:0.1833},{Name:"generic.follow_range",Base:0.0}],DeathLootTable:"skill:mob/special/pass_pq",IsBaby:1b,Invulnerable:1b,OnGround:1b,AngerTime:2147483647,Team:"enemy",CustomName:'{"text":"2","font":"space:default"}',CustomNameVisible:1b}
 							
-							summon zombified_piglin -1510 50 10 {Tags:["kpq_mob","new_enemy","paired_mob","boss","dead_effect","king_slime","ice_resist","fire_resist","lightning_resist","holy_resist","freeze_immune"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:40,hp_max:8000,mp_max:100,avoidability:10,magic_attack:165,weapon_defense:160,magic_defense:160,kb:300,exp:800,move_frame:21,stand_frame:11,width:5,height:8,hurt_sound:2,die_sound:6},CustomModelData:10016,CustomPotionColor:0,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.movement_speed",Name:"slow",Amount:0,Operation:0,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:13.0},{Name:"generic.movement_speed",Base:0.15},{Name:"generic.follow_range",Base:0.0}],DeathLootTable:"skill:mob/special/pass_pq",Invulnerable:1b,OnGround:1b,AngerTime:2147483647,Team:"enemy",Passengers:[{id:"minecraft:magma_cube",Tags:["kpq_mob","new_enemy","original"],NoAI:1,Invulnerable:1,Size:4.0,Attributes:[{Name:"generic.attack_damage",Base:11.0}],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Team:"enemy",CustomName:'{"text":"2","font":"space:default"}',CustomNameVisible:1b}]}
+							summon zombified_piglin -1510 50 10 {Tags:["kpq_mob","new_enemy","paired_mob","boss","dead_effect","king_slime","ice_resist","fire_resist","lightning_resist","holy_resist","freeze_immune"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:40,hp_max:8000,mp_max:100,avoidability:10,magic_attack:165,weapon_defense:160,magic_defense:160,kb:300,exp:800,move_frame:21,stand_frame:11,width:5,height:8,hurt_sound:2,die_sound:6},steal_loot:"skill:steal/special/pass_pq",CustomModelData:10016,CustomPotionColor:0,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.movement_speed",Name:"slow",Amount:0,Operation:0,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:13.0},{Name:"generic.movement_speed",Base:0.15},{Name:"generic.follow_range",Base:0.0}],DeathLootTable:"skill:mob/special/pass_pq",Invulnerable:1b,OnGround:1b,AngerTime:2147483647,Team:"enemy",Passengers:[{id:"minecraft:magma_cube",Tags:["kpq_mob","new_enemy","original"],NoAI:1,Invulnerable:1,Size:4.0,Attributes:[{Name:"generic.attack_damage",Base:11.0}],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Team:"enemy",CustomName:'{"text":"2","font":"space:default"}',CustomNameVisible:1b}]}
 							execute as @e[type=#skill:enemy,tag=new_enemy,tag=kpq_mob] run function mob:setting/run
 							
 							scoreboard players set #KING_SLIME_EXIST temp 1
@@ -1117,7 +1117,7 @@ namespace party_quest() as virtual
 				{
 					func loop()
 					{
-						execute as @e[type=zombified_piglin,tag=ldpq_eye] unless score @s kb_time matches 1.. run function ARG(_PATH)run_ai
+						execute as @e[type=zombified_piglin,tag=ldpq_eye,tag=!new_enemy] unless score @s kb_time matches 1.. run function ARG(_PATH)run_ai
 						schedule function ARG(_PATH)loop 1t
 					}
 					
@@ -1131,7 +1131,6 @@ namespace party_quest() as virtual
 					
 					func launch()
 					{
-						data modify entity @s CustomNameVisible set value 1b
 						tag @s add enemy
 						data modify entity @s NoAI set value 0b
 					}
@@ -1146,21 +1145,40 @@ namespace party_quest() as virtual
 					
 					func shutdown()
 					{
-						data modify entity @s CustomNameVisible set value 0b
+						data modify entity @s CustomName set value '{"text":"2","font":"space:default"}'
 						tag @s remove enemy
 						data modify entity @s NoAI set value 1b
 					}
 					
 					func run_ai()
 					{
-						execute unless score @s eye_move_dir matches 0 rotated ~ 0 if block ^ ^ ^0.2 #skill:passable unless block ^ ^-0.5 ^0.2 #skill:passable run function ARG(_PATH)move
+						execute at @s unless score @s eye_move_dir matches 0 rotated ~ 0 run function ARG(_PATH)check_move
 						
 						scoreboard players remove @s eye_move_time 1
 						execute unless score @s eye_move_time matches 1.. run function ARG(_PATH)change_status
 					}
 					
+					func check_move()
+					{
+						# 走到底要轉頭
+						scoreboard players set #GLOBAL temp 0
+						execute if block ^ ^ ^0.2 #skill:passable unless block ^ ^-0.5 ^0.2 #skill:passable run scoreboard players set #GLOBAL temp 1
+						execute if score #GLOBAL temp matches 0 run function ARG(_PATH)turn_on_edge
+						
+						execute at @s run function ARG(_PATH)move
+					}
+					
+					func turn_on_edge()
+					{
+						function ARG(_PATH)rand_time5
+						function ARG(_PATH)turn
+					}
+					
 					func move()
 					{
+						# 預設面向
+						execute unless score @s eye_move_dir matches -1.. run scoreboard players set @s eye_move_dir 1
+						
 						execute store result score #GLOBAL temp run data get entity @s ArmorItems[3].tag.move_speed 1000
 						execute if score @s 2101003_time matches 1.. run function ARG(_PATH)calc_slow
 						scoreboard players operation #GLOBAL temp *= @s eye_move_dir
@@ -1185,10 +1203,10 @@ namespace party_quest() as virtual
 					func rand_status()
 					{
 						function random:rand_rate
-						# 15% 停止
-						execute if score #RAND_RESULT number matches ..14 run function ARG(_PATH)stop
+						# 10% 停止
+						execute if score #RAND_RESULT number matches ..9 run function ARG(_PATH)stop
 						# 沒停止時改變方向
-						execute if score #RAND_RESULT number matches 15.. run function ARG(_PATH)turn
+						execute if score #RAND_RESULT number matches 10.. run function ARG(_PATH)turn
 					}
 					
 					func stop()
@@ -1202,13 +1220,19 @@ namespace party_quest() as virtual
 					func turn()
 					{
 						# 隨機狀態維持時間
-						execute if score #RAND_RESULT number matches 15..31 run function ARG(_PATH)rand_time
-						execute if score #RAND_RESULT number matches 32..82 run function ARG(_PATH)rand_time2
-						execute if score #RAND_RESULT number matches 83.. run function ARG(_PATH)rand_time3
+						execute if score #RAND_RESULT number matches 10..27 run function ARG(_PATH)rand_time
+						execute if score #RAND_RESULT number matches 28..81 run function ARG(_PATH)rand_time2
+						execute if score #RAND_RESULT number matches 82.. run function ARG(_PATH)rand_time3
 						
-						execute unless score @s eye_move_dir matches 0 run scoreboard players operation @s eye_move_dir *= #-1 const
+						execute unless score @s eye_move_dir matches 0 run function ARG(_PATH)rotate
 						execute if score @s eye_move_dir matches 0 run function ARG(_PATH)check_face
 						scoreboard players set @s action_frame -1
+					}
+					
+					func rotate()
+					{
+						scoreboard players operation @s eye_move_dir *= #-1 const
+						execute at @s run tp @s ~ ~ ~ ~180 ~
 					}
 					
 					func face_after_hit()
@@ -1242,10 +1266,12 @@ namespace party_quest() as virtual
 					}
 					
 					func rand_time() from random().generate(13, 34, "@s eye_move_time");
-					func rand_time2() from random().generate(55, 65, "@s eye_move_time");
+					func rand_time2() from random().generate(56, 72, "@s eye_move_time");
 					func rand_time3() from random().generate(80, 112, "@s eye_move_time");
 					# for stand
 					func rand_time4() from random().generate(30, 70, "@s eye_move_time");
+					# for turn on edge
+					func rand_time5() from random().generate(10, 99, "#RAND_RESULT number");
 				}
 			}
 			
