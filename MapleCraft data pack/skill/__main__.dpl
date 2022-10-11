@@ -196,9 +196,13 @@ namespace attack_skill_template(skill_id) as virtual
 		```
 		if "ARG(skill_id)" in ["3101003","6001003"]:
 			print("execute if entity @s[tag=!dead] run function random:rand_rate")
-		```
-		execute if score #DID_HIT temp matches 1 run function ARG(_PATH)add_debuff
-		```
+		
+		# add debuff even if no hit
+		if "ARG(skill_id)" in ["4201004"]:
+			print("function ARG(_PATH)add_debuff")
+		else:
+			print("execute if score #DID_HIT temp matches 1 run function ARG(_PATH)add_debuff")
+
 		# mp eater
 		if "ARG(skill_id)"[0] == "2":
 			print("execute if score #ABSORB_RATE temp matches 1.. if score @s[tag=!boss] mp matches 1.. run function skill:2/1/0/0000/try_absorb")
