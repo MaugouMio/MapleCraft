@@ -1117,7 +1117,7 @@ namespace party_quest() as virtual
 				{
 					func loop()
 					{
-						execute as @e[type=zombified_piglin,tag=ldpq_eye,tag=!new_enemy] unless score @s kb_time matches 1.. run function ARG(_PATH)run_ai
+						execute as @e[type=zombified_piglin,tag=ldpq_eye,tag=!new_enemy] unless score @s kb_time matches 1.. unless score @s stun_time matches 1.. run function ARG(_PATH)run_ai
 						schedule function ARG(_PATH)loop 1t
 					}
 					
