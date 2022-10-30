@@ -607,7 +607,7 @@ namespace bar_display()
 			execute as @e[type=area_effect_cloud,tag=head_hp] run function ARG(_PATH)update_pos
 			execute as @e[type=area_effect_cloud,tag=head_hp_display] run function ARG(_PATH)update
 			
-			execute if data storage bar:main head[0] run function ARG(_PATH)spawn
+			execute if data storage bar:main head_pos[0] run function ARG(_PATH)spawn
 		}
 		
 		func write_data()
@@ -703,8 +703,8 @@ namespace bar_display()
 		func spawn()
 		{
 			summon area_effect_cloud 250 0 0 {Duration:2147483647,Tags:["head_hp"],Passengers:[{id:"minecraft:area_effect_cloud",CustomNameVisible:1b,Duration:2147483647,Tags:["head_hp_display"]}]}
-			data remove storage bar:main head[-1]
-			execute if data storage bar:main head[0] run function ARG(_PATH)spawn
+			data remove storage bar:main head_pos[-1]
+			execute if data storage bar:main head_pos[0] run function ARG(_PATH)spawn
 		}
 	}
 	
