@@ -198,7 +198,8 @@ namespace item()
 	{
 		func check()
 		{
-			execute if entity @s[tag=loot_item] run function ARG(_PATH)free_loot/check
+			# 暫時移除掉落物所有權的設定，等隊伍機制出來再設計規則
+			# execute if entity @s[tag=loot_item] run function ARG(_PATH)free_loot/check
 			execute if entity @s[tag=!loot_item] run function ARG(_PATH)new
 		}
 		
@@ -241,7 +242,8 @@ namespace item()
 		
 		func loot()
 		{
-			data modify entity @s Owner set from storage skill:main damage_info.attacker
+			# 暫時移除掉落物所有權的設定，等隊伍機制出來再設計規則
+			# data modify entity @s Owner set from storage skill:main damage_info.attacker
 			playsound minecraft:game.drop_item player @a ~ ~ ~ 1 1 0
 			tag @s add loot_item
 		}
