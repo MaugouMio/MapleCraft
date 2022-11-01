@@ -1373,8 +1373,8 @@ namespace skill()
 					
 					func other_color_check()
 					{
-						data modify entity @s[scores={freeze_time=1..}] ArmorItems[3].tag.CustomPotionColor set value 12580095
-						data modify entity @s[scores={poison_time=1..}] ArmorItems[3].tag.CustomPotionColor set value 2779438
+						execute if score @s freeze_time matches 1.. func function skill:mob_effect/debuff/freeze_color
+						execute if score @s poison_time matches 1.. func function skill:mob_effect/debuff/poison_color
 					}
 					
 					folder freeze()
@@ -3426,21 +3426,29 @@ namespace skill()
 		{
 			func freeze()
 			{
+				execute unless score @s freeze_time matches 1.. run function ARG(_PATH)freeze_color
 				tag @s add color_changed
+
 				execute store result score @s kb_time run scoreboard players operation @s freeze_time = #FREEZE_TIME temp
 				scoreboard players add @s kb_time 12
-				
-				data modify entity @s ArmorItems[3].tag.CustomPotionColor set value 12580095
 				
 				execute store result score #GLOBAL temp run scoreboard players set @s status 1
 				execute store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players operation #GLOBAL temp += @s base_model
 				
 				attribute @s minecraft:generic.movement_speed modifier add 495407c5-10c0-4270-84ed-c566e01e6952 move_control -100.0 add
 			}
+
+			func freeze_color()
+			{
+				data modify entity @s[tag=!objmc] ArmorItems[3].tag.CustomPotionColor set value 12580095
+				data modify entity @s[tag=objmc] ArmorItems[3].tag.CustomPotionColor set value 130
+			}
 			
 			func poison()
 			{
+				execute unless score @s poison_time matches 1.. run function ARG(_PATH)poison_color
 				tag @s add color_changed
+
 				scoreboard players operation @s poison_time = #POISON_TIME temp
 				scoreboard players operation @s poison_damage = @s hp_max
 				scoreboard players operation @s poison_damage += #POISON_HP_RATE temp
@@ -3449,8 +3457,12 @@ namespace skill()
 				
 				execute unless score @s next_poison matches 1.. run scoreboard players set @s poison_particle 7
 				execute unless score @s next_poison matches 1.. run scoreboard players set @s next_poison 20
-				
-				data modify entity @s ArmorItems[3].tag.CustomPotionColor set value 2779438
+			}
+
+			func poison_color()
+			{
+				data modify entity @s[tag=!objmc] ArmorItems[3].tag.CustomPotionColor set value 2779438
+				data modify entity @s[tag=objmc] ArmorItems[3].tag.CustomPotionColor set value 80
 			}
 			
 			func stun()
