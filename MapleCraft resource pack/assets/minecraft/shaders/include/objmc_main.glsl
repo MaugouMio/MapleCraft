@@ -139,6 +139,10 @@ if (ivec4(texelFetch(Sampler0, topleft, 0)*255) == ivec4(12,34,56,78)) {
                 //make sure that faces with same uv beginning/ending renders
                 + vec2(onepixel.x * 0.0001 * corner, onepixel.y * 0.0001 * ((corner + 1) % 4));
 }
+// custom glowing effect
+else if (metauvoffset.rgb == ivec3(1,3,5)) {
+	lightColor = vec4(1);
+}
 //debug
 //else {
 //    posoffset = vec3(gl_VertexID % 4 - 2, gl_VertexID % 4 / 2 * 2, -(gl_VertexID % 4) + 2 * 2);
