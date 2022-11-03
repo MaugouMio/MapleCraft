@@ -1100,8 +1100,8 @@ namespace skill()
 		scoreboard objectives add default_width dummy
 		scoreboard objectives add default_height dummy
 		
-		scoreboard objectives add level dummy
-		scoreboard objectives setdisplay list level
+		scoreboard objectives add level dummy "LV"
+		scoreboard objectives setdisplay belowName level
 		
 		scoreboard objectives add exp dummy
 		scoreboard objectives add exp_max dummy
