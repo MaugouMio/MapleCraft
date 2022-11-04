@@ -3441,7 +3441,7 @@ namespace skill()
 			func freeze_color()
 			{
 				data modify entity @s[tag=!objmc] ArmorItems[3].tag.CustomPotionColor set value 12580095
-				data modify entity @s[tag=objmc] ArmorItems[3].tag.CustomPotionColor set value 130
+				data modify entity @s[tag=objmc] ArmorItems[3].tag.CustomPotionColor set value 150
 			}
 			
 			func poison()
@@ -3462,7 +3462,7 @@ namespace skill()
 			func poison_color()
 			{
 				data modify entity @s[tag=!objmc] ArmorItems[3].tag.CustomPotionColor set value 2779438
-				data modify entity @s[tag=objmc] ArmorItems[3].tag.CustomPotionColor set value 80
+				data modify entity @s[tag=objmc] ArmorItems[3].tag.CustomPotionColor set value 151
 			}
 			
 			func stun()

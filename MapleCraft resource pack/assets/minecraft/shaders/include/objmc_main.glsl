@@ -70,7 +70,7 @@ if (ivec4(texelFetch(Sampler0, topleft, 0)*255) == ivec4(12,34,56,78)) {
             case 1: rotation.y += Color.b*255; accuracy.g *= 256; break;
             case 2: rotation.z += Color.b*255; accuracy.b *= 256; break;
             case 3: tcolor = tcolor * 256 + int(Color.b*255); break;
-            case 4: if (Color.b > 0) overlayColor = vec4(hrgb(Color.b),1); break;
+            case 4: if (Color.b > 0) overlayColor = vec4(customOverlay(int(Color.b * 255)),1); break;
         }
         rotation = rotation/accuracy * 2*PI;
     }

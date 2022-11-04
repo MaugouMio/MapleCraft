@@ -72,6 +72,16 @@ vec3 hrgb(float h) {
     return clamp(p - K.xxx, 0.0, 1.0);
 }
 
+// custom color overlay
+vec3 customOverlay(int id) {
+	if (id == 150)  // freeze
+		return vec3(0.749, 0.95686, 1.0);
+	if (id == 151)  // poison
+		return vec3(0.1647, 0.41176, 0.18039);
+	
+	return vec3(1);
+}
+
 //4 point bezier formula from Dominexis
 vec3 bezb(vec3 a, vec3 b, vec3 c, vec3 d, float t) {
     float t2 = t * t;
