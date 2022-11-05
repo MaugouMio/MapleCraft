@@ -1193,12 +1193,15 @@ namespace skill()
 		
 		func schedule_10s()
 		{
-			execute as @e[type=zombified_piglin,tag=!dead] run data modify entity @s AngerTime set value 2147483647
+			effect give @e[type=cow] minecraft:invisibility 1000000 0 true
+			# 牛只是拿來做騎熔岩史萊姆的閒晃AI，在路上跑也對世界沒什麼影響，不急著 kill
+			execute as @e[type=cow] unless predicate skill:riding_magma run function main:deep_kill
 		}
 		
 		func schedule_1d()
 		{
 			scoreboard players set #BULLET_ID number 1
+			execute as @e[type=zombified_piglin,tag=!dead] run data modify entity @s AngerTime set value 2147483647
 		}
 	}
 	
@@ -1212,7 +1215,7 @@ namespace skill()
 			execute as @e[type=armor_stand,tag=afterimage] run function skill:afterimage/update
 			execute as @e[type=zombie,tag=box] if score @s status matches 1.. at @s run function skill:6/0/0/1000/box/update
 			execute as @e[type=zombified_piglin,tag=!new_enemy] run function ARG(_PATH)enemy/run
-			execute as @e[type=magma_cube,tag=!original] unless predicate skill:riding_enemy run function ARG(_PATH)clear_magma_cube
+			execute as @e[type=magma_cube,tag=!original] unless predicate skill:riding_enemy run function main:deep_kill
 			
 			execute as @a[scores={action_time=1..}] run function ARG(_PATH)action/countdown
 			execute as @a[scores={teleport_time=1..}] run function ARG(_PATH)tp_countdown
@@ -1220,12 +1223,6 @@ namespace skill()
 			
 			# used skill check
 			execute as @a[scores={right_click=1..},tag=!dead] at @s run function skill:check_skill/run
-		}
-		
-		func clear_magma_cube()
-		{
-			tp @s 0 -10 0
-			kill @s
 		}
 		
 		folder font_effect_update()
