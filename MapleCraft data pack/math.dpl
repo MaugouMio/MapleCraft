@@ -4,20 +4,22 @@ namespace math() as virtual
 	{
 		func run()
 		{
-			scoreboard players set #Xn temp 1
+			scoreboard players reset #Xn temp
+			scoreboard players set #S temp 2
 			execute unless score ARG(source_score) matches 0 run function ARG(_PATH)approach/run
 			scoreboard players operation ARG(target_score) = #Xn temp
 		}
 	
-		folder approach() from for_loop().for(5, "")
+		folder approach() from for_loop().for(18, "unless score #Xn temp = #S temp")
 		{
 			func execute()
 			{
+				scoreboard players operation #Xn temp = #S temp
+				
 				scoreboard players operation #S temp = ARG(source_score)
 				scoreboard players operation #S temp /= #Xn temp
 				scoreboard players operation #S temp += #Xn temp
 				scoreboard players operation #S temp /= #2 const
-				scoreboard players operation #Xn temp = #S temp
 			}
 		}
 	}

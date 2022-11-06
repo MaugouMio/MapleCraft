@@ -1,3 +1,4 @@
+import ../../../math
 import 211 as virtual
 import 212 as virtual
 
@@ -524,11 +525,22 @@ namespace 21() as virtual
 				playsound minecraft:skill.2101003_hit player @a ~ ~ ~ 1 1 0
 				
 				scoreboard players operation @s 2101003_time = #SLOW_TIME temp
-				execute store result entity @s ArmorItems[3].tag.AttributeModifiers[{Name:"slow"}].Amount float -0.002 run scoreboard players get #SLOW_TIME temp
+				scoreboard players operation @s 2101003_level = #SLOW_TIME temp
+
+				# calculate new speed rate ( sqrt(new speed / original speed) )
+				scoreboard players operation #SPEED_RATE temp = @s speed
+				scoreboard players operation #SPEED_RATE temp -= #SLOW_TIME temp
+				scoreboard players operation #SPEED_RATE temp *= #1000000 const
+				scoreboard players operation #SPEED_RATE temp /= @s speed
+				function ARG(_PATH)sqrt_speed/run
+				scoreboard players operation #SPEED_RATE temp -= #1000 const
+
+				execute store result entity @s ArmorItems[3].tag.AttributeModifiers[{Name:"slow"}].Amount float 0.001 run scoreboard players get #SPEED_RATE temp
 				execute if entity @s[tag=paired_mob] unless score @s number = #PAIR_NUMBER temp run function ARG(_PATH)debuff_pair
 				
 				scoreboard players add #FOUND_ENEMY temp 1
 			}
+			folder sqrt_speed() from math().sqrt("#SPEED_RATE temp", "#SPEED_RATE temp");
 			
 			func set_owner()
 			{
