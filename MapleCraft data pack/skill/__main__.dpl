@@ -130,9 +130,9 @@ namespace attack_skill_template(skill_id) as virtual
 		data modify entity @s[tag=!no_anger] AngryAt set from entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].attacker
 		
 		execute store result score #GLOBAL temp run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].attacker_id
-		execute as @a if score @s number = #GLOBAL temp run tag @s add face_target
-		execute facing entity @a[tag=face_target,limit=1] feet run function ARG(_PATH)facing_effect
-		tag @a[tag=face_target,limit=1] remove face_target
+		execute as @a if score @s number = #GLOBAL temp at @s run summon marker ~ ~ ~ {UUID:[I;575636949,204817767,-1738329627,897787263]}
+		execute facing entity 224f85d5-0c35-4567-9863-31e53583257f feet run function ARG(_PATH)facing_effect
+		kill 224f85d5-0c35-4567-9863-31e53583257f
 		
 		function skill:show_num_at_height
 		
@@ -365,9 +365,9 @@ namespace bullet_skill_template(skill_id) as virtual
 		data modify entity @s[tag=!no_anger] AngryAt set from entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].attacker
 		
 		execute store result score #GLOBAL temp run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].attacker_id
-		execute as @a if score @s number = #GLOBAL temp run tag @s add face_target
-		execute facing entity @a[tag=face_target,limit=1] feet run function ARG(_PATH)facing_effect
-		tag @a[tag=face_target,limit=1] remove face_target
+		execute as @a if score @s number = #GLOBAL temp at @s run summon marker ~ ~ ~ {UUID:[I;575636949,204817767,-1738329627,897787263]}
+		execute facing entity 224f85d5-0c35-4567-9863-31e53583257f feet run function ARG(_PATH)facing_effect
+		kill 224f85d5-0c35-4567-9863-31e53583257f
 		
 		function skill:show_num_at_height
 		
