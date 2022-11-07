@@ -498,9 +498,11 @@ namespace 21() as virtual
 				execute positioned ~ ~0.3 ~ run function skill:summon_font_effect/2101003effect
 				playsound minecraft:skill.2101003_use player @a ~ ~ ~ 1 1 0
 				
+				summon marker ~ ~ ~ {UUID:[I;575636949,204817767,-1738329627,897787263]}
 				scoreboard players set #FOUND_ENEMY temp 0
 				scoreboard players reset #PAIR_NUMBER temp
 				execute positioned ~-4 ~-3 ~-4 as @e[type=#skill:enemy,tag=enemy,tag=!dead,dx=7,dy=5.5,dz=7] unless score @s 2101003_time matches 1.. run function ARG(_PATH)try_debuff
+				kill 224f85d5-0c35-4567-9863-31e53583257f
 				
 				scoreboard players operation @s mp -= @s 2101003_mp
 				function bar_display:change/mp/dropped
@@ -521,7 +523,7 @@ namespace 21() as virtual
 			
 			func set_debuff()
 			{
-				execute positioned ~ ~0.8 ~ run function skill:summon_font_effect/2101003mob
+				execute facing entity 224f85d5-0c35-4567-9863-31e53583257f feet rotated ~ 0 run function ARG(_PATH)forward_effect/start
 				playsound minecraft:skill.2101003_hit player @a ~ ~ ~ 1 1 0
 				
 				scoreboard players operation @s 2101003_time = #SLOW_TIME temp
@@ -541,6 +543,35 @@ namespace 21() as virtual
 				scoreboard players add #FOUND_ENEMY temp 1
 			}
 			folder sqrt_speed() from math().sqrt("#SPEED_RATE temp", "#SPEED_RATE temp");
+	
+			folder forward_effect()
+			{
+				func start()
+				{
+					scoreboard players operation #DEFAULT_SIZE temp = @s default_width
+					function ARG(_PATH)front
+				}
+
+				func front()
+				{
+					scoreboard players remove #DEFAULT_SIZE temp 1
+					execute if score #DEFAULT_SIZE temp matches -1 run function ARG(_PATH)start_up
+					execute if score #DEFAULT_SIZE temp matches 0.. positioned ^ ^ ^0.4 run function ARG(_PATH)front
+				}
+
+				func start_up()
+				{
+					scoreboard players operation #DEFAULT_SIZE temp = @s default_height
+					function ARG(_PATH)up
+				}
+
+				func up()
+				{
+					scoreboard players remove #DEFAULT_SIZE temp 1
+					execute if score #DEFAULT_SIZE temp matches -1 run function skill:summon_font_effect/2101003mob
+					execute if score #DEFAULT_SIZE temp matches 0.. positioned ~ ~0.2 ~ run function ARG(_PATH)up
+				}
+			}
 			
 			func set_owner()
 			{
