@@ -568,19 +568,6 @@
 			}
 		},
 		{
-			"from": [15.55, 5.43226, 2.10477],
-			"to": [28.55, 9.43226, 6.10477],
-			"rotation": {"angle": -45, "axis": "x", "origin": [6.55, 12.99476, 5.85477]},
-			"faces": {
-				"north": {"uv": [5.33333, 10.66667, 0, 16], "texture": "#2", "tintindex": 0},
-				"east": {"uv": [5.33333, 10.66667, 0, 16], "texture": "#2", "tintindex": 0},
-				"south": {"uv": [5.33333, 10.66667, 0, 16], "texture": "#2", "tintindex": 0},
-				"west": {"uv": [5.33333, 10.66667, 0, 16], "texture": "#2", "tintindex": 0},
-				"up": {"uv": [5.33333, 10.66667, 0, 16], "texture": "#2", "tintindex": 0},
-				"down": {"uv": [5.33333, 10.66667, 0, 16], "texture": "#2", "tintindex": 0}
-			}
-		},
-		{
 			"from": [16.55, 8.87931, 5.35203],
 			"to": [20.55, 12.87931, 15.35203],
 			"rotation": {"angle": 45, "axis": "x", "origin": [21.9, 10.4467, 8.51992]},
@@ -1328,7 +1315,7 @@
 							"color": 0,
 							"nbt": "{}",
 							"armAnimationEnabled": false,
-							"children": [43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56]
+							"children": [43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55]
 						}
 					]
 				},
@@ -1345,16 +1332,16 @@
 							"color": 0,
 							"nbt": "{}",
 							"armAnimationEnabled": false,
-							"children": [57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67]
+							"children": [56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66]
 						},
-						68,
+						67,
 						{
 							"name": "fist",
 							"origin": [-7.35, 9.9467, 8.01992],
 							"color": 0,
 							"nbt": "{}",
 							"armAnimationEnabled": false,
-							"children": [69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81]
+							"children": [68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80]
 						}
 					]
 				}
@@ -1373,7 +1360,7 @@
 					"color": 0,
 					"nbt": "{}",
 					"armAnimationEnabled": false,
-					"children": [82, 83, 84, 85, 86, 87, 88]
+					"children": [81, 82, 83, 84, 85, 86, 87]
 				},
 				{
 					"name": "left",
@@ -1381,7 +1368,7 @@
 					"color": 0,
 					"nbt": "{}",
 					"armAnimationEnabled": false,
-					"children": [89, 90, 91, 92, 93, 94, 95]
+					"children": [88, 89, 90, 91, 92, 93, 94]
 				}
 			]
 		},
@@ -1391,7 +1378,7 @@
 			"color": 0,
 			"nbt": "{}",
 			"armAnimationEnabled": false,
-			"children": [96, 97]
+			"children": [95, 96]
 		}
 	]
 }
