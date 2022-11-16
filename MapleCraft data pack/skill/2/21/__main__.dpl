@@ -501,7 +501,7 @@ namespace 21() as virtual
 				summon marker ~ ~ ~ {UUID:[I;575636949,204817767,-1738329627,897787263]}
 				scoreboard players set #FOUND_ENEMY temp 0
 				scoreboard players reset #PAIR_NUMBER temp
-				execute positioned ~-4 ~-3 ~-4 as @e[type=#skill:enemy,tag=enemy,tag=!dead,dx=7,dy=5.5,dz=7] unless score @s 2101003_time matches 1.. run function ARG(_PATH)try_debuff
+				execute positioned ~-4 ~-3 ~-4 as @e[type=#skill:enemy,tag=enemy,tag=!dead,tag=!boss,dx=7,dy=5.5,dz=7] unless score @s 2101003_time matches 1.. run function ARG(_PATH)try_debuff
 				kill 224f85d5-0c35-4567-9863-31e53583257f
 				
 				scoreboard players operation @s mp -= @s 2101003_mp
@@ -863,7 +863,7 @@ namespace 21() as virtual
 			
 			func add_debuff()
 			{
-				execute if entity @s[tag=!dead,tag=!poison_immune] run function ARG(_PATH)try_poison
+				execute if entity @s[tag=!dead,tag=!poison_immune,tag=!boss] run function ARG(_PATH)try_poison
 			}
 			
 			func try_poison()

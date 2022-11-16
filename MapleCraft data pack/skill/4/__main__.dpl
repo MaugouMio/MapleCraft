@@ -218,7 +218,7 @@ namespace 4() as virtual
 				
 				func add_debuff()
 				{
-					execute unless score @s weaken_from matches 1 run function ARG(_PATH)set_debuff
+					execute unless score @s[tag=!boss] weaken_from matches 1 run function ARG(_PATH)set_debuff
 				}
 				
 				func set_debuff()
