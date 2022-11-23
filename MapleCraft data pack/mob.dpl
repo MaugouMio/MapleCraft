@@ -63,6 +63,7 @@ namespace mob()
 	func main()
 	{
 		execute as @e[type=#skill:enemy,tag=new_enemy] run function ARG(_PATH)setting/check
+		execute as @e[type=zombified_piglin,tag=enemy,tag=has_skill] run function ARG(_PATH)skills/update
 	}
 	
 	folder loop()
@@ -152,6 +153,73 @@ namespace mob()
 				}
 			}
 		}
+	}
+	
+	folder skills()
+	{
+		folder king_slime()
+		{
+			func check()
+			{
+				
+			}
+		}
+		
+		folder rombot()
+		{
+			func check()
+			{
+				
+			}
+		}
+		
+		func update()
+		{
+			execute if score @s action_time matches 1.. run scoreboard players remove @s action_time 1
+			execute unless score @s action_time matches 1.. run function ARG(_PATH)check
+		}
+		
+		```
+		def binary_search_mob_skill(skill_list, start, end):
+			if len(skill_list) == 1:
+				print("func check()")
+				print("{")
+				print(f"\texecute if score @s skill_id matches {skill_list[0][0]} run function ARG(_PATH){skill_list[0][1]}")
+				print("}")
+				return
+			
+			if start == end:
+				return
+			
+			mid = (start + end) // 2
+			mid_right = mid + 1
+			
+			if start == 0 and end == len(skill_list) - 1:
+				print("func check()")
+			else:
+				print(f"func {start}_{end}()")
+			print("{")
+			if start == mid:
+				print(f"\texecute if score @s skill_id matches {skill_list[start][0]} run function ARG(_PATH){skill_list[start][1]}")
+			else:
+				print(f"\texecute if score @s skill_id matches {skill_list[start][0]}..{skill_list[mid][0]} run function ARG(_PATH){start}_{mid}")
+			if mid_right == end:
+				print(f"\texecute if score @s skill_id matches {skill_list[end][0]} run function ARG(_PATH){skill_list[end][1]}")
+			else:
+				print(f"\texecute if score @s skill_id matches {skill_list[mid_right][0]}..{skill_list[end][0]} run function ARG(_PATH){mid_right}_{end}")
+			print("}")
+			
+			binary_search_mob_skill(skill_list, start, mid)
+			binary_search_mob_skill(skill_list, mid_right, end)
+		
+		with open(PROJ_DIR + "/../mob_skills.csv") as f:
+			mob_skills = f.read().split("\n")
+			for i in range(len(mob_skills)):
+				sep_point = mob_skills[i].find(",")
+				mob_skills[i] = [mob_skills[i][:sep_point], mob_skills[i][(sep_point+1):]]
+		
+		binary_search_mob_skill(mob_skills, 0, len(mob_skills) - 1)
+		```
 	}
 	
 	func test()
