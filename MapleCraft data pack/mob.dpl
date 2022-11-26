@@ -6,6 +6,7 @@ namespace mob()
 	func install()
 	{
 		scoreboard objectives add spawn_alpha dummy
+		scoreboard objectives add skill_delay dummy
 	}
 	
 	folder setting()
@@ -35,7 +36,7 @@ namespace mob()
 			execute store result score @s mp_max run data get entity @s ArmorItems[3].tag.info.mp_max
 			scoreboard players operation @s mp = @s mp_max
 			execute store result score @s avoidability run data get entity @s ArmorItems[3].tag.info.avoidability
-			execute if data entity @s ArmorItems[3].tag.info.magic_attack store result score @s magic_attack run data get entity @s ArmorItems[3].tag.info.magic_attack
+			execute if data entity @s ArmorItems[3].tag.info.magic_attack store result score @s weapon_mattack run data get entity @s ArmorItems[3].tag.info.magic_attack
 			execute store result score @s weapon_defense run data get entity @s ArmorItems[3].tag.info.weapon_defense
 			execute store result score @s magic_defense run data get entity @s ArmorItems[3].tag.info.magic_defense
 			execute store result score @s kb run data get entity @s ArmorItems[3].tag.info.kb
@@ -48,6 +49,7 @@ namespace mob()
 			execute if data entity @s ArmorItems[3].tag.info.move_frame store result score @s move_frame run data get entity @s ArmorItems[3].tag.info.move_frame
 			execute if data entity @s ArmorItems[3].tag.info.stand_frame store result score @s stand_frame run data get entity @s ArmorItems[3].tag.info.stand_frame
 			execute store result score @s base_model run data get entity @s ArmorItems[3].tag.CustomModelData
+			execute if data entity @s ArmorItems[3].tag.info.skill_id store result score @s skill_id run data get entity @s ArmorItems[3].tag.info.skill_id
 			
 			data remove entity @s ArmorItems[3].tag.info
 			
@@ -63,7 +65,7 @@ namespace mob()
 	func main()
 	{
 		execute as @e[type=#skill:enemy,tag=new_enemy] run function ARG(_PATH)setting/check
-		execute as @e[type=zombified_piglin,tag=enemy,tag=has_skill] run function ARG(_PATH)skills/update
+		execute as @e[type=zombified_piglin,tag=enemy,tag=!dead,scores={skill_id=1..}] run function ARG(_PATH)skills/update
 	}
 	
 	folder loop()
@@ -169,7 +171,112 @@ namespace mob()
 		{
 			func check()
 			{
+				execute unless score @s kb_time matches 1.. if data entity @s AngryAt unless data entity @s {AngryAt:[I;0,2,0,2]} at @s run function ARG(_PATH)check_summon
+			}
+			
+			func check_summon()
+			{
+				scoreboard players set #GLOBAL temp 0
+				execute if entity @s[tag=ldpq_mob,tag=!skill_used] run function ARG(_PATH)try_summon
+				execute if score #GLOBAL temp matches 0 run function ARG(_PATH)check_attack
+			}
+			
+			func try_summon()
+			{
+				function random:rand_rate
+				execute if score #RAND_RESULT number matches ..19 run function ARG(_PATH)cast_summon
+			}
+			
+			func cast_summon()
+			{
+				attribute @s minecraft:generic.movement_speed modifier add 495407c5-10c0-4270-84ed-c566e01e6952 move_control -100.0 add
+				attribute @s minecraft:generic.follow_range modifier add 5b098e79-ca54-46a5-afbf-8066af7f3971 skill_face_control -30.0 add
+				execute at @s run tp @s ~ ~ ~ ~ 0
 				
+				scoreboard players set @s action_time 28
+				scoreboard players set @s kb_time 18
+				scoreboard players set @s status 4
+				scoreboard players set @s action_frame -1
+				scoreboard players set @s action_frame_max 18
+				scoreboard players set @s action_frame_s 44
+				
+				execute store result score @s skill_delay run schedule function ARG(_PATH)call_summon 18t append
+				scoreboard players set #GLOBAL temp 1
+				tag @s add skill_used
+			}
+			
+			func call_summon()
+			{
+				execute store result score #GLOBAL temp run time query gametime
+				execute as @e[type=zombified_piglin,scores={skill_id=2,status=4}] if score @s skill_delay = #GLOBAL temp at @s run function ARG(_PATH)summon
+			}
+			
+			func summon()
+			{
+				summon marker ~ ~ ~ {Tags:["rand_pos"]}
+				summon marker ~ ~ ~ {Tags:["rand_pos"]}
+				```
+				raise Warning("TODO: set block golem random spawn position under height")
+				```
+				spreadplayers ~ ~ 0 4 under 10 false @e[type=marker,tag=rand_pos]
+				execute at @e[type=marker,tag=rand_pos] run summon zombified_piglin ~ ~ ~ {Tags:["ldpq_mob","new_enemy","paired_mob","no_jump","fire_weakness","ice_resist","lightning_resist","new_summon"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:40,hp_max:6500,mp_max:0,avoidability:12,weapon_defense:130,magic_defense:110,kb:300,speed:65,exp:408,width:3,height:6,move_frame:28,stand_frame:14,hurt_sound:9,die_sound:12},CustomModelData:10627,CustomPotionColor:-1,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.movement_speed",Name:"slow",Amount:0,Operation:2,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:14.5},{Name:"generic.movement_speed",Base:0.16633},{Name:"generic.follow_range",Base:0.0}],Invulnerable:1b,OnGround:1b,AngerTime:2147483647,Team:"enemy",Passengers:[{id:"minecraft:magma_cube",Tags:["ldpq_mob","new_enemy","original","new_summon"],NoAI:1,Invulnerable:1,Size:3.0,Attributes:[{Name:"generic.attack_damage",Base:12.5}],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Team:"enemy",CustomName:'{"text":"2","font":"space:default"}',CustomNameVisible:1b,Passengers:[{id:"minecraft:cow",Silent:1,PersistenceRequired:1,Invulnerable:1b,ActiveEffects:[{Id:14,Amplifier:0b,Duration:2147483647,Ambient:1b}],Team:"enemy"}]}]}
+				kill @e[tag=rand_pos]
+				
+				execute as @e[type=#skill:enemy,tag=new_summon] at @s run function ARG(_PATH)summon_setting
+			}
+			
+			func summon_setting()
+			{
+				function mob:setting/run
+				tag @s remove new_summon
+				
+				execute if entity @s[type=zombified_piglin] run particle minecraft:explosion ~ ~1 ~ 0 0 0 1 3 force
+			}
+			
+			func check_attack()
+			{
+				execute positioned ~-4.5 ~-0.5 ~-4.5 if entity @a[tag=!dead,dx=8,dy=3,dz=8] run scoreboard players set #GLOBAL temp 1
+				execute if score #GLOBAL temp matches 1 run function ARG(_PATH)cast_attack
+			}
+			
+			func cast_attack()
+			{
+				attribute @s minecraft:generic.movement_speed modifier add 495407c5-10c0-4270-84ed-c566e01e6952 move_control -100.0 add
+				attribute @s minecraft:generic.follow_range modifier add 5b098e79-ca54-46a5-afbf-8066af7f3971 skill_face_control -30.0 add
+				execute at @s run tp @s ~ ~ ~ ~ 0
+				
+				scoreboard players set @s action_time 39
+				scoreboard players set @s kb_time 37
+				scoreboard players set @s status 5
+				scoreboard players set @s action_frame -1
+				scoreboard players set @s action_frame_max 37
+				scoreboard players set @s action_frame_s 62
+				
+				playsound minecraft:mob.special.4130103_attack player @a ~ ~ ~ 1 1 0
+				execute store result score @s skill_delay run schedule function ARG(_PATH)call_attack 22t append
+			}
+			
+			func call_attack()
+			{
+				execute store result score #GLOBAL temp run time query gametime
+				execute as @e[type=zombified_piglin,scores={skill_id=2,status=5}] if score @s skill_delay = #GLOBAL temp at @s run function ARG(_PATH)attack
+			}
+			
+			func attack()
+			{
+				execute rotated ~ 0 run particle minecraft:explosion ^1.8 ^ ^2 0 0 0 3 3 force
+				
+				scoreboard players operation #GLOBAL temp = @s weapon_mattack
+				execute positioned ~-4.5 ~-0.5 ~-4.5 as @a[tag=!dead,dx=8,dy=3,dz=8] unless score @s hurt_time matches 1.. if data entity @s {OnGround:1b} at @s run function ARG(_PATH)hit
+			}
+			
+			func hit()
+			{
+				scoreboard players operation @s damage_taken = #GLOBAL temp
+				function bar_display:take_damage/physic
+				effect give @s minecraft:instant_damage 1 0 true
+				
+				function skill:summon_font_effect/9000000rombot_hit
 			}
 		}
 		
@@ -233,7 +340,7 @@ namespace mob()
 		# 風獨眼獸 KPQ
 		# execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["kpq_mob","new_enemy","poison_resist","poison_immune"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:35,hp_max:2000,mp_max:130,avoidability:8,weapon_defense:90,magic_defense:140,kb:1,speed:110,exp:280,width:2,height:2,hurt_sound:1,die_sound:5},steal_loot:"skill:steal/special/pass_pq",CustomModelData:10012,CustomPotionColor:0,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.movement_speed",Name:"slow",Amount:0,Operation:2,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:12.0},{Name:"generic.movement_speed",Base:0.23142},{Name:"generic.follow_range",Base:0.0}],DeathLootTable:"skill:mob/special/pass_pq",Invulnerable:1b,OnGround:1b,AngerTime:2147483647,Team:"enemy",CustomName:'{"text":"2","font":"space:default"}',CustomNameVisible:1b}
 		# 超級綠水靈
-		# execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["kpq_mob","new_enemy","paired_mob","dead_effect","king_slime","ice_resist","fire_resist","lightning_resist","holy_resist","freeze_immune","has_skill"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:40,hp_max:8000,mp_max:100,avoidability:10,magic_attack:165,weapon_defense:160,magic_defense:160,kb:300,speed:105,exp:800,move_frame:21,stand_frame:11,width:5,height:8,hurt_sound:2,die_sound:6},steal_loot:"skill:steal/special/pass_pq",CustomModelData:10016,CustomPotionColor:0,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.movement_speed",Name:"slow",Amount:0,Operation:2,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:13.0},{Name:"generic.movement_speed",Base:0.22495},{Name:"generic.follow_range",Base:0.0}],DeathLootTable:"skill:mob/special/pass_pq",Invulnerable:1b,OnGround:1b,AngerTime:2147483647,Team:"enemy",Passengers:[{id:"minecraft:magma_cube",Tags:["kpq_mob","new_enemy","original"],NoAI:1,Invulnerable:1,Size:4.0,Attributes:[{Name:"generic.attack_damage",Base:11.0}],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Team:"enemy",CustomName:'{"text":"2","font":"space:default"}',CustomNameVisible:1b,Passengers:[{id:"minecraft:cow",Silent:1,PersistenceRequired:1,Invulnerable:1b,ActiveEffects:[{Id:14,Amplifier:0b,Duration:2147483647,Ambient:1b}],Team:"enemy"}]}]}
+		# execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["kpq_mob","new_enemy","paired_mob","dead_effect","king_slime","ice_resist","fire_resist","lightning_resist","holy_resist","freeze_immune"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:40,hp_max:8000,mp_max:100,avoidability:10,magic_attack:165,weapon_defense:160,magic_defense:160,kb:300,speed:105,exp:800,move_frame:21,stand_frame:11,width:5,height:8,hurt_sound:2,die_sound:6,skill_id:1},steal_loot:"skill:steal/special/pass_pq",CustomModelData:10016,CustomPotionColor:0,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.movement_speed",Name:"slow",Amount:0,Operation:2,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:13.0},{Name:"generic.movement_speed",Base:0.22495},{Name:"generic.follow_range",Base:0.0}],DeathLootTable:"skill:mob/special/pass_pq",Invulnerable:1b,OnGround:1b,AngerTime:2147483647,Team:"enemy",Passengers:[{id:"minecraft:magma_cube",Tags:["kpq_mob","new_enemy","original"],NoAI:1,Invulnerable:1,Size:4.0,Attributes:[{Name:"generic.attack_damage",Base:11.0}],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Team:"enemy",CustomName:'{"text":"2","font":"space:default"}',CustomNameVisible:1b,Passengers:[{id:"minecraft:cow",Silent:1,PersistenceRequired:1,Invulnerable:1b,ActiveEffects:[{Id:14,Amplifier:0b,Duration:2147483647,Ambient:1b}],Team:"enemy"}]}]}
 		# 綠水靈
 		# execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["new_enemy","lightning_weakness"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:6,hp_max:50,mp_max:35,avoidability:1,weapon_defense:5,magic_defense:10,kb:1,speed:105,exp:10,width:1,height:2,move_frame:21,stand_frame:15,hurt_sound:3,die_sound:6},steal_loot:"skill:steal/0_9/slime",CustomModelData:10107,CustomPotionColor:0,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.movement_speed",Name:"slow",Amount:0,Operation:2,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:4.2},{Name:"generic.movement_speed",Base:0.22495},{Name:"generic.follow_range",Base:0.0}],DeathLootTable:"skill:mob/0_9/slime",Invulnerable:1b,OnGround:1b,AngerTime:2147483647,Team:"enemy",CustomName:'{"text":"2","font":"space:default"}',CustomNameVisible:1b}
 		# 綠菇菇
@@ -255,8 +362,8 @@ namespace mob()
 		# 積木泥人王 LDPQ
 		# execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["ldpq_mob","new_enemy","paired_mob","no_jump"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:200,hp_max:99999,mp_max:0,avoidability:999,weapon_defense:999,magic_defense:999,kb:99999,speed:85,exp:1,width:3,height:6,move_frame:28,stand_frame:14,hurt_sound:9,die_sound:13},steal_loot:"skill:steal/special/pass_pq",CustomModelData:10583,CustomPotionColor:0,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.movement_speed",Name:"slow",Amount:0,Operation:2,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:99.9},{Name:"generic.movement_speed",Base:0.19739},{Name:"generic.follow_range",Base:0.0}],DeathLootTable:"skill:mob/special/pass_pq",Invulnerable:1b,OnGround:1b,AngerTime:2147483647,Team:"enemy",Passengers:[{id:"minecraft:magma_cube",Tags:["ldpq_mob","new_enemy","original"],NoAI:1,Invulnerable:1,Size:3.0,Attributes:[{Name:"generic.attack_damage",Base:97.9}],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Team:"enemy",CustomName:'{"text":"2","font":"space:default"}',CustomNameVisible:1b,Passengers:[{id:"minecraft:cow",Silent:1,PersistenceRequired:1,Invulnerable:1b,ActiveEffects:[{Id:14,Amplifier:0b,Duration:2147483647,Ambient:1b}],Team:"enemy"}]}]}
 		# 積木泥人 LDPQ
-		execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["ldpq_mob","new_enemy","paired_mob","no_jump","fire_weakness","ice_resist","lightning_resist"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:40,hp_max:6500,mp_max:0,avoidability:12,weapon_defense:130,magic_defense:110,kb:300,speed:65,exp:408,width:3,height:6,move_frame:28,stand_frame:14,hurt_sound:9,die_sound:12},CustomModelData:10627,CustomPotionColor:0,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.movement_speed",Name:"slow",Amount:0,Operation:2,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:14.5},{Name:"generic.movement_speed",Base:0.16633},{Name:"generic.follow_range",Base:0.0}],Invulnerable:1b,OnGround:1b,AngerTime:2147483647,Team:"enemy",Passengers:[{id:"minecraft:magma_cube",Tags:["ldpq_mob","new_enemy","original"],NoAI:1,Invulnerable:1,Size:3.0,Attributes:[{Name:"generic.attack_damage",Base:12.5}],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Team:"enemy",CustomName:'{"text":"2","font":"space:default"}',CustomNameVisible:1b,Passengers:[{id:"minecraft:cow",Silent:1,PersistenceRequired:1,Invulnerable:1b,ActiveEffects:[{Id:14,Amplifier:0b,Duration:2147483647,Ambient:1b}],Team:"enemy"}]}]}
+		execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["ldpq_mob","new_enemy","paired_mob","no_jump","fire_weakness","ice_resist","lightning_resist"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:40,hp_max:6500,mp_max:0,avoidability:12,weapon_defense:130,magic_defense:110,kb:300,speed:65,exp:408,width:3,height:6,move_frame:28,stand_frame:14,hurt_sound:9,die_sound:12},CustomModelData:10627,CustomPotionColor:-1,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.movement_speed",Name:"slow",Amount:0,Operation:2,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:14.5},{Name:"generic.movement_speed",Base:0.16633},{Name:"generic.follow_range",Base:0.0}],Invulnerable:1b,OnGround:1b,AngerTime:2147483647,Team:"enemy",Passengers:[{id:"minecraft:magma_cube",Tags:["ldpq_mob","new_enemy","original"],NoAI:1,Invulnerable:1,Size:3.0,Attributes:[{Name:"generic.attack_damage",Base:12.5}],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Team:"enemy",CustomName:'{"text":"2","font":"space:default"}',CustomNameVisible:1b,Passengers:[{id:"minecraft:cow",Silent:1,PersistenceRequired:1,Invulnerable:1b,ActiveEffects:[{Id:14,Amplifier:0b,Duration:2147483647,Ambient:1b}],Team:"enemy"}]}]}
 		# 泥人領導者 LDPQ
-		execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["ldpq_mob","new_enemy","paired_mob","boss","no_jump","has_skill"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:47,hp_max:33000,mp_max:220,avoidability:18,magic_attack:195,weapon_defense:185,magic_defense:200,kb:1000,speed:75,exp:850,width:3,height:6,move_frame:28,stand_frame:14,hurt_sound:10,die_sound:14},steal_loot:"skill:steal/special/pass_pq",CustomModelData:10671,CustomPotionColor:0,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.movement_speed",Name:"slow",Amount:0,Operation:2,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:17.5},{Name:"generic.movement_speed",Base:0.18238},{Name:"generic.follow_range",Base:0.0}],DeathLootTable:"skill:mob/special/pass_pq",Invulnerable:1b,OnGround:1b,AngerTime:2147483647,Team:"enemy",Passengers:[{id:"minecraft:magma_cube",Tags:["ldpq_mob","new_enemy","original"],NoAI:1,Invulnerable:1,Size:3.0,Attributes:[{Name:"generic.attack_damage",Base:15.5}],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Team:"enemy",CustomName:'{"text":"2","font":"space:default"}',CustomNameVisible:1b,Passengers:[{id:"minecraft:cow",Silent:1,PersistenceRequired:1,Invulnerable:1b,ActiveEffects:[{Id:14,Amplifier:0b,Duration:2147483647,Ambient:1b}],Team:"enemy"}]}]}
+		execute rotated ~ 0 positioned ^ ^ ^5 align y run summon zombified_piglin ~ ~ ~ {Tags:["ldpq_mob","new_enemy","paired_mob","boss","no_jump"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:47,hp_max:33000,mp_max:220,avoidability:18,magic_attack:195,weapon_defense:185,magic_defense:200,kb:1000,speed:75,exp:850,width:3,height:6,move_frame:28,stand_frame:14,hurt_sound:10,die_sound:14,skill_id:2},steal_loot:"skill:steal/special/pass_pq",CustomModelData:10671,CustomPotionColor:0,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.movement_speed",Name:"slow",Amount:0,Operation:2,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:17.5},{Name:"generic.movement_speed",Base:0.18238},{Name:"generic.follow_range",Base:0.0}],DeathLootTable:"skill:mob/special/pass_pq",Invulnerable:1b,OnGround:1b,AngerTime:2147483647,Team:"enemy",Passengers:[{id:"minecraft:magma_cube",Tags:["ldpq_mob","new_enemy","original"],NoAI:1,Invulnerable:1,Size:3.0,Attributes:[{Name:"generic.attack_damage",Base:15.5}],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Team:"enemy",CustomName:'{"text":"2","font":"space:default"}',CustomNameVisible:1b,Passengers:[{id:"minecraft:cow",Silent:1,PersistenceRequired:1,Invulnerable:1b,ActiveEffects:[{Id:14,Amplifier:0b,Duration:2147483647,Ambient:1b}],Team:"enemy"}]}]}
 	}
 }

@@ -142,6 +142,12 @@ if (ivec4(texelFetch(Sampler0, topleft, 0)*255) == ivec4(12,34,56,78)) {
 // custom glowing effect
 else if (metauvoffset.rgb == ivec3(1,3,5)) {
 	lightColor = vec4(1);
+#ifdef ENTITY
+	if (alpha < 0.0)
+		vertexColor = Color;
+	else
+#endif
+		vertexColor = vec4(1);
 }
 //debug
 //else {

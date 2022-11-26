@@ -1462,8 +1462,8 @@ namespace skill()
 			
 				func reset()
 				{
-					function ARG(__PATH)status_change/run
 					attribute @s minecraft:generic.movement_speed modifier remove 495407c5-10c0-4270-84ed-c566e01e6952
+					attribute @s minecraft:generic.follow_range modifier remove 5b098e79-ca54-46a5-afbf-8066af7f3971
 					scoreboard players reset @s kb_time
 				}
 			}
@@ -3040,6 +3040,11 @@ namespace skill()
 		folder update_hp_display()
 		{
 			func run()
+			{
+				execute if entity @s[tag=!boss] run function ARG(_PATH)calculate
+			}
+
+			func calculate()
 			{
 				# for rounding
 				scoreboard players operation #HP_CARRY temp = @s hp_max

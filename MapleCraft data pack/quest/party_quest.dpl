@@ -878,7 +878,7 @@ namespace party_quest() as virtual
 					{
 						scoreboard players set #GLOBAL temp 0
 						execute if score @s hp matches ..4000 unless entity @s[tag=skill_used] store result score #GLOBAL temp run function ARG(_PATH)skill
-						execute if score #GLOBAL temp matches 0 positioned ~-4.5 ~-0.5 ~-4.5 if entity @a[tag=!dead,dx=8,dy=0,dz=8] at @s run function ARG(_PATH)attack
+						execute if score #GLOBAL temp matches 0 positioned ~-4.5 ~-0.5 ~-4.5 if entity @a[tag=!dead,dx=8,dy=3,dz=8] at @s run function ARG(_PATH)attack
 					}
 					
 					func skill()
@@ -924,7 +924,7 @@ namespace party_quest() as virtual
 						attribute @s minecraft:generic.movement_speed modifier add 495407c5-10c0-4270-84ed-c566e01e6952 move_control -100.0 add
 						scoreboard players set @s kb_time 33
 						scoreboard players set @s status 4
-						scoreboard players set @s action_frame 0
+						scoreboard players set @s action_frame -1
 						scoreboard players set @s action_frame_max 33
 						scoreboard players set @s action_frame_s 34
 						
@@ -943,14 +943,14 @@ namespace party_quest() as virtual
 						particle minecraft:cloud ~ ~0.2 ~ 2 0 2 0.15 30 force
 						
 						scoreboard players set #GLOBAL temp 0
-						execute positioned ~-4.5 ~-0.5 ~-4.5 as @a[tag=!dead,dx=8,dy=0,dz=8] if data entity @s {OnGround:1b} at @s run function ARG(_PATH)hit
+						execute positioned ~-4.5 ~-0.5 ~-4.5 as @a[tag=!dead,dx=8,dy=3,dz=8] if data entity @s {OnGround:1b} unless score @s hurt_time matches 1.. at @s run function ARG(_PATH)hit
 						execute if score #GLOBAL temp matches 1 run playsound minecraft:mob.special.9300003_char_damage player @a ~ ~ ~ 1 1 0
 					}
 					
 					func hit()
 					{
 						scoreboard players set @s damage_taken 165
-						function bar_display:take_damage/check
+						function bar_display:take_damage/physic
 						effect give @s minecraft:instant_damage 1 0 true
 						
 						scoreboard players set #GLOBAL temp 1

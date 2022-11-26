@@ -204,23 +204,39 @@ namespace bar_display()
 	{
 		func check()
 		{
-			execute unless score @s hurt_time matches 1.. run function ARG(_PATH)take
+			execute unless score @s hurt_time matches 1.. run function ARG(_PATH)touch
 			
 			tag @s remove magma_cube_hit
 			effect give @s minecraft:absorption 1000000 255 true
 			scoreboard players reset @s damage_taken
 		}
 		
-		func take()
+		func touch()
 		{
-			scoreboard players operation @s next_hp_recover = @s hp_recover_time
-			
+			scoreboard players set #TOUCH_DAMAGE temp 1
+			function ARG(_PATH)physic
+		}
+		
+		func physic()
+		{
 			scoreboard players operation #WEAPON_DEFENSE temp = @s weapon_defense
 			execute if score @s wdef_buff_id matches 0.. run scoreboard players operation #WEAPON_DEFENSE temp += @s wdef_buff_num
 			function ARG(__PATH)defense_formula/weapon
-			
+			function ARG(_PATH)take
+		}
+		
+		func magic()
+		{
+			scoreboard players operation #MAGIC_DEFENSE temp = @s magic_defense
+			execute if score @s mdef_buff_id matches 0.. run scoreboard players operation #MAGIC_DEFENSE temp += @s mdef_buff_num
+			function ARG(__PATH)defense_formula/magic
+			function ARG(_PATH)take
+		}
+		
+		func take()
+		{
 			execute if score @s invin_buff_time matches 1.. run function skill:2/3/0/1003/guard
-			execute if score @s refle_buff_time matches 1.. run function skill:1/1/0/1007/reflect
+			execute if score #TOUCH_DAMAGE temp matches 1 if score @s refle_buff_time matches 1.. run function skill:1/1/0/1007/reflect
 			scoreboard players operation @s damage_taken > #1 const
 			
 			scoreboard players set @s display_num_type 2
@@ -233,7 +249,10 @@ namespace bar_display()
 			execute if score @s hp matches ..0 run function ARG(__PATH)death/die
 			function ARG(__PATH)change/hp/dropped
 			
+			scoreboard players operation @s next_hp_recover = @s hp_recover_time
 			scoreboard players set @s hurt_time 10
+			
+			scoreboard players reset #TOUCH_DAMAGE temp
 		}
 	}
 	
