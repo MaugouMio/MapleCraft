@@ -1213,7 +1213,7 @@ namespace skill()
 			execute as @e[type=armor_stand,tag=model_animation] run function ARG(_PATH)model_animation_update
 			execute as @e[type=armor_stand,tag=afterimage] run function skill:afterimage/update
 			execute as @e[type=zombie,tag=box] if score @s status matches 1.. at @s run function skill:6/0/0/1000/box/update
-			execute as @e[type=zombified_piglin,tag=!new_enemy] run function ARG(_PATH)enemy/run
+			execute as @e[type=zombified_piglin,scores={base_model=1..}] run function ARG(_PATH)enemy/run
 			execute as @e[type=magma_cube,tag=!original] unless predicate skill:riding_enemy run function main:deep_kill
 			
 			execute as @a[scores={action_time=1..}] run function ARG(_PATH)action/countdown

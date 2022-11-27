@@ -38,8 +38,8 @@ void main() {
 	#moj_import<objmc_light.glsl>
 
 	// alpha fade in
-	if (color.a > 0.01 && alpha >= 0.0)
-		color.a = alpha;
+	if (alpha >= 0.0)
+		color.a *= alpha;
 
     if (color.a < 0.01) discard;
     fragColor = linear_fog(color, vertexDistance, FogStart, FogEnd, FogColor);
