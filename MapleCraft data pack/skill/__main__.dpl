@@ -3506,23 +3506,29 @@ namespace skill()
 			{
 				func run()
 				{
-					summon minecraft:marker ~ ~ ~ {Tags:["dead_king_slime"]}
-					scoreboard players reset #KING_SLIME_EXIST temp
-					schedule function ARG(_PATH)call_summon 20t
+					summon minecraft:marker ~ ~ ~ {Tags:["dead_king_slime","new"]}
+					execute as @e[type=marker,tag=dead_king_slime,tag=new] run function ARG(_PATH)setting
+				}
+
+				func setting()
+				{
+					execute store result score @s skill_delay run schedule function ARG(_PATH)call_summon 20t append
+					tag @s remove new
 				}
 				
 				func call_summon()
 				{
-					execute as @e[type=marker,tag=dead_king_slime] at @s run function ARG(_PATH)summon
+					execute store result score #GLOBAL temp run time query gametime
+					execute as @e[type=marker,tag=dead_king_slime] if score @s skill_delay = #GLOBAL temp at @s run function ARG(_PATH)summon
 				}
 				
 				func summon()
 				{
 					```
 					for i in range(10):
-						print('''summon zombified_piglin ~ ~ ~ {Tags:["kpq_mob","new_enemy","split_slime","lightning_weakness"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:6,hp_max:50,mp_max:35,avoidability:1,weapon_defense:5,magic_defense:10,kb:1,speed:105,exp:10,width:1,height:2,move_frame:21,stand_frame:15,hurt_sound:3,die_sound:6},steal_loot:"skill:steal/0_9/slime",CustomModelData:10107,CustomPotionColor:0,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.movement_speed",Name:"slow",Amount:0,Operation:2,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:4.2},{Name:"generic.movement_speed",Base:0.22495},{Name:"generic.follow_range",Base:0.0}],DeathLootTable:"skill:mob/0_9/slime",Invulnerable:1b,OnGround:1b,AngerTime:2147483647,Team:"enemy",CustomName:'{"text":"2","font":"space:default"}',CustomNameVisible:1b}''')
+						print('''summon zombified_piglin ~ ~ ~ {Tags:["kpq_mob","new_enemy","lightning_weakness","new_summon"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:6,hp_max:50,mp_max:35,avoidability:1,weapon_defense:5,magic_defense:10,kb:1,speed:105,exp:10,width:1,height:2,move_frame:21,stand_frame:15,hurt_sound:3,die_sound:6},steal_loot:"skill:steal/0_9/slime",CustomModelData:10107,CustomPotionColor:0,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.movement_speed",Name:"slow",Amount:0,Operation:2,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:4.2},{Name:"generic.movement_speed",Base:0.22495},{Name:"generic.follow_range",Base:0.0}],DeathLootTable:"skill:mob/0_9/slime",Invulnerable:1b,OnGround:1b,AngerTime:2147483647,Team:"enemy",CustomName:'{"text":"2","font":"space:default"}',CustomNameVisible:1b}''')
 					```
-					execute as @e[type=#skill:enemy,tag=new_enemy,tag=split_slime] run function mob:setting/run
+					execute as @e[type=#skill:enemy,tag=new_summon] run function mob:setting/run
 					kill @s
 				}
 			}
