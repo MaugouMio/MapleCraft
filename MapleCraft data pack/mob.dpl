@@ -59,7 +59,9 @@ namespace mob()
 			execute store result score @s default_height run data get entity @s ArmorItems[3].tag.info.height
 			execute store result score @s hurt_sound run data get entity @s ArmorItems[3].tag.info.hurt_sound
 			execute store result score @s die_sound run data get entity @s ArmorItems[3].tag.info.die_sound
+			
 			execute if data entity @s ArmorItems[3].tag.info.skill_id store result score @s skill_id run data get entity @s ArmorItems[3].tag.info.skill_id
+			scoreboard players operation #SKILL_ID temp = @s skill_id
 			
 			data remove entity @s ArmorItems[3].tag.info
 			
@@ -74,13 +76,16 @@ namespace mob()
 			# 召喚的怪物不會經過淡入流程，這邊要再做一次模型設定
 			execute unless score @s base_model matches 1.. run function ARG(_PATH)set_model
 			data modify entity @s ArmorItems[3].tag.CustomPotionColor set value -1
+			
+			# 同步技能 id 設定
+			scoreboard players operation @s skill_id = #SKILL_ID temp
 		}
 	}
 	
 	func main()
 	{
 		execute as @e[type=#skill:enemy,tag=new_enemy] run function ARG(_PATH)setting/check
-		execute as @e[type=zombified_piglin,tag=enemy,tag=!dead,scores={skill_id=1..}] run function ARG(_PATH)skills/update
+		execute as @e[type=#skill:enemy_ai,tag=enemy,tag=!dead,scores={skill_id=1..}] run function ARG(_PATH)skills/update
 	}
 	
 	folder loop()
@@ -198,8 +203,10 @@ namespace mob()
 				
 				scoreboard players set @s action_time 26
 				scoreboard players set @s kb_time 24
+				scoreboard players set #KB_TIME temp 24
 				scoreboard players set @s status 4
-				scoreboard players reset @s action_frame_max
+				scoreboard players set #STATUS temp 4
+				scoreboard players reset #ACTION_FRAME_S temp
 				data modify entity @s ArmorItems[3].tag.CustomModelData set value 10083
 				tag @s add skill_used
 				
@@ -241,10 +248,10 @@ namespace mob()
 				attribute @s minecraft:generic.movement_speed modifier add 495407c5-10c0-4270-84ed-c566e01e6952 move_control -100.0 add
 				scoreboard players set @s action_time 35
 				scoreboard players set @s kb_time 33
+				scoreboard players set #KB_TIME temp 33
 				scoreboard players set @s status 6
-				scoreboard players set @s action_frame -1
-				scoreboard players set @s action_frame_max 33
-				scoreboard players set @s action_frame_s 34
+				scoreboard players set #STATUS temp 6
+				scoreboard players set #ACTION_FRAME_S temp 34
 				
 				playsound minecraft:mob.special.9300003_attack player @a ~ ~ ~ 1 1 0
 				execute store result score @s skill_delay run schedule function ARG(_PATH)spawn_quake 20t append
@@ -305,10 +312,10 @@ namespace mob()
 				
 				scoreboard players set @s action_time 28
 				scoreboard players set @s kb_time 18
+				scoreboard players set #KB_TIME temp 18
 				scoreboard players set @s status 4
-				scoreboard players set @s action_frame -1
-				scoreboard players set @s action_frame_max 18
-				scoreboard players set @s action_frame_s 44
+				scoreboard players set #STATUS temp 4
+				scoreboard players set #ACTION_FRAME_S temp 44
 				
 				execute store result score @s skill_delay run schedule function ARG(_PATH)call_summon 18t append
 				scoreboard players set #GLOBAL temp 1
@@ -355,10 +362,10 @@ namespace mob()
 				
 				scoreboard players set @s action_time 39
 				scoreboard players set @s kb_time 37
+				scoreboard players set #KB_TIME temp 37
 				scoreboard players set @s status 5
-				scoreboard players set @s action_frame -1
-				scoreboard players set @s action_frame_max 37
-				scoreboard players set @s action_frame_s 62
+				scoreboard players set #STATUS temp 5
+				scoreboard players set #ACTION_FRAME_S temp 62
 				
 				playsound minecraft:mob.special.4130103_attack player @a ~ ~ ~ 1 1 0
 				execute store result score @s skill_delay run schedule function ARG(_PATH)call_attack 22t append
@@ -390,8 +397,22 @@ namespace mob()
 		
 		func update()
 		{
+			scoreboard players set #KB_TIME temp 0
+			
 			execute if score @s action_time matches 1.. run scoreboard players remove @s action_time 1
-			execute unless score @s action_time matches 1.. run function ARG(_PATH)check
+			execute if entity @s[type=ocelot] unless score @s action_time matches 1.. run function ARG(_PATH)check
+			execute if entity @s[type=zombified_piglin] if score #KB_TIME temp matches 1.. run function ARG(_PATH)sync_score
+		}
+		
+		func sync_score()
+		{
+			scoreboard players operation @s kb_time = #KB_TIME temp
+			scoreboard players operation @s status = #STATUS temp
+			scoreboard players set @s action_frame -1
+			scoreboard players operation @s action_frame_s = #ACTION_FRAME_S temp
+			
+			scoreboard players reset @s action_frame_max
+			execute if score #ACTION_FRAME_S matches 1.. run scoreboard players operation @s action_frame_max = #KB_TIME temp
 		}
 		
 		```
