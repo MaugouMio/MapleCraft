@@ -1193,8 +1193,6 @@ namespace skill()
 		func schedule_10s()
 		{
 			effect give @e[type=cow] minecraft:invisibility 1000000 0 true
-			# 牛只是拿來做騎熔岩史萊姆的閒晃AI，在路上跑也對世界沒什麼影響，不急著 kill
-			execute as @e[type=cow] unless predicate skill:riding_magma run function main:deep_kill
 		}
 		
 		func schedule_1d()
@@ -1213,7 +1211,8 @@ namespace skill()
 			execute as @e[type=armor_stand,tag=model_animation] run function ARG(_PATH)model_animation_update
 			execute as @e[type=armor_stand,tag=afterimage] run function skill:afterimage/update
 			execute as @e[type=zombie,tag=box] if score @s status matches 1.. at @s run function skill:6/0/0/1000/box/update
-			execute as @e[type=zombified_piglin,scores={base_model=1..}] run function ARG(_PATH)enemy/run
+			# 同一隻怪物因為騎乘的生成順序，必定是貓緊接著殭屍豬人，中間不會穿插其他生物 (可以節省一些 @e 搜尋)
+			execute as @e[type=#skill:enemy_ai,scores={spawn_alpha=10}] run function ARG(_PATH)enemy/run
 			execute as @e[type=magma_cube,tag=!original] unless predicate skill:riding_enemy run function main:deep_kill
 			
 			execute as @a[scores={action_time=1..}] run function ARG(_PATH)action/countdown
@@ -1255,25 +1254,39 @@ namespace skill()
 		{
 			func run()
 			{
-				execute unless score @s kb_time matches 1.. if entity @s[tag=!dead] run function ARG(_PATH)status_change/check
-				execute if score @s action_frame_max matches 2.. unless entity @s[scores={kb_time=1..,status=..3}] run function ARG(_PATH)status_change/update_frame
-				execute if entity @s[tag=color_changed] run function ARG(_PATH)status_change/color/check
+				# kb_time, push_time 是貓跟豬人同步的，顏色與 status 變更則由貓計算完傳數值給豬人
+				execute if entity @s[type=ocelot] run function ARG(_PATH)ocelot
+				execute if score @s[type=zombified_piglin] run function ARG(_PATH)piglin
 				
 				execute if score @s kb_time matches 1.. run function ARG(_PATH)kb/countdown
 				execute if score @s pushed_time matches 1.. run function ARG(_PATH)push_countdown
+			}
+			
+			func ocelot()
+			{
+				execute unless score @s kb_time matches 1.. if entity @s[tag=!dead] run function ARG(_PATH)status_change/check
+				execute if entity @s[tag=color_changed] run function ARG(_PATH)status_change/color/check
 				execute if entity @s[tag=mob_effect] run function ARG(_PATH)mob_effect/run
 				execute if score @s bullet_targeted matches 1.. at @s run function ARG(_PATH)move_bullets
+			}
+			
+			func piglin()
+			{
+				# STATUS temp 會先由貓計算結果，然後馬上換豬人來取值 (騎乘實體順序)
+				execute unless score @s status = #STATUS temp run function ARG(_PATH)status_change/change
+				execute if score @s action_frame_max matches 2.. unless entity @s[scores={kb_time=1..,status=..3}] run function ARG(_PATH)status_change/update_frame
 			}
 			
 			folder status_change()
 			{
 				func check()
 				{
-					scoreboard players set #GLOBAL temp -1
+					scoreboard players set #STATUS temp -1
 					execute if data entity @s {OnGround:0b} run function ARG(_PATH)check_jump
-					execute if score #GLOBAL temp matches -1 run function ARG(_PATH)check_motion
+					execute if score #STATUS temp matches -1 run function ARG(_PATH)check_motion
 					
-					execute unless score @s status = #GLOBAL temp run function ARG(_PATH)change
+					execute unless score @s status = #STATUS temp run scoreboard players set @s[tag=!no_jump] rand_jump 20
+					scoreboard players operation @s status = #STATUS temp
 					
 					scoreboard players remove @s[tag=!no_jump,scores={status=2..}] rand_jump 1
 					execute if score @s rand_jump matches 0 run function ARG(_PATH)force_jump/try
@@ -1303,7 +1316,7 @@ namespace skill()
 				
 				func check_jump()
 				{
-					scoreboard players set #GLOBAL temp 0
+					scoreboard players set #STATUS temp 0
 					execute if entity @s[tag=no_jump] run function ARG(_PATH)prevent_jump
 				}
 				
@@ -1311,15 +1324,15 @@ namespace skill()
 				{
 					execute store result score @s motion_y run data get entity @s Motion[1] 100
 					execute if score @s motion_y matches 1.. run data modify entity @s Motion[1] set value 0.0
-					scoreboard players set #GLOBAL temp -1
+					scoreboard players set #STATUS temp -1
 				}
 				
 				func check_motion()
 				{
 					execute store result score @s motion_x run data get entity @s Motion[0] 100
 					execute store result score @s motion_z run data get entity @s Motion[2] 100
-					scoreboard players set #GLOBAL temp 2
-					execute if score @s motion_x matches 0 if score @s motion_z matches 0 run scoreboard players add #GLOBAL temp 1
+					scoreboard players set #STATUS temp 2
+					execute if score @s motion_x matches 0 if score @s motion_z matches 0 run scoreboard players add #STATUS temp 1
 				}
 				
 				func update_frame()
@@ -1327,9 +1340,9 @@ namespace skill()
 					scoreboard players add @s action_frame 1
 					execute if score @s action_frame = @s action_frame_max run scoreboard players set @s action_frame 0
 					
-					scoreboard players operation #GLOBAL temp = @s base_model
-					scoreboard players operation #GLOBAL temp += @s action_frame_s
-					execute store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players operation #GLOBAL temp += @s action_frame
+					scoreboard players operation #STATUS temp = @s base_model
+					scoreboard players operation #STATUS temp += @s action_frame_s
+					execute store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players operation #STATUS temp += @s action_frame
 					
 					# 眼睛特殊處理
 					execute if predicate skill:close_eye unless entity @s[tag=close_eye] run function quest:party_quest/ldpq/stages/4/eyes/close
@@ -1340,16 +1353,14 @@ namespace skill()
 				{
 					scoreboard players reset @s action_frame_max
 					scoreboard players set @s action_frame_s 2
-					execute if score #GLOBAL temp matches 2 if score @s move_frame matches 2.. run scoreboard players operation @s action_frame_max = @s move_frame
-					execute if score #GLOBAL temp matches 3 if score @s stand_frame matches 2.. run scoreboard players operation @s action_frame_s += @s move_frame
-					execute if score #GLOBAL temp matches 3 if score @s stand_frame matches 2.. run scoreboard players operation @s action_frame_max = @s stand_frame
+					execute if score #STATUS temp matches 2 if score @s move_frame matches 2.. run scoreboard players operation @s action_frame_max = @s move_frame
+					execute if score #STATUS temp matches 3 if score @s stand_frame matches 2.. run scoreboard players operation @s action_frame_s += @s move_frame
+					execute if score #STATUS temp matches 3 if score @s stand_frame matches 2.. run scoreboard players operation @s action_frame_max = @s stand_frame
 					scoreboard players set @s action_frame -1
 					
-					scoreboard players set @s[tag=!no_jump] rand_jump 20
-					
 					execute if score @s[tag=ldpq_eye] status matches 1 run function quest:party_quest/ldpq/stages/4/eyes/face_after_hit
-					scoreboard players operation @s status = #GLOBAL temp
-					execute unless score @s action_frame_max matches 2.. store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players operation #GLOBAL temp += @s base_model
+					scoreboard players operation @s status = #STATUS temp
+					execute unless score @s action_frame_max matches 2.. store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players operation #STATUS temp += @s base_model
 				}
 				
 				folder color()
@@ -1475,7 +1486,7 @@ namespace skill()
 				scoreboard players reset @s[scores={pushed_time=0}] pushed_time
 				
 				# 順便做懸崖檢查
-				execute at @s[tag=!fly_enemy] rotated ~ 0 if block ^ ^-1 ^-1 #skill:passable run function ARG(_PATH)cliff_stop
+				execute at @s[type=ocelot,tag=!fly_enemy] rotated ~ 0 if block ^ ^-1 ^-1 #skill:passable run function ARG(_PATH)cliff_stop
 			}
 
 			func cliff_stop()
@@ -1508,7 +1519,7 @@ namespace skill()
 						execute if score @s stun_time matches 0 run function ARG(_PATH)reset
 						execute if score @s stun_particle matches 0 at @s run function ARG(_PATH)show_particle
 					}
-							
+					
 					func show_particle()
 					{
 						scoreboard players operation #DEFAULT_SIZE temp = @s default_height
@@ -1540,7 +1551,7 @@ namespace skill()
 						scoreboard players remove @s threat_particle 1
 						execute if score @s threat_particle matches 0 at @s run function ARG(_PATH)show_particle
 					}
-							
+					
 					func show_particle()
 					{
 						scoreboard players operation #DEFAULT_SIZE temp = @s default_height
