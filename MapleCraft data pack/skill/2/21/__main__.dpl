@@ -501,7 +501,7 @@ namespace 21() as virtual
 				summon marker ~ ~ ~ {UUID:[I;575636949,204817767,-1738329627,897787263]}
 				scoreboard players set #FOUND_ENEMY temp 0
 				scoreboard players reset #PAIR_NUMBER temp
-				execute positioned ~-4 ~-3 ~-4 as @e[type=#skill:enemy,tag=enemy,tag=!dead,tag=!boss,dx=7,dy=5.5,dz=7] unless score @s 2101003_time matches 1.. run function ARG(_PATH)try_debuff
+				execute positioned ~-4 ~-3 ~-4 as @e[type=magma_cube,tag=enemy,tag=!boss,dx=7,dy=5.5,dz=7] unless score @s 2101003_time matches 1.. run function ARG(_PATH)try_debuff
 				kill 224f85d5-0c35-4567-9863-31e53583257f
 				
 				scoreboard players operation @s mp -= @s 2101003_mp
@@ -512,13 +512,14 @@ namespace 21() as virtual
 			
 			func try_debuff()
 			{
-				execute if score #FOUND_ENEMY temp matches ..5 run function ARG(_PATH)type_check
+				execute if score #FOUND_ENEMY temp matches ..5 run function ARG(_PATH)set_owner
 			}
 			
-			func type_check()
+			func set_owner()
 			{
-				execute if entity @s[type=zombified_piglin] at @s run function ARG(_PATH)set_debuff
-				execute if entity @s[type=magma_cube] unless score @s number = #PAIR_NUMBER temp run function ARG(_PATH)set_owner
+				scoreboard players operation #PAIR_NUMBER temp = @s number
+				execute as @e[type=ocelot] if score @s number = #PAIR_NUMBER temp at @s run function ARG(_PATH)set_debuff
+				scoreboard players set @s 2101003_time 1
 			}
 			
 			func set_debuff()
@@ -538,7 +539,6 @@ namespace 21() as virtual
 				scoreboard players operation #SPEED_RATE temp -= #1000 const
 
 				execute store result entity @s ArmorItems[3].tag.AttributeModifiers[{Name:"slow"}].Amount float 0.001 run scoreboard players get #SPEED_RATE temp
-				execute if entity @s[tag=paired_mob] unless score @s number = #PAIR_NUMBER temp run function ARG(_PATH)debuff_pair
 				
 				scoreboard players add #FOUND_ENEMY temp 1
 			}
@@ -573,19 +573,6 @@ namespace 21() as virtual
 				}
 			}
 			
-			func set_owner()
-			{
-				scoreboard players operation #PAIR_NUMBER temp = @s number
-				execute as @e[type=zombified_piglin,tag=paired_mob] if score @s number = #PAIR_NUMBER temp at @s run function ARG(_PATH)set_debuff
-				scoreboard players set @s 2101003_time 1
-			}
-			
-			func debuff_pair()
-			{
-				scoreboard players operation #PAIR_NUMBER temp = @s number
-				execute as @e[type=magma_cube,tag=enemy] if score @s number = #PAIR_NUMBER temp run scoreboard players set @s 2101003_time 1
-			}
-			
 			folder mob()
 			{
 				func countdown()
@@ -598,7 +585,7 @@ namespace 21() as virtual
 				{
 					scoreboard players reset @s 2101003_time
 					data modify entity @s ArmorItems[3].tag.AttributeModifiers[{Name:"slow"}].Amount set value 0
-					execute if entity @s[tag=paired_mob] run function ARG(_PATH)reset_pair
+					function ARG(_PATH)reset_pair
 				}
 				
 				func reset_pair()

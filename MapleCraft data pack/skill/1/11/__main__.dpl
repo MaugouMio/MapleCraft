@@ -501,8 +501,7 @@ namespace 11() as virtual
 				
 				scoreboard players set #EXP_GAIN temp 0
 				scoreboard players set #REFLECTED temp 0
-				execute if entity @s[tag=magma_cube_hit] positioned ~-4 ~-4 ~-4 as @e[type=magma_cube,tag=enemy,limit=1,sort=nearest,dx=7,dy=7,dz=7] run function ARG(_PATH)magma_cube_hit
-				execute unless entity @s[tag=magma_cube_hit] as @e[type=zombified_piglin,tag=enemy,tag=!dead,limit=1,sort=nearest,distance=..4] at @s run function ARG(_PATH)hit
+				execute positioned ~-4 ~-4 ~-4 as @e[type=magma_cube,tag=enemy,limit=1,sort=nearest,dx=7,dy=7,dz=7] run function ARG(_PATH)magma_cube_hit
 				function skill:hunt_exp
 				
 				# reduce damage reflected
@@ -513,7 +512,7 @@ namespace 11() as virtual
 			{
 				scoreboard players set #KILLED_MOB temp 0
 				scoreboard players operation #GLOBAL temp = @s number
-				execute as @e[type=zombified_piglin,tag=enemy] if score @s number = #GLOBAL temp at @s run function ARG(_PATH)hit
+				execute as @e[type=ocelot,tag=enemy] if score @s number = #GLOBAL temp at @s run function ARG(_PATH)hit
 				execute if score #KILLED_MOB temp matches 1 run data merge entity @s {NoAI:1,Tags:[]}
 			}
 			

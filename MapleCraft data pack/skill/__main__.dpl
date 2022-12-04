@@ -104,7 +104,7 @@ namespace attack_skill_template(skill_id) as virtual
 			print("execute store result storage skill:main damage_info.power_knock_back[0] double 0.0007 run data get storage skill:main damage_info.power_knock_back[0] 10000")
 			print("execute store result storage skill:main damage_info.power_knock_back[2] double 0.0007 run data get storage skill:main damage_info.power_knock_back[2] 10000")
 		```
-		execute as @e[type=zombified_piglin,tag=target] at @s run function ARG(_PATH)hit
+		execute as @e[type=ocelot,tag=target] at @s run function ARG(_PATH)hit
 		```
 		# mp eater
 		if "ARG(skill_id)"[0] == "2":
@@ -116,7 +116,7 @@ namespace attack_skill_template(skill_id) as virtual
 	func hit_effect()
 	{
 		execute store result score #GLOBAL ARG(skill_id)_eid run time query gametime
-		execute as @e[type=zombified_piglin] if score @s ARG(skill_id)_eid = #GLOBAL ARG(skill_id)_eid at @s run function ARG(_PATH)perform_effect
+		execute as @e[type=ocelot] if score @s ARG(skill_id)_eid = #GLOBAL ARG(skill_id)_eid at @s run function ARG(_PATH)perform_effect
 	}
 	
 	func perform_effect()
@@ -335,7 +335,7 @@ namespace bullet_skill_template(skill_id) as virtual
 		execute store result storage skill:main damage_info.knock_back[0] double 0.0001 run scoreboard players remove #GLOBAL temp 2500000
 		kill 00000000-0000-0005-0000-000000000005
 		
-		execute as @e[type=zombified_piglin,tag=target] at @s run function ARG(_PATH)hit
+		execute as @e[type=ocelot,tag=target] at @s run function ARG(_PATH)hit
 		```
 		if "ARG(skill_id)" == "4101005":
 			print("scoreboard players operation @s hp += #DRAIN_AMOUNT temp")
@@ -350,7 +350,7 @@ namespace bullet_skill_template(skill_id) as virtual
 	func hit_effect()
 	{
 		execute store result score #GLOBAL ARG(skill_id)_eid run time query gametime
-		execute as @e[type=zombified_piglin] if score @s ARG(skill_id)_eid = #GLOBAL ARG(skill_id)_eid at @s run function ARG(_PATH)perform_effect
+		execute as @e[type=ocelot] if score @s ARG(skill_id)_eid = #GLOBAL ARG(skill_id)_eid at @s run function ARG(_PATH)perform_effect
 	}
 	
 	func perform_effect()
@@ -947,7 +947,7 @@ namespace skill()
 					func check_on_ground()
 					{
 						execute if entity @s[nbt={OnGround:1b}] run function ARG(_PATH)run
-						execute unless entity @s[nbt={OnGround:1b}] as @e[type=zombified_piglin,tag=target] run function skill:enemy_search/clear
+						execute unless entity @s[nbt={OnGround:1b}] as @e[type=ocelot,tag=target] run function skill:enemy_search/clear
 					}
 					
 					func run_swing()
@@ -1180,7 +1180,7 @@ namespace skill()
 	{
 		func schedule_1s()
 		{
-			execute as @e[type=zombified_piglin,tag=!dead] run function ARG(_PATH)enemy
+			execute as @e[type=ocelot,tag=!dead] run function ARG(_PATH)enemy
 		}
 		
 		func enemy()
@@ -1190,15 +1190,10 @@ namespace skill()
 			execute if score @s show_hp_time matches 1.. run function skill:calculate_damage/update_hp_display/countdown
 		}
 		
-		func schedule_10s()
-		{
-			effect give @e[type=cow] minecraft:invisibility 1000000 0 true
-		}
-		
 		func schedule_1d()
 		{
 			scoreboard players set #BULLET_ID number 1
-			execute as @e[type=zombified_piglin,tag=!dead] run data modify entity @s AngerTime set value 2147483647
+			execute as @e[type=zombified_piglin] run data modify entity @s AngerTime set value 2147483647
 		}
 	}
 	
@@ -1828,7 +1823,7 @@ namespace skill()
 					print("func run()")
 					print("{")
 					print(f"\texecute if score @s skill_id matches {id_list[0][1]} run function skill:{id_list[0][0][0]}/{id_list[0][0][1]}/{id_list[0][0][2]}/{id_list[0][0][3:]}/append_scheduler")
-					print(f"\texecute if score @s skill_id matches {id_list[0][1]} as @e[type=zombified_piglin] if score @s number = #GLOBAL temp run function skill:{id_list[0][0][0]}/{id_list[0][0][1]}/{id_list[0][0][2]}/{id_list[0][0][3:]}/bullet_hit/run")
+					print(f"\texecute if score @s skill_id matches {id_list[0][1]} as @e[type=ocelot] if score @s number = #GLOBAL temp run function skill:{id_list[0][0][0]}/{id_list[0][0][1]}/{id_list[0][0][2]}/{id_list[0][0][3:]}/bullet_hit/run")
 					print("}")
 					return
 				
@@ -1845,12 +1840,12 @@ namespace skill()
 				print("{")
 				if start == mid:
 					print(f"\texecute if score @s skill_id matches {id_list[start][1]} run function skill:{id_list[start][0][0]}/{id_list[start][0][1]}/{id_list[start][0][2]}/{id_list[start][0][3:]}/append_scheduler")
-					print(f"\texecute if score @s skill_id matches {id_list[start][1]} as @e[type=zombified_piglin] if score @s number = #GLOBAL temp run function skill:{id_list[start][0][0]}/{id_list[start][0][1]}/{id_list[start][0][2]}/{id_list[start][0][3:]}/bullet_hit/run")
+					print(f"\texecute if score @s skill_id matches {id_list[start][1]} as @e[type=ocelot] if score @s number = #GLOBAL temp run function skill:{id_list[start][0][0]}/{id_list[start][0][1]}/{id_list[start][0][2]}/{id_list[start][0][3:]}/bullet_hit/run")
 				else:
 					print(f"\texecute if score @s skill_id matches {id_list[start][1]}..{id_list[mid][1]} run function ARG(_PATH){start}_{mid}")
 				if mid_right == end:
 					print(f"\texecute if score @s skill_id matches {id_list[end][1]} run function skill:{id_list[end][0][0]}/{id_list[end][0][1]}/{id_list[end][0][2]}/{id_list[end][0][3:]}/append_scheduler")
-					print(f"\texecute if score @s skill_id matches {id_list[end][1]} as @e[type=zombified_piglin] if score @s number = #GLOBAL temp run function skill:{id_list[end][0][0]}/{id_list[end][0][1]}/{id_list[end][0][2]}/{id_list[end][0][3:]}/bullet_hit/run")
+					print(f"\texecute if score @s skill_id matches {id_list[end][1]} as @e[type=ocelot] if score @s number = #GLOBAL temp run function skill:{id_list[end][0][0]}/{id_list[end][0][1]}/{id_list[end][0][2]}/{id_list[end][0][3:]}/bullet_hit/run")
 				else:
 					print(f"\texecute if score @s skill_id matches {id_list[mid_right][1]}..{id_list[end][1]} run function ARG(_PATH){mid_right}_{end}")
 				print("}")
@@ -2012,36 +2007,28 @@ namespace skill()
 			func execute()
 			{
 				# simulating sector detection, larger y axis detection on further distance
-				execute if score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-0.6 ~-1.8 as @e[type=#skill:enemy,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=2.2,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
-				execute unless score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~ ~-1.8 as @e[type=#skill:enemy,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=1,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
+				execute if score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-0.6 ~-1.8 as @e[type=magma_cube,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=2.2,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
+				execute unless score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~ ~-1.8 as @e[type=magma_cube,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=1,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
 				scoreboard players add #CUR_DISTANCE temp 1
 			}
 			
 			func try_mark()
 			{
 				execute unless score #FIRST_DISTANCE temp matches 0.. run scoreboard players operation #FIRST_DISTANCE temp = #CUR_DISTANCE temp
-				execute if score #FOUND_ENEMY temp < #MAX_ENEMY temp run function ARG(_PATH)type_check
-			}
-			
-			func type_check()
-			{
-				execute if entity @s[type=zombified_piglin] run function ARG(_PATH)mark
-				# if both piglin and magma_cube pair are found, magma_cube must be right after the piglin
-				execute if entity @s[type=magma_cube] unless score @s number = #PAIR_NUMBER temp run function ARG(_PATH)mark_owner
-			}
-			
-			func mark()
-			{
-				tag @s add target
-				scoreboard players operation #PAIR_NUMBER temp = @s number
-				scoreboard players add #FOUND_ENEMY temp 1
+				execute if score #FOUND_ENEMY temp < #MAX_ENEMY temp run function ARG(_PATH)mark_owner
 			}
 			
 			func mark_owner()
 			{
 				scoreboard players operation #PAIR_NUMBER temp = @s number
-				execute as @e[type=zombified_piglin,tag=paired_mob] if score @s number = #PAIR_NUMBER temp run function ARG(_PATH)mark
+				execute as @e[type=ocelot] if score @s number = #PAIR_NUMBER temp run function ARG(_PATH)mark
 				tag @s add target
+			}
+			
+			func mark()
+			{
+				tag @s add target
+				scoreboard players add #FOUND_ENEMY temp 1
 			}
 		}
 		
@@ -2062,21 +2049,21 @@ namespace skill()
 			func execute()
 			{
 				# simulating sector detection, larger y axis detection on further distance
-				execute if score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-0.6 ~-1.8 as @e[type=#skill:enemy,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=2.2,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
-				execute unless score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~ ~-1.8 as @e[type=#skill:enemy,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=1,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
+				execute if score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-0.6 ~-1.8 as @e[type=magma_cube,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=2.2,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
+				execute unless score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~ ~-1.8 as @e[type=magma_cube,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=1,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
 				scoreboard players add #CUR_DISTANCE temp 1
 			}
 			
 			func try_mark()
 			{
-				execute if score #FOUND_ENEMY temp < #MAX_ENEMY temp run function ARG(_PATH)type_check
+				execute if score #FOUND_ENEMY temp < #MAX_ENEMY temp run function ARG(_PATH)mark_owner
 			}
 			
-			func type_check()
+			func mark_owner()
 			{
-				execute if entity @s[type=zombified_piglin] run function ARG(_PATH)mark
-				# if both piglin and magma_cube pair are found, magma_cube must be right after the piglin
-				execute if entity @s[type=magma_cube] unless score @s number = #PAIR_NUMBER temp run function ARG(_PATH)mark_owner
+				scoreboard players operation #PAIR_NUMBER temp = @s number
+				execute as @e[type=ocelot] if score @s number = #PAIR_NUMBER temp run function ARG(_PATH)mark
+				tag @s add target
 			}
 			
 			func mark()
@@ -2084,7 +2071,6 @@ namespace skill()
 				execute if score #FOUND_ENEMY temp matches ..4 run function ARG(_PATH)record_dists
 				
 				tag @s add target
-				scoreboard players operation #PAIR_NUMBER temp = @s number
 				execute store result score @s hit_distance run scoreboard players operation @s hit_order = #FOUND_ENEMY temp
 				scoreboard players remove @s[scores={hit_distance=5}] hit_distance 1
 				scoreboard players add #FOUND_ENEMY temp 1
@@ -2094,13 +2080,6 @@ namespace skill()
 			{
 				data modify storage skill:main temp append value 0
 				execute store result storage skill:main temp[-1] int 1 run scoreboard players get #FOUND_ENEMY temp
-			}
-			
-			func mark_owner()
-			{
-				scoreboard players operation #PAIR_NUMBER temp = @s number
-				execute as @e[type=zombified_piglin,tag=paired_mob] if score @s number = #PAIR_NUMBER temp run function ARG(_PATH)mark
-				tag @s add target
 			}
 		}
 		
@@ -2123,8 +2102,8 @@ namespace skill()
 			func execute()
 			{
 				# simulating sector detection, larger y axis detection on further distance
-				execute if score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-0.6 ~-1.8 as @e[type=#skill:enemy,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=2.2,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
-				execute unless score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~ ~-1.8 as @e[type=#skill:enemy,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=1,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
+				execute if score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-0.6 ~-1.8 as @e[type=magma_cube,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=2.2,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
+				execute unless score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~ ~-1.8 as @e[type=magma_cube,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=1,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
 				scoreboard players add #CUR_DISTANCE temp 1
 			}
 			
@@ -2136,14 +2115,14 @@ namespace skill()
 			
 			func try_mark()
 			{
-				execute if score #FOUND_ENEMY temp < #MAX_ENEMY temp run function ARG(_PATH)type_check
+				execute if score #FOUND_ENEMY temp < #MAX_ENEMY temp run function ARG(_PATH)mark_owner
 			}
 			
-			func type_check()
+			func mark_owner()
 			{
-				execute if entity @s[type=zombified_piglin] run function ARG(_PATH)mark
-				# if both piglin and magma_cube pair are found, magma_cube must be right after the piglin
-				execute if entity @s[type=magma_cube] unless score @s number = #PAIR_NUMBER temp run function ARG(_PATH)mark_owner
+				scoreboard players operation #PAIR_NUMBER temp = @s number
+				execute as @e[type=ocelot] if score @s number = #PAIR_NUMBER temp run function ARG(_PATH)mark
+				tag @s add target
 			}
 			
 			func mark()
@@ -2152,7 +2131,6 @@ namespace skill()
 				execute if score #GLOBAL hit_distance < #CUR_DISTANCE temp run function ARG(_PATH)record_dists
 				
 				tag @s add target
-				scoreboard players operation #PAIR_NUMBER temp = @s number
 				scoreboard players operation @s hit_distance = #CUR_DISTANCE temp
 				scoreboard players operation @s hit_order = #FOUND_ENEMY temp
 				scoreboard players add #FOUND_ENEMY temp 1
@@ -2163,13 +2141,6 @@ namespace skill()
 				data modify storage skill:main temp append value 0
 				execute store result storage skill:main temp[-1] int 1 run scoreboard players get #CUR_DISTANCE temp
 				scoreboard players operation #GLOBAL hit_distance = #CUR_DISTANCE temp
-			}
-			
-			func mark_owner()
-			{
-				scoreboard players operation #PAIR_NUMBER temp = @s number
-				execute as @e[type=zombified_piglin,tag=paired_mob] if score @s number = #PAIR_NUMBER temp run function ARG(_PATH)mark
-				tag @s add target
 			}
 		}
 	}
@@ -3039,7 +3010,7 @@ namespace skill()
 			execute if score #DID_HIT temp matches 1 run function ARG(_PATH)update_hp_display/run
 			scoreboard players set #KILLED_MOB temp 0
 			execute if score @s hp matches ..0 run function ARG(_PATH)record_dead
-			execute if score #KILLED_MOB temp matches 1 if entity @s[tag=paired_mob] run function ARG(_PATH)stop_magma_cube
+			execute if score #KILLED_MOB temp matches 1 run function ARG(_PATH)stop_magma_cube
 		}
 			
 		func stop_magma_cube()
@@ -3087,8 +3058,7 @@ namespace skill()
 				execute if score #SILENT_UPDATE_HP temp matches 1 unless score @s show_hp_time matches 1.. run scoreboard players set #SILENT_UPDATE_HP temp 2
 
 				data modify block 250 0 0 Text1 set value '[{"text":"985","font":"space:default"},{"text":"0","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},{"nbt":"mob_hp[]","storage":"bar:main","font":"ui:mob_hp","interpret":true},{"nbt":"mob_hp_back","storage":"bar:main","font":"space:default","interpret":true},{"text":"\\uF829\\uF825","font":"space:default"}]'
-				execute unless score #SILENT_UPDATE_HP temp matches 2 if entity @s[tag=!paired_mob] run data modify entity @s CustomName set from block 250 0 0 Text1
-				execute unless score #SILENT_UPDATE_HP temp matches 2 if entity @s[tag=paired_mob] run function ARG(_PATH)update_pair
+				execute unless score #SILENT_UPDATE_HP temp matches 2 run function ARG(_PATH)update_pair
 				data modify entity @s ArmorItems[3].tag.health_bar set from block 250 0 0 Text1
 				
 				execute if score #SILENT_UPDATE_HP temp matches 0 run scoreboard players set @s show_hp_time 5
@@ -3102,8 +3072,7 @@ namespace skill()
 			
 			func show()
 			{
-				execute unless score @s show_hp_time matches 1.. if entity @s[tag=!paired_mob] run data modify entity @s CustomName set from entity @s ArmorItems[3].tag.health_bar
-				execute unless score @s show_hp_time matches 1.. if entity @s[tag=paired_mob] run function ARG(_PATH)show_pair
+				execute unless score @s show_hp_time matches 1.. run function ARG(_PATH)show_pair
 				scoreboard players set @s show_hp_time 5
 			}
 			
@@ -3122,8 +3091,7 @@ namespace skill()
 			
 			func hide()
 			{
-				execute if entity @s[tag=!paired_mob] run data modify entity @s CustomName set value '{"text":"2","font":"space:default"}'
-				execute if entity @s[tag=paired_mob] run function ARG(_PATH)hide_pair
+				function ARG(_PATH)hide_pair
 				scoreboard players reset @s show_hp_time
 			}
 			
@@ -3177,7 +3145,6 @@ namespace skill()
 		
 		func record_dead()
 		{
-			attribute @s minecraft:generic.attack_damage base set -100.0
 			attribute @s minecraft:generic.movement_speed base set -100.0
 			
 			item replace entity @s weapon.mainhand with minecraft:potion{CustomModelData:1,Enchantments:[{id:"minecraft:looting",lvl:1}]}
@@ -4492,11 +4459,5 @@ namespace skill()
 		scoreboard players remove #NUMBER_HEIGHT temp 1
 		execute if score #NUMBER_HEIGHT temp matches -1 run function number_display:show
 		execute if score #NUMBER_HEIGHT temp matches 0.. positioned ~ ~0.4 ~ run function ARG(_PATH)show_num_at_height
-	}
-	
-	func hurt_by_magma_cube()
-	{
-		tag @s add magma_cube_hit
-		advancement revoke @s only skill:hurt_by_magma_cube
 	}
 }

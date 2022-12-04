@@ -216,18 +216,18 @@ namespace 22() as virtual
 				data modify storage skill:main temp set value []
 				scoreboard players set #FOUND_ENEMY temp 0
 				scoreboard players reset #PAIR_NUMBER temp
-				execute positioned ~-4 ~-3 ~-4 as @e[type=#skill:enemy,tag=enemy,tag=!dead,dx=7,dy=5.5,dz=7] run function ARG(_PATH)try_mark
+				execute positioned ~-4 ~-3 ~-4 as @e[type=magma_cube,tag=enemy,dx=7,dy=5.5,dz=7] run function ARG(_PATH)try_mark
 			}
 			
 			func try_mark()
 			{
-				execute if score #FOUND_ENEMY temp matches ..5 run function ARG(_PATH)type_check
+				execute if score #FOUND_ENEMY temp matches ..5 run function ARG(_PATH)mark_owner
 			}
 			
-			func type_check()
+			func mark_owner()
 			{
-				execute if entity @s[type=zombified_piglin] run function ARG(_PATH)mark
-				execute if entity @s[type=magma_cube] unless score @s number = #PAIR_NUMBER temp run function ARG(_PATH)mark_owner
+				scoreboard players operation #PAIR_NUMBER temp = @s number
+				execute as @e[type=ocelot] if score @s number = #PAIR_NUMBER temp run function ARG(_PATH)mark
 			}
 			
 			func mark()
@@ -237,15 +237,8 @@ namespace 22() as virtual
 				scoreboard players operation @s hit_distance = #FOUND_ENEMY temp
 				data modify storage skill:main temp append value 0
 				execute store result storage skill:main temp[-1] int 1 run scoreboard players get @s hit_distance
-				scoreboard players operation #PAIR_NUMBER temp = @s number
 				
 				scoreboard players add #FOUND_ENEMY temp 1
-			}
-			
-			func mark_owner()
-			{
-				scoreboard players operation #PAIR_NUMBER temp = @s number
-				execute as @e[type=zombified_piglin,tag=paired_mob] if score @s number = #PAIR_NUMBER temp run function ARG(_PATH)mark
 			}
 			
 			func set_numeric()

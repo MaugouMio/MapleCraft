@@ -352,7 +352,7 @@ namespace 3() as virtual
 				func run_shoot()
 				{
 					execute if entity @s[nbt={OnGround:1b}] run function ARG(_PATH)run
-					execute unless entity @s[nbt={OnGround:1b}] as @e[type=zombified_piglin,tag=target] run function skill:enemy_search/clear
+					execute unless entity @s[nbt={OnGround:1b}] as @e[type=ocelot,tag=target] run function skill:enemy_search/clear
 				}
 				
 				func mark_target()
@@ -544,7 +544,7 @@ namespace 3() as virtual
 				func run_shoot()
 				{
 					execute if entity @s[nbt={OnGround:1b}] run function ARG(_PATH)run
-					execute unless entity @s[nbt={OnGround:1b}] as @e[type=zombified_piglin,tag=target] run function skill:enemy_search/clear
+					execute unless entity @s[nbt={OnGround:1b}] as @e[type=ocelot,tag=target] run function skill:enemy_search/clear
 				}
 				
 				func mark_target()

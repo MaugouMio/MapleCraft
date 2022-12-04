@@ -212,7 +212,7 @@ namespace 12() as virtual
 				
 				scoreboard players set #FOUND_ENEMY temp 0
 				scoreboard players reset #PAIR_NUMBER temp
-				execute positioned ~-4 ~-3 ~-4 as @e[type=#skill:enemy,tag=enemy,tag=!dead,dx=7,dy=5.5,dz=7] unless score @s weaken_from matches 2 run function ARG(_PATH)try_debuff
+				execute positioned ~-4 ~-3 ~-4 as @e[type=magma_cube,tag=enemy,dx=7,dy=5.5,dz=7] unless score @s weaken_from matches 2 run function ARG(_PATH)try_debuff
 				
 				scoreboard players operation @s mp -= @s 1201006_mp
 				function bar_display:change/mp/dropped
@@ -222,13 +222,19 @@ namespace 12() as virtual
 			
 			func try_debuff()
 			{
-				execute if score #FOUND_ENEMY temp matches ..5 run function ARG(_PATH)type_check
+				execute if score #FOUND_ENEMY temp matches ..5 run function ARG(_PATH)set_owner
 			}
 			
-			func type_check()
+			func set_owner()
 			{
-				execute if entity @s[type=zombified_piglin] run function ARG(_PATH)set_debuff
-				execute if entity @s[type=magma_cube] unless score @s number = #PAIR_NUMBER temp run function ARG(_PATH)set_owner
+				scoreboard players operation #PAIR_NUMBER temp = @s number
+				execute as @e[type=ocelot] if score @s number = #PAIR_NUMBER temp run function ARG(_PATH)set_debuff
+				
+				# weapon attack drop
+				execute store result score #GLOBAL temp run attribute @s minecraft:generic.attack_damage base get 10
+				scoreboard players remove #GLOBAL temp 1
+				execute store result entity @s ArmorItems[3].tag.AttributeModifiers[{Name:"disorder"}].Amount float -0.1 run scoreboard players operation #GLOBAL temp < #THREATEN_LEVEL temp
+				scoreboard players set @s weaken_from 2
 			}
 			
 			func set_debuff()
@@ -238,37 +244,11 @@ namespace 12() as virtual
 				tag @s add mob_effect
 				scoreboard players set @s weaken_from 2
 				
-				# weapon attack drop
-				execute store result score @s temp run attribute @s minecraft:generic.attack_damage base get 10
-				scoreboard players remove @s temp 1
-				execute store result entity @s ArmorItems[3].tag.AttributeModifiers[{Name:"disorder"}].Amount float -0.1 run scoreboard players operation @s temp < #THREATEN_LEVEL temp
-				scoreboard players operation #GLOBAL temp = @s temp
-				execute if entity @s[tag=paired_mob] unless score @s number = #PAIR_NUMBER temp run function ARG(_PATH)debuff_pair
-				
 				# weapon defense drop
 				scoreboard players operation @s wdef_drop = @s weapon_defense
 				scoreboard players operation @s wdef_drop < #THREATEN_LEVEL temp
 				
 				scoreboard players add #FOUND_ENEMY temp 1
-			}
-			
-			func set_owner()
-			{
-				scoreboard players operation #PAIR_NUMBER temp = @s number
-				execute as @e[type=zombified_piglin,tag=paired_mob] if score @s number = #PAIR_NUMBER temp run function ARG(_PATH)set_debuff
-				function ARG(_PATH)pair_effect
-			}
-			
-			func debuff_pair()
-			{
-				scoreboard players operation #PAIR_NUMBER temp = @s number
-				execute as @e[type=magma_cube,tag=enemy] if score @s number = #PAIR_NUMBER temp run function ARG(_PATH)pair_effect
-			}
-			
-			func pair_effect()
-			{
-				execute store result entity @s ArmorItems[3].tag.AttributeModifiers[{Name:"disorder"}].Amount float -0.1 run scoreboard players get #GLOBAL temp
-				scoreboard players set @s weaken_from 2
 			}
 			
 			folder levels()

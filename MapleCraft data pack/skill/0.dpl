@@ -91,7 +91,7 @@ namespace 0() as virtual
 					function skill:calculate_damage/update_hp_display/run
 					scoreboard players set #KILLED_MOB temp 0
 					execute if score @s hp matches ..0 run function skill:calculate_damage/record_dead
-					execute if score #KILLED_MOB temp matches 1 if entity @s[tag=paired_mob] run function ARG(_PATH)stop_magma_cube
+					execute if score #KILLED_MOB temp matches 1 run function skill:calculate_damage/stop_magma_cube
 					#################################################
 					# mp eater
 					execute if score #ABSORB_RATE temp matches 1.. if score @s[tag=!boss] mp matches 1.. run function skill:2/1/0/0000/try_absorb

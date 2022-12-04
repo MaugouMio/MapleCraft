@@ -483,7 +483,7 @@ namespace 31() as virtual
 			func run_shoot()
 			{
 				execute if entity @s[nbt={OnGround:1b}] run function ARG(_PATH)run
-				execute unless entity @s[nbt={OnGround:1b}] as @e[type=zombified_piglin,tag=target] run function skill:enemy_search/clear
+				execute unless entity @s[nbt={OnGround:1b}] as @e[type=#skill:enemy_ai,tag=target] run function skill:enemy_search/clear
 			}
 			
 			func mark_target()
@@ -494,18 +494,18 @@ namespace 31() as virtual
 				
 				scoreboard players set #FOUND_SPLASH_ENEMY temp 0
 				scoreboard players reset #PAIR_NUMBER temp
-				execute as @e[type=zombified_piglin,tag=target,limit=1] at @s positioned ~-3 ~-2 ~-3 as @e[type=#skill:enemy,tag=enemy,tag=!target,tag=!dead,dx=5,dy=4.5,dz=5] run function ARG(_PATH)try_splash
+				execute as @e[type=ocelot,tag=target,limit=1] at @s positioned ~-3 ~-2 ~-3 as @e[type=magma_cube,tag=enemy,dx=5,dy=4.5,dz=5] run function ARG(_PATH)try_splash
 			}
 			
 			func try_splash()
 			{
-				execute if score #FOUND_SPLASH_ENEMY temp matches ..4 run function ARG(_PATH)type_check
+				execute if score #FOUND_SPLASH_ENEMY temp matches ..4 run function ARG(_PATH)splash_mark_owner
 			}
 			
-			func type_check()
+			func splash_mark_owner()
 			{
-				execute if entity @s[type=zombified_piglin] run function ARG(_PATH)splash_mark
-				execute if entity @s[type=magma_cube] unless score @s number = #PAIR_NUMBER temp run function ARG(_PATH)splash_mark_owner
+				scoreboard players operation #PAIR_NUMBER temp = @s number
+				execute as @e[type=ocelot,tag=!target] if score @s number = #PAIR_NUMBER temp run function ARG(_PATH)splash_mark
 			}
 			
 			func splash_mark()
@@ -513,12 +513,6 @@ namespace 31() as virtual
 				tag @s add new_splashed
 				scoreboard players operation #PAIR_NUMBER temp = @s number
 				scoreboard players add #FOUND_SPLASH_ENEMY temp 1
-			}
-			
-			func splash_mark_owner()
-			{
-				scoreboard players operation #PAIR_NUMBER temp = @s number
-				execute as @e[type=zombified_piglin,tag=paired_mob,tag=!target] if score @s number = #PAIR_NUMBER temp run function ARG(_PATH)splash_mark
 			}
 			
 			func summon_bullet()
@@ -581,8 +575,8 @@ namespace 31() as virtual
 				data modify entity @s ArmorItems[3].tag.bullet_list[-1].damage_record set from entity @s ArmorItems[3].tag.damage_record
 				data modify entity @s ArmorItems[3].tag.bullet_list[-1].damage_info set from storage skill:main damage_info
 				
-				execute if score @s display_number matches 1.. as @e[type=zombified_piglin,tag=new_splashed] run function ARG(_PATH)splashed
-				execute unless score @s display_number matches 1.. run tag @e[type=zombified_piglin,tag=new_splashed] remove new_splashed
+				execute if score @s display_number matches 1.. as @e[type=ocelot,tag=new_splashed] run function ARG(_PATH)splashed
+				execute unless score @s display_number matches 1.. run tag @e[type=ocelot,tag=new_splashed] remove new_splashed
 				
 				tag @s remove target
 				tag @s remove first_target
@@ -631,15 +625,14 @@ namespace 31() as virtual
 					data modify entity @s ArmorItems[3].tag.damage_record append value {number:0,crit:0,height:0}
 					execute store result entity @s ArmorItems[3].tag.damage_record[-1].height int 1 run scoreboard players get @s default_height
 					
-					scoreboard players set #KILLED_MOB temp 0
 					function random:rand_rate
 					execute if score #HIT_RATE temp > #RAND_RESULT number run function ARG(_PATH)deal_damage
 					scoreboard players set #SILENT_UPDATE_HP temp 0
 					execute if score #DID_HIT temp matches 1 run function skill:calculate_damage/update_hp_display/run
-					execute if score #KILLED_MOB temp matches 1 if entity @s[tag=paired_mob] run function ARG(_PATH)stop_magma_cube
-					#################################
-					
+
+					scoreboard players set #KILLED_MOB temp 0
 					execute if score @s hp matches ..0 run function skill:calculate_damage/record_dead
+					execute if score #KILLED_MOB temp matches 1 run function skill:calculate_damage/stop_magma_cube
 				}
 				
 				func reset_direct_hit()
@@ -712,7 +705,7 @@ namespace 31() as virtual
 					# append scheduler
 					data modify storage skill:main new_schedule set value [{delay:0,time:0}]
 					execute store result storage skill:main new_schedule[-1].time int 1 run schedule function ARG(__PATH)hit_effect 6t append
-					execute as @e[type=zombified_piglin,scores={3101005_splashed=1..}] run function ARG(__PATH)splash_hit/run
+					execute as @e[type=ocelot,scores={3101005_splashed=1..}] run function ARG(__PATH)splash_hit/run
 				}
 			}
 			
