@@ -197,10 +197,6 @@ namespace mob()
 			
 			func skill()
 			{
-				attribute @s minecraft:generic.movement_speed modifier add 495407c5-10c0-4270-84ed-c566e01e6952 move_control -100.0 add
-				attribute @s minecraft:generic.follow_range modifier add 5b098e79-ca54-46a5-afbf-8066af7f3971 skill_face_control -30.0 add
-				execute at @s run tp @s ~ ~ ~ ~ 0
-				
 				scoreboard players set @s action_time 26
 				scoreboard players set @s kb_time 24
 				scoreboard players set #KB_TIME temp 24
@@ -245,7 +241,6 @@ namespace mob()
 			
 			func attack()
 			{
-				attribute @s minecraft:generic.movement_speed modifier add 495407c5-10c0-4270-84ed-c566e01e6952 move_control -100.0 add
 				scoreboard players set @s action_time 35
 				scoreboard players set @s kb_time 33
 				scoreboard players set #KB_TIME temp 33
@@ -306,10 +301,6 @@ namespace mob()
 			
 			func cast_summon()
 			{
-				attribute @s minecraft:generic.movement_speed modifier add 495407c5-10c0-4270-84ed-c566e01e6952 move_control -100.0 add
-				attribute @s minecraft:generic.follow_range modifier add 5b098e79-ca54-46a5-afbf-8066af7f3971 skill_face_control -30.0 add
-				execute at @s run tp @s ~ ~ ~ ~ 0
-				
 				scoreboard players set @s action_time 28
 				scoreboard players set @s kb_time 18
 				scoreboard players set #KB_TIME temp 18
@@ -356,10 +347,6 @@ namespace mob()
 			
 			func cast_attack()
 			{
-				attribute @s minecraft:generic.movement_speed modifier add 495407c5-10c0-4270-84ed-c566e01e6952 move_control -100.0 add
-				attribute @s minecraft:generic.follow_range modifier add 5b098e79-ca54-46a5-afbf-8066af7f3971 skill_face_control -30.0 add
-				execute at @s run tp @s ~ ~ ~ ~ 0
-				
 				scoreboard players set @s action_time 39
 				scoreboard players set @s kb_time 37
 				scoreboard players set #KB_TIME temp 37
@@ -406,6 +393,9 @@ namespace mob()
 		
 		func sync_score()
 		{
+			execute at @s run tp @s ~ ~ ~ ~ 0
+			data modify entity @s NoAI set value 1b
+
 			scoreboard players operation @s kb_time = #KB_TIME temp
 			scoreboard players operation @s status = #STATUS temp
 			scoreboard players set @s action_frame -1

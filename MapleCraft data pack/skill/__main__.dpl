@@ -180,14 +180,12 @@ namespace attack_skill_template(skill_id) as virtual
 		scoreboard players set @s pushed_time 12
 		scoreboard players operation @s kb_time > @s pushed_time
 		execute if score @s status matches ..3 run function skill:mob_effect/hit_model
+		function skill:sync_knockback/run
 		
 		# face attacker player
 		tp @s ~ ~ ~ ~ ~
 		
 		data modify entity @s Motion set from entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].knock_back
-		
-		attribute @s minecraft:generic.movement_speed modifier add 495407c5-10c0-4270-84ed-c566e01e6952 move_control -100.0 add
-		attribute @s minecraft:generic.follow_range modifier add 7fcb1292-6c1e-41b0-bd14-431d0d1daf12 face_control -30.0 add
 	}
 	
 	func hit()
@@ -407,13 +405,12 @@ namespace bullet_skill_template(skill_id) as virtual
 		scoreboard players set @s pushed_time 12
 		scoreboard players operation @s kb_time > @s pushed_time
 		execute if score @s status matches ..3 run function skill:mob_effect/hit_model
+		function skill:sync_knockback/run
 		
 		# face attacker player
 		tp @s ~ ~ ~ ~ ~
 		
 		data modify entity @s Motion set from entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].knock_back
-		
-		attribute @s minecraft:generic.movement_speed modifier add 495407c5-10c0-4270-84ed-c566e01e6952 move_control -100.0 add
 	}
 	
 	func hit()
@@ -1250,6 +1247,7 @@ namespace skill()
 			func run()
 			{
 				# kb_time, push_time 是貓跟豬人同步的，顏色與 status 變更則由貓計算完傳數值給豬人
+				scoreboard players set #STATUS temp -1
 				execute if entity @s[type=ocelot] run function ARG(_PATH)ocelot
 				execute if score @s[type=zombified_piglin] run function ARG(_PATH)piglin
 				
@@ -1268,7 +1266,7 @@ namespace skill()
 			func piglin()
 			{
 				# STATUS temp 會先由貓計算結果，然後馬上換豬人來取值 (騎乘實體順序)
-				execute unless score @s status = #STATUS temp run function ARG(_PATH)status_change/change
+				execute if score #STATUS temp matches 0.. unless score @s status = #STATUS temp run function ARG(_PATH)status_change/change
 				execute if score @s action_frame_max matches 2.. unless entity @s[scores={kb_time=1..,status=..3}] run function ARG(_PATH)status_change/update_frame
 			}
 			
@@ -1276,7 +1274,6 @@ namespace skill()
 			{
 				func check()
 				{
-					scoreboard players set #STATUS temp -1
 					execute if data entity @s {OnGround:0b} run function ARG(_PATH)check_jump
 					execute if score #STATUS temp matches -1 run function ARG(_PATH)check_motion
 					
@@ -1375,8 +1372,12 @@ namespace skill()
 					
 					func other_color_check()
 					{
-						execute if score @s freeze_time matches 1.. func function skill:mob_effect/debuff/freeze_color
-						execute if score @s poison_time matches 1.. func function skill:mob_effect/debuff/poison_color
+						scoreboard players set #GLOBAL temp 0
+						execute if score @s freeze_time matches 1.. run scoreboard players set #GLOBAL temp 1
+						execute if score @s poison_time matches 1.. run scoreboard players set #GLOBAL temp 2
+						
+						execute if score #GLOBAL temp matches 1 run function skill:mob_effect/debuff/set_freeze_color
+						execute if score #GLOBAL temp matches 2 run function skill:mob_effect/debuff/set_poison_color
 					}
 					
 					folder freeze()
@@ -1468,8 +1469,7 @@ namespace skill()
 			
 				func reset()
 				{
-					attribute @s minecraft:generic.movement_speed modifier remove 495407c5-10c0-4270-84ed-c566e01e6952
-					attribute @s minecraft:generic.follow_range modifier remove 5b098e79-ca54-46a5-afbf-8066af7f3971
+					data modify entity @s NoAI set value 0b
 					scoreboard players reset @s kb_time
 				}
 			}
@@ -1477,7 +1477,6 @@ namespace skill()
 			func push_countdown()
 			{
 				scoreboard players remove @s pushed_time 1
-				attribute @s[scores={pushed_time=0}] minecraft:generic.follow_range modifier remove 7fcb1292-6c1e-41b0-bd14-431d0d1daf12
 				scoreboard players reset @s[scores={pushed_time=0}] pushed_time
 				
 				# 順便做懸崖檢查
@@ -3405,16 +3404,21 @@ namespace skill()
 		{
 			func freeze()
 			{
-				execute unless score @s freeze_time matches 1.. run function ARG(_PATH)freeze_color
 				tag @s add color_changed
 
 				execute store result score @s kb_time run scoreboard players operation @s freeze_time = #FREEZE_TIME temp
 				scoreboard players add @s kb_time 12
-				
-				execute store result score #GLOBAL temp run scoreboard players set @s status 1
-				execute store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players operation #GLOBAL temp += @s base_model
-				
-				attribute @s minecraft:generic.movement_speed modifier add 495407c5-10c0-4270-84ed-c566e01e6952 move_control -100.0 add
+				scoreboard players set @s status 1
+
+				execute unless score @s freeze_time matches 1.. run scoreboard players set #SYNC_FREEZE_COLOR temp 1
+				function skill:sync_knockback/run
+				scoreboard players reset #SYNC_FREEZE_COLOR temp
+			}
+
+			func set_freeze_color()
+			{
+				scoreboard players operation #GLOBAL temp = @s number
+				execute as @e[type=zombified_piglin] if score @s number = #GLOBAL temp run function ARG(_PATH)freeze_color
 			}
 
 			func freeze_color()
@@ -3425,7 +3429,7 @@ namespace skill()
 			
 			func poison()
 			{
-				execute unless score @s poison_time matches 1.. run function ARG(_PATH)poison_color
+				execute unless score @s poison_time matches 1.. run function ARG(_PATH)set_poison_color
 				tag @s add color_changed
 
 				scoreboard players operation @s poison_time = #POISON_TIME temp
@@ -3436,6 +3440,12 @@ namespace skill()
 				
 				execute unless score @s next_poison matches 1.. run scoreboard players set @s poison_particle 7
 				execute unless score @s next_poison matches 1.. run scoreboard players set @s next_poison 20
+			}
+
+			func set_poison_color()
+			{
+				scoreboard players operation #GLOBAL temp = @s number
+				execute as @e[type=zombified_piglin] if score @s number = #GLOBAL temp run function ARG(_PATH)poison_color
 			}
 
 			func poison_color()
@@ -3456,8 +3466,7 @@ namespace skill()
 		
 		func hit_model()
 		{
-			execute store result score #GLOBAL temp run scoreboard players set @s status 1
-			execute store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players operation #GLOBAL temp += @s base_model
+			scoreboard players set @s status 1
 
 			# 次元怒目哀目開眼特殊處理
 			execute if entity @s[tag=close_eye] run function quest:party_quest/ldpq/stages/4/eyes/open
@@ -4459,5 +4468,38 @@ namespace skill()
 		scoreboard players remove #NUMBER_HEIGHT temp 1
 		execute if score #NUMBER_HEIGHT temp matches -1 run function number_display:show
 		execute if score #NUMBER_HEIGHT temp matches 0.. positioned ~ ~0.4 ~ run function ARG(_PATH)show_num_at_height
+	}
+	
+	folder sync_knockback()
+	{
+		func run()
+		{
+			scoreboard players operation #PUSH_TIME temp = @s push_time
+			scoreboard players operation #KB_TIME temp = @s kb_time
+			scoreboard players operation #STATUS temp = @s status
+			
+			scoreboard players operation #GLOBAL temp = @s number
+			execute as @e[type=zombified_piglin] if score @s number = #GLOBAL temp run function ARG(_PATH)sync
+		}
+		
+		func sync()
+		{
+			scoreboard players operation @s push_time = #PUSH_TIME temp
+			scoreboard players operation @s kb_time = #KB_TIME temp
+			execute if score #STATUS temp matches 1 run function ARG(_PATH)hit_model
+			# 冰凍的時候順便做顏色處理
+			execute if score #SYNC_FREEZE_COLOR temp matches 1 run function skill:mob_effect/debuff/freeze_color
+			
+			# knock_back function 裡面已經設定好面向了
+			tp @s ~ ~ ~ ~ ~
+			
+			data modify entity @s NoAI set value 1b
+		}
+		
+		func hit_model()
+		{
+			scoreboard players set @s status 1
+			execute store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players operation #STATUS temp += @s base_model
+		}
 	}
 }
