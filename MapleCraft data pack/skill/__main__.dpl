@@ -144,7 +144,7 @@ namespace attack_skill_template(skill_id) as virtual
 		execute if data entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0] run scoreboard players operation @s ARG(skill_id)_eid = #GLOBAL temp
 	}
 	
-	folder set_angry_at()
+	func set_angry_at()
 	{
 		function skill:rand_anger_time
 
@@ -385,7 +385,7 @@ namespace bullet_skill_template(skill_id) as virtual
 		execute if data entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0] run scoreboard players operation @s ARG(skill_id)_eid = #GLOBAL temp
 	}
 	
-	folder set_angry_at()
+	func set_angry_at()
 	{
 		function skill:rand_anger_time
 
