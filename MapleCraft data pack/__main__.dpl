@@ -603,6 +603,7 @@ namespace loop()
 			function skill:loop/schedule_1s
 			function bar_display:loop/schedule_1s
 			function item:loop/schedule_1s
+			function mob:loop/schedule_1s
 			
 			execute as @a run function main:bgm/countdown
 			execute as @a[predicate=main:underground] at @s run tp @s ~ 10 ~

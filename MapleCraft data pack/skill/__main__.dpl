@@ -127,7 +127,7 @@ namespace attack_skill_template(skill_id) as virtual
 		execute store result score @s display_num_type run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].damage.crit
 		execute store result score #NUMBER_HEIGHT temp run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].damage.height
 		execute store result score #HIT_EFFECT temp run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].hit_effect
-		data modify entity @s[tag=!no_anger] AngryAt set from entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].attacker
+		execute if entity @s[tag=!no_anger] run function ARG(_PATH)set_angry_at
 		
 		execute store result score #GLOBAL temp run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].attacker_id
 		execute as @a if score @s number = #GLOBAL temp at @s run summon marker ~ ~ ~ {UUID:[I;575636949,204817767,-1738329627,897787263]}
@@ -142,6 +142,15 @@ namespace attack_skill_template(skill_id) as virtual
 		execute store result score #GLOBAL temp run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].time
 		execute if score #GLOBAL temp = @s ARG(skill_id)_eid run function ARG(_PATH)perform_effect
 		execute if data entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0] run scoreboard players operation @s ARG(skill_id)_eid = #GLOBAL temp
+	}
+	
+	folder set_angry_at()
+	{
+		function skill:rand_anger_time
+
+		data modify storage skill:main damage_info.attacker set from entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].attacker
+		scoreboard players operation #GLOBAL temp = @s number
+		execute as @e[type=zombified_piglin] if score @s number = #GLOBAL temp run function skill:set_mob_target
 	}
 	
 	func facing_effect()
@@ -359,7 +368,7 @@ namespace bullet_skill_template(skill_id) as virtual
 		execute store result score @s display_num_type run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].damage.crit
 		execute store result score #NUMBER_HEIGHT temp run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].damage.height
 		execute store result score #HIT_EFFECT temp run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].hit_effect
-		data modify entity @s[tag=!no_anger] AngryAt set from entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].attacker
+		execute if entity @s[tag=!no_anger] run function ARG(_PATH)set_angry_at
 		
 		execute store result score #GLOBAL temp run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].attacker_id
 		execute as @a if score @s number = #GLOBAL temp at @s run summon marker ~ ~ ~ {UUID:[I;575636949,204817767,-1738329627,897787263]}
@@ -374,6 +383,15 @@ namespace bullet_skill_template(skill_id) as virtual
 		execute store result score #GLOBAL temp run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].time
 		execute if score #GLOBAL temp = @s ARG(skill_id)_eid run function ARG(_PATH)perform_effect
 		execute if data entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0] run scoreboard players operation @s ARG(skill_id)_eid = #GLOBAL temp
+	}
+	
+	folder set_angry_at()
+	{
+		function skill:rand_anger_time
+
+		data modify storage skill:main damage_info.attacker set from entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].attacker
+		scoreboard players operation #GLOBAL temp = @s number
+		execute as @e[type=zombified_piglin] if score @s number = #GLOBAL temp run function skill:set_mob_target
 	}
 	
 	func facing_effect()
@@ -1289,20 +1307,14 @@ namespace skill()
 					func try()
 					{
 						scoreboard players set @s rand_jump 20
-						execute unless data entity @s AngryAt run function ARG(_PATH)rand_jump
-						execute if data entity @s AngryAt run function ARG(_PATH)check_target
+						execute unless score @s anger_time matches 1.. run function ARG(_PATH)rand_jump
+						execute if score @s anger_time matches 1.. if score @s status matches 3 store result entity @s Motion[1] double 0.1 run scoreboard players get #5 const
 					}
 				
 					func rand_jump()
 					{
 						function random:rand_rate
 						execute if score #RAND_RESULT number matches ..9 store result entity @s Motion[1] double 0.1 run scoreboard players get #5 const
-					}
-					
-					func check_target()
-					{
-						execute if data entity @s {AngryAt:[I;0,2,0,2]} run function ARG(_PATH)rand_jump
-						execute unless data entity @s {AngryAt:[I;0,2,0,2]} if score @s status matches 3 store result entity @s Motion[1] double 0.1 run scoreboard players get #5 const
 					}
 				}
 				
@@ -4502,4 +4514,11 @@ namespace skill()
 			execute store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players operation #STATUS temp += @s base_model
 		}
 	}
+	
+	func set_mob_target()
+	{
+		data modify entity @s AngryAt set from storage skill:main damage_info.attacker
+		attribute @s minecraft:generic.follow_range base set 40.0
+	}
+	func rand_anger_time() from random().generate(10, 30, "@s anger_time");
 }

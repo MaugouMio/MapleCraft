@@ -532,9 +532,17 @@ namespace 11() as virtual
 				# hit effect
 				scoreboard players set @s display_num_type 0
 				execute unless score @s display_number matches 0 run function number_display:show
-				data modify entity @s[tag=!no_anger] AngryAt set from storage skill:main damage_info.attacker
+				execute if entity @s[tag=!no_anger] run function ARG(_PATH)set_angry_at
 				function skill:mob_effect/play_hurt_sound/run
 				execute if score @s hp matches ..0 unless score @s queuing_effect matches 1.. run function skill:mob_effect/dead
+			}
+			
+			func set_angry_at()
+			{
+				function skill:rand_anger_time
+				
+				scoreboard players operation #GLOBAL temp = @s number
+				execute as @e[type=zombified_piglin] if score @s number = #GLOBAL temp run function skill:set_mob_target
 			}
 			
 			folder refle() from simple_buff_template("refle");

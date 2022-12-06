@@ -7,6 +7,7 @@ namespace mob()
 	{
 		scoreboard objectives add spawn_alpha dummy
 		scoreboard objectives add skill_delay dummy
+		scoreboard objectives add anger_time dummy
 	}
 	
 	folder setting()
@@ -90,6 +91,27 @@ namespace mob()
 	
 	folder loop()
 	{
+		func schedule_1s()
+		{
+			execute as @e[type=ocelot] if score @s anger_time matches 1.. run function ARG(_PATH)anger_countdown/run
+		}
+		
+		folder anger_countdown()
+		{
+			func run()
+			{
+				scoreboard players remove @s anger_time 1
+				execute if score @s anger_time matches 0 run function ARG(_PATH)reset
+			}
+			
+			func reset()
+			{
+				scoreboard players operation #GLOBAL temp = @s number
+				execute as @e[type=zombified_piglin] if score @s number = #GLOBAL temp run attribute @s minecraft:generic.follow_range base set 0.0
+				scoreboard players reset @s anger_time
+			}
+		}
+		
 		func schedule_10s()
 		{
 			function random:rand_rate
@@ -185,7 +207,7 @@ namespace mob()
 		{
 			func check()
 			{
-				execute unless score @s kb_time matches 1.. if data entity @s[nbt={OnGround:1b}] AngryAt unless data entity @s {AngryAt:[I;0,2,0,2]} at @s run function ARG(_PATH)skill_check
+				execute unless score @s kb_time matches 1.. if score @s[nbt={OnGround:1b}] anger_time matches 1.. at @s run function ARG(_PATH)skill_check
 			}
 			
 			func skill_check()
@@ -197,6 +219,9 @@ namespace mob()
 			
 			func skill()
 			{
+				# 放招時刷新憤怒時間
+				function skill:rand_anger_time
+				
 				scoreboard players set @s action_time 26
 				scoreboard players set @s kb_time 24
 				scoreboard players set #KB_TIME temp 24
@@ -241,6 +266,9 @@ namespace mob()
 			
 			func attack()
 			{
+				# 放招時刷新憤怒時間
+				function skill:rand_anger_time
+				
 				scoreboard players set @s action_time 35
 				scoreboard players set @s kb_time 33
 				scoreboard players set #KB_TIME temp 33
@@ -283,7 +311,7 @@ namespace mob()
 		{
 			func check()
 			{
-				execute unless score @s kb_time matches 1.. if data entity @s AngryAt unless data entity @s {AngryAt:[I;0,2,0,2]} at @s run function ARG(_PATH)check_summon
+				execute unless score @s kb_time matches 1.. if score @s anger_time matches 1.. at @s run function ARG(_PATH)check_summon
 			}
 			
 			func check_summon()
@@ -301,6 +329,9 @@ namespace mob()
 			
 			func cast_summon()
 			{
+				# 放招時刷新憤怒時間
+				function skill:rand_anger_time
+				
 				scoreboard players set @s action_time 28
 				scoreboard players set @s kb_time 18
 				scoreboard players set #KB_TIME temp 18
@@ -347,6 +378,9 @@ namespace mob()
 			
 			func cast_attack()
 			{
+				# 放招時刷新憤怒時間
+				function skill:rand_anger_time
+				
 				scoreboard players set @s action_time 39
 				scoreboard players set @s kb_time 37
 				scoreboard players set #KB_TIME temp 37
