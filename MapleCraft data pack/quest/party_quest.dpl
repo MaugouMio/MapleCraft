@@ -1140,7 +1140,9 @@ namespace party_quest() as virtual
 					func rotate()
 					{
 						scoreboard players operation @s eye_move_dir *= #-1 const
-						execute at @s run tp @s ~ ~ ~ ~180 ~
+						execute at @s run tp @s ~ ~ ~ ~180 0
+						scoreboard players operation #PAIR_NUMBER temp = @s number
+						execute at @s as @e[type=zombified_piglin] if score @s number = #PAIR_NUMBER temp run tp @s ~ ~ ~ ~ ~
 					}
 					
 					func face_after_hit()
@@ -1164,12 +1166,16 @@ namespace party_quest() as virtual
 					func face_zpositive()
 					{
 						data modify entity @s Rotation set value [0f,0f]
+						scoreboard players operation #PAIR_NUMBER temp = @s number
+						execute as @e[type=zombified_piglin] if score @s number = #PAIR_NUMBER temp run data modify entity @s Rotation set value [0f,0f]
 						scoreboard players set @s eye_move_dir 1
 					}
 					
 					func face_znegative()
 					{
 						data modify entity @s Rotation set value [180f,0f]
+						scoreboard players operation #PAIR_NUMBER temp = @s number
+						execute as @e[type=zombified_piglin] if score @s number = #PAIR_NUMBER temp run data modify entity @s Rotation set value [180f,0f]
 						scoreboard players set @s eye_move_dir -1
 					}
 					

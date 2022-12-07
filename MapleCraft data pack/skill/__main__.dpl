@@ -1295,11 +1295,17 @@ namespace skill()
 					execute if data entity @s {OnGround:0b} run function ARG(_PATH)check_jump
 					execute if score #STATUS temp matches -1 run function ARG(_PATH)check_motion
 					
-					execute unless score @s status = #STATUS temp run scoreboard players set @s[tag=!no_jump] rand_jump 20
-					scoreboard players operation @s status = #STATUS temp
+					execute unless score @s status = #STATUS temp run function ARG(_PATH)ocelot_change
 					
 					scoreboard players remove @s[tag=!no_jump,scores={status=2..}] rand_jump 1
 					execute if score @s rand_jump matches 0 run function ARG(_PATH)force_jump/try
+				}
+
+				func ocelot_change()
+				{
+					execute if score @s[tag=ldpq_eye] status matches 1 run function quest:party_quest/ldpq/stages/4/eyes/face_after_hit
+					scoreboard players set @s[tag=!no_jump] rand_jump 20
+					scoreboard players operation @s status = #STATUS temp
 				}
 				
 				folder force_jump()
@@ -1362,7 +1368,6 @@ namespace skill()
 					execute if score #STATUS temp matches 3 if score @s stand_frame matches 2.. run scoreboard players operation @s action_frame_max = @s stand_frame
 					scoreboard players set @s action_frame -1
 					
-					execute if score @s[tag=ldpq_eye] status matches 1 run function quest:party_quest/ldpq/stages/4/eyes/face_after_hit
 					scoreboard players operation @s status = #STATUS temp
 					execute unless score @s action_frame_max matches 2.. store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players operation #STATUS temp += @s base_model
 				}
