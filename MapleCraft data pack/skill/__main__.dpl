@@ -1486,7 +1486,8 @@ namespace skill()
 			
 				func reset()
 				{
-					data modify entity @s NoAI set value 0b
+					# 眼睛特殊處理，不需要豬人 AI 所以讓他保持 NoAI
+					data modify entity @s[tag=!ldpq_eye] NoAI set value 0b
 					scoreboard players reset @s kb_time
 				}
 			}
