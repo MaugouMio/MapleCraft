@@ -1,0 +1,47 @@
+{
+    "sources": [
+        {
+            "type": "directory",
+            "source": "block",
+            "prefix": "block/"
+        },
+        {
+            "type": "directory",
+            "source": "item",
+            "prefix": "item/"
+        },
+        {
+            "type": "directory",
+            "source": "entity/conduit",
+            "prefix": "entity/conduit/"
+        },
+        {
+            "type": "single",
+            "resource": "entity/bell/bell_body"
+        },
+        {
+            "type": "single",
+            "resource": "entity/enchanting_table_book"
+        },
+        {
+            "type": "directory",
+            "source": "box",
+            "prefix": "box/"
+        },
+        {
+            "type": "directory",
+            "source": "map",
+            "prefix": "map/"
+        },
+        {
+            "type": "directory",
+            "source": "npc",
+            "prefix": "npc/"
+        },
+        {
+            "type": "directory",
+            "source": "skill",
+            "prefix": "skill/"
+        }
+    ]
+}
