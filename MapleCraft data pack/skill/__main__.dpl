@@ -1267,7 +1267,7 @@ namespace skill()
 				# kb_time, push_time 是貓跟豬人同步的，顏色與 status 變更則由貓計算完傳數值給豬人
 				scoreboard players set #STATUS temp -1
 				execute if entity @s[type=ocelot] run function ARG(_PATH)ocelot
-				execute if score @s[type=zombified_piglin] run function ARG(_PATH)piglin
+				execute if entity @s[type=zombified_piglin] run function ARG(_PATH)piglin
 				
 				execute if score @s kb_time matches 1.. run function ARG(_PATH)kb/countdown
 				execute if score @s pushed_time matches 1.. run function ARG(_PATH)push_countdown

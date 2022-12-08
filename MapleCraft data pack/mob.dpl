@@ -436,7 +436,7 @@ namespace mob()
 			scoreboard players operation @s action_frame_s = #ACTION_FRAME_S temp
 			
 			scoreboard players reset @s action_frame_max
-			execute if score #ACTION_FRAME_S matches 1.. run scoreboard players operation @s action_frame_max = #KB_TIME temp
+			execute if score #ACTION_FRAME_S temp matches 1.. run scoreboard players operation @s action_frame_max = #KB_TIME temp
 		}
 		
 		```
