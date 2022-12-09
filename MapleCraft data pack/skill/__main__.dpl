@@ -3500,7 +3500,7 @@ namespace skill()
 			
 			function ARG(_PATH)play_die_sound/run
 			execute if entity @s[tag=dead_effect] run function ARG(_PATH)dead_effect/check
-			kill @s
+			execute as @e[type=#skill:enemy_ai] if score @s number = #GLOBAL temp run kill @s
 		}
 		
 		folder dead_effect()
