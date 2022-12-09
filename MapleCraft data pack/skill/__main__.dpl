@@ -1,5 +1,6 @@
 import loop
 import ../utils
+import ../mob
 
 ```
 skill_ids = []
@@ -1222,7 +1223,7 @@ namespace skill()
 			execute as @e[type=armor_stand,tag=afterimage] run function skill:afterimage/update
 			execute as @e[type=zombie,tag=box] if score @s status matches 1.. at @s run function skill:6/0/0/1000/box/update
 			# 同一隻怪物因為騎乘的生成順序，必定是貓緊接著殭屍豬人，中間不會穿插其他生物 (可以節省一些 @e 搜尋)
-			execute as @e[type=#skill:enemy_ai,scores={spawn_alpha=10}] run function ARG(_PATH)enemy/run
+			execute as @e[type=#skill:enemy_ai,scores={spawn_alpha=1..}] run function ARG(_PATH)enemy/run
 			execute as @e[type=magma_cube,tag=!original] unless predicate skill:riding_enemy run function main:deep_kill
 			
 			execute as @a[scores={action_time=1..}] run function ARG(_PATH)action/countdown
@@ -1289,6 +1290,7 @@ namespace skill()
 				execute if score #STATUS temp matches 0.. unless score @s status = #STATUS temp run function ARG(_PATH)status_change/change
 				execute if score @s action_frame_max matches 2.. unless entity @s[scores={kb_time=1..,status=..3}] run function ARG(_PATH)status_change/update_frame
 				execute store result entity @s Rotation[0] float 0.01 run scoreboard players get #FACING temp
+				data modify entity @s Rotation[1] set value 0.0f
 			}
 			
 			folder status_change()
@@ -3534,7 +3536,7 @@ namespace skill()
 				{
 					```
 					for i in range(10):
-						print('''summon zombified_piglin ~ ~ ~ {Tags:["kpq_mob","new_enemy","lightning_weakness","new_summon"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:6,hp_max:50,mp_max:35,avoidability:1,weapon_defense:5,magic_defense:10,kb:1,speed:105,exp:10,width:1,height:2,move_frame:21,stand_frame:15,hurt_sound:3,die_sound:6},steal_loot:"skill:steal/0_9/slime",CustomModelData:10107,CustomPotionColor:0,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.movement_speed",Name:"slow",Amount:0,Operation:2,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:4.2},{Name:"generic.movement_speed",Base:0.22495},{Name:"generic.follow_range",Base:0.0}],DeathLootTable:"skill:mob/0_9/slime",Invulnerable:1b,OnGround:1b,AngerTime:2147483647,Team:"enemy",CustomName:'{"text":"2","font":"space:default"}',CustomNameVisible:1b}''')
+						print(spawn_mob("0210100", is_summon=True))
 					```
 					execute as @e[type=#skill:enemy,tag=new_summon] run function mob:setting/run
 					kill @s
