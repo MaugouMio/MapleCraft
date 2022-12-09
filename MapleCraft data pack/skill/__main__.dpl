@@ -1265,7 +1265,6 @@ namespace skill()
 			func run()
 			{
 				# kb_time, push_time 是貓跟豬人同步的，顏色與 status 變更則由貓計算完傳數值給豬人
-				scoreboard players set #STATUS temp -1
 				execute if entity @s[type=ocelot] run function ARG(_PATH)ocelot
 				execute if entity @s[type=zombified_piglin] run function ARG(_PATH)piglin
 				
@@ -1275,6 +1274,9 @@ namespace skill()
 			
 			func ocelot()
 			{
+				scoreboard players set #STATUS temp -1
+				execute store result score #FACING temp run data get entity @s Rotation[0] 100
+				
 				execute unless score @s kb_time matches 1.. if entity @s[tag=!dead] run function ARG(_PATH)status_change/check
 				execute if entity @s[tag=color_changed] run function ARG(_PATH)status_change/color/check
 				execute if entity @s[tag=mob_effect] run function ARG(_PATH)mob_effect/run
@@ -1286,6 +1288,7 @@ namespace skill()
 				# STATUS temp 會先由貓計算結果，然後馬上換豬人來取值 (騎乘實體順序)
 				execute if score #STATUS temp matches 0.. unless score @s status = #STATUS temp run function ARG(_PATH)status_change/change
 				execute if score @s action_frame_max matches 2.. unless entity @s[scores={kb_time=1..,status=..3}] run function ARG(_PATH)status_change/update_frame
+				execute store result entity @s Rotation[0] float 0.01 run scoreboard players get #FACING temp
 			}
 			
 			folder status_change()
