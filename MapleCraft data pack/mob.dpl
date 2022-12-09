@@ -8,6 +8,11 @@ namespace mob()
 		scoreboard objectives add spawn_alpha dummy
 		scoreboard objectives add skill_delay dummy
 		scoreboard objectives add anger_time dummy
+		
+		scoreboard objectives add uuid0 dummy
+		scoreboard objectives add uuid1 dummy
+		scoreboard objectives add uuid2 dummy
+		scoreboard objectives add uuid3 dummy
 	}
 	
 	folder setting()
@@ -214,7 +219,7 @@ namespace mob()
 			{
 				scoreboard players set #GLOBAL temp 0
 				execute if score @s hp matches ..4000 unless entity @s[tag=skill_used] store result score #GLOBAL temp run function ARG(_PATH)skill
-				execute if score #GLOBAL temp matches 0 positioned ~-4.5 ~-0.5 ~-4.5 if entity @a[tag=!dead,dx=8,dy=3,dz=8] at @s run function ARG(_PATH)attack
+				execute if score #GLOBAL temp matches 0 run function ARG(_PATH)attack_check
 			}
 			
 			func skill()
@@ -262,6 +267,16 @@ namespace mob()
 				summon zombified_piglin ~ ~2 ~ {Motion:[0.0,0.5,-0.3],Tags:["kpq_mob","new_enemy","lightning_weakness","new_summon"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:6,hp_max:50,mp_max:35,avoidability:1,weapon_defense:5,magic_defense:10,kb:1,speed:105,exp:10,width:1,height:2,move_frame:21,stand_frame:15,hurt_sound:3,die_sound:6},steal_loot:"skill:steal/0_9/slime",CustomModelData:10107,CustomPotionColor:0,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.movement_speed",Name:"slow",Amount:0,Operation:2,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:4.2},{Name:"generic.movement_speed",Base:0.22495},{Name:"generic.follow_range",Base:0.0}],DeathLootTable:"skill:mob/0_9/slime",Invulnerable:1b,OnGround:1b,AngerTime:2147483647,Team:"enemy",CustomName:'{"text":"2","font":"space:default"}',CustomNameVisible:1b}
 				summon zombified_piglin ~ ~2 ~ {Motion:[-0.26,0.5,0.15],Tags:["kpq_mob","new_enemy","lightning_weakness","new_summon"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:6,hp_max:50,mp_max:35,avoidability:1,weapon_defense:5,magic_defense:10,kb:1,speed:105,exp:10,width:1,height:2,move_frame:21,stand_frame:15,hurt_sound:3,die_sound:6},steal_loot:"skill:steal/0_9/slime",CustomModelData:10107,CustomPotionColor:0,Unbreakable:1,AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]},{AttributeName:"generic.movement_speed",Name:"slow",Amount:0,Operation:2,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:4.2},{Name:"generic.movement_speed",Base:0.22495},{Name:"generic.follow_range",Base:0.0}],DeathLootTable:"skill:mob/0_9/slime",Invulnerable:1b,OnGround:1b,AngerTime:2147483647,Team:"enemy",CustomName:'{"text":"2","font":"space:default"}',CustomNameVisible:1b}
 				execute as @e[type=#skill:enemy,tag=new_summon] run function mob:setting/run
+			}
+			
+			func attack_check()
+			{
+				scoreboard players set #EXIST_TARGET temp 0
+				
+				function ARG(__PATH)write_target_uuid
+				execute positioned ~-4.5 ~-0.5 ~-4.5 as @a[tag=!dead,dx=8,dy=3,dz=8] run function ARG(__PATH)check_is_target
+				
+				execute if score #EXIST_TARGET temp matches 1 at @s run function ARG(_PATH)attack
 			}
 			
 			func attack()
@@ -372,8 +387,12 @@ namespace mob()
 			
 			func check_attack()
 			{
-				execute positioned ~-4.5 ~-0.5 ~-4.5 if entity @a[tag=!dead,dx=8,dy=3,dz=8] run scoreboard players set #GLOBAL temp 1
-				execute if score #GLOBAL temp matches 1 run function ARG(_PATH)cast_attack
+				scoreboard players set #EXIST_TARGET temp 0
+				
+				function ARG(__PATH)write_target_uuid
+				execute positioned ~-4.5 ~-0.5 ~-4.5 as @a[tag=!dead,dx=8,dy=3,dz=8] run function ARG(__PATH)check_is_target
+				
+				execute if score #EXIST_TARGET temp matches 1 at @s run function ARG(_PATH)cast_attack
 			}
 			
 			func cast_attack()
@@ -418,9 +437,9 @@ namespace mob()
 		
 		func update()
 		{
-			scoreboard players set #KB_TIME temp 0
-			
 			execute if score @s action_time matches 1.. run scoreboard players remove @s action_time 1
+			
+			execute if entity @s[type=ocelot] run scoreboard players set #KB_TIME temp 0
 			execute if entity @s[type=ocelot] unless score @s action_time matches 1.. run function ARG(_PATH)check
 			execute if entity @s[type=zombified_piglin] if score #KB_TIME temp matches 1.. run function ARG(_PATH)sync_score
 		}
@@ -437,6 +456,28 @@ namespace mob()
 			
 			scoreboard players reset @s action_frame_max
 			execute if score #ACTION_FRAME_S temp matches 1.. run scoreboard players operation @s action_frame_max = #KB_TIME temp
+		}
+		
+		func write_target_uuid()
+		{
+			execute store result score #GLOBAL uuid0 run data get entity @s Passengers[0].AngryAt[0]
+			execute store result score #GLOBAL uuid1 run data get entity @s Passengers[0].AngryAt[1]
+			execute store result score #GLOBAL uuid2 run data get entity @s Passengers[0].AngryAt[2]
+			execute store result score #GLOBAL uuid3 run data get entity @s Passengers[0].AngryAt[3]
+		}
+		
+		func write_uuid()
+		{
+			execute store result score @s uuid0 run data get entity @s UUID[0]
+			execute store result score @s uuid1 run data get entity @s UUID[1]
+			execute store result score @s uuid2 run data get entity @s UUID[2]
+			execute store result score @s uuid3 run data get entity @s UUID[3]
+		}
+		
+		func check_is_target()
+		{
+			execute unless score @s uuid0 = @s uuid0 run function ARG(_PATH)write_uuid
+			execute if score @s uuid0 = #GLOBAL uuid0 if score @s uuid1 = #GLOBAL uuid1 if score @s uuid2 = #GLOBAL uuid2 if score @s uuid3 = #GLOBAL uuid3 run scoreboard players set #EXIST_TARGET temp 1
 		}
 		
 		```
