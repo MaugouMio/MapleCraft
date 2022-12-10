@@ -1,0 +1,37 @@
+{
+    "targets": [
+        "swap",
+        "final",
+        "previous",
+        "var"
+    ],
+    "passes": [
+        {
+            "name": "blit",
+            "intarget": "var",
+            "outtarget": "swap"
+        },
+        {
+            "name": "var_update",
+            "intarget": "swap",
+            "auxtargets": [{"name": "JudgeSampler", "id": "minecraft:main"}],
+            "outtarget": "var"
+        },
+        {
+            "name": "custom",
+            "intarget": "minecraft:main",
+            "auxtargets": [{"name": "PrevSampler", "id": "previous"}, {"name": "VariableSampler", "id": "var"},{"name": "JudgeSampler", "id": "final"}],
+            "outtarget": "swap"
+        },
+        {
+            "name": "blit",
+            "intarget": "swap",
+            "outtarget": "previous"
+        },
+        {
+            "name": "blit",
+            "intarget": "swap",
+            "outtarget": "final"
+        }
+    ]
+}
