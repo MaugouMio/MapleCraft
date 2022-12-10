@@ -391,8 +391,11 @@ namespace mob()
 			
 			func hit()
 			{
+				scoreboard players set @s attacker_level 40
 				scoreboard players operation @s damage_taken = #MAGIC_ATTACK temp
 				function bar_display:take_damage/physic
+				scoreboard players reset @s attacker_level
+				
 				effect give @s minecraft:instant_damage 1 0 true
 				
 				scoreboard players set #GLOBAL temp 1
@@ -506,8 +509,11 @@ namespace mob()
 			
 			func hit()
 			{
+				scoreboard players set @s attacker_level 47
 				scoreboard players operation @s damage_taken = #MAGIC_ATTACK temp
 				function bar_display:take_damage/physic
+				scoreboard players reset @s attacker_level
+				
 				effect give @s minecraft:instant_damage 1 0 true
 				
 				function skill:summon_font_effect/9000000rombot_hit
@@ -616,9 +622,9 @@ namespace mob()
 		# 風獨眼獸 KPQ
 		# print("execute rotated ~ 0 positioned ^ ^ ^5 align y run", spawn_mob("9300002"))
 		# 超級綠水靈
-		# print("execute rotated ~ 0 positioned ^ ^ ^5 align y run", spawn_mob("9300003"))
+		print("execute rotated ~ 0 positioned ^ ^ ^5 align y run", spawn_mob("9300003"))
 		# 綠水靈
-		print("execute rotated ~ 0 positioned ^ ^ ^5 align y run", spawn_mob("0210100"))
+		# print("execute rotated ~ 0 positioned ^ ^ ^5 align y run", spawn_mob("0210100"))
 		# 綠菇菇
 		# print("execute rotated ~ 0 positioned ^ ^ ^5 align y run", spawn_mob("1110100"))
 		# 刺菇菇
@@ -640,7 +646,7 @@ namespace mob()
 		# 積木泥人 LDPQ
 		# print("execute rotated ~ 0 positioned ^ ^ ^5 align y run", spawn_mob("9300009"))
 		# 泥人領導者 LDPQ
-		# print("execute rotated ~ 0 positioned ^ ^ ^5 align y run", spawn_mob("9300010"))
+		print("execute rotated ~ 0 positioned ^ ^ ^5 align y run", spawn_mob("9300010"))
 		```
 	}
 }
