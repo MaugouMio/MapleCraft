@@ -1137,7 +1137,8 @@ namespace party_quest() as virtual
 						
 						execute unless score @s eye_move_dir matches 0 run function ARG(_PATH)rotate
 						execute if score @s eye_move_dir matches 0 run function ARG(_PATH)check_face
-						scoreboard players set @s action_frame -1
+						scoreboard players operation #PAIR_NUMBER temp = @s number
+						execute as @e[type=zombified_piglin] if score @s number = #PAIR_NUMBER temp run scoreboard players set @s action_frame -1
 					}
 					
 					func rotate()
