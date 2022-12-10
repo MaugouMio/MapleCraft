@@ -1353,7 +1353,7 @@ namespace skill()
 				func update_frame()
 				{
 					scoreboard players add @s action_frame 1
-					execute if score @s action_frame = @s action_frame_max run scoreboard players set @s action_frame 0
+					execute if score @s action_frame = @s action_frame_max run function ARG(_PATH)loop_frame
 					
 					scoreboard players operation #STATUS temp = @s base_model
 					scoreboard players operation #STATUS temp += @s action_frame_s
@@ -1362,6 +1362,13 @@ namespace skill()
 					# 眼睛特殊處理
 					execute if predicate skill:close_eye unless entity @s[tag=close_eye] run function quest:party_quest/ldpq/stages/4/eyes/close
 					execute unless predicate skill:close_eye if entity @s[tag=close_eye] run function quest:party_quest/ldpq/stages/4/eyes/open
+				}
+				
+				func loop_frame()
+				{
+					scoreboard players set @s action_frame 0
+					# 技能動作播完如果還在 kb_time 則改播移動動作
+					execute if score @s status matches 4.. run scoreboard players set @s action_frame_s 2
 				}
 				
 				func change()
