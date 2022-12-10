@@ -26,6 +26,7 @@ namespace bar_display()
 		
 		scoreboard objectives add hurt_time dummy
 		scoreboard objectives add damage_taken minecraft.custom:minecraft.damage_absorbed
+		scoreboard objectives add attacker_level dummy
 		
 		summon marker 250 0 0 {UUID:[I;0,4,0,4]}
 	}
@@ -60,7 +61,7 @@ namespace bar_display()
 			scoreboard players operation @s damage_taken /= #1000 const
 			scoreboard players operation @s damage_taken += #RAND_RANGE_RESULT temp
 			
-			# set #C temp as C * 10000
+			# set #C temp as C * 10,000
 			function ARG(_PATH)get_c/run
 			
 			# reduce by weapon defense times A
@@ -73,13 +74,13 @@ namespace bar_display()
 			
 			scoreboard players operation @s damage_taken -= #GLOBAL temp
 			
-			# set #B temp as B * 100000
+			# set #B temp as B * 1,000,000
 			function ARG(_PATH)get_b/run
 			
 			# reduce by (weapon_defense - standard_pdd) * B
 			scoreboard players operation #WEAPON_DEFENSE temp -= @s standard_pdd
 			scoreboard players operation #WEAPON_DEFENSE temp *= #B temp
-			scoreboard players operation #WEAPON_DEFENSE temp /= #100000 const
+			scoreboard players operation #WEAPON_DEFENSE temp /= #1000000 const
 			
 			scoreboard players operation @s damage_taken -= #WEAPON_DEFENSE temp
 		}
@@ -164,20 +165,20 @@ namespace bar_display()
 			func run()
 			{
 				execute if score #WEAPON_DEFENSE temp >= @s standard_pdd run function ARG(_PATH)wdef_greater
-				execute unless score #WEAPON_DEFENSE temp >= @s standard_pdd run function ARG(_PATH)wdef_smaller
+				execute if score #WEAPON_DEFENSE temp < @s standard_pdd run function ARG(_PATH)wdef_smaller
 			}
 			
 			func wdef_greater()
 			{
-				scoreboard players operation #C temp *= #56 const
+				scoreboard players operation #C temp *= #560 const
 				scoreboard players operation #C temp /= #9 const
 				
 				scoreboard players operation #B temp = @s level
-				scoreboard players operation #B temp *= #700 const
+				scoreboard players operation #B temp *= #7000 const
 				scoreboard players operation #B temp /= #13 const
 				
 				scoreboard players operation #B temp += #C temp
-				scoreboard players add #B temp 19600
+				scoreboard players add #B temp 196000
 			}
 			
 			func wdef_smaller()
@@ -190,6 +191,22 @@ namespace bar_display()
 				
 				scoreboard players operation #B temp += #C temp
 				scoreboard players add #B temp 28000
+				
+				execute if score @s level >= @s attacker_level run function ARG(_PATH)multi_d
+				execute if score @s level < @s attacker_level run scoreboard players operation #B temp *= #13 const
+			}
+			
+			func multi_d()
+			{
+				scoreboard players set #LEVEL_DIFF temp 13
+				scoreboard players operation #LEVEL_DIFF temp += @s level
+				scoreboard players operation #LEVEL_DIFF temp -= @s attacker_level
+				
+				scoreboard players set #D temp 13000
+				scoreboard players operation #D temp /= #LEVEL_DIFF temp
+				
+				scoreboard players operation #B temp *= #D temp
+				scoreboard players operation #B temp /= #100 const
 			}
 		}
 		
@@ -206,8 +223,8 @@ namespace bar_display()
 		{
 			execute unless score @s hurt_time matches 1.. run function ARG(_PATH)touch
 			
-			tag @s remove magma_cube_hit
 			effect give @s minecraft:absorption 1000000 255 true
+			scoreboard players reset @s attacker_level
 			scoreboard players reset @s damage_taken
 		}
 		
@@ -746,6 +763,57 @@ namespace bar_display()
 		func schedule_1d()
 		{
 			effect give @a minecraft:absorption 1000000 255 true
+		}
+	}
+	
+	folder attacker_level()
+	{
+		func lv1()
+		{
+			scoreboard players add @s attacker_level 1
+			advancement revoke @s only bar_display:attacker_level/lv1
+		}
+		
+		func lv2()
+		{
+			scoreboard players add @s attacker_level 2
+			advancement revoke @s only bar_display:attacker_level/lv2
+		}
+		
+		func lv4()
+		{
+			scoreboard players add @s attacker_level 4
+			advancement revoke @s only bar_display:attacker_level/lv4
+		}
+		
+		func lv8()
+		{
+			scoreboard players add @s attacker_level 8
+			advancement revoke @s only bar_display:attacker_level/lv8
+		}
+		
+		func lv16()
+		{
+			scoreboard players add @s attacker_level 16
+			advancement revoke @s only bar_display:attacker_level/lv16
+		}
+		
+		func lv32()
+		{
+			scoreboard players add @s attacker_level 32
+			advancement revoke @s only bar_display:attacker_level/lv32
+		}
+		
+		func lv64()
+		{
+			scoreboard players add @s attacker_level 64
+			advancement revoke @s only bar_display:attacker_level/lv64
+		}
+		
+		func lv128()
+		{
+			scoreboard players add @s attacker_level 128
+			advancement revoke @s only bar_display:attacker_level/lv128
 		}
 	}
 }
