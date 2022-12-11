@@ -398,6 +398,7 @@ namespace 23() as virtual
 				scoreboard players operation @s mdef_buff_num = #BLESS_LEVEL temp
 				scoreboard players operation @s accu_buff_num = #BLESS_LEVEL temp
 				scoreboard players operation @s avoid_buff_num = #BLESS_LEVEL temp
+				function stat:calc_avoid/run
 				
 				# set this buff values
 				scoreboard players operation @s angel_buff_time = #BLESS_TIME temp

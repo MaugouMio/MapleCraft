@@ -457,6 +457,9 @@ namespace stat()
 			execute unless score @s equip_dex matches 1.. run data modify storage ui:main dex set value '[{"score":{"objective":"DEX","name":"@s"},"font":"ui:window/stat","color":"black"},{"score":{"objective":"DEX","name":"@s"},"font":"ui:window/stat_back"}]'
 			execute if score @s equip_dex matches 1.. run function ARG(_PATH)dex_add
 			
+			execute unless score @s avoid_buff_num matches 1.. run data modify storage ui:main avoid set value '[{"score":{"objective":"avoidability","name":"@s"},"font":"ui:window/stat","color":"black"}]'
+			execute if score @s avoid_buff_num matches 1.. run function ARG(_PATH)avoid_buff
+			
 			tellraw @s [{"nbt":"add_buttons[3]","storage":"ui:main","interpret":true},{"text":"=","font":"ui:window/stat"},{"nbt":"add_buttons[-1]","storage":"ui:main","interpret":true},{"text":"A94","font":"space:default"},{"nbt":"dex","storage":"ui:main","interpret":true},{"text":"\uF82A\uF829\uF828\uF821","font":"space:default"},{"text":"\uE001","font":"ui:window/stat"},{"text":"A93","font":"space:default"}]
 			# int and speed
 			execute unless score @s equip_int matches 1.. run data modify storage ui:main int set value '[{"score":{"objective":"INT","name":"@s"},"font":"ui:window/stat","color":"black"},{"score":{"objective":"INT","name":"@s"},"font":"ui:window/stat_back"}]'
@@ -656,6 +659,13 @@ namespace stat()
 			scoreboard players operation #BASE_ACCURACY temp = #ACCURACY temp
 			scoreboard players operation #BASE_ACCURACY temp -= @s accu_buff_num
 			data modify storage ui:main accuracy set value '[{"score":{"objective":"temp","name":"#ACCURACY"},"font":"ui:window/stat","color":"#ff0000"},"_(",{"score":{"objective":"temp","name":"#BASE_ACCURACY"}},"+",{"score":{"objective":"accu_buff_num","name":"@s"}},")"]'
+		}
+		
+		func avoid_buff()
+		{
+			scoreboard players operation #BASE_AVOID temp = @s avoidability
+			scoreboard players operation #BASE_AVOID temp -= @s avoid_buff_num
+			data modify storage ui:main avoid set value '[{"score":{"objective":"avoidability","name":"@s"},"font":"ui:window/stat","color":"#ff0000"},"_(",{"score":{"objective":"temp","name":"#BASE_AVOID"}},"+",{"score":{"objective":"avoid_buff_num","name":"@s"}},")"]'
 		}
 		
 		func sep_mdef_buff()
@@ -904,6 +914,7 @@ namespace stat()
 				func set()
 				{
 					scoreboard players add @s STR 1
+					execute if entity @s[tag=brawler] run function stat:calc_avoid/brawler
 					function ARG(__PATH)after_addition
 				}
 			}
@@ -921,6 +932,7 @@ namespace stat()
 				func set()
 				{
 					scoreboard players add @s DEX 1
+					function stat:calc_avoid/run
 					function ARG(__PATH)after_addition
 				}
 			}
@@ -955,9 +967,68 @@ namespace stat()
 				func set()
 				{
 					scoreboard players add @s LUK 1
+					execute if entity @s[tag=!brawler] run function stat:calc_avoid/run
 					function ARG(__PATH)after_addition
 				}
 			}
+		}
+	}
+	
+	folder calc_avoid()
+	{
+		func run()
+		{
+			execute if entity @s[tag=gunslinger] run function ARG(_PATH)gunslinger
+			execute if entity @s[tag=brawler] run function ARG(_PATH)brawler
+			execute if entity @s[tag=!gunslinger,tag=!brawler] run function ARG(_PATH)normal
+		}
+		
+		func gunslinger()
+		{
+			scoreboard players operation @s avoidability = @s DEX
+			scoreboard players operation @s avoidability *= #125 const
+			
+			scoreboard players operation #LUK temp = @s LUK
+			scoreboard players operation #LUK temp *= #500 const
+			
+			scoreboard players operation @s avoidability += #LUK temp
+			scoreboard players operation @s avoidability /= #1000 const
+			
+			scoreboard players operation @s avoidability += @s base_avoid
+			scoreboard players operation @s avoidability += @s equip_avoid
+			scoreboard players operation @s avoidability += @s avoid_buff_num
+		}
+		
+		func brawler()
+		{
+			scoreboard players operation @s avoidability = @s DEX
+			scoreboard players operation @s avoidability *= #250 const
+			
+			scoreboard players operation #STR temp = @s STR
+			scoreboard players operation #STR temp *= #225 const
+			
+			scoreboard players operation @s avoidability += #STR temp
+			scoreboard players operation @s avoidability /= #1000 const
+			
+			scoreboard players operation @s avoidability += @s base_avoid
+			scoreboard players operation @s avoidability += @s equip_avoid
+			scoreboard players operation @s avoidability += @s avoid_buff_num
+		}
+		
+		func normal()
+		{
+			scoreboard players operation @s avoidability = @s DEX
+			scoreboard players operation @s avoidability *= #25 const
+			
+			scoreboard players operation #LUK temp = @s LUK
+			scoreboard players operation #LUK temp *= #50 const
+			
+			scoreboard players operation @s avoidability += #LUK temp
+			scoreboard players operation @s avoidability /= #100 const
+			
+			scoreboard players operation @s avoidability += @s base_avoid
+			scoreboard players operation @s avoidability += @s equip_avoid
+			scoreboard players operation @s avoidability += @s avoid_buff_num
 		}
 	}
 }

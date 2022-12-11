@@ -221,6 +221,7 @@ namespace 3() as virtual
 					# set sub buff values
 					scoreboard players operation @s accu_buff_num = @s 3001003_level
 					scoreboard players operation @s avoid_buff_num = @s 3001003_level
+					function stat:calc_avoid/run
 					
 					# set this buff values
 					scoreboard players operation @s focus_buff_time = @s 3001003_time

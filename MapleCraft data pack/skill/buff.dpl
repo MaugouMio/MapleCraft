@@ -120,6 +120,8 @@ namespace simple_buff_template(name) as virtual
 				print("	execute unless score @s action_time matches 1.. run effect clear @s minecraft:jump_boost")
 			else:
 				print(f"scoreboard players reset @s {buff}_buff_num")
+				if buff == "avoid":
+					print("function stat:calc_avoid/run")
 			print("}")
 		```
 	}
@@ -210,6 +212,8 @@ namespace buff_template(name) as virtual
 				print(f"scoreboard players reset @s jump_buff_num")
 			else:
 				print(f"scoreboard players reset @s {buff}_buff_num")
+				if buff == "avoid":
+					print("function stat:calc_avoid/run")
 			print("}")
 		```
 	}

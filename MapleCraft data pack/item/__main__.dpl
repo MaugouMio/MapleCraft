@@ -84,6 +84,7 @@ namespace item()
 		scoreboard objectives add weapon_knock dummy
 		scoreboard objectives add weapon_speed dummy
 		scoreboard objectives add equip_accuracy dummy
+		scoreboard objectives add equip_avoid dummy
 		scoreboard objectives add equip_hp dummy
 		scoreboard objectives add equip_mp dummy
 		scoreboard objectives add equip_str dummy

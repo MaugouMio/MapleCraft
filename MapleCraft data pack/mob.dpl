@@ -544,7 +544,9 @@ namespace mob()
 				raise Warning("TODO: set block golem random spawn position under height")
 				```
 				spreadplayers ~ ~ 0 4 under 10 false @e[type=marker,tag=rand_pos]
-				execute at @e[type=marker,tag=rand_pos] run summon ocelot ~ ~ ~ {Tags:["ldpq_mob","new_enemy","no_jump","fire_weakness","ice_resist","lightning_resist","new_summon"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:40,hp_max:6500,mp_max:0,avoidability:12,weapon_defense:130,magic_defense:110,kb:300,speed:65,exp:408,width:3,height:6,hurt_sound:9,die_sound:12},AttributeModifiers:[{AttributeName:"generic.movement_speed",Name:"slow",Amount:0,Operation:2,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Age:-2147483648,Trusting:1,Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.movement_speed",Base:0.16633}],Invulnerable:1b,OnGround:1b,Team:"enemy",Passengers:[{id:"minecraft:zombified_piglin",Tags:["ldpq_mob","new_enemy","new_summon"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{move_frame:28,stand_frame:14},CustomModelData:10627,CustomPotionColor:0}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:0.0},{Name:"generic.follow_range",Base:0.0}],Invulnerable:1b,AngerTime:2147483647,Team:"enemy"},{id:"minecraft:magma_cube",Tags:["ldpq_mob","new_enemy","original","new_summon"],NoAI:1,Invulnerable:1,Size:3.0,Attributes:[{Name:"generic.attack_damage",Base:12.5}],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"disorder",Amount:0,Operation:0,UUID:[I;0,1,0,1]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Team:"enemy",CustomName:'{"text":"2","font":"space:default"}',CustomNameVisible:1b}]}
+				```
+				print("execute at @e[type=marker,tag=rand_pos] run", spawn_mob("9300009", is_summon=True))
+				```
 				kill @e[tag=rand_pos]
 				
 				execute as @e[type=#skill:enemy,tag=new_summon] at @s run function ARG(_PATH)summon_setting

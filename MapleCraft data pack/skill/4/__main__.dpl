@@ -67,6 +67,7 @@ namespace 4() as virtual
 					{
 						scoreboard players add @s 4000000_level 1
 						execute store result score @s base_accuracy run scoreboard players operation @s base_avoid = @s 4000000_level
+						function stat:calc_avoid/normal
 						function skill:window/after_addition
 					}
 					
