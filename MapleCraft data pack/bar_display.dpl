@@ -27,6 +27,7 @@ namespace bar_display()
 		scoreboard objectives add hurt_time dummy
 		scoreboard objectives add damage_taken minecraft.custom:minecraft.damage_absorbed
 		scoreboard objectives add attacker_level dummy
+		scoreboard objectives add attacker_acc dummy
 		
 		summon marker 250 0 0 {UUID:[I;0,4,0,4]}
 	}
@@ -235,6 +236,7 @@ namespace bar_display()
 			
 			effect give @s minecraft:absorption 1000000 255 true
 			scoreboard players reset @s attacker_level
+			scoreboard players reset @s attacker_acc
 			scoreboard players reset @s damage_taken
 		}
 		
@@ -277,7 +279,8 @@ namespace bar_display()
 			function ARG(__PATH)change/hp/dropped
 			
 			scoreboard players operation @s next_hp_recover = @s hp_recover_time
-			scoreboard players set @s hurt_time 30
+			# 避免頻繁跟內建無敵時間衝突，導致無敵時間再多半秒，稍微減少 1 tick
+			scoreboard players set @s hurt_time 29
 			
 			attribute @s minecraft:generic.knockback_resistance modifier add 46ceefa9-7200-45cc-85b8-15168327b606 hurt_time_kb 1.0 add
 			effect give @s minecraft:glowing 2 0 true
@@ -827,6 +830,63 @@ namespace bar_display()
 		{
 			scoreboard players add @s attacker_level 128
 			advancement revoke @s only bar_display:attacker_level/lv128
+		}
+	}
+	
+	folder attacker_acc()
+	{
+		func lv1()
+		{
+			scoreboard players add @s attacker_acc 1
+			advancement revoke @s only bar_display:attacker_acc/lv1
+		}
+		
+		func lv2()
+		{
+			scoreboard players add @s attacker_acc 2
+			advancement revoke @s only bar_display:attacker_acc/lv2
+		}
+		
+		func lv4()
+		{
+			scoreboard players add @s attacker_acc 4
+			advancement revoke @s only bar_display:attacker_acc/lv4
+		}
+		
+		func lv8()
+		{
+			scoreboard players add @s attacker_acc 8
+			advancement revoke @s only bar_display:attacker_acc/lv8
+		}
+		
+		func lv16()
+		{
+			scoreboard players add @s attacker_acc 16
+			advancement revoke @s only bar_display:attacker_acc/lv16
+		}
+		
+		func lv32()
+		{
+			scoreboard players add @s attacker_acc 32
+			advancement revoke @s only bar_display:attacker_acc/lv32
+		}
+		
+		func lv64()
+		{
+			scoreboard players add @s attacker_acc 64
+			advancement revoke @s only bar_display:attacker_acc/lv64
+		}
+		
+		func lv128()
+		{
+			scoreboard players add @s attacker_acc 128
+			advancement revoke @s only bar_display:attacker_acc/lv128
+		}
+		
+		func lv256()
+		{
+			scoreboard players add @s attacker_acc 256
+			advancement revoke @s only bar_display:attacker_acc/lv256
 		}
 	}
 }
