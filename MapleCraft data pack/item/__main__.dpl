@@ -354,6 +354,9 @@ namespace item()
 				scoreboard players operation @s magic_defense += #GLOBAL temp
 				execute store result score #GLOBAL temp run data get storage item:main equip.accuracy
 				scoreboard players operation @s equip_accuracy += #GLOBAL temp
+				execute store result score #GLOBAL temp run data get storage item:main equip.avoidability
+				scoreboard players operation @s equip_avoid += #GLOBAL temp
+				execute if score #GLOBAL temp matches 1.. run function stat:calc_avoid/run
 				
 				execute store result score #GLOBAL temp run data get storage item:main equip.speed
 				execute store result score #GLOBAL temp run scoreboard players operation @s speed += #GLOBAL temp
@@ -410,6 +413,9 @@ namespace item()
 				scoreboard players operation @s magic_defense -= #GLOBAL temp
 				execute store result score #GLOBAL temp run data get block 250 1 0 Items[0].tag.accuracy
 				scoreboard players operation @s equip_accuracy -= #GLOBAL temp
+				execute store result score #GLOBAL temp run data get block 250 1 0 Items[0].tag.avoidability
+				scoreboard players operation @s equip_avoid -= #GLOBAL temp
+				execute if score #GLOBAL temp matches 1.. run function stat:calc_avoid/run
 				
 				execute store result score #GLOBAL temp run data get block 250 1 0 Items[0].tag.str
 				scoreboard players operation @s STR -= #GLOBAL temp
@@ -846,7 +852,7 @@ namespace item()
 					execute if score #EQUIP_TYPE temp matches ..24 run function ARG(_PATH)set_display/clear/weapon
 					execute if score #EQUIP_TYPE temp matches 30.. run function ARG(_PATH)set_display/clear/equip
 					```
-					for attr in ["str", "dex", "int", "luk", "hp", "mp", "weapon_attack", "magic_attack", "defense", "magic_defense", "accuracy", "speed", "knockback"]:
+					for attr in ["str", "dex", "int", "luk", "hp", "mp", "weapon_attack", "magic_attack", "defense", "magic_defense", "accuracy", "avoidability", "speed", "knockback"]:
 						print(f"execute if score #{attr.upper()} temp matches 1.. run function ARG(_PATH)set_display/{attr}")
 					```
 					execute store result block 250 1 0 Items[0].tag.scroll_left int 1 run scoreboard players remove #SCROLL_LEFT temp 1
@@ -858,7 +864,7 @@ namespace item()
 				{
 					scoreboard players set #RANGE_MAX temp 10
 					```
-					for attr in ["str", "dex", "int", "luk", "hp", "mp", "weapon_attack", "magic_attack", "defense", "magic_defense", "accuracy", "speed"]:
+					for attr in ["str", "dex", "int", "luk", "hp", "mp", "weapon_attack", "magic_attack", "defense", "magic_defense", "accuracy", "avoidability", "speed"]:
 						print(f"execute store result score #{attr.upper()} temp run data get block 250 1 0 Items[0].tag.{attr}")
 						print(f"execute if score #{attr.upper()} temp matches 1.. run function ARG(_PATH)rand_numeric/{attr}")
 					```
@@ -873,7 +879,7 @@ namespace item()
 					}
 					
 					```
-					for attr in ["str", "dex", "int", "luk", "hp", "mp", "weapon_attack", "magic_attack", "defense", "magic_defense", "accuracy", "speed"]:
+					for attr in ["str", "dex", "int", "luk", "hp", "mp", "weapon_attack", "magic_attack", "defense", "magic_defense", "accuracy", "avoidability", "speed"]:
 						print(f"func {attr}()")
 						print("{")
 						print(f"	function ARG(_PATH)set")
@@ -887,7 +893,7 @@ namespace item()
 				func normal_scroll()
 				{
 					```
-					for attr in ["str", "dex", "int", "luk", "hp", "mp", "weapon_attack", "magic_attack", "defense", "magic_defense", "accuracy", "speed"]:
+					for attr in ["str", "dex", "int", "luk", "hp", "mp", "weapon_attack", "magic_attack", "defense", "magic_defense", "accuracy", "avoidability", "speed"]:
 						print(f"execute store result score #{attr.upper()} temp run data get block 250 1 0 Items[0].tag.{attr}")
 						print(f"execute store result score #RAND_RANGE_RESULT temp run data get entity @s SelectedItem.tag.{attr}")
 						print(f"execute if score #RAND_RANGE_RESULT temp matches 1.. run function ARG(_PATH)update_numeric/{attr}")
@@ -914,7 +920,7 @@ namespace item()
 					print(f"	scoreboard players operation #SCROLL_QUALITY temp += #RAND_RANGE_RESULT temp")
 					print("}")
 				
-				for attr in ["str", "dex", "int", "luk", "hp", "mp", "weapon_attack", "magic_attack", "defense", "magic_defense", "accuracy", "speed"]:
+				for attr in ["str", "dex", "int", "luk", "hp", "mp", "weapon_attack", "magic_attack", "defense", "magic_defense", "accuracy", "avoidability", "speed"]:
 					scroll_update_numeric(attr)
 				```
 				}
@@ -999,6 +1005,12 @@ namespace item()
 					func accuracy()
 					{
 						data modify block 250 0 0 Text1 set value '{"translate":"item.notice.accuracy","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#ACCURACY"}}]}'
+						data modify block 250 1 0 Items[0].tag.display.Lore append from block 250 0 0 Text1
+					}
+					
+					func avoidability()
+					{
+						data modify block 250 0 0 Text1 set value '{"translate":"item.notice.avoidability","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#AVOIDABILITY"}}]}'
 						data modify block 250 1 0 Items[0].tag.display.Lore append from block 250 0 0 Text1
 					}
 					
