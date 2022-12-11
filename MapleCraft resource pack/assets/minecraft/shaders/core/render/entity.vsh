@@ -2,6 +2,7 @@
 
 #moj_import <light.glsl>
 #moj_import <fog.glsl>
+#moj_import <vsh_util.glsl>
 
 in vec3 Position;
 in vec4 Color;
@@ -40,11 +41,13 @@ flat out int noshadow;
 #moj_import <objmc_tools.glsl>
 
 void main() {
+	mat4 FixProjMat = fixProjMat(ProjMat);
+	
     Pos = Position;
     texCoord = UV0;
     overlayColor = vec4(1);
     lightColor = minecraft_sample_lightmap(Sampler2, UV2);
-    vec3 normal = (ProjMat * ModelViewMat * vec4(Normal, 0.0)).rgb;
+    vec3 normal = (FixProjMat * ModelViewMat * vec4(Normal, 0.0)).rgb;
 	
 	// alpha fade in
 	if (Color.r == Color.g && Color.r == Color.b && Color.r < 0.4) {  // gray color < 0.4 was not used in any cases
@@ -60,6 +63,6 @@ void main() {
     #define ENTITY
     #moj_import <objmc_main.glsl>
 
-    gl_Position = ProjMat * ModelViewMat * (vec4(Pos, 1.0));
+    gl_Position = FixProjMat * ModelViewMat * (vec4(Pos, 1.0));
     vertexDistance = fog_distance(ModelViewMat, IViewRotMat * Pos, FogShape);
 }
