@@ -482,10 +482,11 @@ namespace mob()
 				scoreboard players set @s attacker_level 40
 				scoreboard players operation @s attacker_acc = #ATTACKER_ACC temp
 				scoreboard players operation @s damage_taken = #MAGIC_ATTACK temp
-				function bar_display:take_damage/physic
+				function bar_display:take_damage/physic/check
 				scoreboard players reset @s attacker_level
 				scoreboard players reset @s attacker_acc
 				
+				# 給一點角色受傷的動作
 				effect give @s minecraft:instant_damage 1 0 true
 				
 				scoreboard players set #GLOBAL temp 1
@@ -605,10 +606,11 @@ namespace mob()
 				scoreboard players set @s attacker_level 47
 				scoreboard players operation @s attacker_acc = #ATTACKER_ACC temp
 				scoreboard players operation @s damage_taken = #MAGIC_ATTACK temp
-				function bar_display:take_damage/physic
+				function bar_display:take_damage/physic/check
 				scoreboard players reset @s attacker_level
 				scoreboard players reset @s attacker_acc
 				
+				# 給一點角色受傷的動作
 				effect give @s minecraft:instant_damage 1 0 true
 				
 				function skill:summon_font_effect/9000000rombot_hit
