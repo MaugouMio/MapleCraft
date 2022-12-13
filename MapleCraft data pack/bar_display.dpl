@@ -352,6 +352,7 @@ namespace bar_display()
 			
 			attribute @s minecraft:generic.knockback_resistance modifier add 46ceefa9-7200-45cc-85b8-15168327b606 hurt_time_kb 1.0 add
 			
+			scoreboard players reset @s damage_taken
 			scoreboard players reset #TOUCH_DAMAGE temp
 		}
 		
