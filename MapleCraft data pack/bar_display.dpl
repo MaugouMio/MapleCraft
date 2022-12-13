@@ -248,6 +248,24 @@ namespace bar_display()
 			function ARG(_PATH)physic/check
 		}
 		
+		folder get_final_avoid()
+		{
+			func run()
+			{
+				scoreboard players set #AVOIDABILITY temp 0
+				execute if score @s level < @s attacker_level run function ARG(_PATH)level_effect
+				scoreboard players operation #AVOIDABILITY temp += @s avoidability
+			}
+			
+			func level_effect()
+			{
+				# 這邊是玩家比怪物低等的情況，算出來會是負值
+				scoreboard players operation #AVOIDABILITY temp = @s level
+				scoreboard players operation #AVOIDABILITY temp -= @s attacker_level
+				scoreboard players operation #AVOIDABILITY temp /= #2 const
+			}
+		}
+		
 		folder physic()
 		{
 			func check()
@@ -255,8 +273,7 @@ namespace bar_display()
 				# 避免特殊情況沒有值導致 division by zero
 				execute unless score @s attacker_acc matches 1.. run scoreboard players set @s attacker_acc 1
 				
-				execute if score @s level >= @s attacker_level run scoreboard players operation #AVOIDABILITY temp = @s avoidability
-				execute unless score @s level >= @s attacker_level run function ARG(_PATH)replace_avoid
+				function ARG(__PATH)get_final_avoid/run
 				
 				scoreboard players operation #AVOIDABILITY temp *= #1000 const
 				scoreboard players operation #AVOIDABILITY temp /= @s attacker_acc
@@ -268,13 +285,6 @@ namespace bar_display()
 				function random:rand_rate
 				execute if score #RAND_RESULT number < #AVOIDABILITY temp run function ARG(__PATH)miss
 				execute if score #RAND_RESULT number >= #AVOIDABILITY temp run function ARG(_PATH)defense
-			}
-			
-			func replace_avoid()
-			{
-				scoreboard players operation #AVOIDABILITY temp = @s attacker_level
-				scoreboard players operation #AVOIDABILITY temp -= @s level
-				scoreboard players operation #AVOIDABILITY temp /= #2 const
 			}
 			
 			func clamp()
@@ -305,12 +315,15 @@ namespace bar_display()
 				# 避免特殊情況沒有值導致 division by zero
 				execute unless score @s attacker_acc matches 1.. run scoreboard players set @s attacker_acc 1
 				
-				scoreboard players operation #AVOIDABILITY temp = @s attacker_acc
-				scoreboard players operation #AVOIDABILITY temp *= #1000 const
+				function ARG(__PATH)get_final_avoid/run
+				
+				scoreboard players operation #ACCURACY temp = @s attacker_acc
+				scoreboard players operation #ACCURACY temp *= #100 const
+				scoreboard players operation #ACCURACY temp /= #AVOIDABILITY temp
+				scoreboard players set #AVOIDABILITY temp 100
+				scoreboard players operation #AVOIDABILITY temp -= #ACCURACY temp
+				scoreboard players operation #AVOIDABILITY temp *= #10 const
 				scoreboard players operation #AVOIDABILITY temp /= #9 const
-				scoreboard players operation #AVOIDABILITY temp /= @s avoidability
-				scoreboard players operation #AVOIDABILITY temp *= #-1 const
-				scoreboard players add #AVOIDABILITY temp 111
 				
 				function random:rand_rate
 				execute if score #RAND_RESULT number < #AVOIDABILITY temp run function ARG(__PATH)miss
