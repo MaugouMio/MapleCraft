@@ -96,8 +96,8 @@ mat4 fixProjMat(mat4 ProjMat) {
 	if (__isGUI(ProjMat))
 		return ProjMat;
 	
-    return mat4(	0.35,	0.0,								0.0,			0.0,
-					0.0,	0.35*ProjMat[1][1]/ProjMat[0][0],	0.0,			0.0,
+    return mat4(	0.5,	0.0,								0.0,			0.0,
+					0.0,	0.5*ProjMat[1][1]/ProjMat[0][0],	0.0,			0.0,
 					0.0,	0.0,								ProjMat[2][2],	ProjMat[2][3],
 					0.0,	0.0,								ProjMat[3][2],	0.0				);
 }
