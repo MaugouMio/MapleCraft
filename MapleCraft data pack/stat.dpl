@@ -460,7 +460,7 @@ namespace stat()
 			execute unless score @s avoid_buff_num matches 1.. run data modify storage ui:main avoid set value '[{"score":{"objective":"avoidability","name":"@s"},"font":"ui:window/stat","color":"black"}]'
 			execute if score @s avoid_buff_num matches 1.. run function ARG(_PATH)avoid_buff
 			
-			tellraw @s [{"nbt":"add_buttons[3]","storage":"ui:main","interpret":true},{"text":"=","font":"ui:window/stat"},{"nbt":"add_buttons[-1]","storage":"ui:main","interpret":true},{"text":"A94","font":"space:default"},{"nbt":"dex","storage":"ui:main","interpret":true},{"text":"\uF82A\uF829\uF828\uF821","font":"space:default"},{"text":"\uE001","font":"ui:window/stat"},{"text":"A93","font":"space:default"}]
+			tellraw @s [{"nbt":"add_buttons[3]","storage":"ui:main","interpret":true},{"text":"=","font":"ui:window/stat"},{"nbt":"add_buttons[-1]","storage":"ui:main","interpret":true},{"text":"A94","font":"space:default"},{"nbt":"dex","storage":"ui:main","interpret":true},{"text":"\uF82A\uF829\uF828\uF821","font":"space:default"},{"text":"\uE001","font":"ui:window/stat"},{"text":"A93","font":"space:default"},{"nbt":"avoid","storage":"ui:main","interpret":true}]
 			# int and speed
 			execute unless score @s equip_int matches 1.. run data modify storage ui:main int set value '[{"score":{"objective":"INT","name":"@s"},"font":"ui:window/stat","color":"black"},{"score":{"objective":"INT","name":"@s"},"font":"ui:window/stat_back"}]'
 			execute if score @s equip_int matches 1.. run function ARG(_PATH)int_add
