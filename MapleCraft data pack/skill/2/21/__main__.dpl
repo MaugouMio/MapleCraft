@@ -533,6 +533,7 @@ namespace 21() as virtual
 				# calculate new speed rate ( sqrt(new speed / original speed) )
 				scoreboard players operation #SPEED_RATE temp = @s speed
 				scoreboard players operation #SPEED_RATE temp -= #SLOW_TIME temp
+				execute if score #SPEED_RATE temp < #10 const run scoreboard players set #SPEED_RATE temp 10
 				scoreboard players operation #SPEED_RATE temp *= #1000000 const
 				scoreboard players operation #SPEED_RATE temp /= @s speed
 				function ARG(_PATH)sqrt_speed/run
