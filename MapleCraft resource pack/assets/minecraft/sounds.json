@@ -522,37 +522,10 @@
 			}
 		]
 	},
-	
-	
-	
-	"mob.special.9300003_skill": {
+	"mob.hurt.3230306": {
 		"sounds": [
 			{
-				"name": "mob/special/9300003_skill",
-				"preload": true
-			}
-		]
-	},
-	"mob.special.9300003_attack": {
-		"sounds": [
-			{
-				"name": "mob/special/9300003_attack",
-				"preload": true
-			}
-		]
-	},
-	"mob.special.9300003_char_damage": {
-		"sounds": [
-			{
-				"name": "mob/special/9300003_char_damage",
-				"preload": true
-			}
-		]
-	},
-	"mob.special.4130103_attack": {
-		"sounds": [
-			{
-				"name": "mob/special/4130103_attack",
+				"name": "mob/hurt/3230306",
 				"preload": true
 			}
 		]
@@ -668,6 +641,97 @@
 		"sounds": [
 			{
 				"name": "mob/die/4130103",
+				"preload": true
+			}
+		]
+	},
+	"mob.die.3230306": {
+		"sounds": [
+			{
+				"name": "mob/die/3230306",
+				"preload": true
+			}
+		]
+	},
+	"mob.die.4230114": {
+		"sounds": [
+			{
+				"name": "mob/die/4230114",
+				"preload": true
+			}
+		]
+	},
+	"mob.die.4230115": {
+		"sounds": [
+			{
+				"name": "mob/die/4230115",
+				"preload": true
+			}
+		]
+	},
+	
+	
+	
+	"mob.special.9300003_skill": {
+		"sounds": [
+			{
+				"name": "mob/special/9300003_skill",
+				"preload": true
+			}
+		]
+	},
+	"mob.special.9300003_attack": {
+		"sounds": [
+			{
+				"name": "mob/special/9300003_attack",
+				"preload": true
+			}
+		]
+	},
+	"mob.special.9300003_char_damage": {
+		"sounds": [
+			{
+				"name": "mob/special/9300003_char_damage",
+				"preload": true
+			}
+		]
+	},
+	"mob.special.4130103_attack": {
+		"sounds": [
+			{
+				"name": "mob/special/4130103_attack",
+				"preload": true
+			}
+		]
+	},
+	"mob.special.4230114_attack": {
+		"sounds": [
+			{
+				"name": "mob/special/4230114_attack",
+				"preload": true
+			}
+		]
+	},
+	"mob.special.4230114_char_damage": {
+		"sounds": [
+			{
+				"name": "mob/special/4230114_char_damage",
+				"preload": true
+			}
+		]
+	},
+	"mob.special.4230115_attack": {
+		"sounds": [
+			{
+				"name": "mob/special/4230115_attack",
+				"preload": true
+			}
+		]
+	},
+	"mob.special.4230115_char_damage": {
+		"sounds": [
+			{
+				"name": "mob/special/4230115_char_damage",
 				"preload": true
 			}
 		]
