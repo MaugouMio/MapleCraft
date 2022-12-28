@@ -125,7 +125,6 @@ namespace 23() as virtual
 			
 			func set_numeric()
 			{
-				data modify storage skill:main damage[0].attribute set value 6
 				function skill:damage_formula/heal
 				
 				scoreboard players operation @s mp -= @s 2301002_mp
