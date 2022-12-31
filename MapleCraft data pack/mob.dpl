@@ -435,7 +435,7 @@ namespace mob()
 				scoreboard players set #EXIST_TARGET temp 0
 				
 				function ARG(__PATH)write_target_uuid
-				execute positioned ~-4.5 ~-0.5 ~-4.5 as @a[gamemode=adventure,tag=!dead,dx=8,dy=3,dz=8] run function ARG(__PATH)check_is_target
+				execute as @a[gamemode=adventure,tag=!dead,distance=..7.5] positioned ~-20 ~-0.5 ~-20 if entity @s[dx=40,dy=3,dz=40] run function ARG(__PATH)check_is_target
 				
 				execute if score #EXIST_TARGET temp matches 1 if score @s mp matches 2.. at @s run function ARG(_PATH)attack
 			}
@@ -473,7 +473,7 @@ namespace mob()
 				scoreboard players set #SKILL_HIT temp 0
 				scoreboard players operation #MAGIC_ATTACK temp = @s weapon_mattack
 				scoreboard players operation #ATTACKER_ACC temp = @s base_accuracy
-				execute positioned ~-4.5 ~-0.5 ~-4.5 as @a[gamemode=adventure,tag=!dead,dx=8,dy=3,dz=8] if data entity @s {OnGround:1b} unless score @s hurt_time matches 1.. at @s run function ARG(_PATH)hit
+				execute as @a[gamemode=adventure,tag=!dead,distance=..7.5] positioned ~-20 ~-0.5 ~-20 if entity @s[dx=40,dy=3,dz=40] if data entity @s {OnGround:1b} unless score @s hurt_time matches 1.. at @s run function ARG(_PATH)hit
 				execute if score #SKILL_HIT temp matches 1 run playsound minecraft:mob.special.9300003_char_damage player @a ~ ~ ~ 1 1 0
 			}
 			
@@ -564,7 +564,7 @@ namespace mob()
 				scoreboard players set #EXIST_TARGET temp 0
 				
 				function ARG(__PATH)write_target_uuid
-				execute positioned ~-4.5 ~-0.5 ~-4.5 as @a[gamemode=adventure,tag=!dead,dx=8,dy=3,dz=8] run function ARG(__PATH)check_is_target
+				execute as @a[gamemode=adventure,tag=!dead,distance=..7.5] positioned ~-20 ~-0.5 ~-20 if entity @s[dx=40,dy=3,dz=40] run function ARG(__PATH)check_is_target
 				
 				execute if score #EXIST_TARGET temp matches 1 at @s run function ARG(_PATH)cast_attack
 			}
@@ -598,7 +598,7 @@ namespace mob()
 				
 				scoreboard players operation #MAGIC_ATTACK temp = @s weapon_mattack
 				scoreboard players operation #ATTACKER_ACC temp = @s base_accuracy
-				execute positioned ~-4.5 ~-0.5 ~-4.5 as @a[gamemode=adventure,tag=!dead,dx=8,dy=3,dz=8] unless score @s hurt_time matches 1.. if data entity @s {OnGround:1b} at @s run function ARG(_PATH)hit
+				execute as @a[gamemode=adventure,tag=!dead,distance=..7.5] positioned ~-20 ~-0.5 ~-20 if entity @s[dx=40,dy=3,dz=40] unless score @s hurt_time matches 1.. if data entity @s {OnGround:1b} at @s run function ARG(_PATH)hit
 			}
 			
 			func hit()
@@ -629,7 +629,8 @@ namespace mob()
 				scoreboard players set #EXIST_TARGET temp 0
 				
 				function ARG(__PATH)write_target_uuid
-				execute as @a[gamemode=adventure,tag=!dead,distance=..4] positioned ~-10 ~-0.3 ~-10 if entity @s[dx=20,dy=1.3,dz=20] run function ARG(__PATH)check_is_target
+				# 使用 check_is_target_mark 要記得 kill 00000000-0000-0002-0000-000000000002
+				execute as @a[gamemode=adventure,tag=!dead,distance=..6] positioned ~-20 ~-0.3 ~-20 if entity @s[dx=40,dy=1,dz=40] run function ARG(__PATH)check_is_target_mark
 				
 				execute if score #EXIST_TARGET temp matches 1 at @s run function ARG(_PATH)cast_attack
 			}
@@ -642,16 +643,20 @@ namespace mob()
 				# 紀錄攻擊目標 UUID
 				function ARG(__PATH)record_target_uuid
 				
-				scoreboard players set @s action_time 32
-				scoreboard players set @s kb_time 30
-				scoreboard players set #KB_TIME temp 30
+				# 強制面向目標
+				execute facing entity 00000000-0000-0002-0000-000000000002 feet run tp @s ~ ~ ~ ~ 0
+				kill 00000000-0000-0002-0000-000000000002
+				
+				scoreboard players set @s action_time 37
+				scoreboard players set @s kb_time 35
+				scoreboard players set #KB_TIME temp 35
 				scoreboard players set @s status 4
 				scoreboard players set #STATUS temp 4
-				scoreboard players set #ACTION_FRAME_S temp 35
+				scoreboard players set #ACTION_FRAME_S temp 34
 				scoreboard players reset #FORCE_MODEL temp
 				
-				summon minecraft:armor_stand ~ ~ ~ {Tags:["model_animation","new"],Invisible:1,Invulnerable:1,NoGravity:1,Marker:1,Fire:32767s,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:900000}}]}
-				execute as @e[type=armor_stand,tag=new,limit=1] run function ARG(_PATH)effect_model_set
+				execute at @s rotated ~ 0 run summon minecraft:armor_stand ^ ^ ^0.5 {Tags:["model_animation","new"],Invisible:1,Invulnerable:1,NoGravity:1,Marker:1,Fire:32767s,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:900000}}]}
+				execute at @s as @e[type=armor_stand,tag=new,limit=1] run function ARG(_PATH)effect_model_set
 				
 				playsound minecraft:mob.special.4230114_attack player @a ~ ~ ~ 1 1 0
 				execute store result score @s skill_delay run schedule function ARG(_PATH)call_attack 16t append
@@ -659,7 +664,7 @@ namespace mob()
 			
 			func effect_model_set()
 			{
-				execute positioned as @s run tp @s ~ ~ ~ ~ ~
+				execute positioned as @s run tp @s ~ ~ ~ ~ 0
 				scoreboard players set @s max_life 26
 				scoreboard players set @s base_model 900000
 				tag @s remove new
@@ -709,7 +714,8 @@ namespace mob()
 				scoreboard players set #EXIST_TARGET temp 0
 				
 				function ARG(__PATH)write_target_uuid
-				execute as @a[gamemode=adventure,tag=!dead,distance=..4] positioned ~-10 ~-0.3 ~-10 if entity @s[dx=20,dy=1.3,dz=20] run function ARG(__PATH)check_is_target
+				# 使用 check_is_target_mark 要記得 kill 00000000-0000-0002-0000-000000000002
+				execute as @a[gamemode=adventure,tag=!dead,distance=..6] positioned ~-20 ~-0.3 ~-20 if entity @s[dx=40,dy=1,dz=40] run function ARG(__PATH)check_is_target_mark
 				
 				execute if score #EXIST_TARGET temp matches 1 at @s run function ARG(_PATH)cast_attack
 			}
@@ -722,16 +728,20 @@ namespace mob()
 				# 紀錄攻擊目標 UUID
 				function ARG(__PATH)record_target_uuid
 				
-				scoreboard players set @s action_time 32
-				scoreboard players set @s kb_time 30
-				scoreboard players set #KB_TIME temp 30
+				# 強制面向目標
+				execute facing entity 00000000-0000-0002-0000-000000000002 feet run tp @s ~ ~ ~ ~ 0
+				kill 00000000-0000-0002-0000-000000000002
+				
+				scoreboard players set @s action_time 37
+				scoreboard players set @s kb_time 35
+				scoreboard players set #KB_TIME temp 35
 				scoreboard players set @s status 4
 				scoreboard players set #STATUS temp 4
-				scoreboard players set #ACTION_FRAME_S temp 35
+				scoreboard players set #ACTION_FRAME_S temp 34
 				scoreboard players reset #FORCE_MODEL temp
 				
-				summon minecraft:armor_stand ~ ~ ~ {Tags:["model_animation","new"],Invisible:1,Invulnerable:1,NoGravity:1,Marker:1,Fire:32767s,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:900026}}]}
-				execute as @e[type=armor_stand,tag=new,limit=1] run function ARG(_PATH)effect_model_set
+				execute at @s rotated ~ 0 run summon minecraft:armor_stand ^ ^ ^0.5 {Tags:["model_animation","new"],Invisible:1,Invulnerable:1,NoGravity:1,Marker:1,Fire:32767s,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:900026}}]}
+				execute at @s as @e[type=armor_stand,tag=new,limit=1] run function ARG(_PATH)effect_model_set
 				
 				playsound minecraft:mob.special.4230115_attack player @a ~ ~ ~ 1 1 0
 				execute store result score @s skill_delay run schedule function ARG(_PATH)call_attack 16t append
@@ -739,7 +749,7 @@ namespace mob()
 			
 			func effect_model_set()
 			{
-				execute positioned as @s run tp @s ~ ~ ~ ~ ~
+				execute positioned as @s run tp @s ~ ~ ~ ~ 0
 				scoreboard players set @s max_life 26
 				scoreboard players set @s base_model 900026
 				tag @s remove new
@@ -838,6 +848,12 @@ namespace mob()
 		{
 			execute unless score @s uuid0 = @s uuid0 run function ARG(_PATH)write_uuid
 			execute if score @s uuid0 = #GLOBAL uuid0 if score @s uuid1 = #GLOBAL uuid1 if score @s uuid2 = #GLOBAL uuid2 if score @s uuid3 = #GLOBAL uuid3 run scoreboard players set #EXIST_TARGET temp 1
+		}
+		
+		func check_is_target_mark()
+		{
+			function ARG(_PATH)check_is_target
+			execute if score #EXIST_TARGET temp matches 1 at @s run summon marker ~ ~ ~ {UUID:[I;0,2,0,2]}
 		}
 		
 		```
