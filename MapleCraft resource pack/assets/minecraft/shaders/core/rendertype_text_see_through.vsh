@@ -6,6 +6,8 @@ in vec3 Position;
 in vec4 Color;
 in vec2 UV0;
 
+uniform sampler2D Sampler0;
+
 uniform mat4 ModelViewMat;
 uniform mat4 ProjMat;
 
@@ -16,6 +18,12 @@ void main() {
 	mat4 FixProjMat = fixProjMat(ProjMat);
 	gl_Position = FixProjMat * ModelViewMat * vec4(Position, 1.0);
 
-    vertexColor = Color;
+	// mob hp shadow
+	ivec4 vertexTexel = ivec4(texture(Sampler0, UV0) * 255);
+	if (vertexTexel == ivec4(1,3,5,255) || vertexTexel == ivec4(0,255,0,255) || vertexTexel == ivec4(170,0,0,255))
+		vertexColor = vec4(0.0);
+	else
+		vertexColor = Color;
+	
     texCoord0 = UV0;
 }

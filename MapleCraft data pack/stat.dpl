@@ -477,8 +477,8 @@ namespace stat()
 			execute unless score @s equip_luk matches 1.. run data modify storage ui:main luk set value '[{"score":{"objective":"LUK","name":"@s"},"font":"ui:window/stat","color":"black"},{"score":{"objective":"LUK","name":"@s"},"font":"ui:window/stat_back"}]'
 			execute if score @s equip_luk matches 1.. run function ARG(_PATH)luk_add
 			
-			execute store result score #GLOBAL temp run data get entity @s ActiveEffects[{Id:8b}].Amplifier
-			execute if data entity @s ActiveEffects[{Id:8b}] run scoreboard players add #GLOBAL temp 1
+			execute store result score #GLOBAL temp run data get entity @s ActiveEffects[{Id:8}].Amplifier
+			execute if data entity @s ActiveEffects[{Id:8}] run scoreboard players add #GLOBAL temp 1
 			scoreboard players operation #GLOBAL temp *= #10 const
 			scoreboard players add #GLOBAL temp 100
 			

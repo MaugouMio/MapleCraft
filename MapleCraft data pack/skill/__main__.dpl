@@ -3086,30 +3086,19 @@ namespace skill()
 				# 不顯示純刷新為2
 				execute if score #SILENT_UPDATE_HP temp matches 1 unless score @s show_hp_time matches 1.. run scoreboard players set #SILENT_UPDATE_HP temp 2
 
-				data modify block 250 0 0 Text1 set value '[{"text":"985","font":"space:default"},{"text":"0","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},{"nbt":"mob_hp[]","storage":"bar:main","font":"ui:mob_hp","interpret":true},{"nbt":"mob_hp_back","storage":"bar:main","font":"space:default","interpret":true},{"text":"\\uF829\\uF825","font":"space:default"}]'
-				execute unless score #SILENT_UPDATE_HP temp matches 2 run function ARG(_PATH)update_pair
+				# 透過顏色控制 shader 調整顯示高度
+				data modify storage bar:main mob_hp_color set from entity @s ArmorItems[3].tag.hp_offset_color
+				data modify block 250 0 0 Text1 set value '[{"nbt":"mob_hp_color","storage":"bar:main","interpret":true},{"text":"985","font":"space:default"},{"text":"0","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},{"nbt":"mob_hp[]","storage":"bar:main","font":"ui:mob_hp","interpret":true},{"nbt":"mob_hp_back","storage":"bar:main","font":"space:default","interpret":true},{"text":"\\uF829\\uF825","font":"space:default"}]'
+				execute unless score #SILENT_UPDATE_HP temp matches 2 run data modify entity @s CustomName set from block 250 0 0 Text1
 				data modify entity @s ArmorItems[3].tag.health_bar set from block 250 0 0 Text1
 				
 				execute if score #SILENT_UPDATE_HP temp matches 0 run scoreboard players set @s show_hp_time 5
 			}
 			
-			func update_pair()
-			{
-				scoreboard players operation #GLOBAL temp = @s number
-				execute as @e[type=magma_cube,tag=enemy] if score @s number = #GLOBAL temp run data modify entity @s CustomName set from block 250 0 0 Text1
-			}
-			
 			func show()
 			{
-				execute unless score @s show_hp_time matches 1.. run function ARG(_PATH)show_pair
+				execute unless score @s show_hp_time matches 1.. run data modify entity @s CustomName set from entity @s ArmorItems[3].tag.health_bar
 				scoreboard players set @s show_hp_time 5
-			}
-			
-			func show_pair()
-			{
-				data modify storage bar:main temp set from entity @s ArmorItems[3].tag.health_bar
-				scoreboard players operation #GLOBAL temp = @s number
-				execute as @e[type=magma_cube,tag=enemy] if score @s number = #GLOBAL temp run data modify entity @s CustomName set from storage bar:main temp
 			}
 			
 			func countdown()
@@ -3120,14 +3109,8 @@ namespace skill()
 			
 			func hide()
 			{
-				function ARG(_PATH)hide_pair
+				data modify entity @s CustomName set value '{"text":"2","font":"space:default"}'
 				scoreboard players reset @s show_hp_time
-			}
-			
-			func hide_pair()
-			{
-				scoreboard players operation #GLOBAL temp = @s number
-				execute as @e[type=magma_cube,tag=enemy] if score @s number = #GLOBAL temp run data modify entity @s CustomName set value '{"text":"2","font":"space:default"}'
 			}
 			
 			func 32()

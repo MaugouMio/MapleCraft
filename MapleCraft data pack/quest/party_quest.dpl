@@ -1047,6 +1047,7 @@ namespace party_quest() as virtual
 					
 					func close()
 					{
+						data modify entity @s CustomName set value '{"text":"2","font":"space:default"}'
 						scoreboard players operation #PAIR_NUMBER temp = @s number
 						execute as @e[type=magma_cube] if score @s number = #PAIR_NUMBER temp run function ARG(_PATH)shutdown
 						tag @s remove enemy
@@ -1055,7 +1056,6 @@ namespace party_quest() as virtual
 					
 					func shutdown()
 					{
-						data modify entity @s CustomName set value '{"text":"2","font":"space:default"}'
 						tag @s remove enemy
 						data modify entity @s NoAI set value 1b
 					}
