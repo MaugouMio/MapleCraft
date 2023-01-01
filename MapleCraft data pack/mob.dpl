@@ -250,7 +250,7 @@ namespace mob()
 	func main()
 	{
 		execute as @e[type=#skill:enemy,tag=new_enemy] run function ARG(_PATH)setting/check
-		execute as @e[type=#skill:enemy_ai,tag=enemy,tag=!dead,scores={skill_id=1..}] run function ARG(_PATH)skills/update
+		execute as @e[type=#skill:enemy_ai,tag=enemy,scores={skill_id=1..}] run function ARG(_PATH)skills/update
 	}
 	
 	folder loop()
@@ -792,7 +792,7 @@ namespace mob()
 			execute if score @s action_time matches 1.. run scoreboard players remove @s action_time 1
 			
 			execute if entity @s[type=ocelot] run scoreboard players set #KB_TIME temp 0
-			execute if entity @s[type=ocelot] unless score @s action_time matches 1.. run function ARG(_PATH)check
+			execute if entity @s[type=ocelot,tag=!dead] unless score @s action_time matches 1.. run function ARG(_PATH)check
 			execute if entity @s[type=zombified_piglin] if score #KB_TIME temp matches 1.. run function ARG(_PATH)sync_score
 		}
 		
