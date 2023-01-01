@@ -3074,21 +3074,17 @@ namespace skill()
 			{
 				scoreboard players operation @s mob_hp_length = #HP_LENGTH temp
 				
-				data modify storage bar:main mob_hp set value []
-				data modify storage bar:main mob_hp_back set value []
-				execute if score #HP_LENGTH temp matches 32.. run function ARG(_PATH)32
-				execute if score #HP_LENGTH temp matches 16.. run function ARG(_PATH)16
-				execute if score #HP_LENGTH temp matches 8.. run function ARG(_PATH)8
-				execute if score #HP_LENGTH temp matches 4.. run function ARG(_PATH)4
-				execute if score #HP_LENGTH temp matches 2.. run function ARG(_PATH)2
-				execute if score #HP_LENGTH temp matches 1.. run function ARG(_PATH)1
+				execute if score #HP_LENGTH temp matches ..11 run function ARG(_PATH)search/0_11
+				execute if score #HP_LENGTH temp matches 12..23 run function ARG(_PATH)search/12_23
+				execute if score #HP_LENGTH temp matches 24..35 run function ARG(_PATH)search/24_35
+				execute if score #HP_LENGTH temp matches 36.. run function ARG(_PATH)search/36_46
 				
 				# 不顯示純刷新為2
 				execute if score #SILENT_UPDATE_HP temp matches 1 unless score @s show_hp_time matches 1.. run scoreboard players set #SILENT_UPDATE_HP temp 2
 
 				# 透過顏色控制 shader 調整顯示高度
 				data modify storage bar:main mob_hp_color set from entity @s ArmorItems[3].tag.hp_offset_color
-				data modify block 250 0 0 Text1 set value '[{"nbt":"mob_hp_color","storage":"bar:main","interpret":true},{"text":"985","font":"space:default"},{"text":"0","font":"ui:mob_hp"},{"text":"A92","font":"space:default"},{"nbt":"mob_hp[]","storage":"bar:main","font":"ui:mob_hp","interpret":true},{"nbt":"mob_hp_back","storage":"bar:main","font":"space:default","interpret":true},{"text":"\\uF829\\uF825","font":"space:default"}]'
+				data modify block 250 0 0 Text1 set value '[{"nbt":"mob_hp_color","storage":"bar:main","interpret":true},{"text":"FF","font":"space:default"},{"nbt":"mob_hp","storage":"bar:main","font":"ui:mob_hp"},{"text":"FF","font":"space:default"}]'
 				execute unless score #SILENT_UPDATE_HP temp matches 2 run data modify entity @s CustomName set from block 250 0 0 Text1
 				data modify entity @s ArmorItems[3].tag.health_bar set from block 250 0 0 Text1
 				
@@ -3113,45 +3109,130 @@ namespace skill()
 				scoreboard players reset @s show_hp_time
 			}
 			
-			func 32()
+			folder search()
 			{
-				data modify storage bar:main mob_hp prepend value '{"text":"6","font":"ui:mob_hp"}'
-				data modify storage bar:main mob_hp_back append value "A"
-				scoreboard players remove #HP_LENGTH temp 32
-			}
-			
-			func 16()
-			{
-				data modify storage bar:main mob_hp prepend value '{"text":"5","font":"ui:mob_hp"}'
-				data modify storage bar:main mob_hp_back append value "9"
-				scoreboard players remove #HP_LENGTH temp 16
-			}
-			
-			func 8()
-			{
-				data modify storage bar:main mob_hp prepend value '{"text":"4","font":"ui:mob_hp"}'
-				data modify storage bar:main mob_hp_back append value "8"
-				scoreboard players remove #HP_LENGTH temp 8
-			}
-			
-			func 4()
-			{
-				data modify storage bar:main mob_hp prepend value '{"text":"3","font":"ui:mob_hp"}'
-				data modify storage bar:main mob_hp_back append value "4"
-				scoreboard players remove #HP_LENGTH temp 4
-			}
-			
-			func 2()
-			{
-				data modify storage bar:main mob_hp prepend value '{"text":"2","font":"ui:mob_hp"}'
-				data modify storage bar:main mob_hp_back append value "2"
-				scoreboard players remove #HP_LENGTH temp 2
-			}
-			
-			func 1()
-			{
-				data modify storage bar:main mob_hp prepend value '{"text":"1","font":"ui:mob_hp"}'
-				data modify storage bar:main mob_hp_back append value "1"
+				func 0_11()
+				{
+					execute if score #HP_LENGTH temp matches ..3 run function ARG(_PATH)0_3
+					execute if score #HP_LENGTH temp matches 4..7 run function ARG(_PATH)4_7
+					execute if score #HP_LENGTH temp matches 8.. run function ARG(_PATH)8_11
+				}
+				
+				func 12_23()
+				{
+					execute if score #HP_LENGTH temp matches ..15 run function ARG(_PATH)12_15
+					execute if score #HP_LENGTH temp matches 16..19 run function ARG(_PATH)16_19
+					execute if score #HP_LENGTH temp matches 20.. run function ARG(_PATH)20_23
+				}
+				
+				func 24_35()
+				{
+					execute if score #HP_LENGTH temp matches ..27 run function ARG(_PATH)24_27
+					execute if score #HP_LENGTH temp matches 28..31 run function ARG(_PATH)28_31
+					execute if score #HP_LENGTH temp matches 32.. run function ARG(_PATH)32_35
+				}
+				
+				func 36_46()
+				{
+					execute if score #HP_LENGTH temp matches ..39 run function ARG(_PATH)36_39
+					execute if score #HP_LENGTH temp matches 40..43 run function ARG(_PATH)40_43
+					execute if score #HP_LENGTH temp matches 44.. run function ARG(_PATH)44_46
+				}
+				
+				func 0_3()
+				{
+					execute if score #HP_LENGTH temp matches 0 run data modify storage bar:main mob_hp set value "0"
+					execute if score #HP_LENGTH temp matches 1 run data modify storage bar:main mob_hp set value "1"
+					execute if score #HP_LENGTH temp matches 2 run data modify storage bar:main mob_hp set value "2"
+					execute if score #HP_LENGTH temp matches 3 run data modify storage bar:main mob_hp set value "3"
+				}
+				
+				func 4_7()
+				{
+					execute if score #HP_LENGTH temp matches 4 run data modify storage bar:main mob_hp set value "4"
+					execute if score #HP_LENGTH temp matches 5 run data modify storage bar:main mob_hp set value "5"
+					execute if score #HP_LENGTH temp matches 6 run data modify storage bar:main mob_hp set value "6"
+					execute if score #HP_LENGTH temp matches 7 run data modify storage bar:main mob_hp set value "7"
+				}
+				
+				func 8_11()
+				{
+					execute if score #HP_LENGTH temp matches 8 run data modify storage bar:main mob_hp set value "8"
+					execute if score #HP_LENGTH temp matches 9 run data modify storage bar:main mob_hp set value "9"
+					execute if score #HP_LENGTH temp matches 10 run data modify storage bar:main mob_hp set value "A"
+					execute if score #HP_LENGTH temp matches 11 run data modify storage bar:main mob_hp set value "B"
+				}
+				
+				func 12_15()
+				{
+					execute if score #HP_LENGTH temp matches 12 run data modify storage bar:main mob_hp set value "C"
+					execute if score #HP_LENGTH temp matches 13 run data modify storage bar:main mob_hp set value "D"
+					execute if score #HP_LENGTH temp matches 14 run data modify storage bar:main mob_hp set value "E"
+					execute if score #HP_LENGTH temp matches 15 run data modify storage bar:main mob_hp set value "F"
+				}
+				
+				func 16_19()
+				{
+					execute if score #HP_LENGTH temp matches 16 run data modify storage bar:main mob_hp set value "G"
+					execute if score #HP_LENGTH temp matches 17 run data modify storage bar:main mob_hp set value "H"
+					execute if score #HP_LENGTH temp matches 18 run data modify storage bar:main mob_hp set value "I"
+					execute if score #HP_LENGTH temp matches 19 run data modify storage bar:main mob_hp set value "J"
+				}
+				
+				func 20_23()
+				{
+					execute if score #HP_LENGTH temp matches 20 run data modify storage bar:main mob_hp set value "K"
+					execute if score #HP_LENGTH temp matches 21 run data modify storage bar:main mob_hp set value "L"
+					execute if score #HP_LENGTH temp matches 22 run data modify storage bar:main mob_hp set value "M"
+					execute if score #HP_LENGTH temp matches 23 run data modify storage bar:main mob_hp set value "N"
+				}
+				
+				func 24_27()
+				{
+					execute if score #HP_LENGTH temp matches 24 run data modify storage bar:main mob_hp set value "O"
+					execute if score #HP_LENGTH temp matches 25 run data modify storage bar:main mob_hp set value "P"
+					execute if score #HP_LENGTH temp matches 26 run data modify storage bar:main mob_hp set value "Q"
+					execute if score #HP_LENGTH temp matches 27 run data modify storage bar:main mob_hp set value "R"
+				}
+				
+				func 28_31()
+				{
+					execute if score #HP_LENGTH temp matches 28 run data modify storage bar:main mob_hp set value "S"
+					execute if score #HP_LENGTH temp matches 29 run data modify storage bar:main mob_hp set value "T"
+					execute if score #HP_LENGTH temp matches 30 run data modify storage bar:main mob_hp set value "U"
+					execute if score #HP_LENGTH temp matches 31 run data modify storage bar:main mob_hp set value "V"
+				}
+				
+				func 32_35()
+				{
+					execute if score #HP_LENGTH temp matches 32 run data modify storage bar:main mob_hp set value "W"
+					execute if score #HP_LENGTH temp matches 33 run data modify storage bar:main mob_hp set value "X"
+					execute if score #HP_LENGTH temp matches 34 run data modify storage bar:main mob_hp set value "Y"
+					execute if score #HP_LENGTH temp matches 35 run data modify storage bar:main mob_hp set value "Z"
+				}
+				
+				func 36_39()
+				{
+					execute if score #HP_LENGTH temp matches 36 run data modify storage bar:main mob_hp set value "a"
+					execute if score #HP_LENGTH temp matches 37 run data modify storage bar:main mob_hp set value "b"
+					execute if score #HP_LENGTH temp matches 38 run data modify storage bar:main mob_hp set value "c"
+					execute if score #HP_LENGTH temp matches 39 run data modify storage bar:main mob_hp set value "d"
+				}
+				
+				func 40_43()
+				{
+					execute if score #HP_LENGTH temp matches 40 run data modify storage bar:main mob_hp set value "e"
+					execute if score #HP_LENGTH temp matches 41 run data modify storage bar:main mob_hp set value "f"
+					execute if score #HP_LENGTH temp matches 42 run data modify storage bar:main mob_hp set value "g"
+					execute if score #HP_LENGTH temp matches 43 run data modify storage bar:main mob_hp set value "h"
+				}
+				
+				func 44_46()
+				{
+					execute if score #HP_LENGTH temp matches 44 run data modify storage bar:main mob_hp set value "i"
+					execute if score #HP_LENGTH temp matches 45 run data modify storage bar:main mob_hp set value "j"
+					execute if score #HP_LENGTH temp matches 46 run data modify storage bar:main mob_hp set value "k"
+				}
 			}
 		}
 		
