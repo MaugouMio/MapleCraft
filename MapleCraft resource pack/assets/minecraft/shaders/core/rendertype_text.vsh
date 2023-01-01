@@ -25,7 +25,7 @@ void main() {
 	vec4 finalColor = Color;
 	// mob hp up lift
 	ivec4 vertexTexel = ivec4(texture(Sampler0, UV0) * 255);
-	if (vertexTexel == ivec4(1,3,5,255) || vertexTexel == ivec4(0,255,0,255) || vertexTexel == ivec4(170,0,0,255)) {
+	if (vertexTexel == ivec4(1,3,5,255)) {
 		mat3 WorldMat = getWorldMat(Light0_Direction, Light1_Direction);
 		// blue color : height == 1 : 0.2
 		offsetPosition += WorldMat * vec3(0.0, Color.b * 51, 0.0);
