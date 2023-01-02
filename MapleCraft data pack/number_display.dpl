@@ -4,26 +4,25 @@ namespace number_display()
 	{	
 		scoreboard objectives add display_number dummy
 		scoreboard objectives add display_num_type dummy
-		# scoreboard objectives add display_delay dummy
 	}
 	
-	# func main()
-	# {
-		# execute as @e[type=item,tag=display_number,scores={display_delay=0..}] run function ARG(_PATH)appear_check
-	# }
+	func main()
+	{
+		execute as @e[type=area_effect_cloud,tag=display_number] run function ARG(_PATH)display_update/run
+	}
 	
 	func show()
 	{
-		summon item ~ ~1 ~ {Tags:["display_number","checked","new"],Item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:1}},NoGravity:1,Invulnerable:1,Age:5980,PickupDelay:-32768,CustomName:'',CustomNameVisible:1,Motion:[0.0,0.03,0.0]}
+		summon area_effect_cloud ~ ~1 ~ {Tags:["display_number","new"],Duration:100,PickupDelay:-32768,CustomName:'',CustomNameVisible:1}
 		execute if score @s display_number matches 0 run function ARG(_PATH)show_miss
 		execute if score @s display_number matches 1.. run function ARG(_PATH)show_number
-		execute as @e[type=item,tag=new,limit=1] run function ARG(_PATH)set_display
+		execute as @e[type=area_effect_cloud,tag=new,limit=1] run function ARG(_PATH)set_display
 	}
 	
 	func show_miss()
 	{
-		execute unless score @s display_num_type matches 2.. run data modify block 250 0 0 Text1 set value '[{"text":"F","font":"space:default"},{"text":"m","font":"number:red"},{"text":"F","font":"space:default"}]'
-		execute if score @s display_num_type matches 2 run data modify block 250 0 0 Text1 set value '[{"text":"F","font":"space:default"},{"text":"m","font":"number:violet"},{"text":"F","font":"space:default"}]'
+		execute unless score @s display_num_type matches 2.. run data modify block 250 0 0 Text1 set value '[{"text":"","color":"#00FF00"},{"text":"F","font":"space:default"},{"text":"m","font":"number:red"},{"text":"F","font":"space:default"}]'
+		execute if score @s display_num_type matches 2 run data modify block 250 0 0 Text1 set value '[{"text":"","color":"#00FF00"},{"text":"F","font":"space:default"},{"text":"m","font":"number:violet"},{"text":"F","font":"space:default"}]'
 	}
 	
 	func show_number()
@@ -33,23 +32,82 @@ namespace number_display()
 		
 		# number:main -> display = [6, num1, 6, num2, 6, num3, ..., num6]
 		# display_num_type = {X: red, 1: crit, 2: violet, 3: blue}
-		execute unless score @s display_num_type matches 1.. run data modify block 250 0 0 Text1 set value '["",{"text":"F","font":"space:default"},{"nbt":"display[1]","storage":"number:main","font":"number:red_head"},{"nbt":"display[2]","storage":"number:main","font":"space:default"},{"nbt":"display[3]","storage":"number:main","font":"number:red_lower"},{"nbt":"display[4]","storage":"number:main","font":"space:default"},{"nbt":"display[5]","storage":"number:main","font":"number:red"},{"nbt":"display[6]","storage":"number:main","font":"space:default"},{"nbt":"display[7]","storage":"number:main","font":"number:red_lower"},{"nbt":"display[8]","storage":"number:main","font":"space:default"},{"nbt":"display[9]","storage":"number:main","font":"number:red"},{"nbt":"display[10]","storage":"number:main","font":"space:default"},{"nbt":"display[11]","storage":"number:main","font":"number:red"},{"text":"F","font":"space:default"}]'
-		execute if score @s display_num_type matches 1 run data modify block 250 0 0 Text1 set value '["",{"text":"F","font":"space:default"},{"text":"-","font":"number:crit_head"},{"text":"9","font":"space:default"},{"nbt":"display[1]","storage":"number:main","font":"number:crit_head"},{"nbt":"display[2]","storage":"number:main","font":"space:default"},{"nbt":"display[3]","storage":"number:main","font":"number:crit_lower"},{"nbt":"display[4]","storage":"number:main","font":"space:default"},{"nbt":"display[5]","storage":"number:main","font":"number:crit"},{"nbt":"display[6]","storage":"number:main","font":"space:default"},{"nbt":"display[7]","storage":"number:main","font":"number:crit_lower"},{"nbt":"display[8]","storage":"number:main","font":"space:default"},{"nbt":"display[9]","storage":"number:main","font":"number:crit"},{"nbt":"display[10]","storage":"number:main","font":"space:default"},{"nbt":"display[11]","storage":"number:main","font":"number:crit"},{"text":"F","font":"space:default"}]'
-		execute if score @s display_num_type matches 2 run data modify block 250 0 0 Text1 set value '["",{"text":"F","font":"space:default"},{"nbt":"display[1]","storage":"number:main","font":"number:violet_head"},{"nbt":"display[2]","storage":"number:main","font":"space:default"},{"nbt":"display[3]","storage":"number:main","font":"number:violet_lower"},{"nbt":"display[4]","storage":"number:main","font":"space:default"},{"nbt":"display[5]","storage":"number:main","font":"number:violet"},{"nbt":"display[6]","storage":"number:main","font":"space:default"},{"nbt":"display[7]","storage":"number:main","font":"number:violet_lower"},{"nbt":"display[8]","storage":"number:main","font":"space:default"},{"nbt":"display[9]","storage":"number:main","font":"number:violet"},{"text":"F","font":"space:default"}]'
-		execute if score @s display_num_type matches 3 run data modify block 250 0 0 Text1 set value '["",{"text":"F","font":"space:default"},{"nbt":"display[1]","storage":"number:main","font":"number:blue_head"},{"nbt":"display[2]","storage":"number:main","font":"space:default"},{"nbt":"display[3]","storage":"number:main","font":"number:blue_lower"},{"nbt":"display[4]","storage":"number:main","font":"space:default"},{"nbt":"display[5]","storage":"number:main","font":"number:blue"},{"nbt":"display[6]","storage":"number:main","font":"space:default"},{"nbt":"display[7]","storage":"number:main","font":"number:blue_lower"},{"nbt":"display[8]","storage":"number:main","font":"space:default"},{"nbt":"display[9]","storage":"number:main","font":"number:blue"},{"text":"F","font":"space:default"}]'
+		execute unless score @s display_num_type matches 1.. run data modify block 250 0 0 Text1 set value '[{"text":"","color":"#00FF00"},{"text":"F","font":"space:default"},{"nbt":"display[1]","storage":"number:main","font":"number:red_head"},{"nbt":"display[2]","storage":"number:main","font":"space:default"},{"nbt":"display[3]","storage":"number:main","font":"number:red_lower"},{"nbt":"display[4]","storage":"number:main","font":"space:default"},{"nbt":"display[5]","storage":"number:main","font":"number:red"},{"nbt":"display[6]","storage":"number:main","font":"space:default"},{"nbt":"display[7]","storage":"number:main","font":"number:red_lower"},{"nbt":"display[8]","storage":"number:main","font":"space:default"},{"nbt":"display[9]","storage":"number:main","font":"number:red"},{"nbt":"display[10]","storage":"number:main","font":"space:default"},{"nbt":"display[11]","storage":"number:main","font":"number:red"},{"text":"F","font":"space:default"}]'
+		execute if score @s display_num_type matches 1 run data modify block 250 0 0 Text1 set value '[{"text":"","color":"#00FF00"},{"text":"F","font":"space:default"},{"text":"-","font":"number:crit_head"},{"text":"9","font":"space:default"},{"nbt":"display[1]","storage":"number:main","font":"number:crit_head"},{"nbt":"display[2]","storage":"number:main","font":"space:default"},{"nbt":"display[3]","storage":"number:main","font":"number:crit_lower"},{"nbt":"display[4]","storage":"number:main","font":"space:default"},{"nbt":"display[5]","storage":"number:main","font":"number:crit"},{"nbt":"display[6]","storage":"number:main","font":"space:default"},{"nbt":"display[7]","storage":"number:main","font":"number:crit_lower"},{"nbt":"display[8]","storage":"number:main","font":"space:default"},{"nbt":"display[9]","storage":"number:main","font":"number:crit"},{"nbt":"display[10]","storage":"number:main","font":"space:default"},{"nbt":"display[11]","storage":"number:main","font":"number:crit"},{"text":"F","font":"space:default"}]'
+		execute if score @s display_num_type matches 2 run data modify block 250 0 0 Text1 set value '[{"text":"","color":"#00FF00"},{"text":"F","font":"space:default"},{"nbt":"display[1]","storage":"number:main","font":"number:violet_head"},{"nbt":"display[2]","storage":"number:main","font":"space:default"},{"nbt":"display[3]","storage":"number:main","font":"number:violet_lower"},{"nbt":"display[4]","storage":"number:main","font":"space:default"},{"nbt":"display[5]","storage":"number:main","font":"number:violet"},{"nbt":"display[6]","storage":"number:main","font":"space:default"},{"nbt":"display[7]","storage":"number:main","font":"number:violet_lower"},{"nbt":"display[8]","storage":"number:main","font":"space:default"},{"nbt":"display[9]","storage":"number:main","font":"number:violet"},{"text":"F","font":"space:default"}]'
+		execute if score @s display_num_type matches 3 run data modify block 250 0 0 Text1 set value '[{"text":"","color":"#00FF00"},{"text":"F","font":"space:default"},{"nbt":"display[1]","storage":"number:main","font":"number:blue_head"},{"nbt":"display[2]","storage":"number:main","font":"space:default"},{"nbt":"display[3]","storage":"number:main","font":"number:blue_lower"},{"nbt":"display[4]","storage":"number:main","font":"space:default"},{"nbt":"display[5]","storage":"number:main","font":"number:blue"},{"nbt":"display[6]","storage":"number:main","font":"space:default"},{"nbt":"display[7]","storage":"number:main","font":"number:blue_lower"},{"nbt":"display[8]","storage":"number:main","font":"space:default"},{"nbt":"display[9]","storage":"number:main","font":"number:blue"},{"text":"F","font":"space:default"}]'
 	}
 	
-	# func appear_check()
-	# {
-		# scoreboard players remove @s display_delay 1
-		# execute if score @s display_delay matches -1 run function ARG(_PATH)appear
-	# }
-	
-	# func appear()
-	# {
-		# data merge entity @s {CustomNameVisible:1,Motion:[0.0,0.03,0.0],Age:5980}
-		# scoreboard players reset @s display_delay
-	# }
+	folder display_update()
+	{
+		func run()
+		{
+			scoreboard players add @s life 1
+			execute if score @s life matches ..19 run function ARG(_PATH)update
+			
+			execute if score @s life matches 20 run kill @s
+		}
+		
+		func update()
+		{
+			data modify storage number:main update set from entity @s CustomName
+			
+			execute if score @s life matches ..10 run function ARG(_PATH)search/1_10
+			execute if score @s life matches 11.. run function ARG(_PATH)search/11_19
+			
+			data modify entity @s CustomName set from block 250 0 0 Text1
+		}
+		
+		folder search()
+		{
+			func 1_10()
+			{
+				execute if score @s life matches ..5 run function ARG(_PATH)1_5
+				execute if score @s life matches 6.. run function ARG(_PATH)6_10
+			}
+			
+			func 11_19()
+			{
+				execute if score @s life matches ..15 run function ARG(_PATH)11_15
+				execute if score @s life matches 16.. run function ARG(_PATH)16_19
+			}
+			
+			func 1_5()
+			{
+				execute if score @s life matches 1 run data modify block 250 0 0 Text1 set value '{"nbt":"update","storage":"number:main","interpret":true,"color":"#00FF00"}'
+				execute if score @s life matches 2 run data modify block 250 0 0 Text1 set value '{"nbt":"update","storage":"number:main","interpret":true,"color":"#00FF01"}'
+				execute if score @s life matches 3 run data modify block 250 0 0 Text1 set value '{"nbt":"update","storage":"number:main","interpret":true,"color":"#00FF02"}'
+				execute if score @s life matches 4 run data modify block 250 0 0 Text1 set value '{"nbt":"update","storage":"number:main","interpret":true,"color":"#00FF03"}'
+				execute if score @s life matches 5 run data modify block 250 0 0 Text1 set value '{"nbt":"update","storage":"number:main","interpret":true,"color":"#00FF04"}'
+			}
+			
+			func 6_10()
+			{
+				execute if score @s life matches 6 run data modify block 250 0 0 Text1 set value '{"nbt":"update","storage":"number:main","interpret":true,"color":"#00FF05"}'
+				execute if score @s life matches 7 run data modify block 250 0 0 Text1 set value '{"nbt":"update","storage":"number:main","interpret":true,"color":"#00EC06"}'
+				execute if score @s life matches 8 run data modify block 250 0 0 Text1 set value '{"nbt":"update","storage":"number:main","interpret":true,"color":"#00D907"}'
+				execute if score @s life matches 9 run data modify block 250 0 0 Text1 set value '{"nbt":"update","storage":"number:main","interpret":true,"color":"#00C608"}'
+				execute if score @s life matches 10 run data modify block 250 0 0 Text1 set value '{"nbt":"update","storage":"number:main","interpret":true,"color":"#00B309"}'
+			}
+			
+			func 11_15()
+			{
+				execute if score @s life matches 11 run data modify block 250 0 0 Text1 set value '{"nbt":"update","storage":"number:main","interpret":true,"color":"#00A00A"}'
+				execute if score @s life matches 12 run data modify block 250 0 0 Text1 set value '{"nbt":"update","storage":"number:main","interpret":true,"color":"#008D0B"}'
+				execute if score @s life matches 13 run data modify block 250 0 0 Text1 set value '{"nbt":"update","storage":"number:main","interpret":true,"color":"#007A0C"}'
+				execute if score @s life matches 14 run data modify block 250 0 0 Text1 set value '{"nbt":"update","storage":"number:main","interpret":true,"color":"#00670D"}'
+				execute if score @s life matches 15 run data modify block 250 0 0 Text1 set value '{"nbt":"update","storage":"number:main","interpret":true,"color":"#00540E"}'
+			}
+			
+			func 16_19()
+			{
+				execute if score @s life matches 16 run data modify block 250 0 0 Text1 set value '{"nbt":"update","storage":"number:main","interpret":true,"color":"#00410F"}'
+				execute if score @s life matches 17 run data modify block 250 0 0 Text1 set value '{"nbt":"update","storage":"number:main","interpret":true,"color":"#002E10"}'
+				execute if score @s life matches 18 run data modify block 250 0 0 Text1 set value '{"nbt":"update","storage":"number:main","interpret":true,"color":"#001B11"}'
+				execute if score @s life matches 19 run data modify block 250 0 0 Text1 set value '{"nbt":"update","storage":"number:main","interpret":true,"color":"#000812"}'
+			}
+		}
+	}
 	
 	func insert_digit()
 	{
@@ -69,8 +127,6 @@ namespace number_display()
 	func set_display()
 	{
 		data modify entity @s CustomName set from block 250 0 0 Text1
-		# scoreboard players operation @s display_delay = #GLOBAL display_delay
-		# scoreboard players set #GLOBAL display_delay 0
 		
 		tag @s remove new
 	}

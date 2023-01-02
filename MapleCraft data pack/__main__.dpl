@@ -193,7 +193,7 @@ namespace main()
 		execute as @a at @s if block ~ ~ ~ minecraft:scaffolding run function ARG(_PATH)rope/check
 		
 		function skill:main/run
-		# function number_display:main
+		function number_display:main
 		function bar_display:main
 		function item:main
 		function mob:main

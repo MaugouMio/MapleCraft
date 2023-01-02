@@ -31,6 +31,14 @@ void main() {
 		offsetPosition += WorldMat * vec3(0.0, Color.b * 51, 0.0);
 		finalColor = vec4(1.0);
 	}
+	// damage number float and fade out
+	else if (vertexTexel == ivec4(1,2,3,3)) {
+		mat3 WorldMat = getWorldMat(Light0_Direction, Light1_Direction);
+		// blue color : height == 1 : 0.03
+		offsetPosition += WorldMat * vec3(0.0, Color.b * 7.65, 0.0);
+		// green color equals alpha
+		finalColor = vec4(1.0, 1.0, 1.0, Color.g);
+	}
 	
 	mat4 FixProjMat = fixProjMat(ProjMat);
 	gl_Position = FixProjMat * ModelViewMat * vec4(offsetPosition, 1.0);

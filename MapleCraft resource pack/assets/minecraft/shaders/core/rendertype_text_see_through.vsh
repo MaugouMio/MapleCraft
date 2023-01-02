@@ -20,7 +20,7 @@ void main() {
 
 	// mob hp shadow
 	ivec4 vertexTexel = ivec4(texture(Sampler0, UV0) * 255);
-	if (vertexTexel == ivec4(1,3,5,255))
+	if (vertexTexel == ivec4(1,3,5,255) || vertexTexel == ivec4(1,2,3,3))
 		vertexColor = vec4(0.0);
 	else
 		vertexColor = Color;
