@@ -30,8 +30,6 @@ namespace bar_display()
 		scoreboard objectives add damage_taken minecraft.custom:minecraft.damage_absorbed
 		scoreboard objectives add attacker_level dummy
 		scoreboard objectives add attacker_acc dummy
-		
-		summon marker 250 0 0 {UUID:[I;0,4,0,4]}
 	}
 	
 	func main()
@@ -505,7 +503,7 @@ namespace bar_display()
 				
 				scoreboard players operation #GLOBAL temp = @s target_hp
 				scoreboard players add #GLOBAL temp 1
-				scoreboard players operation #GLOBAL temp *= #23 const
+				scoreboard players operation #GLOBAL temp *= #46 const
 				scoreboard players operation #GLOBAL temp /= #100 const
 				
 				# execute unless score #GLOBAL temp = @s hp_level run function ARG(_PATH)set_display/run
@@ -741,11 +739,6 @@ namespace bar_display()
 	{
 		func run()
 		{
-			execute if entity 00000000-0000-0004-0000-000000000004 run function ARG(_PATH)process
-		}
-
-		func process()
-		{
 			data modify storage bar:main head_pos set value []
 			data modify storage bar:main head set value []
 			
@@ -758,10 +751,7 @@ namespace bar_display()
 		
 		func write_data()
 		{
-			tp 00000000-0000-0004-0000-000000000004 ~ ~1.2 ~
-			data modify storage bar:main head_pos append from entity 00000000-0000-0004-0000-000000000004 Pos
-			tp 00000000-0000-0004-0000-000000000004 250 0 0
-			
+			data modify storage bar:main head_pos append from entity @s Pos
 			data modify storage bar:main head append value 0b
 			execute store result storage bar:main head[-1] byte 1 run scoreboard players get @s hp_level
 		}
@@ -799,50 +789,137 @@ namespace bar_display()
 			func check()
 			{
 				scoreboard players operation @s hp_level = #GLOBAL temp
-				execute if score @s hp_level matches 0..5 run function ARG(_PATH)0_5
-				execute if score @s hp_level matches 6..11 run function ARG(_PATH)6_11
-				execute if score @s hp_level matches 12..17 run function ARG(_PATH)12_17
-				execute if score @s hp_level matches 18..23 run function ARG(_PATH)18_23
+				
+				execute if score @s hp_level matches ..11 run function ARG(_PATH)search/0_11
+				execute if score @s hp_level matches 12..23 run function ARG(_PATH)search/12_23
+				execute if score @s hp_level matches 24..35 run function ARG(_PATH)search/24_35
+				execute if score @s hp_level matches 36.. run function ARG(_PATH)search/36_46
 			}
 			
-			func 0_5()
+			folder search()
 			{
-				execute if score @s hp_level matches 0 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"0","font":"ui:player_hp"},{"text":"FF","font":"space:default"}]'
-				execute if score @s hp_level matches 1 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"1","font":"ui:player_hp"},{"text":"FF","font":"space:default"}]'
-				execute if score @s hp_level matches 2 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"2","font":"ui:player_hp"},{"text":"FF","font":"space:default"}]'
-				execute if score @s hp_level matches 3 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"3","font":"ui:player_hp"},{"text":"FF","font":"space:default"}]'
-				execute if score @s hp_level matches 4 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"4","font":"ui:player_hp"},{"text":"FF","font":"space:default"}]'
-				execute if score @s hp_level matches 5 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"5","font":"ui:player_hp"},{"text":"FF","font":"space:default"}]'
-			}
-			
-			func 6_11()
-			{
-				execute if score @s hp_level matches 6 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"6","font":"ui:player_hp"},{"text":"FF","font":"space:default"}]'
-				execute if score @s hp_level matches 7 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"7","font":"ui:player_hp"},{"text":"FF","font":"space:default"}]'
-				execute if score @s hp_level matches 8 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"8","font":"ui:player_hp"},{"text":"FF","font":"space:default"}]'
-				execute if score @s hp_level matches 9 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"9","font":"ui:player_hp"},{"text":"FF","font":"space:default"}]'
-				execute if score @s hp_level matches 10 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"A","font":"ui:player_hp"},{"text":"FF","font":"space:default"}]'
-				execute if score @s hp_level matches 11 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"B","font":"ui:player_hp"},{"text":"FF","font":"space:default"}]'
-			}
-			
-			func 12_17()
-			{
-				execute if score @s hp_level matches 12 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"C","font":"ui:player_hp"},{"text":"FF","font":"space:default"}]'
-				execute if score @s hp_level matches 13 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"D","font":"ui:player_hp"},{"text":"FF","font":"space:default"}]'
-				execute if score @s hp_level matches 14 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"E","font":"ui:player_hp"},{"text":"FF","font":"space:default"}]'
-				execute if score @s hp_level matches 15 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"F","font":"ui:player_hp"},{"text":"FF","font":"space:default"}]'
-				execute if score @s hp_level matches 16 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"G","font":"ui:player_hp"},{"text":"FF","font":"space:default"}]'
-				execute if score @s hp_level matches 17 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"H","font":"ui:player_hp"},{"text":"FF","font":"space:default"}]'
-			}
-			
-			func 18_23()
-			{
-				execute if score @s hp_level matches 18 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"I","font":"ui:player_hp"},{"text":"FF","font":"space:default"}]'
-				execute if score @s hp_level matches 19 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"J","font":"ui:player_hp"},{"text":"FF","font":"space:default"}]'
-				execute if score @s hp_level matches 20 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"K","font":"ui:player_hp"},{"text":"FF","font":"space:default"}]'
-				execute if score @s hp_level matches 21 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"L","font":"ui:player_hp"},{"text":"FF","font":"space:default"}]'
-				execute if score @s hp_level matches 22 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"M","font":"ui:player_hp"},{"text":"FF","font":"space:default"}]'
-				execute if score @s hp_level matches 23 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"N","font":"ui:player_hp"},{"text":"FF","font":"space:default"}]'
+				func 0_11()
+				{
+					execute if score @s hp_level matches ..3 run function ARG(_PATH)0_3
+					execute if score @s hp_level matches 4..7 run function ARG(_PATH)4_7
+					execute if score @s hp_level matches 8.. run function ARG(_PATH)8_11
+				}
+				
+				func 12_23()
+				{
+					execute if score @s hp_level matches ..15 run function ARG(_PATH)12_15
+					execute if score @s hp_level matches 16..19 run function ARG(_PATH)16_19
+					execute if score @s hp_level matches 20.. run function ARG(_PATH)20_23
+				}
+				
+				func 24_35()
+				{
+					execute if score @s hp_level matches ..27 run function ARG(_PATH)24_27
+					execute if score @s hp_level matches 28..31 run function ARG(_PATH)28_31
+					execute if score @s hp_level matches 32.. run function ARG(_PATH)32_35
+				}
+				
+				func 36_46()
+				{
+					execute if score @s hp_level matches ..39 run function ARG(_PATH)36_39
+					execute if score @s hp_level matches 40..43 run function ARG(_PATH)40_43
+					execute if score @s hp_level matches 44.. run function ARG(_PATH)44_46
+				}
+				
+				func 0_3()
+				{
+					execute if score @s hp_level matches 0 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"0","font":"ui:player_hp","color":"#000005"},{"text":"FF","font":"space:default"}]'
+					execute if score @s hp_level matches 1 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"1","font":"ui:player_hp","color":"#000005"},{"text":"FF","font":"space:default"}]'
+					execute if score @s hp_level matches 2 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"2","font":"ui:player_hp","color":"#000005"},{"text":"FF","font":"space:default"}]'
+					execute if score @s hp_level matches 3 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"3","font":"ui:player_hp","color":"#000005"},{"text":"FF","font":"space:default"}]'
+				}
+				
+				func 4_7()
+				{
+					execute if score @s hp_level matches 4 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"4","font":"ui:player_hp","color":"#000005"},{"text":"FF","font":"space:default"}]'
+					execute if score @s hp_level matches 5 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"5","font":"ui:player_hp","color":"#000005"},{"text":"FF","font":"space:default"}]'
+					execute if score @s hp_level matches 6 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"6","font":"ui:player_hp","color":"#000005"},{"text":"FF","font":"space:default"}]'
+					execute if score @s hp_level matches 7 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"7","font":"ui:player_hp","color":"#000005"},{"text":"FF","font":"space:default"}]'
+				}
+				
+				func 8_11()
+				{
+					execute if score @s hp_level matches 8 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"8","font":"ui:player_hp","color":"#000005"},{"text":"FF","font":"space:default"}]'
+					execute if score @s hp_level matches 9 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"9","font":"ui:player_hp","color":"#000005"},{"text":"FF","font":"space:default"}]'
+					execute if score @s hp_level matches 10 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"A","font":"ui:player_hp","color":"#000005"},{"text":"FF","font":"space:default"}]'
+					execute if score @s hp_level matches 11 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"B","font":"ui:player_hp","color":"#000005"},{"text":"FF","font":"space:default"}]'
+				}
+				
+				func 12_15()
+				{
+					execute if score @s hp_level matches 12 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"C","font":"ui:player_hp","color":"#000005"},{"text":"FF","font":"space:default"}]'
+					execute if score @s hp_level matches 13 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"D","font":"ui:player_hp","color":"#000005"},{"text":"FF","font":"space:default"}]'
+					execute if score @s hp_level matches 14 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"E","font":"ui:player_hp","color":"#000005"},{"text":"FF","font":"space:default"}]'
+					execute if score @s hp_level matches 15 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"F","font":"ui:player_hp","color":"#000005"},{"text":"FF","font":"space:default"}]'
+				}
+				
+				func 16_19()
+				{
+					execute if score @s hp_level matches 16 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"G","font":"ui:player_hp","color":"#000005"},{"text":"FF","font":"space:default"}]'
+					execute if score @s hp_level matches 17 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"H","font":"ui:player_hp","color":"#000005"},{"text":"FF","font":"space:default"}]'
+					execute if score @s hp_level matches 18 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"I","font":"ui:player_hp","color":"#000005"},{"text":"FF","font":"space:default"}]'
+					execute if score @s hp_level matches 19 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"J","font":"ui:player_hp","color":"#000005"},{"text":"FF","font":"space:default"}]'
+				}
+				
+				func 20_23()
+				{
+					execute if score @s hp_level matches 20 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"K","font":"ui:player_hp","color":"#000005"},{"text":"FF","font":"space:default"}]'
+					execute if score @s hp_level matches 21 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"L","font":"ui:player_hp","color":"#000005"},{"text":"FF","font":"space:default"}]'
+					execute if score @s hp_level matches 22 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"M","font":"ui:player_hp","color":"#000005"},{"text":"FF","font":"space:default"}]'
+					execute if score @s hp_level matches 23 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"N","font":"ui:player_hp","color":"#000005"},{"text":"FF","font":"space:default"}]'
+				}
+				
+				func 24_27()
+				{
+					execute if score @s hp_level matches 24 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"O","font":"ui:player_hp","color":"#000005"},{"text":"FF","font":"space:default"}]'
+					execute if score @s hp_level matches 25 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"P","font":"ui:player_hp","color":"#000005"},{"text":"FF","font":"space:default"}]'
+					execute if score @s hp_level matches 26 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"Q","font":"ui:player_hp","color":"#000005"},{"text":"FF","font":"space:default"}]'
+					execute if score @s hp_level matches 27 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"R","font":"ui:player_hp","color":"#000005"},{"text":"FF","font":"space:default"}]'
+				}
+				
+				func 28_31()
+				{
+					execute if score @s hp_level matches 28 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"S","font":"ui:player_hp","color":"#000005"},{"text":"FF","font":"space:default"}]'
+					execute if score @s hp_level matches 29 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"T","font":"ui:player_hp","color":"#000005"},{"text":"FF","font":"space:default"}]'
+					execute if score @s hp_level matches 30 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"U","font":"ui:player_hp","color":"#000005"},{"text":"FF","font":"space:default"}]'
+					execute if score @s hp_level matches 31 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"V","font":"ui:player_hp","color":"#000005"},{"text":"FF","font":"space:default"}]'
+				}
+				
+				func 32_35()
+				{
+					execute if score @s hp_level matches 32 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"W","font":"ui:player_hp","color":"#000005"},{"text":"FF","font":"space:default"}]'
+					execute if score @s hp_level matches 33 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"X","font":"ui:player_hp","color":"#000005"},{"text":"FF","font":"space:default"}]'
+					execute if score @s hp_level matches 34 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"Y","font":"ui:player_hp","color":"#000005"},{"text":"FF","font":"space:default"}]'
+					execute if score @s hp_level matches 35 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"Z","font":"ui:player_hp","color":"#000005"},{"text":"FF","font":"space:default"}]'
+				}
+				
+				func 36_39()
+				{
+					execute if score @s hp_level matches 36 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"a","font":"ui:player_hp","color":"#000005"},{"text":"FF","font":"space:default"}]'
+					execute if score @s hp_level matches 37 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"b","font":"ui:player_hp","color":"#000005"},{"text":"FF","font":"space:default"}]'
+					execute if score @s hp_level matches 38 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"c","font":"ui:player_hp","color":"#000005"},{"text":"FF","font":"space:default"}]'
+					execute if score @s hp_level matches 39 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"d","font":"ui:player_hp","color":"#000005"},{"text":"FF","font":"space:default"}]'
+				}
+				
+				func 40_43()
+				{
+					execute if score @s hp_level matches 40 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"e","font":"ui:player_hp","color":"#000005"},{"text":"FF","font":"space:default"}]'
+					execute if score @s hp_level matches 41 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"f","font":"ui:player_hp","color":"#000005"},{"text":"FF","font":"space:default"}]'
+					execute if score @s hp_level matches 42 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"g","font":"ui:player_hp","color":"#000005"},{"text":"FF","font":"space:default"}]'
+					execute if score @s hp_level matches 43 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"h","font":"ui:player_hp","color":"#000005"},{"text":"FF","font":"space:default"}]'
+				}
+				
+				func 44_46()
+				{
+					execute if score @s hp_level matches 44 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"i","font":"ui:player_hp","color":"#000005"},{"text":"FF","font":"space:default"}]'
+					execute if score @s hp_level matches 45 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"j","font":"ui:player_hp","color":"#000005"},{"text":"FF","font":"space:default"}]'
+					execute if score @s hp_level matches 46 run data modify entity @s CustomName set value '[{"text":"FF","font":"space:default"},{"text":"k","font":"ui:player_hp","color":"#000005"},{"text":"FF","font":"space:default"}]'
+				}
 			}
 		}
 		
