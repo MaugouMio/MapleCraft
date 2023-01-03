@@ -16,6 +16,8 @@ uniform mat4 ProjMat;
 uniform vec3 Light0_Direction;
 uniform vec3 Light1_Direction;
 
+uniform float GameTime;
+
 out float vertexDistance;
 out vec4 vertexColor;
 out vec2 texCoord0;
@@ -34,10 +36,17 @@ void main() {
 	// damage number float and fade out
 	else if (vertexTexel == ivec4(1,2,3,3)) {
 		mat3 WorldMat = getWorldMat(Light0_Direction, Light1_Direction);
-		// blue color : height == 1 : 0.03
-		offsetPosition += WorldMat * vec3(0.0, Color.b * 7.65, 0.0);
-		// green color equals alpha
-		finalColor = vec4(1.0, 1.0, 1.0, Color.g);
+		
+		float tickOffset = Color.b * 255;
+		float tick = mod(mod(GameTime * 24000, 20.0) + 21.0 - tickOffset, 20.0);
+		// 0.025 block per tick
+		offsetPosition += WorldMat * vec3(0.0, tick * 0.025, 0.0);
+		if (tick > 7.0)
+			finalColor = vec4(1.0, 1.0, 1.0, (20.0 - tick) / 13.0);
+		else if (tick < 1.0)
+			finalColor = vec4(0.0);
+		else
+			finalColor = vec4(1.0);
 	}
 	
 	mat4 FixProjMat = fixProjMat(ProjMat);

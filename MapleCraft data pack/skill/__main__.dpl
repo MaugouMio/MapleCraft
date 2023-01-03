@@ -4561,7 +4561,7 @@ namespace skill()
 	{
 		scoreboard players remove #NUMBER_HEIGHT temp 1
 		execute if score #NUMBER_HEIGHT temp matches -1 run function number_display:show
-		execute if score #NUMBER_HEIGHT temp matches 0.. positioned ~ ~0.4 ~ run function ARG(_PATH)show_num_at_height
+		execute if score #NUMBER_HEIGHT temp matches 0.. positioned ~ ~0.33 ~ run function ARG(_PATH)show_num_at_height
 	}
 	
 	folder sync_knockback()
