@@ -45,24 +45,24 @@ namespace number_display()
 		{
 			execute store result score #GLOBAL temp run time query gametime
 			scoreboard players operation #GLOBAL temp %= #24000 const
-			scoreboard players operation #GLOBAL temp %= #20 const
+			scoreboard players operation #GLOBAL temp %= #22 const
 			
-			execute if score #GLOBAL temp matches ..9 run function ARG(_PATH)search/0_9
-			execute if score #GLOBAL temp matches 10.. run function ARG(_PATH)search/10_19
+			execute if score #GLOBAL temp matches ..10 run function ARG(_PATH)search/0_10
+			execute if score #GLOBAL temp matches 11.. run function ARG(_PATH)search/11_21
 		}
 		
 		folder search()
 		{
-			func 0_9()
+			func 0_10()
 			{
 				execute if score #GLOBAL temp matches ..4 run function ARG(_PATH)0_4
-				execute if score #GLOBAL temp matches 5.. run function ARG(_PATH)5_9
+				execute if score #GLOBAL temp matches 5.. run function ARG(_PATH)5_10
 			}
 			
-			func 10_19()
+			func 11_21()
 			{
-				execute if score #GLOBAL temp matches ..14 run function ARG(_PATH)10_14
-				execute if score #GLOBAL temp matches 15.. run function ARG(_PATH)15_19
+				execute if score #GLOBAL temp matches ..15 run function ARG(_PATH)11_15
+				execute if score #GLOBAL temp matches 16.. run function ARG(_PATH)16_21
 			}
 			
 			func 0_4()
@@ -74,31 +74,33 @@ namespace number_display()
 				execute if score #GLOBAL temp matches 4 run data modify block 250 0 0 Text2 set value '{"nbt":"Text1","block":"250 0 0","interpret":true,"color":"#000004"}'
 			}
 			
-			func 5_9()
+			func 5_10()
 			{
 				execute if score #GLOBAL temp matches 5 run data modify block 250 0 0 Text2 set value '{"nbt":"Text1","block":"250 0 0","interpret":true,"color":"#000005"}'
 				execute if score #GLOBAL temp matches 6 run data modify block 250 0 0 Text2 set value '{"nbt":"Text1","block":"250 0 0","interpret":true,"color":"#000006"}'
 				execute if score #GLOBAL temp matches 7 run data modify block 250 0 0 Text2 set value '{"nbt":"Text1","block":"250 0 0","interpret":true,"color":"#000007"}'
 				execute if score #GLOBAL temp matches 8 run data modify block 250 0 0 Text2 set value '{"nbt":"Text1","block":"250 0 0","interpret":true,"color":"#000008"}'
 				execute if score #GLOBAL temp matches 9 run data modify block 250 0 0 Text2 set value '{"nbt":"Text1","block":"250 0 0","interpret":true,"color":"#000009"}'
+				execute if score #GLOBAL temp matches 10 run data modify block 250 0 0 Text2 set value '{"nbt":"Text1","block":"250 0 0","interpret":true,"color":"#00000A"}'
 			}
 			
-			func 10_14()
+			func 11_15()
 			{
-				execute if score #GLOBAL temp matches 10 run data modify block 250 0 0 Text2 set value '{"nbt":"Text1","block":"250 0 0","interpret":true,"color":"#00000A"}'
 				execute if score #GLOBAL temp matches 11 run data modify block 250 0 0 Text2 set value '{"nbt":"Text1","block":"250 0 0","interpret":true,"color":"#00000B"}'
 				execute if score #GLOBAL temp matches 12 run data modify block 250 0 0 Text2 set value '{"nbt":"Text1","block":"250 0 0","interpret":true,"color":"#00000C"}'
 				execute if score #GLOBAL temp matches 13 run data modify block 250 0 0 Text2 set value '{"nbt":"Text1","block":"250 0 0","interpret":true,"color":"#00000D"}'
 				execute if score #GLOBAL temp matches 14 run data modify block 250 0 0 Text2 set value '{"nbt":"Text1","block":"250 0 0","interpret":true,"color":"#00000E"}'
+				execute if score #GLOBAL temp matches 15 run data modify block 250 0 0 Text2 set value '{"nbt":"Text1","block":"250 0 0","interpret":true,"color":"#00000F"}'
 			}
 			
-			func 15_19()
+			func 16_21()
 			{
-				execute if score #GLOBAL temp matches 15 run data modify block 250 0 0 Text2 set value '{"nbt":"Text1","block":"250 0 0","interpret":true,"color":"#00000F"}'
 				execute if score #GLOBAL temp matches 16 run data modify block 250 0 0 Text2 set value '{"nbt":"Text1","block":"250 0 0","interpret":true,"color":"#000010"}'
 				execute if score #GLOBAL temp matches 17 run data modify block 250 0 0 Text2 set value '{"nbt":"Text1","block":"250 0 0","interpret":true,"color":"#000011"}'
 				execute if score #GLOBAL temp matches 18 run data modify block 250 0 0 Text2 set value '{"nbt":"Text1","block":"250 0 0","interpret":true,"color":"#000012"}'
 				execute if score #GLOBAL temp matches 19 run data modify block 250 0 0 Text2 set value '{"nbt":"Text1","block":"250 0 0","interpret":true,"color":"#000013"}'
+				execute if score #GLOBAL temp matches 20 run data modify block 250 0 0 Text2 set value '{"nbt":"Text1","block":"250 0 0","interpret":true,"color":"#000014"}'
+				execute if score #GLOBAL temp matches 21 run data modify block 250 0 0 Text2 set value '{"nbt":"Text1","block":"250 0 0","interpret":true,"color":"#000015"}'
 			}
 		}
 	}

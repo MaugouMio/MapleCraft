@@ -38,13 +38,13 @@ void main() {
 		mat3 WorldMat = getWorldMat(Light0_Direction, Light1_Direction);
 		
 		float tickOffset = Color.b * 255;
-		float tick = mod(mod(GameTime * 24000, 20.0) + 21.0 - tickOffset, 20.0);
+		float tick = mod(mod(GameTime * 24000, 22.0) + 23.0 - tickOffset, 22.0);
 		// 0.025 block per tick
 		offsetPosition += WorldMat * vec3(0.0, tick * 0.025, 0.0);
-		if (tick > 7.0)
-			finalColor = vec4(1.0, 1.0, 1.0, (20.0 - tick) / 13.0);
-		else if (tick < 1.0)
+		if (tick < 1.0 || tick > 20.0)
 			finalColor = vec4(0.0);
+		else if (tick > 7.0)
+			finalColor = vec4(1.0, 1.0, 1.0, (20.0 - tick) / 13.0);
 		else
 			finalColor = vec4(1.0);
 	}
