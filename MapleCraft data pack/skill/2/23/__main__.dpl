@@ -125,6 +125,7 @@ namespace 23() as virtual
 			
 			func set_numeric()
 			{
+				data modify storage skill:main damage[0].attribute set value 1
 				function skill:damage_formula/heal
 				
 				scoreboard players operation @s mp -= @s 2301002_mp
@@ -174,7 +175,7 @@ namespace 23() as virtual
 				func loop()
 				{
 					scoreboard players remove #DEFAULT_SIZE temp 1
-					execute if score #DEFAULT_SIZE temp matches -1 run function skill:summon_font_effect/2301002hit
+					execute if score #DEFAULT_SIZE temp matches -1 if score @s display_number matches 1.. run function skill:summon_font_effect/2301002hit
 					execute if score #DEFAULT_SIZE temp matches 0.. positioned ~ ~0.4 ~ run function ARG(_PATH)loop
 				}
 			}
