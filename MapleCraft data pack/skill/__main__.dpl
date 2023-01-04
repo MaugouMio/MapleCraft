@@ -747,8 +747,8 @@ namespace skill()
 							func execute()
 							{
 								# simulating sector detection, larger y axis detection on further distance
-								execute if score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-1 ~-1.8 as @e[type=zombie,tag=box,dx=2.6,dy=2.6,dz=2.6] unless score @s status matches 1.. positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)hit_check
-								execute unless score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-0.4 ~-1.8 as @e[type=zombie,tag=box,dx=2.6,dy=1.4,dz=2.6] unless score @s status matches 1.. positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)hit_check
+								execute if score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-1.7 ~-1.8 as @e[type=zombie,tag=box,dx=2.6,dy=3.3,dz=2.6] unless score @s status matches 1.. positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)hit_check
+								execute unless score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-1.1 ~-1.8 as @e[type=zombie,tag=box,dx=2.6,dy=2.1,dz=2.6] unless score @s status matches 1.. positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)hit_check
 								scoreboard players add #CUR_DISTANCE temp 1
 							}
 							
@@ -2036,8 +2036,8 @@ namespace skill()
 			func execute()
 			{
 				# simulating sector detection, larger y axis detection on further distance
-				execute if score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-1 ~-1.8 as @e[type=magma_cube,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=2.6,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
-				execute unless score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-0.4 ~-1.8 as @e[type=magma_cube,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=1.4,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
+				execute if score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-1.7 ~-1.8 as @e[type=magma_cube,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=3.3,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
+				execute unless score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-1.1 ~-1.8 as @e[type=magma_cube,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=2.1,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
 				scoreboard players add #CUR_DISTANCE temp 1
 			}
 			
@@ -2078,8 +2078,8 @@ namespace skill()
 			func execute()
 			{
 				# simulating sector detection, larger y axis detection on further distance
-				execute if score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-1 ~-1.8 as @e[type=magma_cube,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=2.6,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
-				execute unless score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-0.4 ~-1.8 as @e[type=magma_cube,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=1.4,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
+				execute if score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-1.7 ~-1.8 as @e[type=magma_cube,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=3.3,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
+				execute unless score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-1.1 ~-1.8 as @e[type=magma_cube,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=2.1,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
 				scoreboard players add #CUR_DISTANCE temp 1
 			}
 			
@@ -2131,8 +2131,8 @@ namespace skill()
 			func execute()
 			{
 				# simulating sector detection, larger y axis detection on further distance
-				execute if score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-1 ~-1.8 as @e[type=magma_cube,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=2.6,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
-				execute unless score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-0.4 ~-1.8 as @e[type=magma_cube,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=1.4,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
+				execute if score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-1.7 ~-1.8 as @e[type=magma_cube,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=3.3,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
+				execute unless score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-1.1 ~-1.8 as @e[type=magma_cube,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=2.1,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
 				scoreboard players add #CUR_DISTANCE temp 1
 			}
 			
