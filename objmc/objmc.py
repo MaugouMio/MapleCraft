@@ -12,21 +12,28 @@ import tkinter as tk
 import tkinter.scrolledtext as tkst
 import tkinter.filedialog as tkfd
 
+RESOURCE_PATH = "../MapleCraft resource pack/assets/minecraft/"
+MODEL_PATH = RESOURCE_PATH + "models/mob/"
+TEXTURE_PATH = RESOURCE_PATH + "textures/mob/"
+
+with open("settings.json", "r") as f:
+	SETTINGS = json.loads(f.read())
+
 #--------------------------------
 #INPUT
 #--------------------------------
 
 #objs
-objs = ["cube.obj"]
+objs = SETTINGS.get("objs", ["cube.obj"])
 #texture animations not supported yet
-texs = ["cube.png"]
+texs = SETTINGS.get("texs", ["cube.png"])
 
 #array of frame indexes
 #defaults to [0-nframes]
 frames = []
 
 #Output json & png
-output = ["potion.json", "out.png"]
+output = [SETTINGS.get("action", "move"), SETTINGS.get("name", "alishar")]
 
 #Position & Scaling
 # just adds & multiplies vertex positions before encoding, so you dont have to re export the model
@@ -34,11 +41,11 @@ offset = (0.0,0.0,0.0)
 scale = 1.0
 
 #Duration of each frame in ticks
-duration = 20
+duration = 1
 
 #Animation Easing
 # 0: none, 1: linear, 2: in-out cubic, 3: 4-point bezier
-easing = 3
+easing = 1
 
 #Color Behavior
 # defines the behavior of 3 bytes of rgb to rotation and animation frames,
@@ -47,17 +54,17 @@ easing = 3
 # multiple rotation bytes increase accuracy on that axis
 # for 'ttt', autoplay is automatically on. numbers past 8388608 define paused frame to display (suso's idea)
 # auto-play color can be calculated by: ((([time query gametime] % 24000) - starting frame) % total duration)
-colorbehavior = 'xyz'
+colorbehavior = 'tto'
 
 #Auto Rotate
 # attempt to estimate rotation with Normals, added to colorbehavior rotation.
 # one axis is ok but both is jittery. For display purposes color defined rotation is better.
 # 0: none, 1: yaw, 2: pitch, 3: both
-autorotate = 0
+autorotate = 1
 
 #Auto Play
 # always interpolate frames, colorbehavior='aaa' overrides this.
-autoplay = False
+autoplay = True
 
 #Flip uv
 # if your model renders but textures are not right try toggling this
@@ -92,10 +99,10 @@ parser.add_argument("--duration", type=int, help="Duration of each frame in tick
 parser.add_argument("--easing", type=int, help="Animation easing, 0: none, 1: linear, 2: in-out cubic, 3: 4-point bezier", default=easing)
 parser.add_argument("--colorbehavior", type=str, help="Item color overlay behavior, \"xyz\": rotate, 't': animation time offset, 'o': overlay hue", default=colorbehavior)
 parser.add_argument("--autorotate", type=int, help="Attempt to estimate rotation with Normals, 0: off, 1: yaw, 2: pitch, 3: both", default=autorotate)
-parser.add_argument("--autoplay", action="store_true", dest="autoplay", help="Always interpolate frames, colorbehavior=\"ttt\" overrides this.")
-parser.add_argument("--flipuv", action="store_true", dest="flipuv", help="Invert the texture to compensate for flipped UV")
-parser.add_argument("--noshadow", action="store_true", dest="noshadow", help="Disable shadows from face normals")
-parser.add_argument("--nopow", action="store_true", dest="nopow", help="Disable power of two textures")
+parser.add_argument("--autoplay", action="store_true", dest="autoplay", help="Always interpolate frames, colorbehavior=\"ttt\" overrides this.", default=autoplay)
+parser.add_argument("--flipuv", action="store_true", dest="flipuv", help="Invert the texture to compensate for flipped UV", default=flipuv)
+parser.add_argument("--noshadow", action="store_true", dest="noshadow", help="Disable shadows from face normals", default=noshadow)
+parser.add_argument("--nopow", action="store_true", dest="nopow", help="Disable power of two textures", default=nopow)
 def getargs(args):
   global objs
   global texs
@@ -291,8 +298,8 @@ def objmc(objs, texs, frames, output, sc, off, duration, easing, colorbehavior, 
   data = {"positions":[],"uvs":[],"vertices":[]}
 
   #file extension optional
-  output[0] = output[0].split(".")[0]
-  output[1] = output[1].split(".")[0]
+  # output[0] = output[0].split(".")[0]
+  # output[1] = output[1].split(".")[0]
 
   #input error checking
   if duration < 1 or duration > 256:
@@ -342,7 +349,10 @@ def objmc(objs, texs, frames, output, sc, off, duration, easing, colorbehavior, 
 
   print("Creating Files...", end="\r")
   #write to json model
-  model = open(output[0]+".json", "w")
+  parent_path = MODEL_PATH + output[1]
+  if not os.path.isdir(parent_path):
+    os.mkdir(parent_path)
+  model = open(parent_path + "/" + output[0] + ".json", "w")
   #create out image with correct dimensions
   out = Image.new("RGBA", (x, int(ty)), (0,0,0,0))
 
@@ -383,7 +393,7 @@ def objmc(objs, texs, frames, output, sc, off, duration, easing, colorbehavior, 
   global js
   js = {
     "textures": {
-      "0": output[1].split('.')[0]
+      "0": "mob/" + output[1] + "/" + output[0]
     },
     "elements": [],
     "display": {
@@ -425,13 +435,16 @@ def objmc(objs, texs, frames, output, sc, off, duration, easing, colorbehavior, 
       out.putpixel((p%x,y+math.floor(p/x)), a[j])
 
   print("Saving files...\033[K", end="\r")
-  out.save(output[1]+".png")
+  parent_path = TEXTURE_PATH + output[1]
+  if not os.path.isdir(parent_path):
+    os.mkdir(parent_path)
+  out.save(TEXTURE_PATH + output[1] + "/" + output[0] + ".png")
   out.close()
   print(col.green+"Complete\033[K"+col.end)
 
 #--------------------------------
 #gui if no args
-path = os.getcwd()
+path = "models/" + output[1] + "/"
 def settext(box,text):
   box.configure(state='normal')
   box.delete('1.0',tk.END)
@@ -561,13 +574,13 @@ if not len(sys.argv) > 1:
   outjson = tk.StringVar()
   outpng = tk.StringVar()
   tk.Entry(advanced, textvariable=outjson, width=10).grid(column=0, row=8, columnspan=2, sticky='NEW', padx=(5,10))
-  tk.Label(advanced, text=".json").grid(column=1, row=8, sticky='NE')
+  tk.Label(advanced, text="action").grid(column=1, row=8, sticky='NE')
   tk.Entry(advanced, textvariable=outpng, width=10).grid(column=0, row=9, columnspan=2, sticky='NEW', padx=5)
-  tk.Label(advanced, text=".png").grid(column=1, row=9, sticky='NE')
+  tk.Label(advanced, text="name").grid(column=1, row=9, sticky='NE')
   ttk.Separator(advanced, orient=tk.HORIZONTAL).grid(column=0, row=10, columnspan=2, sticky='NEW', pady=(5,0))
   def setval():
-    settext(objlist, "\n".join(objs))
-    settext(texlist, texs[0])
+    settext(objlist, "\n".join([os.path.basename(file) for file in objs]))
+    settext(texlist, os.path.basename(texs[0]))
     fu.set(flipuv)
     for i in range(3):
       of[i].set(str(offset[i]))
@@ -578,8 +591,8 @@ if not len(sys.argv) > 1:
     ea.set(earr[easing])
     ar.set(rarr[autorotate])
     ap.set(autoplay)
-    outjson.set(output[0].replace(".json", ""))
-    outpng.set(output[1].replace(".png", ""))
+    outjson.set(output[0])
+    outpng.set(output[1])
   setval()
 
   def gethistory():
@@ -664,6 +677,13 @@ if not len(sys.argv) > 1:
     hid = len(history)
     hlable.config(text=str(hid)+"/"+str(hid))
     hid -= 1
+	#save settings
+    SETTINGS["name"] = output[1]
+    SETTINGS["action"] = output[0]
+    SETTINGS["objs"] = objs
+    SETTINGS["texs"] = texs
+    with open("settings.json", "w") as f:
+      f.write(json.dumps(SETTINGS))
   def runhistory():
     print("Running:")
     global runtex
