@@ -530,6 +530,14 @@
 			}
 		]
 	},
+	"mob.hurt.9300012": {
+		"sounds": [
+			{
+				"name": "mob/hurt/9300012",
+				"preload": true
+			}
+		]
+	},
 	
 	
 	
@@ -669,6 +677,14 @@
 			}
 		]
 	},
+	"mob.die.9300012": {
+		"sounds": [
+			{
+				"name": "mob/die/9300012",
+				"preload": true
+			}
+		]
+	},
 	
 	
 	
@@ -732,6 +748,22 @@
 		"sounds": [
 			{
 				"name": "mob/special/4230115_char_damage",
+				"preload": true
+			}
+		]
+	},
+	"mob.special.9300012_attack": {
+		"sounds": [
+			{
+				"name": "mob/special/9300012_attack",
+				"preload": true
+			}
+		]
+	},
+	"mob.special.9300012_char_damage": {
+		"sounds": [
+			{
+				"name": "mob/special/9300012_char_damage",
 				"preload": true
 			}
 		]
