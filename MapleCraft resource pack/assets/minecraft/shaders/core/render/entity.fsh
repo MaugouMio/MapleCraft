@@ -41,6 +41,6 @@ void main() {
 	if (alpha >= 0.0)
 		color.a *= alpha;
 
-    if (color.a < 0.01) discard;
+    if (color.a < 0.02) discard;
     fragColor = linear_fog(color, vertexDistance, FogStart, FogEnd, FogColor);
 }
