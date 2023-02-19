@@ -1252,7 +1252,7 @@ namespace skill()
 			func blind_effect()
 			{
 				scoreboard players remove @s blind_time 1
-				execute if score @s blind_time matches 0.. run scoreboard players set @s blind_effect_time 14
+				execute if score @s blind_time matches 0.. run scoreboard players set @s blind_effect_time 13
 				execute if score @s blind_time matches 0.. positioned ~ ~1.5 ~ run function skill:summon_font_effect/9000000blind_effect
 			}
 			
@@ -1265,7 +1265,7 @@ namespace skill()
 			func seal_effect()
 			{
 				scoreboard players remove @s seal_time 1
-				execute if score @s seal_time matches 0.. run scoreboard players set @s seal_effect_time 20
+				execute if score @s seal_time matches 0.. run scoreboard players set @s seal_effect_time 19
 				execute if score @s seal_time matches 0.. positioned ~ ~1.5 ~ run function skill:summon_font_effect/9000000seal_effect
 			}
 		}
@@ -1934,8 +1934,8 @@ namespace skill()
 		func run()
 		{
 			execute store result score #USING_SKILL temp run data get entity @s[nbt={SelectedItem:{id:"minecraft:carrot_on_a_stick"}}] SelectedItem.tag.CustomModelData
-			execute if score @s blind_time matches 0.. unless score #USING_SKILL temp matches 199 run scoreboard players reset #USING_SKILL temp
-			execute if score #USING_SKILL matches 1.. run function ARG(_PATH)binary_search/run
+			execute if score @s seal_time matches 0.. unless score #USING_SKILL temp matches 199 run scoreboard players reset #USING_SKILL temp
+			execute if score #USING_SKILL temp matches 1.. run function ARG(_PATH)binary_search/run
 			scoreboard players reset @s right_click
 		}
 		
