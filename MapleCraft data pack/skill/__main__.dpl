@@ -1182,6 +1182,11 @@ namespace skill()
 				print(f"scoreboard objectives add {skill}_level dummy")
 			print(f"scoreboard objectives add {skill}_eid dummy")
 		```
+		scoreboard objectives add blind_time dummy
+		scoreboard objectives add blind_effect_time dummy
+		scoreboard objectives add seal_time dummy
+		scoreboard objectives add seal_effect_time dummy
+		
 		function ARG(_PATH)buff/install
 		function ARG(_PATH)window/install
 		function ARG(_PATH)0/install
@@ -1229,9 +1234,40 @@ namespace skill()
 			execute as @a[scores={action_time=1..}] run function ARG(_PATH)action/countdown
 			execute as @a[scores={teleport_time=1..}] run function ARG(_PATH)tp_countdown
 			execute as @a[tag=delay_tp] at @s run function skill:2/1/0/1002/move/horizon/run
+			execute as @a[scores={blind_effect_time=1..}] at @s run function ARG(_PATH)update_negative/blind
+			execute as @a[scores={seal_effect_time=1..}] at @s run function ARG(_PATH)update_negative/seal
 			
 			# used skill check
 			execute as @a[scores={right_click=1..},tag=!dead] at @s run function skill:check_skill/run
+		}
+		
+		folder update_negative()
+		{
+			func blind()
+			{
+				scoreboard players remove @s blind_effect_time 1
+				execute if score @s blind_effect_time matches 0 run function ARG(_PATH)blind_effect
+			}
+			
+			func blind_effect()
+			{
+				scoreboard players remove @s blind_time 1
+				execute if score @s blind_time matches 0.. run scoreboard players set @s blind_effect_time 14
+				execute if score @s blind_time matches 0.. positioned ~ ~1.5 ~ run function skill:summon_font_effect/9000000blind_effect
+			}
+			
+			func seal()
+			{
+				scoreboard players remove @s seal_effect_time 1
+				execute if score @s seal_effect_time matches 0 run function ARG(_PATH)seal_effect
+			}
+			
+			func seal_effect()
+			{
+				scoreboard players remove @s seal_time 1
+				execute if score @s seal_time matches 0.. run scoreboard players set @s seal_effect_time 20
+				execute if score @s seal_time matches 0.. positioned ~ ~1.5 ~ run function skill:summon_font_effect/9000000seal_effect
+			}
 		}
 		
 		folder font_effect_update()
@@ -1898,7 +1934,8 @@ namespace skill()
 		func run()
 		{
 			execute store result score #USING_SKILL temp run data get entity @s[nbt={SelectedItem:{id:"minecraft:carrot_on_a_stick"}}] SelectedItem.tag.CustomModelData
-			function ARG(_PATH)binary_search/run
+			execute if score @s blind_time matches 0.. unless score #USING_SKILL temp matches 199 run scoreboard players reset #USING_SKILL temp
+			execute if score #USING_SKILL matches 1.. run function ARG(_PATH)binary_search/run
 			scoreboard players reset @s right_click
 		}
 		
@@ -2344,7 +2381,8 @@ namespace skill()
 		{
 			execute store result storage skill:main damage[0].max_damage int 1 run scoreboard players get #MAX_DAMAGE temp
 			execute store result storage skill:main damage[0].min_damage int 1 run scoreboard players get #MIN_DAMAGE temp
-			execute store result storage skill:main damage[0].accuracy int 1 run scoreboard players get #ACCURACY temp
+			execute if score @s blind_time matches 0.. store result storage skill:main damage[0].accuracy int -1 run scoreboard players get #ACCURACY temp
+			execute unless score @s blind_time matches 0.. store result storage skill:main damage[0].accuracy int 1 run scoreboard players get #ACCURACY temp
 			execute store result storage skill:main damage[0].player_level int 1 run scoreboard players get @s level
 			execute store result storage skill:main damage[0].crit_rate int 1 run scoreboard players get #CRIT_RATE temp
 			execute store result storage skill:main damage[0].crit_damage int 1 run scoreboard players get #CRIT_DAMAGE temp
@@ -3307,11 +3345,16 @@ namespace skill()
 				
 				# hit rate
 				execute store result score #HIT_RATE temp run data get storage skill:main damage_copy[0].accuracy 100000
+				execute store result score #IS_BLIND temp if score #HIT_RATE temp matches ..-1
+				execute if score #IS_BLIND temp matches 1 run scoreboard players operation #HIT_RATE temp *= #-1 const
+				
 				scoreboard players operation #LEVEL_DIFFERENCE temp *= #66 const
 				scoreboard players add #LEVEL_DIFFERENCE temp 1835
 				scoreboard players operation #LEVEL_DIFFERENCE temp *= @s avoidability
 				scoreboard players operation #HIT_RATE temp /= #LEVEL_DIFFERENCE temp
 				scoreboard players remove #HIT_RATE temp 100
+				
+				execute if score #IS_BLIND temp matches 1 run scoreboard players operation #HIT_RATE temp /= #10 const
 			}
 			
 			func magic_formula()

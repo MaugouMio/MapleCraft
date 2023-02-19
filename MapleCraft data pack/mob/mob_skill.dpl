@@ -440,6 +440,7 @@ namespace mob_skill()
 			execute if score #RAND_RESULT number matches 30.. run function ARG(_PATH)check_skill
 		}
 		
+		# 強制無仇恨亂走一段時間
 		func idle()
 		{
 			
@@ -450,21 +451,105 @@ namespace mob_skill()
 			scoreboard players set #GLOBAL temp 0
 			
 			execute store result score #TIME temp run time query gametime
-			execute if score @s hp matches ..31250 unless score @s mob_cd5 > #TIME temp run function ARG(_PATH)skills/summon3
-			execute if score #GLOBAL temp matches 0 if score @s hp matches ..62500 unless score @s mob_cd4 > #TIME temp run function ARG(_PATH)skills/summon2
-			execute if score #GLOBAL temp matches 0 if score @s hp matches ..93750 unless score @s mob_cd3 > #TIME temp run function ARG(_PATH)skills/summon1
+			execute if score @s hp matches ..31250 unless score @s mob_cd5 > #TIME temp run function ARG(_PATH)skills/summon3/cast
+			execute if score #GLOBAL temp matches 0 if score @s hp matches ..62500 unless score @s mob_cd4 > #TIME temp run function ARG(_PATH)skills/summon2/cast
+			execute if score #GLOBAL temp matches 0 if score @s hp matches ..93750 unless score @s mob_cd3 > #TIME temp run function ARG(_PATH)skills/summon1/cast
 			# 技能的隨機數都是 30 以上
-			execute if score #GLOBAL temp matches 0 if score #RAND_RESULT number matches ..64 unless score @s mob_cd2 > #TIME temp run function ARG(_PATH)skills/seal
-			execute if score #GLOBAL temp matches 0 if score #RAND_RESULT number matches 65.. unless score @s mob_cd1 > #TIME temp run function ARG(_PATH)skills/blind
+			execute if score #GLOBAL temp matches 0 if score @s mp matches 5.. if score #RAND_RESULT number matches ..64 unless score @s mob_cd2 > #TIME temp run function ARG(_PATH)skills/seal/cast
+			execute if score #GLOBAL temp matches 0 if score @s mp matches 5.. if score #RAND_RESULT number matches 65.. unless score @s mob_cd1 > #TIME temp run function ARG(_PATH)skills/blind/cast
 			
 			execute if score #GLOBAL temp matches 0 run function ARG(_PATH)check_attack
 		}
 		
 		folder skills()
 		{
-			func blind()
+			func base_setting()
 			{
+				scoreboard players set @s action_time 20
+				scoreboard players set @s kb_time 18
+				scoreboard players set #KB_TIME temp 18
+				scoreboard players reset #ACTION_FRAME_S temp
+				scoreboard players set #FORCE_MODEL temp 10945
+				# 計算 objmc 動畫起始時間
+				scoreboard players operation #MODEL_COLOR temp = #TIME temp
+				scoreboard players operation #MODEL_COLOR temp %= #24000 const
+				scoreboard players operation #MODEL_COLOR temp %= #16 const
 				
+				scoreboard players set #GLOBAL temp 1
+			}
+			
+			folder blind()
+			{
+				func cast()
+				{
+					function ARG(__PATH)base_setting
+					scoreboard players remove @s mp 5
+					
+					scoreboard players set @s status 5
+					scoreboard players set #STATUS temp 5
+					execute store result score @s skill_delay run schedule function ARG(_PATH)call 18t append
+					
+					execute rotated ~ 0 positioned ^ ^1.5 ^1.5 run function skill:summon_font_effect/9000000blind
+					
+					scoreboard players operation @s mob_cd1 = #TIME temp
+					scoreboard players add @s mob_cd1 200
+				}
+				
+				func call()
+				{
+					execute store result score #GLOBAL temp run time query gametime
+					execute as @e[type=ocelot,tag=!dead,scores={skill_id=5,status=5}] if score @s skill_delay = #GLOBAL temp at @s as @a[gamemode=adventure,tag=!dead,distance=..9] unless score @s blind_time matches 0.. positioned ~-20 ~-0.3 ~-20 if entity @s[dx=40,dy=2.5,dz=40] run function ARG(_PATH)hit
+				}
+				
+				func hit()
+				{
+					function random:rand_rate
+					execute if score #RAND_RESULT number matches ..49 run function ARG(_PATH)effect
+				}
+				
+				func effect()
+				{
+					scoreboard players set @s blind_time 30
+					scoreboard players set @s blind_effect_time 1
+					tellraw @s {"translate":"warning.blind","font":"minecraft:uniform","color":"#efb7ab"}
+				}
+			}
+			
+			folder seal()
+			{
+				func cast()
+				{
+					function ARG(__PATH)base_setting
+					scoreboard players remove @s mp 5
+					
+					scoreboard players set @s status 6
+					scoreboard players set #STATUS temp 6
+					execute store result score @s skill_delay run schedule function ARG(_PATH)call 18t append
+					
+					execute rotated ~ 0 positioned ^ ^1.5 ^1.5 run function skill:summon_font_effect/9000000seal
+					
+					scoreboard players operation @s mob_cd2 = #TIME temp
+					scoreboard players add @s mob_cd2 200
+				}
+				
+				func call()
+				{
+					execute store result score #GLOBAL temp run time query gametime
+					execute as @e[type=ocelot,tag=!dead,scores={skill_id=5,status=6}] if score @s skill_delay = #GLOBAL temp at @s as @a[gamemode=adventure,tag=!dead,distance=..9] unless score @s seal_time matches 0.. positioned ~-20 ~-0.3 ~-20 if entity @s[dx=40,dy=2.5,dz=40] run function ARG(_PATH)hit
+				}
+				
+				func hit()
+				{
+					function random:rand_rate
+					execute if score #RAND_RESULT number matches ..49 run function ARG(_PATH)effect
+				}
+				
+				func effect()
+				{
+					scoreboard players set @s seal_time 30
+					scoreboard players set @s seal_effect_time 1
+					tellraw @s {"translate":"warning.seal","font":"minecraft:uniform","color":"#efb7ab"}
+				}
 			}
 		}
 		
