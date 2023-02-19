@@ -1,0 +1,665 @@
+namespace mob_skill()
+{
+	folder king_slime()
+	{
+		func check()
+		{
+			execute unless score @s kb_time matches 1.. if score @s[nbt={OnGround:1b}] anger_time matches 1.. at @s run function ARG(_PATH)skill_check
+		}
+		
+		func skill_check()
+		{
+			scoreboard players set #GLOBAL temp 0
+			execute if score @s hp matches ..4000 unless entity @s[tag=skill_used] store result score #GLOBAL temp run function ARG(_PATH)skill
+			execute if score #GLOBAL temp matches 0 run function ARG(_PATH)attack_check
+		}
+		
+		func skill()
+		{
+			# 放招時刷新憤怒時間
+			function skill:rand_anger_time
+			
+			scoreboard players set @s action_time 26
+			scoreboard players set @s kb_time 24
+			scoreboard players set #KB_TIME temp 24
+			scoreboard players set @s status 4
+			scoreboard players set #STATUS temp 4
+			scoreboard players reset #ACTION_FRAME_S temp
+			scoreboard players set #FORCE_MODEL temp 10083
+			scoreboard players reset #MODEL_COLOR temp
+			tag @s add skill_used
+			
+			playsound minecraft:mob.special.9300003_skill player @a ~ ~ ~ 1 1 0
+			execute store result score @s skill_delay run schedule function ARG(_PATH)run_flash 8t append
+		}
+		
+		func run_flash()
+		{
+			execute store result score #GLOBAL temp run time query gametime
+			execute as @e[type=ocelot,tag=!dead,scores={skill_id=1,status=4}] if score @s skill_delay = #GLOBAL temp at @s run function ARG(_PATH)flash
+		}
+		
+		func flash()
+		{
+			particle minecraft:flash ~ ~7 ~ 0 0 0 1 1 force
+			particle minecraft:explosion ~ ~7 ~ 0 0 0 0 1 force
+			
+			scoreboard players set @s status 5
+			execute store result score @s skill_delay run schedule function ARG(_PATH)call_summon 16t append
+		}
+		
+		func call_summon()
+		{
+			execute store result score #GLOBAL temp run time query gametime
+			execute as @e[type=ocelot,tag=!dead,scores={skill_id=1,status=5}] if score @s skill_delay = #GLOBAL temp at @s positioned ~ ~2 ~ run function ARG(_PATH)summon
+		}
+		
+		func summon()
+		{
+			```
+			print(spawn_mob("0210100", is_summon=True, prefix="Motion:[0.26,0.5,0.15],"))
+			print(spawn_mob("0210100", is_summon=True, prefix="Motion:[0.0,0.5,-0.3],"))
+			print(spawn_mob("0210100", is_summon=True, prefix="Motion:[-0.26,0.5,0.15],"))
+			```
+			execute as @e[type=#skill:enemy,tag=new_summon] run function mob:setting/run
+		}
+		
+		func attack_check()
+		{
+			scoreboard players set #EXIST_TARGET temp 0
+			
+			function ARG(__PATH)write_target_uuid
+			execute as @a[gamemode=adventure,tag=!dead,distance=..7.5] positioned ~-20 ~-0.5 ~-20 if entity @s[dx=40,dy=3,dz=40] run function ARG(__PATH)check_is_target
+			
+			execute if score #EXIST_TARGET temp matches 1 if score @s mp matches 2.. at @s run function ARG(_PATH)attack
+		}
+		
+		func attack()
+		{
+			scoreboard players remove @s mp 2
+			
+			# 放招時刷新憤怒時間
+			function skill:rand_anger_time
+			
+			scoreboard players set @s action_time 35
+			scoreboard players set @s kb_time 33
+			scoreboard players set #KB_TIME temp 33
+			scoreboard players set @s status 6
+			scoreboard players set #STATUS temp 6
+			scoreboard players set #ACTION_FRAME_S temp 34
+			scoreboard players reset #FORCE_MODEL temp
+			scoreboard players reset #MODEL_COLOR temp
+			
+			playsound minecraft:mob.special.9300003_attack player @a ~ ~ ~ 1 1 0
+			execute store result score @s skill_delay run schedule function ARG(_PATH)spawn_quake 20t append
+		}
+		
+		func spawn_quake()
+		{
+			execute store result score #GLOBAL temp run time query gametime
+			execute as @e[type=ocelot,tag=!dead,scores={skill_id=1,status=6}] if score @s skill_delay = #GLOBAL temp at @s run function ARG(_PATH)quake
+		}
+		
+		func quake()
+		{
+			particle minecraft:explosion_emitter ~ ~ ~ 0 0 0 1 1 force
+			particle minecraft:cloud ~ ~0.2 ~ 2 0 2 0.15 30 force
+			
+			scoreboard players set #SKILL_HIT temp 0
+			scoreboard players operation #MAGIC_ATTACK temp = @s weapon_mattack
+			scoreboard players operation #ATTACKER_ACC temp = @s base_accuracy
+			execute as @a[gamemode=adventure,tag=!dead,distance=..7.5] positioned ~-20 ~-0.5 ~-20 if entity @s[dx=40,dy=3,dz=40] if data entity @s {OnGround:1b} unless score @s hurt_time matches 1.. at @s run function ARG(_PATH)hit
+			execute if score #SKILL_HIT temp matches 1 run playsound minecraft:mob.special.9300003_char_damage player @a ~ ~ ~ 1 1 0
+		}
+		
+		func hit()
+		{
+			scoreboard players set @s attacker_level 40
+			scoreboard players operation @s attacker_acc = #ATTACKER_ACC temp
+			scoreboard players operation @s damage_taken = #MAGIC_ATTACK temp
+			function bar_display:take_damage/physic/check
+			scoreboard players reset @s attacker_level
+			scoreboard players reset @s attacker_acc
+			
+			# 給一點角色受傷的動作
+			execute if score @s damage_taken matches 1.. run effect give @s minecraft:instant_damage 1 0 true
+			
+			scoreboard players set #SKILL_HIT temp 1
+		}
+	}
+	
+	folder rombot()
+	{
+		func check()
+		{
+			execute unless score @s kb_time matches 1.. if score @s anger_time matches 1.. at @s run function ARG(_PATH)check_summon
+		}
+		
+		func check_summon()
+		{
+			scoreboard players set #GLOBAL temp 0
+			# 75% 血開始會叫怪
+			execute if entity @s[tag=ldpq_mob,tag=!skill_used] if score @s hp matches ..24750 run function ARG(_PATH)try_summon
+			execute if score #GLOBAL temp matches 0 run function ARG(_PATH)check_attack
+		}
+		
+		func try_summon()
+		{
+			function random:rand_rate
+			execute if score #RAND_RESULT number matches ..19 run function ARG(_PATH)cast_summon
+		}
+		
+		func cast_summon()
+		{
+			# 放招時刷新憤怒時間
+			function skill:rand_anger_time
+			
+			scoreboard players set @s action_time 28
+			scoreboard players set @s kb_time 18
+			scoreboard players set #KB_TIME temp 18
+			scoreboard players set @s status 4
+			scoreboard players set #STATUS temp 4
+			scoreboard players set #ACTION_FRAME_S temp 44
+			scoreboard players reset #FORCE_MODEL temp
+			scoreboard players reset #MODEL_COLOR temp
+			
+			execute store result score @s skill_delay run schedule function ARG(_PATH)call_summon 18t append
+			scoreboard players set #GLOBAL temp 1
+			tag @s add skill_used
+		}
+		
+		func call_summon()
+		{
+			execute store result score #GLOBAL temp run time query gametime
+			execute as @e[type=ocelot,tag=!dead,scores={skill_id=2,status=4}] if score @s skill_delay = #GLOBAL temp at @s run function ARG(_PATH)summon
+		}
+		
+		func summon()
+		{
+			summon marker ~ ~ ~ {Tags:["rand_pos"]}
+			summon marker ~ ~ ~ {Tags:["rand_pos"]}
+			```
+			raise Warning("TODO: set block golem random spawn position under height")
+			```
+			spreadplayers ~ ~ 0 4 under 10 false @e[type=marker,tag=rand_pos]
+			```
+			print("execute at @e[type=marker,tag=rand_pos] run", spawn_mob("9300009", is_summon=True))
+			```
+			kill @e[tag=rand_pos]
+			
+			execute as @e[type=#skill:enemy,tag=new_summon] at @s run function ARG(_PATH)summon_setting
+		}
+		
+		func summon_setting()
+		{
+			function mob:setting/run
+			execute if entity @s[type=ocelot] run particle minecraft:explosion ~ ~1 ~ 0 0 0 1 3 force
+		}
+		
+		func check_attack()
+		{
+			scoreboard players set #EXIST_TARGET temp 0
+			
+			function ARG(__PATH)write_target_uuid
+			execute as @a[gamemode=adventure,tag=!dead,distance=..7.5] positioned ~-20 ~-0.5 ~-20 if entity @s[dx=40,dy=3,dz=40] run function ARG(__PATH)check_is_target
+			
+			execute if score #EXIST_TARGET temp matches 1 at @s run function ARG(_PATH)cast_attack
+		}
+		
+		func cast_attack()
+		{
+			# 放招時刷新憤怒時間
+			function skill:rand_anger_time
+			
+			scoreboard players set @s action_time 39
+			scoreboard players set @s kb_time 37
+			scoreboard players set #KB_TIME temp 37
+			scoreboard players set @s status 5
+			scoreboard players set #STATUS temp 5
+			scoreboard players set #ACTION_FRAME_S temp 62
+			scoreboard players reset #FORCE_MODEL temp
+			
+			playsound minecraft:mob.special.4130103_attack player @a ~ ~ ~ 1 1 0
+			execute store result score @s skill_delay run schedule function ARG(_PATH)call_attack 22t append
+		}
+		
+		func call_attack()
+		{
+			execute store result score #GLOBAL temp run time query gametime
+			execute as @e[type=ocelot,tag=!dead,scores={skill_id=2,status=5}] if score @s skill_delay = #GLOBAL temp at @s run function ARG(_PATH)attack
+		}
+		
+		func attack()
+		{
+			execute rotated ~ 0 run particle minecraft:explosion ^1.8 ^ ^2 0 0 0 3 3 force
+			
+			scoreboard players operation #MAGIC_ATTACK temp = @s weapon_mattack
+			scoreboard players operation #ATTACKER_ACC temp = @s base_accuracy
+			execute as @a[gamemode=adventure,tag=!dead,distance=..7.5] positioned ~-20 ~-0.5 ~-20 if entity @s[dx=40,dy=3,dz=40] unless score @s hurt_time matches 1.. if data entity @s {OnGround:1b} at @s run function ARG(_PATH)hit
+		}
+		
+		func hit()
+		{
+			scoreboard players set @s attacker_level 47
+			scoreboard players operation @s attacker_acc = #ATTACKER_ACC temp
+			scoreboard players operation @s damage_taken = #MAGIC_ATTACK temp
+			function bar_display:take_damage/physic/check
+			scoreboard players reset @s attacker_level
+			scoreboard players reset @s attacker_acc
+			
+			# 給一點角色受傷的動作
+			execute if score @s damage_taken matches 1.. run effect give @s minecraft:instant_damage 1 0 true
+			
+			function skill:summon_font_effect/9000000rombot_hit
+		}
+	}
+	
+	folder platoon_chronos()
+	{
+		func check()
+		{
+			execute unless score @s kb_time matches 1.. if score @s anger_time matches 1.. at @s run function ARG(_PATH)check_attack
+		}
+		
+		func check_attack()
+		{
+			scoreboard players set #EXIST_TARGET temp 0
+			
+			function ARG(__PATH)write_target_uuid
+			# 使用 check_is_target_mark 要記得 kill 00000000-0000-0002-0000-000000000002
+			execute as @a[gamemode=adventure,tag=!dead,distance=..6] positioned ~-20 ~-0.3 ~-20 if entity @s[dx=40,dy=1,dz=40] run function ARG(__PATH)check_is_target_mark
+			
+			execute if score #EXIST_TARGET temp matches 1 at @s run function ARG(_PATH)cast_attack
+		}
+		
+		func cast_attack()
+		{
+			# 放招時刷新憤怒時間
+			function skill:rand_anger_time
+			
+			# 紀錄攻擊目標 UUID
+			function ARG(__PATH)record_target_uuid
+			
+			# 強制面向目標
+			execute facing entity 00000000-0000-0002-0000-000000000002 feet run tp @s ~ ~ ~ ~ 0
+			kill 00000000-0000-0002-0000-000000000002
+			
+			scoreboard players set @s action_time 37
+			scoreboard players set @s kb_time 35
+			scoreboard players set #KB_TIME temp 35
+			scoreboard players set @s status 4
+			scoreboard players set #STATUS temp 4
+			scoreboard players set #ACTION_FRAME_S temp 34
+			scoreboard players reset #FORCE_MODEL temp
+			scoreboard players reset #MODEL_COLOR temp
+			
+			execute at @s rotated ~ 0 run summon minecraft:armor_stand ^ ^ ^0.5 {Tags:["model_animation","new"],Invisible:1,Invulnerable:1,NoGravity:1,Marker:1,Fire:32767s,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:900000}}]}
+			execute at @s as @e[type=armor_stand,tag=new,limit=1] run function ARG(_PATH)effect_model_set
+			
+			playsound minecraft:mob.special.4230114_attack player @a ~ ~ ~ 1 1 0
+			execute store result score @s skill_delay run schedule function ARG(_PATH)call_attack 16t append
+		}
+		
+		func effect_model_set()
+		{
+			execute positioned as @s run tp @s ~ ~ ~ ~ 0
+			scoreboard players set @s max_life 26
+			scoreboard players set @s base_model 900000
+			tag @s remove new
+		}
+		
+		func call_attack()
+		{
+			execute store result score #GLOBAL temp run time query gametime
+			execute as @e[type=ocelot,tag=!dead,scores={skill_id=3,status=4}] if score @s skill_delay = #GLOBAL temp at @s run function ARG(_PATH)attack
+		}
+		
+		func attack()
+		{
+			scoreboard players operation #MAGIC_ATTACK temp = @s weapon_mattack
+			scoreboard players operation #ATTACKER_ACC temp = @s base_accuracy
+			# 被瞄準的目標一定寫過 uuid 系列分數，直接判斷就好
+			function ARG(__PATH)write_record_uuid
+			execute as @a[gamemode=adventure,tag=!dead,distance=..30] unless score @s hurt_time matches 1.. if score @s uuid0 = #GLOBAL uuid0 if score @s uuid1 = #GLOBAL uuid1 if score @s uuid2 = #GLOBAL uuid2 if score @s uuid3 = #GLOBAL uuid3 at @s run function ARG(_PATH)hit
+		}
+		
+		func hit()
+		{
+			scoreboard players set @s attacker_level 41
+			scoreboard players operation @s attacker_acc = #ATTACKER_ACC temp
+			scoreboard players operation @s damage_taken = #MAGIC_ATTACK temp
+			function bar_display:take_damage/magic/check
+			scoreboard players reset @s attacker_level
+			scoreboard players reset @s attacker_acc
+			
+			# 給一點角色受傷的動作
+			execute if score @s damage_taken matches 1.. run effect give @s minecraft:instant_damage 1 0 true
+			
+			playsound minecraft:mob.special.4230114_char_damage player @a ~ ~ ~ 1 1 0
+			function skill:summon_font_effect/9000000platoon_chronos_hit
+		}
+	}
+	
+	folder master_chronos()
+	{
+		func check()
+		{
+			execute unless score @s kb_time matches 1.. if score @s anger_time matches 1.. at @s run function ARG(_PATH)check_attack
+		}
+		
+		func check_attack()
+		{
+			scoreboard players set #EXIST_TARGET temp 0
+			
+			function ARG(__PATH)write_target_uuid
+			# 使用 check_is_target_mark 要記得 kill 00000000-0000-0002-0000-000000000002
+			execute as @a[gamemode=adventure,tag=!dead,distance=..6] positioned ~-20 ~-0.3 ~-20 if entity @s[dx=40,dy=1,dz=40] run function ARG(__PATH)check_is_target_mark
+			
+			execute if score #EXIST_TARGET temp matches 1 at @s run function ARG(_PATH)cast_attack
+		}
+		
+		func cast_attack()
+		{
+			# 放招時刷新憤怒時間
+			function skill:rand_anger_time
+			
+			# 紀錄攻擊目標 UUID
+			function ARG(__PATH)record_target_uuid
+			
+			# 強制面向目標
+			execute facing entity 00000000-0000-0002-0000-000000000002 feet run tp @s ~ ~ ~ ~ 0
+			kill 00000000-0000-0002-0000-000000000002
+			
+			scoreboard players set @s action_time 37
+			scoreboard players set @s kb_time 35
+			scoreboard players set #KB_TIME temp 35
+			scoreboard players set @s status 4
+			scoreboard players set #STATUS temp 4
+			scoreboard players set #ACTION_FRAME_S temp 34
+			scoreboard players reset #FORCE_MODEL temp
+			scoreboard players reset #MODEL_COLOR temp
+			
+			execute at @s rotated ~ 0 run summon minecraft:armor_stand ^ ^ ^0.5 {Tags:["model_animation","new"],Invisible:1,Invulnerable:1,NoGravity:1,Marker:1,Fire:32767s,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:900026}}]}
+			execute at @s as @e[type=armor_stand,tag=new,limit=1] run function ARG(_PATH)effect_model_set
+			
+			playsound minecraft:mob.special.4230115_attack player @a ~ ~ ~ 1 1 0
+			execute store result score @s skill_delay run schedule function ARG(_PATH)call_attack 16t append
+		}
+		
+		func effect_model_set()
+		{
+			execute positioned as @s run tp @s ~ ~ ~ ~ 0
+			scoreboard players set @s max_life 26
+			scoreboard players set @s base_model 900026
+			tag @s remove new
+		}
+		
+		func call_attack()
+		{
+			execute store result score #GLOBAL temp run time query gametime
+			execute as @e[type=ocelot,tag=!dead,scores={skill_id=4,status=4}] if score @s skill_delay = #GLOBAL temp at @s run function ARG(_PATH)attack
+		}
+		
+		func attack()
+		{
+			scoreboard players operation #MAGIC_ATTACK temp = @s weapon_mattack
+			scoreboard players operation #ATTACKER_ACC temp = @s base_accuracy
+			# 被瞄準的目標一定寫過 uuid 系列分數，直接判斷就好
+			function ARG(__PATH)write_record_uuid
+			execute as @a[gamemode=adventure,tag=!dead,distance=..30] unless score @s hurt_time matches 1.. if score @s uuid0 = #GLOBAL uuid0 if score @s uuid1 = #GLOBAL uuid1 if score @s uuid2 = #GLOBAL uuid2 if score @s uuid3 = #GLOBAL uuid3 at @s run function ARG(_PATH)hit
+		}
+		
+		func hit()
+		{
+			scoreboard players set @s attacker_level 46
+			scoreboard players operation @s attacker_acc = #ATTACKER_ACC temp
+			scoreboard players operation @s damage_taken = #MAGIC_ATTACK temp
+			function bar_display:take_damage/magic/check
+			scoreboard players reset @s attacker_level
+			scoreboard players reset @s attacker_acc
+			
+			# 給一點角色受傷的動作
+			execute if score @s damage_taken matches 1.. run effect give @s minecraft:instant_damage 1 0 true
+			
+			playsound minecraft:mob.special.4230115_char_damage player @a ~ ~ ~ 1 1 0
+			function skill:summon_font_effect/9000000master_chronos_hit
+		}
+	}
+	
+	folder alishar()
+	{
+		func check()
+		{
+			execute unless score @s kb_time matches 1.. if score @s[nbt={OnGround:1b}] anger_time matches 1.. at @s run function ARG(_PATH)check_action
+		}
+		
+		func check_action()
+		{
+			function random:rand_rate
+			execute if score #RAND_RESULT number matches ..29 run function ARG(_PATH)idle
+			execute if score #RAND_RESULT number matches 30.. run function ARG(_PATH)check_skill
+		}
+		
+		func idle()
+		{
+			
+		}
+		
+		func check_skill()
+		{
+			scoreboard players set #GLOBAL temp 0
+			
+			execute store result score #TIME temp run time query gametime
+			execute if score @s hp matches ..31250 unless score @s mob_cd5 > #TIME temp run function ARG(_PATH)skills/summon3
+			execute if score #GLOBAL temp matches 0 if score @s hp matches ..62500 unless score @s mob_cd4 > #TIME temp run function ARG(_PATH)skills/summon2
+			execute if score #GLOBAL temp matches 0 if score @s hp matches ..93750 unless score @s mob_cd3 > #TIME temp run function ARG(_PATH)skills/summon1
+			# 技能的隨機數都是 30 以上
+			execute if score #GLOBAL temp matches 0 if score #RAND_RESULT number matches ..64 unless score @s mob_cd2 > #TIME temp run function ARG(_PATH)skills/seal
+			execute if score #GLOBAL temp matches 0 if score #RAND_RESULT number matches 65.. unless score @s mob_cd1 > #TIME temp run function ARG(_PATH)skills/blind
+			
+			execute if score #GLOBAL temp matches 0 run function ARG(_PATH)check_attack
+		}
+		
+		folder skills()
+		{
+			func blind()
+			{
+				
+			}
+		}
+		
+		func check_attack()
+		{
+			scoreboard players set #EXIST_TARGET temp 0
+			
+			function ARG(__PATH)write_target_uuid
+			# 使用 check_is_target_mark 要記得 kill 00000000-0000-0002-0000-000000000002
+			execute as @a[gamemode=adventure,tag=!dead,distance=..9.6] positioned ~-20 ~-0.3 ~-20 if entity @s[dx=40,dy=1,dz=40] run function ARG(__PATH)check_is_target_mark
+			
+			execute if score #EXIST_TARGET temp matches 1 at @s run function ARG(_PATH)cast_attack
+		}
+		
+		func cast_attack()
+		{
+			# 放招時刷新憤怒時間
+			function skill:rand_anger_time
+			
+			# 紀錄攻擊目標 UUID
+			function ARG(__PATH)record_target_uuid
+			
+			# 強制面向目標
+			execute facing entity 00000000-0000-0002-0000-000000000002 feet run tp @s ~ ~ ~ ~ 0
+			kill 00000000-0000-0002-0000-000000000002
+			
+			scoreboard players set @s action_time 60
+			scoreboard players set @s kb_time 58
+			scoreboard players set #KB_TIME temp 58
+			scoreboard players set @s status 4
+			scoreboard players set #STATUS temp 4
+			scoreboard players reset #ACTION_FRAME_S temp
+			scoreboard players set #FORCE_MODEL temp 10946
+			# 計算 objmc 動畫起始時間
+			scoreboard players operation #MODEL_COLOR temp = #TIME temp
+			scoreboard players operation #MODEL_COLOR temp %= #24000 const
+			scoreboard players operation #MODEL_COLOR temp %= #58 const
+			
+			execute at @s rotated ~ 0 run summon minecraft:armor_stand ^ ^1.5 ^1 {Tags:["model_animation","new"],Invisible:1,Invulnerable:1,NoGravity:1,Marker:1,Fire:32767s,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:900052}}]}
+			execute at @s as @e[type=armor_stand,tag=new,limit=1] run function ARG(_PATH)effect_model_set
+			
+			playsound minecraft:mob.special.9300012_attack player @a ~ ~ ~ 1 1 0
+			execute store result score @s skill_delay run schedule function ARG(_PATH)call_attack 23t append
+		}
+		
+		func effect_model_set()
+		{
+			execute positioned as @s run tp @s ~ ~ ~ ~ 0
+			scoreboard players set @s max_life 36
+			scoreboard players set @s base_model 900052
+			tag @s remove new
+		}
+		
+		func call_attack()
+		{
+			execute store result score #GLOBAL temp run time query gametime
+			execute as @e[type=ocelot,tag=!dead,scores={skill_id=5,status=4}] if score @s skill_delay = #GLOBAL temp at @s run function ARG(_PATH)attack
+		}
+		
+		func attack()
+		{
+			scoreboard players set #SKILL_HIT temp 0
+			
+			scoreboard players operation #MAGIC_ATTACK temp = @s weapon_mattack
+			scoreboard players operation #ATTACKER_ACC temp = @s base_accuracy
+			execute rotated ~ 0 positioned ^ ^ ^3 as @a[gamemode=adventure,tag=!dead,distance=..6.6] positioned ~-20 ~-0.5 ~-20 if entity @s[dx=40,dy=4,dz=40] unless score @s hurt_time matches 1.. at @s run function ARG(_PATH)hit
+			execute if score #SKILL_HIT temp matches 1 run playsound minecraft:mob.special.9300003_char_damage player @a ~ ~ ~ 1 1 0
+		}
+		
+		func hit()
+		{
+			scoreboard players set @s attacker_level 56
+			scoreboard players operation @s attacker_acc = #ATTACKER_ACC temp
+			scoreboard players operation @s damage_taken = #MAGIC_ATTACK temp
+			function bar_display:take_damage/magic/check
+			scoreboard players reset @s attacker_level
+			scoreboard players reset @s attacker_acc
+			
+			# 給一點角色受傷的動作
+			execute if score @s damage_taken matches 1.. run effect give @s minecraft:instant_damage 1 0 true
+			function skill:summon_font_effect/9000000alishar_hit
+			
+			scoreboard players set #SKILL_HIT temp 1
+		}
+	}
+	
+	func update()
+	{
+		execute if score @s action_time matches 1.. run scoreboard players remove @s action_time 1
+		
+		execute if entity @s[type=ocelot] run scoreboard players set #KB_TIME temp 0
+		execute if entity @s[type=ocelot,tag=!dead] unless score @s action_time matches 1.. run function ARG(_PATH)check
+		execute if entity @s[type=zombified_piglin] if score #KB_TIME temp matches 1.. run function ARG(_PATH)sync_score
+	}
+	
+	func sync_score()
+	{
+		execute at @s run tp @s ~ ~ ~ ~ 0
+		data modify entity @s NoAI set value 1b
+
+		scoreboard players operation @s kb_time = #KB_TIME temp
+		scoreboard players operation @s status = #STATUS temp
+		scoreboard players set @s action_frame -1
+		scoreboard players operation @s action_frame_s = #ACTION_FRAME_S temp
+		
+		scoreboard players reset @s action_frame_max
+		execute if score #ACTION_FRAME_S temp matches 1.. run scoreboard players operation @s action_frame_max = #KB_TIME temp
+		
+		execute if score #FORCE_MODEL temp matches 1.. store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players get #FORCE_MODEL temp
+		execute if score #MODEL_COLOR temp matches 0.. store result entity @s ArmorItems[3].tag.CustomPotionColor int 1 run scoreboard players get #MODEL_COLOR temp
+	}
+	
+	func write_target_uuid()
+	{
+		execute store result score #GLOBAL uuid0 run data get entity @s Passengers[0].AngryAt[0]
+		execute store result score #GLOBAL uuid1 run data get entity @s Passengers[0].AngryAt[1]
+		execute store result score #GLOBAL uuid2 run data get entity @s Passengers[0].AngryAt[2]
+		execute store result score #GLOBAL uuid3 run data get entity @s Passengers[0].AngryAt[3]
+	}
+	
+	func record_target_uuid()
+	{
+		scoreboard players operation @s uuid0 = #GLOBAL uuid0
+		scoreboard players operation @s uuid1 = #GLOBAL uuid1
+		scoreboard players operation @s uuid2 = #GLOBAL uuid2
+		scoreboard players operation @s uuid3 = #GLOBAL uuid3
+	}
+	
+	func write_record_uuid()
+	{
+		scoreboard players operation #GLOBAL uuid0 = @s uuid0
+		scoreboard players operation #GLOBAL uuid1 = @s uuid1
+		scoreboard players operation #GLOBAL uuid2 = @s uuid2
+		scoreboard players operation #GLOBAL uuid3 = @s uuid3
+	}
+	
+	func write_uuid()
+	{
+		execute store result score @s uuid0 run data get entity @s UUID[0]
+		execute store result score @s uuid1 run data get entity @s UUID[1]
+		execute store result score @s uuid2 run data get entity @s UUID[2]
+		execute store result score @s uuid3 run data get entity @s UUID[3]
+	}
+	
+	func check_is_target()
+	{
+		execute unless score @s uuid0 = @s uuid0 run function ARG(_PATH)write_uuid
+		execute if score @s uuid0 = #GLOBAL uuid0 if score @s uuid1 = #GLOBAL uuid1 if score @s uuid2 = #GLOBAL uuid2 if score @s uuid3 = #GLOBAL uuid3 run scoreboard players set #EXIST_TARGET temp 1
+	}
+	
+	func check_is_target_mark()
+	{
+		function ARG(_PATH)check_is_target
+		execute if score #EXIST_TARGET temp matches 1 at @s run summon marker ~ ~ ~ {UUID:[I;0,2,0,2]}
+	}
+	
+	```
+	def binary_search_mob_skill(skill_list, start, end):
+		if len(skill_list) == 1:
+			print("func check()")
+			print("{")
+			print(f"\texecute if score @s skill_id matches {skill_list[0][0]} run function ARG(_PATH){skill_list[0][1]}")
+			print("}")
+			return
+		
+		if start == end:
+			return
+		
+		mid = (start + end) // 2
+		mid_right = mid + 1
+		
+		if start == 0 and end == len(skill_list) - 1:
+			print("func check()")
+		else:
+			print(f"func {start}_{end}()")
+		print("{")
+		if start == mid:
+			print(f"\texecute if score @s skill_id matches {skill_list[start][0]} run function ARG(_PATH){skill_list[start][1]}")
+		else:
+			print(f"\texecute if score @s skill_id matches {skill_list[start][0]}..{skill_list[mid][0]} run function ARG(_PATH){start}_{mid}")
+		if mid_right == end:
+			print(f"\texecute if score @s skill_id matches {skill_list[end][0]} run function ARG(_PATH){skill_list[end][1]}")
+		else:
+			print(f"\texecute if score @s skill_id matches {skill_list[mid_right][0]}..{skill_list[end][0]} run function ARG(_PATH){mid_right}_{end}")
+		print("}")
+		
+		binary_search_mob_skill(skill_list, start, mid)
+		binary_search_mob_skill(skill_list, mid_right, end)
+	
+	with open(PROJ_DIR + "/../mob_skills.csv") as f:
+		mob_skills = f.read().split("\n")
+		for i in range(len(mob_skills)):
+			sep_point = mob_skills[i].find(",")
+			mob_skills[i] = [mob_skills[i][:sep_point], mob_skills[i][(sep_point+1):]]
+	
+	binary_search_mob_skill(mob_skills, 0, len(mob_skills) - 1)
+	```
+}

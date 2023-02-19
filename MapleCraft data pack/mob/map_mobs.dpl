@@ -1,0 +1,79 @@
+namespace map_mobs()
+{
+	folder maple_island()
+	{
+		func tutorial()
+		{
+			```
+			spawn_positions = ["-1 31 497","-5 31 500","-3 31 502"]
+			for pos in spawn_positions:
+				print(f"execute positioned {pos} run", spawn_mob("2230101", uuid=MOB_UUID))
+				MOB_UUID += 1
+			```
+		}
+	}
+	
+	folder party_quest()
+	{
+		folder kpq()
+		{
+			folder stage1()
+			{
+				func main()
+				{
+					```
+					spawn_positions = ["-280.4 51 1.5","-285.2 51 -4.5","-277.2 57 -9","-269 56 -4","-286.0 61 9.4","-275 63 -2.0","-277.0 70 -11.0","-273 69 -6.0","-273.0 75 -5","-277.8 76 2.2","-290 61 18","-295.0 62 19.3","-295.7 68 11.2","-290.6 69 7.3","-287.9 73 12.7","-291.0 73 19.2","-299.3 71 19.9","-301.9 77 22","-299.0 78 23","-287.3 78 13.4","-284.2 79 17"]
+					for pos in spawn_positions:
+						print(f"execute positioned {pos} run", spawn_mob("9300001", uuid=MOB_UUID))
+						MOB_UUID += 1
+					```
+					execute if score #RAND_RESULT number matches ..24 run function ARG(_PATH)rand0
+					execute if score #RAND_RESULT number matches 25..49 run function ARG(_PATH)rand1
+					execute if score #RAND_RESULT number matches 50..74 run function ARG(_PATH)rand2
+					execute if score #RAND_RESULT number matches 75.. run function ARG(_PATH)rand3
+				}
+				
+				```
+				spawn_positions_a = [("-271.0 56 -4.0","-282.76 51 -2.0"),("-273.7 69 -7.3","-276 75 -2"),("-287.4 69 6.0","-286.6 73 11.7"),("-300.2 78 22.9","-285.4 79 15.4")]
+				spawn_positions_b = [("-282.4 51 -1.6","-290 61 8"),("-278 63 1","-275 69 -9"),("-292.2 61 20.7","-296.9 68 13.0"),("-289.6 73 21","-303.2 72 21")]
+				rand_pairs = [[],[],[],[]]
+				for pos in spawn_positions_a:
+					for i in range(4):
+						rand_pairs[i].append((pos[i//2], MOB_UUID))
+					MOB_UUID += 1
+				for pos in spawn_positions_b:
+					for i in range(4):
+						rand_pairs[i].append((pos[i%2], MOB_UUID))
+					MOB_UUID += 1
+				
+				#####################################
+				
+				for i in range(4):
+					print(f"func rand{i}()")
+					print("{")
+					for j in range(len(spawn_positions_a) + len(spawn_positions_b)):
+						print(f"execute positioned {rand_pairs[i][j][0]} run", spawn_mob("9300001", uuid=rand_pairs[i][j][1]))
+					print("}")
+				```
+			}
+			
+			folder stage6()
+			{
+				func main()
+				{
+					```
+					g_mush_spawn_positions = ["-1820 42 4","-1826 42 5","-1839 42 4","-1824 47 -3","-1841 47 1","-1819.0 52 3.0","-1834 52 5","-1841 52 1","-1828 57 2","-1830 57 -3","-1843 57 0"]
+					for pos in g_mush_spawn_positions:
+						print(f"execute positioned {pos} run", spawn_mob("1110100", uuid=MOB_UUID))
+						MOB_UUID += 1
+						
+					h_mush_spawn_positions = ["-1824 42 1","-1829 42 3","-1842 42 6","-1842.0 42 1","-1840 42 2","-1837 42 0","-1821 47 -3.0","-1826 47 -1","-1828 47 -4","-1830 47 -2","-1832.0 47 -3","-1842 47 0","-1844 47 -2.0","-1843 47 -4","-1839.0 47 -3.0","-1822 52 6","-1824 52 4","-1822 52 1","-1832 52 3","-1835.0 52 1","-1838 52 4","-1842 52 5","-1821 57 1","-1823 57 -3","-1826 57 -1","-1832 57 0","-1841 57 3","-1839 57 -1","-1841.0 57 -3"]
+					for pos in h_mush_spawn_positions:
+						print(f"execute positioned {pos} run", spawn_mob("2110200", uuid=MOB_UUID))
+						MOB_UUID += 1
+					```
+				}
+			}
+		}
+	}
+}
