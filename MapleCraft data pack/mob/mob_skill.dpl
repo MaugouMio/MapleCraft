@@ -437,8 +437,8 @@ namespace mob_skill()
 		{
 			function random:rand_rate
 			# idle 一段時間
-			execute if score #RAND_RESULT number matches ..29 run scoreboard players operation @s action_time = #RAND_RESULT number
-			execute if score #RAND_RESULT number matches 30.. run function ARG(_PATH)check_skill
+			execute if score #RAND_RESULT number matches ..39 run scoreboard players operation @s action_time = #RAND_RESULT number
+			execute if score #RAND_RESULT number matches 40.. run function ARG(_PATH)check_skill
 		}
 		
 		func check_skill()
@@ -446,12 +446,12 @@ namespace mob_skill()
 			scoreboard players set #GLOBAL temp 0
 			
 			execute store result score #TIME temp run time query gametime
-			execute if score @s hp matches ..31250 unless score @s mob_cd5 > #TIME temp run function ARG(_PATH)skills/summon3/cast
-			execute if score #GLOBAL temp matches 0 if score @s hp matches ..62500 unless score @s mob_cd4 > #TIME temp run function ARG(_PATH)skills/summon2/cast
-			execute if score #GLOBAL temp matches 0 if score @s hp matches ..93750 unless score @s mob_cd3 > #TIME temp run function ARG(_PATH)skills/summon1/cast
-			# 技能的隨機數都是 30 以上
-			execute if score #GLOBAL temp matches 0 if score @s mp matches 5.. if score #RAND_RESULT number matches ..64 unless score @s mob_cd2 > #TIME temp run function ARG(_PATH)skills/seal/cast
-			execute if score #GLOBAL temp matches 0 if score @s mp matches 5.. if score #RAND_RESULT number matches 65.. unless score @s mob_cd1 > #TIME temp run function ARG(_PATH)skills/blind/cast
+			# 技能的隨機數都是 40 以上
+			execute if score @s hp matches ..31250 unless score @s mob_cd5 > #TIME temp if score #RAND_RESULT number matches ..49 run function ARG(_PATH)skills/summon3/cast
+			execute if score #GLOBAL temp matches 0 if score @s hp matches ..62500 unless score @s mob_cd4 > #TIME temp if score #RAND_RESULT number matches ..49 run function ARG(_PATH)skills/summon2/cast
+			execute if score #GLOBAL temp matches 0 if score @s hp matches ..93750 unless score @s mob_cd3 > #TIME temp if score #RAND_RESULT number matches ..49 run function ARG(_PATH)skills/summon1/cast
+			execute if score #GLOBAL temp matches 0 if score @s mp matches 5.. unless score @s mob_cd2 > #TIME temp if score #RAND_RESULT number matches ..49 run function ARG(_PATH)skills/seal/cast
+			execute if score #GLOBAL temp matches 0 if score @s mp matches 5.. unless score @s mob_cd1 > #TIME temp if score #RAND_RESULT number matches 50..59 run function ARG(_PATH)skills/blind/cast
 			
 			execute if score #GLOBAL temp matches 0 run function ARG(_PATH)check_attack
 		}
@@ -470,6 +470,7 @@ namespace mob_skill()
 				scoreboard players operation #MODEL_COLOR temp %= #24000 const
 				scoreboard players operation #MODEL_COLOR temp %= #16 const
 				scoreboard players operation #MODEL_COLOR temp *= #256 const
+				scoreboard players add #MODEL_COLOR temp 255
 				
 				scoreboard players set #GLOBAL temp 1
 			}
@@ -699,6 +700,7 @@ namespace mob_skill()
 			scoreboard players operation #MODEL_COLOR temp %= #24000 const
 			scoreboard players operation #MODEL_COLOR temp %= #59 const
 			scoreboard players operation #MODEL_COLOR temp *= #256 const
+			scoreboard players add #MODEL_COLOR temp 255
 			
 			execute at @s rotated ~ 0 run summon minecraft:armor_stand ^ ^1.5 ^1 {Tags:["model_animation","new"],Invisible:1,Invulnerable:1,NoGravity:1,Marker:1,Fire:32767s,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:900052}}]}
 			execute at @s as @e[type=armor_stand,tag=new,limit=1] run function ARG(_PATH)effect_model_set

@@ -33,7 +33,7 @@ namespace mob()
 		{
 			scoreboard players add @s spawn_alpha 1
 			execute if score @s[type=zombified_piglin] spawn_alpha matches 1 run function ARG(_PATH)set_model
-			execute if score @s[type=zombified_piglin] spawn_alpha matches ..9 store result entity @s ArmorItems[3].tag.CustomPotionColor int 657930 run scoreboard players get @s spawn_alpha
+			execute if score @s[type=zombified_piglin] spawn_alpha matches ..9 store result entity @s ArmorItems[3].tag.CustomPotionColor int 10 run scoreboard players get @s spawn_alpha
 			execute if score @s spawn_alpha matches 10 run function ARG(_PATH)run
 		}
 		
