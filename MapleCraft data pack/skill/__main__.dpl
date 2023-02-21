@@ -3354,7 +3354,7 @@ namespace skill()
 				scoreboard players operation #HIT_RATE temp /= #LEVEL_DIFFERENCE temp
 				scoreboard players remove #HIT_RATE temp 100
 				
-				execute if score #IS_BLIND temp matches 1 run scoreboard players operation #HIT_RATE temp /= #10 const
+				execute if score #IS_BLIND temp matches 1 run scoreboard players operation #HIT_RATE temp /= #15 const
 			}
 			
 			func magic_formula()

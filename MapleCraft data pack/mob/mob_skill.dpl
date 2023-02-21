@@ -446,12 +446,14 @@ namespace mob_skill()
 			scoreboard players set #GLOBAL temp 0
 			
 			execute store result score #TIME temp run time query gametime
+			# 避免怪物叫太多，同時不要超過 2 波召喚怪
+			execute if score @s hp matches ..93750 store result score #MOB_COUNT temp if entity @e[type=ocelot,tag=ldpq_mob]
 			# 技能的隨機數都是 40 以上
-			execute if score @s hp matches ..31250 unless score @s mob_cd5 > #TIME temp if score #RAND_RESULT number matches ..49 run function ARG(_PATH)skills/summon3/cast
-			execute if score #GLOBAL temp matches 0 if score @s hp matches ..62500 unless score @s mob_cd4 > #TIME temp if score #RAND_RESULT number matches ..49 run function ARG(_PATH)skills/summon2/cast
-			execute if score #GLOBAL temp matches 0 if score @s hp matches ..93750 unless score @s mob_cd3 > #TIME temp if score #RAND_RESULT number matches ..49 run function ARG(_PATH)skills/summon1/cast
-			execute if score #GLOBAL temp matches 0 if score @s mp matches 5.. unless score @s mob_cd2 > #TIME temp if score #RAND_RESULT number matches ..49 run function ARG(_PATH)skills/seal/cast
-			execute if score #GLOBAL temp matches 0 if score @s mp matches 5.. unless score @s mob_cd1 > #TIME temp if score #RAND_RESULT number matches 50..59 run function ARG(_PATH)skills/blind/cast
+			execute if score @s hp matches ..31250 unless score @s mob_cd5 > #TIME temp if score #MOB_COUNT temp matches ..6 if score #RAND_RESULT number matches 50..59 run function ARG(_PATH)skills/summon3/cast
+			execute if score #GLOBAL temp matches 0 if score @s hp matches ..62500 unless score @s mob_cd4 > #TIME temp if score #MOB_COUNT temp matches ..6 if score #RAND_RESULT number matches 60..69 run function ARG(_PATH)skills/summon2/cast
+			execute if score #GLOBAL temp matches 0 if score @s hp matches ..93750 unless score @s mob_cd3 > #TIME temp if score #MOB_COUNT temp matches ..6 if score #RAND_RESULT number matches 70..79 run function ARG(_PATH)skills/summon1/cast
+			execute if score #GLOBAL temp matches 0 if score @s mp matches 5.. unless score @s mob_cd2 > #TIME temp if score #RAND_RESULT number matches ..46 run function ARG(_PATH)skills/seal/cast
+			execute if score #GLOBAL temp matches 0 if score @s mp matches 5.. unless score @s mob_cd1 > #TIME temp if score #RAND_RESULT number matches 47..53 run function ARG(_PATH)skills/blind/cast
 			
 			execute if score #GLOBAL temp matches 0 run function ARG(_PATH)check_attack
 		}
@@ -674,6 +676,8 @@ namespace mob_skill()
 			execute as @a[gamemode=adventure,tag=!dead,distance=..7.68] positioned ~-20 ~-0.3 ~-20 if entity @s[dx=40,dy=1,dz=40] run function ARG(__PATH)check_is_target_mark
 			
 			execute if score #EXIST_TARGET temp matches 1 at @s run function ARG(_PATH)cast_attack
+			# 沒有人在攻擊範圍，等 2 秒再決定一次行動
+			execute if score #EXIST_TARGET temp matches 0 run scoreboard players set @s action_time 40
 		}
 		
 		func cast_attack()
