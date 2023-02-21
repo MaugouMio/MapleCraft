@@ -391,7 +391,7 @@ namespace 21() as virtual
 					func tp_player()
 					{
 						execute unless entity @s[distance=..0.00001] at @s facing entity @a[tag=tp_player,limit=1] eyes rotated ~ 0 positioned ^ ^ ^5 run function ARG(_PATH)first_check
-						execute if entity @s[distance=..0.00001] run kill @s
+						kill @s
 					}
 					
 					func vertical_check()
