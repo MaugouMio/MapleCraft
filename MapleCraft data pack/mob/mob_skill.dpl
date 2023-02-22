@@ -698,7 +698,7 @@ namespace mob_skill()
 			scoreboard players set @s status 4
 			scoreboard players set #STATUS temp 4
 			scoreboard players reset #ACTION_FRAME_S temp
-			scoreboard players set #FORCE_MODEL temp 10946
+			scoreboard players set #FORCE_MODEL temp 10947
 			# 計算 objmc 動畫起始時間
 			scoreboard players operation #MODEL_COLOR temp = #TIME temp
 			scoreboard players operation #MODEL_COLOR temp %= #24000 const
