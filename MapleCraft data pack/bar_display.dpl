@@ -506,39 +506,12 @@ namespace bar_display()
 				scoreboard players operation #GLOBAL temp *= #46 const
 				scoreboard players operation #GLOBAL temp /= #100 const
 				
-				# execute unless score #GLOBAL temp = @s hp_level run function ARG(_PATH)set_display/run
 				scoreboard players operation @s hp_level = #GLOBAL temp
 				
 				scoreboard players set @s hp_vary_time 20
 				tag @s add hp_mp_varying
 				execute if score #HP_DROPPED temp matches 1 if score @s target_hp <= @s hp_warning run scoreboard players set @s hp_flash 10
 			}
-			
-			# folder set_display()
-			# {
-				# func run()
-				# {
-					# execute if score #GLOBAL temp matches ..12 run function ARG(_PATH)0_12
-					# execute if score #GLOBAL temp matches 13.. run function ARG(_PATH)13_25
-					# scoreboard players operation @s hp_level = #GLOBAL temp
-				# }
-				
-				# func 0_12()
-				# {
-					# ```
-					# for i in range(13):
-						# print(f"execute if score #GLOBAL temp matches {i} run team join hp{i} @s")
-					# ```
-				# }
-				
-				# func 13_25()
-				# {
-					# ```
-					# for i in range(13, 26):
-						# print(f"execute if score #GLOBAL temp matches {i} run team join hp{i} @s")
-					# ```
-				# }
-			# }
 		}
 		
 		folder mp()

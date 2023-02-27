@@ -685,9 +685,6 @@ namespace mob_skill()
 			# 放招時刷新憤怒時間
 			function skill:rand_anger_time
 			
-			# 紀錄攻擊目標 UUID
-			function ARG(__PATH)record_target_uuid
-			
 			# 強制面向目標
 			execute facing entity 00000000-0000-0002-0000-000000000002 feet run tp @s ~ ~ ~ ~ 0
 			kill 00000000-0000-0002-0000-000000000002
