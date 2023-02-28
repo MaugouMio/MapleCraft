@@ -382,7 +382,6 @@ namespace 4() as virtual
 					
 					effect give @s minecraft:invisibility 1000000 0 true
 					effect give @s minecraft:resistance 1000000 4 true
-					attribute @s minecraft:generic.knockback_resistance modifier add f7c5c3aa-4957-4321-8098-5ccef1ffdc8a invisible_knockback 1.0 add
 					```
 					print(f"attribute @s minecraft:generic.luck modifier add {simple_buff_info_dict['invis']['uuid']} d 0 add")
 					```

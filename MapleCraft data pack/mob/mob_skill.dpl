@@ -104,12 +104,16 @@ namespace mob_skill()
 		{
 			particle minecraft:explosion_emitter ~ ~ ~ 0 0 0 1 1 force
 			particle minecraft:cloud ~ ~0.2 ~ 2 0 2 0.15 30 force
-			
+			```
+			print("summon marker ~ ~ ~ {UUID:%s}" %UUID_LIST["mob_damage"])
+			```
 			scoreboard players set #SKILL_HIT temp 0
 			scoreboard players operation #MAGIC_ATTACK temp = @s weapon_mattack
 			scoreboard players operation #ATTACKER_ACC temp = @s base_accuracy
 			execute as @a[gamemode=adventure,tag=!dead,distance=..7.5] positioned ~-20 ~-0.5 ~-20 if entity @s[dx=40,dy=3,dz=40] if data entity @s {OnGround:1b} unless score @s hurt_time matches 1.. at @s run function ARG(_PATH)hit
 			execute if score #SKILL_HIT temp matches 1 run playsound minecraft:mob.special.9300003_char_damage player @a ~ ~ ~ 1 1 0
+			
+			kill 00000000-0000-0006-0000-000000000006
 		}
 		
 		func hit()
@@ -122,7 +126,7 @@ namespace mob_skill()
 			scoreboard players reset @s attacker_acc
 			
 			# 給一點角色受傷的動作
-			execute if score @s damage_taken matches 1.. run effect give @s minecraft:instant_damage 1 0 true
+			execute if score @s damage_taken matches 1.. run function mob:damage
 			
 			scoreboard players set #SKILL_HIT temp 1
 		}
@@ -232,10 +236,14 @@ namespace mob_skill()
 		func attack()
 		{
 			execute rotated ~ 0 run particle minecraft:explosion ^1.8 ^ ^2 0 0 0 3 3 force
-			
+			```
+			print("summon marker ~ ~ ~ {UUID:%s}" %UUID_LIST["mob_damage"])
+			```
 			scoreboard players operation #MAGIC_ATTACK temp = @s weapon_mattack
 			scoreboard players operation #ATTACKER_ACC temp = @s base_accuracy
 			execute as @a[gamemode=adventure,tag=!dead,distance=..7.5] positioned ~-20 ~-0.5 ~-20 if entity @s[dx=40,dy=3,dz=40] unless score @s hurt_time matches 1.. if data entity @s {OnGround:1b} at @s run function ARG(_PATH)hit
+			
+			kill 00000000-0000-0006-0000-000000000006
 		}
 		
 		func hit()
@@ -248,7 +256,7 @@ namespace mob_skill()
 			scoreboard players reset @s attacker_acc
 			
 			# 給一點角色受傷的動作
-			execute if score @s damage_taken matches 1.. run effect give @s minecraft:instant_damage 1 0 true
+			execute if score @s damage_taken matches 1.. run function mob:damage
 			
 			function skill:summon_font_effect/9000000rombot_hit
 		}
@@ -318,9 +326,14 @@ namespace mob_skill()
 		{
 			scoreboard players operation #MAGIC_ATTACK temp = @s weapon_mattack
 			scoreboard players operation #ATTACKER_ACC temp = @s base_accuracy
+			```
+			print("summon marker ~ ~ ~ {UUID:%s}" %UUID_LIST["mob_damage"])
+			```
 			# 被瞄準的目標一定寫過 uuid 系列分數，直接判斷就好
 			function ARG(__PATH)write_record_uuid
 			execute as @a[gamemode=adventure,tag=!dead,distance=..30] unless score @s hurt_time matches 1.. if score @s uuid0 = #GLOBAL uuid0 if score @s uuid1 = #GLOBAL uuid1 if score @s uuid2 = #GLOBAL uuid2 if score @s uuid3 = #GLOBAL uuid3 at @s run function ARG(_PATH)hit
+			
+			kill 00000000-0000-0006-0000-000000000006
 		}
 		
 		func hit()
@@ -333,7 +346,7 @@ namespace mob_skill()
 			scoreboard players reset @s attacker_acc
 			
 			# 給一點角色受傷的動作
-			execute if score @s damage_taken matches 1.. run effect give @s minecraft:instant_damage 1 0 true
+			execute if score @s damage_taken matches 1.. run function mob:damage
 			
 			playsound minecraft:mob.special.4230114_char_damage player @a ~ ~ ~ 1 1 0
 			function skill:summon_font_effect/9000000platoon_chronos_hit
@@ -404,9 +417,14 @@ namespace mob_skill()
 		{
 			scoreboard players operation #MAGIC_ATTACK temp = @s weapon_mattack
 			scoreboard players operation #ATTACKER_ACC temp = @s base_accuracy
+			```
+			print("summon marker ~ ~ ~ {UUID:%s}" %UUID_LIST["mob_damage"])
+			```
 			# 被瞄準的目標一定寫過 uuid 系列分數，直接判斷就好
 			function ARG(__PATH)write_record_uuid
 			execute as @a[gamemode=adventure,tag=!dead,distance=..30] unless score @s hurt_time matches 1.. if score @s uuid0 = #GLOBAL uuid0 if score @s uuid1 = #GLOBAL uuid1 if score @s uuid2 = #GLOBAL uuid2 if score @s uuid3 = #GLOBAL uuid3 at @s run function ARG(_PATH)hit
+			
+			kill 00000000-0000-0006-0000-000000000006
 		}
 		
 		func hit()
@@ -419,7 +437,7 @@ namespace mob_skill()
 			scoreboard players reset @s attacker_acc
 			
 			# 給一點角色受傷的動作
-			execute if score @s damage_taken matches 1.. run effect give @s minecraft:instant_damage 1 0 true
+			execute if score @s damage_taken matches 1.. run function mob:damage
 			
 			playsound minecraft:mob.special.4230115_char_damage player @a ~ ~ ~ 1 1 0
 			function skill:summon_font_effect/9000000master_chronos_hit
@@ -730,8 +748,13 @@ namespace mob_skill()
 			
 			scoreboard players operation #MAGIC_ATTACK temp = @s weapon_mattack
 			scoreboard players operation #ATTACKER_ACC temp = @s base_accuracy
+			```
+			print("summon marker ~ ~ ~ {UUID:%s}" %UUID_LIST["mob_damage"])
+			```
 			execute rotated ~ 0 positioned ^ ^ ^2.52 as @a[gamemode=adventure,tag=!dead,distance=..5.16] positioned ~-20 ~-0.5 ~-20 if entity @s[dx=40,dy=4,dz=40] unless score @s hurt_time matches 1.. at @s run function ARG(_PATH)hit
 			execute if score #SKILL_HIT temp matches 1 run playsound minecraft:mob.special.9300003_char_damage player @a ~ ~ ~ 1 1 0
+			
+			kill 00000000-0000-0006-0000-000000000006
 		}
 		
 		func hit()
@@ -744,7 +767,7 @@ namespace mob_skill()
 			scoreboard players reset @s attacker_acc
 			
 			# 給一點角色受傷的動作
-			execute if score @s damage_taken matches 1.. run effect give @s minecraft:instant_damage 1 0 true
+			execute if score @s damage_taken matches 1.. run function mob:damage
 			function skill:summon_font_effect/9000000alishar_hit
 			
 			scoreboard players set #SKILL_HIT temp 1
@@ -818,7 +841,9 @@ namespace mob_skill()
 	func check_is_target_mark()
 	{
 		function ARG(_PATH)check_is_target
-		execute if score #EXIST_TARGET temp matches 1 at @s run summon marker ~ ~ ~ {UUID:[I;0,2,0,2]}
+		```
+		print("execute if score #EXIST_TARGET temp matches 1 at @s run summon marker ~ ~ ~ {UUID:%s}" %UUID_LIST["mob_target"])
+		```
 	}
 	
 	```

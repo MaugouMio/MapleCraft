@@ -294,6 +294,13 @@ namespace mob()
 		}
 	}
 	
+	func damage()
+	{
+		attribute @s minecraft:generic.knockback_resistance base set 0.0
+		damage @s 0.00001 minecraft:generic by 00000000-0000-0006-0000-000000000006
+		attribute @s minecraft:generic.knockback_resistance base set 1.0
+	}
+	
 	folder map() from map_mobs();
 	folder skills() from mob_skill();
 	

@@ -90,8 +90,9 @@ namespace attack_skill_template(skill_id) as virtual
 		```
 		data modify storage skill:main damage_info.attacker set from entity @s UUID
 		execute store result storage skill:main damage_info.attacker_id int 1 run scoreboard players get @s number
-		
-		execute positioned 250.0 0.0 0.0 rotated ~ 0 run summon marker ^ ^ ^0.2 {UUID:[I;0,5,0,5]}
+		```
+		print("execute positioned 250.0 0.0 0.0 rotated ~ 0 run summon marker ^ ^ ^0.2 {UUID:%s}" %UUID_LIST["knockback"])
+		```
 		data modify storage skill:main damage_info.knock_back set from entity 00000000-0000-0005-0000-000000000005 Pos
 		execute store result score #GLOBAL temp run data get storage skill:main damage_info.knock_back[0] 10000
 		execute store result storage skill:main damage_info.knock_back[0] double 0.0001 run scoreboard players remove #GLOBAL temp 2500000
@@ -131,9 +132,11 @@ namespace attack_skill_template(skill_id) as virtual
 		execute if entity @s[tag=!no_anger] run function ARG(_PATH)set_angry_at
 		
 		execute store result score #GLOBAL temp run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].attacker_id
-		execute as @a if score @s number = #GLOBAL temp at @s run summon marker ~ ~ ~ {UUID:[I;575636949,204817767,-1738329627,897787263]}
-		execute facing entity 224f85d5-0c35-4567-9863-31e53583257f feet run function ARG(_PATH)facing_effect
-		kill 224f85d5-0c35-4567-9863-31e53583257f
+		```
+		print("execute as @a if score @s number = #GLOBAL temp at @s run summon marker ~ ~ ~ {UUID:%s}" %UUID_LIST["face_effect"])
+		```
+		execute facing entity 00000000-0000-0004-0000-000000000004 feet run function ARG(_PATH)facing_effect
+		kill 00000000-0000-0004-0000-000000000004
 		
 		function skill:show_num_at_height
 		
@@ -336,8 +339,9 @@ namespace bullet_skill_template(skill_id) as virtual
 		```
 		data modify storage skill:main damage_info.attacker set from entity @s UUID
 		execute store result storage skill:main damage_info.attacker_id int 1 run scoreboard players get @s number
-		
-		execute positioned 250.0 0.0 0.0 rotated ~ 0 run summon marker ^ ^ ^0.2 {UUID:[I;0,5,0,5]}
+		```
+		print("execute positioned 250.0 0.0 0.0 rotated ~ 0 run summon marker ^ ^ ^0.2 {UUID:%s}" %UUID_LIST["knockback"])
+		```
 		data modify storage skill:main damage_info.knock_back set from entity 00000000-0000-0005-0000-000000000005 Pos
 		execute store result score #GLOBAL temp run data get storage skill:main damage_info.knock_back[0] 10000
 		execute store result storage skill:main damage_info.knock_back[0] double 0.0001 run scoreboard players remove #GLOBAL temp 2500000
@@ -372,9 +376,11 @@ namespace bullet_skill_template(skill_id) as virtual
 		execute if entity @s[tag=!no_anger] run function ARG(_PATH)set_angry_at
 		
 		execute store result score #GLOBAL temp run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].attacker_id
-		execute as @a if score @s number = #GLOBAL temp at @s run summon marker ~ ~ ~ {UUID:[I;575636949,204817767,-1738329627,897787263]}
-		execute facing entity 224f85d5-0c35-4567-9863-31e53583257f feet run function ARG(_PATH)facing_effect
-		kill 224f85d5-0c35-4567-9863-31e53583257f
+		```
+		print("execute as @a if score @s number = #GLOBAL temp at @s run summon marker ~ ~ ~ {UUID:%s}" %UUID_LIST["face_effect"])
+		```
+		execute facing entity 00000000-0000-0004-0000-000000000004 feet run function ARG(_PATH)facing_effect
+		kill 00000000-0000-0004-0000-000000000004
 		
 		function skill:show_num_at_height
 		
@@ -738,8 +744,9 @@ namespace skill()
 							{
 								scoreboard players set #CUR_DISTANCE temp 0
 								scoreboard players set #FOUND_ENEMY temp 0
-								
-								execute at @s rotated ~ 0 positioned ^ ^ ^100 run summon minecraft:marker ~ ~ ~ {UUID:[I;0,3,0,3]}
+								```
+								print("execute at @s rotated ~ 0 positioned ^ ^ ^100 run summon minecraft:marker ~ ~ ~ {UUID:%s}" %UUID_LIST["search"])
+								```
 								execute at @s rotated ~ 0 positioned ^ ^ ^-1.8 run function ARG(_PATH)run
 								kill 00000000-0000-0003-0000-000000000003
 							}
@@ -2063,8 +2070,9 @@ namespace skill()
 				scoreboard players reset #FIRST_DISTANCE temp
 				scoreboard players set #CUR_DISTANCE temp 0
 				scoreboard players set #FOUND_ENEMY temp 0
-				
-				execute at @s rotated ~ 0 positioned ^ ^ ^100 run summon minecraft:marker ~ ~ ~ {UUID:[I;0,3,0,3]}
+				```
+				print("execute at @s rotated ~ 0 positioned ^ ^ ^100 run summon minecraft:marker ~ ~ ~ {UUID:%s}" %UUID_LIST["search"])
+				```
 				execute at @s rotated ~ 0 positioned ^ ^ ^-1.8 run function ARG(_PATH)run
 				tag @e[type=magma_cube,tag=target] remove target
 				kill 00000000-0000-0003-0000-000000000003
@@ -2105,8 +2113,9 @@ namespace skill()
 				scoreboard players set #CUR_DISTANCE temp 0
 				scoreboard players set #FOUND_ENEMY temp 0
 				data modify storage skill:main temp set value []
-				
-				execute at @s rotated ~ 0 positioned ^ ^ ^100 run summon minecraft:marker ~ ~ ~ {UUID:[I;0,3,0,3]}
+				```
+				print("execute at @s rotated ~ 0 positioned ^ ^ ^100 run summon minecraft:marker ~ ~ ~ {UUID:%s}" %UUID_LIST["search"])
+				```
 				execute at @s rotated ~ 0 positioned ^ ^ ^-1.8 run function ARG(_PATH)run
 				tag @e[type=magma_cube,tag=target] remove target
 				kill 00000000-0000-0003-0000-000000000003
@@ -2158,8 +2167,9 @@ namespace skill()
 				scoreboard players set #GLOBAL hit_distance -1
 				scoreboard players set #FOUND_ENEMY temp 0
 				data modify storage skill:main temp set value []
-				
-				execute at @s rotated ~ 0 positioned ^ ^ ^100 run summon minecraft:marker ~ ~ ~ {UUID:[I;0,3,0,3]}
+				```
+				print("execute at @s rotated ~ 0 positioned ^ ^ ^100 run summon minecraft:marker ~ ~ ~ {UUID:%s}" %UUID_LIST["search"])
+				```
 				execute at @s rotated ~ 0 positioned ^ ^ ^-1.8 run function ARG(_PATH)run
 				tag @e[type=magma_cube,tag=target] remove target
 				kill 00000000-0000-0003-0000-000000000003
