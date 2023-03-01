@@ -297,7 +297,11 @@ namespace mob()
 	func damage()
 	{
 		attribute @s minecraft:generic.knockback_resistance base set 0.0
+		
+		# 繩子上額外做偏移，減少被鷹架影響動能
+		execute if block ~ ~ ~ minecraft:scaffolding facing entity 00000000-0000-0006-0000-000000000006 feet rotated ~ 0 run tp @s ^ ^ ^-0.6
 		damage @s 0.00001 minecraft:generic by 00000000-0000-0006-0000-000000000006
+		
 		attribute @s minecraft:generic.knockback_resistance base set 1.0
 	}
 	

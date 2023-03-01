@@ -184,14 +184,23 @@ namespace main()
 	{
 		func check()
 		{
-			execute unless predicate main:sprinting align xz positioned ~0.5 ~ ~0.5 unless entity @s[distance=..0.3] run function ARG(_PATH)climb
-			# execute if predicate main:sprinting run function ARG(_PATH)jump
+			execute unless score @s hurt_time matches 20.. unless predicate main:sprinting align xz positioned ~0.5 ~ ~0.5 unless entity @s[distance=..0.3] run function ARG(_PATH)climb
+			execute if predicate main:sprinting align xz positioned ~0.5 ~ ~0.5 if entity @s[distance=..0.3] run function ARG(_PATH)jump
 		}
 		
 		func climb()
 		{
 			tp @s ~ ~ ~
 			tp @s @s
+		}
+		
+		func jump()
+		{
+			```
+			print("execute rotated ~ 0 run summon marker ^ ^ ^-1 {UUID:%s}" %UUID_LIST["mob_damage"])
+			```
+			function mob:damage
+			kill 00000000-0000-0006-0000-000000000006
 		}
 	}
 	
