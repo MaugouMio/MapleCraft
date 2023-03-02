@@ -380,8 +380,8 @@ namespace 4() as virtual
 					scoreboard players operation @s speed += @s invis_buff_speed
 					function stat:speed_changed/check
 					
-					effect give @s minecraft:invisibility 1000000 0 true
-					effect give @s minecraft:resistance 1000000 4 true
+					effect give @s minecraft:invisibility infinite 0 true
+					effect give @s minecraft:resistance infinite 4 true
 					```
 					print(f"attribute @s minecraft:generic.luck modifier add {simple_buff_info_dict['invis']['uuid']} d 0 add")
 					```

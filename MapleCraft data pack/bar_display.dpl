@@ -233,7 +233,7 @@ namespace bar_display()
 		{
 			execute unless score @s hurt_time matches 1.. run function ARG(_PATH)touch
 			
-			effect give @s minecraft:absorption 1000000 255 true
+			effect give @s minecraft:absorption infinite 255 true
 			scoreboard players reset @s attacker_level
 			scoreboard players reset @s attacker_acc
 			scoreboard players reset @s damage_taken
@@ -932,11 +932,6 @@ namespace bar_display()
 		func schedule_10s()
 		{
 			execute as @a[tag=!dead] if score @s mp < @s mp_max run function ARG(__PATH)recover/mp
-		}
-		
-		func schedule_1d()
-		{
-			effect give @a minecraft:absorption 1000000 255 true
 		}
 	}
 	
