@@ -371,7 +371,7 @@ namespace bar_display()
 			# 擊退效果
 			execute if score #TOUCH_DAMAGE temp matches 1 run function ARG(_PATH)knockback
 			
-			effect give @s minecraft:glowing 2 0 true
+			effect give @s minecraft:glowing infinite 0 true
 
 			scoreboard players reset #TOUCH_DAMAGE temp
 		}

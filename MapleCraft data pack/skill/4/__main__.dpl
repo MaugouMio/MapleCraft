@@ -381,7 +381,7 @@ namespace 4() as virtual
 					function stat:speed_changed/check
 					
 					effect give @s minecraft:invisibility infinite 0 true
-					effect give @s minecraft:resistance infinite 4 true
+					effect give @s minecraft:fire_resistance infinite 0 true
 					```
 					print(f"attribute @s minecraft:generic.luck modifier add {simple_buff_info_dict['invis']['uuid']} d 0 add")
 					```
