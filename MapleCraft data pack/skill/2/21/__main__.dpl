@@ -556,7 +556,7 @@ namespace 21() as virtual
 				func front()
 				{
 					scoreboard players remove #DEFAULT_SIZE temp 1
-					execute if score #DEFAULT_SIZE temp matches -1 run function ARG(_PATH)start_up
+					execute if score #DEFAULT_SIZE temp matches -1 positioned ^ ^ ^0.7 run function ARG(_PATH)start_up
 					execute if score #DEFAULT_SIZE temp matches 0.. positioned ^ ^ ^0.4 run function ARG(_PATH)front
 				}
 
