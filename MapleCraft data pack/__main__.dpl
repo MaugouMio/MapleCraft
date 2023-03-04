@@ -270,7 +270,7 @@ namespace main()
 		
 		function skill:player/reset_mastery
 		
-		effect give @s minecraft:absorption infinite 255 true
+		effect give @s minecraft:resistance infinite 255 true
 		effect give @s minecraft:water_breathing infinite 0 true
 		attribute @s minecraft:generic.attack_damage base set -100.0
 		attribute @s minecraft:generic.knockback_resistance base set 1.0

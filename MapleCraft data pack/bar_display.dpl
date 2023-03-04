@@ -27,7 +27,7 @@ namespace bar_display()
 		scoreboard objectives add mp_recovery dummy
 		
 		scoreboard objectives add hurt_time dummy
-		scoreboard objectives add damage_taken minecraft.custom:minecraft.damage_absorbed
+		scoreboard objectives add damage_taken minecraft.custom:minecraft.damage_resisted
 	}
 	
 	func main()
@@ -230,8 +230,6 @@ namespace bar_display()
 		func check()
 		{
 			execute unless score @s hurt_time matches 1.. run function ARG(_PATH)touch
-			
-			effect give @s minecraft:absorption infinite 255 true
 			scoreboard players reset @s damage_taken
 		}
 		
