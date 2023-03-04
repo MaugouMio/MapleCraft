@@ -221,13 +221,7 @@ namespace 22() as virtual
 			
 			func try_mark()
 			{
-				execute if score #FOUND_ENEMY temp matches ..5 run function ARG(_PATH)mark_owner
-			}
-			
-			func mark_owner()
-			{
-				scoreboard players operation #PAIR_NUMBER temp = @s number
-				execute as @e[type=ocelot] if score @s number = #PAIR_NUMBER temp run function ARG(_PATH)mark
+				execute if score #FOUND_ENEMY temp matches ..5 on vehicle run function ARG(_PATH)mark
 			}
 			
 			func mark()

@@ -1033,8 +1033,7 @@ namespace party_quest() as virtual
 					
 					func open()
 					{
-						scoreboard players operation #PAIR_NUMBER temp = @s number
-						execute as @e[type=magma_cube] if score @s number = #PAIR_NUMBER temp run function ARG(_PATH)launch
+						execute on passengers if entity @s[type=magma_cube] run function ARG(_PATH)launch
 						tag @s add enemy
 						tag @s remove close_eye
 					}
@@ -1048,8 +1047,7 @@ namespace party_quest() as virtual
 					func close()
 					{
 						data modify entity @s CustomName set value '{"text":"2","font":"space:default"}'
-						scoreboard players operation #PAIR_NUMBER temp = @s number
-						execute as @e[type=magma_cube] if score @s number = #PAIR_NUMBER temp run function ARG(_PATH)shutdown
+						execute on passengers if entity @s[type=magma_cube] run function ARG(_PATH)shutdown
 						tag @s remove enemy
 						tag @s add close_eye
 					}
@@ -1137,16 +1135,14 @@ namespace party_quest() as virtual
 						
 						execute unless score @s eye_move_dir matches 0 run function ARG(_PATH)rotate
 						execute if score @s eye_move_dir matches 0 run function ARG(_PATH)check_face
-						scoreboard players operation #PAIR_NUMBER temp = @s number
-						execute as @e[type=zombified_piglin] if score @s number = #PAIR_NUMBER temp run scoreboard players set @s action_frame -1
+						execute on controller run scoreboard players set @s action_frame -1
 					}
 					
 					func rotate()
 					{
 						scoreboard players operation @s eye_move_dir *= #-1 const
 						execute at @s run tp @s ~ ~ ~ ~180 0
-						scoreboard players operation #PAIR_NUMBER temp = @s number
-						execute at @s as @e[type=zombified_piglin] if score @s number = #PAIR_NUMBER temp run tp @s ~ ~ ~ ~ ~
+						execute at @s on controller run tp @s ~ ~ ~ ~ ~
 					}
 					
 					func face_after_hit()
@@ -1170,16 +1166,14 @@ namespace party_quest() as virtual
 					func face_zpositive()
 					{
 						data modify entity @s Rotation set value [0f,0f]
-						scoreboard players operation #PAIR_NUMBER temp = @s number
-						execute as @e[type=zombified_piglin] if score @s number = #PAIR_NUMBER temp run data modify entity @s Rotation set value [0f,0f]
+						execute on controller run data modify entity @s Rotation set value [0f,0f]
 						scoreboard players set @s eye_move_dir 1
 					}
 					
 					func face_znegative()
 					{
 						data modify entity @s Rotation set value [180f,0f]
-						scoreboard players operation #PAIR_NUMBER temp = @s number
-						execute as @e[type=zombified_piglin] if score @s number = #PAIR_NUMBER temp run data modify entity @s Rotation set value [180f,0f]
+						execute on controller run data modify entity @s Rotation set value [180f,0f]
 						scoreboard players set @s eye_move_dir -1
 					}
 					

@@ -434,7 +434,7 @@ namespace bar_display()
 		{
 			scoreboard players operation #GLOBAL temp = @s number
 			execute as @e[type=#bar_display:dead_decoration,tag=dead_decoration] if score @s number = #GLOBAL temp at @s run function ARG(_PATH)remove_dead_decoration/all
-			execute as @e[type=#bar_display:dead_decoration,tag=dead_decoration] at @s run forceload add ~ ~
+			execute as @e[type=vex,tag=dead_decoration] at @s run forceload add ~ ~
 			
 			scoreboard players set @s hp 50
 			function ARG(__PATH)change/hp/recovered

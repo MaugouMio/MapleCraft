@@ -499,19 +499,12 @@ namespace 31() as virtual
 			
 			func try_splash()
 			{
-				execute if score #FOUND_SPLASH_ENEMY temp matches ..4 run function ARG(_PATH)splash_mark_owner
-			}
-			
-			func splash_mark_owner()
-			{
-				scoreboard players operation #PAIR_NUMBER temp = @s number
-				execute as @e[type=ocelot,tag=!target] if score @s number = #PAIR_NUMBER temp run function ARG(_PATH)splash_mark
+				execute if score #FOUND_SPLASH_ENEMY temp matches ..4 on vehicle run function ARG(_PATH)splash_mark
 			}
 			
 			func splash_mark()
 			{
 				tag @s add new_splashed
-				scoreboard players operation #PAIR_NUMBER temp = @s number
 				scoreboard players add #FOUND_SPLASH_ENEMY temp 1
 			}
 			
@@ -630,9 +623,7 @@ namespace 31() as virtual
 					scoreboard players set #SILENT_UPDATE_HP temp 0
 					execute if score #DID_HIT temp matches 1 run function skill:calculate_damage/update_hp_display/run
 
-					scoreboard players set #KILLED_MOB temp 0
 					execute if score @s hp matches ..0 run function skill:calculate_damage/record_dead
-					execute if score #KILLED_MOB temp matches 1 run function skill:calculate_damage/stop_magma_cube
 				}
 				
 				func reset_direct_hit()

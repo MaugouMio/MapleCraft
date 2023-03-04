@@ -153,8 +153,7 @@ namespace attack_skill_template(skill_id) as virtual
 		function skill:rand_anger_time
 
 		data modify storage skill:main damage_info.attacker set from entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].attacker
-		scoreboard players operation #GLOBAL temp = @s number
-		execute as @e[type=zombified_piglin] if score @s number = #GLOBAL temp run function skill:set_mob_target
+		execute on controller run function skill:set_mob_target
 	}
 	
 	func facing_effect()
@@ -397,8 +396,7 @@ namespace bullet_skill_template(skill_id) as virtual
 		function skill:rand_anger_time
 
 		data modify storage skill:main damage_info.attacker set from entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].attacker
-		scoreboard players operation #GLOBAL temp = @s number
-		execute as @e[type=zombified_piglin] if score @s number = #GLOBAL temp run function skill:set_mob_target
+		execute on controller run function skill:set_mob_target
 	}
 	
 	func facing_effect()
@@ -1448,8 +1446,8 @@ namespace skill()
 						execute if score @s freeze_time matches 1.. run scoreboard players set #GLOBAL temp 1
 						execute if score @s poison_time matches 1.. run scoreboard players set #GLOBAL temp 2
 						
-						execute if score #GLOBAL temp matches 1 run function skill:mob_effect/debuff/set_freeze_color
-						execute if score #GLOBAL temp matches 2 run function skill:mob_effect/debuff/set_poison_color
+						execute if score #GLOBAL temp matches 1 on controller run function skill:mob_effect/debuff/freeze_color
+						execute if score #GLOBAL temp matches 2 on controller run function skill:mob_effect/debuff/poison_color
 					}
 					
 					folder freeze()
@@ -2089,18 +2087,12 @@ namespace skill()
 			func try_mark()
 			{
 				execute unless score #FIRST_DISTANCE temp matches 0.. run scoreboard players operation #FIRST_DISTANCE temp = #CUR_DISTANCE temp
-				execute if score #FOUND_ENEMY temp < #MAX_ENEMY temp run function ARG(_PATH)mark_owner
-			}
-			
-			func mark_owner()
-			{
-				scoreboard players operation #PAIR_NUMBER temp = @s number
-				execute as @e[type=ocelot] if score @s number = #PAIR_NUMBER temp run function ARG(_PATH)mark
-				tag @s add target
+				execute if score #FOUND_ENEMY temp < #MAX_ENEMY temp run function ARG(_PATH)mark
 			}
 			
 			func mark()
 			{
+				execute on vehicle run tag @s add target
 				tag @s add target
 				scoreboard players add #FOUND_ENEMY temp 1
 			}
@@ -2136,8 +2128,7 @@ namespace skill()
 			
 			func mark_owner()
 			{
-				scoreboard players operation #PAIR_NUMBER temp = @s number
-				execute as @e[type=ocelot] if score @s number = #PAIR_NUMBER temp run function ARG(_PATH)mark
+				execute on vehicle run function ARG(_PATH)mark
 				tag @s add target
 			}
 			
@@ -2196,8 +2187,7 @@ namespace skill()
 			
 			func mark_owner()
 			{
-				scoreboard players operation #PAIR_NUMBER temp = @s number
-				execute as @e[type=ocelot] if score @s number = #PAIR_NUMBER temp run function ARG(_PATH)mark
+				execute on vehicle run function ARG(_PATH)mark
 				tag @s add target
 			}
 			
@@ -3085,15 +3075,7 @@ namespace skill()
 			
 			scoreboard players set #SILENT_UPDATE_HP temp 0
 			execute if score #DID_HIT temp matches 1 run function ARG(_PATH)update_hp_display/run
-			scoreboard players set #KILLED_MOB temp 0
 			execute if score @s hp matches ..0 run function ARG(_PATH)record_dead
-			execute if score #KILLED_MOB temp matches 1 run function ARG(_PATH)stop_magma_cube
-		}
-			
-		func stop_magma_cube()
-		{
-			scoreboard players operation #PAIR_NUMBER temp = @s number
-			execute as @e[type=magma_cube,tag=enemy] if score @s number = #PAIR_NUMBER temp run data merge entity @s {NoAI:1,Tags:[]}
 		}
 		
 		folder update_hp_display()
@@ -3295,8 +3277,8 @@ namespace skill()
 			
 			scoreboard players operation #EXP_GAIN temp += @s exp
 			tag @s add dead
-			
-			scoreboard players set #KILLED_MOB temp 1
+
+			execute on passengers if entity @s[type=magma_cube] run data merge entity @s {NoAI:1,Tags:[]}
 		}
 		
 		folder traverse_damages() from while_loop("if data storage skill:main damage_copy[0]")
@@ -3562,12 +3544,6 @@ namespace skill()
 				scoreboard players reset #SYNC_FREEZE_COLOR temp
 			}
 
-			func set_freeze_color()
-			{
-				scoreboard players operation #GLOBAL temp = @s number
-				execute as @e[type=zombified_piglin] if score @s number = #GLOBAL temp run function ARG(_PATH)freeze_color
-			}
-
 			func freeze_color()
 			{
 				data modify entity @s[tag=!objmc] ArmorItems[3].tag.CustomPotionColor set value 12580095
@@ -3576,7 +3552,7 @@ namespace skill()
 			
 			func poison()
 			{
-				execute unless score @s poison_time matches 1.. run function ARG(_PATH)set_poison_color
+				execute unless score @s poison_time matches 1.. on controller run function ARG(_PATH)poison_color
 				tag @s add color_changed
 
 				scoreboard players operation @s poison_time = #POISON_TIME temp
@@ -3587,12 +3563,6 @@ namespace skill()
 				
 				execute unless score @s next_poison matches 1.. run scoreboard players set @s poison_particle 7
 				execute unless score @s next_poison matches 1.. run scoreboard players set @s next_poison 20
-			}
-
-			func set_poison_color()
-			{
-				scoreboard players operation #GLOBAL temp = @s number
-				execute as @e[type=zombified_piglin] if score @s number = #GLOBAL temp run function ARG(_PATH)poison_color
 			}
 
 			func poison_color()
@@ -4647,8 +4617,7 @@ namespace skill()
 			scoreboard players operation #KB_TIME temp = @s kb_time
 			scoreboard players operation #STATUS temp = @s status
 			
-			scoreboard players operation #GLOBAL temp = @s number
-			execute as @e[type=zombified_piglin] if score @s number = #GLOBAL temp run function ARG(_PATH)sync
+			execute on controller run function ARG(_PATH)sync
 		}
 		
 		func sync()

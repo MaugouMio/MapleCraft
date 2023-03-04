@@ -229,17 +229,11 @@ namespace 4() as virtual
 					tag @s add 4001002_effect
 					
 					# weapon attack drop
-					function ARG(_PATH)debuff_pair
+					execute on passengers if entity @s[type=magma_cube] run function ARG(_PATH)pair_effect
 					
 					# weapon defense drop
 					scoreboard players operation @s wdef_drop = @s weapon_defense
 					scoreboard players operation @s wdef_drop < #DISORDER_LEVEL temp
-				}
-			
-				func debuff_pair()
-				{
-					scoreboard players operation #PAIR_NUMBER temp = @s number
-					execute as @e[type=magma_cube,tag=enemy] if score @s number = #PAIR_NUMBER temp run function ARG(_PATH)pair_effect
 				}
 			
 				func pair_effect()
@@ -266,13 +260,7 @@ namespace 4() as virtual
 						execute unless score @s stun_time matches 1.. run tag @s remove mob_effect
 						
 						scoreboard players set @s wdef_drop 0
-						function ARG(_PATH)reset_pair
-					}
-					
-					func reset_pair()
-					{
-						scoreboard players operation #PAIR_NUMBER temp = @s number
-						execute as @e[type=magma_cube,tag=enemy] if score @s number = #PAIR_NUMBER temp run function ARG(_PATH)pair_reset_effect
+						execute on passengers if entity @s[type=magma_cube] run function ARG(_PATH)pair_reset_effect
 					}
 					
 					func pair_reset_effect()

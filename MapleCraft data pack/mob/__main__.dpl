@@ -127,8 +127,7 @@ namespace mob()
 			
 			func reset()
 			{
-				scoreboard players operation #GLOBAL temp = @s number
-				execute as @e[type=zombified_piglin] if score @s number = #GLOBAL temp run attribute @s minecraft:generic.follow_range base set 0.0
+				execute on controller run attribute @s minecraft:generic.follow_range base set 0.0
 				scoreboard players reset @s anger_time
 			}
 		}

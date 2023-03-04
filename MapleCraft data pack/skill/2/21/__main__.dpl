@@ -518,8 +518,7 @@ namespace 21() as virtual
 			
 			func set_owner()
 			{
-				scoreboard players operation #PAIR_NUMBER temp = @s number
-				execute as @e[type=ocelot] if score @s number = #PAIR_NUMBER temp at @s run function ARG(_PATH)set_debuff
+				execute on vehicle at @s run function ARG(_PATH)set_debuff
 				scoreboard players set @s 2101003_time 1
 			}
 			
@@ -587,13 +586,7 @@ namespace 21() as virtual
 				{
 					scoreboard players reset @s 2101003_time
 					data modify entity @s ArmorItems[3].tag.AttributeModifiers[{Name:"slow"}].Amount set value 0
-					function ARG(_PATH)reset_pair
-				}
-				
-				func reset_pair()
-				{
-					scoreboard players operation #PAIR_NUMBER temp = @s number
-					execute as @e[type=magma_cube,tag=enemy] if score @s number = #PAIR_NUMBER temp run scoreboard players reset @s 2101003_time
+					execute on passengers if entity @s[type=magma_cube] run scoreboard players reset @s 2101003_time
 				}
 			}
 			

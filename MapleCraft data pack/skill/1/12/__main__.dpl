@@ -227,8 +227,7 @@ namespace 12() as virtual
 			
 			func set_owner()
 			{
-				scoreboard players operation #PAIR_NUMBER temp = @s number
-				execute as @e[type=ocelot] if score @s number = #PAIR_NUMBER temp run function ARG(_PATH)set_debuff
+				execute on vehicle run function ARG(_PATH)set_debuff
 				
 				# weapon attack drop
 				execute store result score #GLOBAL temp run attribute @s minecraft:generic.attack_damage base get 10
