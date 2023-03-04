@@ -109,7 +109,7 @@ namespace mob_skill()
 			```
 			scoreboard players set #SKILL_HIT temp 0
 			scoreboard players operation #MAGIC_ATTACK temp = @s weapon_mattack
-			scoreboard players operation #ATTACKER_ACC temp = @s base_accuracy
+			function mob:write_attacker_data
 			execute as @a[gamemode=adventure,tag=!dead,distance=..7.5] positioned ~-20 ~-0.5 ~-20 if entity @s[dx=40,dy=3,dz=40] if data entity @s {OnGround:1b} unless score @s hurt_time matches 1.. at @s run function ARG(_PATH)hit
 			execute if score #SKILL_HIT temp matches 1 run playsound minecraft:mob.special.9300003_char_damage player @a ~ ~ ~ 1 1 0
 			
@@ -118,12 +118,8 @@ namespace mob_skill()
 		
 		func hit()
 		{
-			scoreboard players set @s attacker_level 40
-			scoreboard players operation @s attacker_acc = #ATTACKER_ACC temp
 			scoreboard players operation @s damage_taken = #MAGIC_ATTACK temp
 			function bar_display:take_damage/physic/check
-			scoreboard players reset @s attacker_level
-			scoreboard players reset @s attacker_acc
 			
 			# 給一點角色受傷的動作
 			execute if score @s damage_taken matches 1.. run function mob:damage
@@ -240,7 +236,7 @@ namespace mob_skill()
 			print("summon marker ~ ~ ~ {UUID:%s}" %UUID_LIST["mob_damage"])
 			```
 			scoreboard players operation #MAGIC_ATTACK temp = @s weapon_mattack
-			scoreboard players operation #ATTACKER_ACC temp = @s base_accuracy
+			function mob:write_attacker_data
 			execute as @a[gamemode=adventure,tag=!dead,distance=..7.5] positioned ~-20 ~-0.5 ~-20 if entity @s[dx=40,dy=3,dz=40] unless score @s hurt_time matches 1.. if data entity @s {OnGround:1b} at @s run function ARG(_PATH)hit
 			
 			kill 00000000-0000-0006-0000-000000000006
@@ -248,12 +244,8 @@ namespace mob_skill()
 		
 		func hit()
 		{
-			scoreboard players set @s attacker_level 47
-			scoreboard players operation @s attacker_acc = #ATTACKER_ACC temp
 			scoreboard players operation @s damage_taken = #MAGIC_ATTACK temp
 			function bar_display:take_damage/physic/check
-			scoreboard players reset @s attacker_level
-			scoreboard players reset @s attacker_acc
 			
 			# 給一點角色受傷的動作
 			execute if score @s damage_taken matches 1.. run function mob:damage
@@ -325,7 +317,7 @@ namespace mob_skill()
 		func attack()
 		{
 			scoreboard players operation #MAGIC_ATTACK temp = @s weapon_mattack
-			scoreboard players operation #ATTACKER_ACC temp = @s base_accuracy
+			function mob:write_attacker_data
 			```
 			print("summon marker ~ ~ ~ {UUID:%s}" %UUID_LIST["mob_damage"])
 			```
@@ -338,12 +330,8 @@ namespace mob_skill()
 		
 		func hit()
 		{
-			scoreboard players set @s attacker_level 41
-			scoreboard players operation @s attacker_acc = #ATTACKER_ACC temp
 			scoreboard players operation @s damage_taken = #MAGIC_ATTACK temp
 			function bar_display:take_damage/magic/check
-			scoreboard players reset @s attacker_level
-			scoreboard players reset @s attacker_acc
 			
 			# 給一點角色受傷的動作
 			execute if score @s damage_taken matches 1.. run function mob:damage
@@ -416,7 +404,7 @@ namespace mob_skill()
 		func attack()
 		{
 			scoreboard players operation #MAGIC_ATTACK temp = @s weapon_mattack
-			scoreboard players operation #ATTACKER_ACC temp = @s base_accuracy
+			function mob:write_attacker_data
 			```
 			print("summon marker ~ ~ ~ {UUID:%s}" %UUID_LIST["mob_damage"])
 			```
@@ -429,12 +417,8 @@ namespace mob_skill()
 		
 		func hit()
 		{
-			scoreboard players set @s attacker_level 46
-			scoreboard players operation @s attacker_acc = #ATTACKER_ACC temp
 			scoreboard players operation @s damage_taken = #MAGIC_ATTACK temp
 			function bar_display:take_damage/magic/check
-			scoreboard players reset @s attacker_level
-			scoreboard players reset @s attacker_acc
 			
 			# 給一點角色受傷的動作
 			execute if score @s damage_taken matches 1.. run function mob:damage
@@ -747,7 +731,7 @@ namespace mob_skill()
 			scoreboard players set #SKILL_HIT temp 0
 			
 			scoreboard players operation #MAGIC_ATTACK temp = @s weapon_mattack
-			scoreboard players operation #ATTACKER_ACC temp = @s base_accuracy
+			function mob:write_attacker_data
 			```
 			print("summon marker ~ ~ ~ {UUID:%s}" %UUID_LIST["mob_damage"])
 			```
@@ -759,12 +743,8 @@ namespace mob_skill()
 		
 		func hit()
 		{
-			scoreboard players set @s attacker_level 56
-			scoreboard players operation @s attacker_acc = #ATTACKER_ACC temp
 			scoreboard players operation @s damage_taken = #MAGIC_ATTACK temp
 			function bar_display:take_damage/magic/check
-			scoreboard players reset @s attacker_level
-			scoreboard players reset @s attacker_acc
 			
 			# 給一點角色受傷的動作
 			execute if score @s damage_taken matches 1.. run function mob:damage

@@ -28,8 +28,6 @@ namespace bar_display()
 		
 		scoreboard objectives add hurt_time dummy
 		scoreboard objectives add damage_taken minecraft.custom:minecraft.damage_absorbed
-		scoreboard objectives add attacker_level dummy
-		scoreboard objectives add attacker_acc dummy
 	}
 	
 	func main()
@@ -202,15 +200,15 @@ namespace bar_display()
 				scoreboard players operation #B temp += #C temp
 				scoreboard players add #B temp 28000
 				
-				execute if score @s level >= @s attacker_level run function ARG(_PATH)multi_d
-				execute if score @s level < @s attacker_level run scoreboard players operation #B temp *= #13 const
+				execute if score @s level >= #ATTACKER_LEVEL temp run function ARG(_PATH)multi_d
+				execute if score @s level < #ATTACKER_LEVEL temp run scoreboard players operation #B temp *= #13 const
 			}
 			
 			func multi_d()
 			{
 				scoreboard players set #LEVEL_DIFF temp 13
 				scoreboard players operation #LEVEL_DIFF temp += @s level
-				scoreboard players operation #LEVEL_DIFF temp -= @s attacker_level
+				scoreboard players operation #LEVEL_DIFF temp -= #ATTACKER_LEVEL temp
 				
 				scoreboard players set #D temp 13000
 				scoreboard players operation #D temp /= #LEVEL_DIFF temp
@@ -234,14 +232,13 @@ namespace bar_display()
 			execute unless score @s hurt_time matches 1.. run function ARG(_PATH)touch
 			
 			effect give @s minecraft:absorption infinite 255 true
-			scoreboard players reset @s attacker_level
-			scoreboard players reset @s attacker_acc
 			scoreboard players reset @s damage_taken
 		}
 		
 		func touch()
 		{
 			scoreboard players set #TOUCH_DAMAGE temp 1
+			execute on attacker on vehicle run function mob:write_attacker_data
 			function ARG(_PATH)physic/check
 		}
 		
@@ -250,7 +247,7 @@ namespace bar_display()
 			func run()
 			{
 				scoreboard players set #AVOIDABILITY temp 0
-				execute if score @s level < @s attacker_level run function ARG(_PATH)level_effect
+				execute if score @s level < #ATTACKER_LEVEL temp run function ARG(_PATH)level_effect
 				scoreboard players operation #AVOIDABILITY temp += @s avoidability
 			}
 			
@@ -258,7 +255,7 @@ namespace bar_display()
 			{
 				# 這邊是玩家比怪物低等的情況，算出來會是負值
 				scoreboard players operation #AVOIDABILITY temp = @s level
-				scoreboard players operation #AVOIDABILITY temp -= @s attacker_level
+				scoreboard players operation #AVOIDABILITY temp -= #ATTACKER_LEVEL temp
 				scoreboard players operation #AVOIDABILITY temp /= #2 const
 			}
 		}
@@ -268,12 +265,12 @@ namespace bar_display()
 			func check()
 			{
 				# 避免特殊情況沒有值導致 division by zero
-				execute unless score @s attacker_acc matches 1.. run scoreboard players set @s attacker_acc 1
+				execute unless score #ATTACKER_ACC temp matches 1.. run scoreboard players set #ATTACKER_ACC temp 1
 				
 				function ARG(__PATH)get_final_avoid/run
 				
 				scoreboard players operation #AVOIDABILITY temp *= #1000 const
-				scoreboard players operation #AVOIDABILITY temp /= @s attacker_acc
+				scoreboard players operation #AVOIDABILITY temp /= #ATTACKER_ACC temp
 				scoreboard players operation #AVOIDABILITY temp /= #45 const
 				
 				execute if entity @s[tag=!thief] run function ARG(_PATH)clamp
@@ -310,11 +307,11 @@ namespace bar_display()
 			func check()
 			{
 				# 避免特殊情況沒有值導致 division by zero
-				execute unless score @s attacker_acc matches 1.. run scoreboard players set @s attacker_acc 1
+				execute unless score #ATTACKER_ACC temp matches 1.. run scoreboard players set #ATTACKER_ACC temp 1
 				
 				function ARG(__PATH)get_final_avoid/run
 				
-				scoreboard players operation #ACCURACY temp = @s attacker_acc
+				scoreboard players operation #ACCURACY temp = #ATTACKER_ACC temp
 				scoreboard players operation #ACCURACY temp *= #100 const
 				scoreboard players operation #ACCURACY temp /= #AVOIDABILITY temp
 				scoreboard players set #AVOIDABILITY temp 100
@@ -932,114 +929,6 @@ namespace bar_display()
 		func schedule_10s()
 		{
 			execute as @a[tag=!dead] if score @s mp < @s mp_max run function ARG(__PATH)recover/mp
-		}
-	}
-	
-	folder attacker_level()
-	{
-		func lv1()
-		{
-			scoreboard players add @s attacker_level 1
-			advancement revoke @s only bar_display:attacker_level/lv1
-		}
-		
-		func lv2()
-		{
-			scoreboard players add @s attacker_level 2
-			advancement revoke @s only bar_display:attacker_level/lv2
-		}
-		
-		func lv4()
-		{
-			scoreboard players add @s attacker_level 4
-			advancement revoke @s only bar_display:attacker_level/lv4
-		}
-		
-		func lv8()
-		{
-			scoreboard players add @s attacker_level 8
-			advancement revoke @s only bar_display:attacker_level/lv8
-		}
-		
-		func lv16()
-		{
-			scoreboard players add @s attacker_level 16
-			advancement revoke @s only bar_display:attacker_level/lv16
-		}
-		
-		func lv32()
-		{
-			scoreboard players add @s attacker_level 32
-			advancement revoke @s only bar_display:attacker_level/lv32
-		}
-		
-		func lv64()
-		{
-			scoreboard players add @s attacker_level 64
-			advancement revoke @s only bar_display:attacker_level/lv64
-		}
-		
-		func lv128()
-		{
-			scoreboard players add @s attacker_level 128
-			advancement revoke @s only bar_display:attacker_level/lv128
-		}
-	}
-	
-	folder attacker_acc()
-	{
-		func lv1()
-		{
-			scoreboard players add @s attacker_acc 1
-			advancement revoke @s only bar_display:attacker_acc/lv1
-		}
-		
-		func lv2()
-		{
-			scoreboard players add @s attacker_acc 2
-			advancement revoke @s only bar_display:attacker_acc/lv2
-		}
-		
-		func lv4()
-		{
-			scoreboard players add @s attacker_acc 4
-			advancement revoke @s only bar_display:attacker_acc/lv4
-		}
-		
-		func lv8()
-		{
-			scoreboard players add @s attacker_acc 8
-			advancement revoke @s only bar_display:attacker_acc/lv8
-		}
-		
-		func lv16()
-		{
-			scoreboard players add @s attacker_acc 16
-			advancement revoke @s only bar_display:attacker_acc/lv16
-		}
-		
-		func lv32()
-		{
-			scoreboard players add @s attacker_acc 32
-			advancement revoke @s only bar_display:attacker_acc/lv32
-		}
-		
-		func lv64()
-		{
-			scoreboard players add @s attacker_acc 64
-			advancement revoke @s only bar_display:attacker_acc/lv64
-		}
-		
-		func lv128()
-		{
-			scoreboard players add @s attacker_acc 128
-			advancement revoke @s only bar_display:attacker_acc/lv128
-		}
-		
-		func lv256()
-		{
-			scoreboard players add @s attacker_acc 256
-			advancement revoke @s only bar_display:attacker_acc/lv256
 		}
 	}
 }

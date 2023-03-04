@@ -50,7 +50,7 @@ namespace mob()
 		{
 			execute if entity @s[type=ocelot] run function ARG(_PATH)set_stats
 			execute if entity @s[type=zombified_piglin] run function ARG(_PATH)piglin_set
-			execute if entity @s[type=magma_cube,tag=!no_body_attack] run function ARG(_PATH)magma_cube_set
+			execute if entity @s[type=magma_cube,tag=!no_body_attack] run data modify entity @s NoAI set value 0
 			scoreboard players operation @s number = #MOB_ID number
 			
 			scoreboard players set @s spawn_alpha 10
@@ -62,7 +62,6 @@ namespace mob()
 		func set_stats()
 		{
 			execute store result score @s level run data get entity @s ArmorItems[3].tag.info.level
-			scoreboard players operation #LEVEL temp = @s level
 			
 			execute store result score @s hp_max run data get entity @s ArmorItems[3].tag.info.hp_max
 			scoreboard players operation @s hp = @s hp_max
@@ -70,7 +69,6 @@ namespace mob()
 			scoreboard players operation @s mp = @s mp_max
 			
 			execute store result score @s base_accuracy run data get entity @s ArmorItems[3].tag.info.accuracy
-			scoreboard players operation #ACCURACY temp = @s base_accuracy
 			
 			execute store result score @s avoidability run data get entity @s ArmorItems[3].tag.info.avoidability
 			execute if data entity @s ArmorItems[3].tag.info.magic_attack store result score @s weapon_mattack run data get entity @s ArmorItems[3].tag.info.magic_attack
@@ -103,156 +101,6 @@ namespace mob()
 			
 			# 同步技能 id 設定
 			scoreboard players operation @s skill_id = #SKILL_ID temp
-		}
-		
-		func magma_cube_set()
-		{
-			function ARG(_PATH)level_tag/add
-			function ARG(_PATH)accuracy_tag/set
-			data modify entity @s NoAI set value 0
-		}
-		
-		folder level_tag()
-		{
-			func add()
-			{
-				execute if score #LEVEL temp matches 128.. run function ARG(_PATH)lv128
-				execute if score #LEVEL temp matches 64.. run function ARG(_PATH)lv64
-				execute if score #LEVEL temp matches 32.. run function ARG(_PATH)lv32
-				execute if score #LEVEL temp matches 16.. run function ARG(_PATH)lv16
-				execute if score #LEVEL temp matches 8.. run function ARG(_PATH)lv8
-				execute if score #LEVEL temp matches 4.. run function ARG(_PATH)lv4
-				execute if score #LEVEL temp matches 2.. run function ARG(_PATH)lv2
-				execute if score #LEVEL temp matches 1.. run function ARG(_PATH)lv1
-			}
-			
-			func lv128()
-			{
-				tag @s add lvbit128
-				scoreboard players remove #LEVEL temp 128
-			}
-			
-			func lv64()
-			{
-				tag @s add lvbit64
-				scoreboard players remove #LEVEL temp 64
-			}
-			
-			func lv32()
-			{
-				tag @s add lvbit32
-				scoreboard players remove #LEVEL temp 32
-			}
-			
-			func lv16()
-			{
-				tag @s add lvbit16
-				scoreboard players remove #LEVEL temp 16
-			}
-			
-			func lv8()
-			{
-				tag @s add lvbit8
-				scoreboard players remove #LEVEL temp 8
-			}
-			
-			func lv4()
-			{
-				tag @s add lvbit4
-				scoreboard players remove #LEVEL temp 4
-			}
-			
-			func lv2()
-			{
-				tag @s add lvbit2
-				scoreboard players remove #LEVEL temp 2
-			}
-			
-			func lv1()
-			{
-				tag @s add lvbit1
-				scoreboard players remove #LEVEL temp 1
-			}
-		}
-		
-		folder accuracy_tag()
-		{
-			func set()
-			{
-				tag @s remove accbit256
-				tag @s remove accbit128
-				tag @s remove accbit64
-				tag @s remove accbit32
-				tag @s remove accbit16
-				tag @s remove accbit8
-				tag @s remove accbit4
-				tag @s remove accbit2
-				tag @s remove accbit1
-				
-				execute if score #ACCURACY temp matches 256.. run function ARG(_PATH)lv256
-				execute if score #ACCURACY temp matches 128.. run function ARG(_PATH)lv128
-				execute if score #ACCURACY temp matches 64.. run function ARG(_PATH)lv64
-				execute if score #ACCURACY temp matches 32.. run function ARG(_PATH)lv32
-				execute if score #ACCURACY temp matches 16.. run function ARG(_PATH)lv16
-				execute if score #ACCURACY temp matches 8.. run function ARG(_PATH)lv8
-				execute if score #ACCURACY temp matches 4.. run function ARG(_PATH)lv4
-				execute if score #ACCURACY temp matches 2.. run function ARG(_PATH)lv2
-				execute if score #ACCURACY temp matches 1.. run function ARG(_PATH)lv1
-			}
-			
-			func lv256()
-			{
-				tag @s add accbit256
-				scoreboard players remove #ACCURACY temp 256
-			}
-			
-			func lv128()
-			{
-				tag @s add accbit128
-				scoreboard players remove #ACCURACY temp 128
-			}
-			
-			func lv64()
-			{
-				tag @s add accbit64
-				scoreboard players remove #ACCURACY temp 64
-			}
-			
-			func lv32()
-			{
-				tag @s add accbit32
-				scoreboard players remove #ACCURACY temp 32
-			}
-			
-			func lv16()
-			{
-				tag @s add accbit16
-				scoreboard players remove #ACCURACY temp 16
-			}
-			
-			func lv8()
-			{
-				tag @s add accbit8
-				scoreboard players remove #ACCURACY temp 8
-			}
-			
-			func lv4()
-			{
-				tag @s add accbit4
-				scoreboard players remove #ACCURACY temp 4
-			}
-			
-			func lv2()
-			{
-				tag @s add accbit2
-				scoreboard players remove #ACCURACY temp 2
-			}
-			
-			func lv1()
-			{
-				tag @s add accbit1
-				scoreboard players remove #ACCURACY temp 1
-			}
 		}
 	}
 	
@@ -292,6 +140,12 @@ namespace mob()
 			
 			execute as @e[type=ocelot] run data modify entity @s Age set value -2147483648
 		}
+	}
+	
+	func write_attacker_data()
+	{
+		scoreboard players operation #ATTACKER_ACC temp = @s base_accuracy
+		scoreboard players operation #ATTACKER_LEVEL temp = @s level
 	}
 	
 	func damage()
@@ -346,11 +200,11 @@ namespace mob()
 		# 泥人領導者 LDPQ
 		# print("execute rotated ~ 0 positioned ^ ^ ^5 align y run", spawn_mob("9300010"))
 		# 妖魔 LDPQ
-		# print("execute rotated ~ 0 positioned ^ ^ ^5 align y run", spawn_mob("9300015"))
+		print("execute rotated ~ 0 positioned ^ ^ ^5 align y run", spawn_mob("9300015"))
 		# 進化妖魔 LDPQ
 		print("execute rotated ~ 0 positioned ^ ^ ^5 align y run", spawn_mob("9300016"))
 		# 妖魔隊長 LDPQ
-		# print("execute rotated ~ 0 positioned ^ ^ ^5 align y run", spawn_mob("9300017"))
+		print("execute rotated ~ 0 positioned ^ ^ ^5 align y run", spawn_mob("9300017"))
 		# 機械鯨魚王
 		# print("execute rotated ~ 0 positioned ^ ^ ^5 align y run", spawn_mob("9300012"))
 		```
