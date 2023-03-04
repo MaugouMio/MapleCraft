@@ -49,6 +49,7 @@ namespace bar_display()
 		func reset()
 		{
 			effect clear @s minecraft:glowing
+			execute unless score @s invis_buff_time matches 1.. run effect clear @s minecraft:fire_resistance
 			scoreboard players reset @s hurt_time
 		}
 	}
@@ -337,8 +338,8 @@ namespace bar_display()
 			scoreboard players set @s display_number 0
 			function number_display:show
 			
-			# 避免頻繁跟內建無敵時間衝突，導致無敵時間再多半秒，稍微減少 1 tick
-			scoreboard players set @s hurt_time 29
+			scoreboard players set @s hurt_time 30
+			effect give @s minecraft:fire_resistance infinite 0 true
 			
 			scoreboard players reset @s damage_taken
 			scoreboard players reset #TOUCH_DAMAGE temp
@@ -361,12 +362,12 @@ namespace bar_display()
 			function ARG(__PATH)change/hp/dropped
 			
 			scoreboard players operation @s next_hp_recover = @s hp_recover_time
-			# 避免頻繁跟內建無敵時間衝突，導致無敵時間再多半秒，稍微減少 1 tick
-			scoreboard players set @s hurt_time 29
+			scoreboard players set @s hurt_time 30
 			# 擊退效果
 			execute if score #TOUCH_DAMAGE temp matches 1 run function ARG(_PATH)knockback
 			
 			effect give @s minecraft:glowing infinite 0 true
+			effect give @s minecraft:fire_resistance infinite 0 true
 
 			scoreboard players reset #TOUCH_DAMAGE temp
 		}
@@ -928,5 +929,12 @@ namespace bar_display()
 		{
 			execute as @a[tag=!dead] if score @s mp < @s mp_max run function ARG(__PATH)recover/mp
 		}
+	}
+	
+	func mob_attack()
+	{
+		# 因為怪物攻擊沒冷卻，受到一次傷害就要趕快補上無敵，避免傷害疊加
+		effect give @s minecraft:fire_resistance infinite 0 true
+		advancement revoke @s only bar_display:mob_attack
 	}
 }
