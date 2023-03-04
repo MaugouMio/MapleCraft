@@ -1058,9 +1058,9 @@ namespace item()
 				func check()
 				{
 					# potion price check
-					execute store result score #GLOBAL temp run data get entity @s SelectedItem.tag.price
-					execute if score @s meso < #GLOBAL temp run function ARG(_PATH)no_meso_warn
-					execute if score @s meso >= #GLOBAL temp run function ARG(_PATH)type_check
+					execute store result score #PRICE temp run data get entity @s SelectedItem.tag.price
+					execute if score @s meso < #PRICE temp run function ARG(_PATH)no_meso_warn
+					execute if score @s meso >= #PRICE temp run function ARG(_PATH)type_check
 				}
 				
 				func no_meso_warn()
@@ -1078,7 +1078,7 @@ namespace item()
 					execute if score #GLOBAL temp matches 2 run playsound minecraft:item.unagi player @s
 					execute if score #GLOBAL temp matches 3 run playsound minecraft:item.sap_of_ancient_tree player @s
 					
-					scoreboard players operation @s meso -= #GLOBAL temp
+					scoreboard players operation @s meso -= #PRICE temp
 					execute if score #USING_ITEM temp matches ..299 run function ARG(_PATH)recover/check
 					execute if score #USING_ITEM temp matches 300.. run function ARG(_PATH)buff/check
 				}
