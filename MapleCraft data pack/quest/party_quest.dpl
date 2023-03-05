@@ -1031,9 +1031,15 @@ namespace party_quest() as virtual
 						schedule function ARG(_PATH)loop 1t
 					}
 					
+					func hit()
+					{
+						execute on vehicle run data modify entity @s CustomName set from entity @s ArmorItems[3].tag.health_bar
+						function ARG(_PATH)open
+					}
+					
 					func open()
 					{
-						execute on passengers if entity @s[type=magma_cube] run function ARG(_PATH)launch
+						execute on vehicle on passengers if entity @s[type=magma_cube] run function ARG(_PATH)launch
 						tag @s add enemy
 						tag @s remove close_eye
 					}
@@ -1046,8 +1052,8 @@ namespace party_quest() as virtual
 					
 					func close()
 					{
-						data modify entity @s CustomName set value '{"text":"2","font":"space:default"}'
-						execute on passengers if entity @s[type=magma_cube] run function ARG(_PATH)shutdown
+						execute on vehicle run data modify entity @s CustomName set value '{"text":"2","font":"space:default"}'
+						execute on vehicle on passengers if entity @s[type=magma_cube] run function ARG(_PATH)shutdown
 						tag @s remove enemy
 						tag @s add close_eye
 					}

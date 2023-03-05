@@ -191,7 +191,7 @@ namespace attack_skill_template(skill_id) as virtual
 	{
 		scoreboard players set @s pushed_time 12
 		scoreboard players operation @s kb_time > @s pushed_time
-		execute if score @s status matches ..3 run function skill:mob_effect/hit_model
+		execute if score @s status matches ..3 run scoreboard players set @s status 1
 		function skill:sync_knockback/run
 		
 		# face attacker player
@@ -427,7 +427,7 @@ namespace bullet_skill_template(skill_id) as virtual
 	{
 		scoreboard players set @s pushed_time 12
 		scoreboard players operation @s kb_time > @s pushed_time
-		execute if score @s status matches ..3 run function skill:mob_effect/hit_model
+		execute if score @s status matches ..3 run scoreboard players set @s status 1
 		function skill:sync_knockback/run
 		
 		# face attacker player
@@ -3581,14 +3581,6 @@ namespace skill()
 			}
 		}
 		
-		func hit_model()
-		{
-			scoreboard players set @s status 1
-
-			# 次元怒目哀目開眼特殊處理
-			execute if entity @s[tag=close_eye] run function quest:party_quest/ldpq/stages/4/eyes/open
-		}
-		
 		func dead()
 		{
 			scoreboard players operation #GLOBAL temp = @s number
@@ -4638,6 +4630,8 @@ namespace skill()
 		{
 			scoreboard players set @s status 1
 			execute store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players operation #STATUS temp += @s base_model
+			# 次元怒目哀目開眼特殊處理
+			execute if entity @s[tag=close_eye] run function quest:party_quest/ldpq/stages/4/eyes/hit
 		}
 	}
 	
