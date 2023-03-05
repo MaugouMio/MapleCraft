@@ -494,7 +494,7 @@ namespace 31() as virtual
 				
 				scoreboard players set #FOUND_SPLASH_ENEMY temp 0
 				scoreboard players reset #PAIR_NUMBER temp
-				execute as @e[type=ocelot,tag=target,limit=1] at @s positioned ~-3 ~-2 ~-3 as @e[type=magma_cube,tag=enemy,dx=5,dy=4.5,dz=5] run function ARG(_PATH)try_splash
+				execute as @e[type=ocelot,tag=target,limit=1] at @s positioned ~-3 ~-2 ~-3 as @e[type=interaction,tag=enemy,dx=5,dy=4.5,dz=5] run function ARG(_PATH)try_splash
 			}
 			
 			func try_splash()

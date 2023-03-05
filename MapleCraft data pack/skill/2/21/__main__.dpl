@@ -502,7 +502,7 @@ namespace 21() as virtual
 				```
 				scoreboard players set #FOUND_ENEMY temp 0
 				scoreboard players reset #PAIR_NUMBER temp
-				execute positioned ~-4 ~-3 ~-4 as @e[type=magma_cube,tag=enemy,tag=!boss,dx=7,dy=5.5,dz=7] unless score @s 2101003_time matches 1.. run function ARG(_PATH)try_debuff
+				execute positioned ~-4 ~-3 ~-4 as @e[type=interaction,tag=enemy,tag=!boss,dx=7,dy=5.5,dz=7] unless score @s 2101003_time matches 1.. run function ARG(_PATH)try_debuff
 				kill 00000000-0000-0004-0000-000000000004
 				
 				scoreboard players operation @s mp -= @s 2101003_mp
@@ -586,7 +586,7 @@ namespace 21() as virtual
 				{
 					scoreboard players reset @s 2101003_time
 					data modify entity @s ArmorItems[3].tag.AttributeModifiers[{Name:"slow"}].Amount set value 0
-					execute on passengers if entity @s[type=magma_cube] run scoreboard players reset @s 2101003_time
+					execute on passengers run scoreboard players reset @s[type=interaction] 2101003_time
 				}
 			}
 			

@@ -2072,15 +2072,15 @@ namespace skill()
 				print("execute at @s rotated ~ 0 positioned ^ ^ ^100 run summon minecraft:marker ~ ~ ~ {UUID:%s}" %UUID_LIST["search"])
 				```
 				execute at @s rotated ~ 0 positioned ^ ^ ^-1.8 run function ARG(_PATH)run
-				tag @e[type=magma_cube,tag=target] remove target
+				tag @e[type=interaction,tag=target] remove target
 				kill 00000000-0000-0003-0000-000000000003
 			}
 			
 			func execute()
 			{
 				# simulating sector detection, larger y axis detection on further distance
-				execute if score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-1.7 ~-1.8 as @e[type=magma_cube,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=3.3,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
-				execute unless score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-1.1 ~-1.8 as @e[type=magma_cube,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=2.1,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
+				execute if score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-1.7 ~-1.8 as @e[type=interaction,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=3.3,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
+				execute unless score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-1.1 ~-1.8 as @e[type=interaction,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=2.1,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
 				scoreboard players add #CUR_DISTANCE temp 1
 			}
 			
@@ -2109,15 +2109,15 @@ namespace skill()
 				print("execute at @s rotated ~ 0 positioned ^ ^ ^100 run summon minecraft:marker ~ ~ ~ {UUID:%s}" %UUID_LIST["search"])
 				```
 				execute at @s rotated ~ 0 positioned ^ ^ ^-1.8 run function ARG(_PATH)run
-				tag @e[type=magma_cube,tag=target] remove target
+				tag @e[type=interaction,tag=target] remove target
 				kill 00000000-0000-0003-0000-000000000003
 			}
 			
 			func execute()
 			{
 				# simulating sector detection, larger y axis detection on further distance
-				execute if score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-1.7 ~-1.8 as @e[type=magma_cube,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=3.3,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
-				execute unless score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-1.1 ~-1.8 as @e[type=magma_cube,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=2.1,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
+				execute if score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-1.7 ~-1.8 as @e[type=interaction,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=3.3,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
+				execute unless score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-1.1 ~-1.8 as @e[type=interaction,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=2.1,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
 				scoreboard players add #CUR_DISTANCE temp 1
 			}
 			
@@ -2162,15 +2162,15 @@ namespace skill()
 				print("execute at @s rotated ~ 0 positioned ^ ^ ^100 run summon minecraft:marker ~ ~ ~ {UUID:%s}" %UUID_LIST["search"])
 				```
 				execute at @s rotated ~ 0 positioned ^ ^ ^-1.8 run function ARG(_PATH)run
-				tag @e[type=magma_cube,tag=target] remove target
+				tag @e[type=interaction,tag=target] remove target
 				kill 00000000-0000-0003-0000-000000000003
 			}
 			
 			func execute()
 			{
 				# simulating sector detection, larger y axis detection on further distance
-				execute if score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-1.7 ~-1.8 as @e[type=magma_cube,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=3.3,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
-				execute unless score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-1.1 ~-1.8 as @e[type=magma_cube,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=2.1,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
+				execute if score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-1.7 ~-1.8 as @e[type=interaction,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=3.3,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
+				execute unless score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-1.1 ~-1.8 as @e[type=interaction,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=2.1,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
 				scoreboard players add #CUR_DISTANCE temp 1
 			}
 			
@@ -3278,7 +3278,8 @@ namespace skill()
 			scoreboard players operation #EXP_GAIN temp += @s exp
 			tag @s add dead
 
-			execute on passengers if entity @s[type=magma_cube] run data merge entity @s {NoAI:1,Tags:[]}
+			execute on passengers run data modify entity @s[type=magma_cube] NoAI set value 1b
+			execute on passengers run tag @s[type=interaction] remove enemy
 		}
 		
 		folder traverse_damages() from while_loop("if data storage skill:main damage_copy[0]")
@@ -3588,7 +3589,8 @@ namespace skill()
 			
 			function ARG(_PATH)play_die_sound/run
 			execute if entity @s[tag=dead_effect] run function ARG(_PATH)dead_effect/check
-			execute as @e[type=#skill:enemy_ai] if score @s number = #GLOBAL temp run kill @s
+			execute on passengers run kill @s
+			kill @s
 		}
 		
 		folder dead_effect()

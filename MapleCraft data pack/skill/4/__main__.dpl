@@ -229,20 +229,19 @@ namespace 4() as virtual
 					tag @s add 4001002_effect
 					
 					# weapon attack drop
-					execute on passengers if entity @s[type=magma_cube] run function ARG(_PATH)pair_effect
+					execute on passengers if entity @s[type=magma_cube] run function ARG(_PATH)decrease_attack
+					execute on passengers run scoreboard players set @s[type=interaction] weaken_from 1
 					
 					# weapon defense drop
 					scoreboard players operation @s wdef_drop = @s weapon_defense
 					scoreboard players operation @s wdef_drop < #DISORDER_LEVEL temp
 				}
 			
-				func pair_effect()
+				func decrease_attack()
 				{
 					execute store result score #GLOBAL temp run data get entity @s Attributes[{Name:"minecraft:generic.attack_damage"}].Base 10
 					scoreboard players remove #GLOBAL temp 1
 					execute store result entity @s ArmorItems[3].tag.AttributeModifiers[{Name:"disorder"}].Amount float -0.1 run scoreboard players operation #GLOBAL temp < #DISORDER_LEVEL temp
-					
-					scoreboard players set @s weaken_from 1
 				}
 				
 				folder mob()
@@ -260,13 +259,8 @@ namespace 4() as virtual
 						execute unless score @s stun_time matches 1.. run tag @s remove mob_effect
 						
 						scoreboard players set @s wdef_drop 0
-						execute on passengers if entity @s[type=magma_cube] run function ARG(_PATH)pair_reset_effect
-					}
-					
-					func pair_reset_effect()
-					{
-						data modify entity @s ArmorItems[3].tag.AttributeModifiers[{Name:"disorder"}].Amount set value 0
-						scoreboard players reset @s weaken_from
+						execute on passengers run data modify entity @s[type=magma_cube] ArmorItems[3].tag.AttributeModifiers[{Name:"disorder"}].Amount set value 0
+						execute on passengers run scoreboard players reset @s[type=interaction] weaken_from
 					}
 				}
 				
