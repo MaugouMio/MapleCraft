@@ -61,7 +61,7 @@ namespace mob_skill()
 			print(spawn_mob("0210100", is_summon=True, prefix="Motion:[0.0,0.5,-0.3],"))
 			print(spawn_mob("0210100", is_summon=True, prefix="Motion:[-0.26,0.5,0.15],"))
 			```
-			execute as @e[type=#skill:enemy,tag=new_summon] run function mob:setting/run
+			execute as @e[type=ocelot,tag=new_summon] run function mob:setting/run
 		}
 		
 		func attack_check()
@@ -187,13 +187,13 @@ namespace mob_skill()
 			```
 			kill @e[type=marker,tag=rand_pos]
 			
-			execute as @e[type=#skill:enemy,tag=new_summon] at @s run function ARG(_PATH)summon_setting
+			execute as @e[type=ocelot,tag=new_summon] at @s run function ARG(_PATH)summon_setting
 		}
 		
 		func summon_setting()
 		{
 			function mob:setting/run
-			execute if entity @s[type=ocelot] run particle minecraft:explosion ~ ~1 ~ 0 0 0 1 3 force
+			particle minecraft:explosion ~ ~1 ~ 0 0 0 1 3 force
 		}
 		
 		func check_attack()
@@ -569,7 +569,7 @@ namespace mob_skill()
 			func summon_setting()
 			{
 				function mob:setting/run
-				execute if entity @s[type=ocelot] run particle minecraft:explosion ~ ~1 ~ 0 0 0 1 3 force
+				particle minecraft:explosion ~ ~1 ~ 0 0 0 1 3 force
 			}
 			
 			folder summon1()
@@ -600,7 +600,7 @@ namespace mob_skill()
 					```
 					kill @e[type=marker,tag=rand_pos]
 					
-					execute as @e[type=#skill:enemy,tag=new_summon] at @s run function ARG(__PATH)summon_setting
+					execute as @e[type=ocelot,tag=new_summon] at @s run function ARG(__PATH)summon_setting
 				}
 			}
 			
@@ -632,7 +632,7 @@ namespace mob_skill()
 					```
 					kill @e[type=marker,tag=rand_pos]
 					
-					execute as @e[type=#skill:enemy,tag=new_summon] at @s run function ARG(__PATH)summon_setting
+					execute as @e[type=ocelot,tag=new_summon] at @s run function ARG(__PATH)summon_setting
 				}
 			}
 			
@@ -664,7 +664,7 @@ namespace mob_skill()
 					```
 					kill @e[type=marker,tag=rand_pos]
 					
-					execute as @e[type=#skill:enemy,tag=new_summon] at @s run function ARG(__PATH)summon_setting
+					execute as @e[type=ocelot,tag=new_summon] at @s run function ARG(__PATH)summon_setting
 				}
 			}
 		}
@@ -756,11 +756,11 @@ namespace mob_skill()
 	
 	func update()
 	{
-		execute if score @s action_time matches 1.. run scoreboard players remove @s action_time 1
+		scoreboard players remove @s[scores={action_time=1..}] action_time 1
 		
-		execute if entity @s[type=ocelot] run scoreboard players set #KB_TIME temp 0
-		execute if entity @s[type=ocelot,tag=!dead] unless score @s action_time matches 1.. run function ARG(_PATH)check
-		execute if entity @s[type=zombified_piglin] if score #KB_TIME temp matches 1.. run function ARG(_PATH)sync_score
+		scoreboard players set #KB_TIME temp 0
+		execute if entity @s[tag=!dead] unless score @s action_time matches 1.. run function ARG(_PATH)check
+		execute if score #KB_TIME temp matches 1.. on controller run function ARG(_PATH)sync_score
 	}
 	
 	func sync_score()

@@ -31,9 +31,9 @@ namespace mob()
 	{
 		func check()
 		{
-			scoreboard players add @s spawn_alpha 1
-			execute if score @s[type=zombified_piglin] spawn_alpha matches 1 run function ARG(_PATH)set_model
-			execute if score @s[type=zombified_piglin] spawn_alpha matches ..9 store result entity @s ArmorItems[3].tag.CustomPotionColor int 10 run scoreboard players get @s spawn_alpha
+			execute store result score #GLOBAL temp run scoreboard players add @s spawn_alpha 1
+			execute if score @s spawn_alpha matches 1 on controller run function ARG(_PATH)set_model
+			execute if score @s spawn_alpha matches ..9 on controller store result entity @s ArmorItems[3].tag.CustomPotionColor int 10 run scoreboard players get #GLOBAL temp
 			execute if score @s spawn_alpha matches 10 run function ARG(_PATH)run
 		}
 		
@@ -48,14 +48,19 @@ namespace mob()
 		
 		func run()
 		{
-			execute if entity @s[type=ocelot] run function ARG(_PATH)set_stats
+			function ARG(_PATH)set_stats
+			execute on passengers run function ARG(_PATH)set_pair
+			
+			tag @s remove new_summon
+			tag @s remove new_enemy
+			tag @s add enemy
+		}
+
+		func set_pair()
+		{
 			execute if entity @s[type=zombified_piglin] run function ARG(_PATH)piglin_set
 			execute if entity @s[type=magma_cube,tag=!no_body_attack] run data modify entity @s NoAI set value 0
 			scoreboard players operation @s number = #MOB_ID number
-			
-			scoreboard players set @s spawn_alpha 10
-			tag @s remove new_summon
-			tag @s remove new_enemy
 			tag @s add enemy
 		}
 		
@@ -83,14 +88,13 @@ namespace mob()
 			execute store result score @s die_sound run data get entity @s ArmorItems[3].tag.info.die_sound
 			
 			execute if data entity @s ArmorItems[3].tag.info.skill_id store result score @s skill_id run data get entity @s ArmorItems[3].tag.info.skill_id
-			scoreboard players operation #SKILL_ID temp = @s skill_id
 			
 			data remove entity @s ArmorItems[3].tag.info
 			
 			# scoreboard players set @s status 0
 			scoreboard players set @s hit_distance 0
 			# scoreboard players set @s[tag=!no_jump] rand_jump 60
-			scoreboard players add #MOB_ID number 1
+			execute store result score @s number run scoreboard players add #MOB_ID number 1
 		}
 		
 		func piglin_set()
@@ -98,16 +102,13 @@ namespace mob()
 			# 召喚的怪物不會經過淡入流程，這邊要再做一次模型設定
 			execute unless score @s base_model matches 1.. run function ARG(_PATH)set_model
 			data modify entity @s ArmorItems[3].tag.CustomPotionColor set value -1
-			
-			# 同步技能 id 設定
-			scoreboard players operation @s skill_id = #SKILL_ID temp
 		}
 	}
 	
 	func main()
 	{
-		execute as @e[type=#skill:enemy,tag=new_enemy] run function ARG(_PATH)setting/check
-		execute as @e[type=#skill:enemy_ai,tag=enemy,scores={skill_id=1..}] run function ARG(_PATH)skills/update
+		execute as @e[type=ocelot,tag=new_enemy] run function ARG(_PATH)setting/check
+		execute as @e[type=ocelot,tag=enemy,scores={skill_id=1..}] run function ARG(_PATH)skills/update
 	}
 	
 	folder loop()

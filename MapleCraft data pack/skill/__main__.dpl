@@ -1232,8 +1232,7 @@ namespace skill()
 			execute as @e[type=armor_stand,tag=model_animation] run function ARG(_PATH)model_animation_update
 			execute as @e[type=armor_stand,tag=afterimage] run function skill:afterimage/update
 			execute as @e[type=zombie,tag=box] if score @s status matches 1.. at @s run function skill:6/0/0/1000/box/update
-			# 同一隻怪物因為騎乘的生成順序，必定是貓緊接著殭屍豬人，中間不會穿插其他生物 (可以節省一些 @e 搜尋)
-			execute as @e[type=#skill:enemy_ai,scores={spawn_alpha=1..}] run function ARG(_PATH)enemy/run
+			execute as @e[type=ocelot,scores={spawn_alpha=1..}] run function ARG(_PATH)enemy/run
 			execute as @e[type=magma_cube,tag=!original] unless predicate skill:riding_enemy run function main:deep_kill
 			
 			execute as @a[scores={action_time=1..}] run function ARG(_PATH)action/countdown
@@ -1307,31 +1306,27 @@ namespace skill()
 			func run()
 			{
 				# kb_time, push_time 是貓跟豬人同步的，顏色與 status 變更則由貓計算完傳數值給豬人
-				execute if entity @s[type=ocelot] run function ARG(_PATH)ocelot
-				execute if entity @s[type=zombified_piglin] run function ARG(_PATH)piglin
-				
-				execute if score @s kb_time matches 1.. run function ARG(_PATH)kb/countdown
-				execute if score @s pushed_time matches 1.. run function ARG(_PATH)push_countdown
-			}
-			
-			func ocelot()
-			{
 				scoreboard players set #STATUS temp -1
-				execute store result score #FACING temp run data get entity @s Rotation[0] 100
 				
 				execute unless score @s kb_time matches 1.. if entity @s[tag=!dead] run function ARG(_PATH)status_change/check
 				execute if entity @s[tag=color_changed] run function ARG(_PATH)status_change/color/check
 				execute if entity @s[tag=mob_effect] run function ARG(_PATH)mob_effect/run
 				execute if score @s bullet_targeted matches 1.. at @s run function ARG(_PATH)move_bullets
+
+				execute at @s on controller run function ARG(_PATH)piglin
+				
+				execute if score @s kb_time matches 1.. run function ARG(_PATH)kb/countdown
+				execute if score @s pushed_time matches 1.. run function ARG(_PATH)push_countdown
 			}
 			
 			func piglin()
 			{
-				# STATUS temp 會先由貓計算結果，然後馬上換豬人來取值 (騎乘實體順序)
+				# STATUS temp 先由貓計算結果，然後換豬人來取值
 				execute if score #STATUS temp matches 0.. unless score @s status = #STATUS temp run function ARG(_PATH)status_change/change
 				execute if score @s action_frame_max matches 2.. unless entity @s[scores={kb_time=1..,status=..3}] run function ARG(_PATH)status_change/update_frame
-				execute store result entity @s Rotation[0] float 0.01 run scoreboard players get #FACING temp
-				data modify entity @s Rotation[1] set value 0.0f
+				tp @s ~ ~ ~ ~ 0
+				
+				execute if score @s kb_time matches 1.. run function ARG(_PATH)kb/countdown
 			}
 			
 			folder status_change()
@@ -1551,7 +1546,7 @@ namespace skill()
 				scoreboard players reset @s[scores={pushed_time=0}] pushed_time
 				
 				# 順便做懸崖檢查
-				execute at @s[type=ocelot,tag=!fly_enemy] rotated ~ 0 if block ^ ^-1 ^-1 #skill:passable run function ARG(_PATH)cliff_stop
+				execute at @s[tag=!fly_enemy] rotated ~ 0 if block ^ ^-1 ^-1 #skill:passable run function ARG(_PATH)cliff_stop
 			}
 
 			func cliff_stop()
@@ -3627,7 +3622,7 @@ namespace skill()
 					for i in range(10):
 						print(spawn_mob("0210100", is_summon=True))
 					```
-					execute as @e[type=#skill:enemy,tag=new_summon] run function mob:setting/run
+					execute as @e[type=ocelot,tag=new_summon] run function mob:setting/run
 					kill @s
 				}
 			}

@@ -820,7 +820,7 @@ namespace party_quest() as virtual
 							
 							print("execute positioned -1510 50 10 run", spawn_mob("9300003"))
 							```
-							execute as @e[type=#skill:enemy,tag=new_enemy,tag=kpq_mob] run function mob:setting/run
+							execute as @e[type=ocelot,tag=new_enemy,tag=kpq_mob] run function mob:setting/run
 							
 							forceload remove -1530 1 -1490 21
 						}
