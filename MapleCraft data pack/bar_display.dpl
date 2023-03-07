@@ -908,7 +908,7 @@ namespace bar_display()
 		
 		func spawn()
 		{
-			summon interaction 250 0 0 {width:0,height:0,Tags:["player_pos"],Passengers:[{id:"minecraft:text_display",background:0,billboard:"center",Tags:["head_hp"]}]}
+			summon interaction 250 0 0 {width:5,height:1.5,Tags:["player_pos"],Passengers:[{id:"minecraft:text_display",background:0,billboard:"center",Tags:["head_hp"]}]}
 			data remove storage bar:main head[0]
 			execute if data storage bar:main head[0] run function ARG(_PATH)spawn
 		}
