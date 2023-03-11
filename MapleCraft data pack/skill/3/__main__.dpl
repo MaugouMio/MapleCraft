@@ -164,7 +164,7 @@ namespace 3() as virtual
 					{
 						scoreboard players operation @s amazon_eyes_dist = @s 3000002_level
 						scoreboard players operation @s amazon_eyes_dist /= #2 const
-						scoreboard players add @s amazon_eyes_dist 10
+						scoreboard players add @s amazon_eyes_dist 9
 					}
 					
 					func set_description()
@@ -174,7 +174,7 @@ namespace 3() as virtual
 						execute store result storage ui:main temp[0] int 1 run scoreboard players get @s 3000002_level
 						execute store result storage ui:main temp[4] int 1 run scoreboard players operation #GLOBAL temp = @s amazon_eyes_dist
 						scoreboard players remove #GLOBAL temp 9
-						execute store result storage ui:main temp[1] int 70 run scoreboard players get #GLOBAL temp
+						execute store result storage ui:main temp[1] int 80 run scoreboard players get #GLOBAL temp
 						
 						execute if score @s 3000002_level matches ..7 run function ARG(_PATH)get_next_level
 						execute if score @s 3000002_level matches 1.. run data modify block 250 0 0 Text1 set value '[{"translate":"skill.description.level.current","with":[{"nbt":"temp[0]","storage":"ui:main"}]},{"translate":"skill.description.level.3000002","with":[{"nbt":"temp[1]","storage":"ui:main"}]},{"nbt":"Text1","block":"250 0 0","interpret":true}]'
@@ -189,7 +189,7 @@ namespace 3() as virtual
 						execute store result storage ui:main temp[2] int 1 run scoreboard players get @s 3000002_level
 						scoreboard players operation #GLOBAL temp = @s amazon_eyes_dist
 						scoreboard players remove #GLOBAL temp 9
-						execute store result storage ui:main temp[3] int 70 run scoreboard players get #GLOBAL temp
+						execute store result storage ui:main temp[3] int 80 run scoreboard players get #GLOBAL temp
 						data modify block 250 0 0 Text1 set value '[{"translate":"skill.description.level.next","with":[{"nbt":"temp[2]","storage":"ui:main"}]},{"translate":"skill.description.level.3000002","with":[{"nbt":"temp[3]","storage":"ui:main"}]}]'
 						
 						scoreboard players remove @s 3000002_level 1
@@ -371,7 +371,7 @@ namespace 3() as virtual
 					scoreboard players operation #GLOBAL bullet_model = @s bullet_model
 					execute if score @s soul_buff_time matches 1.. if score @s 3101004_weapon = #USED_WEAPON temp run scoreboard players set #GLOBAL bullet_model 3001
 					scoreboard players operation #BULLET_DISTANCE temp = #DISTANCE temp
-					scoreboard players remove #BULLET_DISTANCE temp 3
+					scoreboard players remove #BULLET_DISTANCE temp 1
 					execute store result entity @e[type=armor_stand,tag=new_bullet,limit=1] ArmorItems[3].tag.max_distance int 1 run scoreboard players get #BULLET_DISTANCE temp
 				}
 				
@@ -563,7 +563,7 @@ namespace 3() as virtual
 					scoreboard players operation #GLOBAL bullet_model = @s bullet_model
 					execute if score @s soul_buff_time matches 1.. if score @s 3101004_weapon = #USED_WEAPON temp run scoreboard players set #GLOBAL bullet_model 3001
 					scoreboard players operation #BULLET_DISTANCE temp = #DISTANCE temp
-					scoreboard players remove #BULLET_DISTANCE temp 3
+					scoreboard players remove #BULLET_DISTANCE temp 1
 					execute as @e[type=armor_stand,tag=new_bullet] run function ARG(_PATH)set_bullet
 				}
 				
@@ -720,6 +720,7 @@ namespace 3() as virtual
 				func mark_target()
 				{
 					scoreboard players operation #DISTANCE temp = @s amazon_eyes_dist
+					scoreboard players set #SEARCH_HEIGHT temp 0
 					scoreboard players set #MAX_ENEMY temp 1
 					function skill:enemy_search/search_front/search
 				}
@@ -731,7 +732,7 @@ namespace 3() as virtual
 					scoreboard players operation #GLOBAL bullet_model = @s f_attack_skill
 					execute unless score #GLOBAL bullet_model matches 3001 if score @s bullet_amount matches 0 run function ARG(_PATH)no_arrow_model
 					scoreboard players operation #BULLET_DISTANCE temp = #DISTANCE temp
-					scoreboard players remove #BULLET_DISTANCE temp 3
+					scoreboard players remove #BULLET_DISTANCE temp 1
 					execute as @e[type=armor_stand,tag=new_bullet] run function ARG(_PATH)set_bullet
 				}
 				

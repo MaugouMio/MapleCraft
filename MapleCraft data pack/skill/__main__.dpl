@@ -44,8 +44,8 @@ namespace attack_skill_template(skill_id) as virtual
 {
 	# functions to override:
 	#	check => check whether to use the skill or not
-	#	mark_target => tag all target
 	#	cast_effect => visual and audio effects on casting skill
+	#	mark_target => tag all target
 	#	set_numeric => calculate all numbers related to damage and write to global storage
 	#	add_debuff => set all debuff numbers as the hit mob
 	#	effect => visual and audio effects with display_number as damage
@@ -63,15 +63,20 @@ namespace attack_skill_template(skill_id) as virtual
 			print("scoreboard players reset @s f_attack_skill")
 		```
 		function skill:use_constraint
-		
-		data modify storage skill:main damage set value [{min_damage:0,max_damage:0,accuracy:0,player_level:0,crit_rate:0,crit_damage:0,base_percent:100,attribute:0}]
+		```
+		if "ARG(skill_id)" == "6001001":
+			print("execute if score #NO_AFTERIMAGE temp matches 0 run data modify storage skill:main damage set value [{min_damage:0,max_damage:0,accuracy:0,player_level:0,crit_rate:0,crit_damage:0,base_percent:100,attribute:0}]")
+		else:
+			print("data modify storage skill:main damage set value [{min_damage:0,max_damage:0,accuracy:0,player_level:0,crit_rate:0,crit_damage:0,base_percent:100,attribute:0}]")
+		```
 		data modify storage skill:main damage_info.hit_effect set value 0
+		
+		function ARG(_PATH)set_numeric
+		function ARG(_PATH)cast_effect
 		```
 		if "ARG(skill_id)" not in ["3201005", "6001001", "6001003"]:
 			print("function ARG(_PATH)mark_target")
 		```
-		function ARG(_PATH)set_numeric
-		function ARG(_PATH)cast_effect
 		
 		execute if score #FOUND_ENEMY temp matches 1.. run function ARG(_PATH)did_hit
 		```
@@ -315,13 +320,14 @@ namespace bullet_skill_template(skill_id) as virtual
 		
 		data modify storage skill:main damage set value [{min_damage:0,max_damage:0,accuracy:0,player_level:0,crit_rate:0,crit_damage:0,base_percent:100,attribute:0}]
 		data modify storage skill:main damage_info.hit_effect set value 0
+		
+		function ARG(_PATH)summon_bullet
+		function ARG(_PATH)set_numeric
+		function ARG(_PATH)cast_effect
 		```
 		if "ARG(skill_id)" not in ["3101005", "3001004", "3001005", "4101005", "4001344", "6001002"]:
 			print("function ARG(_PATH)mark_target")
 		```
-		function ARG(_PATH)summon_bullet
-		function ARG(_PATH)set_numeric
-		function ARG(_PATH)cast_effect
 		
 		scoreboard players add #BULLET_ID number 1
 		execute if score #FOUND_ENEMY temp matches 1.. run function ARG(_PATH)did_hit
@@ -716,9 +722,12 @@ namespace skill()
 					{
 						func check()
 						{
-							# 預設弓、弩、拳套攻擊距離
-							scoreboard players set #DISTANCE temp 4
-							execute if score #USED_WEAPON temp matches 5.. unless score #USED_WEAPON temp matches 16..18 unless score #USED_WEAPON temp matches 24 run function ARG(_PATH)check_weapon_distance
+							# 預設弓、弩、拳套攻擊範圍
+							scoreboard players set #DISTANCE temp 2
+							scoreboard players set #SEARCH_HEIGHT temp 0
+							scoreboard players set #NO_AFTERIMAGE temp 0
+							# 遠距離武器要先確定會不會打到箱子，才知道要不要表演揮的特效，所以這邊先不做
+							execute if score #USED_WEAPON temp matches 5.. unless score #USED_WEAPON temp matches 16..18 unless score #USED_WEAPON temp matches 24 run function ARG(_PATH)check_range
 							
 							data modify storage skill:main damage_info.attacker set from entity @s UUID
 							function ARG(_PATH)search_box/search
@@ -727,16 +736,17 @@ namespace skill()
 							execute if score #FOUND_ENEMY temp matches 0 run function ARG(__PATH)attack_check
 						}
 						
-						func check_weapon_distance()
+						func check_range()
 						{
-							scoreboard players operation #DISTANCE temp = #USED_WEAPON temp
-							# make single hand weapon %2 be 0
-							scoreboard players add #DISTANCE temp 1
-							scoreboard players operation #DISTANCE temp %= #2 const
-							scoreboard players add #DISTANCE temp 4
+							# afterimage 會寫傷害資料，要先建起來
+							data modify storage skill:main damage set value [{min_damage:0,max_damage:0,accuracy:0,player_level:0,crit_rate:0,crit_damage:0,base_percent:100,attribute:0}]
+							
+							function skill:enemy_search/check_weapon_distance
+							function skill:afterimage/warrior_swing/check
+							scoreboard players set #NO_AFTERIMAGE temp 1
 						}
 						
-						folder search_box() from for_loop().for("#DISTANCE temp", "if score #FOUND_ENEMY temp matches 0 positioned ^ ^ ^0.7")
+						folder search_box() from for_loop().for("#DISTANCE temp", "if score #FOUND_ENEMY temp matches 0 positioned ^ ^ ^0.8")
 						{
 							func search()
 							{
@@ -751,15 +761,17 @@ namespace skill()
 							
 							func execute()
 							{
-								# simulating sector detection, larger y axis detection on further distance
-								execute if score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-1.7 ~-1.8 as @e[type=zombie,tag=box,dx=2.6,dy=3.3,dz=2.6] unless score @s status matches 1.. positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)hit_check
-								execute unless score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-1.1 ~-1.8 as @e[type=zombie,tag=box,dx=2.6,dy=2.1,dz=2.6] unless score @s status matches 1.. positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)hit_check
+								# 打箱子都是近距離攻擊，沒有 5 以上的 #DISTANCE
+								# 高度偵測比一般攻擊低一點，因為沒有貓墊高
+								execute if score #SEARCH_HEIGHT temp matches 0 positioned ~-1.8 ~-0.3 ~-1.8 as @e[type=interaction,tag=box,dx=2.6,dy=1.3,dz=2.6] on passengers unless score @s status matches 1.. positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)hit_check
+								execute if score #SEARCH_HEIGHT temp matches 1 positioned ~-1.8 ~-0.3 ~-1.8 as @e[type=interaction,tag=box,dx=2.6,dy=2.1,dz=2.6] on passengers unless score @s status matches 1.. positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)hit_check
+								execute if score #SEARCH_HEIGHT temp matches 2 positioned ~-1.8 ~-0.3 ~-1.8 as @e[type=interaction,tag=box,dx=2.6,dy=2.9,dz=2.6] on passengers unless score @s status matches 1.. positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)hit_check
 								scoreboard players add #CUR_DISTANCE temp 1
 							}
 							
 							func hit_check()
 							{
-								execute if score #FOUND_ENEMY temp matches 0 at @s run function ARG(_PATH)hit
+								execute if score #FOUND_ENEMY temp matches 0 run function ARG(_PATH)hit
 							}
 							
 							func hit()
@@ -787,13 +799,14 @@ namespace skill()
 						func cast_effect()
 						{
 							# melee *RANDOM* swing damage formula and default attack speed is done by afterimage functions
-							scoreboard players operation @s action_time = @s weapon_speed
+							execute if score #NO_AFTERIMAGE temp matches 0 run scoreboard players operation @s action_time = @s weapon_speed
+							execute if score #NO_AFTERIMAGE temp matches 1 run scoreboard players operation @s action_time += @s weapon_speed
 							scoreboard players remove @s[scores={boost_buff_time=1..}] action_time 1
 							
 							execute if score #USED_WEAPON temp matches 16 run function skill:afterimage/bow/swing
 							execute if score #USED_WEAPON temp matches 18 run function skill:afterimage/crossbow/swing
 							execute if score #USED_WEAPON temp matches 24 run function skill:afterimage/claw/stab
-							execute unless score #USED_WEAPON temp matches 16..18 unless score #USED_WEAPON temp matches 24 run function skill:afterimage/warrior_swing/check
+							# 近距離武器揮動特效上面為了抓攻擊高度已經做了，這邊不用再做
 						}
 						
 						func update()
@@ -802,7 +815,13 @@ namespace skill()
 							execute store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players add @s base_model 1
 							
 							execute if score @s status matches 13 run function ARG(_PATH)hit_effect
-							execute if score @s status matches 0 if score @s hp matches 0 run function main:deep_kill
+							execute if score @s status matches 0 if score @s hp matches 0 run function ARG(_PATH)kill
+						}
+						
+						func kill()
+						{
+							execute on vehicle run kill @s
+							function main:deep_kill
 						}
 						
 						func hit_effect()
@@ -869,7 +888,7 @@ namespace skill()
 					
 					func attack_check()
 					{
-						execute if score #USED_WEAPON temp matches 5.. unless score #USED_WEAPON temp matches 16..18 unless score #USED_WEAPON temp matches 24 run function ARG(__PATH)1001/mark_target
+						execute if score #NO_AFTERIMAGE temp matches 1 run function ARG(__PATH)1001/mark_target
 						execute if score #USED_WEAPON temp matches 16..18 run function ARG(_PATH)archer_check
 						execute if score #USED_WEAPON temp matches 24 run function ARG(_PATH)claw_check
 					}
@@ -902,34 +921,26 @@ namespace skill()
 				{
 					func mark_target()
 					{
-						execute unless score #USED_WEAPON temp matches 24 run function ARG(_PATH)check_weapon_distance
-						execute if score #USED_WEAPON temp matches 24 run scoreboard players set #DISTANCE temp 4
+						execute unless score #USED_WEAPON temp matches 24 run function skill:enemy_search/check_weapon_distance
+						execute if score #USED_WEAPON temp matches 24 run scoreboard players set #DISTANCE temp 2
 						
 						scoreboard players set #MAX_ENEMY temp 1
 						function skill:enemy_search/search_front/search
 						
 						function ARG(_PATH)run
 					}
-					
-					func check_weapon_distance()
-					{
-						scoreboard players operation #DISTANCE temp = #USED_WEAPON temp
-						# make single hand weapon %2 be 0
-						scoreboard players add #DISTANCE temp 1
-						scoreboard players operation #DISTANCE temp %= #2 const
-						scoreboard players add #DISTANCE temp 4
-					}
 				
 					func set_numeric()
 					{
 						# melee *RANDOM* swing damage formula and default attack speed is done by afterimage functions
-						scoreboard players operation @s action_time = @s weapon_speed
+						execute if score #NO_AFTERIMAGE temp matches 0 run scoreboard players operation @s action_time = @s weapon_speed
+						execute if score #NO_AFTERIMAGE temp matches 1 run scoreboard players operation @s action_time += @s weapon_speed
 						scoreboard players remove @s[scores={boost_buff_time=1..}] action_time 1
 					}
 				
 					func cast_effect()
 					{
-						execute unless score #USED_WEAPON temp matches 24 run function skill:afterimage/warrior_swing/check
+						# 近距離武器揮動特效上面打箱子已經做了，這邊不用再做
 						execute if score #USED_WEAPON temp matches 24 run function skill:afterimage/claw/stab
 						
 						# hit_effect: 0 => None, 1 => mace, 2 => sword
@@ -994,7 +1005,7 @@ namespace skill()
 						scoreboard players operation #GLOBAL bullet_model = @s bullet_model
 						execute if score @s soul_buff_time matches 1.. if score @s 3101004_weapon = #USED_WEAPON temp run scoreboard players set #GLOBAL bullet_model 3001
 						scoreboard players operation #BULLET_DISTANCE temp = #DISTANCE temp
-						scoreboard players remove #BULLET_DISTANCE temp 3
+						scoreboard players remove #BULLET_DISTANCE temp 1
 						execute as @e[type=armor_stand,tag=new_bullet] run function ARG(_PATH)set_bullet
 					}
 					
@@ -1066,7 +1077,8 @@ namespace skill()
 				{
 					func mark_target()
 					{
-						scoreboard players set #DISTANCE temp 4
+						scoreboard players set #DISTANCE temp 2
+						scoreboard players set #SEARCH_HEIGHT temp 0
 						scoreboard players set #MAX_ENEMY temp 1
 						function skill:enemy_search/search_front/search
 						
@@ -1750,7 +1762,7 @@ namespace skill()
 			scoreboard players reset @s 3001005_level
 			scoreboard players set @s base_avoid 0
 			scoreboard players reset @s 4000000_level
-			scoreboard players set @s keen_eyes_dist 9
+			scoreboard players set @s keen_eyes_dist 6
 			scoreboard players reset @s 4000001_level
 			scoreboard players reset @s 4001002_level
 			scoreboard players reset @s 4001003_level
@@ -1860,13 +1872,13 @@ namespace skill()
 		func wander()
 		{
 			execute if score @s life > @s max_life run kill @s
-			tp @s ^ ^ ^0.7
+			tp @s ^ ^ ^0.8
 		}
 		
 		func move()
 		{
-			execute if entity @s[distance=..0.7] run function ARG(_PATH)hit
-			execute facing entity @s eyes positioned as @s run tp @s ^ ^ ^-0.7
+			execute if entity @s[distance=..0.8] run function ARG(_PATH)hit
+			execute facing entity @s eyes positioned as @s run tp @s ^ ^ ^-0.8
 		}
 		
 		func hit()
@@ -2062,7 +2074,17 @@ namespace skill()
 			tag @s remove target
 		}
 		
-		folder search_front() from for_loop().for("#DISTANCE temp", "if score #FOUND_ENEMY temp < #MAX_ENEMY temp positioned ^ ^ ^0.7")
+		func check_weapon_distance()
+		{
+			scoreboard players operation #DISTANCE temp = #USED_WEAPON temp
+			# make single hand weapon %2 be 0
+			scoreboard players add #DISTANCE temp 1
+			scoreboard players operation #DISTANCE temp %= #2 const
+			scoreboard players add #DISTANCE temp 2
+			execute if score #USED_WEAPON temp matches 12..14 run scoreboard players add #DISTANCE temp 1
+		}
+		
+		folder search_front() from for_loop().for("#DISTANCE temp", "if score #FOUND_ENEMY temp < #MAX_ENEMY temp positioned ^ ^ ^0.8")
 		{
 			func search()
 			{
@@ -2081,9 +2103,16 @@ namespace skill()
 			func execute()
 			{
 				# simulating sector detection, larger y axis detection on further distance
-				execute if score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-1.7 ~-1.8 as @e[type=interaction,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=3.3,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
-				execute unless score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-1.1 ~-1.8 as @e[type=interaction,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=2.1,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
+				execute if score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-1.2 ~-1.8 as @e[type=interaction,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=3.175,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
+				execute unless score #CUR_DISTANCE temp matches 5.. run function ARG(_PATH)check_height
 				scoreboard players add #CUR_DISTANCE temp 1
+			}
+			
+			func check_height()
+			{
+				execute if score #SEARCH_HEIGHT temp matches 0 positioned ~-1.8 ~-0.3 ~-1.8 as @e[type=interaction,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=1.575,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
+				execute if score #SEARCH_HEIGHT temp matches 1 positioned ~-1.8 ~-0.3 ~-1.8 as @e[type=interaction,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=2.375,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
+				execute if score #SEARCH_HEIGHT temp matches 2 positioned ~-1.8 ~-0.3 ~-1.8 as @e[type=interaction,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=3.175,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
 			}
 			
 			func try_mark()
@@ -2100,7 +2129,7 @@ namespace skill()
 			}
 		}
 		
-		folder search_front_pure_order() from for_loop().for("#DISTANCE temp", "if score #FOUND_ENEMY temp < #MAX_ENEMY temp positioned ^ ^ ^0.7")
+		folder search_front_pure_order() from for_loop().for("#DISTANCE temp", "if score #FOUND_ENEMY temp < #MAX_ENEMY temp positioned ^ ^ ^0.8")
 		{
 			func search()
 			{
@@ -2118,9 +2147,16 @@ namespace skill()
 			func execute()
 			{
 				# simulating sector detection, larger y axis detection on further distance
-				execute if score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-1.7 ~-1.8 as @e[type=interaction,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=3.3,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
-				execute unless score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-1.1 ~-1.8 as @e[type=interaction,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=2.1,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
+				execute if score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-1.2 ~-1.8 as @e[type=interaction,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=3.175,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
+				execute unless score #CUR_DISTANCE temp matches 5.. run function ARG(_PATH)check_height
 				scoreboard players add #CUR_DISTANCE temp 1
+			}
+			
+			func check_height()
+			{
+				execute if score #SEARCH_HEIGHT temp matches 0 positioned ~-1.8 ~-0.3 ~-1.8 as @e[type=interaction,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=1.575,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
+				execute if score #SEARCH_HEIGHT temp matches 1 positioned ~-1.8 ~-0.3 ~-1.8 as @e[type=interaction,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=2.375,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
+				execute if score #SEARCH_HEIGHT temp matches 2 positioned ~-1.8 ~-0.3 ~-1.8 as @e[type=interaction,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=3.175,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
 			}
 			
 			func try_mark()
@@ -2151,7 +2187,7 @@ namespace skill()
 			}
 		}
 		
-		folder search_front_rec_dist() from for_loop().for("#DISTANCE temp", "if score #FOUND_ENEMY temp < #MAX_ENEMY temp positioned ^ ^ ^0.7")
+		folder search_front_rec_dist() from for_loop().for("#DISTANCE temp", "if score #FOUND_ENEMY temp < #MAX_ENEMY temp positioned ^ ^ ^0.8")
 		{
 			func search()
 			{
@@ -2171,9 +2207,16 @@ namespace skill()
 			func execute()
 			{
 				# simulating sector detection, larger y axis detection on further distance
-				execute if score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-1.7 ~-1.8 as @e[type=interaction,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=3.3,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
-				execute unless score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-1.1 ~-1.8 as @e[type=interaction,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=2.1,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
+				execute if score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-1.2 ~-1.8 as @e[type=interaction,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=3.175,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
+				execute unless score #CUR_DISTANCE temp matches 5.. run function ARG(_PATH)check_height
 				scoreboard players add #CUR_DISTANCE temp 1
+			}
+			
+			func check_height()
+			{
+				execute if score #SEARCH_HEIGHT temp matches 0 positioned ~-1.8 ~-0.3 ~-1.8 as @e[type=interaction,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=1.575,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
+				execute if score #SEARCH_HEIGHT temp matches 1 positioned ~-1.8 ~-0.3 ~-1.8 as @e[type=interaction,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=2.375,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
+				execute if score #SEARCH_HEIGHT temp matches 2 positioned ~-1.8 ~-0.3 ~-1.8 as @e[type=interaction,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=3.175,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
 			}
 			
 			func record_first()
@@ -3820,26 +3863,26 @@ namespace skill()
 		{
 			func check()
 			{
-				execute if score #DISTANCE temp matches 4 run function ARG(_PATH)one_hand
-				execute if score #DISTANCE temp matches 5 run function ARG(_PATH)two_hand
+				execute if score #USED_WEAPON temp matches ..9 run function ARG(_PATH)case1
+				execute if score #USED_WEAPON temp matches 10.. run function ARG(_PATH)case2
 			}
 			
-			func one_hand()
+			func case1()
 			{
-				execute if score #USED_WEAPON temp matches 23 run function ARG(__PATH)dagger/random
-				execute if score #USED_WEAPON temp matches 19..21 run function ARG(__PATH)staff/swing
 				execute if score #USED_WEAPON temp matches 5 run function ARG(__PATH)oh_axe/random
+				execute if score #USED_WEAPON temp matches 6 run function ARG(__PATH)th_axe/random
 				execute if score #USED_WEAPON temp matches 7 run function ARG(__PATH)oh_sword/random
+				execute if score #USED_WEAPON temp matches 8 run function ARG(__PATH)th_sword/random
 				execute if score #USED_WEAPON temp matches 9 run function ARG(__PATH)oh_blunt/random
 			}
 			
-			func two_hand()
+			func case2()
 			{
+				execute if score #USED_WEAPON temp matches 10 run function ARG(__PATH)th_blunt/random
 				execute if score #USED_WEAPON temp matches 12 run function ARG(__PATH)spear/random
 				execute if score #USED_WEAPON temp matches 14 run function ARG(__PATH)polearm/random
-				execute if score #USED_WEAPON temp matches 8 run function ARG(__PATH)th_sword/random
-				execute if score #USED_WEAPON temp matches 6 run function ARG(__PATH)th_axe/random
-				execute if score #USED_WEAPON temp matches 10 run function ARG(__PATH)th_blunt/random
+				execute if score #USED_WEAPON temp matches 19..21 run function ARG(__PATH)staff/swing
+				execute if score #USED_WEAPON temp matches 23 run function ARG(__PATH)dagger/random
 			}
 		}
 		
@@ -3847,6 +3890,8 @@ namespace skill()
 		{
 			func swing()
 			{
+				scoreboard players set #SEARCH_HEIGHT temp 0
+				
 				scoreboard players set #RANGE_MAX temp 8
 				function main:rand_range
 				scoreboard players add #RAND_RANGE_RESULT temp 1000000
@@ -3864,6 +3909,8 @@ namespace skill()
 			
 			func stab()
 			{
+				scoreboard players set #SEARCH_HEIGHT temp 0
+				
 				scoreboard players set #RAND_RANGE_RESULT temp 1001009
 				scoreboard players set #AFTERIMAGE_COLOR temp 255
 				function ARG(__PATH)summon_model
@@ -3878,6 +3925,8 @@ namespace skill()
 		{
 			func random()
 			{
+				scoreboard players set #SEARCH_HEIGHT temp 0
+				
 				scoreboard players set #RANGE_MAX temp 14
 				function main:rand_range
 				scoreboard players add #RAND_RANGE_RESULT temp 1000021
@@ -3892,6 +3941,8 @@ namespace skill()
 			
 			func stab()
 			{
+				scoreboard players set #SEARCH_HEIGHT temp 0
+				
 				scoreboard players set #RAND_RANGE_RESULT temp 1000030
 				execute if score @s dagger_mastery matches ..55 run function ARG(_PATH)set_color
 				function ARG(__PATH)summon_model
@@ -3910,6 +3961,8 @@ namespace skill()
 		{
 			func swing()
 			{
+				scoreboard players set #SEARCH_HEIGHT temp 0
+				
 				scoreboard players set #RANGE_MAX temp 5
 				function main:rand_range
 				scoreboard players add #RAND_RANGE_RESULT temp 1000015
@@ -3923,6 +3976,8 @@ namespace skill()
 			
 			func shoot()
 			{
+				scoreboard players set #SEARCH_HEIGHT temp 0
+				
 				scoreboard players set #RAND_RANGE_RESULT temp 1000096
 				execute if score @s bow_mastery matches ..55 run function ARG(_PATH)set_color
 				function ARG(__PATH)summon_model
@@ -3959,6 +4014,8 @@ namespace skill()
 		{
 			func swing()
 			{
+				scoreboard players set #SEARCH_HEIGHT temp 0
+				
 				scoreboard players set #RANGE_MAX temp 5
 				function main:rand_range
 				scoreboard players add #RAND_RANGE_RESULT temp 1000012
@@ -3972,6 +4029,8 @@ namespace skill()
 			
 			func shoot()
 			{
+				scoreboard players set #SEARCH_HEIGHT temp 0
+				
 				scoreboard players set #RAND_RANGE_RESULT temp 1000096
 				execute if score @s cbow_mastery matches ..55 run function ARG(_PATH)set_color
 				function ARG(__PATH)summon_model_delay
@@ -4008,6 +4067,8 @@ namespace skill()
 		{
 			func swing()
 			{
+				scoreboard players set #SEARCH_HEIGHT temp 0
+				
 				scoreboard players set #RAND_RANGE_RESULT temp 1001069
 				scoreboard players set #AFTERIMAGE_COLOR temp 255
 				function ARG(__PATH)summon_model
@@ -4039,12 +4100,16 @@ namespace skill()
 			
 			func swing_formula()
 			{
+				scoreboard players set #SEARCH_HEIGHT temp 2
+				
 				function skill:damage_formula/polearm/swing
 				scoreboard players set #LAST_ACTION_TYPE temp 1
 			}
 			
 			func stab_formula()
 			{
+				scoreboard players set #SEARCH_HEIGHT temp 0
+				
 				function skill:damage_formula/polearm/stab
 				scoreboard players set #LAST_ACTION_TYPE temp 2
 			}
@@ -4071,12 +4136,24 @@ namespace skill()
 					execute store result score @s f_attack_action run scoreboard players add #RAND_RANGE_RESULT temp 1000106
 				}
 				
+				func swing_formula()
+				{
+					scoreboard players set #SEARCH_HEIGHT temp 2
+					function skill:damage_formula/polearm/swing
+				}
+				
+				func stab_formula()
+				{
+					scoreboard players set #SEARCH_HEIGHT temp 0
+					function skill:damage_formula/polearm/stab
+				}
+				
 				func use()
 				{
 					scoreboard players operation #RAND_RANGE_RESULT temp = @s f_attack_action
 				
-					execute if score #RAND_RANGE_RESULT temp matches 1000106..1000108 run function skill:damage_formula/polearm/swing
-					execute if score #RAND_RANGE_RESULT temp matches 1000109..1000111 run function skill:damage_formula/polearm/stab
+					execute if score #RAND_RANGE_RESULT temp matches 1000106..1000108 run function ARG(_PATH)swing_formula
+					execute if score #RAND_RANGE_RESULT temp matches 1000109..1000111 run function ARG(_PATH)stab_formula
 					
 					execute if score @s polearm_mastery matches ..55 run function ARG(__PATH)set_color
 					function skill:afterimage/summon_model
@@ -4112,12 +4189,16 @@ namespace skill()
 			
 			func swing_formula()
 			{
+				scoreboard players set #SEARCH_HEIGHT temp 2
+				
 				function skill:damage_formula/spear/swing
 				scoreboard players set #LAST_ACTION_TYPE temp 1
 			}
 			
 			func stab_formula()
 			{
+				scoreboard players set #SEARCH_HEIGHT temp 0
+				
 				function skill:damage_formula/spear/stab
 				scoreboard players set #LAST_ACTION_TYPE temp 2
 			}
@@ -4144,12 +4225,24 @@ namespace skill()
 					execute store result score @s f_attack_action run scoreboard players add #RAND_RANGE_RESULT temp 1000106
 				}
 				
+				func swing_formula()
+				{
+					scoreboard players set #SEARCH_HEIGHT temp 2
+					function skill:damage_formula/spear/swing
+				}
+				
+				func stab_formula()
+				{
+					scoreboard players set #SEARCH_HEIGHT temp 0
+					function skill:damage_formula/spear/stab
+				}
+				
 				func use()
 				{
 					scoreboard players operation #RAND_RANGE_RESULT temp = @s f_attack_action
 				
-					execute if score #RAND_RANGE_RESULT temp matches 1000106..1000108 run function skill:damage_formula/spear/swing
-					execute if score #RAND_RANGE_RESULT temp matches 1000109..1000111 run function skill:damage_formula/spear/stab
+					execute if score #RAND_RANGE_RESULT temp matches 1000106..1000108 run function ARG(_PATH)swing_formula
+					execute if score #RAND_RANGE_RESULT temp matches 1000109..1000111 run function ARG(_PATH)stab_formula
 					
 					execute if score @s spear_mastery matches ..55 run function ARG(__PATH)set_color
 					function skill:afterimage/summon_model
@@ -4168,6 +4261,8 @@ namespace skill()
 		{
 			func random()
 			{
+				scoreboard players set #SEARCH_HEIGHT temp 0
+				
 				scoreboard players set #RANGE_MAX temp 14
 				function main:rand_range
 				scoreboard players add #RAND_RANGE_RESULT temp 1000000
@@ -4209,6 +4304,8 @@ namespace skill()
 				
 				func use()
 				{
+					scoreboard players set #SEARCH_HEIGHT temp 0
+					
 					scoreboard players operation #RAND_RANGE_RESULT temp = @s f_attack_action
 					function skill:damage_formula/sword/one_hand
 					
@@ -4229,6 +4326,8 @@ namespace skill()
 		{
 			func random()
 			{
+				scoreboard players set #SEARCH_HEIGHT temp 0
+				
 				scoreboard players set #RANGE_MAX temp 14
 				function main:rand_range
 				scoreboard players add #RAND_RANGE_RESULT temp 1000000
@@ -4280,6 +4379,8 @@ namespace skill()
 				
 				func use()
 				{
+					scoreboard players set #SEARCH_HEIGHT temp 0
+					
 					scoreboard players operation #RAND_RANGE_RESULT temp = @s f_attack_action
 				
 					execute if score #RAND_RANGE_RESULT temp matches 1000100..1000102 run function skill:damage_formula/axe/one_hand/swing
@@ -4302,6 +4403,8 @@ namespace skill()
 		{
 			func random()
 			{
+				scoreboard players set #SEARCH_HEIGHT temp 0
+				
 				scoreboard players set #RANGE_MAX temp 14
 				function main:rand_range
 				scoreboard players add #RAND_RANGE_RESULT temp 1000066
@@ -4353,6 +4456,8 @@ namespace skill()
 				
 				func use()
 				{
+					scoreboard players set #SEARCH_HEIGHT temp 0
+					
 					scoreboard players operation #RAND_RANGE_RESULT temp = @s f_attack_action
 				
 					execute if score #RAND_RANGE_RESULT temp matches 1000118..1000120 run function skill:damage_formula/blunt/one_hand/swing
@@ -4379,8 +4484,8 @@ namespace skill()
 				function main:rand_range
 				scoreboard players add #RAND_RANGE_RESULT temp 1000081
 				
-				execute if score #RAND_RANGE_RESULT temp matches 1000081..1000089 run scoreboard players set #LAST_ACTION_TYPE temp 1
-				execute if score #RAND_RANGE_RESULT temp matches 1000090..1000095 run scoreboard players set #LAST_ACTION_TYPE temp 2
+				execute if score #RAND_RANGE_RESULT temp matches 1000081..1000089 run function ARG(_PATH)set_swing
+				execute if score #RAND_RANGE_RESULT temp matches 1000090..1000095 run function ARG(_PATH)set_stab
 				
 				execute if score @s sword_mastery matches ..55 run function ARG(__PATH)oh_sword/set_color
 				function ARG(__PATH)summon_model
@@ -4390,6 +4495,19 @@ namespace skill()
 				
 				scoreboard players add @s action_time 16
 				execute if score @s f_attack_skill matches 1.. if score @s sword_final_rate matches 1.. run function ARG(_PATH)final_attack/try
+			}
+			
+			func set_swing()
+			{
+				execute if score #RAND_RANGE_RESULT temp matches ..1000083 run scoreboard players set #SEARCH_HEIGHT temp 1
+				execute if score #RAND_RANGE_RESULT temp matches 1000084.. run scoreboard players set #SEARCH_HEIGHT temp 0
+				scoreboard players set #LAST_ACTION_TYPE temp 1
+			}
+			
+			func set_stab()
+			{
+				scoreboard players set #SEARCH_HEIGHT temp 0
+				scoreboard players set #LAST_ACTION_TYPE temp 2
 			}
 			
 			folder final_attack()
@@ -4417,6 +4535,10 @@ namespace skill()
 				func use()
 				{
 					scoreboard players operation #RAND_RANGE_RESULT temp = @s f_attack_action
+					
+					execute if score #RAND_RANGE_RESULT temp matches 1000124..1000126 run scoreboard players set #SEARCH_HEIGHT temp 1
+					execute if score #RAND_RANGE_RESULT temp matches 1000127..1000129 run scoreboard players set #SEARCH_HEIGHT temp 0
+					
 					function skill:damage_formula/sword/two_hand
 					
 					execute if score @s sword_mastery matches ..55 run function skill:afterimage/oh_sword/set_color
@@ -4447,12 +4569,16 @@ namespace skill()
 			
 			func swing_formula()
 			{
+				execute if score #RAND_RANGE_RESULT temp matches ..1000053 run scoreboard players set #SEARCH_HEIGHT temp 1
+				execute if score #RAND_RANGE_RESULT temp matches 1000054.. run scoreboard players set #SEARCH_HEIGHT temp 0
+				
 				function skill:damage_formula/axe/two_hand/swing
 				scoreboard players set #LAST_ACTION_TYPE temp 1
 			}
 			
 			func stab_formula()
 			{
+				scoreboard players set #SEARCH_HEIGHT temp 0
 				function skill:damage_formula/axe/two_hand/stab
 				scoreboard players set #LAST_ACTION_TYPE temp 2
 			}
@@ -4479,12 +4605,24 @@ namespace skill()
 					execute if score #LAST_ACTION_TYPE temp matches 2 if score #RAND_RANGE_RESULT temp matches 1000115..1000117 run scoreboard players remove @s action_time 2
 				}
 				
+				func swing_formula()
+				{
+					scoreboard players set #SEARCH_HEIGHT temp 1
+					function skill:damage_formula/axe/two_hand/swing
+				}
+				
+				func stab_formula()
+				{
+					scoreboard players set #SEARCH_HEIGHT temp 0
+					function skill:damage_formula/axe/two_hand/stab
+				}
+				
 				func use()
 				{
 					scoreboard players operation #RAND_RANGE_RESULT temp = @s f_attack_action
 				
-					execute if score #RAND_RANGE_RESULT temp matches 1000112..1000114 run function skill:damage_formula/axe/two_hand/swing
-					execute if score #RAND_RANGE_RESULT temp matches 1000115..1000117 run function skill:damage_formula/axe/two_hand/stab
+					execute if score #RAND_RANGE_RESULT temp matches 1000112..1000114 run function ARG(_PATH)swing_formula
+					execute if score #RAND_RANGE_RESULT temp matches 1000115..1000117 run function ARG(_PATH)stab_formula
 					
 					execute if score @s axe_mastery matches ..55 run function skill:afterimage/oh_axe/set_color
 					function skill:afterimage/summon_model
@@ -4514,12 +4652,16 @@ namespace skill()
 			
 			func swing_formula()
 			{
+				execute if score #RAND_RANGE_RESULT temp matches ..1000053 run scoreboard players set #SEARCH_HEIGHT temp 1
+				execute if score #RAND_RANGE_RESULT temp matches 1000054.. run scoreboard players set #SEARCH_HEIGHT temp 0
+				
 				function skill:damage_formula/blunt/two_hand/swing
 				scoreboard players set #LAST_ACTION_TYPE temp 1
 			}
 			
 			func stab_formula()
 			{
+				scoreboard players set #SEARCH_HEIGHT temp 0
 				function skill:damage_formula/blunt/two_hand/stab
 				scoreboard players set #LAST_ACTION_TYPE temp 2
 			}
@@ -4546,12 +4688,24 @@ namespace skill()
 					execute if score #LAST_ACTION_TYPE temp matches 2 if score #RAND_RANGE_RESULT temp matches 1000115..1000117 run scoreboard players remove @s action_time 2
 				}
 				
+				func swing_formula()
+				{
+					scoreboard players set #SEARCH_HEIGHT temp 1
+					function skill:damage_formula/blunt/two_hand/swing
+				}
+				
+				func stab_formula()
+				{
+					scoreboard players set #SEARCH_HEIGHT temp 0
+					function skill:damage_formula/blunt/two_hand/stab
+				}
+				
 				func use()
 				{
 					scoreboard players operation #RAND_RANGE_RESULT temp = @s f_attack_action
 				
-					execute if score #RAND_RANGE_RESULT temp matches 1000112..1000114 run function skill:damage_formula/blunt/two_hand/swing
-					execute if score #RAND_RANGE_RESULT temp matches 1000115..1000117 run function skill:damage_formula/blunt/two_hand/stab
+					execute if score #RAND_RANGE_RESULT temp matches 1000112..1000114 run function function ARG(_PATH)swing_formula
+					execute if score #RAND_RANGE_RESULT temp matches 1000115..1000117 run function function ARG(_PATH)stab_formula
 					
 					execute if score @s blunt_mastery matches ..55 run function skill:afterimage/oh_blunt/set_color
 					function skill:afterimage/summon_model

@@ -107,9 +107,12 @@ namespace 4() as virtual
 					
 					func check()
 					{
-						scoreboard players operation @s keen_eyes_dist = @s 4000001_level
-						scoreboard players operation @s keen_eyes_dist /= #2 const
-						scoreboard players add @s keen_eyes_dist 10
+						execute if score @s 4000001_level matches 1 run scoreboard players set @s keen_eyes_dist 7
+						execute if score @s 4000001_level matches 2..3 run scoreboard players set @s keen_eyes_dist 8
+						execute if score @s 4000001_level matches 4 run scoreboard players set @s keen_eyes_dist 9
+						execute if score @s 4000001_level matches 5 run scoreboard players set @s keen_eyes_dist 10
+						execute if score @s 4000001_level matches 6..7 run scoreboard players set @s keen_eyes_dist 11
+						execute if score @s 4000001_level matches 8 run scoreboard players set @s keen_eyes_dist 12
 					}
 					
 					func set_description()
@@ -118,8 +121,8 @@ namespace 4() as virtual
 						data modify storage ui:main temp set value [0, 0, 0, 0, 0]
 						execute store result storage ui:main temp[0] int 1 run scoreboard players get @s 4000001_level
 						execute store result storage ui:main temp[4] int 1 run scoreboard players operation #GLOBAL temp = @s keen_eyes_dist
-						scoreboard players remove #GLOBAL temp 9
-						execute store result storage ui:main temp[1] int 70 run scoreboard players get #GLOBAL temp
+						scoreboard players remove #GLOBAL temp 6
+						execute store result storage ui:main temp[1] int 80 run scoreboard players get #GLOBAL temp
 						
 						execute if score @s 4000001_level matches ..7 run function ARG(_PATH)get_next_level
 						execute if score @s 4000001_level matches 1.. run data modify block 250 0 0 Text1 set value '[{"translate":"skill.description.level.current","with":[{"nbt":"temp[0]","storage":"ui:main"}]},{"translate":"skill.description.level.4000001","with":[{"nbt":"temp[1]","storage":"ui:main"}]},{"nbt":"Text1","block":"250 0 0","interpret":true}]'
@@ -133,8 +136,8 @@ namespace 4() as virtual
 						function ARG(_PATH)check
 						execute store result storage ui:main temp[2] int 1 run scoreboard players get @s 4000001_level
 						scoreboard players operation #GLOBAL temp = @s keen_eyes_dist
-						scoreboard players remove #GLOBAL temp 9
-						execute store result storage ui:main temp[3] int 70 run scoreboard players get #GLOBAL temp
+						scoreboard players remove #GLOBAL temp 6
+						execute store result storage ui:main temp[3] int 80 run scoreboard players get #GLOBAL temp
 						data modify block 250 0 0 Text1 set value '[{"translate":"skill.description.level.next","with":[{"nbt":"temp[2]","storage":"ui:main"}]},{"translate":"skill.description.level.4000001","with":[{"nbt":"temp[3]","storage":"ui:main"}]}]'
 						
 						scoreboard players remove @s 4000001_level 1
@@ -167,20 +170,11 @@ namespace 4() as virtual
 				
 				func mark_target()
 				{
-					execute unless score #USED_WEAPON temp matches 24 run function ARG(_PATH)check_weapon_distance
-					execute if score #USED_WEAPON temp matches 24 run scoreboard players set #DISTANCE temp 3
+					execute unless score #USED_WEAPON temp matches 24 run function skill:enemy_search/check_weapon_distance
+					execute if score #USED_WEAPON temp matches 24 run scoreboard players set #DISTANCE temp 2
 					
 					scoreboard players set #MAX_ENEMY temp 1
 					function skill:enemy_search/search_front/search
-				}
-				
-				func check_weapon_distance()
-				{
-					scoreboard players operation #DISTANCE temp = #USED_WEAPON temp
-					# make single hand weapon %2 be 0
-					scoreboard players add #DISTANCE temp 1
-					scoreboard players operation #DISTANCE temp %= #2 const
-					scoreboard players add #DISTANCE temp 4
 				}
 				
 				func set_numeric()
@@ -494,7 +488,7 @@ namespace 4() as virtual
 				
 				func mark_target()
 				{
-					scoreboard players set #DISTANCE temp 4
+					scoreboard players set #DISTANCE temp 2
 					scoreboard players set #MAX_ENEMY temp 1
 					function skill:enemy_search/search_front/search
 				}
@@ -678,7 +672,7 @@ namespace 4() as virtual
 					
 					scoreboard players operation #GLOBAL bullet_model = @s bullet_model
 					scoreboard players operation #BULLET_DISTANCE temp = #DISTANCE temp
-					scoreboard players remove #BULLET_DISTANCE temp 3
+					scoreboard players remove #BULLET_DISTANCE temp 1
 					execute as @e[type=armor_stand,tag=new_bullet] run function ARG(_PATH)set_bullet
 				}
 				

@@ -345,12 +345,7 @@ namespace 1() as virtual
 				
 				func mark_target()
 				{
-					scoreboard players operation #DISTANCE temp = #USED_WEAPON temp
-					# make single hand weapon %2 be 0
-					scoreboard players add #DISTANCE temp 1
-					scoreboard players operation #DISTANCE temp %= #2 const
-					scoreboard players add #DISTANCE temp 4
-					
+					function skill:enemy_search/check_weapon_distance
 					scoreboard players set #MAX_ENEMY temp 1
 					function skill:enemy_search/search_front/search
 				}
@@ -484,12 +479,7 @@ namespace 1() as virtual
 				
 				func mark_target()
 				{
-					scoreboard players operation #DISTANCE temp = #USED_WEAPON temp
-					# make single hand weapon %2 be 0
-					scoreboard players add #DISTANCE temp 1
-					scoreboard players operation #DISTANCE temp %= #2 const
-					scoreboard players add #DISTANCE temp 4
-					
+					function skill:enemy_search/check_weapon_distance
 					scoreboard players set #MAX_ENEMY temp 6
 					function skill:enemy_search/search_front_pure_order/search
 				}
@@ -615,12 +605,7 @@ namespace 1() as virtual
 				
 				func mark_target()
 				{
-					scoreboard players operation #DISTANCE temp = #USED_WEAPON temp
-					# make single hand weapon %2 be 0
-					scoreboard players add #DISTANCE temp 1
-					scoreboard players operation #DISTANCE temp %= #2 const
-					scoreboard players add #DISTANCE temp 4
-					
+					function skill:enemy_search/check_weapon_distance
 					scoreboard players set #MAX_ENEMY temp 1
 					execute if score @s f_attack_skill matches 2 run scoreboard players add #MAX_ENEMY temp 5
 					function skill:enemy_search/search_front_pure_order/search

@@ -431,7 +431,7 @@ namespace 41() as virtual
 				
 				scoreboard players operation #GLOBAL bullet_model = @s bullet_model
 				scoreboard players operation #BULLET_DISTANCE temp = #DISTANCE temp
-				scoreboard players remove #BULLET_DISTANCE temp 3
+				scoreboard players remove #BULLET_DISTANCE temp 1
 				execute as @e[type=armor_stand,tag=new_bullet] run function ARG(_PATH)set_bullet
 			}
 			

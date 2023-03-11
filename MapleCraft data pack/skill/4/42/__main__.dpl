@@ -156,20 +156,11 @@ namespace 42() as virtual
 			
 			func mark_target()
 			{
-				execute unless score #USED_WEAPON temp matches 24 run function ARG(_PATH)check_weapon_distance
-				execute if score #USED_WEAPON temp matches 24 run scoreboard players set #DISTANCE temp 3
+				execute unless score #USED_WEAPON temp matches 24 run function skill:enemy_search/check_weapon_distance
+				execute if score #USED_WEAPON temp matches 24 run scoreboard players set #DISTANCE temp 2
 				
 				scoreboard players set #MAX_ENEMY temp 1
 				function skill:enemy_search/search_front/search
-			}
-			
-			func check_weapon_distance()
-			{
-				scoreboard players operation #DISTANCE temp = #USED_WEAPON temp
-				# make single hand weapon %2 be 0
-				scoreboard players add #DISTANCE temp 1
-				scoreboard players operation #DISTANCE temp %= #2 const
-				scoreboard players add #DISTANCE temp 4
 			}
 			
 			func set_numeric()
@@ -318,7 +309,8 @@ namespace 42() as virtual
 			
 			func mark_target()
 			{
-				scoreboard players set #DISTANCE temp 4
+				scoreboard players set #DISTANCE temp 3
+				scoreboard players set #SEARCH_HEIGHT temp 0
 				scoreboard players set #MAX_ENEMY temp 1
 				function skill:enemy_search/search_front/search
 			}

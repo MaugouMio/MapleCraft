@@ -36,16 +36,17 @@ namespace 0() as virtual
 				func mark_target()
 				{
 					scoreboard players set #DISTANCE temp 9
+					scoreboard players set #SEARCH_HEIGHT temp 0
 					scoreboard players set #MAX_ENEMY temp 1
 					function skill:enemy_search/search_front/search
 				}
 				
 				func summon_bullet()
 				{
-					# max_distance should be set to (#DISTANCE temp - 3)
-					execute if score @s 0001000_level matches 1 rotated ~ 0 run summon minecraft:armor_stand ^ ^ ^1 {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:11,max_distance:6,skill_id:8,bullet_model:6000,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
-					execute if score @s 0001000_level matches 2 rotated ~ 0 run summon minecraft:armor_stand ^ ^ ^1 {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:11,max_distance:6,skill_id:8,bullet_model:6001,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
-					execute if score @s 0001000_level matches 3 rotated ~ 0 run summon minecraft:armor_stand ^ ^ ^1 {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:11,max_distance:6,skill_id:8,bullet_model:6002,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
+					# max_distance should be set to (#DISTANCE temp - 1)
+					execute if score @s 0001000_level matches 1 rotated ~ 0 run summon minecraft:armor_stand ^ ^ ^1 {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:11,max_distance:8,skill_id:8,bullet_model:6000,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
+					execute if score @s 0001000_level matches 2 rotated ~ 0 run summon minecraft:armor_stand ^ ^ ^1 {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:11,max_distance:8,skill_id:8,bullet_model:6001,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
+					execute if score @s 0001000_level matches 3 rotated ~ 0 run summon minecraft:armor_stand ^ ^ ^1 {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:11,max_distance:8,skill_id:8,bullet_model:6002,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
 				}
 				
 				func set_numeric()
