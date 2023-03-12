@@ -4723,8 +4723,8 @@ namespace skill()
 				{
 					scoreboard players operation #RAND_RANGE_RESULT temp = @s f_attack_action
 				
-					execute if score #RAND_RANGE_RESULT temp matches 1000112..1000114 run function function ARG(_PATH)swing_formula
-					execute if score #RAND_RANGE_RESULT temp matches 1000115..1000117 run function function ARG(_PATH)stab_formula
+					execute if score #RAND_RANGE_RESULT temp matches 1000112..1000114 run function ARG(_PATH)swing_formula
+					execute if score #RAND_RANGE_RESULT temp matches 1000115..1000117 run function ARG(_PATH)stab_formula
 					
 					execute if score @s blunt_mastery matches ..55 run function skill:afterimage/oh_blunt/set_color
 					function skill:afterimage/summon_model
