@@ -293,19 +293,17 @@ namespace mob_skill()
 			scoreboard players reset #FORCE_MODEL temp
 			scoreboard players reset #MODEL_COLOR temp
 			
-			execute at @s rotated ~ 0 run summon minecraft:armor_stand ^ ^ ^0.5 {Tags:["model_animation","new"],Invisible:1,Invulnerable:1,NoGravity:1,Marker:1,Fire:32767s,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:900000}}]}
-			execute at @s as @e[type=armor_stand,tag=new,limit=1] run function ARG(_PATH)effect_model_set
-			
+			execute at @s rotated ~ 0 positioned ^ ^ ^0.5 summon minecraft:armor_stand run function ARG(_PATH)effect_model_set
 			playsound minecraft:mob.special.4230114_attack player @a ~ ~ ~ 1 1 0
 			execute store result score @s skill_delay run schedule function ARG(_PATH)call_attack 16t append
 		}
 		
 		func effect_model_set()
 		{
-			execute positioned as @s run tp @s ~ ~ ~ ~ 0
+			data merge entity @s {Tags:["model_animation"],Invisible:1,Invulnerable:1,NoGravity:1,Marker:1,Fire:32767s,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:900000}}]}
+			tp @s ~ ~ ~ ~ 0
 			scoreboard players set @s max_life 26
 			scoreboard players set @s base_model 900000
-			tag @s remove new
 		}
 		
 		func call_attack()
@@ -380,19 +378,17 @@ namespace mob_skill()
 			scoreboard players reset #FORCE_MODEL temp
 			scoreboard players reset #MODEL_COLOR temp
 			
-			execute at @s rotated ~ 0 run summon minecraft:armor_stand ^ ^ ^0.5 {Tags:["model_animation","new"],Invisible:1,Invulnerable:1,NoGravity:1,Marker:1,Fire:32767s,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:900026}}]}
-			execute at @s as @e[type=armor_stand,tag=new,limit=1] run function ARG(_PATH)effect_model_set
-			
+			execute at @s rotated ~ 0 positioned ^ ^ ^0.5 summon minecraft:armor_stand run function ARG(_PATH)effect_model_set
 			playsound minecraft:mob.special.4230115_attack player @a ~ ~ ~ 1 1 0
 			execute store result score @s skill_delay run schedule function ARG(_PATH)call_attack 16t append
 		}
 		
 		func effect_model_set()
 		{
-			execute positioned as @s run tp @s ~ ~ ~ ~ 0
+			data merge entity @s {Tags:["model_animation"],Invisible:1,Invulnerable:1,NoGravity:1,Marker:1,Fire:32767s,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:900026}}]}
+			tp @s ~ ~ ~ ~ 0
 			scoreboard players set @s max_life 26
 			scoreboard players set @s base_model 900026
-			tag @s remove new
 		}
 		
 		func call_attack()
@@ -705,19 +701,17 @@ namespace mob_skill()
 			scoreboard players operation #MODEL_COLOR temp *= #256 const
 			scoreboard players add #MODEL_COLOR temp 255
 			
-			execute at @s rotated ~ 0 run summon minecraft:armor_stand ^ ^1.5 ^1 {Tags:["model_animation","new"],Invisible:1,Invulnerable:1,NoGravity:1,Marker:1,Fire:32767s,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:900052}}]}
-			execute at @s as @e[type=armor_stand,tag=new,limit=1] run function ARG(_PATH)effect_model_set
-			
+			execute at @s rotated ~ 0 positioned ^ ^1.5 ^1 summon minecraft:armor_stand run function ARG(_PATH)effect_model_set
 			playsound minecraft:mob.special.9300012_attack player @a ~ ~ ~ 2 1 0
 			execute store result score @s skill_delay run schedule function ARG(_PATH)call_attack 23t append
 		}
 		
 		func effect_model_set()
 		{
-			execute positioned as @s run tp @s ~ ~ ~ ~ 0
+			data merge entity @s {Tags:["model_animation"],Invisible:1,Invulnerable:1,NoGravity:1,Marker:1,Fire:32767s,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:900052}}]}
+			tp @s ~ ~ ~ ~ 0
 			scoreboard players set @s max_life 36
 			scoreboard players set @s base_model 900052
-			tag @s remove new
 		}
 		
 		func call_attack()

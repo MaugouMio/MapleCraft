@@ -419,24 +419,24 @@ namespace 41() as virtual
 			
 			func effect_model_set()
 			{
-				tp @s ~ ~ ~ ~180 ~
+				data merge entity @s {Tags:["model_animation"],Invisible:1,Invulnerable:1,NoGravity:1,Marker:1,Fire:32767s,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:410000}}]}
+				tp @s ~ ~ ~ ~180 0
 				scoreboard players set @s max_life 12
 				scoreboard players set @s base_model 410000
-				tag @s remove new
 			}
 			
 			func summon_bullet()
 			{
-				execute rotated ~ 0 run summon minecraft:armor_stand ^ ^0.2 ^1 {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:7,max_distance:10,skill_id:9,bullet_model:4005,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
-				
 				scoreboard players operation #GLOBAL bullet_model = @s bullet_model
-				scoreboard players operation #BULLET_DISTANCE temp = #DISTANCE temp
+				scoreboard players operation #BULLET_DISTANCE temp = @s keen_eyes_dist
 				scoreboard players remove #BULLET_DISTANCE temp 1
-				execute as @e[type=armor_stand,tag=new_bullet] run function ARG(_PATH)set_bullet
+
+				execute rotated ~ 0 positioned ^ ^0.2 ^1 summon minecraft:armor_stand run function ARG(_PATH)set_bullet
 			}
 			
 			func set_bullet()
 			{
+				data merge entity @s {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:7,max_distance:10,skill_id:9,bullet_model:4005,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
 				execute store result entity @s ArmorItems[3].tag.max_distance int 1 run scoreboard players get #BULLET_DISTANCE temp
 				execute store result entity @s ArmorItems[3].tag.bullet_model int 1 run scoreboard players get #GLOBAL bullet_model
 			}
@@ -474,9 +474,7 @@ namespace 41() as virtual
 			
 			func cast_effect()
 			{
-				summon minecraft:armor_stand ~ ~ ~ {Tags:["model_animation","new"],Invisible:1,Invulnerable:1,NoGravity:1,Marker:1,Fire:32767s,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:410000}}]}
-				execute as @e[type=armor_stand,tag=new,limit=1] run function ARG(_PATH)effect_model_set
-				
+				execute summon minecraft:armor_stand run function ARG(_PATH)effect_model_set
 				function skill:afterimage/claw/swing
 				playsound minecraft:skill.4101005 player @a ~ ~ ~ 1 1 0
 				playsound minecraft:skill.attack.throw player @a ~ ~ ~ 1 1 0

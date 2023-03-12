@@ -367,15 +367,13 @@ namespace 21() as virtual
 					{
 						tag @s add delay_tp
 						scoreboard players operation #GLOBAL temp = @s number
-						
-						summon minecraft:marker ~ ~ ~ {Tags:["tp_check","new"]}
-						execute as @e[type=marker,tag=tp_check,tag=new] run function ARG(_PATH)set_point
+						execute summon minecraft:marker run function ARG(_PATH)set_point
 					}
 					
 					func set_point()
 					{
 						scoreboard players operation @s number = #GLOBAL temp
-						tag @s remove new
+						tag @s add tp_check
 					}
 					
 					func run()
@@ -677,10 +675,10 @@ namespace 21() as virtual
 			
 			func effect_model_set()
 			{
-				execute positioned as @s run tp @s ~ ~ ~ ~ ~
+				data merge entity @s {Tags:["model_animation"],Invisible:1,Invulnerable:1,NoGravity:1,Marker:1,Fire:32767s,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:210000}}]}
+				tp @s ~ ~ ~ ~ 0
 				scoreboard players set @s max_life 20
 				scoreboard players set @s base_model 210000
-				tag @s remove new
 			}
 			
 			func summon_bullet()
@@ -704,8 +702,7 @@ namespace 21() as virtual
 				
 			func cast_effect()
 			{
-				execute rotated ~ 0 run summon minecraft:armor_stand ^ ^ ^1 {Tags:["model_animation","new"],Invisible:1,Invulnerable:1,NoGravity:1,Marker:1,Fire:32767s,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:210000}}]}
-				execute as @e[type=armor_stand,tag=new,limit=1] run function ARG(_PATH)effect_model_set
+				execute rotated ~ 0 positioned ^ ^ ^1 summon minecraft:armor_stand run function ARG(_PATH)effect_model_set
 				playsound minecraft:skill.2101004 player @a ~ ~ ~ 1 1 0
 			}
 			

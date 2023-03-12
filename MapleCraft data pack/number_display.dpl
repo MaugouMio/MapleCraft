@@ -6,18 +6,12 @@ namespace number_display()
 		scoreboard objectives add display_num_type dummy
 	}
 	
-	# func main()
-	# {
-		# execute as @e[type=area_effect_cloud,tag=display_number] run function ARG(_PATH)display_update/run
-	# }
-	
 	func show()
 	{
-		summon area_effect_cloud ~ ~1 ~ {Tags:["display_number","new"],Duration:21,PickupDelay:-32768,CustomName:'',CustomNameVisible:1}
 		execute if score @s display_number matches 0 run function ARG(_PATH)show_miss
 		execute if score @s display_number matches 1.. run function ARG(_PATH)show_number
 		function ARG(_PATH)calc_tick_offset/run
-		execute as @e[type=area_effect_cloud,tag=new,limit=1] run function ARG(_PATH)set_display
+		execute positioned ~ ~1 ~ summon area_effect_cloud run function ARG(_PATH)set_display
 	}
 	
 	func show_miss()
@@ -122,8 +116,7 @@ namespace number_display()
 	
 	func set_display()
 	{
+		data merge entity @s {Tags:["display_number"],Duration:21,PickupDelay:-32768,CustomName:'',CustomNameVisible:1}
 		data modify entity @s CustomName set from block 250 0 0 Text2
-		
-		tag @s remove new
 	}
 }

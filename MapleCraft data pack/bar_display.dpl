@@ -394,13 +394,11 @@ namespace bar_display()
 			
 			playsound minecraft:game.die player @a ~ ~ ~ 1 1 0
 			
-			scoreboard players operation #GLOBAL temp = @s number
-			summon minecraft:vex ~ ~0.3 ~ {Tags:["dead_decoration","new"],PersistenceRequired:1,Silent:1,NoAI:1,CustomNameVisible:1,CustomName:'{"text":"2","font":"space:default"}',Invulnerable:1,Team:"player",HandItems:[{id:"minecraft:potion",Count:1b,tag:{CustomModelData:2}},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:2}}]}
-			execute rotated ~ 0 run summon minecraft:armor_stand ~ ~1.7 ~ {Tags:["dead_decoration","new"],Motion:[0.0,-0.15,0.0],ActiveEffects:[{Id:28,Amplifier:0b,Duration:100000,Ambient:1b,ShowParticles:0b}],Silent:1,Invisible:1,Invulnerable:1,DisabledSlots:4144959,Team:"player",ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:3,CustomPotionColor:16777215}}]}
-			
 			data modify entity 00000000-0000-0001-0000-000000000001 DeathLootTable set value "bar_display:skull"
-			loot replace entity @e[type=minecraft:vex,tag=new,limit=1] armor.head kill 00000000-0000-0001-0000-000000000001
-			execute as @e[type=#bar_display:dead_decoration,tag=new] positioned as @s run function ARG(_PATH)set_dead_decoration
+			loot replace block 250 2 0 container.1 kill 00000000-0000-0001-0000-000000000001
+			scoreboard players operation #GLOBAL temp = @s number
+			execute positioned ~ ~0.3 ~ summon minecraft:vex run function ARG(_PATH)vex_set
+			execute positioned ~ ~1.7 ~ summon minecraft:armor_stand run function ARG(_PATH)tomb_set
 			
 			scoreboard players add #TOMB_AMOUNT temp 1
 			forceload add ~ ~
@@ -414,13 +412,21 @@ namespace bar_display()
 			scoreboard players operation @s exp -= #GLOBAL temp
 			scoreboard players operation @s exp > #0 const
 		}
-		
-		func set_dead_decoration()
+
+		func vex_set()
 		{
+			data merge entity @s {Tags:["dead_decoration"],PersistenceRequired:1,Silent:1,NoAI:1,CustomNameVisible:1,CustomName:'{"text":"2","font":"space:default"}',Invulnerable:1,Team:"player",HandItems:[{id:"minecraft:potion",Count:1b,tag:{CustomModelData:2}},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:2}}]}
+			item replace entity @s armor.head from block 250 2 0 container.1
+			function ARG(_PATH)set_name
 			tp @s ~ ~ ~ ~ 0
-			execute if entity @s[type=vex] run function ARG(_PATH)set_name
 			scoreboard players operation @s number = #GLOBAL temp
-			tag @s remove new
+		}
+
+		func tomb_set()
+		{
+			data merge entity @s {Tags:["dead_decoration"],Motion:[0.0,-0.15,0.0],ActiveEffects:[{Id:28,Amplifier:0b,Duration:100000,Ambient:1b,ShowParticles:0b}],Silent:1,Invisible:1,Invulnerable:1,DisabledSlots:4144959,Team:"player",ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:3,CustomPotionColor:16777215}}]}
+			tp @s ~ ~ ~ ~ 0
+			scoreboard players operation @s number = #GLOBAL temp
 		}
 		
 		func set_name()
@@ -715,7 +721,7 @@ namespace bar_display()
 		{
 			data modify storage bar:main head set value []
 			
-			execute as @a[gamemode=!spectator] at @s run function ARG(_PATH)write_data
+			execute as @a[gamemode=adventure] at @s run function ARG(_PATH)write_data
 			execute as @e[type=interaction,tag=player_pos] run function ARG(_PATH)update_pos
 			
 			execute if data storage bar:main head[0] run function ARG(_PATH)spawn

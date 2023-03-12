@@ -659,27 +659,41 @@ namespace 4() as virtual
 				
 				func effect_model_set()
 				{
-					execute positioned as @s run tp @s ~ ~ ~ ~ ~
+					data merge entity @s {Tags:["model_animation"],Invisible:1,Invulnerable:1,NoGravity:1,Marker:1,Fire:32767s,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:400000}}]}
+					tp @s ~ ~ ~ ~ 0
 					scoreboard players set @s max_life 21
 					scoreboard players set @s base_model 400000
-					tag @s remove new
 				}
 				
 				func summon_bullet()
 				{
-					execute rotated ~ 0 run summon minecraft:armor_stand ^ ^0.2 ^1 {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:7,max_distance:10,skill_id:2,bullet_model:4005,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
-					execute rotated ~ 0 run summon minecraft:armor_stand ^ ^-0.2 ^1 {Tags:["new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:9,max_distance:10,skill_id:2,bullet_model:4005,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
-					
 					scoreboard players operation #GLOBAL bullet_model = @s bullet_model
-					scoreboard players operation #BULLET_DISTANCE temp = #DISTANCE temp
+					scoreboard players operation #BULLET_DISTANCE temp = @s keen_eyes_dist
 					scoreboard players remove #BULLET_DISTANCE temp 1
-					execute as @e[type=armor_stand,tag=new_bullet] run function ARG(_PATH)set_bullet
+
+					execute rotated ~ 0 positioned ^ ^0.2 ^1 summon minecraft:armor_stand run function ARG(_PATH)set_bullet/first
+					execute rotated ~ 0 positioned ^ ^-0.2 ^1 summon minecraft:armor_stand run function ARG(_PATH)set_bullet/second
 				}
 				
-				func set_bullet()
+				folder set_bullet()
 				{
-					execute store result entity @s ArmorItems[3].tag.max_distance int 1 run scoreboard players get #BULLET_DISTANCE temp
-					execute store result entity @s ArmorItems[3].tag.bullet_model int 1 run scoreboard players get #GLOBAL bullet_model
+					func first()
+					{
+						data merge entity @s {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:7,max_distance:10,skill_id:2,bullet_model:4005,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
+						function ARG(_PATH)base
+					}
+
+					func second()
+					{
+						data merge entity @s {Tags:["new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:9,max_distance:10,skill_id:2,bullet_model:4005,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
+						function ARG(_PATH)base
+					}
+
+					func base()
+					{
+						execute store result entity @s ArmorItems[3].tag.max_distance int 1 run scoreboard players get #BULLET_DISTANCE temp
+						execute store result entity @s ArmorItems[3].tag.bullet_model int 1 run scoreboard players get #GLOBAL bullet_model
+					}
 				}
 				
 				func set_numeric()
@@ -701,8 +715,7 @@ namespace 4() as virtual
 				
 				func cast_effect()
 				{
-					execute rotated ~ 0 run summon minecraft:armor_stand ^ ^ ^1.7 {Tags:["model_animation","new"],Invisible:1,Invulnerable:1,NoGravity:1,Marker:1,Fire:32767s,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:400000}}]}
-					execute as @e[type=armor_stand,tag=new,limit=1] run function ARG(_PATH)effect_model_set
+					execute rotated ~ 0 positioned ^ ^ ^1.7 summon minecraft:armor_stand run function ARG(_PATH)effect_model_set
 					function skill:afterimage/claw/swing
 					playsound minecraft:skill.4001344 player @a ~ ~ ~ 1 1 0
 				}

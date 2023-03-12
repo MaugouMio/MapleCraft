@@ -997,22 +997,42 @@ namespace skill()
 					}
 				
 					func summon_bullet()
-					{
-						execute if score #USED_WEAPON temp matches 16 rotated ~ 0 run summon minecraft:armor_stand ^ ^0.2 ^1 {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:7,max_distance:10,skill_id:11,bullet_model:3101,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
-						execute if score #USED_WEAPON temp matches 18 rotated ~ 0 run summon minecraft:armor_stand ^ ^0.2 ^1 {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:8,max_distance:10,skill_id:11,bullet_model:3201,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
-						execute if score #USED_WEAPON temp matches 24 rotated ~ 0 run summon minecraft:armor_stand ^ ^0.2 ^1 {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:7,max_distance:10,skill_id:11,bullet_model:4000,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
-						
+					{	
 						scoreboard players operation #GLOBAL bullet_model = @s bullet_model
 						execute if score @s soul_buff_time matches 1.. if score @s 3101004_weapon = #USED_WEAPON temp run scoreboard players set #GLOBAL bullet_model 3001
 						scoreboard players operation #BULLET_DISTANCE temp = #DISTANCE temp
 						scoreboard players remove #BULLET_DISTANCE temp 1
-						execute as @e[type=armor_stand,tag=new_bullet] run function ARG(_PATH)set_bullet
+						
+						execute if score #USED_WEAPON temp matches 16 rotated ~ 0 positioned ^ ^0.2 ^1 summon minecraft:armor_stand run function ARG(_PATH)set_bullet/bow
+						execute if score #USED_WEAPON temp matches 18 rotated ~ 0 positioned ^ ^0.2 ^1 summon minecraft:armor_stand run function ARG(_PATH)set_bullet/crossbow
+						execute if score #USED_WEAPON temp matches 24 rotated ~ 0 positioned ^ ^0.2 ^1 summon minecraft:armor_stand run function ARG(_PATH)set_bullet/claw
 					}
 					
-					func set_bullet()
+					folder set_bullet()
 					{
-						execute store result entity @s ArmorItems[3].tag.max_distance int 1 run scoreboard players get #BULLET_DISTANCE temp
-						execute store result entity @s ArmorItems[3].tag.bullet_model int 1 run scoreboard players get #GLOBAL bullet_model
+						func bow()
+						{
+							data merge entity @s {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:7,max_distance:10,skill_id:11,bullet_model:3101,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
+							function ARG(_PATH)base
+						}
+
+						func crossbow()
+						{
+							data merge entity @s {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:8,max_distance:10,skill_id:11,bullet_model:3201,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
+							function ARG(_PATH)base
+						}
+
+						func claw()
+						{
+							data merge entity @s {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:7,max_distance:10,skill_id:11,bullet_model:4000,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
+							function ARG(_PATH)base
+						}
+
+						func base()
+						{
+							execute store result entity @s ArmorItems[3].tag.max_distance int 1 run scoreboard players get #BULLET_DISTANCE temp
+							execute store result entity @s ArmorItems[3].tag.bullet_model int 1 run scoreboard players get #GLOBAL bullet_model
+						}
 					}
 				
 					func set_numeric()
@@ -3650,14 +3670,13 @@ namespace skill()
 			{
 				func run()
 				{
-					summon minecraft:marker ~ ~ ~ {Tags:["dead_king_slime","new"]}
-					execute as @e[type=marker,tag=dead_king_slime,tag=new] run function ARG(_PATH)setting
+					execute summon minecraft:marker run function ARG(_PATH)setting
 				}
 
 				func setting()
 				{
 					execute store result score @s skill_delay run schedule function ARG(_PATH)call_summon 20t append
-					tag @s remove new
+					tag @s add dead_king_slime
 				}
 				
 				func call_summon()
@@ -4716,32 +4735,30 @@ namespace skill()
 		
 		func summon_model()
 		{
-			execute rotated ~ 0 run summon minecraft:armor_stand ^ ^ ^0.7 {Tags:["afterimage","new"],Invisible:1,Invulnerable:1,NoGravity:1,Marker:1,Fire:32767s,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:1,CustomPotionColor:255}}]}
-			execute as @e[type=armor_stand,tag=new] run function ARG(_PATH)model_set
+			execute rotated ~ 0 positioned ^ ^ ^0.7 summon minecraft:armor_stand run function ARG(_PATH)model_set
 		}
 		
 		func summon_model_delay()
 		{
-			execute rotated ~ 0 run summon minecraft:armor_stand ^ ^ ^0.7 {Tags:["afterimage","new"],Invisible:1,Invulnerable:1,NoGravity:1,Marker:1,Fire:32767s,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:1}}]}
-			execute as @e[type=armor_stand,tag=new] run function ARG(_PATH)model_set_delay
+			execute rotated ~ 0 positioned ^ ^ ^0.7 summon minecraft:armor_stand run function ARG(_PATH)model_set_delay
 		}
 		
 		func model_set()
 		{
-			execute positioned as @s run tp @s ~ ~ ~ ~ ~
+			data merge entity @s {Tags:["afterimage"],Invisible:1,Invulnerable:1,NoGravity:1,Marker:1,Fire:32767s,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:1,CustomPotionColor:255}}]}
+			tp @s ~ ~ ~ ~ 0
 			scoreboard players set @s life 8
 			scoreboard players operation @s base_model = #RAND_RANGE_RESULT temp
 			execute store result entity @s ArmorItems[3].tag.CustomPotionColor int 1 run scoreboard players get #AFTERIMAGE_COLOR temp
-			tag @s remove new
 		}
 		
 		func model_set_delay()
 		{
-			execute positioned as @s run tp @s ~ ~ ~ ~ ~
+			data merge entity @s {Tags:["afterimage"],Invisible:1,Invulnerable:1,NoGravity:1,Marker:1,Fire:32767s,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:1}}]}
+			tp @s ~ ~ ~ ~ 0
 			scoreboard players set @s life 9
 			scoreboard players operation @s base_model = #RAND_RANGE_RESULT temp
 			execute store result entity @s ArmorItems[3].tag.CustomPotionColor int 1 run scoreboard players get #AFTERIMAGE_COLOR temp
-			tag @s remove new
 		}
 
 		func update()
