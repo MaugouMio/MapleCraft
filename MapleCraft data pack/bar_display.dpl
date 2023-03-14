@@ -397,8 +397,9 @@ namespace bar_display()
 			data modify entity 00000000-0000-0001-0000-000000000001 DeathLootTable set value "bar_display:skull"
 			loot replace block 250 2 0 container.1 kill 00000000-0000-0001-0000-000000000001
 			scoreboard players operation #GLOBAL temp = @s number
-			execute positioned ~ ~0.3 ~ summon minecraft:vex run function ARG(_PATH)vex_set
-			execute positioned ~ ~1.7 ~ summon minecraft:armor_stand run function ARG(_PATH)tomb_set
+			execute summon minecraft:item_display run function ARG(_PATH)head_set
+			execute summon minecraft:item_display run function ARG(_PATH)body_set
+			execute summon minecraft:item_display run function ARG(_PATH)tomb_set
 			
 			scoreboard players add #TOMB_AMOUNT temp 1
 			forceload add ~ ~
@@ -413,20 +414,34 @@ namespace bar_display()
 			scoreboard players operation @s exp > #0 const
 		}
 
-		func vex_set()
+		func head_set()
 		{
-			data merge entity @s {Tags:["dead_decoration"],PersistenceRequired:1,Silent:1,NoAI:1,CustomNameVisible:1,CustomName:'{"text":"2","font":"space:default"}',Invulnerable:1,Team:"player",HandItems:[{id:"minecraft:potion",Count:1b,tag:{CustomModelData:2}},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:2}}]}
-			item replace entity @s armor.head from block 250 2 0 container.1
+			data merge entity @s {Tags:["dead_decoration"],CustomNameVisible:1,transformation:{scale:[1.2f,1.2f,1.2f]}}
+			item replace entity @s container.0 from block 250 2 0 container.1
 			function ARG(_PATH)set_name
+			tp @s ~ ~2 ~ ~ 0
+			scoreboard players operation @s number = #GLOBAL temp
+		}
+
+		func body_set()
+		{
+			data merge entity @s {Tags:["dead_decoration"],transformation:{translation:[0.0f,1.5f,0.0f],scale:[0.75f,0.75f,0.75f]},item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:2}}}
 			tp @s ~ ~ ~ ~ 0
 			scoreboard players operation @s number = #GLOBAL temp
 		}
 
 		func tomb_set()
 		{
-			data merge entity @s {Tags:["dead_decoration"],Motion:[0.0,-0.15,0.0],ActiveEffects:[{Id:28,Amplifier:0b,Duration:100000,Ambient:1b,ShowParticles:0b}],Silent:1,Invisible:1,Invulnerable:1,DisabledSlots:4144959,Team:"player",ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:3,CustomPotionColor:16777215}}]}
+			data merge entity @s {Tags:["dead_decoration","tomb"],transformation:{translation:[0.0f,10.6f,1.5f]},item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:3,CustomPotionColor:-1}},item_display:"head"}
+			execute store result score @s temp run schedule function ARG(_PATH)tomb_anim 1t append
 			tp @s ~ ~ ~ ~ 0
 			scoreboard players operation @s number = #GLOBAL temp
+		}
+		
+		func tomb_anim()
+		{
+			execute store result score #GLOBAL temp run time query gametime
+			execute as @e[type=item_display,tag=tomb] if score @s temp = #GLOBAL temp run data merge entity @s {transformation:{translation:[0.0f,2.6f,1.5f]},interpolation_duration:13,start_interpolation:0}
 		}
 		
 		func set_name()
@@ -439,8 +454,8 @@ namespace bar_display()
 		func revive()
 		{
 			scoreboard players operation #GLOBAL temp = @s number
-			execute as @e[type=#bar_display:dead_decoration,tag=dead_decoration] if score @s number = #GLOBAL temp at @s run function ARG(_PATH)remove_dead_decoration/all
-			execute as @e[type=vex,tag=dead_decoration] at @s run forceload add ~ ~
+			execute as @e[type=item_display,tag=dead_decoration] if score @s number = #GLOBAL temp at @s run function ARG(_PATH)remove_dead_decoration/all
+			execute as @e[type=item_display,tag=tomb] at @s run forceload add ~ ~
 			
 			scoreboard players set @s hp 50
 			function ARG(__PATH)change/hp/recovered
@@ -462,9 +477,9 @@ namespace bar_display()
 			
 			func clear()
 			{
-				execute as @e[type=armor_stand,tag=dead_decoration] if score @s number = #GLOBAL temp run kill @s
-				execute at @s run function ARG(__PATH)remove_dead_decoration/vex
-				kill @s
+				function ARG(__PATH)remove_dead_decoration/reset
+				execute as @e[type=item_display,tag=dead_decoration,distance=..1] if score @s number = #GLOBAL temp run kill @s
+				execute as @e[type=item_display,tag=tomb] at @s run forceload add ~ ~
 			}
 		}
 		
@@ -472,15 +487,14 @@ namespace bar_display()
 		{
 			func all()
 			{
-				execute if entity @s[type=vex] run function ARG(_PATH)vex
+				execute if entity @s[tag=tomb] run function ARG(_PATH)reset
 				kill @s
 			}
 			
-			func vex()
+			func reset()
 			{
 				forceload remove ~ ~
 				scoreboard players remove #TOMB_AMOUNT temp 1
-				tp @s ~ -10 ~
 			}
 		}
 	}
@@ -928,7 +942,7 @@ namespace bar_display()
 			execute as @a[tag=!dead] if score @s hp < @s hp_max run function ARG(__PATH)recover/hp
 			
 			execute store result score #DEAD_PLAYER_AMOUNT temp if entity @a[tag=dead]
-			execute if score #TOMB_AMOUNT temp > #DEAD_PLAYER_AMOUNT temp as @e[type=vex,tag=dead_decoration] run function ARG(__PATH)death/tomb_check/find
+			execute if score #TOMB_AMOUNT temp > #DEAD_PLAYER_AMOUNT temp as @e[type=item_display,tag=tomb] run function ARG(__PATH)death/tomb_check/find
 		}
 		
 		func schedule_10s()

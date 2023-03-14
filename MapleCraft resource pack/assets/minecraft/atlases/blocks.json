@@ -28,8 +28,9 @@
             "resource": "empty"
         },
         {
-            "type": "single",
-            "resource": "entity/illager/vex"
+            "type": "directory",
+            "source": "color",
+            "prefix": "color/"
         },
         {
             "type": "directory",
