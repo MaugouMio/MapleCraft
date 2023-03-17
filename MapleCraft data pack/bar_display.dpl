@@ -831,97 +831,97 @@ namespace bar_display()
 				
 				func 0_3()
 				{
-					execute if score @s hp_level matches 0 run data modify entity @s text set value '{"text":"0","font":"ui:player_hp","color":"#00000B"}'
-					execute if score @s hp_level matches 1 run data modify entity @s text set value '{"text":"1","font":"ui:player_hp","color":"#00000B"}'
-					execute if score @s hp_level matches 2 run data modify entity @s text set value '{"text":"2","font":"ui:player_hp","color":"#00000B"}'
-					execute if score @s hp_level matches 3 run data modify entity @s text set value '{"text":"3","font":"ui:player_hp","color":"#00000B"}'
+					execute if score @s hp_level matches 0 run data modify entity @s text set value '{"text":"0","font":"ui:player_hp","color":"#000016"}'
+					execute if score @s hp_level matches 1 run data modify entity @s text set value '{"text":"1","font":"ui:player_hp","color":"#000016"}'
+					execute if score @s hp_level matches 2 run data modify entity @s text set value '{"text":"2","font":"ui:player_hp","color":"#000016"}'
+					execute if score @s hp_level matches 3 run data modify entity @s text set value '{"text":"3","font":"ui:player_hp","color":"#000016"}'
 				}
 				
 				func 4_7()
 				{
-					execute if score @s hp_level matches 4 run data modify entity @s text set value '{"text":"4","font":"ui:player_hp","color":"#00000B"}'
-					execute if score @s hp_level matches 5 run data modify entity @s text set value '{"text":"5","font":"ui:player_hp","color":"#00000B"}'
-					execute if score @s hp_level matches 6 run data modify entity @s text set value '{"text":"6","font":"ui:player_hp","color":"#00000B"}'
-					execute if score @s hp_level matches 7 run data modify entity @s text set value '{"text":"7","font":"ui:player_hp","color":"#00000B"}'
+					execute if score @s hp_level matches 4 run data modify entity @s text set value '{"text":"4","font":"ui:player_hp","color":"#000016"}'
+					execute if score @s hp_level matches 5 run data modify entity @s text set value '{"text":"5","font":"ui:player_hp","color":"#000016"}'
+					execute if score @s hp_level matches 6 run data modify entity @s text set value '{"text":"6","font":"ui:player_hp","color":"#000016"}'
+					execute if score @s hp_level matches 7 run data modify entity @s text set value '{"text":"7","font":"ui:player_hp","color":"#000016"}'
 				}
 				
 				func 8_11()
 				{
-					execute if score @s hp_level matches 8 run data modify entity @s text set value '{"text":"8","font":"ui:player_hp","color":"#00000B"}'
-					execute if score @s hp_level matches 9 run data modify entity @s text set value '{"text":"9","font":"ui:player_hp","color":"#00000B"}'
-					execute if score @s hp_level matches 10 run data modify entity @s text set value '{"text":"A","font":"ui:player_hp","color":"#00000B"}'
-					execute if score @s hp_level matches 11 run data modify entity @s text set value '{"text":"B","font":"ui:player_hp","color":"#00000B"}'
+					execute if score @s hp_level matches 8 run data modify entity @s text set value '{"text":"8","font":"ui:player_hp","color":"#000016"}'
+					execute if score @s hp_level matches 9 run data modify entity @s text set value '{"text":"9","font":"ui:player_hp","color":"#000016"}'
+					execute if score @s hp_level matches 10 run data modify entity @s text set value '{"text":"A","font":"ui:player_hp","color":"#000016"}'
+					execute if score @s hp_level matches 11 run data modify entity @s text set value '{"text":"B","font":"ui:player_hp","color":"#000016"}'
 				}
 				
 				func 12_15()
 				{
-					execute if score @s hp_level matches 12 run data modify entity @s text set value '{"text":"C","font":"ui:player_hp","color":"#00000B"}'
-					execute if score @s hp_level matches 13 run data modify entity @s text set value '{"text":"D","font":"ui:player_hp","color":"#00000B"}'
-					execute if score @s hp_level matches 14 run data modify entity @s text set value '{"text":"E","font":"ui:player_hp","color":"#00000B"}'
-					execute if score @s hp_level matches 15 run data modify entity @s text set value '{"text":"F","font":"ui:player_hp","color":"#00000B"}'
+					execute if score @s hp_level matches 12 run data modify entity @s text set value '{"text":"C","font":"ui:player_hp","color":"#000016"}'
+					execute if score @s hp_level matches 13 run data modify entity @s text set value '{"text":"D","font":"ui:player_hp","color":"#000016"}'
+					execute if score @s hp_level matches 14 run data modify entity @s text set value '{"text":"E","font":"ui:player_hp","color":"#000016"}'
+					execute if score @s hp_level matches 15 run data modify entity @s text set value '{"text":"F","font":"ui:player_hp","color":"#000016"}'
 				}
 				
 				func 16_19()
 				{
-					execute if score @s hp_level matches 16 run data modify entity @s text set value '{"text":"G","font":"ui:player_hp","color":"#00000B"}'
-					execute if score @s hp_level matches 17 run data modify entity @s text set value '{"text":"H","font":"ui:player_hp","color":"#00000B"}'
-					execute if score @s hp_level matches 18 run data modify entity @s text set value '{"text":"I","font":"ui:player_hp","color":"#00000B"}'
-					execute if score @s hp_level matches 19 run data modify entity @s text set value '{"text":"J","font":"ui:player_hp","color":"#00000B"}'
+					execute if score @s hp_level matches 16 run data modify entity @s text set value '{"text":"G","font":"ui:player_hp","color":"#000016"}'
+					execute if score @s hp_level matches 17 run data modify entity @s text set value '{"text":"H","font":"ui:player_hp","color":"#000016"}'
+					execute if score @s hp_level matches 18 run data modify entity @s text set value '{"text":"I","font":"ui:player_hp","color":"#000016"}'
+					execute if score @s hp_level matches 19 run data modify entity @s text set value '{"text":"J","font":"ui:player_hp","color":"#000016"}'
 				}
 				
 				func 20_23()
 				{
-					execute if score @s hp_level matches 20 run data modify entity @s text set value '{"text":"K","font":"ui:player_hp","color":"#00000B"}'
-					execute if score @s hp_level matches 21 run data modify entity @s text set value '{"text":"L","font":"ui:player_hp","color":"#00000B"}'
-					execute if score @s hp_level matches 22 run data modify entity @s text set value '{"text":"M","font":"ui:player_hp","color":"#00000B"}'
-					execute if score @s hp_level matches 23 run data modify entity @s text set value '{"text":"N","font":"ui:player_hp","color":"#00000B"}'
+					execute if score @s hp_level matches 20 run data modify entity @s text set value '{"text":"K","font":"ui:player_hp","color":"#000016"}'
+					execute if score @s hp_level matches 21 run data modify entity @s text set value '{"text":"L","font":"ui:player_hp","color":"#000016"}'
+					execute if score @s hp_level matches 22 run data modify entity @s text set value '{"text":"M","font":"ui:player_hp","color":"#000016"}'
+					execute if score @s hp_level matches 23 run data modify entity @s text set value '{"text":"N","font":"ui:player_hp","color":"#000016"}'
 				}
 				
 				func 24_27()
 				{
-					execute if score @s hp_level matches 24 run data modify entity @s text set value '{"text":"O","font":"ui:player_hp","color":"#00000B"}'
-					execute if score @s hp_level matches 25 run data modify entity @s text set value '{"text":"P","font":"ui:player_hp","color":"#00000B"}'
-					execute if score @s hp_level matches 26 run data modify entity @s text set value '{"text":"Q","font":"ui:player_hp","color":"#00000B"}'
-					execute if score @s hp_level matches 27 run data modify entity @s text set value '{"text":"R","font":"ui:player_hp","color":"#00000B"}'
+					execute if score @s hp_level matches 24 run data modify entity @s text set value '{"text":"O","font":"ui:player_hp","color":"#000016"}'
+					execute if score @s hp_level matches 25 run data modify entity @s text set value '{"text":"P","font":"ui:player_hp","color":"#000016"}'
+					execute if score @s hp_level matches 26 run data modify entity @s text set value '{"text":"Q","font":"ui:player_hp","color":"#000016"}'
+					execute if score @s hp_level matches 27 run data modify entity @s text set value '{"text":"R","font":"ui:player_hp","color":"#000016"}'
 				}
 				
 				func 28_31()
 				{
-					execute if score @s hp_level matches 28 run data modify entity @s text set value '{"text":"S","font":"ui:player_hp","color":"#00000B"}'
-					execute if score @s hp_level matches 29 run data modify entity @s text set value '{"text":"T","font":"ui:player_hp","color":"#00000B"}'
-					execute if score @s hp_level matches 30 run data modify entity @s text set value '{"text":"U","font":"ui:player_hp","color":"#00000B"}'
-					execute if score @s hp_level matches 31 run data modify entity @s text set value '{"text":"V","font":"ui:player_hp","color":"#00000B"}'
+					execute if score @s hp_level matches 28 run data modify entity @s text set value '{"text":"S","font":"ui:player_hp","color":"#000016"}'
+					execute if score @s hp_level matches 29 run data modify entity @s text set value '{"text":"T","font":"ui:player_hp","color":"#000016"}'
+					execute if score @s hp_level matches 30 run data modify entity @s text set value '{"text":"U","font":"ui:player_hp","color":"#000016"}'
+					execute if score @s hp_level matches 31 run data modify entity @s text set value '{"text":"V","font":"ui:player_hp","color":"#000016"}'
 				}
 				
 				func 32_35()
 				{
-					execute if score @s hp_level matches 32 run data modify entity @s text set value '{"text":"W","font":"ui:player_hp","color":"#00000B"}'
-					execute if score @s hp_level matches 33 run data modify entity @s text set value '{"text":"X","font":"ui:player_hp","color":"#00000B"}'
-					execute if score @s hp_level matches 34 run data modify entity @s text set value '{"text":"Y","font":"ui:player_hp","color":"#00000B"}'
-					execute if score @s hp_level matches 35 run data modify entity @s text set value '{"text":"Z","font":"ui:player_hp","color":"#00000B"}'
+					execute if score @s hp_level matches 32 run data modify entity @s text set value '{"text":"W","font":"ui:player_hp","color":"#000016"}'
+					execute if score @s hp_level matches 33 run data modify entity @s text set value '{"text":"X","font":"ui:player_hp","color":"#000016"}'
+					execute if score @s hp_level matches 34 run data modify entity @s text set value '{"text":"Y","font":"ui:player_hp","color":"#000016"}'
+					execute if score @s hp_level matches 35 run data modify entity @s text set value '{"text":"Z","font":"ui:player_hp","color":"#000016"}'
 				}
 				
 				func 36_39()
 				{
-					execute if score @s hp_level matches 36 run data modify entity @s text set value '{"text":"a","font":"ui:player_hp","color":"#00000B"}'
-					execute if score @s hp_level matches 37 run data modify entity @s text set value '{"text":"b","font":"ui:player_hp","color":"#00000B"}'
-					execute if score @s hp_level matches 38 run data modify entity @s text set value '{"text":"c","font":"ui:player_hp","color":"#00000B"}'
-					execute if score @s hp_level matches 39 run data modify entity @s text set value '{"text":"d","font":"ui:player_hp","color":"#00000B"}'
+					execute if score @s hp_level matches 36 run data modify entity @s text set value '{"text":"a","font":"ui:player_hp","color":"#000016"}'
+					execute if score @s hp_level matches 37 run data modify entity @s text set value '{"text":"b","font":"ui:player_hp","color":"#000016"}'
+					execute if score @s hp_level matches 38 run data modify entity @s text set value '{"text":"c","font":"ui:player_hp","color":"#000016"}'
+					execute if score @s hp_level matches 39 run data modify entity @s text set value '{"text":"d","font":"ui:player_hp","color":"#000016"}'
 				}
 				
 				func 40_43()
 				{
-					execute if score @s hp_level matches 40 run data modify entity @s text set value '{"text":"e","font":"ui:player_hp","color":"#00000B"}'
-					execute if score @s hp_level matches 41 run data modify entity @s text set value '{"text":"f","font":"ui:player_hp","color":"#00000B"}'
-					execute if score @s hp_level matches 42 run data modify entity @s text set value '{"text":"g","font":"ui:player_hp","color":"#00000B"}'
-					execute if score @s hp_level matches 43 run data modify entity @s text set value '{"text":"h","font":"ui:player_hp","color":"#00000B"}'
+					execute if score @s hp_level matches 40 run data modify entity @s text set value '{"text":"e","font":"ui:player_hp","color":"#000016"}'
+					execute if score @s hp_level matches 41 run data modify entity @s text set value '{"text":"f","font":"ui:player_hp","color":"#000016"}'
+					execute if score @s hp_level matches 42 run data modify entity @s text set value '{"text":"g","font":"ui:player_hp","color":"#000016"}'
+					execute if score @s hp_level matches 43 run data modify entity @s text set value '{"text":"h","font":"ui:player_hp","color":"#000016"}'
 				}
 				
 				func 44_46()
 				{
-					execute if score @s hp_level matches 44 run data modify entity @s text set value '{"text":"i","font":"ui:player_hp","color":"#00000B"}'
-					execute if score @s hp_level matches 45 run data modify entity @s text set value '{"text":"j","font":"ui:player_hp","color":"#00000B"}'
-					execute if score @s hp_level matches 46 run data modify entity @s text set value '{"text":"k","font":"ui:player_hp","color":"#00000B"}'
+					execute if score @s hp_level matches 44 run data modify entity @s text set value '{"text":"i","font":"ui:player_hp","color":"#000016"}'
+					execute if score @s hp_level matches 45 run data modify entity @s text set value '{"text":"j","font":"ui:player_hp","color":"#000016"}'
+					execute if score @s hp_level matches 46 run data modify entity @s text set value '{"text":"k","font":"ui:player_hp","color":"#000016"}'
 				}
 			}
 		}

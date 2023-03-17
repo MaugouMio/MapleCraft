@@ -162,8 +162,8 @@ else if (metauvoffset.rgb == ivec3(1,2,3)) {
 	lightColor = vec4(1);
 	vertexColor = vec4(1);
 	mat3 WorldMat = getWorldMat(Light0_Direction, Light1_Direction);
-	// blue color : height == 1 : 0.2
-	Pos += WorldMat * vec3(0.0, Color.b * 51, 0.0);
+	// blue color : height == 1 : 0.1
+	Pos += WorldMat * vec3(0.0, Color.b * 25.5, 0.0);
 }
 #endif
 //debug

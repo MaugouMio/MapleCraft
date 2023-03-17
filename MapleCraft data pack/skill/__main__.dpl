@@ -1219,10 +1219,9 @@ namespace skill()
 				print(f"scoreboard objectives add {skill}_level dummy")
 			print(f"scoreboard objectives add {skill}_eid dummy")
 		```
+		scoreboard objectives add debuff_count dummy
 		scoreboard objectives add blind_time dummy
-		scoreboard objectives add blind_effect_time dummy
 		scoreboard objectives add seal_time dummy
-		scoreboard objectives add seal_effect_time dummy
 		
 		function ARG(_PATH)buff/install
 		function ARG(_PATH)window/install
@@ -1239,6 +1238,7 @@ namespace skill()
 		func schedule_1s()
 		{
 			execute as @e[type=ocelot,tag=!dead] run function ARG(_PATH)enemy
+			execute as @a[scores={debuff_count=1..}] at @s run function ARG(__PATH)update_negative/run
 		}
 		
 		func enemy()
@@ -1252,6 +1252,96 @@ namespace skill()
 		{
 			scoreboard players set #BULLET_ID number 1
 			execute as @e[type=zombified_piglin] run data modify entity @s AngerTime set value 2147483647
+		}
+	}
+		
+	folder update_negative()
+	{
+		func run()
+		{
+			execute if score @s blind_time matches 1.. run function ARG(_PATH)blind/update
+			execute if score @s seal_time matches 1.. run function ARG(_PATH)seal/update
+			
+			execute if score #RESET_DEBUFF temp matches 1.. run function ARG(_PATH)reset
+		}
+		
+		func reset()
+		{
+			scoreboard players operation #GLOBAL temp = @s number
+			execute as @e[type=interaction,tag=player_pos,distance=..12] if score @s number = #GLOBAL temp run function ARG(_PATH)delete_icon
+			
+			scoreboard players reset #RESET_DEBUFF temp
+		}
+		
+		func delete_icon()
+		{
+			# bit mask 處理，必須由大到小執行
+			execute if score #RESET_DEBUFF temp matches 2.. run function ARG(_PATH)seal/delete_icon
+			execute if score #RESET_DEBUFF temp matches 1.. run function ARG(_PATH)blind/delete_icon
+		}
+		
+		# 呼叫前須先設定 #BIND_PLAYER number
+		func bind_player()
+		{
+			execute as @e[type=interaction,tag=player_pos,distance=..12] if score @s number = #BIND_PLAYER number run tag @s add bind
+			ride @s mount @e[type=interaction,tag=bind,limit=1]
+			tag @e[type=interaction,tag=bind,limit=1] remove bind
+		}
+		
+		folder blind()
+		{
+			func set_icon()
+			{
+				data merge entity @s {Tags:["blind"],item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:100,CustomPotionColor:22}},transformation:{scale:[1.15f,1.15f,1.15f]},billboard:"center"}
+				function ARG(__PATH)bind_player
+			}
+			
+			func update()
+			{
+				scoreboard players remove @s blind_time 1
+				execute if score @s blind_time matches 0 run function ARG(_PATH)reset
+			}
+			
+			func reset()
+			{
+				scoreboard players add #RESET_DEBUFF temp 1
+				scoreboard players remove @s debuff_count 1
+				scoreboard players reset @s blind_time
+			}
+			
+			func delete_icon()
+			{
+				scoreboard players remove #RESET_DEBUFF temp 1
+				execute on passengers run kill @s[tag=blind]
+			}
+		}
+		
+		folder seal()
+		{
+			func set_icon()
+			{
+				data merge entity @s {Tags:["seal"],item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:101,CustomPotionColor:22}},transformation:{scale:[1.6f,1.6f,1.6f]},billboard:"center"}
+				function ARG(__PATH)bind_player
+			}
+			
+			func update()
+			{
+				scoreboard players remove @s seal_time 1
+				execute if score @s seal_time matches 0 run function ARG(_PATH)reset
+			}
+			
+			func reset()
+			{
+				scoreboard players add #RESET_DEBUFF temp 2
+				scoreboard players remove @s debuff_count 1
+				scoreboard players reset @s seal_time
+			}
+			
+			func delete_icon()
+			{
+				scoreboard players remove #RESET_DEBUFF temp 2
+				execute on passengers run kill @s[tag=seal]
+			}
 		}
 	}
 	
@@ -1270,40 +1360,9 @@ namespace skill()
 			execute as @a[scores={action_time=1..}] run function ARG(_PATH)action/countdown
 			execute as @a[scores={teleport_time=1..}] run function ARG(_PATH)tp_countdown
 			execute as @a[tag=delay_tp] at @s run function skill:2/1/0/1002/move/horizon/run
-			execute as @a[scores={blind_effect_time=1..}] at @s run function ARG(_PATH)update_negative/blind
-			execute as @a[scores={seal_effect_time=1..}] at @s run function ARG(_PATH)update_negative/seal
 			
 			# used skill check
 			execute as @a[scores={right_click=1..},tag=!dead] at @s run function skill:check_skill/run
-		}
-		
-		folder update_negative()
-		{
-			func blind()
-			{
-				scoreboard players remove @s blind_effect_time 1
-				execute if score @s blind_effect_time matches 0 run function ARG(_PATH)blind_effect
-			}
-			
-			func blind_effect()
-			{
-				scoreboard players remove @s blind_time 1
-				execute if score @s blind_time matches 0.. run scoreboard players set @s blind_effect_time 13
-				execute if score @s blind_time matches 0.. positioned ~ ~1.5 ~ run function skill:summon_font_effect/9000000blind_effect
-			}
-			
-			func seal()
-			{
-				scoreboard players remove @s seal_effect_time 1
-				execute if score @s seal_effect_time matches 0 run function ARG(_PATH)seal_effect
-			}
-			
-			func seal_effect()
-			{
-				scoreboard players remove @s seal_time 1
-				execute if score @s seal_time matches 0.. run scoreboard players set @s seal_effect_time 19
-				execute if score @s seal_time matches 0.. positioned ~ ~1.5 ~ run function skill:summon_font_effect/9000000seal_effect
-			}
 		}
 		
 		folder font_effect_update()
@@ -2108,7 +2167,6 @@ namespace skill()
 		{
 			func search()
 			{
-				scoreboard players reset #PAIR_NUMBER temp
 				scoreboard players reset #FIRST_DISTANCE temp
 				scoreboard players set #CUR_DISTANCE temp 0
 				scoreboard players set #FOUND_ENEMY temp 0
