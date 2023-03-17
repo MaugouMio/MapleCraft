@@ -51,6 +51,7 @@ namespace mob()
 			function ARG(_PATH)set_stats
 			execute on passengers run function ARG(_PATH)set_pair
 			
+			scoreboard players set @s spawn_alpha 10
 			tag @s remove new_summon
 			tag @s remove new_enemy
 			tag @s add enemy

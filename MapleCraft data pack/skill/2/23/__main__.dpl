@@ -94,7 +94,6 @@ namespace 23() as virtual
 					scoreboard players set #MAX_ENEMY temp 6
 					scoreboard players set #FOUND_ENEMY temp 0
 					scoreboard players operation #MAX_ENEMY temp -= #FOUND_ALLY temp
-					scoreboard players reset #PAIR_NUMBER temp
 					
 					execute positioned ~-4 ~-3 ~-4 as @e[type=interaction,tag=heal_target,dx=7,dy=5.5,dz=7] run function ARG(_PATH)try_mark
 					scoreboard players operation #FOUND_ENEMY temp += #FOUND_ALLY temp

@@ -216,7 +216,6 @@ namespace 22() as virtual
 			{
 				data modify storage skill:main temp set value []
 				scoreboard players set #FOUND_ENEMY temp 0
-				scoreboard players reset #PAIR_NUMBER temp
 				execute positioned ~-4 ~-3 ~-4 as @e[type=interaction,tag=enemy,dx=7,dy=5.5,dz=7] run function ARG(_PATH)try_mark
 			}
 			

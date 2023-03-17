@@ -499,7 +499,6 @@ namespace 21() as virtual
 				print("summon marker ~ ~ ~ {UUID:%s}" %UUID_LIST["face_effect"])
 				```
 				scoreboard players set #FOUND_ENEMY temp 0
-				scoreboard players reset #PAIR_NUMBER temp
 				execute positioned ~-4 ~-3 ~-4 as @e[type=interaction,tag=enemy,tag=!boss,dx=7,dy=5.5,dz=7] unless score @s 2101003_time matches 1.. run function ARG(_PATH)try_debuff
 				kill 00000000-0000-0004-0000-000000000004
 				
