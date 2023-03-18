@@ -1280,20 +1280,12 @@ namespace skill()
 			execute if score #RESET_DEBUFF temp matches 1.. run function ARG(_PATH)blind/delete_icon
 		}
 		
-		# 呼叫前須先設定 #BIND_PLAYER number
-		func bind_player()
-		{
-			execute as @e[type=interaction,tag=player_pos,distance=..12] if score @s number = #BIND_PLAYER number run tag @s add bind
-			ride @s mount @e[type=interaction,tag=bind,limit=1]
-			tag @e[type=interaction,tag=bind,limit=1] remove bind
-		}
-		
 		folder blind()
 		{
 			func set_icon()
 			{
 				data merge entity @s {Tags:["blind"],item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:100,CustomPotionColor:22}},transformation:{scale:[1.15f,1.15f,1.15f]},billboard:"center"}
-				function ARG(__PATH)bind_player
+				function skill:bind_player
 			}
 			
 			func update()
@@ -1321,7 +1313,7 @@ namespace skill()
 			func set_icon()
 			{
 				data merge entity @s {Tags:["seal"],item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:101,CustomPotionColor:22}},transformation:{scale:[1.6f,1.6f,1.6f]},billboard:"center"}
-				function ARG(__PATH)bind_player
+				function skill:bind_player
 			}
 			
 			func update()
@@ -1352,8 +1344,8 @@ namespace skill()
 			execute as @e[type=area_effect_cloud,scores={type=1}] run function ARG(_PATH)font_effect_update/check
 			execute as @e[type=armor_stand,tag=bullet] run function skill:bullet/check
 			execute as @e[type=armor_stand,tag=model_animation] run function ARG(_PATH)model_animation_update
-			execute as @e[type=armor_stand,tag=afterimage] run function skill:afterimage/update
-			execute as @e[type=zombie,tag=box] if score @s status matches 1.. at @s run function skill:6/0/0/1000/box/update
+			execute as @e[type=item_display,tag=afterimage] run function skill:afterimage/update
+			execute as @e[type=zombie,tag=box,scores={status=1..}] at @s run function skill:6/0/0/1000/box/update
 			execute as @e[type=ocelot,scores={spawn_alpha=1..}] run function ARG(_PATH)enemy/run
 			execute as @e[type=magma_cube,tag=!original] unless predicate skill:riding_enemy run function main:deep_kill
 			
@@ -4793,37 +4785,38 @@ namespace skill()
 		
 		func summon_model()
 		{
-			execute rotated ~ 0 positioned ^ ^ ^0.7 summon minecraft:armor_stand run function ARG(_PATH)model_set
+			scoreboard players operation #BIND_PLAYER number = @s number
+			execute rotated ~ 0 summon minecraft:item_display run function ARG(_PATH)model_set
 		}
 		
 		func summon_model_delay()
 		{
-			execute rotated ~ 0 positioned ^ ^ ^0.7 summon minecraft:armor_stand run function ARG(_PATH)model_set_delay
+			scoreboard players operation #BIND_PLAYER number = @s number
+			execute rotated ~ 0 summon minecraft:item_display run function ARG(_PATH)model_set_delay
 		}
 		
 		func model_set()
 		{
-			data merge entity @s {Tags:["afterimage"],Invisible:1,Invulnerable:1,NoGravity:1,Marker:1,Fire:32767s,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:1,CustomPotionColor:255}}]}
-			tp @s ~ ~ ~ ~ 0
+			data merge entity @s {Tags:["afterimage"],item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:1}},transformation:{scale:[0.625f,0.625f,0.625f],translation:[0.0f,1.6885f,-0.7f]},item_display:"head"}
 			scoreboard players set @s life 8
 			scoreboard players operation @s base_model = #RAND_RANGE_RESULT temp
-			execute store result entity @s ArmorItems[3].tag.CustomPotionColor int 1 run scoreboard players get #AFTERIMAGE_COLOR temp
+			execute store result entity @s item.tag.CustomPotionColor int 1 run scoreboard players get #AFTERIMAGE_COLOR temp
+
+			tp @s ~ ~ ~ ~180 0
+			function skill:bind_player
 		}
 		
 		func model_set_delay()
 		{
-			data merge entity @s {Tags:["afterimage"],Invisible:1,Invulnerable:1,NoGravity:1,Marker:1,Fire:32767s,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:1}}]}
-			tp @s ~ ~ ~ ~ 0
+			function ARG(_PATH)model_set
 			scoreboard players set @s life 9
-			scoreboard players operation @s base_model = #RAND_RANGE_RESULT temp
-			execute store result entity @s ArmorItems[3].tag.CustomPotionColor int 1 run scoreboard players get #AFTERIMAGE_COLOR temp
 		}
 
 		func update()
 		{
 			scoreboard players remove @s life 1
-			execute if score @s life matches 0 store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players get @s base_model
-			kill @s[scores={life=-4}]
+			execute if score @s life matches 0 store result entity @s item.tag.CustomModelData int 1 run scoreboard players get @s base_model
+			kill @s[scores={life=..-4}]
 		}
 	}
 	
@@ -4887,5 +4880,13 @@ namespace skill()
 		scoreboard players set @s right_click 1
 		scoreboard players set @s[scores={2101002_level=1..}] skill_id 59
 		advancement revoke @s only skill:hit
+	}
+	
+	# 呼叫前須先設定 #BIND_PLAYER number
+	func bind_player()
+	{
+		execute as @e[type=interaction,tag=player_pos,distance=..12] if score @s number = #BIND_PLAYER number run tag @s add bind
+		ride @s mount @e[type=interaction,tag=bind,limit=1]
+		tag @e[type=interaction,tag=bind,limit=1] remove bind
 	}
 }

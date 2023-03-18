@@ -304,6 +304,10 @@ namespace main()
 		execute at @s run playsound minecraft:game.game_in player @s
 		title @s times 1 5 10
 		title @s title {"text":"4","font":"ui:main"}
+		
+		scoreboard players reset @s blind_time
+		scoreboard players reset @s seal_time
+		scoreboard players reset @s debuff_count
 		scoreboard players reset @s login
 	}
 	
