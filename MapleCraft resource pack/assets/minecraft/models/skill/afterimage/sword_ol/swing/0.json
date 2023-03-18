@@ -1,29 +1,29 @@
 {
-	"__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
+	"credit": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
 	"textures": {
 		"texture": "skill/afterimage/sword_ol/swing/0"
 	},
 	"elements": [
 		{
 			"name": "Cube",
-			"from": [ -13.75, 0, -12.75 ], 
-			"to": [ 29.75, 0.1, 28.75 ], 
-			"rotation": { "origin": [ 8.0, 0.0, 8.0 ], "axis": "x", "angle": 22.5 },
+			"from": [-13.75, 0, -12.75],
+			"to": [29.75, 0.1, 28.75],
+			"rotation": {"angle": 22.5, "axis": "x", "origin": [8, 0, 8]},
 			"faces": {
-				"north": { "texture": "#texture", "uv": [ 0, 0, 0, 0 ] },
-				"east": { "texture": "#texture", "uv": [ 0, 0, 0, 0 ] },
-				"south": { "texture": "#texture", "uv": [ 0, 0, 0, 0 ] },
-				"west": { "texture": "#texture", "uv": [ 0, 0, 0, 0 ] },
-				"up": { "texture": "#texture", "uv": [ 0, 0, 16, 16 ] },
-				"down": { "texture": "#texture", "uv": [ 0, 16, 16, 0 ] }
+				"north": {"uv": [0, 0, 0, 0], "texture": "#texture"},
+				"east": {"uv": [0, 0, 0, 0], "texture": "#texture"},
+				"south": {"uv": [0, 0, 0, 0], "texture": "#texture"},
+				"west": {"uv": [0, 0, 0, 0], "texture": "#texture"},
+				"up": {"uv": [0, 0, 16, 16], "texture": "#texture", "tintindex": 0},
+				"down": {"uv": [0, 16, 16, 0], "texture": "#texture", "tintindex": 0}
 			}
 		}
 	],
 	"display": {
 		"head": {
-			"rotation": [ 0, -90, 0 ],
-			"translation": [ 0, -6, 0 ],
-			"scale": [ 1.5, 1.5, 1.5 ]
+			"rotation": [0, -90, 0],
+			"translation": [0, -6, 0],
+			"scale": [1.5, 1.5, 1.5]
 		}
 	}
 }

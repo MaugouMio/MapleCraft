@@ -165,6 +165,25 @@ else if (metauvoffset.rgb == ivec3(1,2,3)) {
 	// blue color : height == 1 : 0.1
 	Pos += WorldMat * vec3(0.0, Color.b * 25.5, 0.0);
 }
+// afterimage fade out effect (need to keep Color, but green used for time offset)
+else if (metauvoffset.rgb == ivec3(1,2,4) && metauvoffset.a <= 2) {
+	lightColor = vec4(1);
+	if (metauvoffset.a == 2)  // represent white
+		vertexColor = vec4(1);
+	else
+		vertexColor = vec4(Color.r, 0.0, Color.b, 1.0);
+	
+	float tickOffset = Color.g * 255;
+	float tick = mod(GameTime * 24000, 6.0) - tickOffset;
+	if (tick < 0.0) tick += 6.0;
+	
+	if (tick > 5.0)
+		alpha = 0;
+	else if (tick < 1.0)
+		alpha = 1;
+	else
+		alpha = (5.0 - tick) / 4.0;
+}
 #endif
 //debug
 //else {
