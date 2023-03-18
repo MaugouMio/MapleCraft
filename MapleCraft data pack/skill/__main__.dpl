@@ -1343,7 +1343,7 @@ namespace skill()
 		{
 			execute as @e[type=area_effect_cloud,scores={type=1}] run function ARG(_PATH)font_effect_update/check
 			execute as @e[type=armor_stand,tag=bullet] run function skill:bullet/check
-			execute as @e[type=armor_stand,tag=model_animation] run function ARG(_PATH)model_animation_update
+			execute as @e[type=item_display,tag=model_animation] run function ARG(_PATH)model_animation_update
 			execute as @e[type=item_display,tag=afterimage] run function skill:afterimage/update
 			execute as @e[type=zombie,tag=box,scores={status=1..}] at @s run function skill:6/0/0/1000/box/update
 			execute as @e[type=ocelot,scores={spawn_alpha=1..}] run function ARG(_PATH)enemy/run
@@ -1379,7 +1379,7 @@ namespace skill()
 		func model_animation_update()
 		{
 			execute store result score #GLOBAL temp run scoreboard players add @s life 1
-			execute store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players operation #GLOBAL temp += @s base_model
+			execute store result entity @s item.tag.CustomModelData int 1 run scoreboard players operation #GLOBAL temp += @s base_model
 			
 			execute if score @s life = @s max_life run kill @s
 		}
@@ -4923,5 +4923,13 @@ namespace skill()
 		execute as @e[type=interaction,tag=player_pos,distance=..12] if score @s number = #BIND_PLAYER number run tag @s add bind
 		ride @s mount @e[type=interaction,tag=bind,limit=1]
 		tag @e[type=interaction,tag=bind,limit=1] remove bind
+	}
+	
+	# 呼叫前須先設定 #BIND_PLAYER number
+	func bind_mob()
+	{
+		execute as @e[type=ocelot,distance=..12] if score @s number = #BIND_PLAYER number run tag @s add bind
+		ride @s mount @e[type=ocelot,tag=bind,limit=1]
+		tag @e[type=ocelot,tag=bind,limit=1] remove bind
 	}
 }

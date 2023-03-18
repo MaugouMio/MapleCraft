@@ -674,10 +674,12 @@ namespace 21() as virtual
 			
 			func effect_model_set()
 			{
-				data merge entity @s {Tags:["model_animation"],Invisible:1,Invulnerable:1,NoGravity:1,Marker:1,Fire:32767s,ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:210000}}]}
-				tp @s ~ ~ ~ ~ 0
+				data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:210000}},transformation:{scale:[0.625f,0.625f,0.625f],translation:[0.0f,1.6885f,-1.0f]},item_display:"head"}
 				scoreboard players set @s max_life 20
 				scoreboard players set @s base_model 210000
+				
+				tp @s ~ ~ ~ ~180 0
+				function skill:bind_player
 			}
 			
 			func summon_bullet()
@@ -701,7 +703,8 @@ namespace 21() as virtual
 				
 			func cast_effect()
 			{
-				execute rotated ~ 0 positioned ^ ^ ^1 summon minecraft:armor_stand run function ARG(_PATH)effect_model_set
+				scoreboard players operation #BIND_PLAYER number = @s number
+				execute rotated ~ 0 summon minecraft:item_display run function ARG(_PATH)effect_model_set
 				playsound minecraft:skill.2101004 player @a ~ ~ ~ 1 1 0
 			}
 			
