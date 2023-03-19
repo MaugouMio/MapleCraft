@@ -3228,7 +3228,7 @@ namespace skill()
 				execute if score #SILENT_UPDATE_HP temp matches 1 unless score @s show_hp_time matches 1.. run scoreboard players set #SILENT_UPDATE_HP temp 2
 
 				# 透過顏色控制 shader 調整顯示高度
-				data modify storage bar:main mob_hp_color set from entity @s ArmorItems[3].tag.hp_offset_color
+				data modify storage bar:main mob_hp_color set from entity @s ArmorItems[3].tag.offset_color
 				data modify block 250 0 0 Text1 set value '[{"nbt":"mob_hp_color","storage":"bar:main","interpret":true},{"text":"FF","font":"space:default"},{"nbt":"mob_hp","storage":"bar:main","font":"ui:mob_hp"},{"text":"FF","font":"space:default"}]'
 				execute unless score #SILENT_UPDATE_HP temp matches 2 run data modify entity @s CustomName set from block 250 0 0 Text1
 				data modify entity @s ArmorItems[3].tag.health_bar set from block 250 0 0 Text1

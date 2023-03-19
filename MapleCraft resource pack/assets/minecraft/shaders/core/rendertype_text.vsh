@@ -25,12 +25,15 @@ out vec2 texCoord0;
 void main() {
 	vec3 offsetPosition = Position;
 	vec4 finalColor = Color;
-	// mob hp up lift
+	// up lift
 	ivec4 vertexTexel = ivec4(texture(Sampler0, UV0) * 255);
 	if (vertexTexel.rgb == ivec3(1,3,5)) {
 		mat3 WorldMat = getWorldMat(Light0_Direction, Light1_Direction);
-		// blue color : height == 1 : 0.1
-		offsetPosition += WorldMat * vec3(0.0, Color.b * 25.5, 0.0);
+		// value : height == 1 : 0.1
+		if (vertexTexel.a == 255)  // head hp bar offset
+			offsetPosition += WorldMat * vec3(0.0, Color.b * 25.5, 0.0);
+		else if (vertexTexel.a == 1)  // text_display offset
+			offsetPosition += WorldMat * vec3(0.0, Color.a * 25.5, 0.0);
 		finalColor = vec4(1.0);
 	}
 	// damage number float and fade out
