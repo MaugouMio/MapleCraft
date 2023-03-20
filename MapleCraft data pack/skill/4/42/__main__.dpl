@@ -340,7 +340,7 @@ namespace 42() as virtual
 			
 			func cast_effect()
 			{
-				execute positioned ~ ~0.3 ~ run function skill:summon_font_effect/4201005effect
+				execute positioned ~ ~0.3 ~ summon text_display run function skill:summon_font_effect/4201005effect
 				playsound minecraft:skill.4201005_use player @a ~ ~ ~ 1 1 0
 				# borrow hit_effect variable to set custom hit effect
 				scoreboard players set #RANGE_MAX temp 2
@@ -356,9 +356,9 @@ namespace 42() as virtual
 			
 			func rand_hit_effect()
 			{
-				execute if score #HIT_EFFECT temp matches 3 run function skill:summon_font_effect/4201005hit0
-				execute if score #HIT_EFFECT temp matches 4 run function skill:summon_font_effect/4201005hit1
-				execute if score #HIT_EFFECT temp matches 5 run function skill:summon_font_effect/4201005hit2
+				execute if score #HIT_EFFECT temp matches 3 summon text_display run function skill:summon_font_effect/4201005hit0
+				execute if score #HIT_EFFECT temp matches 4 summon text_display run function skill:summon_font_effect/4201005hit1
+				execute if score #HIT_EFFECT temp matches 5 summon text_display run function skill:summon_font_effect/4201005hit2
 			}
 			
 			func append_scheduler()
