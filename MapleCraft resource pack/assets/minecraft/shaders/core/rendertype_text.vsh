@@ -31,19 +31,20 @@ void main() {
 		mat3 WorldMat = getWorldMat(Light0_Direction, Light1_Direction);
 		// value : height == 1 : 0.1
 		if (vertexTexel.a == 255)  // head hp bar offset
-			offsetPosition += WorldMat * vec3(0.0, Color.b * 25.5, 0.0);
+			offsetPosition += WorldMat * vec3(0.0, Color.b * 25.5, 0.0) - vec3(0.0, 0.25, 0.0);
 		else if (vertexTexel.a == 1)  // text_display offset
-			offsetPosition += WorldMat * vec3(0.0, Color.a * 25.5, 0.0);
+			offsetPosition += WorldMat * vec3(0.0, Color.a * 25.5, 0.0) - vec3(0.0, 0.25, 0.0);
 		finalColor = vec4(1.0);
 	}
 	// damage number float and fade out
 	else if (vertexTexel == ivec4(1,2,3,3)) {
 		mat3 WorldMat = getWorldMat(Light0_Direction, Light1_Direction);
 		
-		float tickOffset = Color.b * 255;
+		// 0 ~ 3 are considered 255 (I don't know why), so values are added by 4 in game
+		float tickOffset = Color.a * 255 - 4;
 		float tick = mod(mod(GameTime * 24000, 22.0) + 23.0 - tickOffset, 22.0);
 		// 0.025 block per tick
-		offsetPosition += WorldMat * vec3(0.0, tick * 0.025, 0.0);
+		offsetPosition += WorldMat * vec3(0.0, tick * 0.025, 0.0) - vec3(0.0, 0.25, 0.0);
 		if (tick < 1.0 || tick > 20.0)
 			finalColor = vec4(0.0);
 		else if (tick > 7.0)

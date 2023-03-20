@@ -8,16 +8,15 @@ namespace number_display()
 	
 	func show()
 	{
-		execute if score @s display_number matches 0 run function ARG(_PATH)show_miss
-		execute if score @s display_number matches 1.. run function ARG(_PATH)show_number
-		function ARG(_PATH)calc_tick_offset/run
-		execute positioned ~ ~1 ~ summon area_effect_cloud run function ARG(_PATH)set_display
+		scoreboard players operation #GLOBAL display_number = @s display_number
+		scoreboard players operation #GLOBAL display_num_type = @s display_num_type
+		execute positioned ~ ~2 ~ summon text_display run function ARG(_PATH)set_display
 	}
 	
 	func show_miss()
 	{
-		execute unless score @s display_num_type matches 2.. run data modify block 250 0 0 Text1 set value '[{"text":"F","font":"space:default"},{"text":"m","font":"number:red"},{"text":"F","font":"space:default"}]'
-		execute if score @s display_num_type matches 2 run data modify block 250 0 0 Text1 set value '[{"text":"F","font":"space:default"},{"text":"m","font":"number:violet"},{"text":"F","font":"space:default"}]'
+		execute unless score #GLOBAL display_num_type matches 2.. run data modify entity @s text set value '{"text":"m","font":"number:red"}'
+		execute if score #GLOBAL display_num_type matches 2 run data modify entity @s text set value '{"text":"m","font":"number:violet"}'
 	}
 	
 	func show_number()
@@ -27,96 +26,46 @@ namespace number_display()
 		
 		# number:main -> display = [6, num1, 6, num2, 6, num3, ..., num6]
 		# display_num_type = {X: red, 1: crit, 2: violet, 3: blue}
-		execute unless score @s display_num_type matches 1.. run data modify block 250 0 0 Text1 set value '["",{"text":"F","font":"space:default"},{"nbt":"display[1]","storage":"number:main","font":"number:red_head"},{"nbt":"display[2]","storage":"number:main","font":"space:default"},{"nbt":"display[3]","storage":"number:main","font":"number:red_lower"},{"nbt":"display[4]","storage":"number:main","font":"space:default"},{"nbt":"display[5]","storage":"number:main","font":"number:red"},{"nbt":"display[6]","storage":"number:main","font":"space:default"},{"nbt":"display[7]","storage":"number:main","font":"number:red_lower"},{"nbt":"display[8]","storage":"number:main","font":"space:default"},{"nbt":"display[9]","storage":"number:main","font":"number:red"},{"nbt":"display[10]","storage":"number:main","font":"space:default"},{"nbt":"display[11]","storage":"number:main","font":"number:red"},{"text":"F","font":"space:default"}]'
-		execute if score @s display_num_type matches 1 run data modify block 250 0 0 Text1 set value '["",{"text":"F","font":"space:default"},{"text":"-","font":"number:crit_head"},{"text":"9","font":"space:default"},{"nbt":"display[1]","storage":"number:main","font":"number:crit_head"},{"nbt":"display[2]","storage":"number:main","font":"space:default"},{"nbt":"display[3]","storage":"number:main","font":"number:crit_lower"},{"nbt":"display[4]","storage":"number:main","font":"space:default"},{"nbt":"display[5]","storage":"number:main","font":"number:crit"},{"nbt":"display[6]","storage":"number:main","font":"space:default"},{"nbt":"display[7]","storage":"number:main","font":"number:crit_lower"},{"nbt":"display[8]","storage":"number:main","font":"space:default"},{"nbt":"display[9]","storage":"number:main","font":"number:crit"},{"nbt":"display[10]","storage":"number:main","font":"space:default"},{"nbt":"display[11]","storage":"number:main","font":"number:crit"},{"text":"F","font":"space:default"}]'
-		execute if score @s display_num_type matches 2 run data modify block 250 0 0 Text1 set value '["",{"text":"F","font":"space:default"},{"nbt":"display[1]","storage":"number:main","font":"number:violet_head"},{"nbt":"display[2]","storage":"number:main","font":"space:default"},{"nbt":"display[3]","storage":"number:main","font":"number:violet_lower"},{"nbt":"display[4]","storage":"number:main","font":"space:default"},{"nbt":"display[5]","storage":"number:main","font":"number:violet"},{"nbt":"display[6]","storage":"number:main","font":"space:default"},{"nbt":"display[7]","storage":"number:main","font":"number:violet_lower"},{"nbt":"display[8]","storage":"number:main","font":"space:default"},{"nbt":"display[9]","storage":"number:main","font":"number:violet"},{"text":"F","font":"space:default"}]'
-		execute if score @s display_num_type matches 3 run data modify block 250 0 0 Text1 set value '["",{"text":"F","font":"space:default"},{"nbt":"display[1]","storage":"number:main","font":"number:blue_head"},{"nbt":"display[2]","storage":"number:main","font":"space:default"},{"nbt":"display[3]","storage":"number:main","font":"number:blue_lower"},{"nbt":"display[4]","storage":"number:main","font":"space:default"},{"nbt":"display[5]","storage":"number:main","font":"number:blue"},{"nbt":"display[6]","storage":"number:main","font":"space:default"},{"nbt":"display[7]","storage":"number:main","font":"number:blue_lower"},{"nbt":"display[8]","storage":"number:main","font":"space:default"},{"nbt":"display[9]","storage":"number:main","font":"number:blue"},{"text":"F","font":"space:default"}]'
-	}
-	
-	folder calc_tick_offset()
-	{
-		func run()
-		{
-			execute store result score #GLOBAL temp run time query gametime
-			scoreboard players operation #GLOBAL temp %= #24000 const
-			scoreboard players operation #GLOBAL temp %= #22 const
-			
-			execute if score #GLOBAL temp matches ..10 run function ARG(_PATH)search/0_10
-			execute if score #GLOBAL temp matches 11.. run function ARG(_PATH)search/11_21
-		}
-		
-		folder search()
-		{
-			func 0_10()
-			{
-				execute if score #GLOBAL temp matches ..4 run function ARG(_PATH)0_4
-				execute if score #GLOBAL temp matches 5.. run function ARG(_PATH)5_10
-			}
-			
-			func 11_21()
-			{
-				execute if score #GLOBAL temp matches ..15 run function ARG(_PATH)11_15
-				execute if score #GLOBAL temp matches 16.. run function ARG(_PATH)16_21
-			}
-			
-			func 0_4()
-			{
-				execute if score #GLOBAL temp matches 0 run data modify block 250 0 0 Text2 set value '{"nbt":"Text1","block":"250 0 0","interpret":true,"color":"#000000"}'
-				execute if score #GLOBAL temp matches 1 run data modify block 250 0 0 Text2 set value '{"nbt":"Text1","block":"250 0 0","interpret":true,"color":"#000001"}'
-				execute if score #GLOBAL temp matches 2 run data modify block 250 0 0 Text2 set value '{"nbt":"Text1","block":"250 0 0","interpret":true,"color":"#000002"}'
-				execute if score #GLOBAL temp matches 3 run data modify block 250 0 0 Text2 set value '{"nbt":"Text1","block":"250 0 0","interpret":true,"color":"#000003"}'
-				execute if score #GLOBAL temp matches 4 run data modify block 250 0 0 Text2 set value '{"nbt":"Text1","block":"250 0 0","interpret":true,"color":"#000004"}'
-			}
-			
-			func 5_10()
-			{
-				execute if score #GLOBAL temp matches 5 run data modify block 250 0 0 Text2 set value '{"nbt":"Text1","block":"250 0 0","interpret":true,"color":"#000005"}'
-				execute if score #GLOBAL temp matches 6 run data modify block 250 0 0 Text2 set value '{"nbt":"Text1","block":"250 0 0","interpret":true,"color":"#000006"}'
-				execute if score #GLOBAL temp matches 7 run data modify block 250 0 0 Text2 set value '{"nbt":"Text1","block":"250 0 0","interpret":true,"color":"#000007"}'
-				execute if score #GLOBAL temp matches 8 run data modify block 250 0 0 Text2 set value '{"nbt":"Text1","block":"250 0 0","interpret":true,"color":"#000008"}'
-				execute if score #GLOBAL temp matches 9 run data modify block 250 0 0 Text2 set value '{"nbt":"Text1","block":"250 0 0","interpret":true,"color":"#000009"}'
-				execute if score #GLOBAL temp matches 10 run data modify block 250 0 0 Text2 set value '{"nbt":"Text1","block":"250 0 0","interpret":true,"color":"#00000A"}'
-			}
-			
-			func 11_15()
-			{
-				execute if score #GLOBAL temp matches 11 run data modify block 250 0 0 Text2 set value '{"nbt":"Text1","block":"250 0 0","interpret":true,"color":"#00000B"}'
-				execute if score #GLOBAL temp matches 12 run data modify block 250 0 0 Text2 set value '{"nbt":"Text1","block":"250 0 0","interpret":true,"color":"#00000C"}'
-				execute if score #GLOBAL temp matches 13 run data modify block 250 0 0 Text2 set value '{"nbt":"Text1","block":"250 0 0","interpret":true,"color":"#00000D"}'
-				execute if score #GLOBAL temp matches 14 run data modify block 250 0 0 Text2 set value '{"nbt":"Text1","block":"250 0 0","interpret":true,"color":"#00000E"}'
-				execute if score #GLOBAL temp matches 15 run data modify block 250 0 0 Text2 set value '{"nbt":"Text1","block":"250 0 0","interpret":true,"color":"#00000F"}'
-			}
-			
-			func 16_21()
-			{
-				execute if score #GLOBAL temp matches 16 run data modify block 250 0 0 Text2 set value '{"nbt":"Text1","block":"250 0 0","interpret":true,"color":"#000010"}'
-				execute if score #GLOBAL temp matches 17 run data modify block 250 0 0 Text2 set value '{"nbt":"Text1","block":"250 0 0","interpret":true,"color":"#000011"}'
-				execute if score #GLOBAL temp matches 18 run data modify block 250 0 0 Text2 set value '{"nbt":"Text1","block":"250 0 0","interpret":true,"color":"#000012"}'
-				execute if score #GLOBAL temp matches 19 run data modify block 250 0 0 Text2 set value '{"nbt":"Text1","block":"250 0 0","interpret":true,"color":"#000013"}'
-				execute if score #GLOBAL temp matches 20 run data modify block 250 0 0 Text2 set value '{"nbt":"Text1","block":"250 0 0","interpret":true,"color":"#000014"}'
-				execute if score #GLOBAL temp matches 21 run data modify block 250 0 0 Text2 set value '{"nbt":"Text1","block":"250 0 0","interpret":true,"color":"#000015"}'
-			}
-		}
+		execute unless score #GLOBAL display_num_type matches 1.. run data modify entity @s text set value '["",{"nbt":"display[1]","storage":"number:main","font":"number:red_head"},{"nbt":"display[2]","storage":"number:main","font":"space:default"},{"nbt":"display[3]","storage":"number:main","font":"number:red_lower"},{"nbt":"display[4]","storage":"number:main","font":"space:default"},{"nbt":"display[5]","storage":"number:main","font":"number:red"},{"nbt":"display[6]","storage":"number:main","font":"space:default"},{"nbt":"display[7]","storage":"number:main","font":"number:red_lower"},{"nbt":"display[8]","storage":"number:main","font":"space:default"},{"nbt":"display[9]","storage":"number:main","font":"number:red"},{"nbt":"display[10]","storage":"number:main","font":"space:default"},{"nbt":"display[11]","storage":"number:main","font":"number:red"}]'
+		execute if score #GLOBAL display_num_type matches 1 run data modify entity @s text set value '["",{"text":"-","font":"number:crit_head"},{"text":"9","font":"space:default"},{"nbt":"display[1]","storage":"number:main","font":"number:crit_head"},{"nbt":"display[2]","storage":"number:main","font":"space:default"},{"nbt":"display[3]","storage":"number:main","font":"number:crit_lower"},{"nbt":"display[4]","storage":"number:main","font":"space:default"},{"nbt":"display[5]","storage":"number:main","font":"number:crit"},{"nbt":"display[6]","storage":"number:main","font":"space:default"},{"nbt":"display[7]","storage":"number:main","font":"number:crit_lower"},{"nbt":"display[8]","storage":"number:main","font":"space:default"},{"nbt":"display[9]","storage":"number:main","font":"number:crit"},{"nbt":"display[10]","storage":"number:main","font":"space:default"},{"nbt":"display[11]","storage":"number:main","font":"number:crit"}]'
+		execute if score #GLOBAL display_num_type matches 2 run data modify entity @s text set value '["",{"nbt":"display[1]","storage":"number:main","font":"number:violet_head"},{"nbt":"display[2]","storage":"number:main","font":"space:default"},{"nbt":"display[3]","storage":"number:main","font":"number:violet_lower"},{"nbt":"display[4]","storage":"number:main","font":"space:default"},{"nbt":"display[5]","storage":"number:main","font":"number:violet"},{"nbt":"display[6]","storage":"number:main","font":"space:default"},{"nbt":"display[7]","storage":"number:main","font":"number:violet_lower"},{"nbt":"display[8]","storage":"number:main","font":"space:default"},{"nbt":"display[9]","storage":"number:main","font":"number:violet"}]'
+		execute if score #GLOBAL display_num_type matches 3 run data modify entity @s text set value '["",{"nbt":"display[1]","storage":"number:main","font":"number:blue_head"},{"nbt":"display[2]","storage":"number:main","font":"space:default"},{"nbt":"display[3]","storage":"number:main","font":"number:blue_lower"},{"nbt":"display[4]","storage":"number:main","font":"space:default"},{"nbt":"display[5]","storage":"number:main","font":"number:blue"},{"nbt":"display[6]","storage":"number:main","font":"space:default"},{"nbt":"display[7]","storage":"number:main","font":"number:blue_lower"},{"nbt":"display[8]","storage":"number:main","font":"space:default"},{"nbt":"display[9]","storage":"number:main","font":"number:blue"}]'
 	}
 	
 	func insert_digit()
 	{
-		scoreboard players operation #GLOBAL display_number = @s display_number
-		scoreboard players operation #GLOBAL display_number %= #10 const
+		scoreboard players operation #GLOBAL temp = #GLOBAL display_number
+		scoreboard players operation #GLOBAL temp %= #10 const
 		
 		data modify storage number:main display prepend value 0
-		execute store result storage number:main display[0] int 1 run scoreboard players get #GLOBAL display_number
+		execute store result storage number:main display[0] int 1 run scoreboard players get #GLOBAL temp
 		# larger overlap on crit numbers
-		execute unless score @s display_num_type matches 1 run data modify storage number:main display prepend value 6
-		execute if score @s display_num_type matches 1 run data modify storage number:main display prepend value 7
+		execute unless score #GLOBAL display_num_type matches 1 run data modify storage number:main display prepend value 6
+		execute if score #GLOBAL display_num_type matches 1 run data modify storage number:main display prepend value 7
 		
-		scoreboard players operation @s display_number /= #10 const
-		execute if score @s display_number matches 1.. run function ARG(_PATH)insert_digit
+		scoreboard players operation #GLOBAL display_number /= #10 const
+		execute if score #GLOBAL display_number matches 1.. run function ARG(_PATH)insert_digit
 	}
 	
 	func set_display()
 	{
-		data merge entity @s {Tags:["display_number"],Duration:21,PickupDelay:-32768,CustomName:'',CustomNameVisible:1}
-		data modify entity @s CustomName set from block 250 0 0 Text2
+		data merge entity @s {Tags:["display_number"],billboard:"center",background:0}
+		
+		execute if score #GLOBAL display_number matches 0 run function ARG(_PATH)show_miss
+		execute if score #GLOBAL display_number matches 1.. run function ARG(_PATH)show_number
+		
+		execute store result score #GLOBAL temp run time query gametime
+		scoreboard players operation #GLOBAL temp %= #24000 const
+		scoreboard players operation #GLOBAL temp %= #22 const
+		# 0 ~ 3 都會被當成 255，故意跳過這個區間
+		execute store result entity @s text_opacity byte 1 run scoreboard players add #GLOBAL temp 4
+		
+		execute store result score @s life run schedule function ARG(_PATH)remove 21t append
+	}
+	
+	func remove()
+	{
+		execute store result score #GLOBAL temp run time query gametime
+		execute as @e[type=text_display,tag=display_number] if score @s life = #GLOBAL temp run kill @s
 	}
 }
