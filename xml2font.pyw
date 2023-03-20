@@ -1,5 +1,5 @@
 import xml.etree.cElementTree as ET
-import PIL.Image, PIL.ImageDraw
+import PIL.Image
 import base64, io, math, os, json, shutil
 import numpy as np
 from subprocess import Popen, PIPE, STDOUT
@@ -184,8 +184,10 @@ def generateFont(resourcepack_path, xml_files, anchor, formula):
 				scaled_size = (math.floor(img.size[0] * resize_scale), math.floor(img.size[1] * resize_scale))
 				img = img.resize(scaled_size)
 			
-			draw = PIL.ImageDraw.Draw(img)
-			draw.point([img.size[0] - 1, img.size[1] - 1], (255, 255, 255, 12))
+			img.putpixel((0,				0				), (1,3,5,1))
+			img.putpixel((0,				img.size[1] - 1	), (1,3,5,1))
+			img.putpixel((img.size[0] - 1,	0				), (1,3,5,1))
+			img.putpixel((img.size[0] - 1,	img.size[1] - 1	), (1,3,5,1))
 			
 			images[i] = img
 
@@ -199,13 +201,12 @@ def generateFont(resourcepack_path, xml_files, anchor, formula):
 			for i in range(len(images)):
 				images[i].save(f"{texture_path}/{i}.png")
 
-		with open(font_directory + "/summon.txt", "w") as f:
-			page_order.append("new")
+		with open("MapleCraft data pack/data/skill/functions/summon_font_effect/" + file_name + ".mcfunction", "w") as f:
 			initial_name = page_order[0].replace('"text":""', '"text":"0"')
-			initial_name = f'[{{"text":"F","font":"space:default"}},{initial_name},{{"text":"F","font":"space:default"}}]'
-			f.write(f'summon minecraft:area_effect_cloud ~ ~ ~ {{CustomName:\'{initial_name}\',CustomNameVisible:1,Radius:0.2,Particle:"block air",Duration:{effect_life},Tags:{page_order}}}\n')
-			f.write("scoreboard players set @e[type=area_effect_cloud,tag=new,limit=1] type 1\n")
-			f.write("tag @e[type=area_effect_cloud,tag=new,limit=1] remove new\n")
+			tags = ",".join(page_order)
+			f.write('''data merge entity @s {text:'%s',Tags:%s,billboard:"center",text_opacity:10,background:0}\n''' %(initial_name, tags))
+			f.write('''scoreboard players set @s max_life %s\n''' %effect_life)
+			f.write('''scoreboard players set @s type 1\n''')
 
 		for font in font_files:
 			with open(f"{resourcepack_path}/assets/skill/font/{font}", "w") as f:

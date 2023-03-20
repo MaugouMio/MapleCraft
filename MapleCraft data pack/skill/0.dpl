@@ -66,9 +66,9 @@ namespace 0() as virtual
 				
 				func effect()
 				{
-					execute if score @s display_number matches 10 positioned ^ ^ ^0.5 run function skill:summon_font_effect/0001000hit0
-					execute if score @s display_number matches 25 positioned ^ ^ ^0.5 run function skill:summon_font_effect/0001000hit1
-					execute if score @s display_number matches 40 positioned ^ ^ ^0.5 run function skill:summon_font_effect/0001000hit2
+					execute if score @s display_number matches 10 positioned ^ ^ ^0.5 summon text_display run function skill:summon_font_effect/0001000hit0
+					execute if score @s display_number matches 25 positioned ^ ^ ^0.5 summon text_display run function skill:summon_font_effect/0001000hit1
+					execute if score @s display_number matches 40 positioned ^ ^ ^0.5 summon text_display run function skill:summon_font_effect/0001000hit2
 					function skill:mob_effect/play_hurt_sound/run
 				}
 				
@@ -204,7 +204,7 @@ namespace 0() as virtual
 					# VVV since we got mp change below, no need to update the bar display VVV
 					# tag @s add hp_mp_varying
 					
-					execute positioned ~ ~-0.2 ~ run function skill:summon_font_effect/0001001effect
+					execute positioned ~ ~-0.2 ~ summon text_display run function skill:summon_font_effect/0001001effect
 					playsound minecraft:skill.2301004 player @a ~ ~ ~ 1 1 0
 					
 					scoreboard players operation @s mp -= @s 0001001_mp
@@ -332,7 +332,7 @@ namespace 0() as virtual
 					# VVV since we got mp change below, no need to update the bar display VVV
 					# tag @s add hp_mp_varying
 					
-					execute positioned ~ ~-0.2 ~ run function skill:summon_font_effect/0001002effect
+					execute positioned ~ ~-0.2 ~ summon text_display run function skill:summon_font_effect/0001002effect
 					playsound minecraft:skill.1111005 player @a ~ ~ ~ 1 1 0
 					
 					scoreboard players operation @s mp -= @s 0001002_mp

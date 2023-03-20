@@ -50,7 +50,7 @@ namespace stat()
 			scoreboard players add @s[scores={job_level=4}] stat_point 3
 			# effect
 			playsound minecraft:game.job_changed player @a ~ ~ ~ 1 1 0
-			function skill:summon_font_effect/0000000job_changed
+			execute summon text_display run function skill:summon_font_effect/0000000job_changed
 		}
 		
 		folder hp_mp()
@@ -181,7 +181,7 @@ namespace stat()
 		{
 			# effect
 			playsound minecraft:game.level_up player @a ~ ~ ~ 1 1 0
-			function skill:summon_font_effect/0000000levelup
+			execute summon text_display run function skill:summon_font_effect/0000000levelup
 			# exp related
 			scoreboard players add @s level 1
 			scoreboard players operation @s exp -= @s exp_max

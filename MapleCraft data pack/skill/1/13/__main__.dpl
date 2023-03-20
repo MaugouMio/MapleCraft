@@ -352,7 +352,7 @@ namespace 13() as virtual
 				# VVV since we got mp change below, no need to update the bar display VVV
 				# tag @s add hp_mp_varying
 				
-				execute positioned ~ ~-0.4 ~ run function skill:summon_font_effect/1301006effect
+				execute positioned ~ ~-0.4 ~ summon text_display run function skill:summon_font_effect/1301006effect
 				playsound minecraft:skill.1301006 player @a ~ ~ ~ 1 1 0
 				
 				scoreboard players operation @s mp -= @s 1301006_mp
@@ -366,7 +366,7 @@ namespace 13() as virtual
 				function ARG(_PATH)setting
 				tag @s add hp_mp_varying
 				
-				execute positioned ~ ~-0.4 ~ run function skill:summon_font_effect/1301006affected
+				execute positioned ~ ~-0.4 ~ summon text_display run function skill:summon_font_effect/1301006affected
 			}
 			
 			func setting()
@@ -466,7 +466,7 @@ namespace 13() as virtual
 				# VVV since we got mp change below, no need to update the bar display VVV
 				# tag @s add hp_mp_varying
 				
-				execute positioned ~ ~-0.4 ~ run function skill:summon_font_effect/1301007effect
+				execute positioned ~ ~-0.4 ~ summon text_display run function skill:summon_font_effect/1301007effect
 				playsound minecraft:skill.1301007 player @a ~ ~ ~ 1 1 0
 				
 				scoreboard players operation @s mp -= @s 1301007_mp
@@ -480,7 +480,7 @@ namespace 13() as virtual
 				function ARG(_PATH)setting
 				function bar_display:change/mp/recovered
 				
-				execute positioned ~ ~-0.4 ~ run function skill:summon_font_effect/1301007affected
+				execute positioned ~ ~-0.4 ~ summon text_display run function skill:summon_font_effect/1301007affected
 			}
 			
 			func setting()

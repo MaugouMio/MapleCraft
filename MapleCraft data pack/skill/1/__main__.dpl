@@ -367,13 +367,13 @@ namespace 1() as virtual
 				func cast_effect()
 				{
 					function skill:afterimage/warrior_swing/check
-					execute positioned ~ ~0.2 ~ run function skill:summon_font_effect/1001004effect
+					execute positioned ~ ~0.2 ~ summon text_display run function skill:summon_font_effect/1001004effect
 					playsound minecraft:skill.1001004 player @a ~ ~ ~ 1 1 0
 				}
 				
 				func effect()
 				{
-					execute if score @s display_number matches 1.. positioned ^ ^ ^0.5 run function skill:summon_font_effect/1001004hit
+					execute if score @s display_number matches 1.. positioned ^ ^ ^0.5 summon text_display run function skill:summon_font_effect/1001004hit
 					function skill:mob_effect/play_hurt_sound/run
 				}
 				
@@ -503,7 +503,7 @@ namespace 1() as virtual
 				func cast_effect()
 				{
 					function skill:afterimage/warrior_swing/check
-					execute positioned ~ ~-0.4 ~ run function skill:summon_font_effect/1001005effect
+					execute positioned ~ ~-0.4 ~ summon text_display run function skill:summon_font_effect/1001005effect
 					playsound minecraft:skill.1001005 player @a ~ ~ ~ 1 1 0
 				}
 				
@@ -517,8 +517,8 @@ namespace 1() as virtual
 				{
 					scoreboard players set #RANGE_MAX temp 5
 					function main:rand_range
-					execute if score #RAND_RANGE_RESULT temp matches 0..2 run function skill:summon_font_effect/1001005hit0
-					execute if score #RAND_RANGE_RESULT temp matches 3..5 run function skill:summon_font_effect/1001005hit1
+					execute if score #RAND_RANGE_RESULT temp matches 0..2 summon text_display run function skill:summon_font_effect/1001005hit0
+					execute if score #RAND_RANGE_RESULT temp matches 3..5 summon text_display run function skill:summon_font_effect/1001005hit1
 				}
 				
 				```
@@ -635,8 +635,8 @@ namespace 1() as virtual
 				
 				func effect()
 				{
-					execute if score @s display_number matches 1.. if score #HIT_EFFECT temp matches 3 positioned ^ ^ ^0.5 run function skill:summon_font_effect/1100002hit
-					execute if score @s display_number matches 1.. if score #HIT_EFFECT temp matches 4 positioned ^ ^ ^0.5 run function skill:summon_font_effect/1100003hit
+					execute if score @s display_number matches 1.. if score #HIT_EFFECT temp matches 3 positioned ^ ^ ^0.5 summon text_display run function skill:summon_font_effect/1100002hit
+					execute if score @s display_number matches 1.. if score #HIT_EFFECT temp matches 4 positioned ^ ^ ^0.5 summon text_display run function skill:summon_font_effect/1100003hit
 					function skill:mob_effect/play_hurt_sound/run
 				}
 				

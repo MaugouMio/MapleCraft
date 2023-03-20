@@ -605,7 +605,7 @@ namespace booster_skill_template(skill_id, weapon, icon) as virtual
 		# VVV since we got mp change below, no need to update the bar display VVV
 		# tag @s add hp_mp_varying
 		
-		execute positioned ~ ~-0.4 ~ run function skill:summon_font_effect/1101004effect
+		execute positioned ~ ~-0.4 ~ summon text_display run function skill:summon_font_effect/1101004effect
 		playsound minecraft:skill.1101004 player @a ~ ~ ~ 1 1 0
 		
 		scoreboard players operation @s hp -= @s ARG(skill_id)_mp
@@ -1341,7 +1341,7 @@ namespace skill()
 	{
 		func run()
 		{
-			execute as @e[type=area_effect_cloud,scores={type=1}] run function ARG(_PATH)font_effect_update/check
+			execute as @e[type=text_display,scores={type=1}] run function ARG(_PATH)font_effect_update/check
 			execute as @e[type=armor_stand,tag=bullet] run function skill:bullet/check
 			execute as @e[type=item_display,tag=model_animation] run function ARG(_PATH)model_animation_update
 			execute as @e[type=item_display,tag=afterimage] run function skill:afterimage/update
@@ -1361,8 +1361,9 @@ namespace skill()
 		{
 			func check()
 			{
-				execute store result score #GLOBAL temp run data get entity @s Age
-				execute if score #GLOBAL temp matches 1.. run function ARG(_PATH)update
+				execute store result score #GLOBAL temp run scoreboard players add @s life 1
+				execute if score @s life < @s max_life run function ARG(_PATH)update
+				execute if score @s life = @s max_life run kill @s
 			}
 			
 			func update()
@@ -1370,9 +1371,7 @@ namespace skill()
 				scoreboard players operation #GLOBAL temp %= #10 const
 				execute if score #GLOBAL temp matches 0 run data remove entity @s Tags[0]
 				
-				data modify storage skill:main effect_font set from entity @s Tags[0]
-				data modify block 250 0 0 Text1 set value '[{"nbt":"effect_font","storage":"skill:main","interpret":true},{"text":"F","font":"space:default"},{"score":{"name":"#GLOBAL","objective":"temp"}},{"text":"F","font":"space:default"}]'
-				data modify entity @s CustomName set from block 250 0 0 Text1
+				data modify entity @s text set value '[{"nbt":"Tags[0]","entity":"@s","interpret":true},{"score":{"name":"#GLOBAL","objective":"temp"}}]'
 			}
 		}
 		
@@ -1567,7 +1566,7 @@ namespace skill()
 						func show_particle_at_height()
 						{
 							scoreboard players remove #DEFAULT_SIZE temp 1
-							execute if score #DEFAULT_SIZE temp matches -1 run function skill:summon_font_effect/2101005mob
+							execute if score #DEFAULT_SIZE temp matches -1 summon text_display run function skill:summon_font_effect/2101005mob
 							execute if score #DEFAULT_SIZE temp matches 0.. positioned ~ ~0.4 ~ run function ARG(_PATH)show_particle_at_height
 						}
 						
@@ -1676,7 +1675,7 @@ namespace skill()
 					func show_particle_at_height()
 					{
 						scoreboard players remove #DEFAULT_SIZE temp 1
-						execute if score #DEFAULT_SIZE temp matches -1 run function skill:summon_font_effect/3101005mob
+						execute if score #DEFAULT_SIZE temp matches -1 summon text_display run function skill:summon_font_effect/3101005mob
 						execute if score #DEFAULT_SIZE temp matches 0.. positioned ~ ~0.4 ~ run function ARG(_PATH)show_particle_at_height
 					}
 					
@@ -1708,7 +1707,7 @@ namespace skill()
 					func show_particle_at_height()
 					{
 						scoreboard players remove #DEFAULT_SIZE temp 1
-						execute if score #DEFAULT_SIZE temp matches -1 run function skill:summon_font_effect/1201006mob
+						execute if score #DEFAULT_SIZE temp matches -1 summon text_display run function skill:summon_font_effect/1201006mob
 						execute if score #DEFAULT_SIZE temp matches 0.. positioned ~ ~0.4 ~ run function ARG(_PATH)show_particle_at_height
 					}
 				}
@@ -3858,29 +3857,6 @@ namespace skill()
 			```
 		}
 	}
-		
-	folder summon_font_effect()
-	{
-		```
-		font_root_path = os.path.dirname(os.path.abspath(PROJ_DIR)) + "/MapleCraft resource pack/assets/skill/font"
-		for root, dirs, files in os.walk(font_root_path):
-			for name in files:
-				if name == "summon.txt":
-					func_name = ""
-					recursive_path = root
-					for i in range(3):
-						func_name = os.path.basename(recursive_path) + func_name
-						recursive_path = os.path.dirname(recursive_path)
-						
-					print(f"func {func_name}()")
-					print("{")
-					with open(os.path.join(root, name), "r") as f:
-						print(f.read())
-					print("}")
-					
-					break
-		```
-	}
 	
 	folder afterimage()
 	{
@@ -3890,16 +3866,16 @@ namespace skill()
 			{
 				scoreboard players set #RANGE_MAX temp 5
 				function main:rand_range
-				execute if score #RAND_RANGE_RESULT temp matches ..2 run function skill:summon_font_effect/0000000mace0
-				execute if score #RAND_RANGE_RESULT temp matches 3.. run function skill:summon_font_effect/0000000mace1
+				execute if score #RAND_RANGE_RESULT temp matches ..2 summon text_display run function skill:summon_font_effect/0000000mace0
+				execute if score #RAND_RANGE_RESULT temp matches 3.. summon text_display run function skill:summon_font_effect/0000000mace1
 			}
 			
 			func sword()
 			{
 				scoreboard players set #RANGE_MAX temp 5
 				function main:rand_range
-				execute if score #RAND_RANGE_RESULT temp matches ..2 run function skill:summon_font_effect/0000000sword0
-				execute if score #RAND_RANGE_RESULT temp matches 3.. run function skill:summon_font_effect/0000000sword1
+				execute if score #RAND_RANGE_RESULT temp matches ..2 summon text_display run function skill:summon_font_effect/0000000sword0
+				execute if score #RAND_RANGE_RESULT temp matches 3.. summon text_display run function skill:summon_font_effect/0000000sword1
 			}
 		}
 		

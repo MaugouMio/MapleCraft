@@ -99,7 +99,7 @@ namespace 22() as virtual
 			
 			func cast_effect()
 			{
-				execute rotated ~ 0 positioned ^ ^0.2 ^0.5 run function skill:summon_font_effect/2201004effect
+				execute rotated ~ 0 positioned ^ ^0.2 ^0.5 summon text_display run function skill:summon_font_effect/2201004effect
 				playsound minecraft:skill.2201004 player @a ~ ~ ~ 1 1 0
 			}
 			
@@ -110,7 +110,7 @@ namespace 22() as virtual
 			
 			func effect()
 			{
-				execute if score @s display_number matches 1.. positioned ^ ^ ^0.5 run function skill:summon_font_effect/2201004hit
+				execute if score @s display_number matches 1.. positioned ^ ^ ^0.5 summon text_display run function skill:summon_font_effect/2201004hit
 				function skill:mob_effect/play_hurt_sound/run
 			}
 			
@@ -250,13 +250,13 @@ namespace 22() as virtual
 			
 			func cast_effect()
 			{
-				execute positioned ~ ~0.2 ~ run function skill:summon_font_effect/2201005effect
+				execute positioned ~ ~0.2 ~ summon text_display run function skill:summon_font_effect/2201005effect
 				playsound minecraft:skill.2201005 player @a ~ ~ ~ 1 1 0
 			}
 			
 			func effect()
 			{
-				execute if score @s display_number matches 1.. run function skill:summon_font_effect/2201005hit
+				execute if score @s display_number matches 1.. summon text_display run function skill:summon_font_effect/2201005hit
 				function skill:mob_effect/play_hurt_sound/run
 			}
 				

@@ -880,7 +880,7 @@ namespace party_quest() as virtual
 						{
 							tp @s -1501 76 17
 							playsound minecraft:game.portal player @s ~ ~ ~ 1 1 1
-							execute positioned -1501 76.3 17 run function skill:summon_font_effect/2101002effect
+							execute positioned -1501 76.3 17 summon text_display run function skill:summon_font_effect/2101002effect
 						}
 						
 						func 2()
@@ -892,7 +892,7 @@ namespace party_quest() as virtual
 						{
 							tp @s -1498 84 17
 							playsound minecraft:game.portal player @s ~ ~ ~ 1 1 1
-							execute positioned -1498 84.3 17 run function skill:summon_font_effect/2101002effect
+							execute positioned -1498 84.3 17 summon text_display run function skill:summon_font_effect/2101002effect
 						}
 						
 						func 3()
@@ -904,7 +904,7 @@ namespace party_quest() as virtual
 						{
 							tp @s -1523 58 7
 							playsound minecraft:game.portal player @s ~ ~ ~ 1 1 1
-							execute positioned -1523 58.3 7 run function skill:summon_font_effect/2101002effect
+							execute positioned -1523 58.3 7 summon text_display run function skill:summon_font_effect/2101002effect
 						}
 						
 						func 4()
@@ -916,7 +916,7 @@ namespace party_quest() as virtual
 						{
 							tp @s -1521 68 6
 							playsound minecraft:game.portal player @s ~ ~ ~ 1 1 1
-							execute positioned -1521 68.3 6 run function skill:summon_font_effect/2101002effect
+							execute positioned -1521 68.3 6 summon text_display run function skill:summon_font_effect/2101002effect
 						}
 					}
 					

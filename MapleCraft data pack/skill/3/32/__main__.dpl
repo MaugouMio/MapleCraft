@@ -338,7 +338,7 @@ namespace 32() as virtual
 			
 			func cast_effect()
 			{
-				execute rotated ~ 0 positioned ^ ^0.2 ^1 run function skill:summon_font_effect/3201005effect
+				execute rotated ~ 0 positioned ^ ^0.2 ^1 summon text_display run function skill:summon_font_effect/3201005effect
 				playsound minecraft:skill.3201005 player @a ~ ~ ~ 1 1 0
 				
 				function skill:afterimage/crossbow/shoot
@@ -348,7 +348,7 @@ namespace 32() as virtual
 			
 			func effect()
 			{
-				execute if score @s display_number matches 1.. positioned ^ ^ ^0.5 run function skill:summon_font_effect/3201005hit
+				execute if score @s display_number matches 1.. positioned ^ ^ ^0.5 summon text_display run function skill:summon_font_effect/3201005hit
 				function skill:mob_effect/play_hurt_sound/run
 			}
 			

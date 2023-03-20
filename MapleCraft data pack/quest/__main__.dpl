@@ -34,7 +34,7 @@ namespace quest()
 	func complete_effect()
 	{
 		playsound minecraft:game.quest_clear player @a ~ ~ ~ 1 1 0
-		execute positioned ~ ~-0.3 ~ run function skill:summon_font_effect/0000000quest_clear
+		execute positioned ~ ~-0.3 ~ summon text_display run function skill:summon_font_effect/0000000quest_clear
 	}
 	
 	folder party_quest() from party_quest();

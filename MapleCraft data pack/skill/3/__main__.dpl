@@ -231,7 +231,7 @@ namespace 3() as virtual
 					# VVV since we got mp change below, no need to update the bar display VVV
 					# tag @s add hp_mp_varying
 					
-					execute positioned ~ ~1.7 ~ run function skill:summon_font_effect/3001003effect
+					execute positioned ~ ~1.7 ~ summon text_display run function skill:summon_font_effect/3001003effect
 					playsound minecraft:skill.3001003 player @a ~ ~ ~ 1 1 0
 					
 					scoreboard players operation @s mp -= @s 3001003_mp
@@ -424,7 +424,7 @@ namespace 3() as virtual
 				
 				func effect()
 				{
-					execute if score @s display_number matches 1.. positioned ^ ^ ^0.5 run function skill:summon_font_effect/3001004hit
+					execute if score @s display_number matches 1.. positioned ^ ^ ^0.5 summon text_display run function skill:summon_font_effect/3001004hit
 					function skill:mob_effect/play_hurt_sound/run
 				}
 				
@@ -638,7 +638,7 @@ namespace 3() as virtual
 				
 				func effect()
 				{
-					execute if score @s display_number matches 1.. positioned ^ ^ ^0.5 run function skill:summon_font_effect/3001005hit
+					execute if score @s display_number matches 1.. positioned ^ ^ ^0.5 summon text_display run function skill:summon_font_effect/3001005hit
 					function skill:mob_effect/play_hurt_sound/run
 				}
 				
@@ -797,7 +797,7 @@ namespace 3() as virtual
 				
 				func effect()
 				{
-					execute if score @s display_number matches 1.. positioned ^ ^ ^0.5 run function skill:summon_font_effect/1100003hit
+					execute if score @s display_number matches 1.. positioned ^ ^ ^0.5 summon text_display run function skill:summon_font_effect/1100003hit
 					function skill:mob_effect/play_hurt_sound/run
 				}
 				

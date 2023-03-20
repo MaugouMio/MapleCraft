@@ -250,7 +250,7 @@ namespace mob_skill()
 			# 給一點角色受傷的動作
 			execute if score @s damage_taken matches 1.. run function mob:damage
 			
-			function skill:summon_font_effect/9000000rombot_hit
+			execute summon text_display run function skill:summon_font_effect/9000000rombot_hit
 		}
 	}
 	
@@ -338,7 +338,7 @@ namespace mob_skill()
 			execute if score @s damage_taken matches 1.. run function mob:damage
 			
 			playsound minecraft:mob.special.4230114_char_damage player @a ~ ~ ~ 1 1 0
-			function skill:summon_font_effect/9000000platoon_chronos_hit
+			execute summon text_display run function skill:summon_font_effect/9000000platoon_chronos_hit
 		}
 	}
 	
@@ -426,7 +426,7 @@ namespace mob_skill()
 			execute if score @s damage_taken matches 1.. run function mob:damage
 			
 			playsound minecraft:mob.special.4230115_char_damage player @a ~ ~ ~ 1 1 0
-			function skill:summon_font_effect/9000000master_chronos_hit
+			execute summon text_display run function skill:summon_font_effect/9000000master_chronos_hit
 		}
 	}
 	
@@ -492,7 +492,7 @@ namespace mob_skill()
 					scoreboard players set #STATUS temp 5
 					execute store result score @s skill_delay run schedule function ARG(_PATH)call 18t append
 					
-					execute rotated ~ 0 positioned ^ ^1.5 ^2 run function skill:summon_font_effect/9000000blind
+					execute rotated ~ 0 positioned ^ ^1.5 ^2 summon text_display run function skill:summon_font_effect/9000000blind
 					
 					scoreboard players operation @s mob_cd1 = #TIME temp
 					scoreboard players add @s mob_cd1 200
@@ -532,7 +532,7 @@ namespace mob_skill()
 					scoreboard players set #STATUS temp 6
 					execute store result score @s skill_delay run schedule function ARG(_PATH)call 18t append
 					
-					execute rotated ~ 0 positioned ^ ^1.5 ^2 run function skill:summon_font_effect/9000000seal
+					execute rotated ~ 0 positioned ^ ^1.5 ^2 summon text_display run function skill:summon_font_effect/9000000seal
 					
 					scoreboard players operation @s mob_cd2 = #TIME temp
 					scoreboard players add @s mob_cd2 200
@@ -757,7 +757,7 @@ namespace mob_skill()
 			
 			# 給一點角色受傷的動作
 			execute if score @s damage_taken matches 1.. run function mob:damage
-			function skill:summon_font_effect/9000000alishar_hit
+			execute summon text_display run function skill:summon_font_effect/9000000alishar_hit
 			
 			scoreboard players set #SKILL_HIT temp 1
 		}

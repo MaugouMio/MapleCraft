@@ -251,8 +251,8 @@ namespace 31() as virtual
 			{
 				scoreboard players set #RANGE_MAX temp 5
 				function main:rand_range
-				execute if score #RAND_RANGE_RESULT temp matches 0..2 run function skill:summon_font_effect/1001005hit0
-				execute if score #RAND_RANGE_RESULT temp matches 3..5 run function skill:summon_font_effect/1001005hit1
+				execute if score #RAND_RANGE_RESULT temp matches 0..2 summon text_display run function skill:summon_font_effect/1001005hit0
+				execute if score #RAND_RANGE_RESULT temp matches 3..5 summon text_display run function skill:summon_font_effect/1001005hit1
 			}
 			
 			```
@@ -756,8 +756,8 @@ namespace 31() as virtual
 				playsound minecraft:skill.3101005_hit player @a ~ ~ ~ 1 1 0
 				
 				execute store result score #IS_SPLASH temp run data get entity @s ArmorItems[3].tag.3101005_effect_queue[0].splash
-				execute if score #IS_SPLASH temp matches 0 run function skill:summon_font_effect/3101005hit0
-				execute if score #IS_SPLASH temp matches 1 run function skill:summon_font_effect/3101005hit1
+				execute if score #IS_SPLASH temp matches 0 summon text_display run function skill:summon_font_effect/3101005hit0
+				execute if score #IS_SPLASH temp matches 1 summon text_display run function skill:summon_font_effect/3101005hit1
 			}
 	
 			# replace merge_schedule (add flag to separate splash from hit and for multi target use)
