@@ -163,7 +163,7 @@ else if (metauvoffset.rgb == ivec3(1,2,3)) {
 	vertexColor = vec4(1);
 	mat3 WorldMat = getWorldMat(Light0_Direction, Light1_Direction);
 	// blue color : height == 1 : 0.1
-	Pos += WorldMat * vec3(0.0, Color.b * 25.5, 0.0);
+	Pos += WorldMat * vec3(0.0, Color.b * 25.5, 0.0) - vec3(0.0, 0.25, 0.0);
 }
 // afterimage fade out effect (need to keep Color, but green used for time offset)
 else if (metauvoffset.rgb == ivec3(1,2,4) && metauvoffset.a <= 2) {

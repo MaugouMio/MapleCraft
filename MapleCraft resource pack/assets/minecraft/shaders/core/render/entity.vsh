@@ -50,7 +50,7 @@ void main() {
     vec3 normal = (FixProjMat * ModelViewMat * vec4(Normal, 0.0)).rgb;
 	
 	// alpha fade in
-	if (int(Color.r) == 0 && int(Color.g) == 0 && Color.b < 0.4) {  // pure blue color < 0.4 was not used in any cases
+	if (int(Color.r * 255) == 0 && int(Color.g * 255) == 0 && Color.b < 0.4) {  // pure blue color < 0.4 was not used in any cases
 		vertexColor = minecraft_mix_light(Light0_Direction, Light1_Direction, Normal, vec4(1));
 		alpha = Color.b / 0.39215; // 100.0 / 255
 	}

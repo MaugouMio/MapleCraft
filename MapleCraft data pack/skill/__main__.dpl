@@ -1177,7 +1177,6 @@ namespace skill()
 		scoreboard objectives add poison_time dummy
 		scoreboard objectives add next_poison dummy
 		scoreboard objectives add poison_damage dummy
-		scoreboard objectives add poison_particle dummy
 		scoreboard objectives add stun_time dummy
 		scoreboard objectives add stun_particle dummy
 		scoreboard objectives add threat_particle dummy
@@ -1517,7 +1516,7 @@ namespace skill()
 						```
 						# execute unless score @s freeze_time matches 1.. unless score @s poison_time matches 1.. unless score @s burn_time matches 1.. run tag @s remove color_changed
 						execute unless score @s freeze_time matches 1.. unless score @s poison_time matches 1.. run tag @s remove color_changed
-						execute if entity @s[tag=!color_changed] run data modify entity @s ArmorItems[3].tag.CustomPotionColor set value -1
+						execute if entity @s[tag=!color_changed] on controller run data modify entity @s ArmorItems[3].tag.CustomPotionColor set value -1
 					}
 					
 					func other_color_check()
@@ -1551,23 +1550,7 @@ namespace skill()
 						func run()
 						{
 							scoreboard players remove @s next_poison 1
-							scoreboard players remove @s poison_particle 1
 							execute if score @s next_poison matches 0 run function ARG(_PATH)next
-							execute if score @s poison_particle matches 0 run function ARG(_PATH)show_particle
-						}
-						
-						func show_particle()
-						{
-							scoreboard players operation #DEFAULT_SIZE temp = @s default_height
-							execute positioned ~ ~0.4 ~ run function ARG(_PATH)show_particle_at_height
-							scoreboard players set @s poison_particle 7
-						}
-						
-						func show_particle_at_height()
-						{
-							scoreboard players remove #DEFAULT_SIZE temp 1
-							execute if score #DEFAULT_SIZE temp matches -1 summon text_display run function skill:summon_font_effect/2101005mob
-							execute if score #DEFAULT_SIZE temp matches 0.. positioned ~ ~0.4 ~ run function ARG(_PATH)show_particle_at_height
 						}
 						
 						func next()
@@ -1600,9 +1583,9 @@ namespace skill()
 						
 						func reset()
 						{
-							scoreboard players reset @s poison_particle
 							scoreboard players reset @s next_poison
 							scoreboard players reset @s poison_time
+							execute on passengers run kill @s[type=item_display,tag=poison]
 							function ARG(__PATH)other_color_check
 						}
 					}
@@ -3667,17 +3650,31 @@ namespace skill()
 			
 			func poison()
 			{
-				execute unless score @s poison_time matches 1.. on controller run function ARG(_PATH)poison_color
-				tag @s add color_changed
-
 				scoreboard players operation @s poison_time = #POISON_TIME temp
 				scoreboard players operation @s poison_damage = @s hp_max
 				scoreboard players operation @s poison_damage += #POISON_HP_RATE temp
 				scoreboard players remove @s poison_damage 1
 				scoreboard players operation @s poison_damage /= #POISON_HP_RATE temp
 				
-				execute unless score @s next_poison matches 1.. run scoreboard players set @s poison_particle 7
-				execute unless score @s next_poison matches 1.. run scoreboard players set @s next_poison 20
+				execute unless score @s next_poison matches 1.. run function ARG(_PATH)set_poison
+			}
+			
+			func set_poison()
+			{
+				tag @s add color_changed
+				scoreboard players set @s next_poison 20
+				execute on controller run function ARG(_PATH)poison_color
+				
+				scoreboard players operation #BIND_PLAYER number = @s number
+				execute store result score #NUMBER_HEIGHT temp run data get entity @s ArmorItems[3].tag.bind_point
+				execute summon item_display run function ARG(_PATH)bind_poison
+			}
+			
+			func bind_poison()
+			{
+				data merge entity @s {Tags:["poison"],item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:102}},billboard:"center"}
+				execute store result entity @s item.tag.CustomPotionColor int 1 run scoreboard players get #NUMBER_HEIGHT temp
+				function skill:bind_mob
 			}
 
 			func poison_color()
