@@ -500,7 +500,7 @@ namespace 31() as virtual
 			
 			func try_splash()
 			{
-				execute if score #FOUND_SPLASH_ENEMY temp matches ..4 on vehicle run function ARG(_PATH)splash_mark
+				execute if score #FOUND_SPLASH_ENEMY temp matches ..4 on vehicle unless entity @s[tag=target] run function ARG(_PATH)splash_mark
 			}
 			
 			func splash_mark()

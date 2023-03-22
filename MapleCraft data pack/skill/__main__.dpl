@@ -1178,7 +1178,6 @@ namespace skill()
 		scoreboard objectives add next_poison dummy
 		scoreboard objectives add poison_damage dummy
 		scoreboard objectives add stun_time dummy
-		scoreboard objectives add stun_particle dummy
 		scoreboard objectives add threat_particle dummy
 		scoreboard objectives add queuing_effect dummy
 		scoreboard objectives add hit_order dummy
@@ -1283,7 +1282,7 @@ namespace skill()
 		{
 			func set_icon()
 			{
-				data merge entity @s {Tags:["blind"],item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:100,CustomPotionColor:22}},transformation:{scale:[1.15f,1.15f,1.15f]},billboard:"center"}
+				data merge entity @s {Tags:["blind"],item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:100,CustomPotionColor:24}},transformation:{scale:[1.15f,1.15f,1.15f]},billboard:"center"}
 				function skill:bind_player
 			}
 			
@@ -1311,7 +1310,7 @@ namespace skill()
 		{
 			func set_icon()
 			{
-				data merge entity @s {Tags:["seal"],item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:101,CustomPotionColor:22}},transformation:{scale:[1.6f,1.6f,1.6f]},billboard:"center"}
+				data merge entity @s {Tags:["seal"],item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:101,CustomPotionColor:24}},transformation:{scale:[1.6f,1.6f,1.6f]},billboard:"center"}
 				function skill:bind_player
 			}
 			
@@ -1438,8 +1437,13 @@ namespace skill()
 					func try()
 					{
 						scoreboard players set @s rand_jump 20
+						execute unless score @s stun_time matches 1.. run function ARG(_PATH)case
+					}
+					
+					func case()
+					{
 						execute unless score @s anger_time matches 1.. run function ARG(_PATH)rand_jump
-						execute if score @s anger_time matches 1.. if score @s status matches 3 store result entity @s Motion[1] double 0.1 run scoreboard players get #5 const
+						execute if entity @s[scores={anger_time=1..,status=3}] store result entity @s Motion[1] double 0.1 run scoreboard players get #5 const
 					}
 				
 					func rand_jump()
@@ -1642,31 +1646,15 @@ namespace skill()
 				{
 					func run()
 					{
-						scoreboard players remove @s stun_particle 1
 						scoreboard players remove @s stun_time 1
 						execute if score @s stun_time matches 0 run function ARG(_PATH)reset
-						execute if score @s stun_particle matches 0 at @s run function ARG(_PATH)show_particle
-					}
-					
-					func show_particle()
-					{
-						scoreboard players operation #DEFAULT_SIZE temp = @s default_height
-						execute positioned ~ ~0.4 ~ run function ARG(_PATH)show_particle_at_height
-						scoreboard players set @s stun_particle 6
-					}
-					
-					func show_particle_at_height()
-					{
-						scoreboard players remove #DEFAULT_SIZE temp 1
-						execute if score #DEFAULT_SIZE temp matches -1 summon text_display run function skill:summon_font_effect/3101005mob
-						execute if score #DEFAULT_SIZE temp matches 0.. positioned ~ ~0.4 ~ run function ARG(_PATH)show_particle_at_height
 					}
 					
 					func reset()
 					{
-						scoreboard players reset @s stun_particle
 						scoreboard players reset @s stun_time
 						
+						execute on passengers run kill @s[type=item_display,tag=stun]
 						attribute @s minecraft:generic.movement_speed modifier remove 98fb435b-7645-4b76-8504-ee4f9e13fdec
 						execute unless score @s weaken_from matches 2 run tag @s remove mob_effect
 					}
@@ -3685,11 +3673,25 @@ namespace skill()
 			
 			func stun()
 			{
+				execute unless score @s stun_time matches 1.. run function ARG(_PATH)set_stun
 				scoreboard players operation @s stun_time = #STUN_TIME temp
-				execute unless score @s stun_particle matches 1.. run scoreboard players set @s stun_particle 6
-				
-				attribute @s minecraft:generic.movement_speed modifier add 98fb435b-7645-4b76-8504-ee4f9e13fdec stun_control -100.0 add
+			}
+
+			func set_stun()
+			{
 				tag @s add mob_effect
+				attribute @s minecraft:generic.movement_speed modifier add 98fb435b-7645-4b76-8504-ee4f9e13fdec stun_control -100.0 add
+
+				scoreboard players operation #BIND_PLAYER number = @s number
+				execute store result score #NUMBER_HEIGHT temp run data get entity @s ArmorItems[3].tag.bind_point
+				execute summon item_display run function ARG(_PATH)bind_stun
+			}
+			
+			func bind_stun()
+			{
+				data merge entity @s {Tags:["stun"],item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:103}},billboard:"center"}
+				execute store result entity @s item.tag.CustomPotionColor int 1 run scoreboard players get #NUMBER_HEIGHT temp
+				function skill:bind_mob
 			}
 		}
 		

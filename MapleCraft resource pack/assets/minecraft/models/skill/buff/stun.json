@@ -1,11 +1,12 @@
 {
 	"textures": {
-		"0": "skill/buff/blind"
+		"0": "skill/buff/stun",
+		"particle": "skill/buff/stun"
 	},
 	"elements": [
 		{
-			"from": [-1, -1, 8],
-			"to": [17, 17, 8],
+			"from": [-3, -3, 8],
+			"to": [19, 19, 8],
 			"faces": {
 				"north": {"uv": [1, 1, 2, 2], "texture": "#0"},
 				"east": {"uv": [1, 1, 2, 2], "texture": "#0"},
@@ -15,5 +16,6 @@
 				"down": {"uv": [1, 1, 2, 2], "texture": "#0"}
 			}
 		}
-	]
+	],
+	"display": {}
 }

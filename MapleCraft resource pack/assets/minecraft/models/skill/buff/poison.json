@@ -1,1 +1,19 @@
-{"parent": "item/generated", "textures": {"layer0": "skill/buff/poison"}}
+{
+	"textures": {
+		"0": "skill/buff/poison"
+	},
+	"elements": [
+		{
+			"from": [0.3333, 0.3333, 8],
+			"to": [15.6667, 15.6667, 8],
+			"faces": {
+				"north": {"uv": [1, 1, 2, 2], "texture": "#0"},
+				"east": {"uv": [1, 1, 2, 2], "texture": "#0"},
+				"south": {"uv": [0, 0, 16, 16], "texture": "#0", "tintindex": 0},
+				"west": {"uv": [1, 1, 2, 2], "texture": "#0"},
+				"up": {"uv": [1, 1, 2, 2], "texture": "#0"},
+				"down": {"uv": [1, 1, 2, 2], "texture": "#0"}
+			}
+		}
+	]
+}
