@@ -237,9 +237,8 @@ namespace 12() as virtual
 			
 			func set_debuff()
 			{
+				execute unless score @s weaken_from matches 2 run function ARG(_PATH)set_threaten
 				scoreboard players operation @s weaken_time = #THREATEN_TIME temp
-				scoreboard players set @s threat_particle 1
-				tag @s add mob_effect
 				scoreboard players set @s weaken_from 2
 				
 				# weapon defense drop
@@ -247,6 +246,20 @@ namespace 12() as virtual
 				scoreboard players operation @s wdef_drop < #THREATEN_LEVEL temp
 				
 				scoreboard players add #FOUND_ENEMY temp 1
+			}
+			
+			func set_threaten()
+			{
+				scoreboard players operation #BIND_PLAYER number = @s number
+				execute store result score #NUMBER_HEIGHT temp run data get entity @s ArmorItems[3].tag.bind_point
+				execute summon item_display run function ARG(_PATH)bind_threaten
+			}
+			
+			func bind_threaten()
+			{
+				data merge entity @s {Tags:["threaten"],item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:104}},billboard:"center"}
+				execute store result entity @s item.tag.CustomPotionColor int 1 run scoreboard players get #NUMBER_HEIGHT temp
+				function skill:bind_mob
 			}
 			
 			folder levels()

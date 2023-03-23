@@ -1390,7 +1390,7 @@ namespace skill()
 				
 				execute unless score @s kb_time matches 1.. if entity @s[tag=!dead] run function ARG(_PATH)status_change/check
 				execute if entity @s[tag=color_changed] run function ARG(_PATH)status_change/color/check
-				execute if entity @s[tag=mob_effect] run function ARG(_PATH)mob_effect/run
+				execute if score @s stun_time matches 1.. run function ARG(_PATH)mob_effect/stun/countdown
 				execute if score @s bullet_targeted matches 1.. at @s run function ARG(_PATH)move_bullets
 
 				execute store result score #FACING temp run data get entity @s Rotation[0] 100
@@ -1636,15 +1636,9 @@ namespace skill()
 			
 			folder mob_effect()
 			{
-				func run()
+				folder stun()
 				{
-					execute if score @s stun_time matches 1.. run function ARG(_PATH)stun_countdown/run
-					execute if score @s weaken_from matches 2 run function ARG(_PATH)threaten_effect/run
-				}
-				
-				folder stun_countdown()
-				{
-					func run()
+					func countdown()
 					{
 						scoreboard players remove @s stun_time 1
 						execute if score @s stun_time matches 0 run function ARG(_PATH)reset
@@ -1656,30 +1650,6 @@ namespace skill()
 						
 						execute on passengers run kill @s[type=item_display,tag=stun]
 						attribute @s minecraft:generic.movement_speed modifier remove 98fb435b-7645-4b76-8504-ee4f9e13fdec
-						execute unless score @s weaken_from matches 2 run tag @s remove mob_effect
-					}
-				}
-				
-				folder threaten_effect()
-				{
-					func run()
-					{
-						scoreboard players remove @s threat_particle 1
-						execute if score @s threat_particle matches 0 at @s run function ARG(_PATH)show_particle
-					}
-					
-					func show_particle()
-					{
-						scoreboard players operation #DEFAULT_SIZE temp = @s default_height
-						execute positioned ~ ~0.4 ~ run function ARG(_PATH)show_particle_at_height
-						scoreboard players set @s threat_particle 11
-					}
-					
-					func show_particle_at_height()
-					{
-						scoreboard players remove #DEFAULT_SIZE temp 1
-						execute if score #DEFAULT_SIZE temp matches -1 summon text_display run function skill:summon_font_effect/1201006mob
-						execute if score #DEFAULT_SIZE temp matches 0.. positioned ~ ~0.4 ~ run function ARG(_PATH)show_particle_at_height
 					}
 				}
 			}
@@ -3679,7 +3649,6 @@ namespace skill()
 
 			func set_stun()
 			{
-				tag @s add mob_effect
 				attribute @s minecraft:generic.movement_speed modifier add 98fb435b-7645-4b76-8504-ee4f9e13fdec stun_control -100.0 add
 
 				scoreboard players operation #BIND_PLAYER number = @s number
