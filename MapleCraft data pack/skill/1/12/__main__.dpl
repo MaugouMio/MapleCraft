@@ -252,7 +252,7 @@ namespace 12() as virtual
 			{
 				scoreboard players operation #BIND_PLAYER number = @s number
 				execute store result score #NUMBER_HEIGHT temp run data get entity @s ArmorItems[3].tag.bind_point
-				execute summon item_display run function ARG(_PATH)bind_threaten
+				execute positioned ~ ~0.2625 ~ summon item_display run function ARG(_PATH)bind_threaten
 			}
 			
 			func bind_threaten()

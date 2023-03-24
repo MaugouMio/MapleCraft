@@ -3625,7 +3625,7 @@ namespace skill()
 				
 				scoreboard players operation #BIND_PLAYER number = @s number
 				execute store result score #NUMBER_HEIGHT temp run data get entity @s ArmorItems[3].tag.bind_point
-				execute summon item_display run function ARG(_PATH)bind_poison
+				execute positioned ~ ~0.2625 ~ summon item_display run function ARG(_PATH)bind_poison
 			}
 			
 			func bind_poison()
@@ -3653,7 +3653,7 @@ namespace skill()
 
 				scoreboard players operation #BIND_PLAYER number = @s number
 				execute store result score #NUMBER_HEIGHT temp run data get entity @s ArmorItems[3].tag.bind_point
-				execute summon item_display run function ARG(_PATH)bind_stun
+				execute positioned ~ ~0.2625 ~ summon item_display run function ARG(_PATH)bind_stun
 			}
 			
 			func bind_stun()
