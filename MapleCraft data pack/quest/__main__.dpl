@@ -34,7 +34,8 @@ namespace quest()
 	func complete_effect()
 	{
 		playsound minecraft:game.quest_clear player @a ~ ~ ~ 1 1 0
-		execute positioned ~ ~-0.3 ~ summon text_display run function skill:summon_font_effect/0000000quest_clear
+		scoreboard players operation #BIND_PLAYER number = @s number
+		execute summon text_display run function skill:summon_font_effect/0000000quest_clear
 	}
 	
 	folder party_quest() from party_quest();

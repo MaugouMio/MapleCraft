@@ -367,7 +367,8 @@ namespace 1() as virtual
 				func cast_effect()
 				{
 					function skill:afterimage/warrior_swing/check
-					execute positioned ~ ~0.2 ~ summon text_display run function skill:summon_font_effect/1001004effect
+					scoreboard players operation #BIND_PLAYER number = @s number
+					execute summon text_display run function skill:summon_font_effect/1001004effect
 					playsound minecraft:skill.1001004 player @a ~ ~ ~ 1 1 0
 				}
 				
@@ -503,7 +504,8 @@ namespace 1() as virtual
 				func cast_effect()
 				{
 					function skill:afterimage/warrior_swing/check
-					execute positioned ~ ~-0.4 ~ summon text_display run function skill:summon_font_effect/1001005effect
+					scoreboard players operation #BIND_PLAYER number = @s number
+					execute summon text_display run function skill:summon_font_effect/1001005effect
 					playsound minecraft:skill.1001005 player @a ~ ~ ~ 1 1 0
 				}
 				

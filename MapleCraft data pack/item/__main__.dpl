@@ -830,7 +830,8 @@ namespace item()
 				
 				func success()
 				{
-					execute positioned ~ ~1.7 ~ summon text_display run function skill:summon_font_effect/0000000enchant_success
+					scoreboard players operation #BIND_PLAYER number = @s number
+					execute summon text_display run function skill:summon_font_effect/0000000enchant_success
 					playsound minecraft:game.enchant_success player @a ~ ~ ~ 1 1 0
 					tellraw @s {"translate":"text.scroll.success","font":"minecraft:uniform","color":"#efb7ab"}
 					
@@ -1029,7 +1030,8 @@ namespace item()
 				
 				func fail()
 				{
-					execute positioned ~ ~1.7 ~ summon text_display run function skill:summon_font_effect/0000000enchant_fail
+					scoreboard players operation #BIND_PLAYER number = @s number
+					execute summon text_display run function skill:summon_font_effect/0000000enchant_fail
 					playsound minecraft:game.enchant_fail player @a ~ ~ ~ 1 1 0
 					
 					execute store result score #DESTROY_CHANCE temp run data get entity @s SelectedItem.tag.destroy_chance

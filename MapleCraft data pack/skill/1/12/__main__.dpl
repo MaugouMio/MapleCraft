@@ -207,7 +207,8 @@ namespace 12() as virtual
 				scoreboard players operation #THREATEN_LEVEL temp = @s 1201006_level
 				scoreboard players operation #THREATEN_TIME temp = @s 1201006_time
 				
-				execute positioned ~ ~0.5 ~ summon text_display run function skill:summon_font_effect/1201006effect
+				scoreboard players operation #BIND_PLAYER number = @s number
+				execute summon text_display run function skill:summon_font_effect/1201006effect
 				playsound minecraft:skill.1201006 player @a ~ ~ ~ 1 1 0
 				
 				scoreboard players set #FOUND_ENEMY temp 0

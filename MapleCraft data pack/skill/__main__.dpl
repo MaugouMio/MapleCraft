@@ -605,7 +605,8 @@ namespace booster_skill_template(skill_id, weapon, icon) as virtual
 		# VVV since we got mp change below, no need to update the bar display VVV
 		# tag @s add hp_mp_varying
 		
-		execute positioned ~ ~-0.4 ~ summon text_display run function skill:summon_font_effect/1101004effect
+		scoreboard players operation #BIND_PLAYER number = @s number
+		execute summon text_display run function skill:summon_font_effect/1101004effect
 		playsound minecraft:skill.1101004 player @a ~ ~ ~ 1 1 0
 		
 		scoreboard players operation @s hp -= @s ARG(skill_id)_mp

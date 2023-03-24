@@ -536,6 +536,13 @@ namespace main()
 		}
 	}
 	
+	func tp_effect()
+	{
+		scoreboard players operation #BIND_PLAYER number = @s number
+		execute summon text_display run function skill:summon_font_effect/2101002effect
+		playsound minecraft:game.portal player @s ~ ~ ~ 1 1 1
+	}
+	
 	func deep_kill()
 	{
 		tp @s ~ -200 ~

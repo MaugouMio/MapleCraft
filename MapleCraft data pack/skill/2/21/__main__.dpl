@@ -81,7 +81,8 @@ namespace 21() as virtual
 				scoreboard players operation @s mp < @s mp_max
 				function bar_display:change/mp/recovered
 				
-				execute positioned ~ ~-0.4 ~ summon text_display run function skill:summon_font_effect/2100000effect
+				scoreboard players operation #BIND_PLAYER number = @s number
+				execute summon text_display run function skill:summon_font_effect/2100000effect
 			}
 				
 			func try_absorb()
@@ -177,7 +178,8 @@ namespace 21() as virtual
 				# VVV since we got mp change below, no need to update the bar display VVV
 				# tag @s add hp_mp_varying
 				
-				execute positioned ~ ~-0.4 ~ summon text_display run function skill:summon_font_effect/2101001effect
+				scoreboard players operation #BIND_PLAYER number = @s number
+				execute summon text_display run function skill:summon_font_effect/2101001effect
 				playsound minecraft:skill.2101001 player @a ~ ~ ~ 1 1 0
 				
 				scoreboard players operation @s mp -= @s 2101001_mp
@@ -191,7 +193,8 @@ namespace 21() as virtual
 				function ARG(_PATH)setting
 				tag @s add hp_mp_varying
 				
-				execute positioned ~ ~1.7 ~ summon text_display run function skill:summon_font_effect/2101001affected
+				scoreboard players operation #BIND_PLAYER number = @s number
+				execute summon text_display run function skill:summon_font_effect/2101001affected
 			}
 			
 			func setting()
@@ -298,14 +301,19 @@ namespace 21() as virtual
 					
 					# cast restriction
 					scoreboard players operation @s next_hp_recover = @s hp_recover_time
-					
-					execute positioned ~ ~0.3 ~ summon text_display run function skill:summon_font_effect/2101002effect
-					playsound minecraft:skill.2101002 player @a ~ ~ ~ 1 1 0
+					function ARG(_PATH)tp_effect
 					
 					scoreboard players operation @s mp -= @s 2101002_mp
 					function bar_display:change/mp/dropped
 					
 					scoreboard players set @s teleport_time 11
+				}
+				
+				func tp_effect()
+				{
+					scoreboard players operation #BIND_PLAYER number = @s number
+					execute summon text_display run function skill:summon_font_effect/2101002effect
+					playsound minecraft:skill.2101002 player @a ~ ~ ~ 1 1 0
 				}
 				
 				folder up()
@@ -493,7 +501,8 @@ namespace 21() as virtual
 				
 				scoreboard players operation #SLOW_TIME temp = @s 2101003_time
 				
-				execute positioned ~ ~0.3 ~ summon text_display run function skill:summon_font_effect/2101003effect
+				scoreboard players operation #BIND_PLAYER number = @s number
+				execute summon text_display run function skill:summon_font_effect/2101003effect
 				playsound minecraft:skill.2101003_use player @a ~ ~ ~ 1 1 0
 				```
 				print("summon marker ~ ~ ~ {UUID:%s}" %UUID_LIST["face_effect"])
@@ -840,7 +849,8 @@ namespace 21() as virtual
 			
 			func cast_effect()
 			{
-				execute positioned ~ ~0.3 ~ summon text_display run function skill:summon_font_effect/2101005effect
+				scoreboard players operation #BIND_PLAYER number = @s number
+				execute summon text_display run function skill:summon_font_effect/2101005effect
 				playsound minecraft:skill.2101005_use player @a ~ ~ ~ 1 1 0
 			}
 			

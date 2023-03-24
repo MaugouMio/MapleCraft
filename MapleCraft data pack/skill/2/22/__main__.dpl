@@ -99,7 +99,8 @@ namespace 22() as virtual
 			
 			func cast_effect()
 			{
-				execute rotated ~ 0 positioned ^ ^0.2 ^0.5 summon text_display run function skill:summon_font_effect/2201004effect
+				scoreboard players operation #BIND_PLAYER number = @s number
+				execute summon text_display run function skill:summon_font_effect/2201004effect
 				playsound minecraft:skill.2201004 player @a ~ ~ ~ 1 1 0
 			}
 			
@@ -250,7 +251,8 @@ namespace 22() as virtual
 			
 			func cast_effect()
 			{
-				execute positioned ~ ~0.2 ~ summon text_display run function skill:summon_font_effect/2201005effect
+				scoreboard players operation #BIND_PLAYER number = @s number
+				execute summon text_display run function skill:summon_font_effect/2201005effect
 				playsound minecraft:skill.2201005 player @a ~ ~ ~ 1 1 0
 			}
 			

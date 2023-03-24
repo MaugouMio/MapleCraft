@@ -129,7 +129,8 @@ namespace 23() as virtual
 			
 			func cast_effect()
 			{
-				execute positioned ~ ~-0.4 ~ summon text_display run function skill:summon_font_effect/2301002effect
+				scoreboard players operation #BIND_PLAYER number = @s number
+				execute summon text_display run function skill:summon_font_effect/2301002effect
 				playsound minecraft:skill.2301002 player @a ~ ~ ~ 1 1 0
 				
 				execute as @a[tag=target] at @s run function ARG(_PATH)heal
@@ -138,10 +139,19 @@ namespace 23() as virtual
 			
 			func heal()
 			{
-				execute if entity @s[tag=!caster] positioned ~ ~1.2 ~ summon text_display run function skill:summon_font_effect/2301002hit
+				# 給文字動畫吃的高度設定
+				scoreboard players set #DEFAULT_SIZE temp 22
+				scoreboard players operation #BIND_PLAYER number = @s number
+				execute if entity @s[tag=!caster] summon text_display run function ARG(_PATH)player_effect
 				execute if score @s hp < @s hp_max run function ARG(_PATH)did_need_heal
 				
 				tag @s remove target
+			}
+
+			func player_effect()
+			{
+				function skill:summon_font_effect/2301002hit
+				function skill:bind_player
 			}
 			
 			func did_need_heal()
@@ -160,16 +170,21 @@ namespace 23() as virtual
 			{
 				func run()
 				{
-					scoreboard players operation #DEFAULT_SIZE temp = @s default_height
-					execute positioned ~ ~0.4 ~ run function ARG(_PATH)loop
+					execute if score @s display_number matches 1.. run function ARG(_PATH)effect
 					function skill:mob_effect/play_hurt_sound/run
 				}
 				
-				func loop()
+				func effect()
 				{
-					scoreboard players remove #DEFAULT_SIZE temp 1
-					execute if score #DEFAULT_SIZE temp matches -1 if score @s display_number matches 1.. summon text_display run function skill:summon_font_effect/2301002hit
-					execute if score #DEFAULT_SIZE temp matches 0.. positioned ~ ~0.4 ~ run function ARG(_PATH)loop
+					scoreboard players operation #BIND_PLAYER number = @s number
+					execute store result score #DEFAULT_SIZE temp run data get entity @s ArmorItems[3].tag.bind_point
+					execute positioned ~ ~0.2625 ~ summon text_display run function ARG(_PATH)bind_effect
+				}
+
+				func bind_effect()
+				{
+					function skill:summon_font_effect/2301002hit
+					function skill:bind_mob
 				}
 			}
 				
@@ -257,7 +272,8 @@ namespace 23() as virtual
 				# VVV since we got mp change below, no need to update the bar display VVV
 				# tag @s add hp_mp_varying
 				
-				execute positioned ~ ~-0.4 ~ summon text_display run function skill:summon_font_effect/2301003effect
+				scoreboard players operation #BIND_PLAYER number = @s number
+				execute summon text_display run function skill:summon_font_effect/2301003effect
 				playsound minecraft:skill.2301003 player @a ~ ~ ~ 1 1 0
 				
 				scoreboard players operation @s mp -= @s 2301003_mp
@@ -365,7 +381,8 @@ namespace 23() as virtual
 				# VVV since we got mp change below, no need to update the bar display VVV
 				# tag @s add hp_mp_varying
 				
-				execute positioned ~ ~-0.3 ~ summon text_display run function skill:summon_font_effect/2301004effect
+				scoreboard players operation #BIND_PLAYER number = @s number
+				execute summon text_display run function skill:summon_font_effect/2301004effect
 				playsound minecraft:skill.2301004 player @a ~ ~ ~ 1 1 0
 				
 				scoreboard players operation @s mp -= @s 2301004_mp
@@ -379,7 +396,8 @@ namespace 23() as virtual
 				function ARG(_PATH)setting
 				tag @s add hp_mp_varying
 				
-				execute positioned ~ ~1.7 ~ summon text_display run function skill:summon_font_effect/2301004affected
+				scoreboard players operation #BIND_PLAYER number = @s number
+				execute summon text_display run function skill:summon_font_effect/2301004affected
 			}
 			
 			func setting()
