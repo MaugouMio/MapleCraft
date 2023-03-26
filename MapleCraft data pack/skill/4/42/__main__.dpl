@@ -179,6 +179,7 @@ namespace 42() as virtual
 			{
 				scoreboard players operation #BIND_PLAYER number = @s number
 				execute rotated ~ 0 summon minecraft:item_display run function ARG(_PATH)effect_model_set
+				execute summon text_display run function skill:summon_font_effect/4201004effect
 				
 				execute unless score #USED_WEAPON temp matches 24 run function skill:afterimage/warrior_swing/check
 				execute if score #USED_WEAPON temp matches 24 run function skill:afterimage/claw/stab
@@ -340,8 +341,10 @@ namespace 42() as virtual
 			
 			func cast_effect()
 			{
+				scoreboard players operation #BIND_PLAYER number = @s number
 				execute positioned ~ ~0.3 ~ summon text_display run function skill:summon_font_effect/4201005effect
 				playsound minecraft:skill.4201005_use player @a ~ ~ ~ 1 1 0
+
 				# borrow hit_effect variable to set custom hit effect
 				scoreboard players set #RANGE_MAX temp 2
 				function main:rand_range

@@ -231,7 +231,8 @@ namespace 3() as virtual
 					# VVV since we got mp change below, no need to update the bar display VVV
 					# tag @s add hp_mp_varying
 					
-					execute positioned ~ ~1.7 ~ summon text_display run function skill:summon_font_effect/3001003effect
+					scoreboard players operation #BIND_PLAYER number = @s number
+					execute summon text_display run function skill:summon_font_effect/3001003effect
 					playsound minecraft:skill.3001003 player @a ~ ~ ~ 1 1 0
 					
 					scoreboard players operation @s mp -= @s 3001003_mp

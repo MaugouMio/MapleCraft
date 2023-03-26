@@ -338,12 +338,29 @@ namespace 32() as virtual
 			
 			func cast_effect()
 			{
-				execute rotated ~ 0 positioned ^ ^0.2 ^1 summon text_display run function skill:summon_font_effect/3201005effect
+				scoreboard players operation #BIND_PLAYER number = @s number
+				execute rotated ~ 0 summon item_display run function ARG(_PATH)effect_model_set
 				playsound minecraft:skill.3201005 player @a ~ ~ ~ 1 1 0
 				
 				function skill:afterimage/crossbow/shoot
 				# soul arrow does not play arrow sound
 				execute unless score #GLOBAL bullet_model matches 3001 run playsound minecraft:skill.attack.crossbow player @a ~ ~ ~ 1 1 0
+			}
+			
+			func effect_model_set()
+			{
+				data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:320000}},transformation:{scale:[1.333f,1.333f,1.333f]},billboard:"center"}
+				scoreboard players set @s max_life 10
+				scoreboard players set @s base_model 320000
+
+				# 計算當前面向往前位移 1 格，往上 0.2 格的對應顏色
+				tp @s ~ ~ ~ ~ 0
+				execute store result score #MODEL_COLOR temp run data get entity @s Rotation[0] 0.7083333
+				execute if score #MODEL_COLOR temp matches ..-1 run scoreboard players add #MODEL_COLOR temp 255
+				scoreboard players operation #MODEL_COLOR temp *= #65536 const
+				execute store result entity @s item.tag.CustomPotionColor int 1 run scoreboard players add #MODEL_COLOR temp 2573
+				
+				function skill:bind_player
 			}
 			
 			func effect()
