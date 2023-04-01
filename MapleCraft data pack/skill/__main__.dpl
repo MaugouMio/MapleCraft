@@ -1353,7 +1353,7 @@ namespace skill()
 			execute as @a[tag=delay_tp] at @s run function skill:2/1/0/1002/move/horizon/run
 			
 			# used skill check
-			execute as @a[scores={right_click=1..},tag=!dead] at @s run function skill:check_skill/run
+			execute as @a[scores={right_click=1..}] run function skill:check_skill/run
 		}
 		
 		folder font_effect_update()
@@ -1960,14 +1960,19 @@ namespace skill()
 	{
 		func run()
 		{
+			execute if entity @s[tag=!dead,predicate=!skill:sitting] run function ARG(_PATH)check
+			scoreboard players reset @s right_click
+			scoreboard players reset @s skill_id
+		}
+		
+		func check()
+		{
 			# 快捷施放技能
 			execute if score @s skill_id matches 1.. run scoreboard players operation #USING_SKILL temp = @s skill_id
 			execute unless score @s skill_id matches 1.. store result score #USING_SKILL temp run data get entity @s[predicate=skill:use_carrot] SelectedItem.tag.CustomModelData
 			
 			execute if score @s seal_time matches 0.. unless score #USING_SKILL temp matches 199 run scoreboard players reset #USING_SKILL temp
-			execute if score #USING_SKILL temp matches 1.. run function ARG(_PATH)binary_search/run
-			scoreboard players reset @s right_click
-			scoreboard players reset @s skill_id
+			execute if score #USING_SKILL temp matches 1.. at @s run function ARG(_PATH)binary_search/run
 		}
 		
 		folder binary_search()

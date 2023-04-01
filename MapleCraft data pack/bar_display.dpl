@@ -363,6 +363,10 @@ namespace bar_display()
 			
 			scoreboard players operation @s next_hp_recover = @s hp_recover_time
 			scoreboard players set @s hurt_time 30
+			
+			# 有坐椅子的話先移除掉
+			execute on vehicle run kill @s
+
 			# 擊退效果
 			execute if score #TOUCH_DAMAGE temp matches 1 run function ARG(_PATH)knockback
 			
@@ -704,9 +708,17 @@ namespace bar_display()
 	{
 		func mp()
 		{
-			scoreboard players operation @s mp += @s mp_recovery
+			scoreboard players operation #GLOBAL temp = @s mp_recovery
+			execute on vehicle run function ARG(_PATH)chair_mp
+			scoreboard players operation @s mp += #GLOBAL temp
 			scoreboard players operation @s mp < @s mp_max
 			function ARG(__PATH)change/mp/recovered
+		}
+		
+		func chair_mp()
+		{
+			scoreboard players operation #GLOBAL temp *= #3 const
+			scoreboard players operation #GLOBAL temp /= #2 const
 		}
 		
 		func hp()
@@ -718,11 +730,14 @@ namespace bar_display()
 		func do_recover_hp()
 		{
 			scoreboard players operation @s next_hp_recover = @s hp_recover_time
-			scoreboard players operation @s hp += @s hp_recovery
+			
+			scoreboard players operation #GLOBAL temp = @s hp_recovery
+			execute on vehicle store result score #GLOBAL temp run data get entity @s item.tag.hp
+			scoreboard players operation @s hp += #GLOBAL temp
 			scoreboard players operation @s hp < @s hp_max
 			
 			scoreboard players set @s display_num_type 3
-			scoreboard players operation @s display_number = @s hp_recovery
+			scoreboard players operation @s display_number = #GLOBAL temp
 			function number_display:show
 			
 			function ARG(__PATH)change/hp/recovered

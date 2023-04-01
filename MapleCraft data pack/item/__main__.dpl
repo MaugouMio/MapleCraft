@@ -109,13 +109,16 @@ namespace item()
 	func main()
 	{
 		# used item check
-		execute as @a[scores={right_click_item=1..},tag=!dead] at @s run function ARG(_PATH)use/check
+		execute as @a[scores={right_click_item=1..}] run function ARG(_PATH)use/check
 		# pick item check
 		execute as @a[predicate=item:pickup] at @s run function ARG(_PATH)pick/check
 		# drop meso check
 		execute as @a unless score @s drop_meso matches 0 run function ARG(_PATH)drop_meso/check
 		# pick dropped meso check
 		execute as @a[predicate=main:sneaking] at @s run function ARG(_PATH)drop_meso/pick
+		
+		# delete no owner chair
+		kill @e[type=item_display,tag=chair,predicate=!skill:sitted]
 	}
 	
 	folder drop_meso()
@@ -317,13 +320,18 @@ namespace item()
 	{
 		func check()
 		{
+			execute if entity @s[tag=!dead] at @s run function ARG(_PATH)switch
+			scoreboard players reset @s right_click_item
+		}
+		
+		func switch()
+		{
 			execute store result score #USING_ITEM temp run data get entity @s[predicate=skill:use_fungus] SelectedItem.tag.CustomModelData
 			
 			execute if score #USING_ITEM temp matches 1..999 run function ARG(_PATH)consume/check
 			execute if score #USING_ITEM temp matches 10001..10500 unless score @s action_time matches 1.. run function ARG(_PATH)weapon/check
-			execute if score #USING_ITEM temp matches 10501.. unless score @s action_time matches 1.. run function ARG(_PATH)equip/check
-			
-			scoreboard players reset @s right_click_item
+			execute if score #USING_ITEM temp matches 10501..100000 unless score @s action_time matches 1.. run function ARG(_PATH)equip/check
+			execute if score #USING_ITEM temp matches 3010000.. unless score @s action_time matches 1.. if entity @s[nbt={OnGround:1b}] run function ARG(_PATH)chair/check
 		}
 		
 		folder equip_numeric()
@@ -1223,6 +1231,31 @@ namespace item()
 						function ARG(_PATH)give
 					}
 				}
+			}
+		}
+		
+		folder chair()
+		{
+			func check()
+			{
+				data modify storage item:main chair set from entity @s SelectedItem.tag.chair
+				tag @s add sit
+				execute positioned ~ ~0.2 ~ summon item_display run function ARG(_PATH)set_chair
+				tag @s remove sit
+				
+				# 重置補血時間 (下椅子的時候就算了，懶得再連閃偵測那個)
+				scoreboard players operation @s next_hp_recover = @s hp_recover_time
+			}
+			
+			func set_chair()
+			{
+				data merge entity @s {item:{id:"minecraft:diamond_hoe",Count:1b},Tags:["chair"],transformation:{translation:[0.0f,0.3f,0.0f]}}
+				data modify entity @s shadow_radius set from storage item:main chair.shadow
+				data modify entity @s item.tag.CustomModelData set from storage item:main chair.id
+				data modify entity @s item.tag.hp set from storage item:main chair.hp
+				
+				tp @s ~ ~ ~ ~180 0
+				ride @a[tag=sit,limit=1] mount @s
 			}
 		}
 	}
