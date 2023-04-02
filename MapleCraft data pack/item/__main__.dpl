@@ -1238,6 +1238,9 @@ namespace item()
 		{
 			func check()
 			{
+				# angle to PI
+				execute store result storage main:main rotation.angle float 0.0001745329 run data get entity @s Rotation[0] 100
+				
 				data modify storage item:main chair set from entity @s SelectedItem.tag.chair
 				tag @s add sit
 				execute positioned ~ ~0.2 ~ summon item_display run function ARG(_PATH)set_chair
@@ -1254,7 +1257,7 @@ namespace item()
 				data modify entity @s item.tag.CustomModelData set from storage item:main chair.id
 				data modify entity @s item.tag.hp set from storage item:main chair.hp
 				
-				tp @s ~ ~ ~ ~180 0
+				data modify entity @s transformation.left_rotation set from storage main:main rotation
 				ride @a[tag=sit,limit=1] mount @s
 			}
 		}

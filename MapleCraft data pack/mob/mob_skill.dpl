@@ -294,6 +294,8 @@ namespace mob_skill()
 			scoreboard players reset #MODEL_COLOR temp
 			
 			scoreboard players operation #BIND_PLAYER number = @s number
+			# angle to PI
+			execute store result storage main:main rotation.angle float 0.0001745329 run data get entity @s Rotation[0] 100
 			execute at @s rotated ~ 0 positioned ~ ~0.2625 ~ summon minecraft:item_display run function ARG(_PATH)effect_model_set
 			playsound minecraft:mob.special.4230114_attack player @a ~ ~ ~ 1 1 0
 			execute store result score @s skill_delay run schedule function ARG(_PATH)call_attack 16t append
@@ -301,11 +303,11 @@ namespace mob_skill()
 		
 		func effect_model_set()
 		{
-			data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:900000}},transformation:{scale:[0.625f,0.625f,0.625f],translation:[0.0f,1.426f,-0.5f]},item_display:"head"}
+			data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:900000}},transformation:{scale:[0.625f,0.625f,0.625f],translation:[0.0f,1.426f,0.0f]},item_display:"head"}
 			scoreboard players set @s max_life 26
 			scoreboard players set @s base_model 900000
 			
-			tp @s ~ ~ ~ ~180 0
+			data modify entity @s transformation.left_rotation set from storage main:main rotation
 			function skill:bind_mob
 		}
 		
@@ -382,6 +384,8 @@ namespace mob_skill()
 			scoreboard players reset #MODEL_COLOR temp
 			
 			scoreboard players operation #BIND_PLAYER number = @s number
+			# angle to PI
+			execute store result storage main:main rotation.angle float 0.0001745329 run data get entity @s Rotation[0] 100
 			execute at @s rotated ~ 0 positioned ~ ~0.2625 ~ summon minecraft:item_display run function ARG(_PATH)effect_model_set
 			playsound minecraft:mob.special.4230115_attack player @a ~ ~ ~ 1 1 0
 			execute store result score @s skill_delay run schedule function ARG(_PATH)call_attack 16t append
@@ -389,11 +393,11 @@ namespace mob_skill()
 		
 		func effect_model_set()
 		{
-			data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:900026}},transformation:{scale:[0.625f,0.625f,0.625f],translation:[0.0f,1.426f,-0.5f]},item_display:"head"}
+			data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:900026}},transformation:{scale:[0.625f,0.625f,0.625f],translation:[0.0f,1.426f,0.0f]},item_display:"head"}
 			scoreboard players set @s max_life 26
 			scoreboard players set @s base_model 900026
 
-			tp @s ~ ~ ~ ~180 0
+			data modify entity @s transformation.left_rotation set from storage main:main rotation
 			function skill:bind_mob
 		}
 		
@@ -714,6 +718,8 @@ namespace mob_skill()
 			scoreboard players add #MODEL_COLOR temp 255
 			
 			scoreboard players operation #BIND_PLAYER number = @s number
+			# angle to PI
+			execute store result storage main:main rotation.angle float 0.0001745329 run data get entity @s Rotation[0] 100
 			execute at @s rotated ~ 0 positioned ~ ~0.2625 ~ summon minecraft:item_display run function ARG(_PATH)effect_model_set
 			playsound minecraft:mob.special.9300012_attack player @a ~ ~ ~ 2 1 0
 			execute store result score @s skill_delay run schedule function ARG(_PATH)call_attack 23t append
@@ -721,11 +727,11 @@ namespace mob_skill()
 		
 		func effect_model_set()
 		{
-			data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:900052}},transformation:{scale:[0.625f,0.625f,0.625f],translation:[0.0f,2.926f,-1.0f]},item_display:"head"}
+			data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:900052}},transformation:{scale:[0.625f,0.625f,0.625f],translation:[0.0f,2.926f,0.0f]},item_display:"head"}
 			scoreboard players set @s max_life 36
 			scoreboard players set @s base_model 900052
 
-			tp @s ~ ~ ~ ~180 0
+			data modify entity @s transformation.left_rotation set from storage main:main rotation
 			function skill:bind_mob
 		}
 		

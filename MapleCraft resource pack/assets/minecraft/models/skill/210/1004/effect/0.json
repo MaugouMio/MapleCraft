@@ -6,22 +6,22 @@
 	"elements": [
 		{
 			"name": "Cube",
-			"from": [1, 0, -5.75],
-			"to": [15, 0.1, 21.75],
+			"from": [-5.75, 0, 1],
+			"to": [21.75, 0.1, 15],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0.05, 8]},
 			"faces": {
 				"north": {"uv": [1, 1, 1, 1], "texture": "#texture"},
 				"east": {"uv": [1, 1, 1, 1], "texture": "#texture"},
 				"south": {"uv": [1, 1, 1, 1], "texture": "#texture"},
 				"west": {"uv": [1, 1, 1, 1], "texture": "#texture"},
-				"up": {"uv": [0, 0, 16, 16], "texture": "#texture"},
-				"down": {"uv": [0, 16, 16, 0], "texture": "#texture"}
+				"up": {"uv": [16, 16, 0, 0], "rotation": 90, "texture": "#texture"},
+				"down": {"uv": [16, 0, 0, 16], "rotation": 270, "texture": "#texture"}
 			}
 		}
 	],
 	"display": {
 		"head": {
-			"rotation": [0, -90, 0],
-			"translation": [0, 5, 0],
+			"translation": [0, 5, 24],
 			"scale": [3, 3, 3]
 		}
 	}

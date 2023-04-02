@@ -100,6 +100,8 @@ namespace main()
 		print("summon minecraft:snow_golem 250 -2 0 {NoAI:1,NoGravity:1,Invulnerable:1,Silent:1,UUID:%s}" %UUID_LIST["root"])
 		```
 		
+		data modify storage main:main rotation set value {angle:0.0f,axis:[0.0f,-1.0f,0.0f]}
+		
 		function skill:install
 		function number_display:install
 		function bar_display:install

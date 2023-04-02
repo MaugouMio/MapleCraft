@@ -1283,7 +1283,7 @@ namespace skill()
 		{
 			func set_icon()
 			{
-				data merge entity @s {Tags:["blind"],item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:100,CustomPotionColor:24}},transformation:{scale:[1.15f,1.15f,1.15f]},billboard:"center"}
+				data merge entity @s {Tags:["blind"],item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:100,CustomPotionColor:24}},billboard:"center"}
 				function skill:bind_player
 			}
 			
@@ -1311,7 +1311,7 @@ namespace skill()
 		{
 			func set_icon()
 			{
-				data merge entity @s {Tags:["seal"],item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:101,CustomPotionColor:24}},transformation:{scale:[1.6f,1.6f,1.6f]},billboard:"center"}
+				data merge entity @s {Tags:["seal"],item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:101,CustomPotionColor:24}},billboard:"center"}
 				function skill:bind_player
 			}
 			

@@ -425,7 +425,7 @@ namespace 41() as virtual
 				scoreboard players set @s max_life 12
 				scoreboard players set @s base_model 410000
 
-				tp @s ~ ~ ~ ~ 0
+				data modify entity @s transformation.left_rotation set from storage main:main rotation
 				function skill:bind_player
 			}
 			
@@ -479,6 +479,8 @@ namespace 41() as virtual
 			func cast_effect()
 			{
 				scoreboard players operation #BIND_PLAYER number = @s number
+				# angle to PI
+				execute store result storage main:main rotation.angle float 0.0001745329 run data get entity @s Rotation[0] 100
 				execute summon minecraft:item_display run function ARG(_PATH)effect_model_set
 				function skill:afterimage/claw/swing
 				playsound minecraft:skill.4101005 player @a ~ ~ ~ 1 1 0

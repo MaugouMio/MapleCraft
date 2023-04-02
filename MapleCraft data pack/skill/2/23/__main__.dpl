@@ -505,11 +505,11 @@ namespace 23() as virtual
 			
 			func effect_model_set()
 			{
-				data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:230000}},transformation:{scale:[0.625f,0.625f,0.625f],translation:[0.0f,1.6885f,-1.0f]},item_display:"head"}
+				data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:230000}},transformation:{scale:[0.625f,0.625f,0.625f],translation:[0.0f,1.6885f,0.0f]},item_display:"head"}
 				scoreboard players set @s max_life 14
 				scoreboard players set @s base_model 230000
 				
-				tp @s ~ ~ ~ ~180 0
+				data modify entity @s transformation.left_rotation set from storage main:main rotation
 				function skill:bind_player
 			}
 			
@@ -535,6 +535,8 @@ namespace 23() as virtual
 			func cast_effect()
 			{
 				scoreboard players operation #BIND_PLAYER number = @s number
+				# angle to PI
+				execute store result storage main:main rotation.angle float 0.0001745329 run data get entity @s Rotation[0] 100
 				execute rotated ~ 0 summon minecraft:item_display run function ARG(_PATH)effect_model_set
 				playsound minecraft:skill.2301005 player @a ~ ~ ~ 1 1 0
 			}
