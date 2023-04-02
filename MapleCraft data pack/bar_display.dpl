@@ -364,11 +364,14 @@ namespace bar_display()
 			scoreboard players operation @s next_hp_recover = @s hp_recover_time
 			scoreboard players set @s hurt_time 30
 			
-			# 有坐椅子的話先移除掉
-			execute on vehicle run kill @s
-
 			# 擊退效果
-			execute if score #TOUCH_DAMAGE temp matches 1 run function ARG(_PATH)knockback
+			```
+			print("execute if score #TOUCH_DAMAGE temp matches 1 on attacker at @s run summon marker ~ ~ ~ {UUID:%s}" %UUID_LIST["mob_damage"])
+			```
+			# 要先解除騎乘狀態
+			execute on vehicle run function ARG(_PATH)sit_knock
+			function mob:damage
+			execute if score #TOUCH_DAMAGE temp matches 1 run kill 00000000-0000-0006-0000-000000000006
 			
 			effect give @s minecraft:glowing infinite 0 true
 			effect give @s minecraft:fire_resistance infinite 0 true
@@ -376,13 +379,11 @@ namespace bar_display()
 			scoreboard players reset #TOUCH_DAMAGE temp
 		}
 
-		func knockback()
+		func sit_knock()
 		{
-			```
-			print("execute on attacker at @s run summon marker ~ ~ ~ {UUID:%s}" %UUID_LIST["mob_damage"])
-			```
-			function mob:damage
-			kill 00000000-0000-0006-0000-000000000006
+			# 用 tp 解除騎乘狀態才不會有從坐騎下來的動量刷新
+			execute on passengers run tp @s @s
+			kill @s
 		}
 	}
 	

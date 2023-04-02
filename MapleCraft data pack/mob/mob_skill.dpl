@@ -121,9 +121,6 @@ namespace mob_skill()
 			scoreboard players operation @s damage_taken = #MAGIC_ATTACK temp
 			function bar_display:take_damage/physic/check
 			
-			# 給一點角色受傷的動作
-			execute if score @s damage_taken matches 1.. run function mob:damage
-			
 			scoreboard players set #SKILL_HIT temp 1
 		}
 	}
@@ -247,9 +244,6 @@ namespace mob_skill()
 			scoreboard players operation @s damage_taken = #MAGIC_ATTACK temp
 			function bar_display:take_damage/physic/check
 			
-			# 給一點角色受傷的動作
-			execute if score @s damage_taken matches 1.. run function mob:damage
-			
 			execute summon text_display run function skill:summon_font_effect/9000000rombot_hit
 		}
 	}
@@ -335,9 +329,6 @@ namespace mob_skill()
 		{
 			scoreboard players operation @s damage_taken = #MAGIC_ATTACK temp
 			function bar_display:take_damage/magic/check
-			
-			# 給一點角色受傷的動作
-			execute if score @s damage_taken matches 1.. run function mob:damage
 			
 			playsound minecraft:mob.special.4230114_char_damage player @a ~ ~ ~ 1 1 0
 			execute summon text_display run function skill:summon_font_effect/9000000platoon_chronos_hit
@@ -425,9 +416,6 @@ namespace mob_skill()
 		{
 			scoreboard players operation @s damage_taken = #MAGIC_ATTACK temp
 			function bar_display:take_damage/magic/check
-			
-			# 給一點角色受傷的動作
-			execute if score @s damage_taken matches 1.. run function mob:damage
 			
 			playsound minecraft:mob.special.4230115_char_damage player @a ~ ~ ~ 1 1 0
 			execute summon text_display run function skill:summon_font_effect/9000000master_chronos_hit
@@ -761,8 +749,6 @@ namespace mob_skill()
 			scoreboard players operation @s damage_taken = #MAGIC_ATTACK temp
 			function bar_display:take_damage/magic/check
 			
-			# 給一點角色受傷的動作
-			execute if score @s damage_taken matches 1.. run function mob:damage
 			execute summon text_display run function skill:summon_font_effect/9000000alishar_hit
 			
 			scoreboard players set #SKILL_HIT temp 1

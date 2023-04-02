@@ -292,7 +292,7 @@ namespace item()
 		{
 			func record()
 			{
-				data modify storage main:item picked_meso append from entity @s Inventory[{id:"minecraft:diamond"}]
+				data modify storage item:main picked_meso append from entity @s Inventory[{id:"minecraft:diamond"}]
 				function ARG(_PATH)run
 				
 				clear @s minecraft:diamond
@@ -301,9 +301,9 @@ namespace item()
 			
 			func execute()
 			{
-				execute store result score #GLOBAL temp run data get storage main:item picked_meso[0].tag.CustomModelData
-				execute store result score #ITEM_COUNT temp run data get storage main:item picked_meso[0].Count
-				data remove storage main:item picked_meso[0]
+				execute store result score #GLOBAL temp run data get storage item:main picked_meso[0].tag.CustomModelData
+				execute store result score #ITEM_COUNT temp run data get storage item:main picked_meso[0].Count
+				data remove storage item:main picked_meso[0]
 				
 				scoreboard players operation #GLOBAL temp *= #ITEM_COUNT temp
 				scoreboard players operation @s meso += #GLOBAL temp
