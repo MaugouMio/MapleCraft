@@ -785,18 +785,18 @@ namespace skill()
 								
 								scoreboard players set @s status 20
 								scoreboard players remove @s hp 1
-								execute if score @s hp matches 0 run data modify entity @s ArmorItems[3].tag.killer set from storage skill:main damage_info.attacker
+								execute if score @s hp matches 0 run data modify entity @s item.tag.killer set from storage skill:main damage_info.attacker
 								
 								scoreboard players add #FOUND_ENEMY temp 1
 							}
 							
 							func setting()
 							{
-								execute store result score @s hp run data get entity @s ArmorItems[3].tag.info.hp_max
-								execute store result score @s hurt_sound run data get entity @s ArmorItems[3].tag.info.hurt_sound
+								execute store result score @s hp run data get entity @s item.tag.info.hp_max
+								execute store result score @s hurt_sound run data get entity @s item.tag.info.hurt_sound
 								# die_sound 這邊不是死亡音效編號，是箱子破壞事件編號 (對應 function 自己播放音效)
-								execute store result score @s die_sound run data get entity @s ArmorItems[3].tag.info.die_sound
-								execute store result score @s base_model run data get entity @s ArmorItems[3].tag.CustomModelData
+								execute store result score @s die_sound run data get entity @s item.tag.info.die_sound
+								execute store result score @s base_model run data get entity @s item.tag.CustomModelData
 								scoreboard players remove @s base_model 1
 							}
 						}
@@ -814,80 +814,97 @@ namespace skill()
 							# 近距離武器揮動特效上面為了抓攻擊高度已經做了，這邊不用再做
 						}
 						
-						func update()
+						folder update()
 						{
-							scoreboard players remove @s status 1
-							execute store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players add @s base_model 1
+							func check()
+							{
+								execute if score @s status matches 1.. run function ARG(_PATH)status
+								execute unless score @s spawn_alpha matches 10 run function ARG(_PATH)fade
+							}
 							
-							execute if score @s status matches 13 run function ARG(_PATH)hit_effect
-							execute if score @s status matches 0 if score @s hp matches 0 run function ARG(_PATH)kill
-						}
-						
-						func kill()
-						{
-							execute on vehicle run kill @s
-							function main:deep_kill
-						}
-						
-						func hit_effect()
-						{
-							execute if score @s hp matches 1.. run function skill:mob_effect/play_hurt_sound/run
-							execute if score @s hp matches 0 run function ARG(_PATH)break_effect
-						}
-						
-						func break_effect()
-						{
-							data modify storage skill:main damage_info.attacker set from entity @s ArmorItems[3].tag.killer
+							func fade()
+							{
+								execute store result entity @s item.tag.CustomPotionColor int 10 run scoreboard players add @s spawn_alpha 1
+								execute store result entity @s shadow_strength float 0.08 run scoreboard players get @s spawn_alpha
+								execute if score @s spawn_alpha matches 10 on vehicle run tag @s add box
+							}
 							
-							loot spawn ~ ~1 ~ kill @s
-							execute as @e[type=item,tag=!checked] at @s run function item:entity/check
+							func status()
+							{
+								scoreboard players remove @s status 1
+								execute store result entity @s item.tag.CustomModelData int 1 run scoreboard players add @s base_model 1
+								
+								execute if score @s status matches 13 at @s run function ARG(_PATH)hit_effect
+								execute if score @s status matches 0 if score @s hp matches 0 run function ARG(_PATH)kill
+							}
 							
-							function ARG(_PATH)check_break_event/run
-						}
-						
-						folder check_break_event()
-						{
-							```
-							def bs_break_event(event_list, start, end):
-								if len(event_list) == 1:
-									print("func run()")
+							func kill()
+							{
+								execute on vehicle run kill @s
+								kill @s
+							}
+							
+							func hit_effect()
+							{
+								execute if score @s hp matches 1.. run function skill:mob_effect/play_hurt_sound/run
+								execute if score @s hp matches 0 run function ARG(_PATH)break_effect
+							}
+							
+							func break_effect()
+							{
+								data modify storage skill:main damage_info.attacker set from entity @s item.tag.killer
+								
+								data modify entity 00000000-0000-0001-0000-000000000001 DeathLootTable set from entity @s item.tag.loot
+								loot spawn ~ ~1 ~ kill 00000000-0000-0001-0000-000000000001
+								execute as @e[type=item,tag=!checked] at @s run function item:entity/check
+								
+								function ARG(_PATH)check_break_event/run
+							}
+							
+							folder check_break_event()
+							{
+								```
+								def bs_break_event(event_list, start, end):
+									if len(event_list) == 1:
+										print("func run()")
+										print("{")
+										print(f"\texecute if score @s die_sound matches {event_list[0][0]} run {event_list[0][1]}")
+										print("}")
+										return
+									
+									if start == end:
+										return
+									
+									mid = (start + end) // 2
+									mid_right = mid + 1
+									
+									if start == 0 and end == len(event_list) - 1:
+										print("func run()")
+									else:
+										print(f"func {start}_{end}()")
 									print("{")
-									print(f"\texecute if score @s die_sound matches {event_list[0][0]} run {event_list[0][1]}")
+									if start == mid:
+										print(f"\texecute if score @s die_sound matches {event_list[start][0]} run {event_list[start][1]}")
+									else:
+										print(f"\texecute if score @s die_sound matches {event_list[start][0]}..{event_list[mid][0]} run function ARG(_PATH){start}_{mid}")
+									if mid_right == end:
+										print(f"\texecute if score @s die_sound matches {event_list[end][0]} run {event_list[end][1]}")
+									else:
+										print(f"\texecute if score @s die_sound matches {event_list[mid_right][0]}..{event_list[end][0]} run function ARG(_PATH){mid_right}_{end}")
 									print("}")
-									return
+									
+									bs_break_event(event_list, start, mid)
+									bs_break_event(event_list, mid_right, end)
 								
-								if start == end:
-									return
+								with open(PROJ_DIR + "/../box_events.csv") as f:
+									break_events = f.read().split("\n")
+									for i in range(len(break_events)):
+										break_events[i] = break_events[i].split(",")
+										break_events[i][0] = int(break_events[i][0])
 								
-								mid = (start + end) // 2
-								mid_right = mid + 1
-								
-								if start == 0 and end == len(event_list) - 1:
-									print("func run()")
-								else:
-									print(f"func {start}_{end}()")
-								print("{")
-								if start == mid:
-									print(f"\texecute if score @s die_sound matches {event_list[start][0]} run {event_list[start][1]}")
-								else:
-									print(f"\texecute if score @s die_sound matches {event_list[start][0]}..{event_list[mid][0]} run function ARG(_PATH){start}_{mid}")
-								if mid_right == end:
-									print(f"\texecute if score @s die_sound matches {event_list[end][0]} run {event_list[end][1]}")
-								else:
-									print(f"\texecute if score @s die_sound matches {event_list[mid_right][0]}..{event_list[end][0]} run function ARG(_PATH){mid_right}_{end}")
-								print("}")
-								
-								bs_break_event(event_list, start, mid)
-								bs_break_event(event_list, mid_right, end)
-							
-							with open(PROJ_DIR + "/../box_events.csv") as f:
-								break_events = f.read().split("\n")
-								for i in range(len(break_events)):
-									break_events[i] = break_events[i].split(",")
-									break_events[i][0] = int(break_events[i][0])
-							
-							bs_break_event(break_events, 0, len(break_events) - 1)
-							```
+								bs_break_event(break_events, 0, len(break_events) - 1)
+								```
+							}
 						}
 					}
 					
@@ -1350,7 +1367,7 @@ namespace skill()
 			execute as @e[type=armor_stand,tag=bullet] run function skill:bullet/check
 			execute as @e[type=item_display,tag=model_animation] run function ARG(_PATH)model_animation_update
 			execute as @e[type=item_display,tag=afterimage] run function skill:afterimage/update
-			execute as @e[type=zombie,tag=box,scores={status=1..}] at @s run function skill:6/0/0/1000/box/update
+			execute as @e[type=item_display,tag=box] run function skill:6/0/0/1000/box/update/check
 			execute as @e[type=ocelot,scores={spawn_alpha=1..}] run function ARG(_PATH)enemy/run
 			execute as @e[type=magma_cube,tag=!original] unless predicate skill:riding_enemy run function main:deep_kill
 			

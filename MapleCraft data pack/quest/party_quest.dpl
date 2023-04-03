@@ -997,7 +997,7 @@ namespace party_quest() as virtual
 			{
 				func summon_box()
 				{
-					summon interaction ~ ~ ~ {Tags:["ldpq_mob","box"],Passengers:[{id:"minecraft:zombie",Tags:["ldpq_mob","box"],ArmorItems:[{},{},{},{id:"minecraft:diamond_hoe",Count:1b,tag:{info:{hp_max:4,hurt_sound:5,die_sound:1},CustomModelData:1}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1b,PersistenceRequired:1b,NoAI:1b,Invulnerable:1b,DeathLootTable:"skill:mob/special/pass_pq",Team:"enemy"}]}
+					summon interaction ~ ~ ~ {Tags:["ldpq_mob"],Passengers:[{id:"minecraft:item_display",Tags:["ldpq_mob","box"],item:{id:"minecraft:splash_potion",Count:1b,tag:{info:{hp_max:4,hurt_sound:5,die_sound:1},CustomModelData:1,CustomPotionColor:0,loot:"skill:mob/special/pass_pq"}},item_display:"head",shadow_strength:0.0f,shadow_radius:0.9f}]}
 				}
 				
 				func box_break()
