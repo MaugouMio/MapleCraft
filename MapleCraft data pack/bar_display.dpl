@@ -377,6 +377,7 @@ namespace bar_display()
 			effect give @s minecraft:fire_resistance infinite 0 true
 
 			scoreboard players reset #TOUCH_DAMAGE temp
+			scoreboard players set @s tired_time 5
 		}
 
 		func sit_knock()

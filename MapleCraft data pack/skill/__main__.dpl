@@ -83,6 +83,8 @@ namespace attack_skill_template(skill_id) as virtual
 		if "ARG(skill_id)" in ["3201005", "1000006", "2221006", "3221001"]:
 			print("scoreboard players reset #AFTER_MODIFIER_NUM temp")
 		```
+		
+		scoreboard players set @s tired_time 5
 	}
 	
 	func did_hit()
@@ -332,6 +334,8 @@ namespace bullet_skill_template(skill_id) as virtual
 		scoreboard players add #BULLET_ID number 1
 		execute if score #FOUND_ENEMY temp matches 1.. run function ARG(_PATH)did_hit
 		execute if score #FOUND_ENEMY temp matches 0 as @e[type=armor_stand,tag=new_bullet] run function skill:bullet/no_target_setting
+		
+		scoreboard players set @s tired_time 5
 	}
 	
 	func did_hit()
@@ -1184,6 +1188,7 @@ namespace skill()
 		scoreboard objectives add hit_order dummy
 		scoreboard objectives add hit_distance dummy
 		scoreboard objectives add action_time dummy
+		scoreboard objectives add tired_time dummy
 		scoreboard objectives add f_attack_skill dummy
 		scoreboard objectives add f_attack_time dummy
 		scoreboard objectives add f_attack_weapon dummy
@@ -1238,6 +1243,7 @@ namespace skill()
 		{
 			execute as @e[type=ocelot,tag=!dead] run function ARG(_PATH)enemy
 			execute as @a[scores={debuff_count=1..}] at @s run function ARG(__PATH)update_negative/run
+			scoreboard players remove @a[scores={tired_time=1..}] tired_time 1
 		}
 		
 		func enemy()
