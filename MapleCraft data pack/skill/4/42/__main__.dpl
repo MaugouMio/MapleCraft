@@ -220,10 +220,15 @@ namespace 42() as virtual
 			
 			func steal()
 			{
-				data modify entity 00000000-0000-0001-0000-000000000001 DeathLootTable set from entity @s ArmorItems[3].tag.steal_loot
-				loot spawn ~ ~1 ~ kill 00000000-0000-0001-0000-000000000001
-				execute as @e[type=item,tag=!checked] at @s run function item:entity/check
+				execute if data entity @s ArmorItems[3].tag.steal_loot run function ARG(_PATH)real_steal
 				tag @s add stolen
+			}
+
+			func real_steal()
+			{
+				data modify entity 00000000-0000-0001-0000-000000000001 DeathLootTable set from entity @s ArmorItems[3].tag.steal_loot
+				function skill:spawn_loot
+				execute as @e[type=item,tag=!checked] at @s run function item:entity/check
 			}
 			
 			func append_scheduler()

@@ -1002,7 +1002,7 @@ namespace party_quest() as virtual
 				
 				func box_break()
 				{
-					playsound minecraft:mob.hurt.b_22020024 player @a ~ ~ ~ 1 1 0
+					playsound minecraft:mob.hurt.b_22020023 player @a ~ ~ ~ 1 1 0
 					particle minecraft:poof ~ ~0.5 ~ 0.3 0.1 0.3 0.01 7 force
 				}
 			}

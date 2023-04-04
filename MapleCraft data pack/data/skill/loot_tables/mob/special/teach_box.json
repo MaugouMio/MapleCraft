@@ -1,0 +1,105 @@
+{
+  "pools": [
+    {
+      "rolls": 1.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance_with_looting",
+              "chance": 0,
+              "looting_multiplier": 0.3
+            }
+          ],
+          "functions": [
+            {
+              "function": "minecraft:set_attributes",
+              "modifiers": [
+                {
+                  "name": "meso",
+                  "attribute": "minecraft:generic.attack_damage",
+                  "operation": "addition",
+                  "amount": {
+                    "min": 0.008,
+                    "max": 0.014
+                  },
+                  "slot": "head"
+                }
+              ]
+            },
+            {
+              "function": "minecraft:set_name",
+              "name": ""
+            },
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{HideFlags:127}"
+            }
+          ],
+          "name": "minecraft:diamond"
+        }
+      ]
+    },
+    {
+      "rolls": 1.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_name",
+              "name": {"translate": "item.etc.4031161", "font": "minecraft:uniform", "bold": true, "italic": false}
+            },
+            {
+              "function": "minecraft:set_lore",
+              "lore": [
+                {
+                  "translate": "item.notice.quest_item",
+                  "color": "#FE8811",
+                  "font": "minecraft:uniform",
+                  "italic": false
+                }
+              ]
+            },
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{no_trade:1b,HideFlags:127,CustomModelData:4031161}"
+            }
+          ],
+          "name": "minecraft:stick"
+        }
+      ]
+    },
+    {
+      "rolls": 1.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_name",
+              "name": {"translate": "item.etc.4031162", "font": "minecraft:uniform", "bold": true, "italic": false}
+            },
+            {
+              "function": "minecraft:set_lore",
+              "lore": [
+                {
+                  "translate": "item.notice.quest_item",
+                  "color": "#FE8811",
+                  "font": "minecraft:uniform",
+                  "italic": false
+                }
+              ]
+            },
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{no_trade:1b,HideFlags:127,CustomModelData:4031162}"
+            }
+          ],
+          "name": "minecraft:stick"
+        }
+      ]
+    }
+  ]
+}

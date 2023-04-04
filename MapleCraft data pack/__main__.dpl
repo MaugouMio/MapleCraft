@@ -99,6 +99,7 @@ namespace main()
 		```
 		print("summon minecraft:snow_golem 250 -2 0 {NoAI:1,NoGravity:1,Invulnerable:1,Silent:1,UUID:%s}" %UUID_LIST["root"])
 		```
+		item replace entity 00000000-0000-0001-0000-000000000001 weapon.mainhand with minecraft:potion{CustomModelData:1,Enchantments:[{id:"minecraft:looting",lvl:1}]}
 		
 		data modify storage main:main rotation set value {angle:0.0f,axis:[0.0f,-1.0f,0.0f]}
 		

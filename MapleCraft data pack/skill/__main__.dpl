@@ -852,13 +852,18 @@ namespace skill()
 							
 							func break_effect()
 							{
-								data modify storage skill:main damage_info.attacker set from entity @s item.tag.killer
-								
-								data modify entity 00000000-0000-0001-0000-000000000001 DeathLootTable set from entity @s item.tag.loot
-								loot spawn ~ ~1 ~ kill 00000000-0000-0001-0000-000000000001
-								execute as @e[type=item,tag=!checked] at @s run function item:entity/check
-								
+								execute if data entity @s item.tag.loot run function ARG(_PATH)loot
 								function ARG(_PATH)check_break_event/run
+							}
+
+							func loot()
+							{
+								# 箱子掉落物沒有所有權
+								data remove storage skill:main damage_info.attacker
+
+								data modify entity 00000000-0000-0001-0000-000000000001 DeathLootTable set from entity @s item.tag.loot
+								function skill:spawn_loot
+								execute as @e[type=item,tag=!checked] at @s run function item:entity/check
 							}
 							
 							folder check_break_event()
@@ -3354,16 +3359,19 @@ namespace skill()
 		{
 			attribute @s minecraft:generic.movement_speed base set -100.0
 			
-			item replace entity @s weapon.mainhand with minecraft:potion{CustomModelData:1,Enchantments:[{id:"minecraft:looting",lvl:1}]}
-			execute store result entity @s HandItems[0].tag.Enchantments[0].lvl int 1 run scoreboard players get #WORLD_DROP_RATE const
-			loot spawn ~ ~1 ~ kill @s
-			execute as @e[type=item,tag=!checked] at @s run function item:entity/check
-			
+			execute if data entity @s DeathLootTable run function ARG(_PATH)loot			
 			scoreboard players operation #EXP_GAIN temp += @s exp
 			tag @s add dead
 
 			execute on passengers run data modify entity @s[type=magma_cube] NoAI set value 1b
 			execute on passengers run tag @s[type=interaction] remove enemy
+		}
+
+		func loot()
+		{
+			data modify entity 00000000-0000-0001-0000-000000000001 DeathLootTable set from entity @s DeathLootTable
+			function skill:spawn_loot
+			execute as @e[type=item,tag=!checked] at @s run function item:entity/check
 		}
 		
 		folder traverse_damages() from while_loop("if data storage skill:main damage_copy[0]")
@@ -4904,5 +4912,12 @@ namespace skill()
 		execute as @e[type=ocelot,distance=..12] if score @s number = #BIND_PLAYER number run tag @s add bind
 		ride @s mount @e[type=ocelot,tag=bind,limit=1]
 		tag @e[type=ocelot,tag=bind,limit=1] remove bind
+	}
+	
+	func spawn_loot()
+	{
+		execute if score #WORLD_DROP_RATE const = #WORLD_DROP_RATE const store result entity 00000000-0000-0001-0000-000000000001 HandItems[0].tag.Enchantments[0].lvl int 1 run scoreboard players get #WORLD_DROP_RATE const
+		execute as 00000000-0000-0001-0000-000000000001 run loot spawn ~ ~1 ~ kill @s
+		scoreboard players reset #WORLD_DROP_RATE const
 	}
 }
