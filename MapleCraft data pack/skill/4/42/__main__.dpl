@@ -360,15 +360,21 @@ namespace 42() as virtual
 			
 			func effect()
 			{
-				execute if score @s display_number matches 1.. positioned ^ ^0.3 ^0.5 run function ARG(_PATH)rand_hit_effect
+				execute if score @s display_number matches 1.. summon item_display run function ARG(_PATH)effect_model_set
 				playsound minecraft:skill.4201005_hit player @a ~ ~ ~ 1 1 0
 			}
 			
-			func rand_hit_effect()
+			func effect_model_set()
 			{
-				execute if score #HIT_EFFECT temp matches 3 summon text_display run function skill:summon_font_effect/4201005hit0
-				execute if score #HIT_EFFECT temp matches 4 summon text_display run function skill:summon_font_effect/4201005hit1
-				execute if score #HIT_EFFECT temp matches 5 summon text_display run function skill:summon_font_effect/4201005hit2
+				data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:1}},item_display:"head",billboard:"center"}
+				scoreboard players set @s max_life 2
+				execute if score #HIT_EFFECT temp matches 3 store result entity @s item.tag.CustomModelData int 1 run scoreboard players set @s base_model 420014
+				execute if score #HIT_EFFECT temp matches 4 store result entity @s item.tag.CustomModelData int 1 run scoreboard players set @s base_model 420016
+				execute if score #HIT_EFFECT temp matches 5 store result entity @s item.tag.CustomModelData int 1 run scoreboard players set @s base_model 420018
+
+				tp @s ~ ~ ~ ~ 0
+				function skill:get_horizon_offset_color
+				execute store result entity @s item.tag.CustomPotionColor int 1 run scoreboard players add #MODEL_COLOR temp 15
 			}
 			
 			func append_scheduler()

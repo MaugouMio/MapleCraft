@@ -66,10 +66,22 @@ namespace 0() as virtual
 				
 				func effect()
 				{
-					execute if score @s display_number matches 10 positioned ^ ^ ^0.5 summon text_display run function skill:summon_font_effect/0001000hit0
-					execute if score @s display_number matches 25 positioned ^ ^ ^0.5 summon text_display run function skill:summon_font_effect/0001000hit1
-					execute if score @s display_number matches 40 positioned ^ ^ ^0.5 summon text_display run function skill:summon_font_effect/0001000hit2
+					scoreboard players operation #SNAIL_DAMAGE temp = @s display_number
+					execute summon item_display run function ARG(_PATH)effect_model_set
 					function skill:mob_effect/play_hurt_sound/run
+				}
+
+				func effect_model_set()
+				{
+					data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:1}},item_display:"head",billboard:"center"}
+					scoreboard players set @s max_life 11
+					execute if score #SNAIL_DAMAGE temp matches 10 store result entity @s item.tag.CustomModelData int 1 run scoreboard players set @s base_model 100018
+					execute if score #SNAIL_DAMAGE temp matches 25 store result entity @s item.tag.CustomModelData int 1 run scoreboard players set @s base_model 100029
+					execute if score #SNAIL_DAMAGE temp matches 40 store result entity @s item.tag.CustomModelData int 1 run scoreboard players set @s base_model 100040
+
+					tp @s ~ ~ ~ ~ 0
+					function skill:get_horizon_offset_color
+					execute store result entity @s item.tag.CustomPotionColor int 1 run scoreboard players add #MODEL_COLOR temp 12
 				}
 				
 				func append_scheduler()

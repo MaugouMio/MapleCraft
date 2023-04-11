@@ -83,7 +83,6 @@ namespace mob()
 			execute store result score @s kb run data get entity @s ArmorItems[3].tag.info.kb
 			execute store result score @s speed run data get entity @s ArmorItems[3].tag.info.speed
 			execute store result score @s exp run data get entity @s ArmorItems[3].tag.info.exp
-			execute store result score @s default_width run data get entity @s ArmorItems[3].tag.info.width
 			execute store result score @s default_height run data get entity @s ArmorItems[3].tag.info.height
 			execute store result score @s hurt_sound run data get entity @s ArmorItems[3].tag.info.hurt_sound
 			execute store result score @s die_sound run data get entity @s ArmorItems[3].tag.info.die_sound
@@ -173,7 +172,7 @@ namespace mob()
 		# 青蛇 KPQ
 		# print("execute rotated ~ 0 positioned ^ ^ ^5 align y run", spawn_mob("9300000"))
 		# 風獨眼獸 KPQ
-		# print("execute rotated ~ 0 positioned ^ ^ ^5 align y run", spawn_mob("9300002"))
+		print("execute rotated ~ 0 positioned ^ ^ ^5 align y run", spawn_mob("9300002"))
 		# 超級綠水靈
 		# print("execute rotated ~ 0 positioned ^ ^ ^5 align y run", spawn_mob("9300003"))
 		# 綠水靈
@@ -197,7 +196,7 @@ namespace mob()
 		# 積木泥人王 LDPQ
 		# print("execute rotated ~ 0 positioned ^ ^ ^5 align y run", spawn_mob("9300013"))
 		# 積木泥人 LDPQ
-		# print("execute rotated ~ 0 positioned ^ ^ ^5 align y run", spawn_mob("9300009"))
+		print("execute rotated ~ 0 positioned ^ ^ ^5 align y run", spawn_mob("9300009"))
 		# 泥人領導者 LDPQ
 		# print("execute rotated ~ 0 positioned ^ ^ ^5 align y run", spawn_mob("9300010"))
 		# 妖魔 LDPQ

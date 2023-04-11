@@ -111,8 +111,20 @@ namespace 22() as virtual
 			
 			func effect()
 			{
-				execute if score @s display_number matches 1.. positioned ^ ^ ^0.5 summon text_display run function skill:summon_font_effect/2201004hit
+				execute if score @s display_number matches 1.. summon item_display run function ARG(_PATH)effect_model_set
 				function skill:mob_effect/play_hurt_sound/run
+			}
+			
+			func effect_model_set()
+			{
+				data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:220000}},item_display:"head",billboard:"vertical"}
+				scoreboard players set @s max_life 12
+				scoreboard players set @s base_model 220000
+
+				tp @s ~ ~ ~ ~ 0
+				function skill:get_horizon_offset_color
+				# 往後退 0.2 格，再往上 1 格
+				execute store result entity @s item.tag.CustomPotionColor int 1 run scoreboard players remove #MODEL_COLOR temp 502
 			}
 			
 			func append_scheduler()

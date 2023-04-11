@@ -425,8 +425,19 @@ namespace 3() as virtual
 				
 				func effect()
 				{
-					execute if score @s display_number matches 1.. positioned ^ ^ ^0.5 summon text_display run function skill:summon_font_effect/3001004hit
+					execute if score @s display_number matches 1.. summon item_display run function ARG(_PATH)effect_model_set
 					function skill:mob_effect/play_hurt_sound/run
+				}
+				
+				func effect_model_set()
+				{
+					data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:300000}},item_display:"head",billboard:"center"}
+					scoreboard players set @s max_life 4
+					scoreboard players set @s base_model 300000
+
+					tp @s ~ ~ ~ ~ 0
+					function skill:get_horizon_offset_color
+					execute store result entity @s item.tag.CustomPotionColor int 1 run scoreboard players add #MODEL_COLOR temp 12
 				}
 				
 				func append_scheduler()
@@ -639,8 +650,19 @@ namespace 3() as virtual
 				
 				func effect()
 				{
-					execute if score @s display_number matches 1.. positioned ^ ^ ^0.5 summon text_display run function skill:summon_font_effect/3001005hit
+					execute if score @s display_number matches 1.. summon item_display run function ARG(_PATH)effect_model_set
 					function skill:mob_effect/play_hurt_sound/run
+				}
+				
+				func effect_model_set()
+				{
+					data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:300004}},item_display:"head",billboard:"center"}
+					scoreboard players set @s max_life 4
+					scoreboard players set @s base_model 300004
+
+					tp @s ~ ~ ~ ~ 0
+					function skill:get_horizon_offset_color
+					execute store result entity @s item.tag.CustomPotionColor int 1 run scoreboard players add #MODEL_COLOR temp 12
 				}
 				
 				func append_scheduler()
@@ -798,8 +820,8 @@ namespace 3() as virtual
 				
 				func effect()
 				{
-					execute if score @s display_number matches 1.. positioned ^ ^ ^0.5 summon text_display run function skill:summon_font_effect/1100003hit
-					function skill:mob_effect/play_hurt_sound/run
+					scoreboard players set #HIT_EFFECT temp 4
+					function skill:1/0/0/0006/effect
 				}
 				
 				func append_scheduler()

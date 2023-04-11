@@ -433,8 +433,19 @@ namespace 2() as virtual
 				
 				func effect()
 				{
-					execute if score @s display_number matches 1.. positioned ^ ^ ^0.5 summon text_display run function skill:summon_font_effect/2001004hit
+					execute if score @s display_number matches 1.. summon item_display run function ARG(_PATH)effect_model_set
 					function skill:mob_effect/play_hurt_sound/run
+				}
+				
+				func effect_model_set()
+				{
+					data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:200000}},item_display:"head",billboard:"center"}
+					scoreboard players set @s max_life 5
+					scoreboard players set @s base_model 200000
+
+					tp @s ~ ~ ~ ~ 0
+					function skill:get_horizon_offset_color
+					execute store result entity @s item.tag.CustomPotionColor int 1 run scoreboard players add #MODEL_COLOR temp 12
 				}
 				
 				func append_scheduler()
@@ -566,8 +577,19 @@ namespace 2() as virtual
 				
 				func effect()
 				{
-					execute if score @s display_number matches 1.. positioned ^ ^ ^0.5 summon text_display run function skill:summon_font_effect/2001005hit
+					execute if score @s display_number matches 1.. summon item_display run function ARG(_PATH)effect_model_set
 					function skill:mob_effect/play_hurt_sound/run
+				}
+				
+				func effect_model_set()
+				{
+					data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:200005}},item_display:"head",billboard:"center"}
+					scoreboard players set @s max_life 12
+					scoreboard players set @s base_model 200005
+
+					tp @s ~ ~ ~ ~ 0
+					function skill:get_horizon_offset_color
+					execute store result entity @s item.tag.CustomPotionColor int 1 run scoreboard players add #MODEL_COLOR temp 12
 				}
 				
 				func append_scheduler()

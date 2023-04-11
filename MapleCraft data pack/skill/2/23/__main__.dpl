@@ -503,16 +503,6 @@ namespace 23() as virtual
 				function skill:enemy_search/search_front/search
 			}
 			
-			func effect_model_set()
-			{
-				data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:230000}},transformation:{scale:[0.625f,0.625f,0.625f],translation:[0.0f,1.6885f,0.0f]},item_display:"head"}
-				scoreboard players set @s max_life 14
-				scoreboard players set @s base_model 230000
-				
-				data modify entity @s transformation.left_rotation set from storage main:main rotation
-				function skill:bind_player
-			}
-			
 			func summon_bullet()
 			{
 				# max_distance should be set to (#DISTANCE temp - 1)
@@ -541,10 +531,31 @@ namespace 23() as virtual
 				playsound minecraft:skill.2301005 player @a ~ ~ ~ 1 1 0
 			}
 			
+			func effect_model_set()
+			{
+				data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:230000}},transformation:{scale:[0.625f,0.625f,0.625f],translation:[0.0f,1.6885f,0.0f]},item_display:"head"}
+				scoreboard players set @s max_life 14
+				scoreboard players set @s base_model 230000
+				
+				data modify entity @s transformation.left_rotation set from storage main:main rotation
+				function skill:bind_player
+			}
+			
 			func effect()
 			{
-				execute if score @s display_number matches 1.. positioned ^ ^ ^0.5 summon text_display run function skill:summon_font_effect/2301005hit
+				execute if score @s display_number matches 1.. summon item_display run function ARG(_PATH)hit_effect_model_set
 				function skill:mob_effect/play_hurt_sound/run
+			}
+			
+			func hit_effect_model_set()
+			{
+				data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:230014}},item_display:"head",billboard:"center"}
+				scoreboard players set @s max_life 5
+				scoreboard players set @s base_model 230014
+
+				tp @s ~ ~ ~ ~ 0
+				function skill:get_horizon_offset_color
+				execute store result entity @s item.tag.CustomPotionColor int 1 run scoreboard players add #MODEL_COLOR temp 12
 			}
 			
 			func append_scheduler()
