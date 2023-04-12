@@ -165,29 +165,25 @@ namespace 23() as virtual
 			
 			func rand_recovery() from random().generate("#MIN_HEAL_AMOUNT temp", "#MAX_HEAL_AMOUNT temp", "#FINAL_HEAL temp");
 			
-			# override
-			folder forward_effect()
+			func effect()
 			{
-				func run()
-				{
-					execute if score @s display_number matches 1.. run function ARG(_PATH)effect
-					function skill:mob_effect/play_hurt_sound/run
-				}
-				
-				func effect()
-				{
-					scoreboard players operation #BIND_PLAYER number = @s number
-					execute store result score #DEFAULT_SIZE temp run data get entity @s ArmorItems[3].tag.bind_point
-					execute positioned ~ ~0.2625 ~ summon text_display run function ARG(_PATH)bind_effect
-				}
-
-				func bind_effect()
-				{
-					function skill:summon_font_effect/2301002hit
-					function skill:bind_mob
-				}
+				execute if score @s display_number matches 1.. run function ARG(_PATH)mob_effect
+				function skill:mob_effect/play_hurt_sound/run
 			}
-				
+			
+			func mob_effect()
+			{
+				scoreboard players operation #BIND_PLAYER number = @s number
+				execute store result score #DEFAULT_SIZE temp run data get entity @s ArmorItems[3].tag.bind_point
+				execute positioned ~ ~0.2625 ~ summon text_display run function ARG(_PATH)bind_effect
+			}
+
+			func bind_effect()
+			{
+				function skill:summon_font_effect/2301002hit
+				function skill:bind_mob
+			}
+			
 			```
 			# delay_range = max possible value of enemy amount
 			append_scheduler(delay_range = 5, base_delay = 1, skill_path = "skill:2/3/0/1002/")
