@@ -3682,7 +3682,7 @@ namespace skill()
 			
 			function ARG(_PATH)play_die_sound/run
 			execute if entity @s[tag=dead_effect] run function ARG(_PATH)dead_effect/check
-			execute on passengers run kill @s
+			execute on passengers unless score @s max_life matches 1.. run kill @s
 			kill @s
 		}
 		
