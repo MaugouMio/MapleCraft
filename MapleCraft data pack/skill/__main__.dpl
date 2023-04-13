@@ -145,7 +145,7 @@ namespace attack_skill_template(skill_id) as virtual
 		execute facing entity 00000000-0000-0004-0000-000000000004 feet run function ARG(_PATH)facing_effect
 		kill 00000000-0000-0004-0000-000000000004
 		
-		function skill:show_num_at_height
+		function number_display:show
 		
 		execute if score @s hp matches ..0 unless score @s queuing_effect matches 1.. run function skill:mob_effect/dead
 		data remove entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0]
@@ -378,7 +378,7 @@ namespace bullet_skill_template(skill_id) as virtual
 		execute facing entity 00000000-0000-0004-0000-000000000004 feet run function ARG(_PATH)facing_effect
 		kill 00000000-0000-0004-0000-000000000004
 		
-		function skill:show_num_at_height
+		function number_display:show
 		
 		execute if score @s hp matches ..0 unless score @s queuing_effect matches 1.. run function skill:mob_effect/dead
 		data remove entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0]
@@ -1150,8 +1150,6 @@ namespace skill()
 		scoreboard objectives add motion_y dummy
 		scoreboard objectives add motion_z dummy
 		scoreboard objectives add rand_jump dummy
-		# 0.4 block per unit
-		scoreboard objectives add default_height dummy
 		
 		scoreboard objectives add level dummy "LV"
 		scoreboard objectives setdisplay belowName level
@@ -1582,8 +1580,8 @@ namespace skill()
 							
 							scoreboard players operation @s display_number = @s poison_damage
 							scoreboard players set @s display_num_type 0
-							scoreboard players operation #NUMBER_HEIGHT temp = @s default_height
-							execute positioned ~ ~-0.4 ~ run function skill:show_num_at_height
+							execute on passengers if entity @s[type=interaction] store result score #NUMBER_HEIGHT temp run data get entity @s height 100
+							function number_display:show
 							
 							scoreboard players set @s[scores={hp=1}] poison_time 0
 						}
@@ -3131,8 +3129,7 @@ namespace skill()
 			# copy damage list
 			data modify storage skill:main damage_copy set from storage skill:main damage
 			scoreboard players set #SAME_DAMAGE temp 0
-			scoreboard players operation #NUMBER_HEIGHT temp = @s default_height
-			scoreboard players remove #NUMBER_HEIGHT temp 1
+			execute on passengers if entity @s[type=interaction] store result score #NUMBER_HEIGHT temp run data get entity @s height 100
 			scoreboard players set #DID_HIT temp 0
 			function ARG(_PATH)traverse_damages/run
 			
@@ -3356,7 +3353,7 @@ namespace skill()
 				data remove storage skill:main damage_copy[0]
 				
 				data modify entity @s ArmorItems[3].tag.damage_record append value {number:0,crit:0}
-				execute store result entity @s ArmorItems[3].tag.damage_record[-1].height int 1 run scoreboard players add #NUMBER_HEIGHT temp 1
+				execute store result entity @s ArmorItems[3].tag.damage_record[-1].height int 1 run scoreboard players add #NUMBER_HEIGHT temp 33
 				
 				function random:rand_rate
 				execute if score #HIT_RATE temp > #RAND_RESULT number run function ARG(_PATH)deal_damage
@@ -3635,14 +3632,14 @@ namespace skill()
 				execute on controller run function ARG(_PATH)poison_color
 				
 				scoreboard players operation #BIND_PLAYER number = @s number
-				execute store result score #NUMBER_HEIGHT temp run data get entity @s ArmorItems[3].tag.bind_point
+				execute store result score #BIND_HEIGHT temp run data get entity @s ArmorItems[3].tag.bind_point
 				execute positioned ~ ~0.2625 ~ summon item_display run function ARG(_PATH)bind_poison
 			}
 			
 			func bind_poison()
 			{
 				data merge entity @s {Tags:["poison"],item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:102}},billboard:"center"}
-				execute store result entity @s item.tag.CustomPotionColor int 1 run scoreboard players get #NUMBER_HEIGHT temp
+				execute store result entity @s item.tag.CustomPotionColor int 1 run scoreboard players get #BIND_HEIGHT temp
 				function skill:bind_mob
 			}
 
@@ -3663,14 +3660,14 @@ namespace skill()
 				attribute @s minecraft:generic.movement_speed modifier add 98fb435b-7645-4b76-8504-ee4f9e13fdec stun_control -100.0 add
 
 				scoreboard players operation #BIND_PLAYER number = @s number
-				execute store result score #NUMBER_HEIGHT temp run data get entity @s ArmorItems[3].tag.bind_point
+				execute store result score #BIND_HEIGHT temp run data get entity @s ArmorItems[3].tag.bind_point
 				execute positioned ~ ~0.2625 ~ summon item_display run function ARG(_PATH)bind_stun
 			}
 			
 			func bind_stun()
 			{
 				data merge entity @s {Tags:["stun"],item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:103}},billboard:"center"}
-				execute store result entity @s item.tag.CustomPotionColor int 1 run scoreboard players get #NUMBER_HEIGHT temp
+				execute store result entity @s item.tag.CustomPotionColor int 1 run scoreboard players get #BIND_HEIGHT temp
 				function skill:bind_mob
 			}
 		}
@@ -4858,13 +4855,6 @@ namespace skill()
 			execute store result score #AFTERIMAGE_COLOR temp run data get entity @s item.tag.CustomPotionColor
 			execute store result entity @s item.tag.CustomPotionColor int 1 run scoreboard players operation #AFTERIMAGE_COLOR temp += #GLOBAL temp
 		}
-	}
-	
-	func show_num_at_height()
-	{
-		scoreboard players remove #NUMBER_HEIGHT temp 1
-		execute if score #NUMBER_HEIGHT temp matches -1 run function number_display:show
-		execute if score #NUMBER_HEIGHT temp matches 0.. positioned ~ ~0.33 ~ run function ARG(_PATH)show_num_at_height
 	}
 	
 	folder sync_knockback()

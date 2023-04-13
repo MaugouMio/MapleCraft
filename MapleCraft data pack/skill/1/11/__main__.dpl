@@ -525,8 +525,8 @@ namespace 11() as virtual
 				
 				# hit effect
 				scoreboard players set @s display_num_type 0
-				scoreboard players operation #NUMBER_HEIGHT temp = @s default_height
-				execute unless score @s display_number matches 0 run function skill:show_num_at_height
+				execute on passengers if entity @s[type=interaction] store result score #NUMBER_HEIGHT temp run data get entity @s height 100
+				execute unless score @s display_number matches 0 run function number_display:show
 				execute unless score @s hp matches ..0 if entity @s[tag=!no_anger] run function ARG(_PATH)set_angry_at
 				function skill:mob_effect/play_hurt_sound/run
 				

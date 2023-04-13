@@ -5,10 +5,8 @@
 in vec3 Position;
 in vec4 Color;
 in vec2 UV0;
-in ivec2 UV2;
 
 uniform sampler2D Sampler0;
-uniform sampler2D Sampler2;
 
 uniform mat4 ModelViewMat;
 uniform mat4 ProjMat;
@@ -42,10 +40,12 @@ void main() {
 		
 		// 0 ~ 3 are considered 255 (I don't know why), so values are added by 4 in game
 		float tickOffset = Color.a * 255 - 4;
-		float tick = mod(mod(GameTime * 24000, 22.0) + 23.0 - tickOffset, 22.0);
+		float tick = mod(mod(GameTime * 24000, 22.0) + 22.0 - tickOffset, 22.0);
 		// 0.025 block per tick
-		offsetPosition += WorldMat * vec3(0.0, tick * 0.025, 0.0) - vec3(0.0, 0.25, 0.0);
-		if (tick < 1.0 || tick > 20.0)
+		if (tick >= 2.0)
+			offsetPosition += WorldMat * vec3(0.0, (tick - 2.0) * 0.025, 0.0) - vec3(0.0, 0.25, 0.0);
+		
+		if (tick < 2.0 || tick > 20.0)
 			finalColor = vec4(0.0);
 		else if (tick > 7.0)
 			finalColor = vec4(1.0, 1.0, 1.0, (20.0 - tick) / 13.0);

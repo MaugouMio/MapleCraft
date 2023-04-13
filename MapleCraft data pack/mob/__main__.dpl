@@ -83,7 +83,6 @@ namespace mob()
 			execute store result score @s kb run data get entity @s ArmorItems[3].tag.info.kb
 			execute store result score @s speed run data get entity @s ArmorItems[3].tag.info.speed
 			execute store result score @s exp run data get entity @s ArmorItems[3].tag.info.exp
-			execute store result score @s default_height run data get entity @s ArmorItems[3].tag.info.height
 			execute store result score @s hurt_sound run data get entity @s ArmorItems[3].tag.info.hurt_sound
 			execute store result score @s die_sound run data get entity @s ArmorItems[3].tag.info.die_sound
 			

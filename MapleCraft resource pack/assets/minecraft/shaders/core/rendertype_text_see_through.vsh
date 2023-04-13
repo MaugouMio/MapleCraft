@@ -17,7 +17,13 @@ out vec2 texCoord0;
 void main() {
 	mat4 FixProjMat = fixProjMat(ProjMat);
 	gl_Position = FixProjMat * ModelViewMat * vec4(Position, 1.0);
+	
+	// mob hp shadow
+	ivec4 vertexTexel = ivec4(texture(Sampler0, UV0) * 255);
+	if (vertexTexel == ivec4(1,3,5,255))
+		vertexColor = vec4(0.0);
+	else
+		vertexColor = Color;
 
-	vertexColor = Color;
     texCoord0 = UV0;
 }

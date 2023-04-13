@@ -10,7 +10,7 @@ namespace number_display()
 	{
 		scoreboard players operation #GLOBAL display_number = @s display_number
 		scoreboard players operation #GLOBAL display_num_type = @s display_num_type
-		execute positioned ~ ~2 ~ summon text_display run function ARG(_PATH)set_display
+		execute summon text_display run function ARG(_PATH)set_display
 	}
 	
 	func show_miss()
@@ -60,7 +60,17 @@ namespace number_display()
 		# 0 ~ 3 都會被當成 255，故意跳過這個區間
 		execute store result entity @s text_opacity byte 1 run scoreboard players add #GLOBAL temp 4
 		
+		execute if score #NUMBER_HEIGHT temp = #NUMBER_HEIGHT temp run function ARG(_PATH)set_pos
+		
 		execute store result score @s life run schedule function ARG(_PATH)remove 21t append
+	}
+	
+	func set_pos()
+	{
+		execute store result score #GLOBAL temp run data get entity @s Pos[1] 100
+		scoreboard players operation #GLOBAL temp += #NUMBER_HEIGHT temp
+		execute store result entity @s Pos[1] double 0.01 run scoreboard players add #GLOBAL temp 70
+		scoreboard players reset #NUMBER_HEIGHT temp
 	}
 	
 	func remove()

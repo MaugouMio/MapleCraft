@@ -173,7 +173,7 @@ namespace main()
 			scoreboard players operation @s hp -= @s display_number
 			
 			scoreboard players set @s display_num_type 2
-			function number_display:show
+			execute positioned ~ ~2 ~ run function number_display:show
 			execute if score @s hp matches ..0 run function bar_display:death/die
 			function bar_display:change/hp/dropped
 			
