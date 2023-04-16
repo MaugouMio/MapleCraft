@@ -97,7 +97,6 @@ namespace simple_buff_template(name) as virtual
 			print(f"scoreboard players remove #{'ARG(name)'.upper()}_BUFF_PEOPLE temp 1")
 			if "ARG(name)" == "invis":
 				print("effect clear @s minecraft:invisibility")
-				print("execute unless score @s hurt_time matches 1.. run effect clear @s minecraft:fire_resistance")
 				print("scoreboard players operation @s speed -= @s invis_buff_speed")
 				print("scoreboard players reset @s invis_buff_speed")
 				print("function stat:speed_changed/check")

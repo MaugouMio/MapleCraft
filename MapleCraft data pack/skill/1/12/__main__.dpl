@@ -243,8 +243,7 @@ namespace 12() as virtual
 				scoreboard players set @s weaken_from 2
 				
 				# weapon defense drop
-				scoreboard players operation @s wdef_drop = @s weapon_defense
-				scoreboard players operation @s wdef_drop < #THREATEN_LEVEL temp
+				scoreboard players operation @s wdef_drop = #THREATEN_LEVEL temp
 				
 				scoreboard players add #FOUND_ENEMY temp 1
 			}

@@ -27,12 +27,11 @@ namespace bar_display()
 		scoreboard objectives add mp_recovery dummy
 		
 		scoreboard objectives add hurt_time dummy
-		scoreboard objectives add damage_taken minecraft.custom:minecraft.damage_resisted
+		scoreboard objectives add damage_taken dummy
 	}
 	
 	func main()
 	{
-		execute as @a[scores={damage_taken=1..}] at @s run function ARG(_PATH)take_damage/check
 		execute as @a[scores={hurt_time=1..}] run function ARG(_PATH)hurt_time_countdown/run
 		execute as @a[tag=hp_mp_varying] run function ARG(_PATH)bar_vary/check
 		function ARG(_PATH)show_head/run
@@ -49,7 +48,6 @@ namespace bar_display()
 		func reset()
 		{
 			effect clear @s minecraft:glowing
-			execute unless score @s invis_buff_time matches 1.. run effect clear @s minecraft:fire_resistance
 			scoreboard players reset @s hurt_time
 		}
 	}
@@ -228,17 +226,11 @@ namespace bar_display()
 	
 	folder take_damage()
 	{
-		func check()
-		{
-			execute unless score @s hurt_time matches 1.. run function ARG(_PATH)touch
-			scoreboard players reset @s damage_taken
-		}
-		
 		func touch()
 		{
 			scoreboard players set #TOUCH_DAMAGE temp 1
-			execute on attacker on vehicle run function mob:write_attacker_data
-			function ARG(_PATH)physic/check
+			# 碰撞傷害前面已經檢查過命中了，跑到這一定是有命中
+			function ARG(_PATH)physic/defense
 		}
 		
 		folder get_final_avoid()
@@ -263,6 +255,13 @@ namespace bar_display()
 		{
 			func check()
 			{
+				# 把判斷命中拉出來，給碰撞判斷用
+				function ARG(_PATH)check_only_miss
+				execute if score #RAND_RESULT number >= #AVOIDABILITY temp run function ARG(_PATH)defense
+			}
+			
+			func check_only_miss()
+			{
 				# 避免特殊情況沒有值導致 division by zero
 				execute unless score #ATTACKER_ACC temp matches 1.. run scoreboard players set #ATTACKER_ACC temp 1
 				
@@ -277,7 +276,6 @@ namespace bar_display()
 				
 				function random:rand_rate
 				execute if score #RAND_RESULT number < #AVOIDABILITY temp run function ARG(__PATH)miss
-				execute if score #RAND_RESULT number >= #AVOIDABILITY temp run function ARG(_PATH)defense
 			}
 			
 			func clamp()
@@ -339,10 +337,7 @@ namespace bar_display()
 			execute positioned ~ ~2 ~ run function number_display:show
 			
 			scoreboard players set @s hurt_time 30
-			effect give @s minecraft:fire_resistance infinite 0 true
-			
 			scoreboard players reset @s damage_taken
-			scoreboard players reset #TOUCH_DAMAGE temp
 		}
 		
 		func take()
@@ -377,8 +372,8 @@ namespace bar_display()
 			execute if score #TOUCH_DAMAGE temp matches 1 run kill 00000000-0000-0006-0000-000000000006
 			
 			effect give @s minecraft:glowing infinite 0 true
-			effect give @s minecraft:fire_resistance infinite 0 true
 
+			scoreboard players reset @s damage_taken
 			scoreboard players reset #TOUCH_DAMAGE temp
 			scoreboard players set @s tired_time 5
 		}
@@ -969,12 +964,5 @@ namespace bar_display()
 		{
 			execute as @a[tag=!dead] if score @s mp < @s mp_max run function ARG(__PATH)recover/mp
 		}
-	}
-	
-	func mob_attack()
-	{
-		# 因為怪物攻擊沒冷卻，受到一次傷害就要趕快補上無敵，避免傷害疊加
-		effect give @s minecraft:fire_resistance infinite 0 true
-		advancement revoke @s only bar_display:mob_attack
 	}
 }

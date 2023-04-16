@@ -237,20 +237,19 @@ namespace 4() as virtual
 					tag @s add 4001002_effect
 					
 					# weapon attack drop
-					execute on passengers if entity @s[type=magma_cube] run function ARG(_PATH)decrease_attack
-					execute on passengers run scoreboard players set @s[type=interaction] weaken_from 1
-					
+					scoreboard players operation @s 4001002_level = #DISORDER_LEVEL temp
 					# weapon defense drop
-					scoreboard players operation @s wdef_drop = @s weapon_defense
-					scoreboard players operation @s wdef_drop < #DISORDER_LEVEL temp
+					scoreboard players operation @s wdef_drop = #DISORDER_LEVEL temp
+					
+					execute on passengers run scoreboard players set @s[type=interaction] weaken_from 1
 				}
 			
-				func decrease_attack()
-				{
-					execute store result score #GLOBAL temp run data get entity @s Attributes[{Name:"minecraft:generic.attack_damage"}].Base 10
-					scoreboard players remove #GLOBAL temp 1
-					execute store result entity @s ArmorItems[3].tag.AttributeModifiers[{Name:"disorder"}].Amount float -0.1 run scoreboard players operation #GLOBAL temp < #DISORDER_LEVEL temp
-				}
+				#func decrease_attack()
+				#{
+				#	execute store result score #GLOBAL temp run data get entity @s Attributes[{Name:"minecraft:generic.attack_damage"}].Base 10
+				#	scoreboard players remove #GLOBAL temp 1
+				#	execute store result entity @s ArmorItems[3].tag.AttributeModifiers[{Name:"disorder"}].Amount float -0.1 run scoreboard players operation #GLOBAL temp < #DISORDER_LEVEL temp
+				#}
 				
 				folder mob()
 				{
@@ -266,8 +265,8 @@ namespace 4() as virtual
 						scoreboard players reset @s weaken_time
 						scoreboard players reset @s weaken_from
 						
-						scoreboard players set @s wdef_drop 0
-						execute on passengers run data modify entity @s[type=magma_cube] ArmorItems[3].tag.AttributeModifiers[{Name:"disorder"}].Amount set value 0
+						scoreboard players reset @s wdef_drop
+						scoreboard players reset @s 4001002_level
 						execute on passengers run scoreboard players reset @s[type=interaction] weaken_from
 					}
 				}
@@ -371,7 +370,6 @@ namespace 4() as virtual
 					function stat:speed_changed/check
 					
 					effect give @s minecraft:invisibility infinite 0 true
-					effect give @s minecraft:fire_resistance infinite 0 true
 					```
 					print(f"attribute @s minecraft:generic.luck modifier add {simple_buff_info_dict['invis']['uuid']} d 0 add")
 					```

@@ -60,7 +60,7 @@ namespace mob()
 		func set_pair()
 		{
 			execute if entity @s[type=zombified_piglin] run function ARG(_PATH)piglin_set
-			execute if entity @s[type=magma_cube,tag=!no_body_attack] run data modify entity @s NoAI set value 0
+			execute if score #WEAPON_ATTACK temp matches 0 run tag @s[type=interaction] add no_touch
 			scoreboard players operation @s number = #MOB_ID number
 			tag @s add enemy
 		}
@@ -75,8 +75,10 @@ namespace mob()
 			scoreboard players operation @s mp = @s mp_max
 			
 			execute store result score @s base_accuracy run data get entity @s ArmorItems[3].tag.info.accuracy
-			
 			execute store result score @s avoidability run data get entity @s ArmorItems[3].tag.info.avoidability
+			
+			execute store result score #WEAPON_ATTACK temp run data get entity @s ArmorItems[3].tag.info.weapon_attack
+			execute if score #WEAPON_ATTACK temp matches 1.. run scoreboard players operation @s weapon_attack = #WEAPON_ATTACK temp
 			execute if data entity @s ArmorItems[3].tag.info.magic_attack store result score @s weapon_mattack run data get entity @s ArmorItems[3].tag.info.magic_attack
 			execute store result score @s weapon_defense run data get entity @s ArmorItems[3].tag.info.weapon_defense
 			execute store result score @s magic_defense run data get entity @s ArmorItems[3].tag.info.magic_defense
@@ -149,13 +151,9 @@ namespace mob()
 	
 	func damage()
 	{
-		attribute @s minecraft:generic.knockback_resistance base set 0.0
-		
 		# 繩子上額外做偏移，減少被鷹架影響動能
 		execute if block ~ ~ ~ minecraft:scaffolding facing entity 00000000-0000-0006-0000-000000000006 feet rotated ~ 0 run tp @s ^ ^ ^-0.6
 		damage @s 0.00001 minecraft:generic by 00000000-0000-0006-0000-000000000006
-		
-		attribute @s minecraft:generic.knockback_resistance base set 1.0
 	}
 	
 	folder map() from map_mobs();
@@ -165,7 +163,7 @@ namespace mob()
 	{
 		```
 		# 殭屍菇菇
-		print("execute rotated ~ 0 positioned ^ ^ ^5 align y run", spawn_mob("2230101"))
+		# print("execute rotated ~ 0 positioned ^ ^ ^5 align y run", spawn_mob("2230101"))
 		# 鱷魚 KPQ
 		# print("execute rotated ~ 0 positioned ^ ^ ^5 align y run", spawn_mob("9300001"))
 		# 青蛇 KPQ
@@ -203,7 +201,7 @@ namespace mob()
 		# 進化妖魔 LDPQ
 		print("execute rotated ~ 0 positioned ^ ^ ^5 align y run", spawn_mob("9300016"))
 		# 妖魔隊長 LDPQ
-		print("execute rotated ~ 0 positioned ^ ^ ^5 align y run", spawn_mob("9300017"))
+		# print("execute rotated ~ 0 positioned ^ ^ ^5 align y run", spawn_mob("9300017"))
 		# 機械鯨魚王
 		# print("execute rotated ~ 0 positioned ^ ^ ^5 align y run", spawn_mob("9300012"))
 		```

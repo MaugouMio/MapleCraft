@@ -504,7 +504,7 @@ namespace 11() as virtual
 				
 				scoreboard players set #EXP_GAIN temp 0
 				scoreboard players set #REFLECTED temp 0
-				execute on attacker on vehicle at @s run function ARG(_PATH)hit
+				execute on attacker at @s run function ARG(_PATH)hit
 				function skill:hunt_exp
 				
 				# reduce damage reflected
@@ -535,7 +535,6 @@ namespace 11() as virtual
 			
 			func dead_effect()
 			{
-				execute on passengers run data modify entity @s[type=magma_cube] NoAI set value 1b
 				execute on passengers run tag @s[type=interaction] remove enemy
 				function skill:calculate_damage/record_dead
 				execute unless score @s queuing_effect matches 1.. run function skill:mob_effect/dead

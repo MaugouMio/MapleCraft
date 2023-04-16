@@ -1346,7 +1346,6 @@ namespace skill()
 			execute as @e[type=item_display,tag=afterimage] run function skill:afterimage/update
 			execute as @e[type=item_display,tag=box] run function skill:6/0/0/1000/box/update/check
 			execute as @e[type=ocelot,scores={spawn_alpha=1..}] run function ARG(_PATH)enemy/run
-			execute as @e[type=magma_cube,tag=!original] unless predicate skill:riding_enemy run function main:deep_kill
 			
 			execute as @a[scores={action_time=1..}] run function ARG(_PATH)action/countdown
 			execute as @a[scores={teleport_time=1..}] run function ARG(_PATH)tp_countdown
@@ -1354,6 +1353,9 @@ namespace skill()
 			
 			# used skill check
 			execute as @a[scores={right_click=1..}] run function skill:check_skill/run
+			
+			# touch damage check
+			execute as @a[gamemode=adventure,tag=!dead] unless score @s hurt_time matches 1.. unless score @s invis_buff_time matches 1.. at @s run function ARG(_PATH)touch/check
 		}
 		
 		folder font_effect_update()
@@ -1703,6 +1705,51 @@ namespace skill()
 		{
 			scoreboard players remove @s teleport_time 1
 			scoreboard players reset @s[scores={teleport_time=0}] teleport_time
+		}
+		
+		folder touch()
+		{
+			func check()
+			{
+				scoreboard players reset #WEAPON_ATTACK temp
+				
+				# 這邊會為了紀錄攻擊者給 damage，要避免擊退
+				attribute @s minecraft:generic.knockback_resistance base set 1.0
+				tag @s add target
+				# 實際偵測的碰撞箱只有 0.02 x 1.8，因為怪物的碰撞箱通常比模型大一點，所以從這邊調小讓他比較自然
+				# 腳底高度也往上提一點，讓玩家更容易跳過怪物頭上 (反正平常站在地板上，腳底基本上不會有怪)
+				execute unless predicate main:sneaking positioned ~-0.99 ~ ~-0.99 as @e[type=interaction,tag=enemy,tag=!no_touch,dx=0,dy=0.8,dz=0] positioned ~0.98 ~0.5 ~0.98 if entity @s[dx=0,dy=0.3,dz=0] run function ARG(_PATH)enemy_check
+				execute if predicate main:sneaking positioned ~-0.99 ~ ~-0.99 as @e[type=interaction,tag=enemy,tag=!no_touch,dx=0,dy=0,dz=0] positioned ~0.98 ~0.5 ~0.98 if entity @s[dx=0,dy=0,dz=0] run function ARG(_PATH)enemy_check
+				tag @s remove target
+				attribute @s minecraft:generic.knockback_resistance base set 0.0
+				
+				execute if score #WEAPON_ATTACK temp matches 1.. run function bar_display:take_damage/touch
+			}
+			
+			func enemy_check()
+			{
+				execute unless score #WEAPON_ATTACK temp = #WEAPON_ATTACK temp on vehicle run function ARG(_PATH)write_values
+			}
+			
+			func write_values()
+			{
+				scoreboard players operation #WEAPON_ATTACK temp = @s weapon_attack
+				scoreboard players operation #WEAPON_ATTACK temp -= @s 4001002_level
+				scoreboard players operation #WEAPON_ATTACK temp > #1 const
+				function mob:write_attacker_data
+				
+				execute as @a[tag=target,limit=1] at @s run function ARG(_PATH)hit_check
+				# 真的有命中再給傷害紀錄 attacker
+				execute if score #RAND_RESULT number >= #AVOIDABILITY temp run damage @a[tag=target,limit=1] 0.00001 minecraft:mob_attack by @s
+				# 歸零但不重置傷害值，用來判斷有沒有命中，但同樣避免其他怪物作攻擊
+				execute if score #RAND_RESULT number < #AVOIDABILITY temp run scoreboard players set #WEAPON_ATTACK temp 0
+			}
+			
+			func hit_check()
+			{
+				scoreboard players operation @s damage_taken = #WEAPON_ATTACK temp
+				function bar_display:take_damage/physic/check_only_miss
+			}
 		}
 	}
 	
@@ -3334,7 +3381,6 @@ namespace skill()
 			scoreboard players operation #EXP_GAIN temp += @s exp
 			tag @s add dead
 
-			execute on passengers run data modify entity @s[type=magma_cube] NoAI set value 1b
 			execute on passengers run tag @s[type=interaction] remove enemy
 		}
 
@@ -3385,6 +3431,7 @@ namespace skill()
 				# defense
 				scoreboard players operation #DEFENSE temp = @s weapon_defense
 				scoreboard players operation #DEFENSE temp -= @s wdef_drop
+				scoreboard players operation #DEFENSE temp > #1 const
 				scoreboard players operation #DEFENSE temp /= #2 const
 				
 				scoreboard players set #LEVEL_PUNISH temp 100

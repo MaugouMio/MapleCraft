@@ -276,7 +276,6 @@ namespace main()
 		effect give @s minecraft:resistance infinite 255 true
 		effect give @s minecraft:water_breathing infinite 0 true
 		attribute @s minecraft:generic.attack_damage base set -100.0
-		attribute @s minecraft:generic.knockback_resistance base set 1.0
 		tag @s add cloth_equipped
 		tag @s add pants_equipped
 		tag @s add shoes_equipped
@@ -544,12 +543,6 @@ namespace main()
 		scoreboard players operation #BIND_PLAYER number = @s number
 		execute summon text_display run function skill:summon_font_effect/2101002effect
 		playsound minecraft:game.portal player @s ~ ~ ~ 1 1 1
-	}
-	
-	func deep_kill()
-	{
-		tp @s ~ -200 ~
-		kill @s
 	}
 	
 	func rand_range() from random().generate("#0 const", "#RANGE_MAX temp", "#RAND_RANGE_RESULT temp");
