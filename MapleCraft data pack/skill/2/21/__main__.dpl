@@ -441,11 +441,20 @@ namespace 21() as virtual
 				
 				func check()
 				{
+					# 提示快捷施放
+					execute if score @s 2101002_level matches 1 run function ARG(_PATH)hint
+					
 					scoreboard players operation @s 2101002_mp = @s 2101002_level
 					scoreboard players operation @s 2101002_mp *= #-3 const
 					scoreboard players add @s 2101002_mp 63
 					scoreboard players operation @s 2101002_mp += @s 2101002_level
 					scoreboard players remove @s 2101002_mp 10
+				}
+				
+				func hint()
+				{
+					tellraw @s ["\n\n",{"translate":"skill.description.2101002_hint"},"\n\n"]
+					playsound minecraft:game.dlg_notice player @s
 				}
 				
 				func set_description()

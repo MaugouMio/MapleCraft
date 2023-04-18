@@ -758,11 +758,12 @@ namespace bar_display()
 		
 		func write_data()
 		{
-			data modify storage bar:main head append value {pos:[],value:0b,id:0}
+			data modify storage bar:main head append value {pos:[],value:0b,id:0,width:0,height:0}
 			
 			data modify storage bar:main head[-1].pos set from entity @s Pos
 			execute store result storage bar:main head[-1].value byte 1 run scoreboard players get @s hp_level
 			execute store result storage bar:main head[-1].id int 1 run scoreboard players get @s number
+			execute if predicate skill:quick_cast_skill unless data entity @s {SelectedItemSlot:8} run data modify storage bar:main head[-1] merge value {width:0.8,height:1.8}
 		}
 		
 		func deep_kill()
@@ -790,6 +791,9 @@ namespace bar_display()
 		{
 			data modify entity @s Pos set from storage bar:main head[0].pos
 			execute store result entity @s Air short 1 run time query gametime
+			
+			data modify entity @s width set from storage bar:main head[0].width
+			data modify entity @s height set from storage bar:main head[0].height
 			
 			execute on passengers if entity @s[type=text_display,tag=head_hp] run function ARG(_PATH)read_data
 			

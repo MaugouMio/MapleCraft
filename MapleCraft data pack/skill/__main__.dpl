@@ -1716,10 +1716,10 @@ namespace skill()
 				# 這邊會為了紀錄攻擊者給 damage，要避免擊退
 				attribute @s minecraft:generic.knockback_resistance base set 1.0
 				tag @s add target
-				# 實際偵測的碰撞箱只有 0.02 x 1.8，因為怪物的碰撞箱通常比模型大一點，所以從這邊調小讓他比較自然
+				# 實際偵測的碰撞箱只有 0.2 x 1.8，因為怪物的碰撞箱通常比模型大一點，所以從這邊調小讓他比較自然
 				# 腳底高度也往上提一點，讓玩家更容易跳過怪物頭上 (反正平常站在地板上，腳底基本上不會有怪)
-				execute unless predicate main:sneaking positioned ~-0.99 ~ ~-0.99 as @e[type=interaction,tag=enemy,tag=!no_touch,dx=0,dy=0.8,dz=0] positioned ~0.98 ~0.5 ~0.98 if entity @s[dx=0,dy=0.3,dz=0] run function ARG(_PATH)enemy_check
-				execute if predicate main:sneaking positioned ~-0.99 ~ ~-0.99 as @e[type=interaction,tag=enemy,tag=!no_touch,dx=0,dy=0,dz=0] positioned ~0.98 ~0.5 ~0.98 if entity @s[dx=0,dy=0,dz=0] run function ARG(_PATH)enemy_check
+				execute unless predicate main:sneaking positioned ~-0.9 ~ ~-0.9 as @e[type=interaction,tag=enemy,tag=!no_touch,dx=0,dy=0.8,dz=0] positioned ~0.8 ~0.5 ~0.8 if entity @s[dx=0,dy=0.3,dz=0] run function ARG(_PATH)enemy_check
+				execute if predicate main:sneaking positioned ~-0.9 ~ ~-0.9 as @e[type=interaction,tag=enemy,tag=!no_touch,dx=0,dy=0,dz=0] positioned ~0.8 ~0.5 ~0.8 if entity @s[dx=0,dy=0,dz=0] run function ARG(_PATH)enemy_check
 				tag @s remove target
 				attribute @s minecraft:generic.knockback_resistance base set 0.0
 				
