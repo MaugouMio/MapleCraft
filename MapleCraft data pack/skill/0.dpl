@@ -44,9 +44,9 @@ namespace 0() as virtual
 				func summon_bullet()
 				{
 					# max_distance should be set to (#DISTANCE temp - 1)
-					execute if score @s 0001000_level matches 1 rotated ~ 0 run summon minecraft:armor_stand ^ ^ ^1 {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:11,max_distance:8,skill_id:8,bullet_model:6000,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
-					execute if score @s 0001000_level matches 2 rotated ~ 0 run summon minecraft:armor_stand ^ ^ ^1 {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:11,max_distance:8,skill_id:8,bullet_model:6001,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
-					execute if score @s 0001000_level matches 3 rotated ~ 0 run summon minecraft:armor_stand ^ ^ ^1 {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:11,max_distance:8,skill_id:8,bullet_model:6002,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
+					execute if score @s 0001000_level matches 1 rotated ~ 0 run summon minecraft:item_display ^ ^0.8 ^1 {Tags:["first_bullet","new_bullet","bullet"],item:{id:"minecraft:potion",Count:1,tag:{appear_delay:11,max_distance:8,skill_id:8,bullet_model:6000,CustomModelData:1}},item_display:"head"}
+					execute if score @s 0001000_level matches 2 rotated ~ 0 run summon minecraft:item_display ^ ^0.8 ^1 {Tags:["first_bullet","new_bullet","bullet"],item:{id:"minecraft:potion",Count:1,tag:{appear_delay:11,max_distance:8,skill_id:8,bullet_model:6001,CustomModelData:1}},item_display:"head"}
+					execute if score @s 0001000_level matches 3 rotated ~ 0 run summon minecraft:item_display ^ ^0.8 ^1 {Tags:["first_bullet","new_bullet","bullet"],item:{id:"minecraft:potion",Count:1,tag:{appear_delay:11,max_distance:8,skill_id:8,bullet_model:6002,CustomModelData:1}},item_display:"head"}
 				}
 				
 				func set_numeric()
@@ -94,9 +94,7 @@ namespace 0() as virtual
 				func hit()
 				{
 					scoreboard players operation #GLOBAL temp = @s number
-		
-					scoreboard players set #BULLET_AMOUNT temp 0
-					execute as @e[type=armor_stand,tag=new_bullet] run function skill:bullet/setting
+					execute as @e[type=item_display,tag=new_bullet] run function skill:bullet/setting
 					
 					################################################# replace calculate damage
 					scoreboard players operation @s hp -= #SNAIL_DAMAGE temp
@@ -120,7 +118,6 @@ namespace 0() as virtual
 					scoreboard players add @s queuing_effect 1
 					tag @s remove target
 					tag @s remove first_target
-					scoreboard players operation @s bullet_targeted += #BULLET_AMOUNT temp
 				}
 				
 				folder levels()

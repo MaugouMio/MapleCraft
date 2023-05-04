@@ -320,7 +320,7 @@ namespace bullet_skill_template(skill_id) as virtual
 		
 		scoreboard players add #BULLET_ID number 1
 		execute if score #FOUND_ENEMY temp matches 1.. run function ARG(_PATH)did_hit
-		execute if score #FOUND_ENEMY temp matches 0 as @e[type=armor_stand,tag=new_bullet] run function skill:bullet/no_target_setting
+		execute if score #FOUND_ENEMY temp matches 0 as @e[type=item_display,tag=new_bullet] run function skill:bullet/no_target_setting
 		
 		scoreboard players set @s tired_time 5
 	}
@@ -423,10 +423,9 @@ namespace bullet_skill_template(skill_id) as virtual
 	
 	func hit()
 	{
-		scoreboard players operation #GLOBAL temp = @s number
-		
-		scoreboard players set #BULLET_AMOUNT temp 0
-		execute as @e[type=armor_stand,tag=new_bullet] run function skill:bullet/setting
+		scoreboard players operation #BIND_PLAYER number = @s number
+		execute on passengers if entity @s[type=interaction] store result score #HORIZON_OFFSET temp run data get entity @s width 50
+		execute as @e[type=item_display,tag=new_bullet] run function skill:bullet/setting
 		
 		function skill:calculate_damage/run
 		execute if score #DID_HIT temp matches 1 run function ARG(_PATH)add_debuff
@@ -443,7 +442,6 @@ namespace bullet_skill_template(skill_id) as virtual
 		
 		tag @s remove target
 		tag @s remove first_target
-		scoreboard players operation @s bullet_targeted += #BULLET_AMOUNT temp
 	}
 	
 	folder bullet_hit()
@@ -1005,35 +1003,35 @@ namespace skill()
 						scoreboard players operation #BULLET_DISTANCE temp = #DISTANCE temp
 						scoreboard players remove #BULLET_DISTANCE temp 1
 						
-						execute if score #USED_WEAPON temp matches 16 rotated ~ 0 positioned ^ ^0.2 ^1 summon minecraft:armor_stand run function ARG(_PATH)set_bullet/bow
-						execute if score #USED_WEAPON temp matches 18 rotated ~ 0 positioned ^ ^0.2 ^1 summon minecraft:armor_stand run function ARG(_PATH)set_bullet/crossbow
-						execute if score #USED_WEAPON temp matches 24 rotated ~ 0 positioned ^ ^0.2 ^1 summon minecraft:armor_stand run function ARG(_PATH)set_bullet/claw
+						execute if score #USED_WEAPON temp matches 16 rotated ~ 0 positioned ^ ^0.8 ^1 summon minecraft:item_display run function ARG(_PATH)set_bullet/bow
+						execute if score #USED_WEAPON temp matches 18 rotated ~ 0 positioned ^ ^0.8 ^1 summon minecraft:item_display run function ARG(_PATH)set_bullet/crossbow
+						execute if score #USED_WEAPON temp matches 24 rotated ~ 0 positioned ^ ^0.8 ^1 summon minecraft:item_display run function ARG(_PATH)set_bullet/claw
 					}
 					
 					folder set_bullet()
 					{
 						func bow()
 						{
-							data merge entity @s {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:7,max_distance:10,skill_id:11,bullet_model:3101,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
+							data merge entity @s {Tags:["first_bullet","new_bullet","bullet"],item:{id:"minecraft:potion",Count:1,tag:{appear_delay:7,max_distance:10,skill_id:11,bullet_model:3101,CustomModelData:1}},item_display:"head"}
 							function ARG(_PATH)base
 						}
 
 						func crossbow()
 						{
-							data merge entity @s {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:8,max_distance:10,skill_id:11,bullet_model:3201,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
+							data merge entity @s {Tags:["first_bullet","new_bullet","bullet"],item:{id:"minecraft:potion",Count:1,tag:{appear_delay:8,max_distance:10,skill_id:11,bullet_model:3201,CustomModelData:1}},item_display:"head"}
 							function ARG(_PATH)base
 						}
 
 						func claw()
 						{
-							data merge entity @s {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:7,max_distance:10,skill_id:11,bullet_model:4000,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
+							data merge entity @s {Tags:["first_bullet","new_bullet","bullet"],item:{id:"minecraft:potion",Count:1,tag:{appear_delay:7,max_distance:10,skill_id:11,bullet_model:4000,CustomModelData:1}},item_display:"head"}
 							function ARG(_PATH)base
 						}
 
 						func base()
 						{
-							execute store result entity @s ArmorItems[3].tag.max_distance int 1 run scoreboard players get #BULLET_DISTANCE temp
-							execute store result entity @s ArmorItems[3].tag.bullet_model int 1 run scoreboard players get #GLOBAL bullet_model
+							execute store result entity @s item.tag.max_distance int 1 run scoreboard players get #BULLET_DISTANCE temp
+							execute store result entity @s item.tag.bullet_model int 1 run scoreboard players get #GLOBAL bullet_model
 						}
 					}
 				
@@ -1198,7 +1196,6 @@ namespace skill()
 		
 		scoreboard objectives add target_id dummy
 		scoreboard objectives add skill_id dummy
-		scoreboard objectives add bullet_targeted dummy
 		scoreboard objectives add mob_hp_length dummy
 		scoreboard objectives add show_hp_time dummy
 		
@@ -1220,6 +1217,8 @@ namespace skill()
 		scoreboard objectives add debuff_count dummy
 		scoreboard objectives add blind_time dummy
 		scoreboard objectives add seal_time dummy
+		
+		data modify storage skill:main bullet_rotate set value {axis:[1f,0f,0f],angle:0f}
 		
 		function ARG(_PATH)buff/install
 		function ARG(_PATH)window/install
@@ -1341,7 +1340,7 @@ namespace skill()
 		func run()
 		{
 			execute as @e[type=text_display,scores={type=1}] run function ARG(_PATH)font_effect_update/check
-			execute as @e[type=armor_stand,tag=bullet] run function skill:bullet/check
+			execute as @e[type=item_display,tag=bullet] run function skill:bullet/check
 			execute as @e[type=item_display,tag=model_animation] run function ARG(_PATH)model_animation_update
 			execute as @e[type=item_display,tag=afterimage] run function skill:afterimage/update
 			execute as @e[type=item_display,tag=box] run function skill:6/0/0/1000/box/update/check
@@ -1394,7 +1393,6 @@ namespace skill()
 				execute unless score @s kb_time matches 1.. if entity @s[tag=!dead] run function ARG(_PATH)status_change/check
 				execute if entity @s[tag=color_changed] run function ARG(_PATH)status_change/color/check
 				execute if score @s stun_time matches 1.. run function ARG(_PATH)mob_effect/stun/countdown
-				execute if score @s bullet_targeted matches 1.. at @s run function ARG(_PATH)move_bullets
 
 				execute store result score #FACING temp run data get entity @s Rotation[0] 100
 				execute on controller run function ARG(_PATH)piglin
@@ -1656,14 +1654,6 @@ namespace skill()
 					}
 				}
 			}
-			
-			func move_bullets()
-			{
-				scoreboard players set #HIT_BULLET temp 0
-				scoreboard players operation #GLOBAL temp = @s number
-				execute as @e[type=armor_stand,tag=bullet,scores={life=0..}] if score @s target_id = #GLOBAL temp run function skill:bullet/move
-				scoreboard players operation @s bullet_targeted -= #HIT_BULLET temp
-			}
 		}
 		
 		folder action()
@@ -1896,59 +1886,102 @@ namespace skill()
 	{
 		func setting()
 		{
-			execute facing entity @s eyes positioned as @s run tp @s ~ ~ ~ ~180 0
-			scoreboard players add #BULLET_AMOUNT temp 1
+			data modify entity @s item.tag.spawn_pos set from entity @s Pos
+			execute store result entity @s item.tag.width int 1 run scoreboard players get #HORIZON_OFFSET temp
 			
 			scoreboard players operation @s number = #BULLET_ID number
-			scoreboard players operation @s target_id = #GLOBAL temp
-			execute store result score @s life run data get entity @s ArmorItems[3].tag.appear_delay -1
-			execute store result score @s skill_id run data get entity @s ArmorItems[3].tag.skill_id
+			scoreboard players operation @s target_id = #BIND_PLAYER number
+			execute store result score @s life run data get entity @s item.tag.appear_delay -1
+			execute store result score @s skill_id run data get entity @s item.tag.skill_id
 			tag @s remove new_bullet
+
+			function skill:bind_mob
 		}
 		
 		func no_target_setting()
 		{
 			execute positioned as @s run tp @s ~ ~ ~ ~ 0
-			execute store result score @s life run data get entity @s ArmorItems[3].tag.appear_delay -1
-			execute store result score @s max_life run data get entity @s ArmorItems[3].tag.max_distance
+			execute store result score @s life run data get entity @s item.tag.appear_delay -1
+			
+			# 沒目標的初始位置就是現在的位置，目標就是往前指定距離
+			data modify entity @s transformation.translation[1] set value 1f
+			data modify entity @s item.tag.merge set value {transformation:{translation:[0f,1f,0f]},start_interpolation:0,interpolation_duration:1}
+			execute store result entity @s item.tag.merge.transformation.translation[2] float 0.8 run data get entity @s item.tag.max_distance
+			data modify entity @s item.tag.merge.interpolation_duration set from entity @s item.tag.max_distance
 			tag @s remove new_bullet
 		}
 		
 		func check()
 		{
 			scoreboard players add @s life 1
+			execute if score @s life matches -1 if score @s target_id = @s target_id at @s run function ARG(_PATH)init_pos
 			execute if score @s life matches 0 run function ARG(_PATH)appear
-			# no target bullet
-			execute if score @s life matches 0.. unless score @s target_id matches -2147483648.. at @s run function ARG(_PATH)wander
+			
+			execute if score @s life > @s max_life run function ARG(_PATH)end
+		}
+
+		func init_pos()
+		{
+			```
+			print("summon minecraft:marker ~ ~ ~ {UUID:%s}" %UUID_LIST["proj_spawn"])
+			```
+			data modify entity 00000000-0000-0007-0000-000000000007 Pos set from entity @s item.tag.spawn_pos
+			execute facing entity 00000000-0000-0007-0000-000000000007 feet run tp @s ~ ~ ~ ~180 ~
+			# 取垂直面向紀錄 left_rotation
+			execute store result storage skill:main bullet_rotate.angle float 0.00174533 run data get entity @s Rotation[1] 10
+			data modify entity @s left_rotation set from storage skill:main bullet_rotate
+			data modify entity @s Rotation[1] set value 0f
+			kill 00000000-0000-0007-0000-000000000007
+
+			execute store result score #POSX temp run data get entity @s item.tag.spawn_pos[0] 100
+			execute store result score #POSY temp run data get entity @s item.tag.spawn_pos[1] 100
+			execute store result score #POSZ temp run data get entity @s item.tag.spawn_pos[2] 100
+
+			execute store result score #POSX2 temp run data get entity @s Pos[0] 100
+			execute store result score #POSY2 temp run data get entity @s Pos[1] 100
+			execute store result score #POSZ2 temp run data get entity @s Pos[2] 100
+
+			# get horizontal distance
+			scoreboard players operation #POSX temp -= #POSX2 temp
+			scoreboard players operation #POSX temp *= #POSX temp
+			scoreboard players operation #POSZ temp -= #POSZ2 temp
+			scoreboard players operation #POSZ temp *= #POSZ temp
+
+			scoreboard players operation #SQUARE temp = #POSX temp
+			scoreboard players operation #SQUARE temp += #POSZ temp
+			function main:get_sqrt/run
+
+			execute store result entity @s transformation.translation[1] float 0.01 run scoreboard players operation #POSY temp -= #POSY2 temp
+			execute store result entity @s transformation.translation[2] float -0.01 run scoreboard players get #SQRT temp
+
+			# get final horizontal pos
+			data modify entity @s item.tag.merge set value {transformation:{translation:[0f,1f,0f]},start_interpolation:0,interpolation_duration:1}
+			execute store result score #HORIZON_OFFSET temp run data get entity @s item.tag.width
+			scoreboard players operation #SQRT temp -= #HORIZON_OFFSET temp
+			# 抓 80 其實就夠了，反正只要讓下面 interpolation_duration 是 1 以上就好
+			scoreboard players operation #SQRT temp > #100 const
+			execute store result entity @s item.tag.merge.transformation.translation[2] float -0.01 run scoreboard players get #HORIZON_OFFSET temp
+			# 0.8 block per tick
+			execute store result entity @s item.tag.merge.interpolation_duration int 0.0125 run scoreboard players get #SQRT temp
 		}
 		
 		func appear()
 		{
-			data modify entity @s ArmorItems[3].tag.CustomModelData set from entity @s ArmorItems[3].tag.bullet_model
-			data modify entity @s CustomNameVisible set value 1
+			data modify entity @s item.tag.CustomModelData set from entity @s item.tag.bullet_model
+
+			execute store result score @s max_life run data get entity @s item.tag.merge.interpolation_duration
+			data modify entity @s {} merge from entity @s item.tag.merge
 		}
 		
-		func wander()
+		func end()
 		{
-			execute if score @s life > @s max_life run kill @s
-			tp @s ^ ^ ^0.8
-		}
-		
-		func move()
-		{
-			execute if entity @s[distance=..0.8] run function ARG(_PATH)hit
-			execute facing entity @s eyes positioned as @s run tp @s ^ ^ ^-0.8
-		}
-		
-		func hit()
-		{
-			execute if entity @s[tag=first_bullet] run function ARG(_PATH)append_scheduler
-			scoreboard players add #HIT_BULLET temp 1
+			execute if score @s[tag=first_bullet] target_id matches -2147483648.. run function ARG(_PATH)append_scheduler
 			kill @s
 		}
 		
 		func append_scheduler()
 		{
+			scoreboard players operation #GLOBAL temp = @s target_id
 			scoreboard players operation #BULLET_ID temp = @s number
 			data modify storage skill:main new_schedule set value []
 			function ARG(_PATH)find_parent_skill/run

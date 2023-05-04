@@ -410,7 +410,7 @@ namespace 2() as virtual
 				func summon_bullet()
 				{
 					# max_distance should be set to (#DISTANCE temp - 1)
-					execute rotated ~ 0 run summon minecraft:armor_stand ^ ^ ^1 {Tags:["first_bullet","new_bullet","bullet"],CustomName:'[{"text":"F","font":"space:default"},{"text":"0","font":"skill:200/1004/ball"},{"text":"F","font":"space:default"}]',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:11,max_distance:8,skill_id:1,bullet_model:1,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
+					execute rotated ~ 0 run summon minecraft:item_display ^ ^ ^1 {Tags:["first_bullet","new_bullet","bullet"],item:{id:"minecraft:potion",Count:1,tag:{appear_delay:11,max_distance:8,skill_id:1,bullet_model:2000,CustomModelData:1}},item_display:"head"}
 				}
 				
 				func set_numeric()

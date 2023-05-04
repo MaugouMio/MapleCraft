@@ -1,0 +1,56 @@
+{
+	"credit": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
+	"textures": {
+		"texture": "skill/200/1004/ball"
+	},
+	"elements": [
+		{
+			"name": "Cube",
+			"from": [-8.5, 7.95, -8.5],
+			"to": [24.5, 8.05, 24.5],
+			"rotation": {"angle": 0, "axis": "z", "origin": [8, 8, 8]},
+			"faces": {
+				"north": {"uv": [0.61538, 0.61538, 0.61538, 0.61538], "texture": "#texture"},
+				"east": {"uv": [0.61538, 0.61538, 0.61538, 0.61538], "texture": "#texture"},
+				"south": {"uv": [0.61538, 0.61538, 0.61538, 0.61538], "texture": "#texture"},
+				"west": {"uv": [0.61538, 0.61538, 0.61538, 0.61538], "texture": "#texture"},
+				"up": {"uv": [0, 0, 16, 16], "texture": "#texture"},
+				"down": {"uv": [0, 16, 16, 0], "texture": "#texture"}
+			}
+		},
+		{
+			"name": "Cube",
+			"from": [7.95, -8.5, -8.5],
+			"to": [8.05, 24.5, 24.5],
+			"rotation": {"angle": 0, "axis": "z", "origin": [8, 8, 8]},
+			"faces": {
+				"north": {"uv": [0.61538, 0.61538, 0.61538, 0.61538], "texture": "#texture"},
+				"east": {"uv": [0, 0, 16, 16], "texture": "#texture"},
+				"south": {"uv": [0.61538, 0.61538, 0.61538, 0.61538], "texture": "#texture"},
+				"west": {"uv": [16, 0, 0, 16], "texture": "#texture"},
+				"up": {"uv": [0.61538, 0.61538, 0.61538, 0.61538], "texture": "#texture"},
+				"down": {"uv": [0.61538, 0.61538, 0.61538, 0.61538], "texture": "#texture"}
+			}
+		},
+		{
+			"name": "Cube",
+			"from": [-8.5, -8.5, 7.95],
+			"to": [24.5, 24.5, 8.05],
+			"rotation": {"angle": 0, "axis": "z", "origin": [8, 8, 8]},
+			"faces": {
+				"north": {"uv": [16, 0, 0, 16], "texture": "#texture"},
+				"east": {"uv": [0.61538, 0.61538, 0.61538, 0.61538], "texture": "#texture"},
+				"south": {"uv": [0, 0, 16, 16], "texture": "#texture"},
+				"west": {"uv": [0.61538, 0.61538, 0.61538, 0.61538], "texture": "#texture"},
+				"up": {"uv": [0.61538, 0.61538, 0.61538, 0.61538], "rotation": 90, "texture": "#texture"},
+				"down": {"uv": [0.61538, 0.61538, 0.61538, 0.61538], "rotation": 270, "texture": "#texture"}
+			}
+		}
+	],
+	"display": {
+		"head": {
+			"translation": [0, -18.5, 0],
+			"scale": [0.6, 0.6, 0.6]
+		}
+	}
+}

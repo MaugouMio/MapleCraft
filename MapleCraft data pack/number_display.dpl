@@ -76,6 +76,6 @@ namespace number_display()
 	func remove()
 	{
 		execute store result score #GLOBAL temp run time query gametime
-		execute as @e[type=text_display,tag=display_number] if score @s life = #GLOBAL temp run kill @s
+		execute as @e[type=text_display,tag=display_number] if score @s life <= #GLOBAL temp run kill @s
 	}
 }
