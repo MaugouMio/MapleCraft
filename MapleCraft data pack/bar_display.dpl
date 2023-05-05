@@ -423,20 +423,20 @@ namespace bar_display()
 			data merge entity @s {Tags:["dead_decoration"],CustomNameVisible:1,transformation:{scale:[1.2f,1.2f,1.2f]}}
 			item replace entity @s container.0 from block 250 2 0 container.1
 			function ARG(_PATH)set_name
-			tp @s ~ ~2 ~ ~ 0
+			tp @s ~ ~2 ~ ~180 0
 			scoreboard players operation @s number = #GLOBAL temp
 		}
 
 		func body_set()
 		{
 			data merge entity @s {Tags:["dead_decoration"],transformation:{translation:[0.0f,1.5f,0.0f],scale:[0.75f,0.75f,0.75f]},item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:2}}}
-			tp @s ~ ~ ~ ~ 0
+			tp @s ~ ~ ~ ~180 0
 			scoreboard players operation @s number = #GLOBAL temp
 		}
 
 		func tomb_set()
 		{
-			data merge entity @s {Tags:["dead_decoration","tomb"],transformation:{translation:[0.0f,10.6f,1.5f]},item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:3,CustomPotionColor:-1}},item_display:"head"}
+			data merge entity @s {Tags:["dead_decoration","tomb"],transformation:{translation:[0.0f,10.6f,0.0f]},item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:3,CustomPotionColor:-1}},item_display:"head"}
 			execute store result score @s temp run schedule function ARG(_PATH)tomb_anim 1t append
 			tp @s ~ ~ ~ ~ 0
 			scoreboard players operation @s number = #GLOBAL temp
@@ -445,14 +445,14 @@ namespace bar_display()
 		func tomb_anim()
 		{
 			execute store result score #GLOBAL temp run time query gametime
-			execute as @e[type=item_display,tag=tomb] if score @s temp = #GLOBAL temp run data merge entity @s {transformation:{translation:[0.0f,2.6f,1.5f]},interpolation_duration:13,start_interpolation:0}
+			execute as @e[type=item_display,tag=tomb] if score @s temp = #GLOBAL temp run data merge entity @s {transformation:{translation:[0.0f,2.6f,0.0f]},interpolation_duration:13,start_interpolation:0}
 		}
 		
 		func set_name()
 		{
 			data modify storage bar:main name set from entity @s ArmorItems[3].tag.SkullOwner.Name
-			data modify block 250 0 0 Text1 set value '{"nbt":"name","storage":"bar:main"}'
-			data modify entity @s CustomName set from block 250 0 0 Text1
+			data modify block 250 0 0 front_text.messages[0] set value '{"nbt":"name","storage":"bar:main"}'
+			data modify entity @s CustomName set from block 250 0 0 front_text.messages[0]
 		}
 		
 		func revive()

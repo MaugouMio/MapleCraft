@@ -365,7 +365,7 @@ namespace party_quest() as virtual
 					execute positioned -328 60 -43 run kill @e[type=item,dx=86,dy=28,dz=86]
 					kill @e[type=#skill:enemy,tag=kpq_mob]
 					kill @e[type=marker,tag=kpq_mob_spawner]
-					data modify block -310 47 0 Text1 set value '""'
+					data modify block -310 47 0 front_text.messages[0] set value '""'
 					setblock -310 47 -1 minecraft:air
 					setblock -310 47 1 minecraft:air
 					forceload remove -266 -23 -314 23
@@ -401,7 +401,7 @@ namespace party_quest() as virtual
 							function quest:party_quest/kpq/title/clear/run
 							scoreboard players add #KPQ_STAGE temp 1
 							
-							data modify block -310 47 0 Text1 set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -310.0 46 -1.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/1/portal"}}'
+							data modify block -310 47 0 front_text.messages[0] set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -310.0 46 -1.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/1/portal"}}'
 							setblock -310 47 1 minecraft:tripwire[attached=false,disarmed=false,east=false,north=false,south=false,west=false]
 							setblock -310 47 -1 minecraft:tripwire[attached=true,disarmed=false,east=false,north=false,south=false,west=false]
 							
@@ -480,7 +480,7 @@ namespace party_quest() as virtual
 				{
 					forceload add -550 -25 -500 25
 					execute positioned -565 41 -40 run kill @e[type=item,dx=80,dy=37,dz=80]
-					data modify block -540 43 0 Text1 set value '""'
+					data modify block -540 43 0 front_text.messages[0] set value '""'
 					setblock -540 43 -1 minecraft:air
 					setblock -540 43 1 minecraft:air
 					kill @e[type=creeper,tag=kpq_player]
@@ -548,7 +548,7 @@ namespace party_quest() as virtual
 							function quest:party_quest/kpq/title/clear/run
 							scoreboard players add #KPQ_STAGE temp 1
 							
-							data modify block -540 43 0 Text1 set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -540.0 42 -1.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/2/portal"}}'
+							data modify block -540 43 0 front_text.messages[0] set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -540.0 42 -1.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/2/portal"}}'
 							setblock -540 43 1 minecraft:tripwire[attached=false,disarmed=false,east=false,north=false,south=false,west=false]
 							setblock -540 43 -1 minecraft:tripwire[attached=true,disarmed=false,east=false,north=false,south=false,west=false]
 							
@@ -590,7 +590,7 @@ namespace party_quest() as virtual
 				{
 					forceload add -852 -10 -800 10
 					execute positioned -852 31 -10 run kill @e[type=item,dx=52,dy=28,dz=20]
-					data modify block -850 47 0 Text1 set value '""'
+					data modify block -850 47 0 front_text.messages[0] set value '""'
 					setblock -850 47 -1 minecraft:air
 					setblock -850 47 1 minecraft:air
 					setblock -849 47 3 minecraft:air
@@ -663,7 +663,7 @@ namespace party_quest() as virtual
 							function quest:party_quest/kpq/title/clear/run
 							scoreboard players add #KPQ_STAGE temp 1
 							
-							data modify block -850 47 0 Text1 set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -850.0 46 -1.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/3/portal"}}'
+							data modify block -850 47 0 front_text.messages[0] set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -850.0 46 -1.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/3/portal"}}'
 							setblock -850 47 1 minecraft:tripwire[attached=false,disarmed=false,east=false,north=false,south=false,west=false]
 							setblock -850 47 -1 minecraft:tripwire[attached=true,disarmed=false,east=false,north=false,south=false,west=false]
 							setblock -849 47 3 minecraft:fire
@@ -716,7 +716,7 @@ namespace party_quest() as virtual
 				{
 					forceload add -1197 2 -1171 29
 					execute positioned -1197 31 2 run kill @e[type=item,dx=26,dy=29,dz=27]
-					data modify block -1195 55 24 Text1 set value '""'
+					data modify block -1195 55 24 front_text.messages[0] set value '""'
 					setblock -1195 55 25 minecraft:air
 					setblock -1195 55 23 minecraft:air
 					setblock -1194 55 21 minecraft:air
@@ -793,7 +793,7 @@ namespace party_quest() as virtual
 							scoreboard players add #KPQ_STAGE temp 1
 							scoreboard players set #KPQ_S5_LOADED temp 1
 							
-							data modify block -1195 55 24 Text1 set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -1195.0 54.0 23.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/4/portal"}}'
+							data modify block -1195 55 24 front_text.messages[0] set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -1195.0 54.0 23.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/4/portal"}}'
 							setblock -1195 55 25 minecraft:tripwire[attached=false,disarmed=false,east=false,north=false,south=false,west=false]
 							setblock -1195 55 23 minecraft:tripwire[attached=true,disarmed=false,east=false,north=false,south=false,west=false]
 							setblock -1194 55 21 fire

@@ -75,7 +75,7 @@ namespace 41() as virtual
 				
 				func set_description()
 				{
-					data modify block 250 0 0 Text1 set value '""'
+					data modify block 250 0 0 front_text.messages[0] set value '""'
 					data modify storage ui:main temp set value [0, 0, 0, 0, 0]
 					execute store result storage ui:main temp[0] int 1 run scoreboard players get @s 4100000_level
 					execute store result storage ui:main temp[1] int 1 run scoreboard players get @s claw_mastery
@@ -84,8 +84,8 @@ namespace 41() as virtual
 					execute if score @s 4100000_level matches ..19 run function ARG(_PATH)get_next_level
 					scoreboard players operation #GLOBAL temp = @s 4100000_level
 					scoreboard players operation #GLOBAL temp *= #10 const
-					execute if score @s 4100000_level matches 1.. run data modify block 250 0 0 Text1 set value '[{"translate":"skill.description.level.current","with":[{"nbt":"temp[0]","storage":"ui:main"}]},{"translate":"skill.description.level.4100000","with":[{"nbt":"temp[1]","storage":"ui:main"},{"nbt":"temp[0]","storage":"ui:main"},{"score":{"objective":"temp","name":"#GLOBAL"}}]},{"nbt":"Text1","block":"250 0 0","interpret":true}]'
-					data modify storage ui:main skill_level_info append from block 250 0 0 Text1
+					execute if score @s 4100000_level matches 1.. run data modify block 250 0 0 front_text.messages[0] set value '[{"translate":"skill.description.level.current","with":[{"nbt":"temp[0]","storage":"ui:main"}]},{"translate":"skill.description.level.4100000","with":[{"nbt":"temp[1]","storage":"ui:main"},{"nbt":"temp[0]","storage":"ui:main"},{"score":{"objective":"temp","name":"#GLOBAL"}}]},{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}]'
+					data modify storage ui:main skill_level_info append from block 250 0 0 front_text.messages[0]
 				}
 				
 				func get_next_level()
@@ -97,13 +97,13 @@ namespace 41() as virtual
 					execute store result storage ui:main temp[3] int 1 run scoreboard players get @s claw_mastery
 					scoreboard players operation #GLOBAL temp = @s 4100000_level
 					scoreboard players operation #GLOBAL temp *= #10 const
-					data modify block 250 0 0 Text1 set value '[{"translate":"skill.description.level.next","with":[{"nbt":"temp[2]","storage":"ui:main"}]},{"translate":"skill.description.level.4100000","with":[{"nbt":"temp[3]","storage":"ui:main"},{"nbt":"temp[2]","storage":"ui:main"},{"score":{"objective":"temp","name":"#GLOBAL"}}]}]'
+					data modify block 250 0 0 front_text.messages[0] set value '[{"translate":"skill.description.level.next","with":[{"nbt":"temp[2]","storage":"ui:main"}]},{"translate":"skill.description.level.4100000","with":[{"nbt":"temp[3]","storage":"ui:main"},{"nbt":"temp[2]","storage":"ui:main"},{"score":{"objective":"temp","name":"#GLOBAL"}}]}]'
 					
 					scoreboard players remove @s 4100000_level 1
 					scoreboard players remove @s claw_accuracy 1
 					execute store result score @s claw_mastery run data get storage ui:main temp[1]
 					execute store result score @s claw_color run data get storage ui:main temp[4]
-					execute if score @s 4100000_level matches 1.. run data modify block 250 0 0 Text1 set value '["\\n",{"nbt":"Text1","block":"250 0 0","interpret":true}]'
+					execute if score @s 4100000_level matches 1.. run data modify block 250 0 0 front_text.messages[0] set value '["\\n",{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}]'
 				}
 			```
 			for i in range(18):
@@ -148,15 +148,15 @@ namespace 41() as virtual
 				
 				func set_description()
 				{
-					data modify block 250 0 0 Text1 set value '""'
+					data modify block 250 0 0 front_text.messages[0] set value '""'
 					data modify storage ui:main temp set value [0, 0, 0, 0, 0, 0]
 					execute store result storage ui:main temp[0] int 1 run scoreboard players get @s 4100001_level
 					execute store result storage ui:main temp[1] int 1 run scoreboard players get @s crit_rate
 					execute store result storage ui:main temp[2] int 1 run scoreboard players add @s crit_damage 100
 					
 					execute if score @s 4100001_level matches ..29 run function ARG(_PATH)get_next_level
-					execute if score @s 4100001_level matches 1.. run data modify block 250 0 0 Text1 set value '[{"translate":"skill.description.level.current","with":[{"nbt":"temp[0]","storage":"ui:main"}]},{"translate":"skill.description.level.4100001","with":[{"nbt":"temp[1]","storage":"ui:main"},{"nbt":"temp[2]","storage":"ui:main"}]},{"nbt":"Text1","block":"250 0 0","interpret":true}]'
-					data modify storage ui:main skill_level_info append from block 250 0 0 Text1
+					execute if score @s 4100001_level matches 1.. run data modify block 250 0 0 front_text.messages[0] set value '[{"translate":"skill.description.level.current","with":[{"nbt":"temp[0]","storage":"ui:main"}]},{"translate":"skill.description.level.4100001","with":[{"nbt":"temp[1]","storage":"ui:main"},{"nbt":"temp[2]","storage":"ui:main"}]},{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}]'
+					data modify storage ui:main skill_level_info append from block 250 0 0 front_text.messages[0]
 					
 					scoreboard players remove @s crit_damage 100
 				}
@@ -169,12 +169,12 @@ namespace 41() as virtual
 					execute store result storage ui:main temp[3] int 1 run scoreboard players get @s 4100001_level
 					execute store result storage ui:main temp[4] int 1 run scoreboard players get @s crit_rate
 					execute store result storage ui:main temp[5] int 1 run scoreboard players add @s crit_damage 100
-					data modify block 250 0 0 Text1 set value '[{"translate":"skill.description.level.next","with":[{"nbt":"temp[3]","storage":"ui:main"}]},{"translate":"skill.description.level.4100001","with":[{"nbt":"temp[4]","storage":"ui:main"},{"nbt":"temp[5]","storage":"ui:main"}]}]'
+					data modify block 250 0 0 front_text.messages[0] set value '[{"translate":"skill.description.level.next","with":[{"nbt":"temp[3]","storage":"ui:main"}]},{"translate":"skill.description.level.4100001","with":[{"nbt":"temp[4]","storage":"ui:main"},{"nbt":"temp[5]","storage":"ui:main"}]}]'
 					
 					scoreboard players remove @s 4100001_level 1
 					execute store result score @s crit_rate run data get storage ui:main temp[1]
 					execute store result score @s crit_damage run data get storage ui:main temp[2]
-					execute if score @s 4100001_level matches 1.. run data modify block 250 0 0 Text1 set value '["\\n",{"nbt":"Text1","block":"250 0 0","interpret":true}]'
+					execute if score @s 4100001_level matches 1.. run data modify block 250 0 0 front_text.messages[0] set value '["\\n",{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}]'
 				}
 			}
 		}
@@ -200,7 +200,7 @@ namespace 41() as virtual
 				
 				func set_description()
 				{
-					data modify block 250 0 0 Text1 set value '""'
+					data modify block 250 0 0 front_text.messages[0] set value '""'
 					scoreboard players operation #GLOBAL temp = @s 4100002_level
 					scoreboard players operation #GLOBAL hp_recovery = @s hp_recovery
 					scoreboard players operation #GLOBAL mp_recovery = @s mp_recovery
@@ -208,8 +208,8 @@ namespace 41() as virtual
 					scoreboard players remove #GLOBAL mp_recovery 3
 					
 					execute if score @s 4100002_level matches ..19 run function ARG(_PATH)get_next_level
-					execute if score @s 4100002_level matches 1.. run data modify block 250 0 0 Text1 set value '[{"translate":"skill.description.level.current","with":[{"score":{"objective":"temp","name":"#GLOBAL"}}]},{"translate":"skill.description.level.4100002","with":[{"score":{"objective":"hp_recovery","name":"#GLOBAL"}},{"score":{"objective":"mp_recovery","name":"#GLOBAL"}}]},{"nbt":"Text1","block":"250 0 0","interpret":true}]'
-					data modify storage ui:main skill_level_info append from block 250 0 0 Text1
+					execute if score @s 4100002_level matches 1.. run data modify block 250 0 0 front_text.messages[0] set value '[{"translate":"skill.description.level.current","with":[{"score":{"objective":"temp","name":"#GLOBAL"}}]},{"translate":"skill.description.level.4100002","with":[{"score":{"objective":"hp_recovery","name":"#GLOBAL"}},{"score":{"objective":"mp_recovery","name":"#GLOBAL"}}]},{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}]'
+					data modify storage ui:main skill_level_info append from block 250 0 0 front_text.messages[0]
 				}
 				
 				func get_next_level()
@@ -217,12 +217,12 @@ namespace 41() as virtual
 					scoreboard players add #GLOBAL temp 1
 					scoreboard players add #GLOBAL hp_recovery 3
 					scoreboard players add #GLOBAL mp_recovery 1
-					data modify block 250 0 0 Text1 set value '[{"translate":"skill.description.level.next","with":[{"score":{"objective":"temp","name":"#GLOBAL"}}]},{"translate":"skill.description.level.4100002","with":[{"score":{"objective":"hp_recovery","name":"#GLOBAL"}},{"score":{"objective":"mp_recovery","name":"#GLOBAL"}}]}]'
+					data modify block 250 0 0 front_text.messages[0] set value '[{"translate":"skill.description.level.next","with":[{"score":{"objective":"temp","name":"#GLOBAL"}}]},{"translate":"skill.description.level.4100002","with":[{"score":{"objective":"hp_recovery","name":"#GLOBAL"}},{"score":{"objective":"mp_recovery","name":"#GLOBAL"}}]}]'
 					
 					scoreboard players remove #GLOBAL temp 1
 					scoreboard players remove #GLOBAL hp_recovery 3
 					scoreboard players remove #GLOBAL mp_recovery 1
-					execute if score @s 4100002_level matches 1.. run data modify block 250 0 0 Text1 set value '["\\n",{"nbt":"Text1","block":"250 0 0","interpret":true}]'
+					execute if score @s 4100002_level matches 1.. run data modify block 250 0 0 front_text.messages[0] set value '["\\n",{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}]'
 				}
 			}
 		}
@@ -325,7 +325,7 @@ namespace 41() as virtual
 				
 				func set_description()
 				{
-					data modify block 250 0 0 Text1 set value '""'
+					data modify block 250 0 0 front_text.messages[0] set value '""'
 					data modify storage ui:main temp set value [0, 0, 0, 0, 0, 0, 0, 0]
 					execute store result storage ui:main temp[0] int 1 run scoreboard players get @s 4101004_level
 					execute store result storage ui:main temp[1] int 1 run scoreboard players get @s 4101004_mp
@@ -336,8 +336,8 @@ namespace 41() as virtual
 					scoreboard players set #GLOBAL temp 0
 					execute if score @s 4101004_level matches 10.. run scoreboard players add #GLOBAL temp 10
 					execute if score @s 4101004_level matches 20 run scoreboard players add #GLOBAL temp 10
-					execute if score @s 4101004_level matches 1.. run data modify block 250 0 0 Text1 set value '[{"translate":"skill.description.level.current","with":[{"nbt":"temp[0]","storage":"ui:main"}]},{"translate":"skill.description.level.4101004","with":[{"nbt":"temp[1]","storage":"ui:main"},{"nbt":"temp[2]","storage":"ui:main"},{"score":{"objective":"temp","name":"#GLOBAL"}},{"nbt":"temp[3]","storage":"ui:main"}]},{"nbt":"Text1","block":"250 0 0","interpret":true}]'
-					data modify storage ui:main skill_level_info append from block 250 0 0 Text1
+					execute if score @s 4101004_level matches 1.. run data modify block 250 0 0 front_text.messages[0] set value '[{"translate":"skill.description.level.current","with":[{"nbt":"temp[0]","storage":"ui:main"}]},{"translate":"skill.description.level.4101004","with":[{"nbt":"temp[1]","storage":"ui:main"},{"nbt":"temp[2]","storage":"ui:main"},{"score":{"objective":"temp","name":"#GLOBAL"}},{"nbt":"temp[3]","storage":"ui:main"}]},{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}]'
+					data modify storage ui:main skill_level_info append from block 250 0 0 front_text.messages[0]
 				}
 				
 				func get_next_level()
@@ -352,12 +352,12 @@ namespace 41() as virtual
 					scoreboard players set #GLOBAL temp 0
 					execute if score @s 4101004_level matches 10.. run scoreboard players add #GLOBAL temp 10
 					execute if score @s 4101004_level matches 20 run scoreboard players add #GLOBAL temp 10
-					data modify block 250 0 0 Text1 set value '[{"translate":"skill.description.level.next","with":[{"nbt":"temp[4]","storage":"ui:main"}]},{"translate":"skill.description.level.4101004","with":[{"nbt":"temp[5]","storage":"ui:main"},{"nbt":"temp[6]","storage":"ui:main"},{"score":{"objective":"temp","name":"#GLOBAL"}},{"nbt":"temp[7]","storage":"ui:main"}]}]'
+					data modify block 250 0 0 front_text.messages[0] set value '[{"translate":"skill.description.level.next","with":[{"nbt":"temp[4]","storage":"ui:main"}]},{"translate":"skill.description.level.4101004","with":[{"nbt":"temp[5]","storage":"ui:main"},{"nbt":"temp[6]","storage":"ui:main"},{"score":{"objective":"temp","name":"#GLOBAL"}},{"nbt":"temp[7]","storage":"ui:main"}]}]'
 					
 					scoreboard players remove @s 4101004_level 1
 					execute store result score @s 4101004_mp run data get storage ui:main temp[1]
 					execute store result score @s 4101004_time run data get storage ui:main temp[3]
-					execute if score @s 4101004_level matches 1.. run data modify block 250 0 0 Text1 set value '["\\n",{"nbt":"Text1","block":"250 0 0","interpret":true}]'
+					execute if score @s 4101004_level matches 1.. run data modify block 250 0 0 front_text.messages[0] set value '["\\n",{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}]'
 				}
 			}
 			
@@ -522,7 +522,7 @@ namespace 41() as virtual
 				
 				func set_description()
 				{
-					data modify block 250 0 0 Text1 set value '""'
+					data modify block 250 0 0 front_text.messages[0] set value '""'
 					data modify storage ui:main temp set value [0, 0, 0, 0, 0, 0, 0, 0]
 					execute store result storage ui:main temp[0] int 1 run scoreboard players get @s 4101005_level
 					execute store result storage ui:main temp[1] int 1 run scoreboard players get @s 4101005_mp
@@ -530,8 +530,8 @@ namespace 41() as virtual
 					execute store result storage ui:main temp[3] int 1 run scoreboard players get @s 4101005_attack
 					
 					execute if score @s 4101005_level matches ..29 run function ARG(_PATH)get_next_level
-					execute if score @s 4101005_level matches 1.. run data modify block 250 0 0 Text1 set value '[{"translate":"skill.description.level.current","with":[{"nbt":"temp[0]","storage":"ui:main"}]},{"translate":"skill.description.level.4101005","with":[{"nbt":"temp[1]","storage":"ui:main"},{"nbt":"temp[2]","storage":"ui:main"},{"nbt":"temp[3]","storage":"ui:main"}]},{"nbt":"Text1","block":"250 0 0","interpret":true}]'
-					data modify storage ui:main skill_level_info append from block 250 0 0 Text1
+					execute if score @s 4101005_level matches 1.. run data modify block 250 0 0 front_text.messages[0] set value '[{"translate":"skill.description.level.current","with":[{"nbt":"temp[0]","storage":"ui:main"}]},{"translate":"skill.description.level.4101005","with":[{"nbt":"temp[1]","storage":"ui:main"},{"nbt":"temp[2]","storage":"ui:main"},{"nbt":"temp[3]","storage":"ui:main"}]},{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}]'
+					data modify storage ui:main skill_level_info append from block 250 0 0 front_text.messages[0]
 				}
 				
 				func get_next_level()
@@ -543,13 +543,13 @@ namespace 41() as virtual
 					execute store result storage ui:main temp[5] int 1 run scoreboard players get @s 4101005_mp
 					execute store result storage ui:main temp[6] int 1 run scoreboard players get @s 4101005_absorb
 					execute store result storage ui:main temp[7] int 1 run scoreboard players get @s 4101005_attack
-					data modify block 250 0 0 Text1 set value '[{"translate":"skill.description.level.next","with":[{"nbt":"temp[4]","storage":"ui:main"}]},{"translate":"skill.description.level.4101005","with":[{"nbt":"temp[5]","storage":"ui:main"},{"nbt":"temp[6]","storage":"ui:main"},{"nbt":"temp[7]","storage":"ui:main"}]}]'
+					data modify block 250 0 0 front_text.messages[0] set value '[{"translate":"skill.description.level.next","with":[{"nbt":"temp[4]","storage":"ui:main"}]},{"translate":"skill.description.level.4101005","with":[{"nbt":"temp[5]","storage":"ui:main"},{"nbt":"temp[6]","storage":"ui:main"},{"nbt":"temp[7]","storage":"ui:main"}]}]'
 					
 					scoreboard players remove @s 4101005_level 1
 					execute store result score @s 4101005_mp run data get storage ui:main temp[1]
 					execute store result score @s 4101005_absorb run data get storage ui:main temp[2]
 					execute store result score @s 4101005_attack run data get storage ui:main temp[3]
-					execute if score @s 4101005_level matches 1.. run data modify block 250 0 0 Text1 set value '["\\n",{"nbt":"Text1","block":"250 0 0","interpret":true}]'
+					execute if score @s 4101005_level matches 1.. run data modify block 250 0 0 front_text.messages[0] set value '["\\n",{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}]'
 				}
 			}
 			
