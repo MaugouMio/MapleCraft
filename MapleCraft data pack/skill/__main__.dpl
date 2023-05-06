@@ -113,6 +113,9 @@ namespace attack_skill_template(skill_id) as virtual
 			print("execute store result storage skill:main damage_info.power_knock_back[0] double 0.0007 run data get storage skill:main damage_info.power_knock_back[0] 10000")
 			print("execute store result storage skill:main damage_info.power_knock_back[2] double 0.0007 run data get storage skill:main damage_info.power_knock_back[2] 10000")
 		```
+		# player hand height
+		execute store result score #POSY temp run data get entity @s Pos[1] 10
+		scoreboard players add #POSY temp 12
 		execute as @e[type=ocelot,tag=target] at @s run function ARG(_PATH)hit
 		```
 		# mp eater
@@ -135,6 +138,7 @@ namespace attack_skill_template(skill_id) as virtual
 		execute store result score @s display_number run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].damage.number
 		execute store result score @s display_num_type run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].damage.crit
 		execute store result score #NUMBER_HEIGHT temp run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].damage.height
+		execute store result score #OFFSET_Y temp run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].damage.offset
 		execute store result score #HIT_EFFECT temp run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].hit_effect
 		execute if entity @s[tag=!no_anger] run function ARG(_PATH)set_angry_at
 		
@@ -189,7 +193,7 @@ namespace attack_skill_template(skill_id) as virtual
 		function skill:sync_knockback/run
 		
 		# face attacker player
-		tp @s ~ ~ ~ ~ ~
+		tp @s ~ ~ ~ ~ 0
 		
 		data modify entity @s Motion set from entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].knock_back
 	}
@@ -343,6 +347,9 @@ namespace bullet_skill_template(skill_id) as virtual
 		execute store result storage skill:main damage_info.knock_back[0] double 0.0001 run scoreboard players remove #GLOBAL temp 2500000
 		kill 00000000-0000-0005-0000-000000000005
 		
+		# player hand height
+		execute store result score #POSY temp run data get entity @s Pos[1] 10
+		scoreboard players add #POSY temp 12
 		execute as @e[type=ocelot,tag=target] at @s run function ARG(_PATH)hit
 		```
 		if "ARG(skill_id)" == "4101005":
@@ -368,6 +375,7 @@ namespace bullet_skill_template(skill_id) as virtual
 		execute store result score @s display_number run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].damage.number
 		execute store result score @s display_num_type run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].damage.crit
 		execute store result score #NUMBER_HEIGHT temp run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].damage.height
+		execute store result score #OFFSET_Y temp run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].damage.offset
 		execute store result score #HIT_EFFECT temp run data get entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].hit_effect
 		execute if entity @s[tag=!no_anger] run function ARG(_PATH)set_angry_at
 		
@@ -416,7 +424,7 @@ namespace bullet_skill_template(skill_id) as virtual
 		function skill:sync_knockback/run
 		
 		# face attacker player
-		tp @s ~ ~ ~ ~ ~
+		tp @s ~ ~ ~ ~ 0
 		
 		data modify entity @s Motion set from entity @s ArmorItems[3].tag.ARG(skill_id)_effect_queue[0].knock_back
 	}
@@ -3206,8 +3214,19 @@ namespace skill()
 			data modify entity @s ArmorItems[3].tag.damage_record set value []
 			# copy damage list
 			data modify storage skill:main damage_copy set from storage skill:main damage
-			scoreboard players set #SAME_DAMAGE temp 0
 			execute on passengers if entity @s[type=interaction] store result score #NUMBER_HEIGHT temp run data get entity @s height 100
+			# calculate hit height
+			scoreboard players operation #MAX_HEIGHT temp = #NUMBER_HEIGHT temp
+			scoreboard players operation #MAX_HEIGHT temp /= #10 const
+			# riding ocelot makes it 0.2625 block higher
+			scoreboard players add #MAX_HEIGHT temp 2
+			scoreboard players operation #OFFSET_Y temp = #POSY temp
+			execute store result score #POSY2 temp run data get entity @s Pos[1] 10
+			scoreboard players operation #OFFSET_Y temp -= #POSY2 temp
+			scoreboard players operation #OFFSET_Y temp > #0 const
+			scoreboard players operation #OFFSET_Y temp < #MAX_HEIGHT temp
+			
+			scoreboard players set #SAME_DAMAGE temp 0
 			scoreboard players set #DID_HIT temp 0
 			function ARG(_PATH)traverse_damages/run
 			
@@ -3431,6 +3450,7 @@ namespace skill()
 				
 				data modify entity @s ArmorItems[3].tag.damage_record append value {number:0,crit:0}
 				execute store result entity @s ArmorItems[3].tag.damage_record[-1].height int 1 run scoreboard players add #NUMBER_HEIGHT temp 33
+				execute store result entity @s ArmorItems[3].tag.damage_record[-1].offset int 1 run scoreboard players get #OFFSET_Y temp
 				
 				function random:rand_rate
 				execute if score #HIT_RATE temp > #RAND_RESULT number run function ARG(_PATH)deal_damage
@@ -3931,7 +3951,7 @@ namespace skill()
 					
 					tp @s ~ ~ ~ ~ 0
 					function skill:get_horizon_offset_color
-					execute store result entity @s item.tag.CustomPotionColor int 1 run scoreboard players add #MODEL_COLOR temp 12
+					execute store result entity @s item.tag.CustomPotionColor int 1 run scoreboard players operation #MODEL_COLOR temp += #OFFSET_Y temp
 				}
 				
 				func mace1()
@@ -3942,7 +3962,7 @@ namespace skill()
 					
 					tp @s ~ ~ ~ ~ 0
 					function skill:get_horizon_offset_color
-					execute store result entity @s item.tag.CustomPotionColor int 1 run scoreboard players add #MODEL_COLOR temp 12
+					execute store result entity @s item.tag.CustomPotionColor int 1 run scoreboard players operation #MODEL_COLOR temp += #OFFSET_Y temp
 				}
 			}
 			
@@ -3964,7 +3984,7 @@ namespace skill()
 					
 					tp @s ~ ~ ~ ~ 0
 					function skill:get_horizon_offset_color
-					execute store result entity @s item.tag.CustomPotionColor int 1 run scoreboard players add #MODEL_COLOR temp 12
+					execute store result entity @s item.tag.CustomPotionColor int 1 run scoreboard players operation #MODEL_COLOR temp += #OFFSET_Y temp
 				}
 				
 				func sword1()
@@ -3975,7 +3995,7 @@ namespace skill()
 					
 					tp @s ~ ~ ~ ~ 0
 					function skill:get_horizon_offset_color
-					execute store result entity @s item.tag.CustomPotionColor int 1 run scoreboard players add #MODEL_COLOR temp 12
+					execute store result entity @s item.tag.CustomPotionColor int 1 run scoreboard players operation #MODEL_COLOR temp += #OFFSET_Y temp
 				}
 			}
 		}
@@ -4952,7 +4972,7 @@ namespace skill()
 			execute if score #SYNC_FREEZE_COLOR temp matches 1 run function skill:mob_effect/debuff/freeze_color
 			
 			# knock_back function 裡面已經設定好面向了
-			tp @s ~ ~ ~ ~ ~
+			tp @s ~ ~ ~ ~ 0
 			
 			data modify entity @s NoAI set value 1b
 		}

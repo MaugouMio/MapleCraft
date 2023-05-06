@@ -112,7 +112,17 @@ namespace 0() as virtual
 					data modify entity @s ArmorItems[3].tag.bullet_list[-1].damage_record set value [{number:0,crit:0,height:0}]
 					execute store result entity @s ArmorItems[3].tag.bullet_list[-1].damage_record[-1].number int 1 run scoreboard players get #SNAIL_DAMAGE temp
 					execute on passengers if entity @s[type=interaction] store result score #NUMBER_HEIGHT temp run data get entity @s height 100
+					# calculate hit height
+					scoreboard players operation #MAX_HEIGHT temp = #NUMBER_HEIGHT temp
+					scoreboard players operation #MAX_HEIGHT temp /= #10 const
+					scoreboard players add #MAX_HEIGHT temp 2
+					scoreboard players operation #OFFSET_Y temp = #POSY temp
+					execute store result score #POSY2 temp run data get entity @s Pos[1] 10
+					scoreboard players operation #OFFSET_Y temp -= #POSY2 temp
+					scoreboard players operation #OFFSET_Y temp > #0 const
+					scoreboard players operation #OFFSET_Y temp < #MAX_HEIGHT temp
 					execute store result entity @s ArmorItems[3].tag.bullet_list[-1].damage_record[-1].height int 1 run scoreboard players get #NUMBER_HEIGHT temp
+					execute store result entity @s ArmorItems[3].tag.bullet_list[-1].damage_record[-1].offset int 1 run scoreboard players get #OFFSET_Y temp
 					#################################################
 					data modify entity @s ArmorItems[3].tag.bullet_list[-1].damage_info set from storage skill:main damage_info
 					
