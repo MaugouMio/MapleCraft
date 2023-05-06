@@ -123,8 +123,9 @@ namespace 22() as virtual
 
 				tp @s ~ ~ ~ ~ 0
 				function skill:get_horizon_offset_color
-				# 往後退 0.2 格，再往上 1 格
-				execute store result entity @s item.tag.CustomPotionColor int 1 run scoreboard players remove #MODEL_COLOR temp 502
+				# 往後退 0.2 格，再往上位移
+				scoreboard players remove #MODEL_COLOR temp 512
+				execute store result entity @s item.tag.CustomPotionColor int 1 run scoreboard players operation #MODEL_COLOR temp += #OFFSET_Y temp
 			}
 			
 			func append_scheduler()

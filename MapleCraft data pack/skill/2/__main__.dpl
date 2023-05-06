@@ -445,7 +445,7 @@ namespace 2() as virtual
 
 					tp @s ~ ~ ~ ~ 0
 					function skill:get_horizon_offset_color
-					execute store result entity @s item.tag.CustomPotionColor int 1 run scoreboard players add #MODEL_COLOR temp 12
+					execute store result entity @s item.tag.CustomPotionColor int 1 run scoreboard players operation #MODEL_COLOR temp += #OFFSET_Y temp
 				}
 				
 				func append_scheduler()
@@ -589,7 +589,7 @@ namespace 2() as virtual
 
 					tp @s ~ ~ ~ ~ 0
 					function skill:get_horizon_offset_color
-					execute store result entity @s item.tag.CustomPotionColor int 1 run scoreboard players add #MODEL_COLOR temp 12
+					execute store result entity @s item.tag.CustomPotionColor int 1 run scoreboard players operation #MODEL_COLOR temp += #OFFSET_Y temp
 				}
 				
 				func append_scheduler()

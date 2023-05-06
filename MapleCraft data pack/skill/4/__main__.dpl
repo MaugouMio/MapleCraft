@@ -204,11 +204,17 @@ namespace 4() as virtual
 				{
 					function mob:loop/anger_countdown/reset
 					
-					scoreboard players operation #BIND_PLAYER number = @s number
-					execute if entity @s[tag=4001002_effect] positioned ~ ~0.2625 ~ summon item_display run function ARG(_PATH)effect_model_set
+					execute if entity @s[tag=4001002_effect] run function ARG(_PATH)show_ghost
 					tag @s remove 4001002_effect
 					
 					function skill:mob_effect/play_hurt_sound/run
+				}
+				
+				func show_ghost()
+				{
+					scoreboard players operation #BIND_PLAYER number = @s number
+					execute on passengers if entity @s[type=interaction] store result score #VERTICAL_OFFSET temp run data get entity @s height 7
+					execute positioned ~ ~0.2625 ~ summon item_display run function ARG(_PATH)effect_model_set
 				}
 				
 				func effect_model_set()
@@ -219,7 +225,7 @@ namespace 4() as virtual
 
 					tp @s ~ ~ ~ ~ 0
 					function skill:get_horizon_offset_color
-					execute store result entity @s item.tag.CustomPotionColor int 1 run scoreboard players add #MODEL_COLOR temp 12
+					execute store result entity @s item.tag.CustomPotionColor int 1 run scoreboard players operation #MODEL_COLOR temp += #VERTICAL_OFFSET temp
 					
 					function skill:bind_mob
 				}
@@ -549,7 +555,7 @@ namespace 4() as virtual
 
 					tp @s ~ ~ ~ ~ 0
 					function skill:get_horizon_offset_color
-					execute store result entity @s item.tag.CustomPotionColor int 1 run scoreboard players add #MODEL_COLOR temp 12
+					execute store result entity @s item.tag.CustomPotionColor int 1 run scoreboard players operation #MODEL_COLOR temp += #OFFSET_Y temp
 				}
 				
 				func append_scheduler()
@@ -759,7 +765,7 @@ namespace 4() as virtual
 
 					tp @s ~ ~ ~ ~ 0
 					function skill:get_horizon_offset_color
-					execute store result entity @s item.tag.CustomPotionColor int 1 run scoreboard players add #MODEL_COLOR temp 12
+					execute store result entity @s item.tag.CustomPotionColor int 1 run scoreboard players operation #MODEL_COLOR temp += #OFFSET_Y temp
 				}
 				
 				func append_scheduler()

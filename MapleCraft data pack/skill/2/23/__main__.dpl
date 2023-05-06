@@ -140,8 +140,8 @@ namespace 23() as virtual
 			func heal()
 			{
 				# 給文字動畫吃的高度設定
-				scoreboard players set #VERTICAL_OFFSET temp 0
-				scoreboard players set #HORIZON_OFFSET temp 22
+				scoreboard players set #HORIZON_OFFSET temp 0
+				scoreboard players set #VERTICAL_OFFSET temp 22
 				scoreboard players operation #BIND_PLAYER number = @s number
 				execute if entity @s[tag=!caster] summon item_display run function ARG(_PATH)player_effect
 				execute if score @s hp < @s hp_max run function ARG(_PATH)did_need_heal
@@ -175,17 +175,8 @@ namespace 23() as virtual
 			func mob_effect()
 			{
 				scoreboard players operation #BIND_PLAYER number = @s number
-				execute on passengers if entity @s[type=interaction] run function ARG(_PATH)get_offset
+				execute on passengers if entity @s[type=interaction] store result score #VERTICAL_OFFSET temp run data get entity @s height 8
 				execute positioned ~ ~0.2625 ~ summon item_display run function ARG(_PATH)bind_effect
-			}
-
-			func get_offset()
-			{
-				# 以 0.1 格為單位紀錄水平距離 * 256 (方便顏色計算，要算座標的再除回去)
-				execute store result score #HORIZON_OFFSET temp run data get entity @s width 5
-				scoreboard players operation #HORIZON_OFFSET temp *= #256 const
-				# 抓 80% 的高度
-				execute store result score #VERTICAL_OFFSET temp run data get entity @s height 8
 			}
 
 			func bind_effect()
@@ -572,7 +563,7 @@ namespace 23() as virtual
 
 				tp @s ~ ~ ~ ~ 0
 				function skill:get_horizon_offset_color
-				execute store result entity @s item.tag.CustomPotionColor int 1 run scoreboard players add #MODEL_COLOR temp 12
+				execute store result entity @s item.tag.CustomPotionColor int 1 run scoreboard players operation #MODEL_COLOR temp += #OFFSET_Y temp
 			}
 			
 			func append_scheduler()
