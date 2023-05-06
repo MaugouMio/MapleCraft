@@ -304,7 +304,7 @@ namespace 32() as virtual
 				execute if score @s soul_buff_time matches 1.. if score @s 3101004_weapon = #USED_WEAPON temp run scoreboard players set #GLOBAL bullet_model 3001
 				scoreboard players operation #BULLET_DISTANCE temp = @s amazon_eyes_dist
 				scoreboard players remove #BULLET_DISTANCE temp 1
-				execute rotated ~ 0 positioned ^ ^0.2 ^0.5 summon minecraft:armor_stand run function ARG(_PATH)set_bullet
+				execute rotated ~ 0 positioned ^ ^ ^1 summon minecraft:item_display run function ARG(_PATH)set_bullet
 				
 				# set numeric
 				execute store result storage skill:main damage[0].base_percent int 1 run scoreboard players get @s 3201005_attack
@@ -331,8 +331,8 @@ namespace 32() as virtual
 
 			func set_bullet()
 			{
-				data merge entity @s {Tags:["first_bullet","new_bullet","bullet"],CustomName:'{"text":"2","font":"space:default"}',ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1,tag:{appear_delay:8,max_distance:10,skill_id:0,bullet_model:3200,CustomModelData:1}}],Marker:1,Invisible:1,Invulnerable:1,NoGravity:1,Fire:32767s,CustomNameVisible:0}
-				execute store result entity @s ArmorItems[3].tag.max_distance int 1 run scoreboard players get #BULLET_DISTANCE temp
+				data merge entity @s {Tags:["first_bullet","new_bullet","bullet"],item:{id:"minecraft:potion",Count:1,tag:{appear_delay:8,max_distance:10,skill_id:0,bullet_model:3200,CustomModelData:1}}}
+				execute store result entity @s item.tag.max_distance int 1 run scoreboard players get #BULLET_DISTANCE temp
 				function skill:bullet/no_target_setting
 			}
 			

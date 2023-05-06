@@ -693,7 +693,7 @@ namespace 21() as virtual
 			func summon_bullet()
 			{
 				# max_distance should be set to (#DISTANCE temp - 1)
-				execute rotated ~ 0 run summon minecraft:item_display ^ ^0.8 ^1 {Tags:["first_bullet","new_bullet","bullet"],item:{id:"minecraft:potion",Count:1,tag:{appear_delay:12,max_distance:8,skill_id:4,bullet_model:2101,CustomModelData:1}},item_display:"head"}
+				execute rotated ~ 0 run summon minecraft:item_display ^ ^ ^1 {Tags:["first_bullet","new_bullet","bullet"],item:{id:"minecraft:potion",Count:1,tag:{appear_delay:12,max_distance:8,skill_id:4,bullet_model:2101,CustomModelData:1}},item_display:"head"}
 			}
 			
 			func set_numeric()
@@ -847,7 +847,7 @@ namespace 21() as virtual
 			func summon_bullet()
 			{
 				# max_distance should be set to (#DISTANCE temp - 1)
-				execute rotated ~ 0 run summon minecraft:item_display ^ ^0.8 ^1 {Tags:["first_bullet","new_bullet","bullet"],item:{id:"minecraft:potion",Count:1,tag:{appear_delay:11,max_distance:8,skill_id:3,bullet_model:2100,CustomModelData:1}},item_display:"head"}
+				execute rotated ~ 0 run summon minecraft:item_display ^ ^ ^1 {Tags:["first_bullet","new_bullet","bullet"],item:{id:"minecraft:potion",Count:1,tag:{appear_delay:11,max_distance:8,skill_id:3,bullet_model:2100,CustomModelData:1}},item_display:"head"}
 			}
 			
 			func set_numeric()

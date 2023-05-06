@@ -1003,9 +1003,9 @@ namespace skill()
 						scoreboard players operation #BULLET_DISTANCE temp = #DISTANCE temp
 						scoreboard players remove #BULLET_DISTANCE temp 1
 						
-						execute if score #USED_WEAPON temp matches 16 rotated ~ 0 positioned ^ ^0.8 ^1 summon minecraft:item_display run function ARG(_PATH)set_bullet/bow
-						execute if score #USED_WEAPON temp matches 18 rotated ~ 0 positioned ^ ^0.8 ^1 summon minecraft:item_display run function ARG(_PATH)set_bullet/crossbow
-						execute if score #USED_WEAPON temp matches 24 rotated ~ 0 positioned ^ ^0.8 ^1 summon minecraft:item_display run function ARG(_PATH)set_bullet/claw
+						execute if score #USED_WEAPON temp matches 16 rotated ~ 0 positioned ^ ^ ^1 summon minecraft:item_display run function ARG(_PATH)set_bullet/bow
+						execute if score #USED_WEAPON temp matches 18 rotated ~ 0 positioned ^ ^ ^1 summon minecraft:item_display run function ARG(_PATH)set_bullet/crossbow
+						execute if score #USED_WEAPON temp matches 24 rotated ~ 0 positioned ^ ^ ^1 summon minecraft:item_display run function ARG(_PATH)set_bullet/claw
 					}
 					
 					folder set_bullet()
@@ -1950,12 +1950,13 @@ namespace skill()
 			scoreboard players operation #SQUARE temp = #POSX temp
 			scoreboard players operation #SQUARE temp += #POSZ temp
 			function main:get_sqrt/run
-
-			execute store result entity @s transformation.translation[1] float 0.01 run scoreboard players operation #POSY temp -= #POSY2 temp
+			
+			scoreboard players operation #POSY temp -= #POSY2 temp
+			execute store result entity @s transformation.translation[1] float 0.01 run scoreboard players add #POSY temp 100
 			execute store result entity @s transformation.translation[2] float -0.01 run scoreboard players get #SQRT temp
 
 			# get final horizontal pos
-			data modify entity @s item.tag.merge set value {transformation:{translation:[0f,1f,0f]},start_interpolation:0,interpolation_duration:1}
+			data modify entity @s item.tag.merge set value {transformation:{translation:[0f,0.8375f,0f]},start_interpolation:0,interpolation_duration:1}
 			execute store result score #HORIZON_OFFSET temp run data get entity @s item.tag.width
 			scoreboard players operation #SQRT temp -= #HORIZON_OFFSET temp
 			# 抓 80 其實就夠了，反正只要讓下面 interpolation_duration 是 1 以上就好

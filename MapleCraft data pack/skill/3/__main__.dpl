@@ -370,7 +370,7 @@ namespace 3() as virtual
 					execute if score @s soul_buff_time matches 1.. if score @s 3101004_weapon = #USED_WEAPON temp run scoreboard players set #GLOBAL bullet_model 3001
 					scoreboard players operation #BULLET_DISTANCE temp = @s amazon_eyes_dist
 					scoreboard players remove #BULLET_DISTANCE temp 1
-					execute rotated ~ 0 positioned ^ ^0.8 ^1 summon minecraft:item_display run function ARG(_PATH)set_bullet
+					execute rotated ~ 0 positioned ^ ^ ^1 summon minecraft:item_display run function ARG(_PATH)set_bullet
 				}
 
 				func set_bullet()
@@ -578,8 +578,8 @@ namespace 3() as virtual
 					scoreboard players operation #BULLET_DISTANCE temp = @s amazon_eyes_dist
 					scoreboard players remove #BULLET_DISTANCE temp 1
 
-					execute rotated ~ 0 positioned ^-0.2 ^0.8 ^1 summon minecraft:item_display run function ARG(_PATH)set_bullet/first
-					execute rotated ~ 0 positioned ^0.2 ^0.8 ^1 summon minecraft:item_display run function ARG(_PATH)set_bullet/second
+					execute rotated ~ 0 positioned ^-0.2 ^ ^1 summon minecraft:item_display run function ARG(_PATH)set_bullet/first
+					execute rotated ~ 0 positioned ^0.2 ^ ^1 summon minecraft:item_display run function ARG(_PATH)set_bullet/second
 				}
 				
 				folder set_bullet()
@@ -762,7 +762,7 @@ namespace 3() as virtual
 					scoreboard players operation #BULLET_DISTANCE temp = #DISTANCE temp
 					scoreboard players remove #BULLET_DISTANCE temp 1
 
-					execute rotated ~ 0 positioned ^ ^0.2 ^1 summon minecraft:item_display run function ARG(_PATH)set_bullet
+					execute rotated ~ 0 positioned ^ ^ ^1 summon minecraft:item_display run function ARG(_PATH)set_bullet
 				}
 				
 				func no_arrow_model()

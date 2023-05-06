@@ -435,7 +435,7 @@ namespace 41() as virtual
 				scoreboard players operation #BULLET_DISTANCE temp = @s keen_eyes_dist
 				scoreboard players remove #BULLET_DISTANCE temp 1
 
-				execute rotated ~ 0 positioned ^ ^0.2 ^1 summon minecraft:item_display run function ARG(_PATH)set_bullet
+				execute rotated ~ 0 positioned ^ ^ ^1 summon minecraft:item_display run function ARG(_PATH)set_bullet
 			}
 			
 			func set_bullet()
