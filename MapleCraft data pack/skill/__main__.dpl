@@ -1194,7 +1194,6 @@ namespace skill()
 		scoreboard objectives add hurt_sound dummy
 		scoreboard objectives add die_sound dummy
 		
-		scoreboard objectives add target_id dummy
 		scoreboard objectives add skill_id dummy
 		scoreboard objectives add mob_hp_length dummy
 		scoreboard objectives add show_hp_time dummy
@@ -1890,7 +1889,6 @@ namespace skill()
 			execute store result entity @s item.tag.width int 1 run scoreboard players get #HORIZON_OFFSET temp
 			
 			scoreboard players operation @s number = #BULLET_ID number
-			scoreboard players operation @s target_id = #BIND_PLAYER number
 			execute store result score @s life run data get entity @s item.tag.appear_delay -1
 			execute store result score @s skill_id run data get entity @s item.tag.skill_id
 			tag @s remove new_bullet
@@ -1914,7 +1912,7 @@ namespace skill()
 		func check()
 		{
 			scoreboard players add @s life 1
-			execute if score @s life matches -1 if score @s target_id = @s target_id at @s run function ARG(_PATH)init_pos
+			execute if score @s life matches -1 if score @s number = @s number at @s run function ARG(_PATH)init_pos
 			execute if score @s life matches 0 run function ARG(_PATH)appear
 			
 			execute if score @s life > @s max_life run function ARG(_PATH)end
@@ -1976,13 +1974,12 @@ namespace skill()
 		
 		func end()
 		{
-			execute if score @s[tag=first_bullet] target_id matches -2147483648.. run function ARG(_PATH)append_scheduler
+			execute if score @s[tag=first_bullet] number = @s number run function ARG(_PATH)append_scheduler
 			kill @s
 		}
 		
 		func append_scheduler()
 		{
-			scoreboard players operation #GLOBAL temp = @s target_id
 			scoreboard players operation #BULLET_ID temp = @s number
 			data modify storage skill:main new_schedule set value []
 			function ARG(_PATH)find_parent_skill/run
@@ -1996,7 +1993,7 @@ namespace skill()
 					print("func run()")
 					print("{")
 					print(f"\texecute if score @s skill_id matches {id_list[0][1]} run function skill:{id_list[0][0][0]}/{id_list[0][0][1]}/{id_list[0][0][2]}/{id_list[0][0][3:]}/append_scheduler")
-					print(f"\texecute if score @s skill_id matches {id_list[0][1]} as @e[type=ocelot] if score @s number = #GLOBAL temp run function skill:{id_list[0][0][0]}/{id_list[0][0][1]}/{id_list[0][0][2]}/{id_list[0][0][3:]}/bullet_hit/run")
+					print(f"\texecute if score @s skill_id matches {id_list[0][1]} on vehicle run function skill:{id_list[0][0][0]}/{id_list[0][0][1]}/{id_list[0][0][2]}/{id_list[0][0][3:]}/bullet_hit/run")
 					print("}")
 					return
 				
@@ -2013,12 +2010,12 @@ namespace skill()
 				print("{")
 				if start == mid:
 					print(f"\texecute if score @s skill_id matches {id_list[start][1]} run function skill:{id_list[start][0][0]}/{id_list[start][0][1]}/{id_list[start][0][2]}/{id_list[start][0][3:]}/append_scheduler")
-					print(f"\texecute if score @s skill_id matches {id_list[start][1]} as @e[type=ocelot] if score @s number = #GLOBAL temp run function skill:{id_list[start][0][0]}/{id_list[start][0][1]}/{id_list[start][0][2]}/{id_list[start][0][3:]}/bullet_hit/run")
+					print(f"\texecute if score @s skill_id matches {id_list[start][1]} on vehicle run function skill:{id_list[start][0][0]}/{id_list[start][0][1]}/{id_list[start][0][2]}/{id_list[start][0][3:]}/bullet_hit/run")
 				else:
 					print(f"\texecute if score @s skill_id matches {id_list[start][1]}..{id_list[mid][1]} run function ARG(_PATH){start}_{mid}")
 				if mid_right == end:
 					print(f"\texecute if score @s skill_id matches {id_list[end][1]} run function skill:{id_list[end][0][0]}/{id_list[end][0][1]}/{id_list[end][0][2]}/{id_list[end][0][3:]}/append_scheduler")
-					print(f"\texecute if score @s skill_id matches {id_list[end][1]} as @e[type=ocelot] if score @s number = #GLOBAL temp run function skill:{id_list[end][0][0]}/{id_list[end][0][1]}/{id_list[end][0][2]}/{id_list[end][0][3:]}/bullet_hit/run")
+					print(f"\texecute if score @s skill_id matches {id_list[end][1]} on vehicle run function skill:{id_list[end][0][0]}/{id_list[end][0][1]}/{id_list[end][0][2]}/{id_list[end][0][3:]}/bullet_hit/run")
 				else:
 					print(f"\texecute if score @s skill_id matches {id_list[mid_right][1]}..{id_list[end][1]} run function ARG(_PATH){mid_right}_{end}")
 				print("}")
@@ -3755,9 +3752,6 @@ namespace skill()
 		
 		func dead()
 		{
-			scoreboard players operation #GLOBAL temp = @s number
-			execute as @e[type=armor_stand,tag=bullet] if score @s target_id = #GLOBAL temp run kill @s
-			
 			function ARG(_PATH)play_die_sound/run
 			execute if entity @s[tag=dead_effect] run function ARG(_PATH)dead_effect/check
 			execute on passengers unless score @s max_life matches 1.. run kill @s
