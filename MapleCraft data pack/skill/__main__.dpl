@@ -431,11 +431,11 @@ namespace bullet_skill_template(skill_id) as virtual
 	
 	func hit()
 	{
+		function skill:calculate_damage/run
+		
 		scoreboard players operation #BIND_PLAYER number = @s number
 		execute on passengers if entity @s[type=interaction] store result score #HORIZON_OFFSET temp run data get entity @s width 50
 		execute as @e[type=item_display,tag=new_bullet] run function skill:bullet/setting
-		
-		function skill:calculate_damage/run
 		execute if score #DID_HIT temp matches 1 run function ARG(_PATH)add_debuff
 		```
 		# mp eater
@@ -1895,6 +1895,7 @@ namespace skill()
 		{
 			data modify entity @s item.tag.spawn_pos set from entity @s Pos
 			execute store result entity @s item.tag.width int 1 run scoreboard players get #HORIZON_OFFSET temp
+			execute store result entity @s item.tag.height int 1 run scoreboard players get #OFFSET_Y temp
 			
 			scoreboard players operation @s number = #BULLET_ID number
 			execute store result score @s life run data get entity @s item.tag.appear_delay -1
@@ -1965,6 +1966,8 @@ namespace skill()
 			data modify entity @s item.tag.merge set value {transformation:{translation:[0f,0.8375f,0f]},start_interpolation:0,interpolation_duration:1}
 			execute store result score #HORIZON_OFFSET temp run data get entity @s item.tag.width
 			scoreboard players operation #SQRT temp -= #HORIZON_OFFSET temp
+			execute store result score #OFFSET_Y temp run data get entity @s item.tag.height
+			execute store result entity @s item.tag.merge.transformation.translation[1] float 0.1 run scoreboard players remove #OFFSET_Y temp 2
 			# 抓 80 其實就夠了，反正只要讓下面 interpolation_duration 是 1 以上就好
 			scoreboard players operation #SQRT temp > #100 const
 			execute store result entity @s item.tag.merge.transformation.translation[2] float -0.01 run scoreboard players get #HORIZON_OFFSET temp

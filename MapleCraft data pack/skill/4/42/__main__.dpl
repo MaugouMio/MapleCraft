@@ -374,6 +374,8 @@ namespace 42() as virtual
 
 				tp @s ~ ~ ~ ~ 0
 				function skill:get_horizon_offset_color
+				# 迴旋斬特效額外提高位置
+				scoreboard players add #MODEL_COLOR temp 3
 				execute store result entity @s item.tag.CustomPotionColor int 1 run scoreboard players operation #MODEL_COLOR temp += #OFFSET_Y temp
 			}
 			
