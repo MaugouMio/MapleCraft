@@ -709,7 +709,7 @@ namespace skill()
 						func check()
 						{
 							# 預設弓、弩、拳套攻擊範圍
-							scoreboard players set #DISTANCE temp 2
+							scoreboard players set #DISTANCE temp 1
 							scoreboard players set #SEARCH_HEIGHT temp 0
 							scoreboard players set #NO_AFTERIMAGE temp 0
 							# 遠距離武器要先確定會不會打到箱子，才知道要不要表演揮的特效，所以這邊先不做
@@ -741,7 +741,7 @@ namespace skill()
 								```
 								print("execute at @s rotated ~ 0 positioned ^ ^ ^100 run summon minecraft:marker ~ ~ ~ {UUID:%s}" %UUID_LIST["search"])
 								```
-								execute at @s rotated ~ 0 positioned ^ ^ ^-1.8 run function ARG(_PATH)run
+								execute at @s rotated ~ 0 positioned ^ ^ ^-1.2 run function ARG(_PATH)run
 								kill 00000000-0000-0003-0000-000000000003
 							}
 							
@@ -749,9 +749,9 @@ namespace skill()
 							{
 								# 打箱子都是近距離攻擊，沒有 5 以上的 #DISTANCE
 								# 高度偵測比一般攻擊低一點，因為沒有貓墊高
-								execute if score #SEARCH_HEIGHT temp matches 0 positioned ~-1.8 ~-0.3 ~-1.8 as @e[type=interaction,tag=box,dx=2.6,dy=1.3,dz=2.6] on passengers unless score @s status matches 1.. positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)hit_check
-								execute if score #SEARCH_HEIGHT temp matches 1 positioned ~-1.8 ~-0.3 ~-1.8 as @e[type=interaction,tag=box,dx=2.6,dy=2.1,dz=2.6] on passengers unless score @s status matches 1.. positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)hit_check
-								execute if score #SEARCH_HEIGHT temp matches 2 positioned ~-1.8 ~-0.3 ~-1.8 as @e[type=interaction,tag=box,dx=2.6,dy=2.9,dz=2.6] on passengers unless score @s status matches 1.. positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)hit_check
+								execute if score #SEARCH_HEIGHT temp matches 0 positioned ~-1.2 ~-0.3 ~-1.2 as @e[type=interaction,tag=box,dx=1.4,dy=1.3,dz=1.4] on passengers unless score @s status matches 1.. positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)hit_check
+								execute if score #SEARCH_HEIGHT temp matches 1 positioned ~-1.2 ~-0.3 ~-1.2 as @e[type=interaction,tag=box,dx=1.4,dy=2.1,dz=1.4] on passengers unless score @s status matches 1.. positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)hit_check
+								execute if score #SEARCH_HEIGHT temp matches 2 positioned ~-1.2 ~-0.3 ~-1.2 as @e[type=interaction,tag=box,dx=1.4,dy=2.9,dz=1.4] on passengers unless score @s status matches 1.. positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)hit_check
 								scoreboard players add #CUR_DISTANCE temp 1
 							}
 							
@@ -974,8 +974,8 @@ namespace skill()
 					func check_distance()
 					{
 						function ARG(_PATH)mark_target
-						execute unless score #FIRST_DISTANCE temp matches ..2 run function ARG(_PATH)run_shoot
-						execute if score #FIRST_DISTANCE temp matches ..2 run function ARG(_PATH)run_swing
+						execute unless score #FIRST_DISTANCE temp matches ..1 run function ARG(_PATH)run_shoot
+						execute if score #FIRST_DISTANCE temp matches ..1 run function ARG(_PATH)run_swing
 					}
 					
 					func run_shoot()
@@ -1105,7 +1105,7 @@ namespace skill()
 				{
 					func mark_target()
 					{
-						scoreboard players set #DISTANCE temp 2
+						scoreboard players set #DISTANCE temp 1
 						scoreboard players set #SEARCH_HEIGHT temp 0
 						scoreboard players set #MAX_ENEMY temp 1
 						function skill:enemy_search/search_front/search
@@ -2200,7 +2200,7 @@ namespace skill()
 				```
 				print("execute at @s rotated ~ 0 positioned ^ ^ ^100 run summon minecraft:marker ~ ~ ~ {UUID:%s}" %UUID_LIST["search"])
 				```
-				execute at @s rotated ~ 0 positioned ^ ^ ^-1.8 run function ARG(_PATH)run
+				execute at @s rotated ~ 0 positioned ^ ^ ^-1.2 run function ARG(_PATH)run
 				tag @e[type=interaction,tag=target] remove target
 				kill 00000000-0000-0003-0000-000000000003
 			}
@@ -2208,16 +2208,16 @@ namespace skill()
 			func execute()
 			{
 				# simulating sector detection, larger y axis detection on further distance
-				execute if score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-1.2 ~-1.8 as @e[type=interaction,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=3.175,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
+				execute if score #CUR_DISTANCE temp matches 5.. positioned ~-1.2 ~-1.2 ~-1.2 as @e[type=interaction,tag=enemy,tag=!target,tag=!dead,dx=1.4,dy=3.175,dz=1.4] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
 				execute unless score #CUR_DISTANCE temp matches 5.. run function ARG(_PATH)check_height
 				scoreboard players add #CUR_DISTANCE temp 1
 			}
 			
 			func check_height()
 			{
-				execute if score #SEARCH_HEIGHT temp matches 0 positioned ~-1.8 ~-0.3 ~-1.8 as @e[type=interaction,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=1.575,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
-				execute if score #SEARCH_HEIGHT temp matches 1 positioned ~-1.8 ~-0.3 ~-1.8 as @e[type=interaction,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=2.375,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
-				execute if score #SEARCH_HEIGHT temp matches 2 positioned ~-1.8 ~-0.3 ~-1.8 as @e[type=interaction,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=3.175,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
+				execute if score #SEARCH_HEIGHT temp matches 0 positioned ~-1.2 ~-0.3 ~-1.2 as @e[type=interaction,tag=enemy,tag=!target,tag=!dead,dx=1.4,dy=1.575,dz=1.4] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
+				execute if score #SEARCH_HEIGHT temp matches 1 positioned ~-1.2 ~-0.3 ~-1.2 as @e[type=interaction,tag=enemy,tag=!target,tag=!dead,dx=1.4,dy=2.375,dz=1.4] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
+				execute if score #SEARCH_HEIGHT temp matches 2 positioned ~-1.2 ~-0.3 ~-1.2 as @e[type=interaction,tag=enemy,tag=!target,tag=!dead,dx=1.4,dy=3.175,dz=1.4] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
 			}
 			
 			func try_mark()
@@ -2244,7 +2244,7 @@ namespace skill()
 				```
 				print("execute at @s rotated ~ 0 positioned ^ ^ ^100 run summon minecraft:marker ~ ~ ~ {UUID:%s}" %UUID_LIST["search"])
 				```
-				execute at @s rotated ~ 0 positioned ^ ^ ^-1.8 run function ARG(_PATH)run
+				execute at @s rotated ~ 0 positioned ^ ^ ^-1.2 run function ARG(_PATH)run
 				tag @e[type=interaction,tag=target] remove target
 				kill 00000000-0000-0003-0000-000000000003
 			}
@@ -2252,16 +2252,16 @@ namespace skill()
 			func execute()
 			{
 				# simulating sector detection, larger y axis detection on further distance
-				execute if score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-1.2 ~-1.8 as @e[type=interaction,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=3.175,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
+				execute if score #CUR_DISTANCE temp matches 5.. positioned ~-1.2 ~-1.2 ~-1.2 as @e[type=interaction,tag=enemy,tag=!target,tag=!dead,dx=1.4,dy=3.175,dz=1.4] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
 				execute unless score #CUR_DISTANCE temp matches 5.. run function ARG(_PATH)check_height
 				scoreboard players add #CUR_DISTANCE temp 1
 			}
 			
 			func check_height()
 			{
-				execute if score #SEARCH_HEIGHT temp matches 0 positioned ~-1.8 ~-0.3 ~-1.8 as @e[type=interaction,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=1.575,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
-				execute if score #SEARCH_HEIGHT temp matches 1 positioned ~-1.8 ~-0.3 ~-1.8 as @e[type=interaction,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=2.375,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
-				execute if score #SEARCH_HEIGHT temp matches 2 positioned ~-1.8 ~-0.3 ~-1.8 as @e[type=interaction,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=3.175,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
+				execute if score #SEARCH_HEIGHT temp matches 0 positioned ~-1.2 ~-0.3 ~-1.2 as @e[type=interaction,tag=enemy,tag=!target,tag=!dead,dx=1.4,dy=1.575,dz=1.4] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
+				execute if score #SEARCH_HEIGHT temp matches 1 positioned ~-1.2 ~-0.3 ~-1.2 as @e[type=interaction,tag=enemy,tag=!target,tag=!dead,dx=1.4,dy=2.375,dz=1.4] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
+				execute if score #SEARCH_HEIGHT temp matches 2 positioned ~-1.2 ~-0.3 ~-1.2 as @e[type=interaction,tag=enemy,tag=!target,tag=!dead,dx=1.4,dy=3.175,dz=1.4] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
 			}
 			
 			func try_mark()
@@ -2304,7 +2304,7 @@ namespace skill()
 				```
 				print("execute at @s rotated ~ 0 positioned ^ ^ ^100 run summon minecraft:marker ~ ~ ~ {UUID:%s}" %UUID_LIST["search"])
 				```
-				execute at @s rotated ~ 0 positioned ^ ^ ^-1.8 run function ARG(_PATH)run
+				execute at @s rotated ~ 0 positioned ^ ^ ^-1.2 run function ARG(_PATH)run
 				tag @e[type=interaction,tag=target] remove target
 				kill 00000000-0000-0003-0000-000000000003
 			}
@@ -2312,16 +2312,16 @@ namespace skill()
 			func execute()
 			{
 				# simulating sector detection, larger y axis detection on further distance
-				execute if score #CUR_DISTANCE temp matches 5.. positioned ~-1.8 ~-1.2 ~-1.8 as @e[type=interaction,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=3.175,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
+				execute if score #CUR_DISTANCE temp matches 5.. positioned ~-1.2 ~-1.2 ~-1.2 as @e[type=interaction,tag=enemy,tag=!target,tag=!dead,dx=1.4,dy=3.175,dz=1.4] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
 				execute unless score #CUR_DISTANCE temp matches 5.. run function ARG(_PATH)check_height
 				scoreboard players add #CUR_DISTANCE temp 1
 			}
 			
 			func check_height()
 			{
-				execute if score #SEARCH_HEIGHT temp matches 0 positioned ~-1.8 ~-0.3 ~-1.8 as @e[type=interaction,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=1.575,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
-				execute if score #SEARCH_HEIGHT temp matches 1 positioned ~-1.8 ~-0.3 ~-1.8 as @e[type=interaction,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=2.375,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
-				execute if score #SEARCH_HEIGHT temp matches 2 positioned ~-1.8 ~-0.3 ~-1.8 as @e[type=interaction,tag=enemy,tag=!target,tag=!dead,dx=2.6,dy=3.175,dz=2.6] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
+				execute if score #SEARCH_HEIGHT temp matches 0 positioned ~-1.2 ~-0.3 ~-1.2 as @e[type=interaction,tag=enemy,tag=!target,tag=!dead,dx=1.4,dy=1.575,dz=1.4] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
+				execute if score #SEARCH_HEIGHT temp matches 1 positioned ~-1.2 ~-0.3 ~-1.2 as @e[type=interaction,tag=enemy,tag=!target,tag=!dead,dx=1.4,dy=2.375,dz=1.4] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
+				execute if score #SEARCH_HEIGHT temp matches 2 positioned ~-1.2 ~-0.3 ~-1.2 as @e[type=interaction,tag=enemy,tag=!target,tag=!dead,dx=1.4,dy=3.175,dz=1.4] positioned as 00000000-0000-0003-0000-000000000003 unless entity @s[distance=100.2..] run function ARG(_PATH)try_mark
 			}
 			
 			func record_first()

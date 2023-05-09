@@ -214,7 +214,7 @@ namespace 31() as virtual
 			
 			func mark_target()
 			{
-				scoreboard players set #DISTANCE temp 2
+				scoreboard players set #DISTANCE temp 1
 				scoreboard players operation #MAX_ENEMY temp = @s 3101003_enemy
 				function skill:enemy_search/search_front_pure_order/search
 			}
@@ -471,8 +471,8 @@ namespace 31() as virtual
 			func check_distance()
 			{
 				function ARG(_PATH)mark_target
-				execute unless score #FIRST_DISTANCE temp matches ..2 run function ARG(_PATH)run_shoot
-				execute if score #FIRST_DISTANCE temp matches ..2 run function skill:6/0/0/1003/run
+				execute unless score #FIRST_DISTANCE temp matches ..1 run function ARG(_PATH)run_shoot
+				execute if score #FIRST_DISTANCE temp matches ..1 run function skill:6/0/0/1003/run
 			}
 			
 			func run_shoot()

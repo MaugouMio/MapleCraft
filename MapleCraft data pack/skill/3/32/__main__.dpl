@@ -268,8 +268,8 @@ namespace 32() as virtual
 			func check_distance()
 			{
 				function ARG(_PATH)mark_target
-				execute unless score #FIRST_DISTANCE temp matches ..2 run function ARG(_PATH)run_shoot
-				execute if score #FIRST_DISTANCE temp matches ..2 run function ARG(_PATH)run_swing
+				execute unless score #FIRST_DISTANCE temp matches ..1 run function ARG(_PATH)run_shoot
+				execute if score #FIRST_DISTANCE temp matches ..1 run function ARG(_PATH)run_swing
 			}
 			
 			func run_shoot()
