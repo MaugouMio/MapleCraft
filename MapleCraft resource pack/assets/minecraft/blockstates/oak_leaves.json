@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "distance=1,persistent=false": {
+      "model": "minecraft:map/block/screw_horizon"
+    },
+    "distance=1,persistent=true": {
+      "model": "minecraft:map/block/screw_horizon",
+	  "y": 90
+    },
+    "distance=2,persistent=false": {
+      "model": "minecraft:map/block/screw_horizon",
+	  "y": 180
+    },
+    "distance=2,persistent=true": {
+      "model": "minecraft:map/block/screw_horizon",
+	  "y": 270
+    }
+  }
+}
