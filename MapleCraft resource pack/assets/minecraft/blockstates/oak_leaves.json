@@ -14,6 +14,12 @@
     "distance=2,persistent=true": {
       "model": "minecraft:map/block/screw_horizon",
 	  "y": 270
+    },
+	"distance=3,persistent=false": {
+      "model": "minecraft:map/block/screw_orange"
+    },
+	"distance=3,persistent=true": {
+      "model": "minecraft:map/block/screw_pink"
     }
   }
 }
