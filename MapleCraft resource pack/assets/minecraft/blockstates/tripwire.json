@@ -58,6 +58,30 @@
     },
     "attached=false,disarmed=true,east=false,north=false,south=true,west=false": {
       "model": "minecraft:map/ladder/basic/2", "y": 180
+    },
+    "attached=true,disarmed=true,east=false,north=false,south=true,west=false": {
+      "model": "minecraft:map/rope/ldpq/0"
+    },
+    "attached=false,disarmed=false,east=true,north=false,south=true,west=false": {
+      "model": "minecraft:map/rope/ldpq/1"
+    },
+    "attached=true,disarmed=false,east=true,north=false,south=true,west=false": {
+      "model": "minecraft:map/rope/ldpq/0", "y": 90
+    },
+    "attached=false,disarmed=true,east=true,north=false,south=true,west=false": {
+      "model": "minecraft:map/rope/ldpq/1", "y": 90
+    },
+    "attached=true,disarmed=true,east=true,north=false,south=true,west=false": {
+      "model": "minecraft:map/rope/ldpq/0", "y": 180
+    },
+    "attached=false,disarmed=false,east=false,north=true,south=true,west=false": {
+      "model": "minecraft:map/rope/ldpq/1", "y": 180
+    },
+    "attached=true,disarmed=false,east=false,north=true,south=true,west=false": {
+      "model": "minecraft:map/rope/ldpq/0", "y": 270
+    },
+    "attached=false,disarmed=true,east=false,north=true,south=true,west=false": {
+      "model": "minecraft:map/rope/ldpq/1", "y": 270
     }
   }
 }
