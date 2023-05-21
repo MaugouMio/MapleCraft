@@ -269,7 +269,7 @@ namespace 21() as virtual
 		{
 			func check()
 			{
-				execute unless score @s action_time matches 1..6 unless score @s teleport_time matches 1.. if score @s[tag=!delay_tp] 2101002_level matches 1.. run function ARG(_PATH)rope_check
+				execute unless score @s teleport_time matches 1.. if score @s[tag=!delay_tp] 2101002_level matches 1.. run function ARG(_PATH)rope_check
 			}
 			
 			func rope_check()
