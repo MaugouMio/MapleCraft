@@ -1676,8 +1676,8 @@ namespace skill()
 			{
 				attribute @s minecraft:generic.movement_speed modifier remove 5b908c48-54cb-4388-aa76-82f61b02032d
 				effect clear @s minecraft:jump_boost
-				execute if score @s jump_buff_num matches 1 run effect give @s minecraft:jump_boost infinite 0 true
-				execute if score @s jump_buff_num matches 2 run effect give @s minecraft:jump_boost infinite 1 true
+				execute unless score @s jump_buff_num matches 1 run effect give @s minecraft:jump_boost infinite 0 true
+				execute if score @s jump_buff_num matches 1 run effect give @s minecraft:jump_boost infinite 1 true
 				scoreboard players reset @s action_time
 			}
 			
