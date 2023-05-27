@@ -19,7 +19,13 @@
       "model": "minecraft:map/block/screw_orange"
     },
 	"distance=3,persistent=true": {
+      "model": "minecraft:map/block/screw_orange_down"
+    },
+	"distance=4,persistent=false": {
       "model": "minecraft:map/block/screw_pink"
+    },
+	"distance=4,persistent=true": {
+      "model": "minecraft:map/block/screw_pink_down"
     }
   }
 }
