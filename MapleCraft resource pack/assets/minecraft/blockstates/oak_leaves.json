@@ -26,6 +26,12 @@
     },
 	"distance=4,persistent=true": {
       "model": "minecraft:map/block/screw_pink_down"
+    },
+	"distance=5,persistent=false": {
+      "model": "minecraft:map/block/screw_aqua"
+    },
+	"distance=5,persistent=true": {
+      "model": "minecraft:map/block/screw_aqua_down"
     }
   }
 }
