@@ -349,7 +349,7 @@ namespace 42() as virtual
 			func cast_effect()
 			{
 				scoreboard players operation #BIND_PLAYER number = @s number
-				execute positioned ~ ~0.3 ~ summon text_display run function skill:summon_font_effect/4201005effect
+				execute summon text_display run function skill:summon_font_effect/4201005effect
 				playsound minecraft:skill.4201005_use player @a ~ ~ ~ 1 1 0
 
 				# borrow hit_effect variable to set custom hit effect
