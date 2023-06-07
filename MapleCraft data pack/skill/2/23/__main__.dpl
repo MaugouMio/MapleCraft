@@ -84,6 +84,8 @@ namespace 23() as virtual
 				execute if score #FOUND_ALLY temp matches ..5 run function ARG(_PATH)mark_enemy/run
 				
 				tag @s add caster
+				execute as @a[tag=target] at @s run function ARG(_PATH)heal
+				tag @s remove caster
 			}
 			
 			folder mark_enemy()
@@ -132,9 +134,6 @@ namespace 23() as virtual
 				scoreboard players operation #BIND_PLAYER number = @s number
 				execute summon text_display run function skill:summon_font_effect/2301002effect
 				playsound minecraft:skill.2301002 player @a ~ ~ ~ 1 1 0
-				
-				execute as @a[tag=target] at @s run function ARG(_PATH)heal
-				tag @s remove caster
 			}
 			
 			func heal()
