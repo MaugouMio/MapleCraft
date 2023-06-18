@@ -93,7 +93,8 @@ def generateFont(resourcepack_path, xml_files, anchor, formula):
 	
 	for xml_file in xml_files:
 		file_name = os.path.basename(xml_file)
-		folder = file_name[:3] + '/' + file_name[3:7] + '/' + file_name[7:file_name.find('.')]
+		file_name = file_name[:file_name.find('.')]
+		folder = file_name[:3] + '/' + file_name[3:7] + '/' + file_name[7:]
 		
 		texture_path = f"{resourcepack_path}/assets/skill/textures/font/{folder}"
 		if os.path.exists(texture_path):
