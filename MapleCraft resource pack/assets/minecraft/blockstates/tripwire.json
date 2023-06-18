@@ -1,16 +1,16 @@
 {
   "variants": {
     "attached=false,disarmed=false,east=false,north=false,south=false,west=false": {
-      "model": "minecraft:map/kpq_portal_l"
+      "model": "minecraft:empty"
     },
     "attached=true,disarmed=false,east=false,north=false,south=false,west=false": {
-      "model": "minecraft:map/kpq_portal_r"
+      "model": "minecraft:empty"
     },
     "attached=false,disarmed=true,east=false,north=false,south=false,west=false": {
-      "model": "minecraft:map/portal_l"
+      "model": "minecraft:empty"
     },
     "attached=true,disarmed=true,east=false,north=false,south=false,west=false": {
-      "model": "minecraft:map/portal_r"
+      "model": "minecraft:empty"
     },
     "attached=false,disarmed=false,east=true,north=false,south=false,west=false": {
       "model": "minecraft:map/rope/swamp/0"

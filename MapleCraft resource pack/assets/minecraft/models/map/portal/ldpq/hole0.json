@@ -1,0 +1,21 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "map/portal/ldpq/hole0"
+	},
+	"elements": [
+		{
+			"from": [-13.6667, -13.6667, 8],
+			"to": [29.6667, 29.6667, 8],
+			"rotation": {"angle": 0, "axis": "y", "origin": [16, 0, 16]},
+			"faces": {
+				"north": {"uv": [0, 0, 16, 16], "texture": "#0"},
+				"east": {"uv": [0, 0, 0.1, 0.1], "texture": "#0"},
+				"south": {"uv": [0, 0, 0.1, 0.1], "texture": "#0"},
+				"west": {"uv": [0, 0, 0.1, 0.1], "texture": "#0"},
+				"up": {"uv": [0.1, 0.1, 0, 0], "texture": "#0"},
+				"down": {"uv": [0.1, 0.1, 0, 0], "texture": "#0"}
+			}
+		}
+	]
+}

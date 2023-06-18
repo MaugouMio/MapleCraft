@@ -32,6 +32,11 @@
 		
 		
 		
-		{"predicate": {"custom_model_data": 1000001},"model": "map/ldpq_portal"}
+		{"predicate": {"custom_model_data": 1000001},"model": "map/portal/common"},
+		{"predicate": {"custom_model_data": 1000002},"model": "map/portal/kpq"},
+		{"predicate": {"custom_model_data": 1000003},"model": "map/portal/ldpq/stage"},
+		{"predicate": {"custom_model_data": 1000004},"model": "map/portal/ldpq/hole0"},
+		{"predicate": {"custom_model_data": 1000005},"model": "map/portal/ldpq/hole1"},
+		{"predicate": {"custom_model_data": 1000006},"model": "map/portal/ldpq/hole2"}
 	]
 }

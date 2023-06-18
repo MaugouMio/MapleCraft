@@ -1,18 +1,18 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"layer0": "map/kpq_portal"
+		"layer0": "map/portal/kpq"
 	},
 	"elements": [
 		{
-			"from": [8, -16, -8],
-			"to": [8, 32, 16],
+			"from": [8, -16, -16],
+			"to": [8, 32, 32],
 			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, -8]},
 			"faces": {
 				"north": {"uv": [0, 0, 0, 16], "texture": "#layer0"},
-				"east": {"uv": [0, 0, 8, 16], "texture": "#layer0"},
+				"east": {"uv": [0, 0, 16, 16], "texture": "#layer0", "tintindex": 0},
 				"south": {"uv": [0, 0, 0, 16], "texture": "#layer0"},
-				"west": {"uv": [8, 0, 0, 16], "texture": "#layer0"},
+				"west": {"uv": [16, 0, 0, 16], "texture": "#layer0", "tintindex": 0},
 				"up": {"uv": [0, 0, 16, 0], "texture": "#layer0"},
 				"down": {"uv": [0, 0, 16, 0], "texture": "#layer0"}
 			}
