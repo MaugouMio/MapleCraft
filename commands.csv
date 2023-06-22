@@ -185,15 +185,15 @@
 185,if score @s map matches 100000201 at @s run function skill:3/2/0/transfer/check
 186,if score @s map matches 103000003 at @s run function skill:4/1/0/transfer/check
 187,if score @s map matches 103000003 at @s run function skill:4/2/0/transfer/check
-188,
-189,
-190,
-191,
-192,
-193,
-194,
-195,
-196,
+188,if score @s map matches 103000000 at @s run function main:test_job/warrior
+189,if score @s map matches 103000000 at @s run function main:test_job/magician
+190,if score @s map matches 103000000 at @s run function main:test_job/archer
+191,if score @s map matches 103000000 at @s run function main:test_job/thief
+192,if score @s map matches 103000000 if score @s level matches ..69 at @s run function main:test_job/level_up
+193,if score @s map matches 103000000 run function main:basic_equip/warrior
+194,if score @s map matches 103000000 run function main:basic_equip/magician
+195,if score @s map matches 103000000 run function main:basic_equip/archer
+196,if score @s map matches 103000000 run function main:basic_equip/thief
 197,run tellraw @s ["\n",{"translate":"text.npc.maple_administrator.menu.how_to_projectile.response","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 198,run tellraw @s ["\n",{"translate":"text.npc.maple_administrator.menu.how_to_equip.response","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 199,run tellraw @s ["\n",{"translate":"text.npc.maple_administrator.menu.how_to_scroll.response","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]

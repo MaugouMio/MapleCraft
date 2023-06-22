@@ -1784,9 +1784,9 @@ namespace skill()
 	
 		func reset_all_skill()
 		{
-			scoreboard players reset @s 0001000_level
-			scoreboard players reset @s 0001001_level
-			scoreboard players reset @s 0001002_level
+			scoreboard players set @s 0001000_level 0
+			scoreboard players set @s 0001001_level 0
+			scoreboard players set @s 0001002_level 0
 			scoreboard players set @s hp_recovery 10
 			scoreboard players reset @s 1000000_level
 			scoreboard players set @s addi_hp_level 0

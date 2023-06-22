@@ -1,0 +1,625 @@
+{
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{CustomModelData:505,price:1,equip_type:-1,chance:60,destroy_chance:0,display:{Name:'{\"translate\":\"item.scroll.chaos_scroll\",\"bold\":true,\"italic\":false,\"font\":\"minecraft:uniform\"}',Lore:['{\"translate\":\"item.notice.scroll.chaos\",\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}','{\"translate\":\"item.notice.scroll.chance\",\"with\":[\"60\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{CustomModelData:503,price:1,equip_type:34,chance:70,destroy_chance:50,weapon_attack:2,display:{Name:'{\"translate\":\"item.scroll.gloves.attack.70\",\"bold\":true,\"italic\":false,\"font\":\"minecraft:uniform\"}',Lore:['{\"translate\":\"item.notice.scroll.chance\",\"with\":[\"70\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}','{\"translate\":\"item.notice.scroll.weapon_attack\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"2\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll.destroy_chance\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"50\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{CustomModelData:500,price:1,equip_type:33,chance:10,destroy_chance:0,accuracy:3,speed:1,dex:5,display:{Name:'{\"translate\":\"item.scroll.overall.dex.10\",\"bold\":true,\"italic\":false,\"font\":\"minecraft:uniform\"}',Lore:['{\"translate\":\"item.notice.scroll.chance\",\"with\":[\"10\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}','{\"translate\":\"item.notice.scroll.dex\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"5\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll.accuracy\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"3\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll.speed\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"1\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{CustomModelData:500,price:1,equip_type:30,chance:10,destroy_chance:0,accuracy:1,defense:5,magic_defense:3,display:{Name:'{\"translate\":\"item.scroll.helmet.def.10\",\"bold\":true,\"italic\":false,\"font\":\"minecraft:uniform\"}',Lore:['{\"translate\":\"item.notice.scroll.chance\",\"with\":[\"10\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}','{\"translate\":\"item.notice.scroll.weapon_def\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"5\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll.magic_def\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"3\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll.accuracy\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"1\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{CustomModelData:500,price:1,equip_type:31,chance:10,destroy_chance:0,hp:10,defense:5,magic_defense:3,display:{Name:'{\"translate\":\"item.scroll.top.def.10\",\"bold\":true,\"italic\":false,\"font\":\"minecraft:uniform\"}',Lore:['{\"translate\":\"item.notice.scroll.chance\",\"with\":[\"10\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}','{\"translate\":\"item.notice.scroll.hp\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"10\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll.weapon_def\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"5\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll.magic_def\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"3\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{CustomModelData:500,price:1,equip_type:32,chance:10,destroy_chance:0,hp:10,defense:5,magic_defense:3,display:{Name:'{\"translate\":\"item.scroll.bottom.def.10\",\"bold\":true,\"italic\":false,\"font\":\"minecraft:uniform\"}',Lore:['{\"translate\":\"item.notice.scroll.chance\",\"with\":[\"10\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}','{\"translate\":\"item.notice.scroll.hp\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"10\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll.weapon_def\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"5\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll.magic_def\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"3\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{CustomModelData:500,price:1,equip_type:33,chance:10,destroy_chance:0,hp:10,defense:5,magic_defense:3,display:{Name:'{\"translate\":\"item.scroll.overall.def.10\",\"bold\":true,\"italic\":false,\"font\":\"minecraft:uniform\"}',Lore:['{\"translate\":\"item.notice.scroll.chance\",\"with\":[\"10\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}','{\"translate\":\"item.notice.scroll.hp\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"10\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll.weapon_def\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"5\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll.magic_def\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"3\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{CustomModelData:500,price:1,equip_type:34,chance:10,destroy_chance:0,accuracy:5,dex:3,display:{Name:'{\"translate\":\"item.scroll.gloves.dex.10\",\"bold\":true,\"italic\":false,\"font\":\"minecraft:uniform\"}',Lore:['{\"translate\":\"item.notice.scroll.chance\",\"with\":[\"10\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}','{\"translate\":\"item.notice.scroll.dex\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"3\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll.accuracy\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"5\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{level:35,job:[1,1,1,1,1,1],stats:[0,0,0,0],equip_type:40,CustomModelData:13513,magic_defense:15,icon:['\"\\\\ud026\"','\"\\\\ud027\"'],scroll_left:5,price:27500,original_name:'{\"translate\":\"equip.ear.common.sapphire_earrings\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',display:{Name:'{\"translate\":\"equip.ear.common.sapphire_earrings\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',Lore:['{\"translate\":\"item.notice.require.level\",\"font\":\"minecraft:uniform\",\"with\":[\"35\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.str\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.dex\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.int\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.luk\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"text\":\"02468a\",\"font\":\"ui:equip\",\"color\":\"white\",\"italic\":false}','{\"text\":\"--------------------------------------\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.equip_category\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"translate\":\"item.notice.equip_category.ear\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.magic_def\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"15\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[5]}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{level:30,job:[1,1,1,1,1,1],stats:[0,0,0,0],equip_type:40,CustomModelData:13511,magic_defense:10,icon:['\"\\\\ud02c\"','\"\\\\ud02d\"'],scroll_left:5,price:20000,original_name:'{\"translate\":\"equip.ear.common.star_earrings\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',display:{Name:'{\"translate\":\"equip.ear.common.star_earrings\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',Lore:['{\"translate\":\"item.notice.require.level\",\"font\":\"minecraft:uniform\",\"with\":[\"30\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.str\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.dex\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.int\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.luk\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"text\":\"02468a\",\"font\":\"ui:equip\",\"color\":\"white\",\"italic\":false}','{\"text\":\"--------------------------------------\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.equip_category\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"translate\":\"item.notice.equip_category.ear\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.magic_def\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"10\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[5]}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{level:30,job:[1,1,1,1,1,1],stats:[0,0,0,0],equip_type:40,CustomModelData:13510,magic_defense:10,icon:['\"\\\\ud008\"','\"\\\\ud009\"'],scroll_left:5,price:20000,original_name:'{\"translate\":\"equip.ear.common.emerald_earrings\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',display:{Name:'{\"translate\":\"equip.ear.common.emerald_earrings\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',Lore:['{\"translate\":\"item.notice.require.level\",\"font\":\"minecraft:uniform\",\"with\":[\"30\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.str\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.dex\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.int\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.luk\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"text\":\"02468a\",\"font\":\"ui:equip\",\"color\":\"white\",\"italic\":false}','{\"text\":\"--------------------------------------\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.equip_category\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"translate\":\"item.notice.equip_category.ear\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.magic_def\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"10\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[5]}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{level:30,job:[1,1,1,1,1,1],stats:[0,0,0,0],equip_type:40,CustomModelData:13509,magic_defense:10,icon:['\"\\\\ud016\"','\"\\\\ud017\"'],scroll_left:5,price:20000,original_name:'{\"translate\":\"equip.ear.common.lightning_earrings\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',display:{Name:'{\"translate\":\"equip.ear.common.lightning_earrings\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',Lore:['{\"translate\":\"item.notice.require.level\",\"font\":\"minecraft:uniform\",\"with\":[\"30\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.str\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.dex\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.int\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.luk\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"text\":\"02468a\",\"font\":\"ui:equip\",\"color\":\"white\",\"italic\":false}','{\"text\":\"--------------------------------------\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.equip_category\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"translate\":\"item.notice.equip_category.ear\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.magic_def\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"10\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[5]}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{level:25,job:[1,1,1,1,1,1],stats:[0,0,0,0],equip_type:40,CustomModelData:13506,magic_defense:5,icon:['\"\\\\ud020\"','\"\\\\ud021\"'],scroll_left:5,price:10000,original_name:'{\"translate\":\"equip.ear.common.red_cross_earrings\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',display:{Name:'{\"translate\":\"equip.ear.common.red_cross_earrings\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',Lore:['{\"translate\":\"item.notice.require.level\",\"font\":\"minecraft:uniform\",\"with\":[\"25\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.str\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.dex\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.int\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.luk\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"text\":\"02468a\",\"font\":\"ui:equip\",\"color\":\"white\",\"italic\":false}','{\"text\":\"--------------------------------------\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.equip_category\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"translate\":\"item.notice.equip_category.ear\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.magic_def\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"5\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[5]}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{level:25,job:[1,1,1,1,1,1],stats:[0,0,0,0],equip_type:40,CustomModelData:13505,magic_defense:5,icon:['\"\\\\ud00e\"','\"\\\\ud00f\"'],scroll_left:5,price:10000,original_name:'{\"translate\":\"equip.ear.common.gold_earrings\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',display:{Name:'{\"translate\":\"equip.ear.common.gold_earrings\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',Lore:['{\"translate\":\"item.notice.require.level\",\"font\":\"minecraft:uniform\",\"with\":[\"25\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.str\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.dex\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.int\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.luk\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"text\":\"02468a\",\"font\":\"ui:equip\",\"color\":\"white\",\"italic\":false}','{\"text\":\"--------------------------------------\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.equip_category\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"translate\":\"item.notice.equip_category.ear\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.magic_def\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"5\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[5]}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{level:20,job:[1,1,1,1,1,1],stats:[0,0,0,0],equip_type:40,CustomModelData:13503,icon:['\"\\\\ud034\"','\"\\\\ud035\"'],scroll_left:5,price:5000,original_name:'{\"translate\":\"equip.ear.common.yellow_square\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',display:{Name:'{\"translate\":\"equip.ear.common.yellow_square\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',Lore:['{\"translate\":\"item.notice.require.level\",\"font\":\"minecraft:uniform\",\"with\":[\"20\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.str\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.dex\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.int\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.luk\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"text\":\"02468a\",\"font\":\"ui:equip\",\"color\":\"white\",\"italic\":false}','{\"text\":\"--------------------------------------\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.equip_category\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"translate\":\"item.notice.equip_category.ear\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[5]}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{level:30,job:[1,1,1,1,1,1],stats:[0,0,0,0],equip_type:41,CustomModelData:13807,str:1,dex:1,int:1,luk:1,defense:27,magic_defense:27,icon:['\"\\\\ud60c\"','\"\\\\ud60d\"'],scroll_left:3,price:75000,original_name:'{\"translate\":\"equip.pendant.common.spiegelmann_s_necklace\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',display:{Name:'{\"translate\":\"equip.pendant.common.spiegelmann_s_necklace\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',Lore:['{\"translate\":\"item.notice.require.level\",\"font\":\"minecraft:uniform\",\"with\":[\"30\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.str\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.dex\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.int\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.luk\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"text\":\"02468a\",\"font\":\"ui:equip\",\"color\":\"white\",\"italic\":false}','{\"text\":\"--------------------------------------\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.equip_category\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"translate\":\"item.notice.equip_category.pendant\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.str\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"1\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.dex\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"1\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.int\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"1\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.luk\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"1\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.weapon_def\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"27\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.magic_def\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"27\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[3]}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{level:25,job:[1,1,1,1,1,1],stats:[0,0,0,0],equip_type:39,CustomModelData:13201,defense:1,icon:['\"\\\\ud400\"','\"\\\\ud401\"'],scroll_left:7,price:1,original_name:'{\"translate\":\"equip.face.common.dog_nose\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',display:{Name:'{\"translate\":\"equip.face.common.dog_nose\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',Lore:['{\"translate\":\"item.notice.require.level\",\"font\":\"minecraft:uniform\",\"with\":[\"25\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.str\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.dex\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.int\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.luk\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"text\":\"02468a\",\"font\":\"ui:equip\",\"color\":\"white\",\"italic\":false}','{\"text\":\"--------------------------------------\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.equip_category\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"translate\":\"item.notice.equip_category.face\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.weapon_def\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"1\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[7]}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{level:20,job:[1,1,1,1,1,1],stats:[0,0,0,0],equip_type:38,CustomModelData:12901,accuracy:1,magic_defense:1,icon:['\"\\\\ud200\"','\"\\\\ud201\"'],scroll_left:7,price:1,original_name:'{\"translate\":\"equip.eye.common.owl_mask\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',display:{Name:'{\"translate\":\"equip.eye.common.owl_mask\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',Lore:['{\"translate\":\"item.notice.require.level\",\"font\":\"minecraft:uniform\",\"with\":[\"20\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.str\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.dex\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.int\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.luk\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"text\":\"02468a\",\"font\":\"ui:equip\",\"color\":\"white\",\"italic\":false}','{\"text\":\"--------------------------------------\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.equip_category\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"translate\":\"item.notice.equip_category.eye\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.magic_def\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"1\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.accuracy\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"1\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[7]}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{level:30,job:[1,1,1,1,1,1],stats:[0,0,0,0],equip_type:37,CustomModelData:12604,luk:1,defense:25,icon:['\"\\\\ucc02\"','\"\\\\ucc03\"'],scroll_left:7,price:10000,original_name:'{\"translate\":\"equip.shield.common.palette\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',display:{Name:'{\"translate\":\"equip.shield.common.palette\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',Lore:['{\"translate\":\"item.notice.require.level\",\"font\":\"minecraft:uniform\",\"with\":[\"30\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.str\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.dex\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.int\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.luk\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"text\":\"02468a\",\"font\":\"ui:equip\",\"color\":\"white\",\"italic\":false}','{\"text\":\"--------------------------------------\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.equip_category\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"translate\":\"item.notice.equip_category.shield\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.luk\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"1\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.weapon_def\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"25\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[7]}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{level:50,job:[1,1,1,1,1,1],stats:[0,0,0,0],equip_type:36,CustomModelData:12307,defense:7,magic_defense:7,magic_attack:7,icon:['\"\\\\uce12\"','\"\\\\uce13\"'],scroll_left:5,price:50000,original_name:'{\"translate\":\"equip.cape.common.purple_adventurer_cape\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',display:{Name:'{\"translate\":\"equip.cape.common.purple_adventurer_cape\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',Lore:['{\"translate\":\"item.notice.require.level\",\"font\":\"minecraft:uniform\",\"with\":[\"50\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.str\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.dex\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.int\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.luk\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"text\":\"02468a\",\"font\":\"ui:equip\",\"color\":\"white\",\"italic\":false}','{\"text\":\"--------------------------------------\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.equip_category\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"translate\":\"item.notice.equip_category.cape\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.magic_attack\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"7\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.weapon_def\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"7\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.magic_def\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"7\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[5]}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{level:50,job:[1,1,1,1,1,1],stats:[0,0,0,0],equip_type:36,CustomModelData:12306,defense:7,magic_defense:7,weapon_attack:2,icon:['\"\\\\uce0e\"','\"\\\\uce0f\"'],scroll_left:5,price:50000,original_name:'{\"translate\":\"equip.cape.common.pink_adventurer_cape\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',display:{Name:'{\"translate\":\"equip.cape.common.pink_adventurer_cape\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',Lore:['{\"translate\":\"item.notice.require.level\",\"font\":\"minecraft:uniform\",\"with\":[\"50\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.str\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.dex\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.int\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.luk\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"text\":\"02468a\",\"font\":\"ui:equip\",\"color\":\"white\",\"italic\":false}','{\"text\":\"--------------------------------------\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.equip_category\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"translate\":\"item.notice.equip_category.cape\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.weapon_attack\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"2\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.weapon_def\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"7\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.magic_def\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"7\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[5]}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{level:10,job:[1,1,1,1,1,1],stats:[0,0,0,0],equip_type:34,CustomModelData:11707,defense:2,icon:['\"\\\\uca1a\"','\"\\\\uca1b\"'],scroll_left:7,price:3000,original_name:'{\"translate\":\"equip.gloves.common.brown_work_gloves\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',display:{Name:'{\"translate\":\"equip.gloves.common.brown_work_gloves\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',Lore:['{\"translate\":\"item.notice.require.level\",\"font\":\"minecraft:uniform\",\"with\":[\"10\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.str\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.dex\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.int\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.luk\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"text\":\"02468a\",\"font\":\"ui:equip\",\"color\":\"white\",\"italic\":false}','{\"text\":\"--------------------------------------\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.equip_category\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"translate\":\"item.notice.equip_category.gloves\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.weapon_def\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"2\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[7]}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{level:25,job:[1,1,1,1,1,1],stats:[0,30,0,0],equip_type:30,CustomModelData:10507,dex:3,defense:15,icon:['\"\\\\uc01e\"','\"\\\\uc01f\"'],scroll_left:7,price:6000,original_name:'{\"translate\":\"equip.cap.common.green_bamboo_hat\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',display:{Name:'{\"translate\":\"equip.cap.common.green_bamboo_hat\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',Lore:['{\"translate\":\"item.notice.require.level\",\"font\":\"minecraft:uniform\",\"with\":[\"25\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.str\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.dex\",\"font\":\"minecraft:uniform\",\"with\":[\"30\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.int\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.luk\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"text\":\"02468a\",\"font\":\"ui:equip\",\"color\":\"white\",\"italic\":false}','{\"text\":\"--------------------------------------\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.equip_category\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"translate\":\"item.notice.equip_category.cap\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.dex\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"3\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.weapon_def\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"15\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[7]}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{level:25,job:[1,1,1,1,1,1],stats:[30,0,0,0],equip_type:30,CustomModelData:10506,str:3,defense:15,icon:['\"\\\\uc01a\"','\"\\\\uc01b\"'],scroll_left:7,price:6000,original_name:'{\"translate\":\"equip.cap.common.blue_bamboo_hat\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',display:{Name:'{\"translate\":\"equip.cap.common.blue_bamboo_hat\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',Lore:['{\"translate\":\"item.notice.require.level\",\"font\":\"minecraft:uniform\",\"with\":[\"25\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.str\",\"font\":\"minecraft:uniform\",\"with\":[\"30\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.dex\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.int\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.luk\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"text\":\"02468a\",\"font\":\"ui:equip\",\"color\":\"white\",\"italic\":false}','{\"text\":\"--------------------------------------\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.equip_category\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"translate\":\"item.notice.equip_category.cap\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.str\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"3\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.weapon_def\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"15\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[7]}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{level:25,job:[1,1,1,1,1,1],stats:[0,0,0,0],equip_type:30,CustomModelData:10505,luk:3,defense:15,icon:['\"\\\\uc01c\"','\"\\\\uc01d\"'],scroll_left:7,price:6000,original_name:'{\"translate\":\"equip.cap.common.brown_bamboo_hat\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',display:{Name:'{\"translate\":\"equip.cap.common.brown_bamboo_hat\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',Lore:['{\"translate\":\"item.notice.require.level\",\"font\":\"minecraft:uniform\",\"with\":[\"25\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.str\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.dex\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.int\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.luk\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"text\":\"02468a\",\"font\":\"ui:equip\",\"color\":\"white\",\"italic\":false}','{\"text\":\"--------------------------------------\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.equip_category\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"translate\":\"item.notice.equip_category.cap\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.luk\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"3\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.weapon_def\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"15\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[7]}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{level:25,job:[1,1,1,1,1,1],stats:[0,0,0,0],equip_type:9,CustomModelData:10417,weapon_attack:42,action_time:-3,accuracy:10,icon:['\"\\\\uB0ae\"','\"\\\\uB0af\"'],scroll_left:7,price:20000,original_name:'{\"translate\":\"weapon.oh_blunt.illustrated\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',display:{Name:'{\"translate\":\"weapon.oh_blunt.illustrated\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',Lore:['{\"translate\":\"item.notice.require.level\",\"font\":\"minecraft:uniform\",\"with\":[\"25\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.str\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.dex\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.int\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.luk\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"text\":\"02468a\",\"font\":\"ui:equip\",\"color\":\"white\",\"italic\":false}','{\"text\":\"--------------------------------------\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.weapon_category\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"translate\":\"item.notice.weapon_category.oh_blunt\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.attack_speed\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"translate\":\"item.notice.attack_speed.faster\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.weapon_attack\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"42\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.accuracy\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"10\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[7]}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{level:43,job:[0,1,0,0,0,0],stats:[0,0,0,0],equip_type:10,CustomModelData:10388,weapon_attack:68,action_time:1,accuracy:30,str:5,icon:['\"\\\\uB162\"','\"\\\\uB163\"'],scroll_left:7,price:100000,original_name:'{\"translate\":\"weapon.th_blunt.maple43\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',display:{Name:'{\"translate\":\"weapon.th_blunt.maple43\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',Lore:['{\"translate\":\"item.notice.require.level\",\"font\":\"minecraft:uniform\",\"with\":[\"43\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.str\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.dex\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.int\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.luk\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"text\":\"12579b\",\"font\":\"ui:equip\",\"color\":\"white\",\"italic\":false}','{\"text\":\"--------------------------------------\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.weapon_category\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"translate\":\"item.notice.weapon_category.th_blunt\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.attack_speed\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"translate\":\"item.notice.attack_speed.slow\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.str\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"5\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.weapon_attack\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"68\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.accuracy\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"30\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[7]}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{level:30,job:[1,1,1,1,1,1],stats:[5,0,0,0],equip_type:5,CustomModelData:10357,weapon_attack:48,action_time:-1,hp:30,magic_attack:45,icon:['\"\\\\uB090\"','\"\\\\uB091\"'],scroll_left:7,price:20000,original_name:'{\"translate\":\"weapon.oh_axe.brush\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',display:{Name:'{\"translate\":\"weapon.oh_axe.brush\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',Lore:['{\"translate\":\"item.notice.require.level\",\"font\":\"minecraft:uniform\",\"with\":[\"30\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.str\",\"font\":\"minecraft:uniform\",\"with\":[\"5\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.dex\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.int\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.luk\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"text\":\"02468a\",\"font\":\"ui:equip\",\"color\":\"white\",\"italic\":false}','{\"text\":\"--------------------------------------\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.weapon_category\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"translate\":\"item.notice.weapon_category.oh_axe\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.attack_speed\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"translate\":\"item.notice.attack_speed.fast\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.hp\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"30\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.weapon_attack\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"48\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.magic_attack\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"45\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[7]}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{level:43,job:[0,1,0,0,0,0],stats:[0,0,0,0],equip_type:6,CustomModelData:10328,weapon_attack:68,action_time:0,accuracy:30,str:3,icon:['\"\\\\uB146\"','\"\\\\uB147\"'],scroll_left:7,price:100000,original_name:'{\"translate\":\"weapon.th_axe.maple43\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',display:{Name:'{\"translate\":\"weapon.th_axe.maple43\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',Lore:['{\"translate\":\"item.notice.require.level\",\"font\":\"minecraft:uniform\",\"with\":[\"43\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.str\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.dex\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.int\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.luk\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"text\":\"12579b\",\"font\":\"ui:equip\",\"color\":\"white\",\"italic\":false}','{\"text\":\"--------------------------------------\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.weapon_category\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"translate\":\"item.notice.weapon_category.th_axe\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.attack_speed\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"translate\":\"item.notice.attack_speed.normal\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.str\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"3\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.weapon_attack\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"68\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.accuracy\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"30\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[7]}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{level:43,job:[1,1,1,1,1,1],stats:[0,0,0,0],equip_type:7,CustomModelData:10298,weapon_attack:60,action_time:-1,accuracy:30,icon:['\"\\\\uB0ce\"','\"\\\\uB0cf\"'],scroll_left:7,price:75000,original_name:'{\"translate\":\"weapon.oh_sword.maple43\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',display:{Name:'{\"translate\":\"weapon.oh_sword.maple43\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',Lore:['{\"translate\":\"item.notice.require.level\",\"font\":\"minecraft:uniform\",\"with\":[\"43\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.str\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.dex\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.int\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.luk\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"text\":\"02468a\",\"font\":\"ui:equip\",\"color\":\"white\",\"italic\":false}','{\"text\":\"--------------------------------------\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.weapon_category\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"translate\":\"item.notice.weapon_category.oh_sword\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.attack_speed\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"translate\":\"item.notice.attack_speed.fast\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.weapon_attack\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"60\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.accuracy\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"30\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[7]}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{level:50,job:[1,1,1,1,1,1],stats:[0,0,0,0],equip_type:8,CustomModelData:10268,weapon_attack:68,action_time:-2,str:2,dex:2,icon:['\"\\\\uB182\"','\"\\\\uB183\"'],scroll_left:7,price:120000,original_name:'{\"translate\":\"weapon.th_sword.map\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',display:{Name:'{\"translate\":\"weapon.th_sword.map\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',Lore:['{\"translate\":\"item.notice.require.level\",\"font\":\"minecraft:uniform\",\"with\":[\"50\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.str\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.dex\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.int\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.luk\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"text\":\"02468a\",\"font\":\"ui:equip\",\"color\":\"white\",\"italic\":false}','{\"text\":\"--------------------------------------\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.weapon_category\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"translate\":\"item.notice.weapon_category.th_sword\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.attack_speed\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"translate\":\"item.notice.attack_speed.fast\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.str\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"2\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.dex\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"2\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.weapon_attack\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"68\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[7]}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{level:43,job:[0,0,1,0,0,0],stats:[0,0,0,0],equip_type:18,CustomModelData:10238,weapon_attack:60,action_time:0,speed:7,knockback:45,icon:['\"\\\\uB056\"','\"\\\\uB057\"'],scroll_left:7,price:90000,original_name:'{\"translate\":\"weapon.crossbow.maple43\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',display:{Name:'{\"translate\":\"weapon.crossbow.maple43\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',Lore:['{\"translate\":\"item.notice.require.level\",\"font\":\"minecraft:uniform\",\"with\":[\"43\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.str\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.dex\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.int\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.luk\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"text\":\"13569b\",\"font\":\"ui:equip\",\"color\":\"white\",\"italic\":false}','{\"text\":\"--------------------------------------\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.weapon_category\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"translate\":\"item.notice.weapon_category.crossbow\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.attack_speed\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"translate\":\"item.notice.attack_speed.normal\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.weapon_attack\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"60\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.speed\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"7\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.knockback\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"45\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[7]}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{level:43,job:[0,0,1,0,0,0],stats:[0,0,0,0],equip_type:16,CustomModelData:10208,weapon_attack:58,action_time:-1,speed:7,knockback:40,icon:['\"\\\\uB01a\"','\"\\\\uB01b\"'],scroll_left:7,price:50000,original_name:'{\"translate\":\"weapon.bow.maple43\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',display:{Name:'{\"translate\":\"weapon.bow.maple43\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',Lore:['{\"translate\":\"item.notice.require.level\",\"font\":\"minecraft:uniform\",\"with\":[\"43\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.str\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.dex\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.int\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.luk\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"text\":\"13569b\",\"font\":\"ui:equip\",\"color\":\"white\",\"italic\":false}','{\"text\":\"--------------------------------------\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.weapon_category\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"translate\":\"item.notice.weapon_category.bow\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.attack_speed\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"translate\":\"item.notice.attack_speed.fast\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.weapon_attack\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"58\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.speed\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"7\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.knockback\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"40\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[7]}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{level:50,job:[0,0,0,1,0,0],stats:[0,0,150,48],equip_type:21,CustomModelData:10177,weapon_attack:40,action_time:-2,int:2,luk:1,magic_attack:65,icon:['\"\\\\uB1a2\"','\"\\\\uB1a3\"'],scroll_left:7,price:170000,original_name:'{\"translate\":\"weapon.wand.zhugeliang\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',display:{Name:'{\"translate\":\"weapon.wand.zhugeliang\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',Lore:['{\"translate\":\"item.notice.require.level\",\"font\":\"minecraft:uniform\",\"with\":[\"50\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.str\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.dex\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.int\",\"font\":\"minecraft:uniform\",\"with\":[\"150\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.luk\",\"font\":\"minecraft:uniform\",\"with\":[\"48\"],\"color\":\"white\",\"italic\":false}','{\"text\":\"13479b\",\"font\":\"ui:equip\",\"color\":\"white\",\"italic\":false}','{\"text\":\"--------------------------------------\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.weapon_category\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"translate\":\"item.notice.weapon_category.wand\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.attack_speed\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"translate\":\"item.notice.attack_speed.fast\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.int\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"2\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.luk\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"1\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.weapon_attack\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"40\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.magic_attack\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"65\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[7]}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{level:43,job:[0,1,0,0,0,0],stats:[0,0,0,0],equip_type:14,CustomModelData:10148,weapon_attack:68,action_time:0,accuracy:30,str:2,icon:['\"\\\\uB0ec\"','\"\\\\uB0ed\"'],scroll_left:7,price:100000,original_name:'{\"translate\":\"weapon.polearm.maple43\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',display:{Name:'{\"translate\":\"weapon.polearm.maple43\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',Lore:['{\"translate\":\"item.notice.require.level\",\"font\":\"minecraft:uniform\",\"with\":[\"43\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.str\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.dex\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.int\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.luk\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"text\":\"12579b\",\"font\":\"ui:equip\",\"color\":\"white\",\"italic\":false}','{\"text\":\"--------------------------------------\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.weapon_category\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"translate\":\"item.notice.weapon_category.polearm\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.attack_speed\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"translate\":\"item.notice.attack_speed.normal\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.str\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"2\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.weapon_attack\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"68\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.accuracy\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"30\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[7]}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{level:43,job:[0,1,0,0,0,0],stats:[0,0,0,0],equip_type:12,CustomModelData:10118,weapon_attack:65,action_time:-1,accuracy:30,str:1,icon:['\"\\\\uB10a\"','\"\\\\uB10b\"'],scroll_left:7,price:100000,original_name:'{\"translate\":\"weapon.spear.maple43\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',display:{Name:'{\"translate\":\"weapon.spear.maple43\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',Lore:['{\"translate\":\"item.notice.require.level\",\"font\":\"minecraft:uniform\",\"with\":[\"43\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.str\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.dex\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.int\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.luk\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"text\":\"12579b\",\"font\":\"ui:equip\",\"color\":\"white\",\"italic\":false}','{\"text\":\"--------------------------------------\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.weapon_category\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"translate\":\"item.notice.weapon_category.spear\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.attack_speed\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"translate\":\"item.notice.attack_speed.fast\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.str\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"1\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.weapon_attack\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"65\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.accuracy\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"30\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[7]}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{level:43,job:[0,0,0,0,1,0],stats:[0,0,0,0],equip_type:23,CustomModelData:10088,weapon_attack:58,action_time:-1,accuracy:10,icon:['\"\\\\uB074\"','\"\\\\uB075\"'],scroll_left:7,price:70000,original_name:'{\"translate\":\"weapon.dagger.maple43\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',display:{Name:'{\"translate\":\"weapon.dagger.maple43\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',Lore:['{\"translate\":\"item.notice.require.level\",\"font\":\"minecraft:uniform\",\"with\":[\"43\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.str\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.dex\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.int\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.luk\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"text\":\"13578b\",\"font\":\"ui:equip\",\"color\":\"white\",\"italic\":false}','{\"text\":\"--------------------------------------\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.weapon_category\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"translate\":\"item.notice.weapon_category.dagger\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.attack_speed\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"translate\":\"item.notice.attack_speed.fast\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.weapon_attack\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"58\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.accuracy\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"10\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[7]}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{level:43,job:[0,0,0,0,1,0],stats:[0,0,0,0],equip_type:24,CustomModelData:10058,weapon_attack:23,action_time:-3,icon:['\"\\\\uB038\"','\"\\\\uB039\"'],scroll_left:7,price:70000,original_name:'{\"translate\":\"weapon.claw.maple43\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',display:{Name:'{\"translate\":\"weapon.claw.maple43\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',Lore:['{\"translate\":\"item.notice.require.level\",\"font\":\"minecraft:uniform\",\"with\":[\"43\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.str\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.dex\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.int\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.luk\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"text\":\"13578b\",\"font\":\"ui:equip\",\"color\":\"white\",\"italic\":false}','{\"text\":\"--------------------------------------\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.weapon_category\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"translate\":\"item.notice.weapon_category.claw\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.attack_speed\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"translate\":\"item.notice.attack_speed.faster\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.weapon_attack\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"23\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[7]}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{level:43,job:[0,0,0,1,0,0],stats:[0,0,0,0],equip_type:19,CustomModelData:10028,weapon_attack:39,action_time:0,hp:100,mp:50,magic_attack:58,icon:['\"\\\\uB128\"','\"\\\\uB129\"'],scroll_left:7,price:80000,original_name:'{\"translate\":\"weapon.staff.maple43\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',display:{Name:'{\"translate\":\"weapon.staff.maple43\",\"font\":\"minecraft:uniform\",\"bold\":true,\"italic\":false}',Lore:['{\"translate\":\"item.notice.require.level\",\"font\":\"minecraft:uniform\",\"with\":[\"43\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.str\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.dex\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.int\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.require.luk\",\"font\":\"minecraft:uniform\",\"with\":[\"0\"],\"color\":\"white\",\"italic\":false}','{\"text\":\"13479b\",\"font\":\"ui:equip\",\"color\":\"white\",\"italic\":false}','{\"text\":\"--------------------------------------\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}','{\"translate\":\"item.notice.weapon_category\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"translate\":\"item.notice.weapon_category.staff\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.attack_speed\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"translate\":\"item.notice.attack_speed.normal\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.hp\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"100\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.mp\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"50\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.weapon_attack\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"39\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.magic_attack\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[{\"text\":\"58\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false}]}','{\"translate\":\"item.notice.scroll\",\"font\":\"minecraft:uniform\",\"color\":\"white\",\"italic\":false,\"with\":[7]}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{CustomModelData:30,attack:4,amount:2000,bullet_model:3205,display:{Name:'{\"translate\":\"item.consume.2061004\",\"bold\":true,\"italic\":false,\"font\":\"minecraft:uniform\"}',Lore:['{\"translate\":\"item.notice.projectile_attack\",\"with\":[\"4\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}','{\"translate\":\"item.notice.weapon.left\",\"with\":[\"2000\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{CustomModelData:29,attack:4,amount:2000,bullet_model:3204,display:{Name:'{\"translate\":\"item.consume.2061003\",\"bold\":true,\"italic\":false,\"font\":\"minecraft:uniform\"}',Lore:['{\"translate\":\"item.notice.projectile_attack\",\"with\":[\"4\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}','{\"translate\":\"item.notice.weapon.left\",\"with\":[\"2000\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{CustomModelData:28,attack:2,amount:2000,bullet_model:3203,display:{Name:'{\"translate\":\"item.consume.2061002\",\"bold\":true,\"italic\":false,\"font\":\"minecraft:uniform\"}',Lore:['{\"translate\":\"item.notice.projectile_attack\",\"with\":[\"2\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}','{\"translate\":\"item.notice.weapon.left\",\"with\":[\"2000\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{CustomModelData:27,attack:1,amount:2000,bullet_model:3202,display:{Name:'{\"translate\":\"item.consume.2061001\",\"bold\":true,\"italic\":false,\"font\":\"minecraft:uniform\"}',Lore:['{\"translate\":\"item.notice.projectile_attack\",\"with\":[\"1\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}','{\"translate\":\"item.notice.weapon.left\",\"with\":[\"2000\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{CustomModelData:25,attack:4,amount:2000,bullet_model:3105,display:{Name:'{\"translate\":\"item.consume.2060004\",\"bold\":true,\"italic\":false,\"font\":\"minecraft:uniform\"}',Lore:['{\"translate\":\"item.notice.projectile_attack\",\"with\":[\"4\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}','{\"translate\":\"item.notice.weapon.left\",\"with\":[\"2000\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{CustomModelData:24,attack:4,amount:2000,bullet_model:3104,display:{Name:'{\"translate\":\"item.consume.2060003\",\"bold\":true,\"italic\":false,\"font\":\"minecraft:uniform\"}',Lore:['{\"translate\":\"item.notice.projectile_attack\",\"with\":[\"4\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}','{\"translate\":\"item.notice.weapon.left\",\"with\":[\"2000\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{CustomModelData:23,attack:2,amount:2000,bullet_model:3103,display:{Name:'{\"translate\":\"item.consume.2060002\",\"bold\":true,\"italic\":false,\"font\":\"minecraft:uniform\"}',Lore:['{\"translate\":\"item.notice.projectile_attack\",\"with\":[\"2\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}','{\"translate\":\"item.notice.weapon.left\",\"with\":[\"2000\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{CustomModelData:22,attack:1,amount:2000,bullet_model:3102,display:{Name:'{\"translate\":\"item.consume.2060001\",\"bold\":true,\"italic\":false,\"font\":\"minecraft:uniform\"}',Lore:['{\"translate\":\"item.notice.projectile_attack\",\"with\":[\"1\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}','{\"translate\":\"item.notice.weapon.left\",\"with\":[\"2000\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{CustomModelData:7,attack:27,amount:800,bullet_model:4006,max_amount:800,unit_price:0.3f,display:{Name:'{\"translate\":\"item.consume.2070006\",\"bold\":true,\"italic\":false,\"font\":\"minecraft:uniform\"}',Lore:['{\"translate\":\"item.notice.projectile_attack\",\"with\":[\"27\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}','{\"translate\":\"item.notice.weapon.left\",\"with\":[\"800\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{CustomModelData:6,attack:25,amount:1000,bullet_model:4005,max_amount:1000,unit_price:0.4f,display:{Name:'{\"translate\":\"item.consume.2070005\",\"bold\":true,\"italic\":false,\"font\":\"minecraft:uniform\"}',Lore:['{\"translate\":\"item.notice.projectile_attack\",\"with\":[\"25\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}','{\"translate\":\"item.notice.weapon.left\",\"with\":[\"1000\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{CustomModelData:5,attack:23,amount:1000,bullet_model:4004,max_amount:1000,unit_price:0.5f,display:{Name:'{\"translate\":\"item.consume.2070004\",\"bold\":true,\"italic\":false,\"font\":\"minecraft:uniform\"}',Lore:['{\"translate\":\"item.notice.projectile_attack\",\"with\":[\"23\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}','{\"translate\":\"item.notice.weapon.left\",\"with\":[\"1000\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{CustomModelData:4,attack:21,amount:500,bullet_model:4003,max_amount:500,unit_price:0.6f,display:{Name:'{\"translate\":\"item.consume.2070003\",\"bold\":true,\"italic\":false,\"font\":\"minecraft:uniform\"}',Lore:['{\"translate\":\"item.notice.projectile_attack\",\"with\":[\"21\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}','{\"translate\":\"item.notice.weapon.left\",\"with\":[\"500\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{CustomModelData:3,attack:19,amount:700,bullet_model:4002,max_amount:700,unit_price:0.6f,display:{Name:'{\"translate\":\"item.consume.2070002\",\"bold\":true,\"italic\":false,\"font\":\"minecraft:uniform\"}',Lore:['{\"translate\":\"item.notice.projectile_attack\",\"with\":[\"19\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}','{\"translate\":\"item.notice.weapon.left\",\"with\":[\"700\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{CustomModelData:2,attack:17,amount:500,bullet_model:4001,max_amount:500,unit_price:0.7f,display:{Name:'{\"translate\":\"item.consume.2070001\",\"bold\":true,\"italic\":false,\"font\":\"minecraft:uniform\"}',Lore:['{\"translate\":\"item.notice.projectile_attack\",\"with\":[\"17\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}','{\"translate\":\"item.notice.weapon.left\",\"with\":[\"500\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{CustomModelData:104,price:1100,sound:2,hp:1000,display:{Name:'{\"translate\":\"item.consume.2022003\",\"bold\":true,\"italic\":false,\"font\":\"minecraft:uniform\"}',Lore:['{\"translate\":\"item.notice.potion.hp\",\"with\":[\"1000\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}','{\"translate\":\"item.notice.potion.meso\",\"with\":[\"1100\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{CustomModelData:172,price:1650,sound:3,mp:800,display:{Name:'{\"translate\":\"item.consume.2022000\",\"bold\":true,\"italic\":false,\"font\":\"minecraft:uniform\"}',Lore:['{\"translate\":\"item.notice.potion.mp\",\"with\":[\"800\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}','{\"translate\":\"item.notice.potion.meso\",\"with\":[\"1650\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{CustomModelData:230,price:3000,sound:0,hp_rate:50,mp_rate:50,display:{Name:'{\"translate\":\"item.consume.2000004\",\"bold\":true,\"italic\":false,\"font\":\"minecraft:uniform\"}',Lore:['{\"translate\":\"item.notice.potion.hp_mp\",\"with\":[\"50%\",\"50%\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}','{\"translate\":\"item.notice.potion.meso\",\"with\":[\"3000\"],\"color\":\"white\",\"italic\":false,\"font\":\"minecraft:uniform\"}']},HideFlags:127,Unbreakable:1}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
