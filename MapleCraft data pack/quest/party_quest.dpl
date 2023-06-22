@@ -206,7 +206,7 @@ namespace party_quest() as virtual
 			execute if score #KPQ_PASS_REQUIRED temp matches 2.. run scoreboard players remove #KPQ_PASS_REQUIRED temp 1
 			
 			forceload add -282 6
-			summon minecraft:marker -282 39 6 {Tags:["mob_spawner","kpq_mob_spawner"]}
+			summon minecraft:marker -282 39 6 {Tags:["mob_spawner","kpq_mob"]}
 			forceload remove -282 6
 		}
 		
@@ -363,11 +363,8 @@ namespace party_quest() as virtual
 				{
 					forceload add -266 -23 -314 23
 					execute positioned -328 60 -43 run kill @e[type=item,dx=86,dy=28,dz=86]
-					kill @e[type=#skill:enemy,tag=kpq_mob]
-					kill @e[type=marker,tag=kpq_mob_spawner]
+					kill @e[tag=kpq_mob]
 					data modify block -310 47 0 front_text.messages[0] set value '""'
-					setblock -310 47 -1 minecraft:air
-					setblock -310 47 1 minecraft:air
 					forceload remove -266 -23 -314 23
 					
 					scoreboard players reset #KPQ_S1_LOADED temp
@@ -402,8 +399,7 @@ namespace party_quest() as virtual
 							scoreboard players add #KPQ_STAGE temp 1
 							
 							data modify block -310 47 0 front_text.messages[0] set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -310.0 46 -1.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/1/portal"}}'
-							setblock -310 47 1 minecraft:tripwire[attached=false,disarmed=false,east=false,north=false,south=false,west=false]
-							setblock -310 47 -1 minecraft:tripwire[attached=true,disarmed=false,east=false,north=false,south=false,west=false]
+							summon minecraft:item_display -309.5 47.5 0.5 {Tags:["kpq_mob"],item:{id:"minecraft:splash_potion",Count:1b,tag:{CustomModelData:1000002,CustomPotionColor:-1}}}
 							
 							scoreboard players set #EXP_GAIN temp 100
 							scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
@@ -481,8 +477,7 @@ namespace party_quest() as virtual
 					forceload add -550 -25 -500 25
 					execute positioned -565 41 -40 run kill @e[type=item,dx=80,dy=37,dz=80]
 					data modify block -540 43 0 front_text.messages[0] set value '""'
-					setblock -540 43 -1 minecraft:air
-					setblock -540 43 1 minecraft:air
+					kill @e[type=item_display,tag=kpq_mob]
 					kill @e[type=creeper,tag=kpq_player]
 					forceload remove -550 -25 -500 25
 					
@@ -549,8 +544,7 @@ namespace party_quest() as virtual
 							scoreboard players add #KPQ_STAGE temp 1
 							
 							data modify block -540 43 0 front_text.messages[0] set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -540.0 42 -1.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/2/portal"}}'
-							setblock -540 43 1 minecraft:tripwire[attached=false,disarmed=false,east=false,north=false,south=false,west=false]
-							setblock -540 43 -1 minecraft:tripwire[attached=true,disarmed=false,east=false,north=false,south=false,west=false]
+							summon minecraft:item_display -539.5 43.5 0.5 {Tags:["kpq_mob"],item:{id:"minecraft:splash_potion",Count:1b,tag:{CustomModelData:1000002,CustomPotionColor:-1}}}
 							
 							scoreboard players set #EXP_GAIN temp 200
 							scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
@@ -591,10 +585,9 @@ namespace party_quest() as virtual
 					forceload add -852 -10 -800 10
 					execute positioned -852 31 -10 run kill @e[type=item,dx=52,dy=28,dz=20]
 					data modify block -850 47 0 front_text.messages[0] set value '""'
-					setblock -850 47 -1 minecraft:air
-					setblock -850 47 1 minecraft:air
 					setblock -849 47 3 minecraft:air
 					setblock -849 47 -3 minecraft:air
+					kill @e[type=item_display,tag=kpq_mob]
 					kill @e[type=creeper,tag=kpq_player]
 					forceload remove -852 -10 -800 10
 					
@@ -664,8 +657,7 @@ namespace party_quest() as virtual
 							scoreboard players add #KPQ_STAGE temp 1
 							
 							data modify block -850 47 0 front_text.messages[0] set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -850.0 46 -1.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/3/portal"}}'
-							setblock -850 47 1 minecraft:tripwire[attached=false,disarmed=false,east=false,north=false,south=false,west=false]
-							setblock -850 47 -1 minecraft:tripwire[attached=true,disarmed=false,east=false,north=false,south=false,west=false]
+							summon minecraft:item_display -849.5 47.5 0.5 {Tags:["kpq_mob"],item:{id:"minecraft:splash_potion",Count:1b,tag:{CustomModelData:1000002,CustomPotionColor:-1}}}
 							setblock -849 47 3 minecraft:fire
 							setblock -849 47 -3 minecraft:fire
 							
@@ -717,10 +709,9 @@ namespace party_quest() as virtual
 					forceload add -1197 2 -1171 29
 					execute positioned -1197 31 2 run kill @e[type=item,dx=26,dy=29,dz=27]
 					data modify block -1195 55 24 front_text.messages[0] set value '""'
-					setblock -1195 55 25 minecraft:air
-					setblock -1195 55 23 minecraft:air
 					setblock -1194 55 21 minecraft:air
 					setblock -1194 55 27 minecraft:air
+					kill @e[type=item_display,tag=kpq_mob]
 					kill @e[type=creeper,tag=kpq_player]
 					forceload remove -1197 2 -1171 29
 					
@@ -794,8 +785,7 @@ namespace party_quest() as virtual
 							scoreboard players set #KPQ_S5_LOADED temp 1
 							
 							data modify block -1195 55 24 front_text.messages[0] set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -1195.0 54.0 23.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/4/portal"}}'
-							setblock -1195 55 25 minecraft:tripwire[attached=false,disarmed=false,east=false,north=false,south=false,west=false]
-							setblock -1195 55 23 minecraft:tripwire[attached=true,disarmed=false,east=false,north=false,south=false,west=false]
+							summon minecraft:item_display -1194.5 55.5 24.5 {Tags:["kpq_mob"],item:{id:"minecraft:splash_potion",Count:1b,tag:{CustomModelData:1000002,CustomPotionColor:-1}}}
 							setblock -1194 55 21 fire
 							setblock -1194 55 27 fire
 							
@@ -857,9 +847,7 @@ namespace party_quest() as virtual
 				{
 					forceload add -1530 1 -1490 21
 					execute positioned -1530 50 1 run kill @e[type=item,dx=40,dy=60,dz=20]
-					kill @e[type=#skill:enemy,tag=kpq_mob]
-					setblock -1526 103 13 minecraft:air
-					setblock -1526 103 11 minecraft:air
+					kill @e[tag=kpq_mob]
 					setblock -1525 103 9 minecraft:air
 					setblock -1525 103 15 minecraft:air
 					forceload remove -1530 1 -1490 21
@@ -945,11 +933,10 @@ namespace party_quest() as virtual
 							scoreboard players set #KPQ_S6_LOADED temp 1
 							
 							forceload add -1831 2
-							summon minecraft:marker -1831 30 2 {Tags:["mob_spawner","kpq_mob_spawner"]}
+							summon minecraft:marker -1831 30 2 {Tags:["mob_spawner","kpq_mob"]}
 							forceload remove -1831 2
 							
-							setblock -1526 103 13 minecraft:tripwire[attached=false,disarmed=false,east=false,north=false,south=false,west=false]
-							setblock -1526 103 11 minecraft:tripwire[attached=true,disarmed=false,east=false,north=false,south=false,west=false]
+							summon minecraft:item_display -1525.5 103.5 12.5 {Tags:["kpq_mob"],item:{id:"minecraft:splash_potion",Count:1b,tag:{CustomModelData:1000002,CustomPotionColor:-1}}}
 							setblock -1525 103 9 minecraft:fire
 							setblock -1525 103 15 minecraft:fire
 							
@@ -971,8 +958,7 @@ namespace party_quest() as virtual
 				{
 					forceload add -1847 -7 -1815 11
 					execute positioned -1847 36 -7 run kill @e[type=item,dx=32,dy=24,dz=18]
-					kill @e[type=#skill:enemy,tag=kpq_mob]
-					kill @e[type=marker,tag=kpq_mob_spawner]
+					kill @e[tag=kpq_mob]
 					forceload remove -1847 -7 -1815 11
 					
 					scoreboard players reset #KPQ_S6_LOADED temp
