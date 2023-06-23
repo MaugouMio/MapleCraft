@@ -320,7 +320,6 @@ namespace party_quest() as virtual
 				tellraw @s {"translate":"text.quest.party_quest.kpq.menu.enter","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 171"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
 				tellraw @s {"translate":"text.quest.party_quest.kpq.menu.intro","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 172"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
 				tellraw @s {"text":"==================","font":"minecraft:uniform"}
-				advancement revoke @s only quest:party_quest/kpq/lakelis
 			}
 			
 			func cloto()
@@ -331,13 +330,11 @@ namespace party_quest() as virtual
 				execute if score @s game_stage matches 4 run function ARG(__PATH)stages/4/npc/cloto/talk
 				execute if score @s game_stage matches 5 run function ARG(__PATH)stages/5/npc/cloto/talk
 				execute if score @s game_stage matches 6 run function ARG(__PATH)stages/6/npc/cloto/talk
-				advancement revoke @s only quest:party_quest/kpq/cloto
 			}
 			
 			func nella()
 			{
 				function ARG(__PATH)leave
-				advancement revoke @s only quest:party_quest/kpq/nella
 			}
 		}
 		

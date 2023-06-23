@@ -423,7 +423,6 @@ namespace main()
 				tellraw @s {"translate":"text.npc.maple_administrator.menu.how_to_equip","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 198"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
 				tellraw @s {"translate":"text.npc.maple_administrator.menu.how_to_scroll","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 199"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
 				tellraw @s {"text":"==================","font":"minecraft:uniform"}
-				advancement revoke @s only main:npc/maple_administrator
 			}
 		}
 	}
@@ -592,7 +591,6 @@ namespace main()
 				execute if score @s tutorial matches 2 run function ARG(_PATH)apple_check
 				execute if score @s tutorial matches 1 run function ARG(_PATH)apple
 				execute unless score @s tutorial matches 1.. run function ARG(_PATH)greet
-				advancement revoke @s only main:npc/roger
 			}
 			
 			func greet()
@@ -701,13 +699,11 @@ namespace main()
 			tellraw @s {"translate":"text.quest.test_server_helper.menu.equip_archer","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 195"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
 			tellraw @s {"translate":"text.quest.test_server_helper.menu.equip_thief","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 196"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
 			tellraw @s {"text":"==================","font":"minecraft:uniform"}
-			advancement revoke @s only main:npc/test_helper
 		}
 		
 		func shop()
 		{
 			tellraw @s ["\n",{"translate":"text.quest.test_shop.menu","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
-			advancement revoke @s only main:npc/test_shop
 		}
 		
 		func dances_with_balrog()
@@ -718,7 +714,6 @@ namespace main()
 			tellraw @s {"translate":"text.quest.test_warrior_transfer.menu.page","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 179"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
 			tellraw @s {"translate":"text.quest.test_warrior_transfer.menu.spearman","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 180"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
 			tellraw @s {"text":"==================","font":"minecraft:uniform"}
-			advancement revoke @s only main:npc/dances_with_balrog
 		}
 		
 		func grendel_the_really_old()
@@ -729,7 +724,6 @@ namespace main()
 			tellraw @s {"translate":"text.quest.test_magician_transfer.menu.wizard_il","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 182"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
 			tellraw @s {"translate":"text.quest.test_magician_transfer.menu.cleric","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 183"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
 			tellraw @s {"text":"==================","font":"minecraft:uniform"}
-			advancement revoke @s only main:npc/grendel_the_really_old
 		}
 		
 		func athena_pierce()
@@ -739,7 +733,6 @@ namespace main()
 			tellraw @s {"translate":"text.quest.test_archer_transfer.menu.hunter","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 184"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
 			tellraw @s {"translate":"text.quest.test_archer_transfer.menu.crossbowman","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 185"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
 			tellraw @s {"text":"==================","font":"minecraft:uniform"}
-			advancement revoke @s only main:npc/athena_pierce
 		}
 		
 		func dark_lord()
@@ -749,7 +742,6 @@ namespace main()
 			tellraw @s {"translate":"text.quest.test_thief_transfer.menu.assassin","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 186"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
 			tellraw @s {"translate":"text.quest.test_thief_transfer.menu.bandit","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 187"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
 			tellraw @s {"text":"==================","font":"minecraft:uniform"}
-			advancement revoke @s only main:npc/dark_lord
 		}
 	}
 	
