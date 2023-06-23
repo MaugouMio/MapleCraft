@@ -173,6 +173,11 @@ namespace party_quest() as virtual
 		}
 	}
 	
+	func get_dummy()
+	{
+		give @s minecraft:stick{display:{Name:'{"translate":"item.etc.dummy","font":"minecraft:uniform","bold":true,"italic":false}'},HideFlags:127,CustomModelData:3000001,dummy:1b}
+	}
+	
 	folder kpq()
 	{
 		func check()
@@ -216,7 +221,7 @@ namespace party_quest() as virtual
 			title @s title {"text":"4","font":"ui:main"}
 			tp @s -260 45 0 90 50
 			
-			tag @s add kpq_player
+			tag @s add pq_player
 			scoreboard players set @s map 103000890
 			scoreboard players set @s playing_game 1
 			scoreboard players set @s game_stage 1
@@ -272,7 +277,7 @@ namespace party_quest() as virtual
 			scoreboard players reset @s kpq_coupon
 			scoreboard players reset @s kpq_question
 			scoreboard players reset @s playing_game
-			tag @s remove kpq_player
+			tag @s remove pq_player
 			
 			execute if score #KPQ_STAGE temp matches 1.. run function ARG(_PATH)leave_reset
 			scoreboard players reset @s game_stage
@@ -475,15 +480,9 @@ namespace party_quest() as virtual
 					execute positioned -565 41 -40 run kill @e[type=item,dx=80,dy=37,dz=80]
 					data modify block -540 43 0 front_text.messages[0] set value '""'
 					kill @e[type=item_display,tag=kpq_mob]
-					kill @e[type=creeper,tag=kpq_player]
 					forceload remove -550 -25 -500 25
 					
 					scoreboard players reset #KPQ_S2_LOADED temp
-				}
-				
-				func get_dummy()
-				{
-					give @s minecraft:creeper_spawn_egg{display:{Name:'{"translate":"item.etc.dummy","font":"minecraft:uniform","bold":true,"italic":false}'},CanPlaceOn:["minecraft:scaffolding"],HideFlags:111,EntityTag:{NoAI:1,Silent:1,Invulnerable:1,Tags:["kpq_player"]}}
 				}
 				
 				folder npc()
@@ -506,7 +505,7 @@ namespace party_quest() as virtual
 						func check()
 						{
 							scoreboard players set #COMBINATION temp 0
-							execute as @e[type=#quest:dummy,tag=kpq_player] run function ARG(_PATH)check_rope
+							execute as @e[type=#quest:dummy,tag=pq_player] run function ARG(_PATH)check_rope
 							execute unless score #COMBINATION temp = #KPQ_PASS_REQUIRED temp run function ARG(_PATH)check_amount
 							execute if score #COMBINATION temp = #KPQ_PASS_REQUIRED temp run function ARG(_PATH)pass
 						}
@@ -532,7 +531,6 @@ namespace party_quest() as virtual
 							
 							execute unless score #GLOBAL temp matches 3 run tellraw @s ["\n",{"translate":"text.quest.party_quest.kpq.stage2.wrong_amount","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 							execute if score #GLOBAL temp matches 3 run function quest:party_quest/kpq/title/wrong/run
-							kill @e[type=creeper,tag=kpq_player]
 						}
 						
 						func pass()
@@ -585,15 +583,9 @@ namespace party_quest() as virtual
 					setblock -849 47 3 minecraft:air
 					setblock -849 47 -3 minecraft:air
 					kill @e[type=item_display,tag=kpq_mob]
-					kill @e[type=creeper,tag=kpq_player]
 					forceload remove -852 -10 -800 10
 					
 					scoreboard players reset #KPQ_S3_LOADED temp
-				}
-				
-				func get_dummy()
-				{
-					give @s minecraft:creeper_spawn_egg{display:{Name:'{"translate":"item.etc.dummy","font":"minecraft:uniform","bold":true,"italic":false}'},CanPlaceOn:["minecraft:spruce_log"],HideFlags:111,EntityTag:{NoAI:1,Silent:1,Invulnerable:1,Tags:["kpq_player"]}}
 				}
 				
 				folder npc()
@@ -616,7 +608,7 @@ namespace party_quest() as virtual
 						func check()
 						{
 							scoreboard players set #COMBINATION temp 0
-							execute as @e[type=#quest:dummy,tag=kpq_player] run function ARG(_PATH)check_cat
+							execute as @e[type=#quest:dummy,tag=pq_player] run function ARG(_PATH)check_cat
 							execute unless score #COMBINATION temp = #KPQ_PASS_REQUIRED temp run function ARG(_PATH)check_amount
 							execute if score #COMBINATION temp = #KPQ_PASS_REQUIRED temp run function ARG(_PATH)pass
 						}
@@ -645,7 +637,6 @@ namespace party_quest() as virtual
 							
 							execute unless score #GLOBAL temp matches 3 run tellraw @s ["\n",{"translate":"text.quest.party_quest.kpq.stage3.wrong_amount","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 							execute if score #GLOBAL temp matches 3 run function quest:party_quest/kpq/title/wrong/run
-							kill @e[type=creeper,tag=kpq_player]
 						}
 						
 						func pass()
@@ -709,15 +700,9 @@ namespace party_quest() as virtual
 					setblock -1194 55 21 minecraft:air
 					setblock -1194 55 27 minecraft:air
 					kill @e[type=item_display,tag=kpq_mob]
-					kill @e[type=creeper,tag=kpq_player]
 					forceload remove -1197 2 -1171 29
 					
 					scoreboard players reset #KPQ_S4_LOADED temp
-				}
-				
-				func get_dummy()
-				{
-					give @s minecraft:creeper_spawn_egg{display:{Name:'{"translate":"item.etc.dummy","font":"minecraft:uniform","bold":true,"italic":false}'},CanPlaceOn:["minecraft:barrel"],HideFlags:111,EntityTag:{NoAI:1,Silent:1,Invulnerable:1,Tags:["kpq_player"]}}
 				}
 				
 				folder npc()
@@ -740,7 +725,7 @@ namespace party_quest() as virtual
 						func check()
 						{
 							scoreboard players set #COMBINATION temp 0
-							execute as @e[type=#quest:dummy,tag=kpq_player] run function ARG(_PATH)check_barrel
+							execute as @e[type=#quest:dummy,tag=pq_player] run function ARG(_PATH)check_barrel
 							execute unless score #COMBINATION temp = #KPQ_PASS_REQUIRED temp run function ARG(_PATH)check_amount
 							execute if score #COMBINATION temp = #KPQ_PASS_REQUIRED temp run function ARG(_PATH)pass
 						}
@@ -772,7 +757,6 @@ namespace party_quest() as virtual
 							
 							execute unless score #GLOBAL temp matches 3 run tellraw @s ["\n",{"translate":"text.quest.party_quest.kpq.stage4.wrong_amount","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 							execute if score #GLOBAL temp matches 3 run function quest:party_quest/kpq/title/wrong/run
-							kill @e[type=creeper,tag=kpq_player]
 						}
 						
 						func pass()

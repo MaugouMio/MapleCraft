@@ -234,6 +234,7 @@ namespace item()
 		
 		func set_player_drop()
 		{
+			execute if data entity @s Item{tag:{dummy:1b}} run tag @s add pq_player
 			data modify entity @s PickupDelay set value 32767s
 			tag @s add player_drop
 		}
