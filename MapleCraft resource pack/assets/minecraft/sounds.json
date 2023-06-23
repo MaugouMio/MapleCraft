@@ -827,30 +827,6 @@
 			}
 		]
 	},
-	"item.apple": {
-		"sounds": [
-			{
-				"name": "item/apple",
-				"stream": true
-			}
-		]
-	},
-	"item.unagi": {
-		"sounds": [
-			{
-				"name": "item/unagi",
-				"stream": true
-			}
-		]
-	},
-	"item.sap_of_ancient_tree": {
-		"sounds": [
-			{
-				"name": "item/sap_of_ancient_tree",
-				"stream": true
-			}
-		]
-	},
 	
 	
 	
@@ -1100,6 +1076,12 @@
 		"replace": true
 	},
 	"block.fire.ambient": {
+		"sounds": [
+			{ "name": "empty" }
+		],
+		"replace": true
+	},
+	"block.sign.waxed_interact_fail": {
 		"sounds": [
 			{ "name": "empty" }
 		],
