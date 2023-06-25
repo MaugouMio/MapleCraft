@@ -805,8 +805,8 @@ namespace party_quest() as virtual
 				{
 					execute store result score #GLOBAL temp run data get entity @s Inventory
 					execute if data entity @s Inventory[{Slot:-106b}] run scoreboard players remove #GLOBAL temp 1
-					execute if score #GLOBAL temp matches 37 run tellraw @s ["\n",{"translate":"text.quest.party_quest.kpq.require_slot","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
-					execute if score #GLOBAL temp matches ..36 run function ARG(_PATH)complete
+					execute if score #GLOBAL temp matches 36.. run tellraw @s ["\n",{"translate":"text.quest.party_quest.kpq.require_slot","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+					execute if score #GLOBAL temp matches ..35 run function ARG(_PATH)complete
 				}
 				
 				func complete()
@@ -818,6 +818,8 @@ namespace party_quest() as virtual
 					loot replace block 250 1 0 container.0 loot quest:kpq_award
 					tellraw @s {"translate":"text.quest.item_gain","font":"minecraft:uniform","color":"gray","with":[{"nbt":"Items[0].tag.display.Name","block":"250 1 0","interpret":true}]}
 					loot give @s mine 250 1 0 minecraft:air{modify_player:1b}
+					tellraw @s {"translate":"text.quest.item_gain_multiple","font":"minecraft:uniform","color":"gray","with":["10",{"translate":"item.etc.5220050","bold":true,"italic":false,"font":"minecraft:uniform"}]}
+					give @s minecraft:stick{CustomModelData:5220050,display:{Name:'{"translate":"item.etc.5220050","bold":true,"italic":false,"font":"minecraft:uniform"}'},HideFlags:127} 10
 					
 					title @s times 1 5 10
 					title @s title {"text":"4","font":"ui:main"}
