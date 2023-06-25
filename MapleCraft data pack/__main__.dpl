@@ -425,6 +425,32 @@ namespace main()
 				tellraw @s {"text":"==================","font":"minecraft:uniform"}
 			}
 		}
+		
+		folder gachapon()
+		{
+			func talk()
+			{
+				# check slot
+				execute store result score #GLOBAL temp run data get entity @s Inventory
+				execute if data entity @s Inventory[{Slot:-106b}] run scoreboard players remove #GLOBAL temp 1
+				execute if score #GLOBAL temp matches 37 run tellraw @s ["\n",{"translate":"text.npc.gachapon.require_slot","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+				execute if score #GLOBAL temp matches ..36 run function ARG(_PATH)check_ticket
+			}
+			
+			func check_ticket()
+			{
+				execute store result #GLOBAL temp run clear @s stick{CustomModelData:5220000} 1
+				execute if score #GLOBAL temp matches 0 run tellraw @s ["\n",{"translate":"text.npc.gachapon.no_ticket","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+				execute if score #GLOBAL temp matches 1 run function ARG(_PATH)draw
+			}
+			
+			func draw()
+			{
+				loot replace block 250 1 0 container.0 loot main:gachapon
+				tellraw @s {"translate":"text.npc.gachapon.get","font":"minecraft:uniform","with":[{"nbt":"Items[0].tag.display.Name","block":"250 1 0","interpret":true}]}
+				loot give @s mine 250 1 0 minecraft:air{modify_player:1b}
+			}
+		}
 	}
 	
 	folder command()
