@@ -1,4 +1,4 @@
-import os, json, pygsheets
+import os, json, pickle, pygsheets
 from copy import deepcopy
 
 PAGE_WEAPON		= 0
@@ -92,6 +92,10 @@ LoadItem(sh[PAGE_SCROLL].get_as_df())
 LoadItem(sh[PAGE_CHAIR].get_as_df())
 LoadItem(sh[PAGE_ETC].get_as_df())
 
+# 把 nbt 資料存下來給 mcdp 取值用
+with open("cache/items.pickle", "wb") as f:
+	pickle.dump(itemDatas, f)
+
 def GetItemID(index):
 	if index > 33000:
 		return "minecraft:stick"
@@ -105,8 +109,8 @@ def GenerateEntry(id, weight = 1, min_num = 1, max_num = 1):
 		amount["max"] = max_num * 0.001
 	else:
 		entry = deepcopy(ENTRY_TEMPLATE)
-		entry["name"] = GetItemID(pool_id)
-		entry["functions"][0]["tag"] = itemDatas[pool_id]
+		entry["name"] = GetItemID(id)
+		entry["functions"][0]["tag"] = itemDatas[id]
 		if min_num > 1 or max_num > 1:
 			count_obj = deepcopy(COUNT_TEMPLATE)
 			if min_num == max_num:
@@ -176,11 +180,38 @@ for i in range(loot_df.shape[0]):
 			entry = GenerateEntry(pool_id)
 			if chance < 1:
 				SetChance(entry, chance)
-			pool["entries"] = [GenerateEntry(pool_id, chance)]
+			pool["entries"] = [entry]
 		
 		data["pools"].append(pool)
 	
 	with open(path, "w") as f:
 		f.write(json.dumps(data))
+
+# 順便生成妙手術掉落表
+for w in os.walk("../MapleCraft data pack/data/skill/loot_tables/mob"):
+	if w[0][-7:] == "special":
+		continue
+	
+	try:
+		for file in w[2]:
+			with open(os.path.join(w[0], file)) as f:
+				loot_table = json.loads(f.read())
+			
+			steal_loot = {"pools":[{"rolls": 1.0, "entries": []}]}
+			for pool in loot_table["pools"]:
+				copied_entry = deepcopy(pool["entries"][0])
+				copied_entry["weight"] = int(copied_entry["conditions"][0]["looting_multiplier"] * 1000)
+				del copied_entry["conditions"]
+				if copied_entry["name"] == "minecraft:diamond":
+					copied_entry["functions"][0]["modifiers"][0]["amount"]["min"] /= 2
+					copied_entry["functions"][0]["modifiers"][0]["amount"]["max"] /= 2
+				steal_loot["pools"][0]["entries"].append(copied_entry)
+			
+			with open(os.path.join(w[0], file).replace("loot_tables/mob", "loot_tables/steal"), "w") as f:
+				f.write(json.dumps(steal_loot))
+						
+	except Exception as e:
+		print(e)
+		os.system("pause")
 
 os.system("pause")
