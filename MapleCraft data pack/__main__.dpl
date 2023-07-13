@@ -439,7 +439,7 @@ namespace main()
 			
 			func check_ticket()
 			{
-				execute store result #GLOBAL temp run clear @s stick{CustomModelData:5220000} 1
+				execute store result score #GLOBAL temp run clear @s stick{CustomModelData:5220050} 1
 				execute if score #GLOBAL temp matches 0 run tellraw @s ["\n",{"translate":"text.npc.gachapon.no_ticket","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 				execute if score #GLOBAL temp matches 1 run function ARG(_PATH)draw
 			}

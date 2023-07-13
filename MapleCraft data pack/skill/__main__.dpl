@@ -5028,9 +5028,8 @@ namespace skill()
 	
 	func spawn_loot()
 	{
-		execute if score #WORLD_DROP_RATE const = #WORLD_DROP_RATE const store result entity 00000000-0000-0001-0000-000000000001 HandItems[0].tag.Enchantments[0].lvl int 1 run scoreboard players get #WORLD_DROP_RATE const
+		execute store result entity 00000000-0000-0001-0000-000000000001 HandItems[0].tag.Enchantments[0].lvl int 1 run scoreboard players get #WORLD_DROP_RATE const
 		execute as 00000000-0000-0001-0000-000000000001 run loot spawn ~ ~1 ~ kill @s
-		scoreboard players reset #WORLD_DROP_RATE const
 	}
 	
 	# 呼叫前須先設定 #HORIZON_OFFSET temp 為水平距離(0.1格單位) * 256
