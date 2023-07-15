@@ -2,8 +2,8 @@ import os, json
 from PIL import Image
 
 for item_type in ["consume"]:
-	texture_folder = "MapleCraft resource pack/assets/minecraft/textures/item/" + item_type
-	model_folder = "MapleCraft resource pack/assets/minecraft/models/item/" + item_type
+	texture_folder = "../MapleCraft resource pack/assets/minecraft/textures/item/" + item_type
+	model_folder = "../MapleCraft resource pack/assets/minecraft/models/item/" + item_type
 
 	if not os.path.isdir(model_folder):
 		os.mkdir(model_folder)

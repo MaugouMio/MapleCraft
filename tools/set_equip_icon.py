@@ -6,8 +6,9 @@ back_font = []
 equip_type = "weapon"
 font_index = int("0xB1a6", 16)
 
-if not os.path.isdir(f"MapleCraft resource pack/assets/ui/textures/font/window/equip/icon/{equip_type}"):
-	os.mkdir(f"MapleCraft resource pack/assets/ui/textures/font/window/equip/icon/{equip_type}")
+base_path = f"MapleCraft resource pack/assets/ui/textures/font/window/equip/icon/{equip_type}"
+if not os.path.isdir(base_path):
+	os.mkdir(base_path)
 
 if equip_type == "weapon":
 	target_root = f"MapleCraft resource pack/assets/minecraft/textures/item/weapon"
@@ -19,8 +20,8 @@ for w in os.walk(target_root):
 		img = Image.open(os.path.join(w[0], file))
 		size = ((img.size[0]+1)//4*4+2, (max(img.size[1], 36)+3)//4*4)
 		parent = os.path.basename(w[0])
-		if not os.path.isdir(f"MapleCraft resource pack/assets/ui/textures/font/window/equip/icon/{equip_type}/" + parent):
-			os.mkdir(f"MapleCraft resource pack/assets/ui/textures/font/window/equip/icon/{equip_type}/" + parent)
+		if not os.path.isdir(f"{base_path}/{parent}"):
+			os.mkdir(f"{base_path}/{parent}")
 			
 		if size[1] > 40:
 			print(w[0], file)
@@ -31,8 +32,8 @@ for w in os.walk(target_root):
 			new_img_d.paste(img, ((size[0]-img.size[0]+1)//2, (size[1]-img.size[1]+1)//2 - size[1]//2))
 			ImageDraw.Draw(new_img_t).point((size[0]-1, size[1]//2-1), fill=(255,255,255,10))
 			ImageDraw.Draw(new_img_d).point((size[0]-1, size[1]//2-1), fill=(255,255,255,10))
-			new_img_t.save(f"MapleCraft resource pack/assets/ui/textures/font/window/equip/icon/{equip_type}/" + parent + "/top_" + file)
-			new_img_d.save(f"MapleCraft resource pack/assets/ui/textures/font/window/equip/icon/{equip_type}/" + parent + "/down_" + file)
+			new_img_t.save(f"{base_path}/{parent}/top_{file}")
+			new_img_d.save(f"{base_path}/{parent}/down_{file}")
 			font.append(f'''		{{
 			"type": "bitmap",
 			"file": "ui:font/window/equip/icon/{equip_type}/{parent}/top_{file}",
@@ -57,7 +58,7 @@ for w in os.walk(target_root):
 			draw = ImageDraw.Draw(new_img)
 			draw.point((size[0]-1, 0), fill=(255,255,255,10))
 			draw.point((size[0]-1, size[1]-1), fill=(255,255,255,10))
-			new_img.save(f"MapleCraft resource pack/assets/ui/textures/font/window/equip/icon/{equip_type}/" + parent + "/" + file)
+			new_img.save(f"{base_path}/{parent}/{file}")
 			font.append(f'''		{{
 			"type": "bitmap",
 			"file": "ui:font/window/equip/icon/{equip_type}/{parent}/{file}",
@@ -81,7 +82,7 @@ for w in os.walk(target_root):
 		
 		font_index += 2
 
-with open("C:/users/user/desktop/icon.json", "w") as f:
+with open("output/icon.json", "w") as f:
 	f.write(",\n".join(font))
-with open("C:/users/user/desktop/icon_back.json", "w") as f:
+with open("output/icon_back.json", "w") as f:
 	f.write(",\n".join(back_font))

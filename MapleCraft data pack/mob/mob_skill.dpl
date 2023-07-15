@@ -860,7 +860,7 @@ namespace mob_skill()
 		binary_search_mob_skill(skill_list, start, mid)
 		binary_search_mob_skill(skill_list, mid_right, end)
 	
-	with open(PROJ_DIR + "/../mob_skills.csv") as f:
+	with open(PROJ_DIR + "/../datas/mob_skills.csv") as f:
 		mob_skills = f.read().split("\n")
 		for i in range(len(mob_skills)):
 			sep_point = mob_skills[i].find(",")

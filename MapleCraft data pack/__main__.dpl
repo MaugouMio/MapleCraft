@@ -503,7 +503,7 @@ namespace main()
 			binary_search_cmd(cmd_list, start, mid)
 			binary_search_cmd(cmd_list, mid_right, end)
 		
-		with open(PROJ_DIR + "/../commands.csv") as f:
+		with open(PROJ_DIR + "/../datas/commands.csv") as f:
 			commands = f.read().split("\n")
 			for i in range(len(commands)):
 				sep_point = commands[i].find(",")
@@ -563,7 +563,7 @@ namespace main()
 			binary_search_bgm(bgm_list, start, mid)
 			binary_search_bgm(bgm_list, mid_right, end)
 		
-		with open(PROJ_DIR + "/../bgm.csv") as f:
+		with open(PROJ_DIR + "/../datas/bgm.csv") as f:
 			bgms = f.read().split("\n")
 			for i in range(len(bgms)):
 				bgms[i] = bgms[i].split(",")

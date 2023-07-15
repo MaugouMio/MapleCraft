@@ -1,5 +1,5 @@
 ```
-with open(PROJ_DIR + "/../mobs.py", "r", encoding="utf8") as f:
+with open(PROJ_DIR + "/../datas/mobs.py", "r", encoding="utf8") as f:
 	exec(f.read())
 
 MOB_UUID = 0

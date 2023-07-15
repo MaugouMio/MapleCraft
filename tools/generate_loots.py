@@ -70,7 +70,7 @@ MESO_TEMPLATE = {
 }
 
 
-gc = pygsheets.authorize(service_account_file = "../maplecraft_key.json")
+gc = pygsheets.authorize(service_account_file = "maplecraft_key.json")
 sh = gc.open_by_url("https://docs.google.com/spreadsheets/d/1j9Ft-OW0SnFODV9K9vcjB3j3hOa0N5o4Fvroih1AnTY/edit#gid=303406431")
 
 itemDatas = dict()

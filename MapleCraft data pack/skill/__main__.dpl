@@ -882,7 +882,7 @@ namespace skill()
 									bs_break_event(event_list, start, mid)
 									bs_break_event(event_list, mid_right, end)
 								
-								with open(PROJ_DIR + "/../box_events.csv") as f:
+								with open(PROJ_DIR + "/../datas/box_events.csv") as f:
 									break_events = f.read().split("\n")
 									for i in range(len(break_events)):
 										break_events[i] = break_events[i].split(",")
@@ -2034,7 +2034,7 @@ namespace skill()
 				bs_bullet_skill(id_list, start, mid)
 				bs_bullet_skill(id_list, mid_right, end)
 			
-			with open(PROJ_DIR + "/../skill_bullet_ids.csv") as f:
+			with open(PROJ_DIR + "/../datas/skill_bullet_ids.csv") as f:
 				skill_bullet_ids = f.read().split("\n")
 				for i in range(len(skill_bullet_ids)):
 					skill_bullet_ids[i] = skill_bullet_ids[i].split(",")
@@ -2099,7 +2099,7 @@ namespace skill()
 				binary_search_skill(skill_list, start, mid)
 				binary_search_skill(skill_list, mid_right, end)
 			
-			with open(PROJ_DIR + "/../skill_icons.csv") as f:
+			with open(PROJ_DIR + "/../datas/skill_icons.csv") as f:
 				skill_models = f.read().split("\n")
 				for i in range(len(skill_models)):
 					skill_models[i] = skill_models[i].split(",")
@@ -3876,7 +3876,7 @@ namespace skill()
 				bs_hurt_sound(sound_list, start, mid)
 				bs_hurt_sound(sound_list, mid_right, end)
 			
-			with open(PROJ_DIR + "/../hurt_sounds.csv") as f:
+			with open(PROJ_DIR + "/../datas/hurt_sounds.csv") as f:
 				hurt_sounds = f.read().split("\n")
 				for i in range(len(hurt_sounds)):
 					hurt_sounds[i] = hurt_sounds[i].split(",")
@@ -3921,7 +3921,7 @@ namespace skill()
 				bs_die_sound(sound_list, start, mid)
 				bs_die_sound(sound_list, mid_right, end)
 			
-			with open(PROJ_DIR + "/../die_sounds.csv") as f:
+			with open(PROJ_DIR + "/../datas/die_sounds.csv") as f:
 				die_sounds = f.read().split("\n")
 				for i in range(len(die_sounds)):
 					die_sounds[i] = die_sounds[i].split(",")
