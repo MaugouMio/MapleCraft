@@ -170,7 +170,7 @@ namespace item()
 			data modify storage item:main picker set from entity @s UUID
 			
 			scoreboard players set #PICKED temp 0
-			execute as @e[type=item,distance=..1.2,tag=player_drop,sort=nearest] run function ARG(_PATH)check_owner
+			execute as @e[type=item,distance=..1.2,tag=checked,sort=nearest] run function ARG(_PATH)check_owner
 		}
 		
 		func check_owner()
@@ -249,8 +249,11 @@ namespace item()
 		{
 			# 暫時移除掉落物所有權的設定，等隊伍機制出來再設計規則
 			# data modify entity @s Owner set from storage skill:main damage_info.attacker
+			# tag @s add loot_item
+			tag @s add checked
+			
+			data modify entity @s PickupDelay set value 32767s
 			playsound minecraft:game.drop_item player @a ~ ~ ~ 1 1 0
-			tag @s add loot_item
 		}
 	
 		folder free_loot()
