@@ -446,7 +446,9 @@ namespace party_quest() as virtual
 						{
 							clear @s minecraft:stick{CustomModelData:4001007}
 							tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":[{"score":{"objective":"kpq_coupon","name":"@s"}},{"translate":"item.etc.4001007"}]}
-							give @s minecraft:stick{CustomModelData:4001008,HideFlags:127,display:{Name:'{"translate":"item.etc.4001008","font":"minecraft:uniform","bold":true,"italic":false}'}}
+							```
+							print(f"give @s minecraft:warped_fungus_on_a_stick{itemDatas[33008]}")
+							```
 							tellraw @s {"translate":"text.quest.item_gain","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4001008"}]}
 							tellraw @s ["\n",{"translate":"text.quest.party_quest.kpq.stage1.get_pass","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 							
@@ -819,7 +821,9 @@ namespace party_quest() as virtual
 					tellraw @s {"translate":"text.quest.item_gain","font":"minecraft:uniform","color":"gray","with":[{"nbt":"Items[0].tag.display.Name","block":"250 1 0","interpret":true}]}
 					loot give @s mine 250 1 0 minecraft:air{modify_player:1b}
 					tellraw @s {"translate":"text.quest.item_gain_multiple","font":"minecraft:uniform","color":"gray","with":["10",{"translate":"item.etc.5220050","bold":true,"italic":false,"font":"minecraft:uniform"}]}
-					give @s minecraft:stick{CustomModelData:5220050,display:{Name:'{"translate":"item.etc.5220050","bold":true,"italic":false,"font":"minecraft:uniform"}'},HideFlags:127} 10
+					```
+					print(f"give @s minecraft:warped_fungus_on_a_stick{itemDatas[33012]} 10")
+					```
 					
 					title @s times 1 5 10
 					title @s title {"text":"4","font":"ui:main"}
