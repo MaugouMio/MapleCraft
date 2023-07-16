@@ -91,6 +91,8 @@ namespace item()
 		scoreboard objectives add equip_dex dummy
 		scoreboard objectives add equip_int dummy
 		scoreboard objectives add equip_luk dummy
+
+		scoreboard objectives add consume_tick dummy
 		
 		scoreboard objectives add drop_meso trigger
 	}
@@ -212,7 +214,7 @@ namespace item()
 			# set meso
 			execute if data entity @s Item{id:"minecraft:diamond"} run function ARG(_PATH)set_meso
 			# skill items can not pick back
-			execute if data entity @s Item{id:"minecraft:carrot_on_a_stick"} run kill @s
+			execute if data entity @s Item{tag:{skill:1b}} run kill @s
 			# set loot item
 			execute unless data entity @s Thrower unless data entity @s Owner run function ARG(_PATH)loot
 			# player drop items
@@ -250,7 +252,6 @@ namespace item()
 			# 暫時移除掉落物所有權的設定，等隊伍機制出來再設計規則
 			# data modify entity @s Owner set from storage skill:main damage_info.attacker
 			# tag @s add loot_item
-			tag @s add checked
 			
 			data modify entity @s PickupDelay set value 32767s
 			playsound minecraft:game.drop_item player @a ~ ~ ~ 1 1 0
@@ -332,7 +333,7 @@ namespace item()
 		{
 			execute store result score #USING_ITEM temp run data get entity @s[predicate=skill:use_fungus] SelectedItem.tag.CustomModelData
 			
-			execute if score #USING_ITEM temp matches 1..999 run function ARG(_PATH)consume/check
+			execute if score #USING_ITEM temp matches ..30 unless score @s action_time matches 1.. unless score @s tired_time matches 1.. run function ARG(_PATH)consume/weapon/check
 			execute if score #USING_ITEM temp matches 10001..10500 unless score @s action_time matches 1.. unless score @s tired_time matches 1.. run function ARG(_PATH)weapon/check
 			execute if score #USING_ITEM temp matches 10501..100000 unless score @s action_time matches 1.. unless score @s tired_time matches 1.. run function ARG(_PATH)equip/check
 			execute if score #USING_ITEM temp matches 3010000.. unless score @s action_time matches 1.. unless score @s tired_time matches 1.. unless block ~ ~ ~ #minecraft:climbable if entity @s[nbt={OnGround:1b}] run function ARG(_PATH)chair/check
@@ -805,9 +806,15 @@ namespace item()
 		{
 			func check()
 			{
-				execute if score #USING_ITEM temp matches ..30 unless score @s action_time matches 1.. run function ARG(_PATH)weapon/check
-				execute if score #USING_ITEM temp matches 100..499 unless score @s invis_buff_time matches 1.. run function ARG(_PATH)potion/check
-				execute if score #USING_ITEM temp matches 500.. unless score @s invis_buff_time matches 1.. run function ARG(_PATH)scroll/check
+				execute store result score #GLOBAL consume_tick run time query gametime
+				execute if score #GLOBAL consume_tick < @s consume_tick run return 0
+
+				execute if score #USING_SKILL temp matches 400..799 unless score @s invis_buff_time matches 1.. run function ARG(_PATH)potion/check
+				execute if score #USING_SKILL temp matches 800.. unless score @s invis_buff_time matches 1.. run function ARG(_PATH)scroll/check
+
+				# 3 tick cool down to avoid accidentally consume another item
+				scoreboard players operation @s consume_tick = #GLOBAL consume_tick
+				scoreboard players add @s consume_tick 4
 			}
 			
 			folder scroll()
@@ -837,7 +844,7 @@ namespace item()
 					execute unless score #RAND_RESULT number < #SCROLL_CHANCE temp run function ARG(_PATH)fail
 					
 					item replace entity @s weapon.offhand from block 250 1 0 container.0
-					item replace entity @s weapon.mainhand with minecraft:air
+					item modify entity @s weapon.mainhand item:consume
 				}
 				
 				func success()
@@ -1071,20 +1078,6 @@ namespace item()
 			{
 				func check()
 				{
-					# potion price check
-					execute store result score #PRICE temp run data get entity @s SelectedItem.tag.price
-					execute if score @s meso < #PRICE temp run function ARG(_PATH)no_meso_warn
-					execute if score @s meso >= #PRICE temp run function ARG(_PATH)type_check
-				}
-				
-				func no_meso_warn()
-				{
-					tellraw @s {"translate":"warning.no_meso","font":"minecraft:uniform","color":"#efb7ab"}
-					playsound minecraft:game.dlg_notice player @s
-				}
-				
-				func type_check()
-				{
 					# use sound check
 					execute store result score #GLOBAL temp run data get entity @s SelectedItem.tag.sound
 					execute if score #GLOBAL temp matches 0 run playsound minecraft:item.potion player @s
@@ -1092,19 +1085,19 @@ namespace item()
 					execute if score #GLOBAL temp matches 2 run playsound minecraft:item.unagi player @s
 					execute if score #GLOBAL temp matches 3 run playsound minecraft:item.sap_of_ancient_tree player @s
 					
-					scoreboard players operation @s meso -= #PRICE temp
-					execute if score #USING_ITEM temp matches ..299 run function ARG(_PATH)recover/check
-					execute if score #USING_ITEM temp matches 300.. run function ARG(_PATH)buff/check
+					item modify entity @s weapon.mainhand item:consume
+					execute if score #USING_SKILL temp matches ..599 run function ARG(_PATH)recover/check
+					execute if score #USING_SKILL temp matches 600.. run function ARG(_PATH)buff/check
 				}
 				
 				folder recover()
 				{
 					func check()
 					{
-						execute if score #USING_ITEM temp matches 100..169 if score @s hp < @s hp_max run function ARG(_PATH)hp
-						execute if score #USING_ITEM temp matches 130..199 if score @s mp < @s mp_max run function ARG(_PATH)mp
-						execute if score #USING_ITEM temp matches 200..269 if score @s hp < @s hp_max run function ARG(_PATH)hp_rate
-						execute if score #USING_ITEM temp matches 230..299 if score @s mp < @s mp_max run function ARG(_PATH)mp_rate
+						execute if score #USING_SKILL temp matches 400..469 if score @s hp < @s hp_max run function ARG(_PATH)hp
+						execute if score #USING_SKILL temp matches 430..499 if score @s mp < @s mp_max run function ARG(_PATH)mp
+						execute if score #USING_SKILL temp matches 500..569 if score @s hp < @s hp_max run function ARG(_PATH)hp_rate
+						execute if score #USING_SKILL temp matches 530..599 if score @s mp < @s mp_max run function ARG(_PATH)mp_rate
 					}
 					
 					func hp()

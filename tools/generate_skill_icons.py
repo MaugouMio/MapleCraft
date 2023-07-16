@@ -32,5 +32,5 @@ for icon in icon_list:
 with open("../MapleCraft resource pack/assets/minecraft/models/item/carrot_on_a_stick.json", "w") as f:
 	f.write(json.dumps(carrot_on_a_stick))
 
-with open("skill_icons.csv", "w") as f:
+with open("../datas/skill_icons.csv", "w") as f:
 	f.write("\n".join([f"{icon[0]},{icon[1]}" for icon in icon_list]))

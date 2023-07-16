@@ -231,8 +231,8 @@ namespace 41() as virtual
 		{
 			func get()
 			{
-				clear @s minecraft:carrot_on_a_stick{CustomModelData:134}
-				give @s minecraft:carrot_on_a_stick{CustomModelData:134,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.4101003","font":"minecraft:uniform","bold":true,"italic":false}'}}
+				clear @s minecraft:ender_eye{CustomModelData:134}
+				give @s minecraft:ender_eye{CustomModelData:134,skill:1b,HideFlags:127,display:{Name:'{"translate":"skill.4101003","font":"minecraft:uniform","bold":true,"italic":false}'}} 2
 			}
 		}
 		
@@ -362,8 +362,8 @@ namespace 41() as virtual
 			
 			func get()
 			{
-				clear @s minecraft:carrot_on_a_stick{CustomModelData:135}
-				give @s minecraft:carrot_on_a_stick{CustomModelData:135,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.4101004","font":"minecraft:uniform","bold":true,"italic":false}'}}
+				clear @s minecraft:ender_eye{CustomModelData:135}
+				give @s minecraft:ender_eye{CustomModelData:135,skill:1b,HideFlags:127,display:{Name:'{"translate":"skill.4101004","font":"minecraft:uniform","bold":true,"italic":false}'}} 2
 			}
 		}
 		
@@ -554,8 +554,8 @@ namespace 41() as virtual
 			
 			func get()
 			{
-				clear @s minecraft:carrot_on_a_stick{CustomModelData:136}
-				give @s minecraft:carrot_on_a_stick{CustomModelData:136,Unbreakable:1,HideFlags:127,display:{Name:'{"translate":"skill.4101005","font":"minecraft:uniform","bold":true,"italic":false}'}}
+				clear @s minecraft:ender_eye{CustomModelData:136}
+				give @s minecraft:ender_eye{CustomModelData:136,skill:1b,HideFlags:127,display:{Name:'{"translate":"skill.4101005","font":"minecraft:uniform","bold":true,"italic":false}'}} 2
 			}
 		}
 	}

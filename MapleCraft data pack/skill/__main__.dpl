@@ -1149,7 +1149,6 @@ namespace skill()
 	
 	func install()
 	{
-		scoreboard objectives add right_click minecraft.used:minecraft.carrot_on_a_stick
 		scoreboard objectives add base_model dummy
 		scoreboard objectives add status dummy
 		scoreboard objectives add motion_x dummy
@@ -1356,9 +1355,6 @@ namespace skill()
 			execute as @a[scores={action_time=1..}] run function ARG(_PATH)action/countdown
 			execute as @a[scores={teleport_time=1..}] run function ARG(_PATH)tp_countdown
 			execute as @a[tag=delay_tp] at @s run function skill:2/1/0/1002/move/horizon/run
-			
-			# used skill check
-			execute as @a[scores={right_click=1..}] run function skill:check_skill/run
 			
 			# touch damage check
 			execute as @a[gamemode=adventure,tag=!dead] unless score @s hurt_time matches 1.. unless score @s invis_buff_time matches 1.. at @s run function ARG(_PATH)touch/check
@@ -2050,7 +2046,7 @@ namespace skill()
 		func run()
 		{
 			execute if entity @s[tag=!dead,predicate=!skill:sitting] run function ARG(_PATH)check
-			scoreboard players reset @s right_click
+			advancement revoke @s only skill:use_item
 			scoreboard players reset @s skill_id
 		}
 		
@@ -2058,10 +2054,11 @@ namespace skill()
 		{
 			# 快捷施放技能
 			execute if score @s skill_id matches 1.. run scoreboard players operation #USING_SKILL temp = @s skill_id
-			execute unless score @s skill_id matches 1.. store result score #USING_SKILL temp run data get entity @s[predicate=skill:use_carrot] SelectedItem.tag.CustomModelData
+			execute unless score @s skill_id matches 1.. store result score #USING_SKILL temp run data get entity @s[predicate=skill:use_eye] SelectedItem.tag.CustomModelData
 			
-			execute if score @s seal_time matches 0.. unless score #USING_SKILL temp matches 199 run scoreboard players reset #USING_SKILL temp
-			execute if score #USING_SKILL temp matches 1.. at @s run function ARG(_PATH)binary_search/run
+			execute if score @s seal_time matches 0.. unless score #USING_SKILL temp matches 199.. run scoreboard players reset #USING_SKILL temp
+			execute if score #USING_SKILL temp matches 1..300 at @s run function ARG(_PATH)binary_search/run
+			execute if score #USING_SKILL temp matches 301.. run function item:use/consume/check
 		}
 		
 		folder binary_search()
@@ -4998,15 +4995,15 @@ namespace skill()
 	
 	func interaction()
 	{
-		scoreboard players set @s[predicate=skill:use_carrot] right_click 1
+		execute if predicate skill:use_eye run function skill:check_skill/run
 		scoreboard players set @s[predicate=skill:use_fungus] right_click_item 1
 		advancement revoke @s only skill:cast
 	}
 	
 	func quick_cast()
 	{
-		scoreboard players set @s right_click 1
 		scoreboard players set @s[scores={2101002_level=1..}] skill_id 59
+		function skill:check_skill/run
 		advancement revoke @s only skill:hit
 	}
 	
