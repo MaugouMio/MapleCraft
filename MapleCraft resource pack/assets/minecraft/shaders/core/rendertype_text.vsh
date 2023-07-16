@@ -21,6 +21,12 @@ out vec4 vertexColor;
 out vec2 texCoord0;
 
 void main() {
+	ivec3 shadowCheck = ivec3(Color.rgb * 255);
+	if (shadowCheck == ivec3(63, 63, 63)) {
+		gl_Position = vec4(2, 2, 2, 1);
+		return;
+	}
+	
 	vec3 offsetPosition = Position;
 	vec4 finalColor = Color;
 	// up lift
