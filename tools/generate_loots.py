@@ -74,6 +74,7 @@ gc = pygsheets.authorize(service_account_file = "maplecraft_key.json")
 sh = gc.open_by_url("https://docs.google.com/spreadsheets/d/1j9Ft-OW0SnFODV9K9vcjB3j3hOa0N5o4Fvroih1AnTY/edit#gid=303406431")
 
 itemDatas = dict()
+potionIDs = []
 def LoadItem(dataFrame):
 	for i in range(0, dataFrame.shape[0]):
 		nbt = dataFrame["nbt標籤"][i]
@@ -81,6 +82,9 @@ def LoadItem(dataFrame):
 			continue
 		id = dataFrame["索引"][i]
 		itemDatas[id] = nbt
+		# 藥水 ID 跟 CustomModelData 對應
+		if id > 20500 and id <= 30000:
+			potionIDs.append((id, dataFrame["模型"][i]))
 
 LoadItem(sh[PAGE_WEAPON].get_as_df())
 LoadItem(sh[PAGE_EQUIP1].get_as_df())
@@ -96,9 +100,14 @@ LoadItem(sh[PAGE_ETC].get_as_df())
 with open("cache/items.pickle", "wb") as f:
 	pickle.dump(itemDatas, f)
 
+with open("cache/potions.pickle", "wb") as f:
+	pickle.dump(potionIDs, f)
+
 def GetItemID(index):
 	if index > 33000:
 		return "minecraft:stick"
+	elif index > 20500:
+		return "minecraft:ender_eye"
 	return "minecraft:warped_fungus_on_a_stick"
 	
 def GenerateEntry(id, weight = 1, min_num = 1, max_num = 1):

@@ -1085,9 +1085,75 @@ namespace item()
 					execute if score #GLOBAL temp matches 2 run playsound minecraft:item.unagi player @s
 					execute if score #GLOBAL temp matches 3 run playsound minecraft:item.sap_of_ancient_tree player @s
 					
-					item modify entity @s weapon.mainhand item:consume
+					function ARG(_PATH)remove
 					execute if score #USING_SKILL temp matches ..599 run function ARG(_PATH)recover/check
 					execute if score #USING_SKILL temp matches 600.. run function ARG(_PATH)buff/check
+				}
+
+				func remove()
+				{
+					execute store success score #GLOBAL temp if predicate item:check_last
+					execute if score #GLOBAL temp matches 0 run item modify entity @s weapon.mainhand item:consume
+					execute if score #GLOBAL temp matches 1 run function ARG(_PATH)charge/run
+				}
+
+				folder charge()
+				{
+					```
+					def binary_search_potion(potion_list, start, end):
+						if len(potion_list) == 1:
+							print("func run()")
+							print("{")
+							print(f"\texecute if score #USING_SKILL temp matches {potion_list[0][1]} run function ARG(_PATH)case/{potion_list[0][1]}")
+							print("}")
+							return
+						
+						if start == end:
+							return
+						
+						mid = (start + end) // 2
+						mid_right = mid + 1
+						
+						if start == 0 and end == len(potion_list) - 1:
+							print("func run()")
+						else:
+							print(f"func {start}_{end}()")
+						print("{")
+						if start == mid:
+							print(f"\texecute if score #USING_SKILL temp matches {potion_list[start][1]} run function ARG(_PATH)case/{potion_list[start][1]}")
+						else:
+							print(f"\texecute if score #USING_SKILL temp matches {potion_list[start][1]}..{potion_list[mid][1]} run function ARG(_PATH){start}_{mid}")
+						if mid_right == end:
+							print(f"\texecute if score #USING_SKILL temp matches {potion_list[end][1]} run function ARG(_PATH)case/{potion_list[end][1]}")
+						else:
+							print(f"\texecute if score #USING_SKILL temp matches {potion_list[mid_right][1]}..{potion_list[end][1]} run function ARG(_PATH){mid_right}_{end}")
+						print("}")
+						
+						binary_search_potion(potion_list, start, mid)
+						binary_search_potion(potion_list, mid_right, end)
+					
+					with open(PROJ_DIR + "/../tools/cache/potions.pickle", "rb") as f:
+						potions = pickle.load(f)
+					
+					binary_search_potion(potions, 0, len(potions) - 1)
+
+					print("folder case()")
+					print("{")
+					for p in potions:
+						print('''
+								func {1}()
+								{{
+									execute store result score #POTION_LEFT temp run clear @s ender_eye{{CustomModelData:{1}}} 65
+									execute if score #POTION_LEFT temp matches 1 run return 0
+
+									scoreboard players remove #POTION_LEFT temp 1
+									item replace entity @s weapon.mainhand with minecraft:ender_eye{0}
+									item modify entity @s weapon.mainhand item:charge
+								}}
+								'''.format(itemDatas[p[0]], p[1])
+						)
+					print("}")
+					```
 				}
 				
 				folder recover()
