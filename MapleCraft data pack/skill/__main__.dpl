@@ -1149,6 +1149,7 @@ namespace skill()
 	
 	func install()
 	{
+		scoreboard objectives add quick_cast minecraft.dropped:minecraft.ender_eye
 		scoreboard objectives add base_model dummy
 		scoreboard objectives add status dummy
 		scoreboard objectives add motion_x dummy
@@ -1355,6 +1356,7 @@ namespace skill()
 			execute as @a[scores={action_time=1..}] run function ARG(_PATH)action/countdown
 			execute as @a[scores={teleport_time=1..}] run function ARG(_PATH)tp_countdown
 			execute as @a[tag=delay_tp] at @s run function skill:2/1/0/1002/move/horizon/run
+			execute as @a[scores={quick_cast=1..}] run function skill:quick_cast
 			
 			# touch damage check
 			execute as @a[gamemode=adventure,tag=!dead] unless score @s hurt_time matches 1.. unless score @s invis_buff_time matches 1.. at @s run function ARG(_PATH)touch/check
@@ -2047,7 +2049,6 @@ namespace skill()
 		{
 			execute if entity @s[tag=!dead,predicate=!skill:sitting] run function ARG(_PATH)check
 			advancement revoke @s only skill:use_item
-			scoreboard players reset @s skill_id
 		}
 		
 		func check()
@@ -4993,18 +4994,22 @@ namespace skill()
 	}
 	func rand_anger_time() from random().generate(10, 30, "@s anger_time");
 	
-	func interaction()
-	{
-		execute if predicate skill:use_eye run function skill:check_skill/run
-		scoreboard players set @s[predicate=skill:use_fungus] right_click_item 1
-		advancement revoke @s only skill:cast
-	}
-	
 	func quick_cast()
 	{
+		scoreboard players reset @s quick_cast
+
+		# 實際上是檢查手上剩下的是不是技能，檢查被丟出去的是什麼太麻煩了
+		execute unless predicate skill:use_eye run return 0
+		execute store result score #GLOBAL temp run data get entity @s SelectedItem.tag.CustomModelData
+		execute unless score #GLOBAL temp matches 1..300 run return 0
+		# 把道具補回 2 個
+		item modify entity @s weapon.mainhand skill:charge_icon
+
 		scoreboard players set @s[scores={2101002_level=1..}] skill_id 59
+		execute unless score @s skill_id = @s skill_id run return 0
+
 		function skill:check_skill/run
-		advancement revoke @s only skill:hit
+		scoreboard players reset @s skill_id
 	}
 	
 	# 呼叫前須先設定 #BIND_PLAYER number
