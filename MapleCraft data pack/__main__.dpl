@@ -638,18 +638,20 @@ namespace main()
 				
 				tellraw @s {"translate":"text.quest.item_gain","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.consume.2010000"}]}
 				```
-				print(f"give @s minecraft:warped_fungus_on_a_stick{itemDatas[20504]}")
+				print(f"give @s minecraft:ender_eye{itemDatas[20504]}")
 				```
-				scoreboard players add @s meso 30
-				
 				tellraw @s ["\n",{"translate":"text.quest.tutorial.apple","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 				scoreboard players set @s tutorial 2
 			}
 			
 			func apple_check()
 			{
-				execute unless score @s meso matches ..1000000 run tellraw @s ["\n",{"translate":"text.quest.tutorial.apple_teach","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
-				execute if score @s meso matches ..1000000 at @s run function ARG(_PATH)apple_complete
+				# 要求身上沒有蘋果 + 滿血
+				execute store result score #GLOBAL temp run clear @s minecraft:ender_eye{CustomModelData:403} 0
+				execute if score @s hp < @s hp_max run scoreboard players set #GLOBAL temp 1
+				
+				execute unless score #GLOBAL temp matches 0 run tellraw @s ["\n",{"translate":"text.quest.tutorial.apple_teach","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+				execute if score #GLOBAL temp matches 0 at @s run function ARG(_PATH)apple_complete
 			}
 			
 			func apple_complete()
