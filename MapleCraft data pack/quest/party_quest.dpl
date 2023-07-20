@@ -818,7 +818,9 @@ namespace party_quest() as virtual
 					execute unless entity @a[scores={playing_game=1,game_stage=5}] run function ARG(_PATH)reset
 					
 					loot replace block 250 1 0 container.0 loot quest:kpq_award
-					tellraw @s {"translate":"text.quest.item_gain","font":"minecraft:uniform","color":"gray","with":[{"nbt":"Items[0].tag.display.Name","block":"250 1 0","interpret":true}]}
+					execute store result score #GLOBAL temp run data get block 250 1 0 Items[0].Count
+					execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_gain","font":"minecraft:uniform","color":"gray","with":[{"nbt":"Items[0].tag.display.Name","block":"250 1 0","interpret":true}]}
+					execute if score #GLOBAL temp matches 2.. run tellraw @s {"translate":"text.quest.item_gain_multiple","font":"minecraft:uniform","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"nbt":"Items[0].tag.display.Name","block":"250 1 0","interpret":true}]}
 					loot give @s mine 250 1 0 minecraft:air{modify_player:1b}
 					tellraw @s {"translate":"text.quest.item_gain_multiple","font":"minecraft:uniform","color":"gray","with":["10",{"translate":"item.etc.5220050","bold":true,"italic":false,"font":"minecraft:uniform"}]}
 					```
