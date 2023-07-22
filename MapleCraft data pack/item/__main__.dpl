@@ -71,6 +71,7 @@ namespace item()
 		scoreboard objectives add pick_etc minecraft.picked_up:minecraft.stick
 		scoreboard objectives add pick_weapon minecraft.picked_up:minecraft.diamond_axe
 		scoreboard objectives add pick_consume minecraft.picked_up:minecraft.warped_fungus_on_a_stick
+		scoreboard objectives add pick_potion minecraft.picked_up:minecraft.ender_eye
 		
 		scoreboard objectives add right_click_item minecraft.used:minecraft.warped_fungus_on_a_stick
 		scoreboard objectives add bullet_item dummy
@@ -286,9 +287,10 @@ namespace item()
 		func check()
 		{
 			execute if score @s pick_meso matches 1.. run function ARG(_PATH)meso/record
-			scoreboard players reset @s[scores={pick_etc=1..}] pick_etc
-			scoreboard players reset @s[scores={pick_weapon=1..}] pick_weapon
-			scoreboard players reset @s[scores={pick_consume=1..}] pick_consume
+			scoreboard players reset @s pick_etc
+			scoreboard players reset @s pick_weapon
+			scoreboard players reset @s pick_consume
+			scoreboard players reset @s pick_potion
 			
 			playsound minecraft:game.pick_up_item player @a ~ ~ ~ 1 1 0
 		}
@@ -1077,6 +1079,38 @@ namespace item()
 			folder potion()
 			{
 				func check()
+				{
+					execute if predicate item:bundle run function ARG(_PATH)store/check
+					execute unless predicate item:bundle run function ARG(_PATH)use
+				}
+				
+				folder store()
+				{
+					func check()
+					{
+						execute store result score #GLOBAL temp run data get entity @s Inventory[{Slot:-106b}].tag.Items
+						execute if score #GLOBAL temp matches 48.. run function ARG(_PATH)full
+						execute if score #GLOBAL temp matches ..47 run function ARG(_PATH)success
+					}
+					
+					func full()
+					{
+						tellraw @s {"translate":"warning.potion.bag_full","font":"minecraft:uniform","color":"#efb7ab"}
+						playsound minecraft:game.dlg_notice player @s
+					}
+					
+					func success()
+					{
+						item replace block 250 1 0 container.0 from entity @s weapon.offhand
+						data modify block 250 1 0 Items[0].tag.Items append from entity @s SelectedItem
+						item replace entity @s weapon.mainhand with minecraft:air
+						item replace entity @s weapon.offhand from block 250 1 0 container.0
+						
+						playsound minecraft:item.equip player @s
+					}
+				}
+				
+				func use()
 				{
 					# use sound check
 					execute store result score #GLOBAL temp run data get entity @s SelectedItem.tag.sound

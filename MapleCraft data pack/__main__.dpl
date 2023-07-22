@@ -100,7 +100,7 @@ namespace main()
 		fill 249 0 -1 251 2 1 minecraft:bedrock
 		setblock 250 0 0 minecraft:acacia_wall_sign
 		setblock 250 1 0 minecraft:shulker_box
-		setblock 250 2 0 minecraft:chest
+		setblock 250 2 0 minecraft:barrel
 		item replace block 250 2 0 container.0 with minecraft:suspicious_stew
 		```
 		print("summon minecraft:snow_golem 250 -2 0 {NoAI:1,NoGravity:1,Invulnerable:1,Silent:1,UUID:%s}" %UUID_LIST["root"])

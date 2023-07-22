@@ -40,6 +40,16 @@
 		  "max": 2304
         }
       }
+    },
+    {
+      "condition": "minecraft:entity_scores",
+      "entity": "this",
+      "scores": {
+        "pick_potion": {
+          "min": 1,
+		  "max": 2304
+        }
+      }
     }
   ]
 }
