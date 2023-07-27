@@ -282,20 +282,27 @@ namespace 21() as virtual
 			func other_check()
 			{
 				execute if score @s mp < @s 2101002_mp run tellraw @s {"translate":"warning.skill.lack_mp","font":"minecraft:uniform","color":"#efb7ab"}
-				execute if score @s mp >= @s 2101002_mp run function ARG(_PATH)move/up/check
+				execute if score @s mp >= @s 2101002_mp run function ARG(_PATH)slab_check
+			}
+			
+			func slab_check()
+			{
+				scoreboard players set #GLOBAL temp 0
+				execute positioned ~ ~1 ~ store success score #ON_SLAB temp if predicate skill:on_slab
+				function ARG(_PATH)move/up/check
 			}
 			
 			folder move()
 			{
 				func check_position()
 				{
-					scoreboard players set #GLOBAL temp 0
 					execute if block ~ ~ ~ #skill:passable if block ~ ~1 ~ #skill:passable unless block ~ ~-1 ~ #skill:passable run scoreboard players set #GLOBAL temp 1
 				}
 			
 				func tp()
 				{
-					tp @s ~ ~ ~
+					execute unless predicate skill:on_slab run tp @s ~ ~ ~
+					execute if predicate skill:on_slab run tp @s ~ ~-0.5 ~
 					# remove motion
 					tp @s @s
 					
@@ -396,26 +403,47 @@ namespace 21() as virtual
 					
 					func tp_player()
 					{
-						execute unless entity @s[distance=..0.00001] at @s facing entity @a[tag=tp_player,limit=1] eyes rotated ~ 0 positioned ^ ^ ^5 run function ARG(_PATH)first_check
+						execute unless entity @s[distance=..0.00001] at @s facing entity @a[tag=tp_player,limit=1] eyes rotated ~ 0 run function ARG(_PATH)slab_offset
 						kill @s
+					}
+					
+					func slab_offset()
+					{
+						scoreboard players set #GLOBAL temp 0
+						execute positioned ~ ~1 ~ store success score #ON_SLAB temp if predicate skill:on_slab
+						execute if score #ON_SLAB temp matches 0 positioned ^ ^-1 ^5 run function ARG(_PATH)first_check
+						execute if score #ON_SLAB temp matches 1 positioned ^ ^-1.5 ^5 run function ARG(_PATH)first_check
 					}
 					
 					func vertical_check()
 					{
 						function ARG(__PATH)check_position
 						execute if score #GLOBAL temp matches 1 as @a[tag=tp_player,limit=1] run function ARG(__PATH)tp
-						execute if score #GLOBAL temp matches 0 positioned ~ ~-2 ~ run function ARG(_PATH)final_check
+						execute if score #GLOBAL temp matches 0 positioned ~ ~1 ~ run function ARG(_PATH)vertical_check2
+					}
+					
+					func vertical_check2()
+					{
+						function ARG(__PATH)check_position
+						execute if score #GLOBAL temp matches 1 as @a[tag=tp_player,limit=1] run function ARG(__PATH)tp
+						execute if score #GLOBAL temp matches 0 positioned ~ ~1 ~ run function ARG(_PATH)final_check
 					}
 					
 					func final_check()
 					{
 						function ARG(__PATH)check_position
+						# 站在全磚上最上面只能是半磚，不然高度會變兩格
+						execute if score #GLOBAL temp matches 1 if score #ON_SLAB temp matches 0 unless predicate skill:on_slab run scoreboard players set #GLOBAL temp 0
+						
 						execute if score #GLOBAL temp matches 1 as @a[tag=tp_player,limit=1] run function ARG(__PATH)tp
 					}
 					
 					func first_check()
 					{
 						function ARG(__PATH)check_position
+						# 站在半磚上最下面不能也是半磚，高度會變兩格
+						execute if score #GLOBAL temp matches 1 if score #ON_SLAB temp matches 1 if predicate skill:on_slab run scoreboard players set #GLOBAL temp 0
+						
 						execute if score #GLOBAL temp matches 1 as @a[tag=tp_player,limit=1] run function ARG(__PATH)tp
 						execute if score #GLOBAL temp matches 0 positioned ~ ~1 ~ run function ARG(_PATH)vertical_check
 						execute if score #GLOBAL temp matches 0 positioned ^ ^ ^-1 run function ARG(_PATH)second_check
@@ -424,6 +452,9 @@ namespace 21() as virtual
 					func second_check()
 					{
 						function ARG(__PATH)check_position
+						# 站在半磚上最下面不能也是半磚，高度會變兩格
+						execute if score #GLOBAL temp matches 1 if score #ON_SLAB temp matches 1 if predicate skill:on_slab run scoreboard players set #GLOBAL temp 0
+						
 						execute if score #GLOBAL temp matches 1 as @a[tag=tp_player,limit=1] run function ARG(__PATH)tp
 						execute if score #GLOBAL temp matches 0 positioned ~ ~1 ~ run function ARG(_PATH)vertical_check
 					}

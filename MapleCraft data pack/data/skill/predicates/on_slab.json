@@ -1,0 +1,28 @@
+{
+  "condition": "minecraft:any_of",
+  "terms": [
+    {
+      "condition": "minecraft:location_check",
+      "offsetY": -1,
+      "predicate": {
+        "block": {
+          "blocks": [
+            "minecraft:chain"
+          ]
+        }
+      }
+    },
+    {
+      "condition": "minecraft:location_check",
+      "offsetY": -1,
+      "predicate": {
+        "block": {
+          "tag": "minecraft:slabs",
+          "state": {
+            "type": "bottom"
+          }
+        }
+      }
+    }
+  ]
+}
