@@ -4994,6 +4994,13 @@ namespace skill()
 	}
 	func rand_anger_time() from random().generate(10, 30, "@s anger_time");
 	
+	func interaction()
+	{
+		execute if predicate skill:use_eye run function skill:check_skill/run
+		scoreboard players set @s[predicate=skill:use_fungus] right_click_item 1
+		advancement revoke @s only skill:cast
+	}
+	
 	func quick_cast()
 	{
 		scoreboard players reset @s quick_cast
