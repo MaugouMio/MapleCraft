@@ -343,13 +343,13 @@ namespace 21() as virtual
 				{
 					func check()
 					{
-						execute if predicate main:sneaking positioned ~ ~-5 ~ run function ARG(_PATH)run
+						execute if predicate main:sneaking positioned ~ ~-4 ~ run function ARG(_PATH)run
 						execute unless predicate main:sneaking run function ARG(__PATH)horizon/tag
 					}
 					
 					func run()
 					{
-						scoreboard players set #DOWN_CHECK_TIMES temp 5
+						scoreboard players set #DOWN_CHECK_TIMES temp 2
 						
 						function ARG(__PATH)check_position
 						execute if score #GLOBAL temp matches 1 run function ARG(__PATH)tp
