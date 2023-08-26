@@ -1,7 +1,38 @@
 {
   "variants": {
 	"down=false,east=false,north=false,south=false,up=false,west=false": {
-      "model": "minecraft:map/block/ldpq_box"
+      "model": "minecraft:map/block/ldpq_box/1"
+    },
+	"down=true,east=false,north=false,south=false,up=false,west=false": {
+      "model": "minecraft:map/block/ldpq_box/2"
+    },
+	"down=false,east=true,north=false,south=false,up=false,west=false": {
+      "model": "minecraft:map/block/ldpq_box/3"
+    },
+	"down=true,east=true,north=false,south=false,up=false,west=false": {
+      "model": "minecraft:map/block/ldpq_box/4"
+    },
+	"down=false,east=false,north=true,south=false,up=false,west=false": {
+      "model": "minecraft:map/block/ldpq_box/5"
+    },
+	"down=true,east=false,north=true,south=false,up=false,west=false": {
+      "model": "minecraft:map/block/ldpq_box/6"
+    },
+	"down=false,east=true,north=true,south=false,up=false,west=false": {
+      "model": "minecraft:map/block/ldpq_box/7"
+    },
+	"down=true,east=true,north=true,south=false,up=false,west=false": {
+      "model": "minecraft:map/block/ldpq_box/8"
+    },
+	"down=false,east=false,north=false,south=true,up=false,west=false": {
+      "model": "minecraft:map/block/ldpq_box/9"
+    },
+	"down=true,east=false,north=false,south=true,up=false,west=false": {
+      "model": "minecraft:map/block/heart_brick"
+    },
+	"down=false,east=true,north=false,south=true,up=false,west=false": {
+      "model": "minecraft:map/block/heart_brick",
+	  "y": 90
     }
   }
 }
