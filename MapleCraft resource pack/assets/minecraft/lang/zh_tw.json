@@ -1564,11 +1564,12 @@
 	"text.quest.test_thief_transfer.menu.bandit": "§7> §9我想轉職成俠盜§r",
 	"text.quest.test_shop.menu": "<雜貨店老闆> 我是來協助飛鏢補充與物品販售的，有什麼需求直接點選一旁的牌子就可以了。",
 	
+	"text.quest.party_quest.common.menu.enter": "§7> §1想進行組隊任務§r",
+	"text.quest.party_quest.common.menu.intro": "§7> §9想聽取組隊任務的說明§r",
+	
 	"text.quest.party_quest.kpq.menu": "<拉克里斯> 關於§l第一次同行§r組隊任務有什麼想知道的事嗎？",
-	"text.quest.party_quest.kpq.menu.enter": "§7> §1想進行組隊任務§r",
 	"text.quest.party_quest.kpq.menu.enter.req_level": "<拉克里斯> 只有等級21以上的玩家可以進行§9第一次同行§r組隊任務。",
 	"text.quest.party_quest.kpq.menu.enter.fail": "<拉克里斯> 已經有人在裡面進行組隊任務了，請稍後再來找我。",
-	"text.quest.party_quest.kpq.menu.intro": "§7> §9想聽取組隊任務的說明§r",
 	"text.quest.party_quest.kpq.menu.intro.detail": "<拉克里斯> §9第一次同行§r組隊任務一共有5個關卡。你必須與隊友們合力解決所有的挑戰，並打敗邪惡的§c超級綠水靈§r！若任務途中想要放棄，與娜拉對話即可離開。\n§l- 等級限制:§r 21以上\n§l- 時間限制:§r 30分鐘",
 	"text.quest.party_quest.kpq.leave_confirm": "<娜拉> 離開後就無法再回來這裡，確定要離開嗎？",
 	"text.quest.party_quest.kpq.stage1.introduce": "<克魯特> 在這個關卡，你需要打敗鱷魚來取得與下列題目的答案相同數量的§9優惠券§r，並與我兌換§9通行證§r。收集%s§9張通行證§r我就會幫你們開啟下一階段的傳送門。",
@@ -1593,6 +1594,11 @@
 	"text.quest.party_quest.kpq.require_slot": "<克魯特> 為了領取獎勵，請將道具欄空出2個欄位。",
 	"text.quest.party_quest.kpq.go_next": "<克魯特> 你們已經完成這個關卡，透過我身後的傳送點往下一關移動。",
 	"text.quest.party_quest.kpq.member_lost": "<克魯特> 好像有隊員還沒抵達這裡，請等待所有隊員抵達再與我對話。",
+	
+	"text.quest.party_quest.ldpq.menu": "<標示牌> 關於§l時空的裂縫§r組隊任務有什麼想知道的事嗎？",
+	"text.quest.party_quest.ldpq.menu.enter.req_level": "<標示牌> 只有等級35以上的玩家可以進行§9時空的裂縫§r組隊任務。",
+	"text.quest.party_quest.ldpq.menu.enter.fail": "<標示牌> 已經有人在裡面進行組隊任務了，請稍後再來找我。",
+	"text.quest.party_quest.ldpq.menu.intro.detail": "<標示牌> §9時空的裂縫§r組隊任務一共有9個關卡。你必須與隊友們合力解決所有的挑戰，並打敗墮落的次元守門人§c巨型戰鬥機§r！若任務途中想要放棄，與士兵安德森對話即可離開。\n§l- 等級限制:§r 35以上\n§l- 時間限制:§r 60分鐘",
 	
 	"effect.minecraft.resistance": "",
 	"effect.minecraft.fire_resistance": "",

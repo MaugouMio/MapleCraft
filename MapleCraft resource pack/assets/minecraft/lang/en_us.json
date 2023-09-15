@@ -1536,11 +1536,12 @@
 	"text.quest.test_thief_transfer.menu.bandit": "§7> §9I want to be a bandit.§r",
 	"text.quest.test_shop.menu": "<Dr. Faymus> I'm here for throwing-stars recharging and item selling. Please right click on the signs on your demand.",
 	
+	"text.quest.party_quest.common.menu.enter": "§7> §1I want to do the Party Quest!§r",
+	"text.quest.party_quest.common.menu.intro": "§7> §9I want to hear the details.§r",
+	
 	"text.quest.party_quest.kpq.menu": "<Lakelis> What do you want to know about the §lFirst Time Together§r party quest?",
-	"text.quest.party_quest.kpq.menu.enter": "§7> §1I want to do the Party Quest!§r",
 	"text.quest.party_quest.kpq.menu.enter.req_level": "<Lakelis> Only players over level 21 can join the §9First Time Together§r party quest.",
 	"text.quest.party_quest.kpq.menu.enter.fail": "<Lakelis> There is already a team doing the party quest. Please talk to me later.",
-	"text.quest.party_quest.kpq.menu.intro": "§7> §9I want to hear the details.§r",
 	"text.quest.party_quest.kpq.menu.intro.detail": "<Lakelis> There are 5 stages in the §9First Time Together§r Party Quest. Please work together with your teammates, share your strengths and wisdom to solve the challenges, and defeat the vicious §cKing Slime§r! If you want to give up during the Party Quest, you can talk to §9Nella§r to exit.\n§l- Level:§r 21 or above\n§l- Time Limit:§r 30 min",
 	"text.quest.party_quest.kpq.leave_confirm": "<Nella> If you leave now, you can't come back here again. Are you sure you want to leave?",
 	"text.quest.party_quest.kpq.stage1.introduce": "<Cloto> Here, you need to collect §9coupons§r by defeating the same number of Ligators as the answer to the questions asked individually, and exchange the Pass with your coupons. Collect %s §9passes§r and I'll make the portal that sends you to the next stage.",
@@ -1565,6 +1566,11 @@
 	"text.quest.party_quest.kpq.require_slot": "<Cloto> Please leave 2 slots of your bag empty for the reward.",
 	"text.quest.party_quest.kpq.go_next": "<Cloto> You have all cleared this stage, go to the next stage through the portal behind me.",
 	"text.quest.party_quest.kpq.member_lost": "<Cloto> Seems that some of the members have not arrived yet. Please talk to me later until all of the members arrive.",
+	
+	"text.quest.party_quest.ldpq.menu": "<Red Sign> What do you want to know about the §lDimensional Crack§r party quest?",
+	"text.quest.party_quest.ldpq.menu.enter.req_level": "<Red Sign> Only players over level 35 can join the §9Dimensional Crack§r party quest.",
+	"text.quest.party_quest.ldpq.menu.enter.fail": "<Red Sign> There is already a team doing the party quest. Please talk to me later.",
+	"text.quest.party_quest.ldpq.menu.intro.detail": "<Red Sign> There are 9 stages in the §9Dimensional Crack§r Party Quest. Please work together with your teammates, share your strengths and wisdom to solve the challenges, and defeat the fallen gate keeper §cAlishar§r! If you want to give up during the Party Quest, you can talk to §9Sgt. Anderson§r to exit.\n§l- Level:§r 35 or above\n§l- Time Limit:§r 60 min",
 	
 	"effect.minecraft.resistance": "",
 	"effect.minecraft.fire_resistance": "",

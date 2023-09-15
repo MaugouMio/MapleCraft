@@ -54,7 +54,7 @@ namespace pq_title_template(name, id) as virtual
 	}
 }
 
-namespace pq_clock_template(name, id) as virtual
+namespace pq_clock_template(name, id, seconds) as virtual
 {
 	```
 	party_quest_list.append("ARG(name)")
@@ -62,7 +62,7 @@ namespace pq_clock_template(name, id) as virtual
 	func start()
 	{
 		```
-		print(f'scoreboard players set #{"ARG(name)".upper()}_CLOCK_TIME temp 1800')
+		print(f'scoreboard players set #{"ARG(name)".upper()}_CLOCK_TIME temp ARG(seconds)')
 		```
 		function ARG(_PATH)countdown
 	}
@@ -277,12 +277,10 @@ namespace party_quest() as virtual
 			scoreboard players reset @s kpq_coupon
 			scoreboard players reset @s kpq_question
 			scoreboard players reset @s playing_game
+			scoreboard players reset @s game_stage
 			tag @s remove pq_player
 			
-			execute if score #KPQ_STAGE temp matches 1.. run function ARG(_PATH)leave_reset
-			scoreboard players reset @s game_stage
-			
-			function ARG(_PATH)check
+			function ARG(_PATH)reset
 			
 			title @s times 1 5 10
 			title @s title {"text":"4","font":"ui:main"}
@@ -295,26 +293,15 @@ namespace party_quest() as virtual
 			clear @s minecraft:creeper_spawn_egg
 		}
 		
-		func leave_reset()
-		{
-			execute if score @s game_stage matches 1 unless entity @a[scores={playing_game=1,game_stage=1}] run function ARG(_PATH)stages/1/reset
-			execute if score @s game_stage matches 2 unless entity @a[scores={playing_game=1,game_stage=2}] run function ARG(_PATH)stages/2/reset
-			execute if score @s game_stage matches 3 unless entity @a[scores={playing_game=1,game_stage=3}] run function ARG(_PATH)stages/3/reset
-			execute if score @s game_stage matches 4 unless entity @a[scores={playing_game=1,game_stage=4}] run function ARG(_PATH)stages/4/reset
-			execute if score @s game_stage matches 4 if score #KPQ_S5_LOADED temp matches 1 unless entity @a[scores={playing_game=1,game_stage=5}] run function ARG(_PATH)stages/5/reset
-			execute if score @s game_stage matches 5 unless entity @a[scores={playing_game=1,game_stage=5}] run function ARG(_PATH)stages/5/reset
-			execute if score @s game_stage matches 6 unless entity @a[scores={playing_game=1,game_stage=6}] run function ARG(_PATH)stages/6/reset
-		}
-		
 		func reset()
 		{
-			execute if score #KPQ_S1_LOADED temp matches 1 run function ARG(_PATH)stages/1/reset
-			execute if score #KPQ_S2_LOADED temp matches 1 run function ARG(_PATH)stages/2/reset
-			execute if score #KPQ_S3_LOADED temp matches 1 run function ARG(_PATH)stages/3/reset
-			execute if score #KPQ_S4_LOADED temp matches 1 run function ARG(_PATH)stages/4/reset
-			execute if score #KPQ_S5_LOADED temp matches 1 run function ARG(_PATH)stages/5/reset
-			execute if score #KPQ_S6_LOADED temp matches 1 run function ARG(_PATH)stages/6/reset
-			scoreboard players reset #KPQ_STAGE temp
+			execute if score #KPQ_S1_LOADED temp matches 1 unless entity @a[scores={playing_game=1,game_stage=1}] run function ARG(_PATH)stages/1/reset
+			execute if score #KPQ_S2_LOADED temp matches 1 unless entity @a[scores={playing_game=1,game_stage=..2}] run function ARG(_PATH)stages/2/reset
+			execute if score #KPQ_S3_LOADED temp matches 1 unless entity @a[scores={playing_game=1,game_stage=..3}] run function ARG(_PATH)stages/3/reset
+			execute if score #KPQ_S4_LOADED temp matches 1 unless entity @a[scores={playing_game=1,game_stage=..4}] run function ARG(_PATH)stages/4/reset
+			execute if score #KPQ_S5_LOADED temp matches 1 unless entity @a[scores={playing_game=1,game_stage=..5}] run function ARG(_PATH)stages/5/reset
+			execute if score #KPQ_S6_LOADED temp matches 1 unless entity @a[scores={playing_game=1,game_stage=..6}] run function ARG(_PATH)stages/6/reset
+			execute unless entity @a[scores={playing_game=1}] run scoreboard players reset #KPQ_STAGE temp
 		}
 		
 		folder npc_talk()
@@ -322,8 +309,8 @@ namespace party_quest() as virtual
 			func lakelis()
 			{
 				tellraw @s ["\n",{"translate":"text.quest.party_quest.kpq.menu","font":"minecraft:uniform"}]
-				tellraw @s {"translate":"text.quest.party_quest.kpq.menu.enter","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 171"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
-				tellraw @s {"translate":"text.quest.party_quest.kpq.menu.intro","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 172"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
+				tellraw @s {"translate":"text.quest.party_quest.common.menu.enter","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 171"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
+				tellraw @s {"translate":"text.quest.party_quest.common.menu.intro","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 172"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
 				tellraw @s {"text":"==================","font":"minecraft:uniform"}
 			}
 			
@@ -956,11 +943,132 @@ namespace party_quest() as virtual
 		}
 		
 		folder title() from pq_title_template("KPQ", 1);
-		folder clock() from pq_clock_template("kpq", 1);
+		folder clock() from pq_clock_template("kpq", 1, 1800);
 	}
 	
 	folder ldpq()
 	{
+		func check()
+		{
+			execute store result score #LDPQ_MEMBER temp if entity @a[scores={playing_game=2}]
+			execute if score #LDPQ_MEMBER temp matches 0 run function ARG(_PATH)reset
+		}
+		
+		func level_check()
+		{
+			execute unless score @s level matches 35.. run tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.menu.enter.req_level","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+			execute if score @s level matches 35.. run function ARG(_PATH)start_check
+		}
+		
+		func start_check()
+		{
+			execute if score #LDPQ_STAGE temp matches 1.. run tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.menu.enter.fail","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+			execute unless score #LDPQ_STAGE temp matches 1.. run function ARG(_PATH)start
+		}
+		
+		func start()
+		{
+			execute as @a[scores={level=35..}] if score @s map matches 221024500 run function ARG(_PATH)join
+			function ARG(_PATH)clock/start
+			
+			bossbar set ui:clock/ldpq players @a[scores={playing_game=2}]
+			scoreboard players set #LDPQ_STAGE temp 1
+			scoreboard players set #LDPQ_S1_LOADED temp 1
+						
+			forceload add 369 183 392 206
+			# TODO: spawn mobs
+			forceload remove 369 183 392 206
+		}
+		
+		func join()
+		{
+			title @s times 1 5 10
+			title @s title {"text":"4","font":"ui:main"}
+			tp @s 380 -52 188 -50 40
+			
+			tag @s add pq_player
+			scoreboard players set @s map 922010000
+			scoreboard players set @s playing_game 2
+			scoreboard players set @s game_stage 1
+			scoreboard players add #LDPQ_MEMBER temp 1
+			scoreboard players set @s bgm 7
+			function main:bgm/search/fantasia
+		}
+		
+		func leave()
+		{
+			execute unless score @s playing_game matches 2 run function ARG(_PATH)leave_map
+			execute if score @s playing_game matches 2 run function ARG(_PATH)leave_confirm
+		}
+		
+		func leave_map()
+		{
+			execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001008}
+			execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4001008"}]}
+			execute if score #GLOBAL temp matches 2.. run tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"translate":"item.etc.4001008"}]}
+			
+			scoreboard players set @s map 221024500
+			scoreboard players set @s bgm 6
+			function main:bgm/search/funny_time_maker
+			
+			title @s times 1 5 10
+			title @s title {"text":"4","font":"ui:main"}
+			tp @s 387 -53 573 0 40
+		}
+		
+		func leave_confirm()
+		{
+			tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.leave_confirm","font":"minecraft:uniform"}]
+			tellraw @s [{"text":"> ","color":"gray","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 203"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},{"translate":"text.answer.yes","color":"yellow","bold":true}]
+			tellraw @s {"text":"==================","font":"minecraft:uniform"}
+		}
+		
+		func leave_stages()
+		{
+			execute if entity @s[tag=dead] run function bar_display:death/revive
+			scoreboard players reset @s playing_game
+			scoreboard players reset @s game_stage
+			tag @s remove pq_player
+			
+			function ARG(_PATH)reset
+			
+			title @s times 1 5 10
+			title @s title {"text":"4","font":"ui:main"}
+			tp @s 382 119 583 180 50
+			
+			execute unless score @s bgm matches 7 run function main:bgm/search/fantasia
+			scoreboard players set @s bgm 7
+			
+			bossbar set ui:clock/ldpq players @a[scores={playing_game=2}]
+			clear @s minecraft:creeper_spawn_egg
+		}
+		
+		func reset()
+		{
+			execute if score #LDPQ_S1_LOADED temp matches 1 unless entity @a[scores={playing_game=1,game_stage=1}] run function ARG(_PATH)stages/1/reset
+			execute if score #LDPQ_S2_LOADED temp matches 1 unless entity @a[scores={playing_game=1,game_stage=..2}] run function ARG(_PATH)stages/2/reset
+			execute if score #LDPQ_S3_LOADED temp matches 1 unless entity @a[scores={playing_game=1,game_stage=..3}] run function ARG(_PATH)stages/3/reset
+			execute if score #LDPQ_S4_LOADED temp matches 1 unless entity @a[scores={playing_game=1,game_stage=..4}] run function ARG(_PATH)stages/4/reset
+			execute if score #LDPQ_S5_LOADED temp matches 1 unless entity @a[scores={playing_game=1,game_stage=..5}] run function ARG(_PATH)stages/5/reset
+			execute if score #LDPQ_S6_LOADED temp matches 1 unless entity @a[scores={playing_game=1,game_stage=..6}] run function ARG(_PATH)stages/6/reset
+			execute if score #LDPQ_S7_LOADED temp matches 1 unless entity @a[scores={playing_game=1,game_stage=..7}] run function ARG(_PATH)stages/7/reset
+			execute if score #LDPQ_S8_LOADED temp matches 1 unless entity @a[scores={playing_game=1,game_stage=..8}] run function ARG(_PATH)stages/8/reset
+			execute if score #LDPQ_S9_LOADED temp matches 1 unless entity @a[scores={playing_game=1,game_stage=..9}] run function ARG(_PATH)stages/9/reset
+			execute if score #LDPQ_S10_LOADED temp matches 1 unless entity @a[scores={playing_game=1,game_stage=..10}] run function ARG(_PATH)stages/10/reset
+			execute unless entity @a[scores={playing_game=2}] run scoreboard players reset #LDPQ_STAGE temp
+		}
+		
+		folder npc_talk()
+		{
+			func red_sign()
+			{
+				tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.menu","font":"minecraft:uniform"}]
+				tellraw @s {"translate":"text.quest.party_quest.common.menu.enter","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 201"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
+				tellraw @s {"translate":"text.quest.party_quest.common.menu.intro","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 202"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
+				tellraw @s {"text":"==================","font":"minecraft:uniform"}
+			}
+		}
+		
 		folder stages()
 		{
 			folder 1()
@@ -1177,5 +1285,8 @@ namespace party_quest() as virtual
 				
 			}
 		}
+		
+		folder title() from pq_title_template("LDPQ", 2);
+		folder clock() from pq_clock_template("ldpq", 2, 3600);
 	}
 }
