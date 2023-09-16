@@ -452,7 +452,7 @@ namespace party_quest() as virtual
 				{
 					scoreboard players set #KPQ_S3_LOADED temp 1
 					scoreboard players add @s game_stage 1
-					execute unless entity @a[scores={playing_game=1,game_stage=2}] run function ARG(_PATH)reset
+					execute unless entity @a[scores={playing_game=1,game_stage=..2}] run function ARG(_PATH)reset
 					clear @s minecraft:creeper_spawn_egg
 					
 					scoreboard players set @s bgm 4
@@ -556,7 +556,7 @@ namespace party_quest() as virtual
 				{
 					scoreboard players set #KPQ_S4_LOADED temp 1
 					scoreboard players add @s game_stage 1
-					execute unless entity @a[scores={playing_game=1,game_stage=3}] run function ARG(_PATH)reset
+					execute unless entity @a[scores={playing_game=1,game_stage=..3}] run function ARG(_PATH)reset
 					clear @s minecraft:creeper_spawn_egg
 					
 					title @s times 1 5 10
@@ -673,7 +673,7 @@ namespace party_quest() as virtual
 				func portal()
 				{
 					scoreboard players add @s game_stage 1
-					execute unless entity @a[scores={playing_game=1,game_stage=4}] run function ARG(_PATH)reset
+					execute unless entity @a[scores={playing_game=1,game_stage=..4}] run function ARG(_PATH)reset
 					clear @s minecraft:creeper_spawn_egg
 					
 					title @s times 1 5 10
@@ -802,7 +802,7 @@ namespace party_quest() as virtual
 				{
 					scoreboard players set #KPQ_S6_LOADED temp 1
 					scoreboard players add @s game_stage 1
-					execute unless entity @a[scores={playing_game=1,game_stage=5}] run function ARG(_PATH)reset
+					execute unless entity @a[scores={playing_game=1,game_stage=..5}] run function ARG(_PATH)reset
 					
 					loot replace block 250 1 0 container.0 loot quest:kpq_award
 					execute store result score #GLOBAL temp run data get block 250 1 0 Items[0].Count
@@ -976,7 +976,33 @@ namespace party_quest() as virtual
 			scoreboard players set #LDPQ_S1_LOADED temp 1
 						
 			forceload add 369 183 392 206
-			# TODO: spawn mobs
+			```
+			print("execute positioned 376 -37.9 190 run", spawn_mob("9300006"))
+			print("execute positioned 377 -34.9 196 run", spawn_mob("9300006"))
+			print("execute positioned 377 -29.9 198 run", spawn_mob("9300006"))
+			print("execute positioned 376 -28.9 193 run", spawn_mob("9300006"))
+			print("execute positioned 378 -23.9 200 run", spawn_mob("9300006"))
+			print("execute positioned 376 -19.9 196 run", spawn_mob("9300006"))
+			print("execute positioned 377 -12.9 198 run", spawn_mob("9300006"))
+			print("execute positioned 377.0 -10.4 188 run", spawn_mob("9300005"))
+			print("execute positioned 387 -10.4 199.0 run", spawn_mob("9300005"))
+			print("execute positioned 377 -4.9 198 run", spawn_mob("9300005"))
+			print("execute positioned 379 -0.9 191 run", spawn_mob("9300005"))
+			print("execute positioned 381 -0.9 198 run", spawn_mob("9300006"))
+			print("execute positioned 381 1.1 191 run", spawn_mob("9300006"))
+			print("execute positioned 384 2.1 196 run", spawn_mob("9300006"))
+			print("execute positioned 384 4.1 193 run", spawn_mob("9300005"))
+			print("execute positioned 384 9.1 196 run", spawn_mob("9300005"))
+			print("execute positioned 382 15.1 190 run", spawn_mob("9300005"))
+			print("execute positioned 379 15.1 190 run", spawn_mob("9300005"))
+			print("execute positioned 385 15.1 194 run", spawn_mob("9300005"))
+			print("execute positioned 376 22.1 194 run", spawn_mob("9300005"))
+			print("execute positioned 381 22.1 190 run", spawn_mob("9300005"))
+			print("execute positioned 382 27.1 189 run", spawn_mob("9300005"))
+			print("execute positioned 377 28.1 191 run", spawn_mob("9300005"))
+			print("execute positioned 386.0 33.6 199 run", spawn_mob("9300005"))
+			print("execute positioned 376.0 39.1 199 run", spawn_mob("9300005"))
+			```
 			forceload remove 369 183 392 206
 		}
 		
@@ -1003,9 +1029,9 @@ namespace party_quest() as virtual
 		
 		func leave_map()
 		{
-			execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001008}
-			execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4001008"}]}
-			execute if score #GLOBAL temp matches 2.. run tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"translate":"item.etc.4001008"}]}
+			execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001022}
+			execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4001022"}]}
+			execute if score #GLOBAL temp matches 2.. run tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"translate":"item.etc.4001022"}]}
 			
 			scoreboard players set @s map 221024500
 			scoreboard players set @s bgm 6
@@ -1073,7 +1099,68 @@ namespace party_quest() as virtual
 		{
 			folder 1()
 			{
+				func portal()
+				{
+					execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001022}
+					execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4001022"}]}
+					
+					scoreboard players add @s game_stage 1
+					execute unless entity @a[scores={playing_game=2,game_stage=1}] run function ARG(_PATH)reset
+					
+					title @s times 1 5 10
+					title @s title {"text":"4","font":"ui:main"}
+					# tp @s -511.0 42 0.0 90 45
+				}
 				
+				func reset()
+				{
+					forceload add 369 183 392 206
+					execute positioned 368 -53 182 run kill @e[type=item,dx=24,dy=105,dz=24]
+					kill @e[tag=ldpq_mob]
+					forceload remove 369 183 392 206
+					
+					scoreboard players reset #LDPQ_S1_LOADED temp
+				}
+				
+				folder npc()
+				{
+					folder balloon()
+					{
+						func talk()
+						{
+							execute if score #LDPQ_STAGE temp matches 2.. run tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage1.go_next","with":[{"translate":"npc.red_balloon"}],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+							execute if score #LDPQ_STAGE temp matches 1 run function ARG(_PATH)check
+						}
+						
+						func check()
+						{
+							execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001022} 0
+							execute unless score #GLOBAL temp matches 25.. run tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage1.require_pass","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+							execute if score #GLOBAL temp matches 25.. run function ARG(_PATH)pass
+						}
+						
+						func pass()
+						{
+							function quest:party_quest/ldpq/title/clear/run
+							scoreboard players add #LDPQ_STAGE temp 1
+							
+							data modify block -310 47 0 front_text.messages[0] set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -310.0 46 -1.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/1/portal"}}'
+							summon minecraft:item_display -309.5 47.5 0.5 {Tags:["ldpq_mob"],item:{id:"minecraft:splash_potion",Count:1b,tag:{CustomModelData:1000002,CustomPotionColor:-1}}}
+							
+							scoreboard players set #EXP_GAIN temp 3000
+							scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
+							execute as @a[scores={playing_game=2},tag=!dead] at @s run function quest:get_exp
+							
+							clear @s minecraft:stick{CustomModelData:4001022}
+							execute if score #GLOBAL temp matches 2.. run tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"translate":"item.etc.4001022"}]}
+							execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4001022"}]}
+							tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage1.pass","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+							
+							# TODO: Spawn stage 2 objects
+							scoreboard players set #LDPQ_S2_LOADED temp 1
+						}
+					}
+				}
 			}
 			
 			folder 2()
