@@ -1567,6 +1567,7 @@
 	
 	"text.quest.party_quest.common.menu.enter": "§7> §1想進行組隊任務§r",
 	"text.quest.party_quest.common.menu.intro": "§7> §9想聽取組隊任務的說明§r",
+	"text.quest.party_quest.common.member_lost": "<%s> 好像有隊員還沒抵達這裡，請等待所有隊員抵達再與我對話。",
 	
 	"text.quest.party_quest.kpq.menu": "<拉克里斯> 關於§l第一次同行§r組隊任務有什麼想知道的事嗎？",
 	"text.quest.party_quest.kpq.menu.enter.req_level": "<拉克里斯> 只有等級21以上的玩家可以進行§9第一次同行§r組隊任務。",
@@ -1602,7 +1603,7 @@
 	"text.quest.party_quest.ldpq.menu.intro.detail": "<標示牌> §9時空的裂縫§r組隊任務一共有9個關卡。請與你的隊友們蒐集次元通行證前往深層的區域，並打敗墮落的次元守門人§c巨型戰鬥機§r，取回鎖住次元之門的鑰匙。\n若任務途中想要放棄，與士兵安德森對話即可離開。\n§l- 等級限制:§r 35以上\n§l- 時間限制:§r 60分鐘",
 	"text.quest.party_quest.ldpq.go_next": "<%s> 你們已經完成這個關卡，透過我身旁的次元傳送門往下一關移動。",
 	"text.quest.party_quest.ldpq.stage1.require_pass": "<紅氣球> 請打倒穿越次元過來的發條鼠，並收集§925張通行證§9給我，這樣就能開啟通往下個階段的次元傳送門！",
-	"text.quest.party_quest.ldpq.stage1.pass": "<紅氣球> 你成功收集了§925張次元通行證！通往下個階段的傳送門已經開啟，趕緊前往下個區域吧！",
+	"text.quest.party_quest.ldpq.stage_pass": "<%s> 你成功收集了§9%s張次元通行證！通往下個階段的傳送門已經開啟，趕緊前往下個區域吧！",
 	
 	"effect.minecraft.resistance": "",
 	"effect.minecraft.fire_resistance": "",

@@ -311,7 +311,7 @@ namespace main()
 	{
 		execute if entity @s[tag=dead] run function ARG(_PATH)town_revive/run
 		# special map teleport to nearest town belongs here
-		execute if score @s playing_game matches 1.. run function quest:reset_check
+		execute if score @s playing_game matches 1.. run function quest:party_quest/reset_check
 		
 		function ARG(_PATH)bgm/search/run
 		execute at @s run playsound minecraft:game.game_in player @s
@@ -344,7 +344,7 @@ namespace main()
 		func run()
 		{
 			execute unless score @s playing_game matches 1.. run function ARG(_PATH)town_search/run
-			execute if score @s playing_game matches 1.. run function quest:reset_check
+			execute if score @s playing_game matches 1.. run function quest:party_quest/reset_check
 			
 			execute unless score @s login matches 1.. run function ARG(_PATH)reset_screen
 		}
@@ -356,6 +356,7 @@ namespace main()
 				function bar_display:death/revive
 				
 				# check nearest town accoring to map score
+				# TODO: 增加紀錄回城目標地圖 ID 分數
 				execute if score @s map matches 103000000 run function ARG(_PATH)kerning_city
 			}
 			

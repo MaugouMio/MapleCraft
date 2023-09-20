@@ -170,7 +170,7 @@
 170,if entity @s[tag=ring4_equipped] run function item:equip_window/fifth_line/ring4/take_off
 171,if score @s map matches 103000000 run function quest:party_quest/kpq/level_check
 172,if score @s map matches 103000000 run tellraw @s ["\n",{"translate":"text.quest.party_quest.kpq.menu.intro.detail","font":"minecraft:uniform"}]
-173,if score @s playing_game matches 1 run function quest:party_quest/kpq/leave_stages
+173,if score @s playing_game matches 1 run function quest:party_quest/reset_check
 174,if score @s map matches 102000003 at @s run function skill:1/0/0/transfer/check
 175,if score @s map matches 101000003 at @s run function skill:2/0/0/transfer/check
 176,if score @s map matches 100000201 at @s run function skill:3/0/0/transfer/check
@@ -200,4 +200,4 @@
 200,run tellraw @s ["\n",{"translate":"text.tip.drop_meso","font":"minecraft:uniform","clickEvent":{"action":"suggest_command","value":"/trigger drop_meso set 10"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.tip.copy_to_chat"}}},"\n",{"translate":"text.meso.own","font":"minecraft:uniform","with":[{"score":{"objective":"meso","name":"@s"}}]}]
 201,if score @s map matches 221024500 run function quest:party_quest/ldpq/level_check
 202,if score @s map matches 221024500 run tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.menu.intro.detail","font":"minecraft:uniform"}]
-203,if score @s playing_game matches 2 run function quest:party_quest/ldpq/leave_stages
+203,if score @s playing_game matches 2 run function quest:party_quest/reset_check

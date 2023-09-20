@@ -6,12 +6,6 @@ import party_quest
 
 namespace quest()
 {
-	func reset_check()
-	{
-		execute if score @s playing_game matches 1 run function ARG(_PATH)party_quest/kpq/leave_stages
-		execute if score @s playing_game matches 2 run function ARG(_PATH)party_quest/ldpq/leave_stages
-	}
-	
 	func get_clock_time()
 	{
 		scoreboard players operation #CLOCK_SEC_1 temp = #GLOBAL temp
