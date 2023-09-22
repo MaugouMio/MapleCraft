@@ -1162,7 +1162,24 @@ namespace party_quest() as virtual
 							tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage_pass","with":[{"translate":"npc.red_balloon"},"25"],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 							
 							forceload add 375 -201 398 -178
-							# TODO: Spawn stage 2 objects
+							```
+							points = [
+								("386 18.0625 -194", 180),
+								("381 5 -190", 180),
+								("382 0 -185", -90),
+								("388 -16 -184", 90),
+								("382 -17 -188", 180),
+								("383 -24 -193", 90),
+								("383 -26 -185", 180),
+								("392.0 -26.9375 -184.0", 90),
+								("391 -35 -190", 0),
+								("385.0 -43.9375 -193", 180),
+								("384.0 -52.9375 -195.0", -90)
+							]
+							for p in points:
+								print('summon interaction %s {Tags:["ldpq_mob"],Passengers:[{id:"minecraft:item_display",Tags:["ldpq_mob","box"],Rotation:[%df,0f],item:{id:"minecraft:splash_potion",Count:1b,tag:{info:{hp_max:4,hurt_sound:5,die_sound:1},CustomModelData:1,CustomPotionColor:0,loot:"skill:mob/special/pass_dimension"}},item_display:"head",shadow_strength:0.0f,shadow_radius:0.9f}]}' %(p[0], p[1]))
+							```
+							summon interaction 386 11 -184 {Tags:["ldpq_mob"],Passengers:[{id:"minecraft:item_display",Tags:["ldpq_mob","box"],Rotation:[90f,0f],item:{id:"minecraft:splash_potion",Count:1b,tag:{info:{hp_max:4,hurt_sound:5,die_sound:2},CustomModelData:1,CustomPotionColor:0}},item_display:"head",shadow_strength:0.0f,shadow_radius:0.9f}]}
 							forceload remove 375 -201 398 -178
 							
 							scoreboard players set #LDPQ_S2_LOADED temp 1
@@ -1223,7 +1240,7 @@ namespace party_quest() as virtual
 						func check()
 						{
 							execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001022} 0
-							execute unless score #GLOBAL temp matches 15.. run tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage1.require_pass","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+							execute unless score #GLOBAL temp matches 15.. run tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage2.require_pass","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 							execute if score #GLOBAL temp matches 15.. run function ARG(_PATH)pass
 						}
 						
@@ -1250,11 +1267,6 @@ namespace party_quest() as virtual
 					}
 				}
 				
-				func summon_box()
-				{
-					summon interaction ~ ~ ~ {Tags:["ldpq_mob"],Passengers:[{id:"minecraft:item_display",Tags:["ldpq_mob","box"],item:{id:"minecraft:splash_potion",Count:1b,tag:{info:{hp_max:4,hurt_sound:5,die_sound:1},CustomModelData:1,CustomPotionColor:0,loot:"skill:mob/special/pass_dimension"}},item_display:"head",shadow_strength:0.0f,shadow_radius:0.9f}]}
-				}
-				
 				func box_break()
 				{
 					playsound minecraft:mob.hurt.b_22020023 player @a ~ ~ ~ 1 1 0
@@ -1268,7 +1280,20 @@ namespace party_quest() as virtual
 						function ARG(__PATH)box_break
 						
 						scoreboard players set #LDPQ_S2_H_LOADED temp 1
-						# TODO: Load hide stage and spawn boxes
+						
+						forceload add 368 -592 391 -569
+						```
+						points = [
+							("376.0 177 -584.0", -90),
+							("384.0 197 -584.0", 90),
+							("376.0 221 -584.0", -90),
+							("375 248 -581", 180)
+						]
+						for p in points:
+							print('summon interaction %s {Tags:["ldpq_mob"],Passengers:[{id:"minecraft:item_display",Tags:["ldpq_mob","box"],Rotation:[%df,0f],item:{id:"minecraft:splash_potion",Count:1b,tag:{info:{hp_max:4,hurt_sound:5,die_sound:1},CustomModelData:1,CustomPotionColor:0,loot:"skill:mob/special/pass_dimension"}},item_display:"head",shadow_strength:0.0f,shadow_radius:0.9f}]}' %(p[0], p[1]))
+						```
+						forceload remove 368 -592 391 -569
+						
 						execute as @a[scores={playing_game=2,game_stage=2}] run function ARG(_PATH)tp
 					}
 					
@@ -1276,7 +1301,7 @@ namespace party_quest() as virtual
 					{
 						title @s times 1 5 10
 						title @s title {"text":"4","font":"ui:main"}
-						# tp @s x y z rx ry
+						tp @s 380.0 160 -587 40 50
 					}
 					
 					func leave()
@@ -1293,16 +1318,16 @@ namespace party_quest() as virtual
 					
 					func clear()
 					{
-						# execute positioned x y z run kill @e[type=item,dx=24,dy=YY,dz=24]
-						# execute positioned x y z run kill @e[tag=ldpq_mob,dx=24,dy=YY,dz=24]
+						execute positioned 368 157 -592 run kill @e[type=item,dx=24,dy=128,dz=24]
+						execute positioned 368 157 -592 run kill @e[tag=ldpq_mob,dx=24,dy=128,dz=24]
 						scoreboard players reset #LDPQ_S2_H_LOADED temp
 					}
 					
 					func reset()
 					{
-						# forceload add x y x2 y2
+						forceload add 368 -592 391 -569
 						function ARG(_PATH)clear
-						# forceload remove x y x2 y2
+						forceload remove 368 -592 391 -569
 					}
 				}
 			}
