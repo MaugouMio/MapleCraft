@@ -1206,7 +1206,7 @@ namespace party_quest() as virtual
 					
 					title @s times 1 5 10
 					title @s title {"text":"4","font":"ui:main"}
-					# tp @s -511.0 42 0.0 90 45
+					tp @s 385.0 110 189 0 50
 				}
 				
 				func reset()
@@ -1261,7 +1261,31 @@ namespace party_quest() as virtual
 							execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4001022"}]}
 							tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage_pass","with":[{"translate":"npc.orange_balloon"},"15"],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 							
-							# TODO: Spawn stage 3 objects
+							forceload add 369 183 392 206
+							```
+							print("execute positioned 382 118.1 200 run", spawn_mob("9300007"))
+							print("execute positioned 376 132.1 194 run", spawn_mob("9300007"))
+							print("execute positioned 379 138.1 190 run", spawn_mob("9300007"))
+							print("execute positioned 378 90.1 191 run", spawn_mob("9300007"))
+							print("execute positioned 377 90.1 190 run", spawn_mob("9300007"))
+							print("execute positioned 377 90.1 189.0 run", spawn_mob("9300007"))
+							print("execute positioned 382 86.1 190.0 run", spawn_mob("9300007"))
+							print("execute positioned 384 86.1 192.0 run", spawn_mob("9300007"))
+							
+							points = [
+								("387.0 119 192", 0),
+								("375.0 126.0625 189.0", -90),
+								("376 132 193", 180),
+								("381 104.0625 200", -90),
+								("388 101.0625 198", 0),
+								("377 90.0625 189", -90),
+								("381 80 190", -90)
+								("387.0 80.0625 188", 90)
+							]
+							for p in points:
+								print('summon interaction %s {Tags:["ldpq_mob"],Passengers:[{id:"minecraft:item_display",Tags:["ldpq_mob","box"],Rotation:[%df,0f],item:{id:"minecraft:splash_potion",Count:1b,tag:{info:{hp_max:4,hurt_sound:5,die_sound:3},CustomModelData:1,CustomPotionColor:0}},item_display:"head",shadow_strength:0.0f,shadow_radius:0.9f}]}' %(p[0], p[1]))
+							```
+							forceload remove 369 183 392 206
 							scoreboard players set #LDPQ_S3_LOADED temp 1
 						}
 					}
