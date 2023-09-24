@@ -1133,7 +1133,7 @@ namespace party_quest() as virtual
 					{
 						func talk()
 						{
-							execute if score #LDPQ_STAGE temp matches 2.. run tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage1.go_next","with":[{"translate":"npc.red_balloon"}],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+							execute if score #LDPQ_STAGE temp matches 2.. run tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.go_next","with":[{"translate":"npc.red_balloon"}],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 							execute if score #LDPQ_STAGE temp matches 1 run function ARG(_PATH)check
 						}
 						
@@ -1227,7 +1227,7 @@ namespace party_quest() as virtual
 					{
 						func talk()
 						{
-							execute if score #LDPQ_STAGE temp matches 3.. run tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage1.go_next","with":[{"translate":"npc.orange_balloon"}],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+							execute if score #LDPQ_STAGE temp matches 3.. run tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.go_next","with":[{"translate":"npc.orange_balloon"}],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 							execute if score #LDPQ_STAGE temp matches 2 run function ARG(_PATH)check_member
 						}
 						
@@ -1345,8 +1345,8 @@ namespace party_quest() as virtual
 					
 					func clear()
 					{
-						execute positioned 368 157 -592 run kill @e[type=item,dx=24,dy=128,dz=24]
-						execute positioned 368 157 -592 run kill @e[tag=ldpq_mob,dx=24,dy=128,dz=24]
+						execute positioned 367 157 -593 run kill @e[type=item,dx=24,dy=128,dz=24]
+						execute positioned 367 157 -593 run kill @e[tag=ldpq_mob,dx=24,dy=128,dz=24]
 						scoreboard players reset #LDPQ_S2_H_LOADED temp
 					}
 					
@@ -1387,8 +1387,8 @@ namespace party_quest() as virtual
 				func reset()
 				{
 					forceload add 369 183 392 206
-					execute positioned 369 78 183 run kill @e[type=item,dx=24,dy=71,dz=24]
-					execute positioned 369 78 183 run kill @e[tag=ldpq_mob,dx=24,dy=71,dz=24]
+					execute positioned 368 78 182 run kill @e[type=item,dx=24,dy=71,dz=24]
+					execute positioned 368 78 182 run kill @e[tag=ldpq_mob,dx=24,dy=71,dz=24]
 					forceload remove 369 183 392 206
 					
 					scoreboard players reset #LDPQ_S3_LOADED temp
@@ -1400,7 +1400,7 @@ namespace party_quest() as virtual
 					{
 						func talk()
 						{
-							execute if score #LDPQ_STAGE temp matches 4.. run tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage1.go_next","with":[{"translate":"npc.yellow_balloon"}],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+							execute if score #LDPQ_STAGE temp matches 4.. run tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.go_next","with":[{"translate":"npc.yellow_balloon"}],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 							execute if score #LDPQ_STAGE temp matches 3 run function ARG(_PATH)check_member
 						}
 						
@@ -1424,7 +1424,7 @@ namespace party_quest() as virtual
 							scoreboard players add #LDPQ_STAGE temp 1
 							
 							# data modify block -310 47 0 front_text.messages[0] set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -310.0 46 -1.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/1/portal"}}'
-							summon minecraft:item_display 382 110.1 200 {Tags:["ldpq_mob"],item:{id:"minecraft:splash_potion",Count:1b,tag:{CustomModelData:1000003,CustomPotionColor:-1}},billboard:"vertical"}
+							summon minecraft:item_display 382 112.1 200 {Tags:["ldpq_mob"],item:{id:"minecraft:splash_potion",Count:1b,tag:{CustomModelData:1000003,CustomPotionColor:-1}},billboard:"vertical"}
 							
 							scoreboard players set #EXP_GAIN temp 4200
 							scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
@@ -1449,12 +1449,202 @@ namespace party_quest() as virtual
 			
 			folder 4()
 			{
-				# TODO: 第一次進洞時呼叫 eyes/loop function
+				func portal()
+				{
+					execute if score #LDPQ_STAGE temp matches 4 run tellraw @s {"translate":"text.quest.party_quest.common.portal_closed","font":"minecraft:uniform","color":"#efb7ab"}
+					execute if score #LDPQ_STAGE temp matches 5.. run function ARG(_PATH)tp
+				}
+				
+				func tp()
+				{
+					execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001022}
+					execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4001022"}]}
+					
+					scoreboard players add @s game_stage 1
+					execute unless entity @a[scores={playing_game=2,game_stage=..4}] run function ARG(_PATH)reset
+					
+					title @s times 1 5 10
+					title @s title {"text":"4","font":"ui:main"}
+					# tp @s 384 121 -195 40 50
+				}
+				
 				func reset()
 				{
-					schedule clear ARG(_PATH)eyes/loop
+					execute if score #LDPQ_S4_D_LOADED temp matches 1 run function ARG(_PATH)dimension/reset
+					
+					forceload add 375 -201 398 -178
+					execute positioned 374 65 -202 run kill @e[type=item,dx=24,dy=75,dz=24]
+					forceload remove 375 -201 398 -178
 					
 					scoreboard players reset #LDPQ_S4_LOADED temp
+				}
+				
+				folder npc()
+				{
+					folder balloon()
+					{
+						func talk()
+						{
+							execute if score #LDPQ_STAGE temp matches 5.. run tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.go_next","with":[{"translate":"npc.lime_balloon"}],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+							execute if score #LDPQ_STAGE temp matches 4 run function ARG(_PATH)check_member
+						}
+						
+						func check_member()
+						{
+							execute positioned 375 65 -201 store result score #GLOBAL temp if entity @a[scores={playing_game=2},dx=24,dy=75,dz=24]
+							execute if score #GLOBAL temp < #LDPQ_MEMBER temp run tellraw @s ["\n",{"translate":"text.quest.party_quest.common.member_lost","with":[{"translate":"npc.lime_balloon"}],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+							execute if score #GLOBAL temp = #LDPQ_MEMBER temp run function ARG(_PATH)check
+						}
+						
+						func check()
+						{
+							execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001022} 0
+							execute unless score #GLOBAL temp matches 6.. run tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage4.require_pass","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+							execute if score #GLOBAL temp matches 6.. run function ARG(_PATH)pass
+						}
+						
+						func pass()
+						{
+							function quest:party_quest/ldpq/title/clear/run
+							scoreboard players add #LDPQ_STAGE temp 1
+							
+							# data modify block -310 47 0 front_text.messages[0] set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -310.0 46 -1.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/1/portal"}}'
+							summon minecraft:item_display 382 127 -183 {Tags:["ldpq_mob"],item:{id:"minecraft:splash_potion",Count:1b,tag:{CustomModelData:1000003,CustomPotionColor:-1}},billboard:"vertical"}
+							
+							scoreboard players set #EXP_GAIN temp 4800
+							scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
+							execute as @a[scores={playing_game=2},tag=!dead] at @s run function quest:get_exp
+							
+							clear @s minecraft:stick{CustomModelData:4001022}
+							execute if score #GLOBAL temp matches 2.. run tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"translate":"item.etc.4001022"}]}
+							execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4001022"}]}
+							tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage_pass","with":[{"translate":"npc.lime_balloon"},"15"],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+						}
+					}
+				}
+				
+				folder dimension()
+				{
+					func init()
+					{
+						scoreboard players set #LDPQ_S4_D_LOADED temp 1
+						
+						forceload add 376 -598 383 -563
+						```
+						print("execute positioned 381.0 113.1 -580 run", spawn_mob("9300008"))
+						print("execute positioned 382.0 73.6 -593 run", spawn_mob("9300008"))
+						print("execute positioned 381.0 31.1 -580 run", spawn_mob("9300008"))
+						print("execute positioned 380.0 -9.9 -577 run", spawn_mob("9300009"))
+						print("execute positioned 382.0 -9.9 -580 run", spawn_mob("9300009"))
+						print("execute positioned 381.0 -50.9 -580 run", spawn_mob("9300009"))
+						```
+						forceload remove 376 -598 383 -563
+						
+						function ARG(__PATH)eyes/loop
+					}
+					
+					func reset()
+					{
+						schedule clear ARG(__PATH)eyes/loop
+						
+						forceload add 376 -598 383 -563
+						execute positioned 375 -54 -599 run kill @e[type=item,dx=8,dy=180,dz=36]
+						execute positioned 375 -54 -599 run kill @e[tag=ldpq_mob,dx=8,dy=180,dz=36]
+						forceload remove 376 -598 383 -563
+						
+						scoreboard players reset #LDPQ_S4_D_LOADED temp
+					}
+					
+					func enter_effect()
+					{
+						execute unless score #LDPQ_S4_D_LOADED temp matches 1 run function ARG(_PATH)init
+						
+						title @s times 1 5 10
+						title @s title {"text":"4","font":"ui:main"}
+						
+						scoreboard players set @s bgm 8
+						function main:bgm/search/dark_shadow
+					}
+					
+					func leave_effect()
+					{
+						title @s times 1 5 10
+						title @s title {"text":"4","font":"ui:main"}
+						
+						scoreboard players set @s bgm 7
+						function main:bgm/search/fantasia
+					}
+					
+					folder 1()
+					{
+						func enter()
+						{
+							function ARG(__PATH)enter_effect
+							tp @s 378 121 -596.0 0 60
+						}
+						
+						func leave()
+						{
+							function ARG(__PATH)leave_effect
+							tp @s 388.0 107 -186 35 50
+						}
+					}
+					
+					folder 2()
+					{
+						func enter()
+						{
+							function ARG(__PATH)enter_effect
+							tp @s 378 80 -596.0 0 60
+						}
+						
+						func leave()
+						{
+							function ARG(__PATH)leave_effect
+							tp @s 386.0 102 -186 0 40
+						}
+					}
+					
+					folder 3()
+					{
+						func enter()
+						{
+							function ARG(__PATH)enter_effect
+							tp @s 377 39 -564.0 -130 70
+						}
+						
+						func leave()
+						{
+							function ARG(__PATH)leave_effect
+							tp @s 390 84 -188 -90 60
+						}
+					}
+					
+					folder 4()
+					{
+						func enter()
+						{
+							function ARG(__PATH)enter_effect
+							tp @s 377 -2 -564.0 -130 70
+						}
+						
+						# 4 leave equals to 3 leave
+					}
+					
+					folder 5()
+					{
+						func enter()
+						{
+							function ARG(__PATH)enter_effect
+							tp @s 378 -43 -596.0 0 60
+						}
+						
+						func leave()
+						{
+							function ARG(__PATH)leave_effect
+							tp @s 390.0 79 -190.0 -80 50
+						}
+					}
 				}
 				
 				folder eyes()
