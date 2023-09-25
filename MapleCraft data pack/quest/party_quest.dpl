@@ -1406,7 +1406,7 @@ namespace party_quest() as virtual
 						
 						func check_member()
 						{
-							execute positioned 369 78 183 store result score #GLOBAL temp if entity @a[scores={playing_game=2},dx=24,dy=71,dz=24]
+							execute positioned 368 78 182 store result score #GLOBAL temp if entity @a[scores={playing_game=2},dx=24,dy=71,dz=24]
 							execute if score #GLOBAL temp < #LDPQ_MEMBER temp run tellraw @s ["\n",{"translate":"text.quest.party_quest.common.member_lost","with":[{"translate":"npc.yellow_balloon"}],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 							execute if score #GLOBAL temp = #LDPQ_MEMBER temp run function ARG(_PATH)check
 						}
@@ -1433,7 +1433,7 @@ namespace party_quest() as virtual
 							clear @s minecraft:stick{CustomModelData:4001022}
 							execute if score #GLOBAL temp matches 2.. run tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"translate":"item.etc.4001022"}]}
 							execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4001022"}]}
-							tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage_pass","with":[{"translate":"npc.yellow_balloon"},"15"],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+							tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage_pass","with":[{"translate":"npc.yellow_balloon"},"32"],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 						}
 					}
 				}
@@ -1465,7 +1465,7 @@ namespace party_quest() as virtual
 					
 					title @s times 1 5 10
 					title @s title {"text":"4","font":"ui:main"}
-					# tp @s 384 121 -195 40 50
+					tp @s 385 191 190 90 50
 				}
 				
 				func reset()
@@ -1491,7 +1491,7 @@ namespace party_quest() as virtual
 						
 						func check_member()
 						{
-							execute positioned 375 65 -201 store result score #GLOBAL temp if entity @a[scores={playing_game=2},dx=24,dy=75,dz=24]
+							execute positioned 374 65 -202 store result score #GLOBAL temp if entity @a[scores={playing_game=2},dx=24,dy=75,dz=24]
 							execute if score #GLOBAL temp < #LDPQ_MEMBER temp run tellraw @s ["\n",{"translate":"text.quest.party_quest.common.member_lost","with":[{"translate":"npc.lime_balloon"}],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 							execute if score #GLOBAL temp = #LDPQ_MEMBER temp run function ARG(_PATH)check
 						}
@@ -1518,7 +1518,15 @@ namespace party_quest() as virtual
 							clear @s minecraft:stick{CustomModelData:4001022}
 							execute if score #GLOBAL temp matches 2.. run tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"translate":"item.etc.4001022"}]}
 							execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4001022"}]}
-							tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage_pass","with":[{"translate":"npc.lime_balloon"},"15"],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+							tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage_pass","with":[{"translate":"npc.lime_balloon"},"6"],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+							
+							forceload add 369 183 392 206
+							```
+							print("execute positioned 378 182.1 189 run", spawn_mob("9300013"))
+							print("execute positioned 375 182.1 189 run", spawn_mob("9300013"))
+							```
+							forceload remove 369 183 392 206
+							scoreboard players set #LDPQ_S5_LOADED temp 1
 						}
 					}
 				}
@@ -1534,9 +1542,9 @@ namespace party_quest() as virtual
 						print("execute positioned 381.0 113.1 -580 run", spawn_mob("9300008"))
 						print("execute positioned 382.0 73.6 -593 run", spawn_mob("9300008"))
 						print("execute positioned 381.0 31.1 -580 run", spawn_mob("9300008"))
-						print("execute positioned 380.0 -9.9 -577 run", spawn_mob("9300009"))
-						print("execute positioned 382.0 -9.9 -580 run", spawn_mob("9300009"))
-						print("execute positioned 381.0 -50.9 -580 run", spawn_mob("9300009"))
+						print("execute positioned 380.0 -9.9 -577 run", spawn_mob("9300014"))
+						print("execute positioned 382.0 -9.9 -580 run", spawn_mob("9300014"))
+						print("execute positioned 381.0 -50.9 -580 run", spawn_mob("9300014"))
 						```
 						forceload remove 376 -598 383 -563
 						
@@ -1807,7 +1815,97 @@ namespace party_quest() as virtual
 			
 			folder 5()
 			{
+				func portal()
+				{
+					execute if score #LDPQ_STAGE temp matches 5 run tellraw @s {"translate":"text.quest.party_quest.common.portal_closed","font":"minecraft:uniform","color":"#efb7ab"}
+					execute if score #LDPQ_STAGE temp matches 6.. run function ARG(_PATH)tp
+				}
 				
+				func tp()
+				{
+					execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001022}
+					execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4001022"}]}
+					
+					scoreboard players add @s game_stage 1
+					execute unless entity @a[scores={playing_game=2,game_stage=..5}] run function ARG(_PATH)reset
+					
+					title @s times 1 5 10
+					title @s title {"text":"4","font":"ui:main"}
+					# tp @s 385 191 190 90 50
+					
+					scoreboard players set #LDPQ_S6_LOADED temp
+				}
+				
+				func reset()
+				{
+					execute if score #LDPQ_S5_1_LOADED temp matches 1 run function ARG(_PATH)sub/1/reset
+					execute if score #LDPQ_S5_2_LOADED temp matches 1 run function ARG(_PATH)sub/2/reset
+					execute if score #LDPQ_S5_3_LOADED temp matches 1 run function ARG(_PATH)sub/3/reset
+					execute if score #LDPQ_S5_4_LOADED temp matches 1 run function ARG(_PATH)sub/4/reset
+					execute if score #LDPQ_S5_5_LOADED temp matches 1 run function ARG(_PATH)sub/5/reset
+					execute if score #LDPQ_S5_6_LOADED temp matches 1 run function ARG(_PATH)sub/6/reset
+					
+					forceload add 369 183 392 206
+					execute positioned 368 174 182 run kill @e[type=item,dx=24,dy=64,dz=24]
+					forceload remove 369 183 392 206
+					
+					scoreboard players reset #LDPQ_S5_LOADED temp
+				}
+				
+				folder npc()
+				{
+					folder balloon()
+					{
+						func talk()
+						{
+							execute if score #LDPQ_STAGE temp matches 6.. run tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.go_next","with":[{"translate":"npc.green_balloon"}],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+							execute if score #LDPQ_STAGE temp matches 5 run function ARG(_PATH)check_member
+						}
+						
+						func check_member()
+						{
+							execute positioned 368 174 182 store result score #GLOBAL temp if entity @a[scores={playing_game=2},dx=24,dy=64,dz=24]
+							execute if score #GLOBAL temp < #LDPQ_MEMBER temp run tellraw @s ["\n",{"translate":"text.quest.party_quest.common.member_lost","with":[{"translate":"npc.green_balloon"}],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+							execute if score #GLOBAL temp = #LDPQ_MEMBER temp run function ARG(_PATH)check
+						}
+						
+						func check()
+						{
+							execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001022} 0
+							execute unless score #GLOBAL temp matches 24.. run tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage5.require_pass","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+							execute if score #GLOBAL temp matches 24.. run function ARG(_PATH)pass
+						}
+						
+						func pass()
+						{
+							function quest:party_quest/ldpq/title/clear/run
+							scoreboard players add #LDPQ_STAGE temp 1
+							
+							# data modify block -310 47 0 front_text.messages[0] set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -310.0 46 -1.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/1/portal"}}'
+							summon minecraft:item_display 375 191 194 {Tags:["ldpq_mob"],item:{id:"minecraft:splash_potion",Count:1b,tag:{CustomModelData:1000003,CustomPotionColor:-1}},billboard:"vertical"}
+							
+							scoreboard players set #EXP_GAIN temp 5400
+							scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
+							execute as @a[scores={playing_game=2},tag=!dead] at @s run function quest:get_exp
+							
+							clear @s minecraft:stick{CustomModelData:4001022}
+							execute if score #GLOBAL temp matches 2.. run tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"translate":"item.etc.4001022"}]}
+							execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4001022"}]}
+							tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage_pass","with":[{"translate":"npc.green_balloon"},"24"],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+						}
+					}
+				}
+				
+				folder sub()
+				{
+					folder 1()
+					{
+						func reset()
+						{
+							scoreboard players reset #LDPQ_S5_1_LOADED temp
+						}
+					}
+				}
 			}
 			
 			folder 6()
