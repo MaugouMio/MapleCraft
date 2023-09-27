@@ -361,6 +361,7 @@ namespace party_quest() as virtual
 					execute positioned -328 60 -43 run kill @e[type=item,dx=86,dy=28,dz=86]
 					execute positioned -328 60 -43 run kill @e[tag=kpq_mob,dx=86,dy=28,dz=86]
 					data modify block -310 47 0 front_text.messages[0] set value '""'
+					data modify block -310 47 0 back_text.messages[0] set value '""'
 					forceload remove -266 -23 -314 23
 					
 					scoreboard players reset #KPQ_S1_LOADED temp
@@ -395,6 +396,7 @@ namespace party_quest() as virtual
 							scoreboard players add #KPQ_STAGE temp 1
 							
 							data modify block -310 47 0 front_text.messages[0] set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -310.0 46 -1.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/1/portal"}}'
+							data modify block -310 47 0 back_text.messages[0] set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -310.0 46 -1.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/1/portal"}}'
 							summon minecraft:item_display -309.5 47.5 0.5 {Tags:["kpq_mob"],item:{id:"minecraft:splash_potion",Count:1b,tag:{CustomModelData:1000002,CustomPotionColor:-1}}}
 							
 							scoreboard players set #EXP_GAIN temp 100
@@ -475,6 +477,7 @@ namespace party_quest() as virtual
 					forceload add -550 -25 -500 25
 					execute positioned -565 41 -40 run kill @e[type=item,dx=80,dy=37,dz=80]
 					data modify block -540 43 0 front_text.messages[0] set value '""'
+					data modify block -540 43 0 back_text.messages[0] set value '""'
 					kill @e[type=item_display,tag=kpq_mob]
 					forceload remove -550 -25 -500 25
 					
@@ -535,6 +538,7 @@ namespace party_quest() as virtual
 							scoreboard players add #KPQ_STAGE temp 1
 							
 							data modify block -540 43 0 front_text.messages[0] set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -540.0 42 -1.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/2/portal"}}'
+							data modify block -540 43 0 back_text.messages[0] set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -540.0 42 -1.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/2/portal"}}'
 							summon minecraft:item_display -539.5 43.5 0.5 {Tags:["kpq_mob"],item:{id:"minecraft:splash_potion",Count:1b,tag:{CustomModelData:1000002,CustomPotionColor:-1}}}
 							
 							scoreboard players set #EXP_GAIN temp 200
@@ -576,6 +580,7 @@ namespace party_quest() as virtual
 					forceload add -852 -10 -800 10
 					execute positioned -852 31 -10 run kill @e[type=item,dx=52,dy=28,dz=20]
 					data modify block -850 47 0 front_text.messages[0] set value '""'
+					data modify block -850 47 0 back_text.messages[0] set value '""'
 					setblock -849 47 3 minecraft:air
 					setblock -849 47 -3 minecraft:air
 					kill @e[type=item_display,tag=kpq_mob]
@@ -641,6 +646,7 @@ namespace party_quest() as virtual
 							scoreboard players add #KPQ_STAGE temp 1
 							
 							data modify block -850 47 0 front_text.messages[0] set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -850.0 46 -1.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/3/portal"}}'
+							data modify block -850 47 0 back_text.messages[0] set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -850.0 46 -1.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/3/portal"}}'
 							summon minecraft:item_display -849.5 47.5 0.5 {Tags:["kpq_mob"],item:{id:"minecraft:splash_potion",Count:1b,tag:{CustomModelData:1000002,CustomPotionColor:-1}}}
 							setblock -849 47 3 minecraft:fire
 							setblock -849 47 -3 minecraft:fire
@@ -693,6 +699,7 @@ namespace party_quest() as virtual
 					forceload add -1197 2 -1171 29
 					execute positioned -1197 31 2 run kill @e[type=item,dx=26,dy=29,dz=27]
 					data modify block -1195 55 24 front_text.messages[0] set value '""'
+					data modify block -1195 55 24 back_text.messages[0] set value '""'
 					setblock -1194 55 21 minecraft:air
 					setblock -1194 55 27 minecraft:air
 					kill @e[type=item_display,tag=kpq_mob]
@@ -762,6 +769,7 @@ namespace party_quest() as virtual
 							scoreboard players set #KPQ_S5_LOADED temp 1
 							
 							data modify block -1195 55 24 front_text.messages[0] set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -1195.0 54.0 23.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/4/portal"}}'
+							data modify block -1195 55 24 back_text.messages[0] set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -1195.0 54.0 23.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/4/portal"}}'
 							summon minecraft:item_display -1194.5 55.5 24.5 {Tags:["kpq_mob"],item:{id:"minecraft:splash_potion",Count:1b,tag:{CustomModelData:1000002,CustomPotionColor:-1}}}
 							setblock -1194 55 21 fire
 							setblock -1194 55 27 fire
@@ -1567,18 +1575,14 @@ namespace party_quest() as virtual
 					{
 						execute unless score #LDPQ_S4_D_LOADED temp matches 1 run function ARG(_PATH)init
 						
-						title @s times 1 5 10
-						title @s title {"text":"4","font":"ui:main"}
-						
+						function main:cross_map_effect
 						scoreboard players set @s bgm 8
 						function main:bgm/search/dark_shadow
 					}
 					
 					func leave_effect()
 					{
-						title @s times 1 5 10
-						title @s title {"text":"4","font":"ui:main"}
-						
+						function main:cross_map_effect
 						scoreboard players set @s bgm 7
 						function main:bgm/search/fantasia
 					}
@@ -1847,6 +1851,7 @@ namespace party_quest() as virtual
 					
 					forceload add 369 183 392 206
 					execute positioned 368 174 182 run kill @e[type=item,dx=24,dy=64,dz=24]
+					execute positioned 368 174 182 run kill @e[tag=ldpq_mob,dx=24,dy=64,dz=24]
 					forceload remove 369 183 392 206
 					
 					scoreboard players reset #LDPQ_S5_LOADED temp
@@ -1900,9 +1905,45 @@ namespace party_quest() as virtual
 				{
 					folder 1()
 					{
+						func init()
+						{
+							scoreboard players set #LDPQ_S5_1_LOADED temp 1
+							
+							forceload add 759 561 782 584
+							```
+							points = [
+								("770 45.0625 577", -90),
+								("772 13 568", 180),
+								("766 5 572", 90),
+								("775 -3 571", -90)
+							]
+							for p in points:
+								print('summon interaction %s {Tags:["ldpq_mob"],Passengers:[{id:"minecraft:item_display",Tags:["ldpq_mob","box"],Rotation:[%df,0f],item:{id:"minecraft:splash_potion",Count:1b,tag:{info:{hp_max:4,hurt_sound:5,die_sound:1},CustomModelData:1,CustomPotionColor:0,loot:"skill:mob/special/pass_dimension"}},item_display:"head",shadow_strength:0.0f,shadow_radius:0.9f}]}' %(p[0], p[1]))
+							```
+							forceload remove 759 561 782 584
+						}
+						
 						func reset()
 						{
 							scoreboard players reset #LDPQ_S5_1_LOADED temp
+							
+							forceload add 759 561 782 584
+							execute positioned 758 -55 560 run kill @e[type=item,dx=24,dy=118,dz=24]
+							execute positioned 758 -55 560 run kill @e[tag=ldpq_mob,dx=24,dy=118,dz=24]
+							forceload remove 759 561 782 584
+						}
+						
+						func enter()
+						{
+							execute unless score #LDPQ_S5_1_LOADED temp matches 1 run function ARG(_PATH)init
+							function main:cross_map_effect
+							tp @s 775 50 577 180 50
+						}
+						
+						func leave()
+						{
+							function main:cross_map_effect
+							tp @s 382 222 190.0 0 30
 						}
 					}
 				}
