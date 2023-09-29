@@ -1943,7 +1943,51 @@ namespace party_quest() as virtual
 						func leave()
 						{
 							function main:cross_map_effect
-							tp @s 382 222 190.0 0 30
+							tp @s 382 223 190.0 0 30
+						}
+					}
+					
+					folder 2()
+					{
+						func init()
+						{
+							scoreboard players set #LDPQ_S5_2_LOADED temp 1
+							
+							forceload add 753 177 776 200
+							```
+							points = [
+								("758 -15 182", -90),
+								("771 -14 182", 90),
+								("771 33 194", 90),
+								("758 33 194", -90)
+							]
+							for p in points:
+								print('summon interaction %s {Tags:["ldpq_mob"],Passengers:[{id:"minecraft:item_display",Tags:["ldpq_mob","box"],Rotation:[%df,0f],item:{id:"minecraft:splash_potion",Count:1b,tag:{info:{hp_max:4,hurt_sound:5,die_sound:1},CustomModelData:1,CustomPotionColor:0,loot:"skill:mob/special/pass_dimension"}},item_display:"head",shadow_strength:0.0f,shadow_radius:0.9f}]}' %(p[0], p[1]))
+							```
+							forceload remove 753 177 776 200
+						}
+						
+						func reset()
+						{
+							scoreboard players reset #LDPQ_S5_2_LOADED temp
+							
+							forceload add 753 177 776 200
+							execute positioned 752 -55 560 run kill @e[type=item,dx=24,dy=120,dz=24]
+							execute positioned 752 -55 560 run kill @e[tag=ldpq_mob,dx=24,dy=120,dz=24]
+							forceload remove 753 177 776 200
+						}
+						
+						func enter()
+						{
+							execute unless score #LDPQ_S5_2_LOADED temp matches 1 run function ARG(_PATH)init
+							function main:cross_map_effect
+							tp @s 760 -52 192 -160 50
+						}
+						
+						func leave()
+						{
+							function main:cross_map_effect
+							tp @s 375 216 190.0 180 40
 						}
 					}
 				}
