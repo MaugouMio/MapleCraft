@@ -2210,6 +2210,7 @@ namespace party_quest() as virtual
 					```
 					forceload remove 1137 -201 1160 -178
 					
+					function ARG(__PATH)7/check_box/run
 					scoreboard players set #LDPQ_STAGE temp 7
 					scoreboard players set #LDPQ_S7_LOADED temp 1
 				}
@@ -2464,7 +2465,7 @@ namespace party_quest() as virtual
 					
 					func blow()
 					{
-						execute positioned 1139.0 ~ -186.0 as @e[type=interaction,tag=box,dx=5,dy=0,dz=2] run function ARG(_PATH)box_break
+						execute positioned 1139.0 ~ -186.0 as @e[type=interaction,tag=box,dx=5,dy=0,dz=2] at @s run function ARG(_PATH)box_break
 						kill @s
 					}
 					
@@ -2599,6 +2600,7 @@ namespace party_quest() as virtual
 							#
 							# forceload remove 369 183 392 206
 							
+							function quest:party_quest/ldpq/stages/9/check_box/run
 							scoreboard players set #LDPQ_S9_LOADED temp 1
 						}
 					}
@@ -2607,6 +2609,102 @@ namespace party_quest() as virtual
 			
 			folder 9()
 			{
+				func reset()
+				{
+					# forceload add 759 561 782 584
+					# execute positioned 758 88 560 run kill @e[type=item,dx=24,dy=40,dz=24]
+					# execute positioned 758 88 560 run kill @e[tag=ldpq_mob,dx=24,dy=40,dz=24]
+					# forceload remove 759 561 782 584
+					
+					schedule clear ARG(_PATH)check_box/run
+					scoreboard players reset #LDPQ_S9_LOADED temp
+				}
+				
+				folder npc()
+				{
+					folder balloon()
+					{
+						func talk()
+						{
+							# execute positioned 758 88 560 store result score #GLOBAL temp if entity @a[scores={playing_game=2},dx=24,dy=40,dz=24]
+							execute if score #GLOBAL temp < #LDPQ_MEMBER temp run tellraw @s ["\n",{"translate":"text.quest.party_quest.common.member_lost","with":[{"translate":"npc.violet_balloon"}],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+							execute if score #GLOBAL temp = #LDPQ_MEMBER temp run function ARG(_PATH)check
+						}
+						
+						func check()
+						{
+							execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001023} 0
+							execute unless score #GLOBAL temp matches 1.. run tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage9.require_key","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+							execute if score #GLOBAL temp matches 1.. run function ARG(_PATH)pass
+						}
+						
+						func pass()
+						{
+							playsound minecraft:game.pq_clear player @a[scores={playing_game=2}] ~ ~ ~ 5 1 1
+							scoreboard players set #LDPQ_CLOCK_TIME temp 60
+							scoreboard players set #LDPQ_STAGE temp 10
+							
+							scoreboard players set #EXP_GAIN temp 8500
+							scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
+							execute as @a[scores={playing_game=2},tag=!dead] at @s run function quest:get_exp
+							
+							# forceload add 369 183 392 206
+							```
+							points = [
+								# ("1143 -29 -185", -90),
+								# ("1142 -22 -185", -90),
+								# ("1142 -14 -185", -90)
+							]
+							for p in points:
+								print('summon interaction %s {Tags:["ldpq_mob"],Passengers:[{id:"minecraft:item_display",Tags:["ldpq_mob","box"],Rotation:[%df,0f],item:{id:"minecraft:splash_potion",Count:1b,tag:{info:{hp_max:4,hurt_sound:5,die_sound:6},CustomModelData:1,CustomPotionColor:0}},item_display:"head",shadow_strength:0.0f,shadow_radius:0.9f}]}' %(p[0], p[1]))
+							```
+							# forceload remove 369 183 392 206
+							
+							scoreboard players set #LDPQ_S10_LOADED temp 1
+							
+							function quest:party_quest/ldpq/stages/9/reset
+						}
+						
+						func tp()
+						{
+							scoreboard players set @s game_stage 10
+							
+							title @s times 1 5 10
+							title @s title {"text":"4","font":"ui:main"}
+							# tp @s 391.0 168 -195.0 45 40
+						}
+					}
+				}
+				
+				folder check_box()
+				{
+					func run()
+					{
+						# execute positioned 1139.0 -29.0 -186.0 as @e[type=item,nbt={Item:{id:"minecraft:stick",tag:{CustomModelData:4001022}}},dx=5,dy=15,dz=2] run function ARG(_PATH)countdown
+						schedule function ARG(_PATH)run 1s
+					}
+					
+					func countdown()
+					{
+						scoreboard players add @s life 1
+						execute if score @s life matches 4 run function ARG(_PATH)blow
+					}
+					
+					func blow()
+					{
+						# execute positioned 1139.0 ~ -186.0 as @e[type=interaction,tag=box,dx=5,dy=0,dz=2] at @s run function ARG(_PATH)box_break
+						kill @s
+					}
+					
+					func box_break()
+					{
+						execute unless score @s hp matches 0.. run function skill:6/0/0/1000/box/search_box/setting
+						scoreboard players set @s status 14
+						scoreboard players set @s hp 0
+						scoreboard players set @s base_model 169
+					}
+				}
+				
 				func summon_boss()
 				{
 					function ARG(__PATH)2/box_break
