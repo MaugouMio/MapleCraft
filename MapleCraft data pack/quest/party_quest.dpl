@@ -1067,13 +1067,21 @@ namespace party_quest() as virtual
 		func leave_stages()
 		{
 			function ARG(_PATH)reset
+			
+			execute unless entity @s[tag=ldpq_pass] run function ARG(_PATH)tp_101f
+			execute if entity @s[tag=ldpq_pass] run function ARG(_PATH)stages/10/tp
+			tag @s remove ldpq_pass
+			
+			bossbar set ui:clock/ldpq players @a[scores={playing_game=2}]
+			clear @s minecraft:creeper_spawn_egg
+		}
+		
+		func tp_101f()
+		{
 			tp @s 382 119 583 180 50
 			
 			execute unless score @s bgm matches 7 run function main:bgm/search/fantasia
 			scoreboard players set @s bgm 7
-			
-			bossbar set ui:clock/ldpq players @a[scores={playing_game=2}]
-			clear @s minecraft:creeper_spawn_egg
 		}
 		
 		func reset()
@@ -2642,7 +2650,6 @@ namespace party_quest() as virtual
 						{
 							playsound minecraft:game.pq_clear player @a[scores={playing_game=2}] ~ ~ ~ 5 1 1
 							scoreboard players set #LDPQ_CLOCK_TIME temp 60
-							scoreboard players set #LDPQ_STAGE temp 10
 							
 							scoreboard players set #EXP_GAIN temp 8500
 							scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
@@ -2693,6 +2700,7 @@ namespace party_quest() as virtual
 							```
 							forceload remove 753 177 776 200
 							
+							execute as @a[scores={playing_game=2}] run function ARG(_PATH)tp
 							scoreboard players set #LDPQ_S10_LOADED temp 1
 							
 							function quest:party_quest/ldpq/stages/9/reset
@@ -2700,7 +2708,7 @@ namespace party_quest() as virtual
 						
 						func tp()
 						{
-							scoreboard players set @s game_stage 10
+							tag @s add ldpq_pass
 							
 							title @s times 1 5 10
 							title @s title {"text":"4","font":"ui:main"}
@@ -2750,6 +2758,35 @@ namespace party_quest() as virtual
 			
 			folder 10()
 			{
+				func tp()
+				{
+					scoreboard players set @s map 922011100
+					tp @s 390 267 573 50 40
+				}
+				
+				func reset()
+				{
+					forceload add 753 177 776 200
+					execute positioned 752 90 176 run kill @e[type=item,dx=24,dy=139,dz=24]
+					execute positioned 752 90 176 run kill @e[tag=ldpq_mob,dx=24,dy=139,dz=24]
+					forceload remove 753 177 776 200
+					
+					scoreboard players reset #LDPQ_S10_LOADED temp
+				}
+				
+				folder npc()
+				{
+					folder balloon()
+					{
+						func talk()
+						{
+							tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage10.leave","font":"minecraft:uniform"}]
+							tellraw @s [{"text":"> ","color":"gray","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 203"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},{"translate":"text.answer.yes","color":"yellow","bold":true}]
+							tellraw @s {"text":"==================","font":"minecraft:uniform"}
+						}
+					}
+				}
+				
 				func box_break()
 				{
 					function ARG(__PATH)2/box_break
