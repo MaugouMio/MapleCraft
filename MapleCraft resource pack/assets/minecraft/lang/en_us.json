@@ -1539,6 +1539,7 @@
 	
 	"text.quest.party_quest.common.menu.enter": "§7> §1I want to do the Party Quest!§r",
 	"text.quest.party_quest.common.menu.intro": "§7> §9I want to hear the details.§r",
+	"text.quest.party_quest.common.leave_confirm": "<%s> If you leave now, you can't come back here again. Are you sure you want to leave?",
 	"text.quest.party_quest.common.member_lost": "<%s> Seems that some of the members have not arrived yet. Please talk to me later until all of the members arrive.",
 	"text.quest.party_quest.common.portal_closed": "The portal is closed for now.",
 	
@@ -1546,7 +1547,6 @@
 	"text.quest.party_quest.kpq.menu.enter.req_level": "<Lakelis> Only players over level 21 can join the §9First Time Together§r party quest.",
 	"text.quest.party_quest.kpq.menu.enter.fail": "<Lakelis> There is already a team doing the party quest. Please talk to me later.",
 	"text.quest.party_quest.kpq.menu.intro.detail": "<Lakelis> There are 5 stages in the §9First Time Together§r Party Quest. Please work together with your teammates, share your strengths and wisdom to solve the challenges, and defeat the vicious §cKing Slime§r! If you want to give up during the Party Quest, you can talk to §9Nella§r to exit.\n§l- Level:§r 21 or above\n§l- Time Limit:§r 30 min",
-	"text.quest.party_quest.kpq.leave_confirm": "<Nella> If you leave now, you can't come back here again. Are you sure you want to leave?",
 	"text.quest.party_quest.kpq.stage1.introduce": "<Cloto> Here, you need to collect §9coupons§r by defeating the same number of Ligators as the answer to the questions asked individually, and exchange the Pass with your coupons. Collect %s §9passes§r and I'll make the portal that sends you to the next stage.",
 	"text.quest.party_quest.kpq.stage1.require_coupon": "<Cloto> Here's the question. Collect the same number of coupons as %s.",
 	"text.quest.party_quest.kpq.stage1.question.1": "the minimum amount of level needed to make the first job advancement as a warrior",
@@ -1584,6 +1584,10 @@
 	"text.quest.party_quest.ldpq.stage7.require_pass": "<Sky-Blue Balloon> The Passes of Dimension dropped by the mobs bring powerful rombards from another dimension to here. Please eliminate them and collect §93 Passes of Dimension§r, so that I can open the dimension door to the next stage for you!",
 	"text.quest.party_quest.ldpq.stage7.summon_golem": "Rombard is summoned somewhere in the map.",
 	"text.quest.party_quest.ldpq.stage8.wrong_amount": "<Blue Balloon> A password is set here. You have to stand on 5 out of the 9 boxes by different members at the same time. Find the right combination so that I can open the dimension door to the next stage for you!\nIf you don't have enough players, right click the sign and get some dummies.",
+	"text.quest.party_quest.ldpq.stage9.require_key": "<Violet Balloon> We finally reached the throne where Alishar is, but it seems like he have hidden himself in the crack of dimensions. You have to pull him out with the power of Passes of Dimension. Please eliminate him to get the key of dimension, then I can seal the dimensional crack up again!",
+	"text.quest.party_quest.ldpq.stage9.summon_boss": "Alishar is summoned.",
+	"text.quest.party_quest.ldpq.award": "<Arturo> What a great job! You have resolved the crisis of Ludibrium! I have prepared some present for you, please talk to me again.",
+	"text.quest.party_quest.ldpq.require_slot": "<Arturo> Your bag seems a bit full. Please leave 2 slots of your bag empty and talk to me again.",
 	
 	"effect.minecraft.resistance": "",
 	"effect.minecraft.fire_resistance": "",

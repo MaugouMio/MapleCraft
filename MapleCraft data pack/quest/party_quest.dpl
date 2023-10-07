@@ -280,7 +280,7 @@ namespace party_quest() as virtual
 		
 		func leave_confirm()
 		{
-			tellraw @s ["\n",{"translate":"text.quest.party_quest.kpq.leave_confirm","font":"minecraft:uniform"}]
+			tellraw @s ["\n",{"translate":"text.quest.party_quest.common.leave_confirm","font":"minecraft:uniform","with":[{"translate":"npc.nella"}]}]
 			tellraw @s [{"text":"> ","color":"gray","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 173"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},{"translate":"text.answer.yes","color":"yellow","bold":true}]
 			tellraw @s {"text":"==================","font":"minecraft:uniform"}
 		}
@@ -826,7 +826,7 @@ namespace party_quest() as virtual
 					loot give @s mine 250 1 0 minecraft:air{modify_player:1b}
 					tellraw @s {"translate":"text.quest.item_gain_multiple","font":"minecraft:uniform","color":"gray","with":["10",{"translate":"item.etc.5220050","bold":true,"italic":false,"font":"minecraft:uniform"}]}
 					```
-					print(f"give @s minecraft:warped_fungus_on_a_stick{itemDatas[33012]} 10")
+					print(f"give @s minecraft:stick{itemDatas[33012]} 10")
 					```
 					
 					title @s times 1 5 10
@@ -1059,7 +1059,7 @@ namespace party_quest() as virtual
 		
 		func leave_confirm()
 		{
-			tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.leave_confirm","font":"minecraft:uniform"}]
+			tellraw @s ["\n",{"translate":"text.quest.party_quest.common.leave_confirm","font":"minecraft:uniform","with":[{"translate":"npc.sgt_anderson"}]}]
 			tellraw @s [{"text":"> ","color":"gray","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 203"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},{"translate":"text.answer.yes","color":"yellow","bold":true}]
 			tellraw @s {"text":"==================","font":"minecraft:uniform"}
 		}
@@ -1107,6 +1107,45 @@ namespace party_quest() as virtual
 				tellraw @s {"translate":"text.quest.party_quest.common.menu.enter","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 201"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
 				tellraw @s {"translate":"text.quest.party_quest.common.menu.intro","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 202"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
 				tellraw @s {"text":"==================","font":"minecraft:uniform"}
+			}
+			
+			folder arturo()
+			{
+				func talk()
+				{
+					execute if entity @s[tag=ldpq_award_talked] run function ARG(_PATH)slot_check
+					execute unless entity @s[tag=ldpq_award_talked] if score @s map matches 922011100 run function ARG(_PATH)congratz
+				}
+				
+				func congratz()
+				{
+					tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.award","font":"minecraft:uniform"}]
+					tag @s add ldpq_award_talked
+				}
+				
+				func slot_check()
+				{
+					execute store result score #GLOBAL temp run data get entity @s Inventory
+					execute if data entity @s Inventory[{Slot:-106b}] run scoreboard players remove #GLOBAL temp 1
+					execute if score #GLOBAL temp matches 37.. run tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.require_slot","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+					execute if score #GLOBAL temp matches ..36 run function ARG(_PATH)award
+				}
+				
+				func award()
+				{
+					loot replace block 250 1 0 container.0 loot quest:ldpq_award
+					execute store result score #GLOBAL temp run data get block 250 1 0 Items[0].Count
+					execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_gain","font":"minecraft:uniform","color":"gray","with":[{"nbt":"Items[0].tag.display.Name","block":"250 1 0","interpret":true}]}
+					execute if score #GLOBAL temp matches 2.. run tellraw @s {"translate":"text.quest.item_gain_multiple","font":"minecraft:uniform","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"nbt":"Items[0].tag.display.Name","block":"250 1 0","interpret":true}]}
+					loot give @s mine 250 1 0 minecraft:air{modify_player:1b}
+					tellraw @s {"translate":"text.quest.item_gain_multiple","font":"minecraft:uniform","color":"gray","with":["30",{"translate":"item.etc.5220050","bold":true,"italic":false,"font":"minecraft:uniform"}]}
+					```
+					print(f"give @s minecraft:stick{itemDatas[33012]} 30")
+					```
+					
+					function quest:party_quest/ldpq/leave_map
+					tag @s remove ldpq_award_talked
+				}
 			}
 		}
 		
@@ -2780,7 +2819,7 @@ namespace party_quest() as virtual
 					{
 						func talk()
 						{
-							tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage10.leave","font":"minecraft:uniform"}]
+							tellraw @s ["\n",{"translate":"text.quest.party_quest.common.leave_confirm","font":"minecraft:uniform","with":[{"translate":"npc.pink_balloon"}]}]
 							tellraw @s [{"text":"> ","color":"gray","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 203"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},{"translate":"text.answer.yes","color":"yellow","bold":true}]
 							tellraw @s {"text":"==================","font":"minecraft:uniform"}
 						}

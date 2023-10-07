@@ -1567,6 +1567,7 @@
 	
 	"text.quest.party_quest.common.menu.enter": "§7> §1想進行組隊任務§r",
 	"text.quest.party_quest.common.menu.intro": "§7> §9想聽取組隊任務的說明§r",
+	"text.quest.party_quest.common.leave_confirm": "<%s> 離開後就無法再回來這裡，確定要離開嗎？",
 	"text.quest.party_quest.common.member_lost": "<%s> 好像有隊員還沒抵達這裡，請等待所有隊員抵達再與我對話。",
 	"text.quest.party_quest.common.portal_closed": "傳送門尚未開啟。",
 	
@@ -1574,7 +1575,6 @@
 	"text.quest.party_quest.kpq.menu.enter.req_level": "<拉克里斯> 只有等級21以上的玩家可以進行§9第一次同行§r組隊任務。",
 	"text.quest.party_quest.kpq.menu.enter.fail": "<拉克里斯> 已經有人在裡面進行組隊任務了，請稍後再來找我。",
 	"text.quest.party_quest.kpq.menu.intro.detail": "<拉克里斯> §9第一次同行§r組隊任務一共有5個關卡。你必須與隊友們合力解決所有的挑戰，並打敗邪惡的§c超級綠水靈§r！若任務途中想要放棄，與娜拉對話即可離開。\n§l- 等級限制:§r 21以上\n§l- 時間限制:§r 30分鐘",
-	"text.quest.party_quest.kpq.leave_confirm": "<娜拉> 離開後就無法再回來這裡，確定要離開嗎？",
 	"text.quest.party_quest.kpq.stage1.introduce": "<克魯特> 在這個關卡，你需要打敗鱷魚來取得與下列題目的答案相同數量的§9優惠券§r，並與我兌換§9通行證§r。收集§9%s張通行證§r我就會幫你們開啟下一階段的傳送門。",
 	"text.quest.party_quest.kpq.stage1.require_coupon": "<克魯特> 題目如下，收集與%s相同數量的優惠券。",
 	"text.quest.party_quest.kpq.stage1.question.1": "戰士一轉最低所需的等級",
@@ -1600,7 +1600,7 @@
 	"text.quest.party_quest.ldpq.menu": "<標示牌> 關於§l時空的裂縫§r組隊任務有什麼想知道的事嗎？",
 	"text.quest.party_quest.ldpq.menu.enter.req_level": "<標示牌> 只有等級35以上的玩家可以進行§9時空的裂縫§r組隊任務。",
 	"text.quest.party_quest.ldpq.menu.enter.fail": "<標示牌> 已經有人在裡面進行組隊任務了，請稍後再來找我。",
-	"text.quest.party_quest.ldpq.menu.intro.detail": "<標示牌> §9時空的裂縫§r組隊任務一共有9個關卡。請與你的隊友們蒐集次元通行證前往深層的區域，並打敗墮落的次元守門人§c巨型戰鬥機§r，取回鎖住次元之門的鑰匙。\n若任務途中想要放棄，與士兵安德森對話即可離開。\n§l- 等級限制:§r 35以上\n§l- 時間限制:§r 60分鐘",
+	"text.quest.party_quest.ldpq.menu.intro.detail": "<標示牌> §9時空的裂縫§r組隊任務一共有9個關卡。請與你的隊友們蒐集次元通行證前往深層的區域，並打敗墮落的次元守門人§c艾利俠勒§r，取回鎖住次元之門的鑰匙。\n若任務途中想要放棄，與士兵安德森對話即可離開。\n§l- 等級限制:§r 35以上\n§l- 時間限制:§r 60分鐘",
 	"text.quest.party_quest.ldpq.go_next": "<%s> 你們已經完成這個關卡，透過我身旁的次元傳送門往下一關移動。",
 	"text.quest.party_quest.ldpq.stage_pass": "<%s> 你成功收集了§9%s張次元通行證！通往下個階段的傳送門已經開啟，趕緊前往下個區域吧！",
 	"text.quest.party_quest.ldpq.stage1.require_pass": "<紅氣球> 請打倒穿越次元過來的發條鼠，並收集§925張次元通行證§9給我，這樣就能開啟通往下個階段的次元傳送門！",
@@ -1612,6 +1612,10 @@
 	"text.quest.party_quest.ldpq.stage7.require_pass": "<天藍氣球> 通過打倒附近怪物掉落的次元通行證之力，能將強大的泥人領導者從其他次元召喚過來。請打倒它們並收集§93張次元通行證§9給我，這樣就能開啟通往下個階段的次元傳送門！",
 	"text.quest.party_quest.ldpq.stage7.summon_golem": "將異次元的泥人領導者召喚出。",
 	"text.quest.party_quest.ldpq.stage8.wrong_amount": "<藍氣球> 這個關卡中被設置了密碼，請由五名隊員同時站在九個箱子之中的五個上面，找出正確的組合就能開啟通往下個階段的次元傳送門！\n若人數不足可以在一旁的告示牌領取踏板娃娃。",
+	"text.quest.party_quest.ldpq.stage9.require_key": "<紫氣球> 終於來到艾利俠勒所在的王座之室了，不過他躲到了次元的縫隙之中，必須利用次元通行證的力量將他拉出來！請打倒他取得次元的鑰匙，再次將次元之門鎖上吧！",
+	"text.quest.party_quest.ldpq.stage9.summon_boss": "召喚艾利俠勒。",
+	"text.quest.party_quest.ldpq.award": "<亞勒圖> 你們成功解決了玩具城的危機，真是太厲害了！我準備了一點小禮物給你，請再次跟我對話。",
+	"text.quest.party_quest.ldpq.require_slot": "<亞勒圖> 背包好像有點滿呢，請整理出2個欄位再跟我對話。",
 	
 	"effect.minecraft.resistance": "",
 	"effect.minecraft.fire_resistance": "",
