@@ -2648,17 +2648,50 @@ namespace party_quest() as virtual
 							scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
 							execute as @a[scores={playing_game=2},tag=!dead] at @s run function quest:get_exp
 							
-							# forceload add 369 183 392 206
+							forceload add 753 177 776 200
 							```
 							points = [
-								# ("1143 -29 -185", -90),
-								# ("1142 -22 -185", -90),
-								# ("1142 -14 -185", -90)
+								("759 94 183", -90),
+								("770 94 183", 90),
+								("758 101 183", -90),
+								("769 101 187", 180),
+								("758 106 184", -90),
+								("763 106 185", 180),
+								("771 108 184", 90),
+								("763 112 185", 180),
+								("769 113 187", 180),
+								("757 120.0625 187", 180),
+								("769 123 188", 180),
+								("761.0 126 191", 180),
+								("768 132.5 193", -90),
+								("766.0 133 181.0", 0),
+								("764.0 136 193.0", -90),
+								("765 149 181", 0),
+								("761.0 149 187", 0),
+								("769 150 184.0", 90),
+								("765.0 153 183", 90),
+								("761 160 189.0", 90),
+								("763 161 185", 90),
+								("761 162 186", 90),
+								("761 173 188", 90),
+								("760 177 181", 0),
+								("760 179 196", 180),
+								("761 181 188", 90),
+								("760 184 181", 0),
+								("761 189 187", 90),
+								("761 189 196", 180),
+								("761 195 189", 90),
+								("760 198 181", 0),
+								("761 202 189", 90),
+								("760 205 181", 0),
+								("761 207 196", 180),
+								("761 210 189.0", 90),
+								("760 216.0625 187", 90)
 							]
 							for p in points:
 								print('summon interaction %s {Tags:["ldpq_mob"],Passengers:[{id:"minecraft:item_display",Tags:["ldpq_mob","box"],Rotation:[%df,0f],item:{id:"minecraft:splash_potion",Count:1b,tag:{info:{hp_max:4,hurt_sound:5,die_sound:6},CustomModelData:1,CustomPotionColor:0}},item_display:"head",shadow_strength:0.0f,shadow_radius:0.9f}]}' %(p[0], p[1]))
 							```
-							# forceload remove 369 183 392 206
+							forceload remove 753 177 776 200
 							
 							scoreboard players set #LDPQ_S10_LOADED temp 1
 							
@@ -2671,7 +2704,7 @@ namespace party_quest() as virtual
 							
 							title @s times 1 5 10
 							title @s title {"text":"4","font":"ui:main"}
-							# tp @s 391.0 168 -195.0 45 40
+							tp @s 767 121 183 20 45
 						}
 					}
 				}
@@ -2712,6 +2745,15 @@ namespace party_quest() as virtual
 					```
 					# print("execute positioned 1147 -52.9375 -195.0 run", spawn_mob("9300012"))
 					```
+				}
+			}
+			
+			folder 10()
+			{
+				func box_break()
+				{
+					function ARG(__PATH)2/box_break
+					# drop loots
 				}
 			}
 		}
