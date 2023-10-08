@@ -1119,6 +1119,8 @@ namespace item()
 					execute if score #GLOBAL temp matches 2 run playsound minecraft:item.unagi player @s
 					execute if score #GLOBAL temp matches 3 run playsound minecraft:item.sap_of_ancient_tree player @s
 					execute if score #GLOBAL temp matches 4 run playsound minecraft:item.cake player @s
+					execute if score #GLOBAL temp matches 5 run playsound minecraft:item.red_bean_sundae player @s
+					execute if score #GLOBAL temp matches 6 run playsound minecraft:item.ice_cream_pop player @s
 					
 					function ARG(_PATH)remove
 					execute if score #USING_SKILL temp matches ..599 run function ARG(_PATH)recover/check
