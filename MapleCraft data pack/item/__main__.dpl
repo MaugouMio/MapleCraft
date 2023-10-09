@@ -287,8 +287,8 @@ namespace item()
 			func init()
 			{
 				execute store result score @s max_life run data get entity @s data.loot
-				execute if score max_life matches 0 run kill @s
-				execute if score max_life matches 0 run return
+				execute if score @s max_life matches 0 run kill @s
+				execute if score @s max_life matches 0 run return
 				
 				execute if entity @s[y_rotation=-45..45] run function ARG(_PATH)z_positive
 				execute if entity @s[y_rotation=45..135] run function ARG(_PATH)x_negative
@@ -300,7 +300,7 @@ namespace item()
 
 			func x_negative()
 			{
-				scoreboard players operation @s x = @s life
+				scoreboard players operation @s x = @s max_life
 				scoreboard players remove @s x 1
 				scoreboard players operation @s x /= #2 const
 			}
@@ -313,7 +313,7 @@ namespace item()
 
 			func z_negative()
 			{
-				scoreboard players operation @s z = @s life
+				scoreboard players operation @s z = @s max_life
 				scoreboard players remove @s z 1
 				scoreboard players operation @s z /= #2 const
 			}
