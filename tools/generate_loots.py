@@ -35,6 +35,10 @@ CHANCE_TEMPLATE = {
 	"chance": 0,
 	"looting_multiplier": 1.0
 }
+FIXED_CHANCE_TEMPLATE = {
+	"condition": "minecraft:random_chance",
+	"chance": 0
+}
 COUNT_TEMPLATE = {
 	"function": "minecraft:set_count",
 	"count": 1
@@ -134,8 +138,12 @@ def GenerateEntry(id, weight = 1, min_num = 1, max_num = 1):
 	return entry
 
 def SetChance(entry, chance):
-	chance_obj = deepcopy(CHANCE_TEMPLATE)
-	chance_obj["looting_multiplier"] = chance
+	if chance < 0:  # 用負數代表不受倍率影響的機率
+		chance_obj = deepcopy(FIXED_CHANCE_TEMPLATE)
+		chance_obj["chance"] = -chance
+	else:
+		chance_obj = deepcopy(CHANCE_TEMPLATE)
+		chance_obj["looting_multiplier"] = chance
 	entry["conditions"] = [chance_obj]
 
 # 建立掉落池表
@@ -177,19 +185,14 @@ for i in range(loot_df.shape[0]):
 		
 		pool = deepcopy(POOL_TEMPLATE)
 		pool["rolls"] = int(loot_df.iloc[i, pool_col + 1])
+		if chance < 1:
+			SetChance(pool, chance)
+			
 		entries = pool["entries"]
 		if pool_id > 40000:  # 真的是掉落池表的內容
-			if chance < 1:
-				pool["entries"] = deepcopy(poolDatas[pool_id])
-				for entry in pool["entries"]:
-					SetChance(entry, chance)
-			else:
-				pool["entries"] = poolDatas[pool_id]
+			pool["entries"] = poolDatas[pool_id]
 		else:  # 單一道具編號
-			entry = GenerateEntry(pool_id)
-			if chance < 1:
-				SetChance(entry, chance)
-			pool["entries"] = [entry]
+			pool["entries"] = [GenerateEntry(pool_id)]
 		
 		data["pools"].append(pool)
 	
@@ -209,8 +212,7 @@ for w in os.walk("../MapleCraft data pack/data/skill/loot_tables/mob"):
 			steal_loot = {"pools":[{"rolls": 1.0, "entries": []}]}
 			for pool in loot_table["pools"]:
 				copied_entry = deepcopy(pool["entries"][0])
-				copied_entry["weight"] = int(copied_entry["conditions"][0]["looting_multiplier"] * 1000)
-				del copied_entry["conditions"]
+				copied_entry["weight"] = int(pool["conditions"][0]["looting_multiplier"] * 1000)
 				if copied_entry["name"] == "minecraft:diamond":
 					copied_entry["functions"][0]["modifiers"][0]["amount"]["min"] /= 2
 					copied_entry["functions"][0]["modifiers"][0]["amount"]["max"] /= 2
