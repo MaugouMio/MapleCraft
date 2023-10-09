@@ -2829,7 +2829,19 @@ namespace party_quest() as virtual
 				func box_break()
 				{
 					function ARG(__PATH)2/box_break
-					# drop loots
+					execute summon marker ~ ~0.5 ~ run function ARG(_PATH)spawn_loot_spring
+				}
+				
+				func spawn_loot_spring()
+				{
+					tp @s ~ ~ ~ ~ ~
+					tag @s add loot_spring
+					
+					data remove block 250 1 0 Items[]
+					loot replace block 250 1 0 container.0 loot skill:box/ldpq_bonus
+					data modify entity @s data.loot set from block 250 1 0 Items
+					
+					function item:entity/loot_spring/init
 				}
 			}
 		}

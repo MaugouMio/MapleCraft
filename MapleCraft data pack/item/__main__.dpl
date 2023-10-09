@@ -183,6 +183,7 @@ namespace item()
 			```
 			scoreboard players set #CAN_PICK temp 1
 			execute if entity @s[tag=loot_meso] unless score @s number = #GLOBAL temp run scoreboard players set #CAN_PICK temp 0
+			execute if data entity @s Owner run scoreboard players set #CAN_PICK temp 0
 			execute if score #CAN_PICK temp matches 1 if score #PICKED temp matches 0 run function ARG(_PATH)set_owner
 		}
 		
@@ -252,7 +253,7 @@ namespace item()
 		{
 			# 暫時移除掉落物所有權的設定，等隊伍機制出來再設計規則
 			# data modify entity @s Owner set from storage skill:main damage_info.attacker
-			# tag @s add loot_item
+			tag @s add loot_item
 			
 			data modify entity @s PickupDelay set value 32767s
 			playsound minecraft:game.drop_item player @a ~ ~ ~ 1 1 0
@@ -269,7 +270,7 @@ namespace item()
 			func free()
 			{
 				data modify storage item:main item set from entity @s Item
-				summon minecraft:item ~ ~ ~ {Item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:1}},Age:4800,Tags:["checked","new"]}
+				summon item ~ ~ ~ {Item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:1}},Age:4800,Tags:["checked","new"]}
 				execute as @e[type=item,tag=new,limit=1] run function ARG(_PATH)respawn
 				kill @s
 			}
@@ -277,6 +278,89 @@ namespace item()
 			func respawn()
 			{
 				data modify entity @s Item set from storage item:main item
+				tag @s remove new
+			}
+		}
+
+		folder loot_spring()
+		{
+			func init()
+			{
+				execute store result score @s max_life run data get entity @s data.loot
+				execute if score max_life matches 0 run kill @s
+				execute if score max_life matches 0 run return
+				
+				execute if entity @s[y_rotation=-45..45] run function ARG(_PATH)z_positive
+				execute if entity @s[y_rotation=45..135] run function ARG(_PATH)x_negative
+				execute unless entity @s[y_rotation=-135..135] run function ARG(_PATH)z_negative
+				execute if entity @s[y_rotation=-135..-45] run function ARG(_PATH)x_positive
+
+				execute store result score @s number run schedule function ARG(_PATH)call_spawn 4t append
+			}
+
+			func x_negative()
+			{
+				scoreboard players operation @s x = @s life
+				scoreboard players remove @s x 1
+				scoreboard players operation @s x /= #2 const
+			}
+
+			func x_positive()
+			{
+				function ARG(_PATH)x_negative
+				scoreboard players operation @s x *= #-1 const
+			}
+
+			func z_negative()
+			{
+				scoreboard players operation @s z = @s life
+				scoreboard players remove @s z 1
+				scoreboard players operation @s z /= #2 const
+			}
+
+			func z_positive()
+			{
+				function ARG(_PATH)z_negative
+				scoreboard players operation @s z *= #-1 const
+			}
+
+			func call_spawn()
+			{
+				execute store result score #GLOBAL temp run time query gametime
+				execute as @e[type=marker,tag=loot_spring] if score @s number = #GLOBAL temp at @s run function ARG(_PATH)spawn
+			}
+
+			func spawn()
+			{
+				scoreboard players add @s life 1
+				scoreboard players operation #PLAY_SOUND temp = @s life
+				scoreboard players operation #PLAY_SOUND temp %= #2 const
+				execute if score #PLAY_SOUND temp matches 1 run playsound minecraft:game.drop_item player @a ~ ~ ~ 1 1 0
+
+				data modify storage item:main item set from entity @s data.loot[-1]
+				data remove entity @s data.loot[-1]
+				scoreboard players operation #X temp = @s x
+				scoreboard players operation #Z temp = @s z
+
+				summon item ~ ~ ~ {Item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:1}},Motion:[0d,0.45d,0d],Age:2400,PickupDelay:-32767s,Tags:["checked","new"]}
+				execute as @e[type=item,tag=new,limit=1] run function ARG(_PATH)item_setting
+
+				execute if score @s life < @s max_life store result score @s number run schedule function ARG(_PATH)call_spawn 4t append
+				execute if score @s life = @s max_life run kill @s
+				execute if score @s life = @s max_life run return
+
+				execute if entity @s[y_rotation=-45..45] run scoreboard players add @s z 1
+				execute if entity @s[y_rotation=45..135] run scoreboard players remove @s x 1
+				execute unless entity @s[y_rotation=-135..135] run scoreboard players remove @s z 1
+				execute if entity @s[y_rotation=-135..-45] run scoreboard players add @s x 1
+			}
+
+			func item_setting()
+			{
+				data modify entity @s Item set from storage item:main item
+				execute if data entity @s Item{id:"minecraft:diamond"} run function ARG(__PATH)set_meso
+				execute store result entity @s Motion[0] double 0.03 run scoreboard players get #X temp
+				execute store result entity @s Motion[2] double 0.03 run scoreboard players get #Z temp
 				tag @s remove new
 			}
 		}

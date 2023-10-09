@@ -81,6 +81,8 @@ namespace main()
 		scoreboard objectives add bgm dummy
 		scoreboard objectives add bgm_time dummy
 		scoreboard objectives add tutorial dummy
+		scoreboard objectives add x dummy
+		scoreboard objectives add z dummy
 		
 		team add enemy
 		team modify enemy collisionRule never
@@ -100,6 +102,7 @@ namespace main()
 		fill 249 0 -1 251 2 1 minecraft:bedrock
 		setblock 250 0 0 minecraft:acacia_wall_sign
 		setblock 250 1 0 minecraft:shulker_box
+		# 0 for random, 1 for tomb head
 		setblock 250 2 0 minecraft:barrel
 		item replace block 250 2 0 container.0 with minecraft:suspicious_stew
 		```
