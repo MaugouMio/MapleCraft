@@ -339,10 +339,10 @@ namespace item()
 
 				data modify storage item:main item set from entity @s data.loot[-1]
 				data remove entity @s data.loot[-1]
-				scoreboard players operation #X temp = @s x
-				scoreboard players operation #Z temp = @s z
+				execute store result storage item:main loot_spring.x double 0.03 run scoreboard players get @s x
+				execute store result storage item:main loot_spring.z double 0.03 run scoreboard players get @s z
 
-				summon item ~ ~ ~ {Item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:1}},Motion:[0d,0.45d,0d],Age:2400,PickupDelay:-32767s,Tags:["checked","new"]}
+				function ARG(_PATH)summon_item with storage item:main loot_spring
 				execute as @e[type=item,tag=new,limit=1] run function ARG(_PATH)item_setting
 
 				execute if score @s life < @s max_life store result score @s number run schedule function ARG(_PATH)call_spawn 4t append
@@ -355,12 +355,15 @@ namespace item()
 				execute if entity @s[y_rotation=-135..-45] run scoreboard players add @s x 1
 			}
 
+			func summon_item()
+			{
+				$summon item ~ ~ ~ {Item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:1}},Motion:[$(x)d,0.45d,$(z)d],Age:2400,PickupDelay:-32767s,Tags:["checked","new"]}
+			}
+
 			func item_setting()
 			{
 				data modify entity @s Item set from storage item:main item
 				execute if data entity @s Item{id:"minecraft:diamond"} run function ARG(__PATH)set_meso
-				execute store result entity @s Motion[0] double 0.03 run scoreboard players get #X temp
-				execute store result entity @s Motion[2] double 0.03 run scoreboard players get #Z temp
 				tag @s remove new
 			}
 		}
