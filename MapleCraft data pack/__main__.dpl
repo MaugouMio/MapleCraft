@@ -102,9 +102,6 @@ namespace main()
 		fill 249 0 -1 251 2 1 minecraft:bedrock
 		setblock 250 0 0 minecraft:acacia_wall_sign
 		setblock 250 1 0 minecraft:shulker_box
-		# 0 for random, 1 for tomb head
-		setblock 250 2 0 minecraft:barrel
-		item replace block 250 2 0 container.0 with minecraft:suspicious_stew
 		```
 		print("summon minecraft:snow_golem 250 -2 0 {NoAI:1,NoGravity:1,Invulnerable:1,Silent:1,UUID:%s}" %UUID_LIST["root"])
 		```
@@ -1073,13 +1070,7 @@ namespace main()
 		}
 	}
 	
-	func rand_rate()
-	{
-		loot replace block 0 2 0 container.0 loot main:percent_rate
-		execute store result score #RAND_RESULT temp run data get block 0 2 0 Items[0].tag.Damage
-	}
-	
-	func rand_range() from random().generate("#0 const", "#RANGE_MAX temp", "#RAND_RANGE_RESULT temp");
+	func rand_range() from random().generate("0", "#RANGE_MAX temp", "#RAND_RANGE_RESULT temp");
 	folder get_sqrt() from math().sqrt("#SQUARE temp", "#SQRT temp");
 }
 

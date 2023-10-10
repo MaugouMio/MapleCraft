@@ -4,37 +4,34 @@ namespace random()
 	{
 		```
 		try:
-			print("scoreboard players set #RAND_MIN number %d" %int('ARG(min)'))
+			print("data modify storage random:main range.min set value %d" %int('ARG(min)'))
 		except:
 			if len('ARG(min)'.split(' ')) != 2:
 				raise ValueError("Argument 'min' must be an integer or an '<entity> <scoreboard objective>' string.")
-			print("scoreboard players operation #RAND_MIN number = ARG(min)")
+			print("execute store result storage random:main range.min int 1 run scoreboard players get ARG(min)")
 		
 		try:
-			print("scoreboard players set #RAND_MAX number %d" %int('ARG(max)'))
+			print("data modify storage random:main range.max set value %d" %int('ARG(max)'))
 		except:
 			if len('ARG(max)'.split(' ')) != 2:
 				raise ValueError("Argument 'max' must be an integer or an '<entity> <scoreboard objective>' string.")
-			print("scoreboard players operation #RAND_MAX number = ARG(max)")
+			print("execute store result storage random:main range.max int 1 run scoreboard players get ARG(max)")
 		
 		if len('ARG(result)'.split(' ')) != 2:
 			raise ValueError("Argument 'result' must be an '<entity> <scoreboard objective>' string.")
 		```
 		
-		item modify block 250 2 0 container.0 random:rand
-		execute store result score ARG(result) run data get block 250 2 0 Items[0].tag.Effects[0].EffectDuration
+		data modify storage random:main range.target set value "ARG(result)"
+		function random:get_rand with storage random:main range
 	}
 	
 	func rand_rate()
 	{
-		scoreboard players set #RAND_MIN number 0
-		scoreboard players set #RAND_MAX number 99
-		function ARG(_PATH)get_rand
+		execute store result score #RAND_RESULT number run random value 0..99
 	}
 	
 	func get_rand()
 	{
-		item modify block 250 2 0 container.0 random:rand
-		execute store result score #RAND_RESULT number run data get block 250 2 0 Items[0].tag.Effects[0].EffectDuration
+		$execute store result score $(target) run random value $(min)..$(max)
 	}
 }
