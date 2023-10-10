@@ -297,7 +297,7 @@ namespace party_quest() as virtual
 			scoreboard players set @s bgm 3
 			
 			bossbar set ui:clock/kpq players @a[scores={playing_game=1}]
-			clear @s minecraft:creeper_spawn_egg
+			clear @s minecraft:stick{dummy:1b}
 		}
 		
 		func reset()
@@ -462,7 +462,6 @@ namespace party_quest() as virtual
 					scoreboard players set #KPQ_S3_LOADED temp 1
 					scoreboard players add @s game_stage 1
 					execute unless entity @a[scores={playing_game=1,game_stage=..2}] run function ARG(_PATH)reset
-					clear @s minecraft:creeper_spawn_egg
 					
 					scoreboard players set @s bgm 4
 					function main:bgm/search/sleepy_wood
@@ -568,7 +567,6 @@ namespace party_quest() as virtual
 					scoreboard players set #KPQ_S4_LOADED temp 1
 					scoreboard players add @s game_stage 1
 					execute unless entity @a[scores={playing_game=1,game_stage=..3}] run function ARG(_PATH)reset
-					clear @s minecraft:creeper_spawn_egg
 					
 					title @s times 1 5 10
 					title @s title {"text":"4","font":"ui:main"}
@@ -687,7 +685,6 @@ namespace party_quest() as virtual
 				{
 					scoreboard players add @s game_stage 1
 					execute unless entity @a[scores={playing_game=1,game_stage=..4}] run function ARG(_PATH)reset
-					clear @s minecraft:creeper_spawn_egg
 					
 					title @s times 1 5 10
 					title @s title {"text":"4","font":"ui:main"}
@@ -1068,15 +1065,15 @@ namespace party_quest() as virtual
 		{
 			function ARG(_PATH)reset
 			
-			execute unless entity @s[tag=ldpq_pass] run function ARG(_PATH)tp_101f
+			execute unless entity @s[tag=ldpq_pass] run function ARG(_PATH)tp_leave
 			execute if entity @s[tag=ldpq_pass] run function ARG(_PATH)stages/10/tp
 			tag @s remove ldpq_pass
 			
 			bossbar set ui:clock/ldpq players @a[scores={playing_game=2}]
-			clear @s minecraft:creeper_spawn_egg
+			clear @s minecraft:stick{dummy:1b}
 		}
 		
-		func tp_101f()
+		func tp_leave()
 		{
 			tp @s 382 119 583 180 50
 			
