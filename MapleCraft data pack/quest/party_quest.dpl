@@ -1201,7 +1201,6 @@ namespace party_quest() as virtual
 							function quest:party_quest/ldpq/title/clear/run
 							scoreboard players set #LDPQ_STAGE temp 2
 							
-							# data modify block -310 47 0 front_text.messages[0] set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -310.0 46 -1.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/1/portal"}}'
 							summon minecraft:item_display 381 -44 190 {Tags:["ldpq_mob"],item:{id:"minecraft:splash_potion",Count:1b,tag:{CustomModelData:1000003,CustomPotionColor:-1}},billboard:"vertical"}
 							
 							scoreboard players set #EXP_GAIN temp 3000
@@ -1302,8 +1301,7 @@ namespace party_quest() as virtual
 							function quest:party_quest/ldpq/title/clear/run
 							scoreboard players set #LDPQ_STAGE temp 3
 							
-							# data modify block -310 47 0 front_text.messages[0] set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -310.0 46 -1.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/1/portal"}}'
-							summon minecraft:item_display 388 27.1 -183 {Tags:["ldpq_mob"],item:{id:"minecraft:splash_potion",Count:1b,tag:{CustomModelData:1000003,CustomPotionColor:-1}},billboard:"vertical"}
+							summon minecraft:item_display 388 27.1 -185 {Tags:["ldpq_mob"],item:{id:"minecraft:splash_potion",Count:1b,tag:{CustomModelData:1000003,CustomPotionColor:-1}},billboard:"vertical"}
 							
 							scoreboard players set #EXP_GAIN temp 3600
 							scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
@@ -1475,8 +1473,7 @@ namespace party_quest() as virtual
 							function quest:party_quest/ldpq/title/clear/run
 							scoreboard players set #LDPQ_STAGE temp 4
 							
-							# data modify block -310 47 0 front_text.messages[0] set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -310.0 46 -1.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/1/portal"}}'
-							summon minecraft:item_display 382 112.1 200 {Tags:["ldpq_mob"],item:{id:"minecraft:splash_potion",Count:1b,tag:{CustomModelData:1000003,CustomPotionColor:-1}},billboard:"vertical"}
+							summon minecraft:item_display 382 112.1 201 {Tags:["ldpq_mob"],item:{id:"minecraft:splash_potion",Count:1b,tag:{CustomModelData:1000003,CustomPotionColor:-1}},billboard:"vertical"}
 							
 							scoreboard players set #EXP_GAIN temp 4200
 							scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
@@ -1561,7 +1558,6 @@ namespace party_quest() as virtual
 							function quest:party_quest/ldpq/title/clear/run
 							scoreboard players set #LDPQ_STAGE temp 5
 							
-							# data modify block -310 47 0 front_text.messages[0] set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -310.0 46 -1.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/1/portal"}}'
 							summon minecraft:item_display 382 127 -183 {Tags:["ldpq_mob"],item:{id:"minecraft:splash_potion",Count:1b,tag:{CustomModelData:1000003,CustomPotionColor:-1}},billboard:"vertical"}
 							
 							scoreboard players set #EXP_GAIN temp 4800
@@ -1931,7 +1927,6 @@ namespace party_quest() as virtual
 							function quest:party_quest/ldpq/title/clear/run
 							scoreboard players set #LDPQ_STAGE temp 6
 							
-							# data modify block -310 47 0 front_text.messages[0] set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -310.0 46 -1.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/1/portal"}}'
 							summon minecraft:item_display 375 191 194 {Tags:["ldpq_mob"],item:{id:"minecraft:splash_potion",Count:1b,tag:{CustomModelData:1000003,CustomPotionColor:-1}},billboard:"vertical"}
 							
 							scoreboard players set #EXP_GAIN temp 5400
@@ -2442,7 +2437,6 @@ namespace party_quest() as virtual
 							function quest:party_quest/ldpq/title/clear/run
 							scoreboard players set #LDPQ_STAGE temp 8
 							
-							# data modify block -310 47 0 front_text.messages[0] set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -310.0 46 -1.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/1/portal"}}'
 							summon minecraft:item_display 1145 -36 -195 {Tags:["ldpq_mob"],item:{id:"minecraft:splash_potion",Count:1b,tag:{CustomModelData:1000003,CustomPotionColor:-1}},billboard:"vertical"}
 							
 							scoreboard players set #EXP_GAIN temp 6600
@@ -2627,7 +2621,6 @@ namespace party_quest() as virtual
 							function quest:party_quest/ldpq/title/clear/run
 							scoreboard players set #LDPQ_STAGE temp 9
 							
-							# data modify block -310 47 0 front_text.messages[0] set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -310.0 46 -1.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/1/portal"}}'
 							summon minecraft:item_display 774 115 569 {Tags:["ldpq_mob"],item:{id:"minecraft:splash_potion",Count:1b,tag:{CustomModelData:1000003,CustomPotionColor:-1}},billboard:"vertical"}
 							
 							scoreboard players set #EXP_GAIN temp 7200
