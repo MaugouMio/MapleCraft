@@ -33,7 +33,7 @@ namespace stat()
 		{
 			scoreboard players operation @s real_speed = #GLOBAL temp
 			
-			item replace block 250 1 0 container.0 with minecraft:potion
+			item replace block 250 1 0 container.0 with minecraft:carved_pumpkin
 			data modify block 250 1 0 Items[0].tag set from entity @s Inventory[{Slot:103b}].tag
 			execute store result block 250 1 0 Items[0].tag.AttributeModifiers[0].Amount float 0.01 run scoreboard players get @s real_speed
 			item replace entity @s armor.head from block 250 1 0 container.0

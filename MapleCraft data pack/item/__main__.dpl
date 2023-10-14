@@ -42,7 +42,7 @@ namespace use_equip_template(equip) as virtual
 		execute if entity @s[tag=ARG(equip)_equipped] run function ARG(_PATH)remove
 		
 		# equip new ARG(equip)
-		item replace block 250 1 0 container.0 with minecraft:potion
+		item replace block 250 1 0 container.0 with minecraft:carved_pumpkin
 		data modify block 250 1 0 Items[0].tag set from entity @s Inventory[{Slot:103b}].tag
 		data modify block 250 1 0 Items[0].tag.ARG(equip) set from storage item:main equip
 		
@@ -535,7 +535,7 @@ namespace item()
 				execute store result score #GLOBAL temp run data get block 250 1 0 Items[0].tag.speed
 				
 				# reset speed attribute modifier
-				item replace block 250 1 0 container.0 with minecraft:potion
+				item replace block 250 1 0 container.0 with minecraft:carved_pumpkin
 				data modify block 250 1 0 Items[0].tag set from entity @s Inventory[{Slot:103b}].tag
 				execute store result score #GLOBAL temp run scoreboard players operation @s speed -= #GLOBAL temp
 				scoreboard players operation #GLOBAL temp < #40 const
@@ -650,7 +650,7 @@ namespace item()
 					execute unless score #EQUIP_TYPE temp matches 33 if entity @s[tag=pants_equipped] run function ARG(_PATH)remove
 					
 					# equip new pants
-					item replace block 250 1 0 container.0 with minecraft:potion
+					item replace block 250 1 0 container.0 with minecraft:carved_pumpkin
 					data modify block 250 1 0 Items[0].tag set from entity @s Inventory[{Slot:103b}].tag
 					data modify block 250 1 0 Items[0].tag.pants set from storage item:main equip
 					
@@ -715,7 +715,7 @@ namespace item()
 					execute if entity @s[tag=pants_equipped] run function ARG(__PATH)pants/remove
 					
 					# equip new ARG(equip)
-					item replace block 250 1 0 container.0 with minecraft:potion
+					item replace block 250 1 0 container.0 with minecraft:carved_pumpkin
 					data modify block 250 1 0 Items[0].tag set from entity @s Inventory[{Slot:103b}].tag
 					data modify block 250 1 0 Items[0].tag.cloth set from storage item:main equip
 					
@@ -784,7 +784,7 @@ namespace item()
 					execute if entity @s[tag=shield_equipped] run function ARG(_PATH)remove
 					
 					# equip new shield
-					item replace block 250 1 0 container.0 with minecraft:potion
+					item replace block 250 1 0 container.0 with minecraft:carved_pumpkin
 					data modify block 250 1 0 Items[0].tag set from entity @s Inventory[{Slot:103b}].tag
 					data modify block 250 1 0 Items[0].tag.shield set from storage item:main equip
 					
@@ -863,7 +863,7 @@ namespace item()
 				item replace entity @s weapon.mainhand from block 250 1 0 container.0
 				
 				# equip new weapon
-				item replace block 250 1 0 container.0 with minecraft:potion
+				item replace block 250 1 0 container.0 with minecraft:carved_pumpkin
 				data modify block 250 1 0 Items[0].tag set from entity @s Inventory[{Slot:103b}].tag
 				data modify block 250 1 0 Items[0].tag.weapon set from storage item:main equip
 				
