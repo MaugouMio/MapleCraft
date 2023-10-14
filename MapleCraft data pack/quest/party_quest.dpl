@@ -287,6 +287,7 @@ namespace party_quest() as virtual
 		
 		func leave_stages()
 		{
+			tag @s remove kpq_s1_introduced
 			scoreboard players reset @s kpq_coupon
 			scoreboard players reset @s kpq_question
 			
@@ -423,7 +424,10 @@ namespace party_quest() as virtual
 						
 						func show_question()
 						{
-							tellraw @s ["\n",{"translate":"text.quest.party_quest.kpq.stage1.introduce","font":"minecraft:uniform","with":[{"score":{"objective":"temp","name":"#KPQ_PASS_REQUIRED"},"color":"blue"}]}]
+							tellraw @s[tag=!kpq_s1_introduced] ["\n",{"translate":"text.quest.party_quest.kpq.stage1.introduce","font":"minecraft:uniform","with":[{"score":{"objective":"temp","name":"#KPQ_PASS_REQUIRED"},"color":"blue"}]}]
+							tellraw @s[tag=kpq_s1_introduced] ["\n",{"translate":"text.quest.party_quest.kpq.stage1.wrong_amount","font":"minecraft:uniform"}]
+							tag @s add kpq_s1_introduced
+							
 							execute if score @s kpq_question matches 1 run data modify storage quest:main temp set value '{"translate":"text.quest.party_quest.kpq.stage1.question.1"}'
 							execute if score @s kpq_question matches 2 run data modify storage quest:main temp set value '{"translate":"text.quest.party_quest.kpq.stage1.question.2"}'
 							execute if score @s kpq_question matches 3 run data modify storage quest:main temp set value '{"translate":"text.quest.party_quest.kpq.stage1.question.3"}'
