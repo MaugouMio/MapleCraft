@@ -328,7 +328,6 @@ namespace party_quest() as virtual
 				execute if score @s game_stage matches 3 run function ARG(__PATH)stages/3/npc/cloto/talk
 				execute if score @s game_stage matches 4 run function ARG(__PATH)stages/4/npc/cloto/talk
 				execute if score @s game_stage matches 5 run function ARG(__PATH)stages/5/npc/cloto/talk
-				execute if score @s game_stage matches 6 run function ARG(__PATH)stages/6/npc/cloto/talk
 			}
 			
 			func nella()
