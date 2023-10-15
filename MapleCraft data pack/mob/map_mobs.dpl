@@ -1,4 +1,4 @@
-namespace map_mobs()
+namespace map_mobs() as virtual
 {
 	folder maple_island()
 	{
@@ -10,6 +10,12 @@ namespace map_mobs()
 				print(f"execute positioned {pos} run", spawn_mob("2230101", uuid=MOB_UUID))
 				MOB_UUID += 1
 			```
+		}
+		
+		func box_break()
+		{
+			function skill:6/0/0/1000/box/respawn/summon_spawner
+			playsound minecraft:mob.hurt.b_00020003 player @a ~ ~ ~ 1 1 0
 		}
 	}
 	

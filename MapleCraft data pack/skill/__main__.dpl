@@ -833,7 +833,7 @@ namespace skill()
 							
 							func break_effect()
 							{
-								execute if data entity @s item.tag.loot run function ARG(_PATH)loot
+								execute if data entity @s item.tag.info.loot run function ARG(_PATH)loot
 								function ARG(_PATH)check_break_event/run
 							}
 
@@ -842,7 +842,7 @@ namespace skill()
 								# 箱子掉落物沒有所有權
 								data remove storage skill:main damage_info.attacker
 
-								data modify entity 00000000-0000-0001-0000-000000000001 DeathLootTable set from entity @s item.tag.loot
+								data modify entity 00000000-0000-0001-0000-000000000001 DeathLootTable set from entity @s item.tag.info.loot
 								function skill:spawn_loot
 								execute as @e[type=item,tag=!checked] at @s run function item:entity/check
 							}
@@ -890,6 +890,42 @@ namespace skill()
 								
 								bs_break_event(break_events, 0, len(break_events) - 1)
 								```
+							}
+						}
+						
+						folder respawn()
+						{
+							func check()
+							{
+								scoreboard players remove @s life 1
+								execute unless score @s life matches 1.. at @s run function ARG(_PATH)spawn
+							}
+							
+							func spawn()
+							{
+								data modify storage skill:main box_data set from entity @s data.box
+								function ARG(_PATH)summon with storage skill:main box_data
+								kill @s
+							}
+							
+							func summon()
+							{
+								$summon interaction ~ ~ ~ {Passengers:[{id:"minecraft:item_display",Tags:["box"],Rotation:[$(rotation)f,0f],item:{id:"minecraft:splash_potion",Count:1b,tag:{info:$(info),model:$(model),CustomModelData:$(model),CustomPotionColor:0}},item_display:"head",shadow_strength:0.0f,shadow_radius:0.9f}]}
+							}
+							
+							func summon_spawner()
+							{
+								data modify storage skill:main box_data.rotation set from entity @s Rotation[0]
+								data modify storage skill:main box_data.info set from entity @s item.tag.info
+								data modify storage skill:main box_data.model set from entity @s item.tag.model
+								execute summon marker run function ARG(_PATH)set_spawner
+							}
+							
+							func set_spawner()
+							{
+								tag @s add box_spawner
+								scoreboard players set @s life 180
+								data modify entity @s data.box set from storage skill:main box_data
 							}
 						}
 					}
@@ -1244,6 +1280,7 @@ namespace skill()
 			execute as @e[type=ocelot,tag=!dead] run function ARG(_PATH)enemy
 			execute as @a[scores={debuff_count=1..}] at @s run function ARG(__PATH)update_negative/run
 			scoreboard players remove @a[scores={tired_time=1..}] tired_time 1
+			execute as @e[type=marker,tag=box_spawner] run function skill:6/0/0/1000/box/respawn/check
 		}
 		
 		func enemy()
