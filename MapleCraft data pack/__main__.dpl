@@ -508,10 +508,12 @@ namespace main()
 			binary_search_cmd(cmd_list, mid_right, end)
 		
 		with open(PROJ_DIR + "/../datas/commands.csv") as f:
-			commands = f.read().split("\n")
-			for i in range(len(commands)):
-				sep_point = commands[i].find(",")
-				commands[i] = [commands[i][:sep_point], commands[i][(sep_point+1):]]
+			commands = []
+			for line in f.read().split("\n"):
+				if line[0] == '#':
+					continue
+				sep_point = line.find(",")
+				commands.append([line[:sep_point], line[(sep_point+1):]])
 		
 		binary_search_cmd(commands, 0, len(commands) - 1)
 		```
@@ -827,10 +829,6 @@ namespace main()
 		{
 			tellraw @s ["\n",{"translate":"text.quest.test_server_helper.menu","font":"minecraft:uniform"}]
 			tellraw @s {"translate":"text.quest.test_server_helper.menu.level_up","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 192"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
-			tellraw @s {"translate":"text.quest.test_server_helper.menu.equip_warrior","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 193"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
-			tellraw @s {"translate":"text.quest.test_server_helper.menu.equip_magician","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 194"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
-			tellraw @s {"translate":"text.quest.test_server_helper.menu.equip_archer","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 195"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
-			tellraw @s {"translate":"text.quest.test_server_helper.menu.equip_thief","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 196"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
 			tellraw @s {"text":"==================","font":"minecraft:uniform"}
 		}
 		
@@ -842,38 +840,38 @@ namespace main()
 		func dances_with_balrog()
 		{
 			tellraw @s ["\n",{"translate":"text.quest.test_warrior_transfer.menu","font":"minecraft:uniform"}]
-			tellraw @s {"translate":"text.quest.test_warrior_transfer.menu.warrior","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 188"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
-			tellraw @s {"translate":"text.quest.test_warrior_transfer.menu.fighter","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 178"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
-			tellraw @s {"translate":"text.quest.test_warrior_transfer.menu.page","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 179"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
-			tellraw @s {"translate":"text.quest.test_warrior_transfer.menu.spearman","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 180"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
+			tellraw @s[scores={map=103000000}] {"translate":"text.quest.test_warrior_transfer.menu.warrior","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 188"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
+			tellraw @s[scores={map=221024500}] {"translate":"text.quest.test_warrior_transfer.menu.fighter","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 178"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
+			tellraw @s[scores={map=221024500}] {"translate":"text.quest.test_warrior_transfer.menu.page","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 179"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
+			tellraw @s[scores={map=221024500}] {"translate":"text.quest.test_warrior_transfer.menu.spearman","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 180"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
 			tellraw @s {"text":"==================","font":"minecraft:uniform"}
 		}
 		
 		func grendel_the_really_old()
 		{
 			tellraw @s ["\n",{"translate":"text.quest.test_magician_transfer.menu","font":"minecraft:uniform"}]
-			tellraw @s {"translate":"text.quest.test_magician_transfer.menu.magician","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 189"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
-			tellraw @s {"translate":"text.quest.test_magician_transfer.menu.wizard_fp","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 181"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
-			tellraw @s {"translate":"text.quest.test_magician_transfer.menu.wizard_il","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 182"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
-			tellraw @s {"translate":"text.quest.test_magician_transfer.menu.cleric","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 183"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
+			tellraw @s[scores={map=103000000}] {"translate":"text.quest.test_magician_transfer.menu.magician","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 189"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
+			tellraw @s[scores={map=221024500}] {"translate":"text.quest.test_magician_transfer.menu.wizard_fp","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 181"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
+			tellraw @s[scores={map=221024500}] {"translate":"text.quest.test_magician_transfer.menu.wizard_il","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 182"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
+			tellraw @s[scores={map=221024500}] {"translate":"text.quest.test_magician_transfer.menu.cleric","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 183"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
 			tellraw @s {"text":"==================","font":"minecraft:uniform"}
 		}
 		
 		func athena_pierce()
 		{
 			tellraw @s ["\n",{"translate":"text.quest.test_archer_transfer.menu","font":"minecraft:uniform"}]
-			tellraw @s {"translate":"text.quest.test_archer_transfer.menu.archer","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 190"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
-			tellraw @s {"translate":"text.quest.test_archer_transfer.menu.hunter","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 184"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
-			tellraw @s {"translate":"text.quest.test_archer_transfer.menu.crossbowman","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 185"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
+			tellraw @s[scores={map=103000000}] {"translate":"text.quest.test_archer_transfer.menu.archer","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 190"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
+			tellraw @s[scores={map=221024500}] {"translate":"text.quest.test_archer_transfer.menu.hunter","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 184"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
+			tellraw @s[scores={map=221024500}] {"translate":"text.quest.test_archer_transfer.menu.crossbowman","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 185"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
 			tellraw @s {"text":"==================","font":"minecraft:uniform"}
 		}
 		
 		func dark_lord()
 		{
 			tellraw @s ["\n",{"translate":"text.quest.test_thief_transfer.menu","font":"minecraft:uniform"}]
-			tellraw @s {"translate":"text.quest.test_thief_transfer.menu.thief","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 191"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
-			tellraw @s {"translate":"text.quest.test_thief_transfer.menu.assassin","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 186"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
-			tellraw @s {"translate":"text.quest.test_thief_transfer.menu.bandit","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 187"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
+			tellraw @s[scores={map=103000000}] {"translate":"text.quest.test_thief_transfer.menu.thief","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 191"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
+			tellraw @s[scores={map=221024500}] {"translate":"text.quest.test_thief_transfer.menu.assassin","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 186"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
+			tellraw @s[scores={map=221024500}] {"translate":"text.quest.test_thief_transfer.menu.bandit","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 187"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
 			tellraw @s {"text":"==================","font":"minecraft:uniform"}
 		}
 	}
@@ -929,153 +927,165 @@ namespace main()
 			give @s minecraft:ender_eye{CustomModelData:199,skill:1b,HideFlags:127,display:{Name:'{"translate":"skill.attack","bold":true,"italic":false}'}} 2
 		}
 		
-		func warrior()
+		folder warrior()
 		{
-			function ARG(_PATH)reset
-			
-			tag @s add warrior
-			scoreboard players set @s job_level 1
-			# effect
-			playsound minecraft:game.job_changed player @a ~ ~ ~ 1 1 0
-			function skill:summon_font_effect/0000000job_changed
-			
-			scoreboard players set @s level 25
-			scoreboard players set @s hp 1226
-			scoreboard players set @s hp_max 1226
-			scoreboard players set @s hp_max_base 1226
-			scoreboard players set @s mp 200
-			scoreboard players set @s mp_max 200
-			scoreboard players set @s mp_max_base 200
-			
-			scoreboard players set @s STR 87
-			scoreboard players set @s DEX 50
-			scoreboard players set @s INT 4
-			scoreboard players set @s LUK 4
-			
-			function stat:standard_pdd/set
-			execute if score @s hyper_buff_time matches 1.. run function skill:1/3/0/1007/set_hp_mp
-			
-			scoreboard players set @s 1000000_level 5
-			function skill:1/0/0/0000/levels/check
-			scoreboard players set @s 1000001_level 10
-			function skill:1/0/0/0001/levels/check
-			scoreboard players set @s 1000002_level 0
-			scoreboard players set @s 1001003_level 0
-			scoreboard players set @s 1001004_level 0
-			scoreboard players set @s 1001005_level 0
-			
-			scoreboard players set @s skill_point 31
+			func first()
+			{
+				function ARG(__PATH)reset
+				
+				tag @s add warrior
+				scoreboard players set @s job_level 1
+				# effect
+				playsound minecraft:game.job_changed player @a ~ ~ ~ 1 1 0
+				function skill:summon_font_effect/0000000job_changed
+				
+				scoreboard players set @s level 25
+				scoreboard players set @s hp 1226
+				scoreboard players set @s hp_max 1226
+				scoreboard players set @s hp_max_base 1226
+				scoreboard players set @s mp 200
+				scoreboard players set @s mp_max 200
+				scoreboard players set @s mp_max_base 200
+				
+				scoreboard players set @s STR 87
+				scoreboard players set @s DEX 50
+				scoreboard players set @s INT 4
+				scoreboard players set @s LUK 4
+				
+				function stat:standard_pdd/set
+				execute if score @s hyper_buff_time matches 1.. run function skill:1/3/0/1007/set_hp_mp
+				
+				scoreboard players set @s 1000000_level 5
+				function skill:1/0/0/0000/levels/check
+				scoreboard players set @s 1000001_level 10
+				function skill:1/0/0/0001/levels/check
+				scoreboard players set @s 1000002_level 0
+				scoreboard players set @s 1001003_level 0
+				scoreboard players set @s 1001004_level 0
+				scoreboard players set @s 1001005_level 0
+				
+				scoreboard players set @s skill_point 31
+			}
 		}
 		
-		func archer()
+		folder archer()
 		{
-			function ARG(_PATH)reset
-			
-			tag @s add archer
-			scoreboard players set @s job_level 1
-			# effect
-			playsound minecraft:game.job_changed player @a ~ ~ ~ 1 1 0
-			function skill:summon_font_effect/0000000job_changed
-			
-			scoreboard players set @s level 25
-			scoreboard players set @s hp 954
-			scoreboard players set @s hp_max 954
-			scoreboard players set @s hp_max_base 954
-			scoreboard players set @s mp 532
-			scoreboard players set @s mp_max 532
-			scoreboard players set @s mp_max_base 532
-			
-			scoreboard players set @s STR 30
-			scoreboard players set @s DEX 107
-			scoreboard players set @s INT 4
-			scoreboard players set @s LUK 4
-			
-			function stat:standard_pdd/set
-			execute if score @s hyper_buff_time matches 1.. run function skill:1/3/0/1007/set_hp_mp
-			
-			scoreboard players set @s 3000000_level 0
-			scoreboard players set @s 3000001_level 0
-			scoreboard players set @s 3000002_level 0
-			scoreboard players set @s 3001003_level 0
-			scoreboard players set @s 3001004_level 0
-			scoreboard players set @s 3001005_level 0
-			
-			scoreboard players set @s skill_point 46
+			func first()
+			{
+				function ARG(__PATH)reset
+				
+				tag @s add archer
+				scoreboard players set @s job_level 1
+				# effect
+				playsound minecraft:game.job_changed player @a ~ ~ ~ 1 1 0
+				function skill:summon_font_effect/0000000job_changed
+				
+				scoreboard players set @s level 25
+				scoreboard players set @s hp 954
+				scoreboard players set @s hp_max 954
+				scoreboard players set @s hp_max_base 954
+				scoreboard players set @s mp 532
+				scoreboard players set @s mp_max 532
+				scoreboard players set @s mp_max_base 532
+				
+				scoreboard players set @s STR 30
+				scoreboard players set @s DEX 107
+				scoreboard players set @s INT 4
+				scoreboard players set @s LUK 4
+				
+				function stat:standard_pdd/set
+				execute if score @s hyper_buff_time matches 1.. run function skill:1/3/0/1007/set_hp_mp
+				
+				scoreboard players set @s 3000000_level 0
+				scoreboard players set @s 3000001_level 0
+				scoreboard players set @s 3000002_level 0
+				scoreboard players set @s 3001003_level 0
+				scoreboard players set @s 3001004_level 0
+				scoreboard players set @s 3001005_level 0
+				
+				scoreboard players set @s skill_point 46
+			}
 		}
 		
-		func magician()
+		folder magician()
 		{
-			function ARG(_PATH)reset
-			
-			tag @s add magician
-			scoreboard players set @s job_level 1
-			# effect
-			playsound minecraft:game.job_changed player @a ~ ~ ~ 1 1 0
-			function skill:summon_font_effect/0000000job_changed
-			
-			scoreboard players set @s level 25
-			scoreboard players set @s hp 312
-			scoreboard players set @s hp_max 312
-			scoreboard players set @s hp_max_base 312
-			scoreboard players set @s mp 911
-			scoreboard players set @s mp_max 911
-			scoreboard players set @s mp_max_base 911
-			
-			scoreboard players set @s STR 4
-			scoreboard players set @s DEX 4
-			scoreboard players set @s INT 109
-			scoreboard players set @s LUK 28
-			
-			function stat:standard_pdd/set
-			execute if score @s hyper_buff_time matches 1.. run function skill:1/3/0/1007/set_hp_mp
-			
-			scoreboard players set @s 2000000_level 5
-			function skill:2/0/0/0000/calculate_recovery
-			scoreboard players set @s 2000001_level 10
-			function skill:2/0/0/0001/levels/check
-			scoreboard players set @s 2001002_level 0
-			scoreboard players set @s 2001003_level 0
-			scoreboard players set @s 2001004_level 0
-			scoreboard players set @s 2001005_level 0
-			
-			scoreboard players set @s skill_point 37
+			func first()
+			{
+				function ARG(__PATH)reset
+				
+				tag @s add magician
+				scoreboard players set @s job_level 1
+				# effect
+				playsound minecraft:game.job_changed player @a ~ ~ ~ 1 1 0
+				function skill:summon_font_effect/0000000job_changed
+				
+				scoreboard players set @s level 25
+				scoreboard players set @s hp 312
+				scoreboard players set @s hp_max 312
+				scoreboard players set @s hp_max_base 312
+				scoreboard players set @s mp 911
+				scoreboard players set @s mp_max 911
+				scoreboard players set @s mp_max_base 911
+				
+				scoreboard players set @s STR 4
+				scoreboard players set @s DEX 4
+				scoreboard players set @s INT 109
+				scoreboard players set @s LUK 28
+				
+				function stat:standard_pdd/set
+				execute if score @s hyper_buff_time matches 1.. run function skill:1/3/0/1007/set_hp_mp
+				
+				scoreboard players set @s 2000000_level 5
+				function skill:2/0/0/0000/calculate_recovery
+				scoreboard players set @s 2000001_level 10
+				function skill:2/0/0/0001/levels/check
+				scoreboard players set @s 2001002_level 0
+				scoreboard players set @s 2001003_level 0
+				scoreboard players set @s 2001004_level 0
+				scoreboard players set @s 2001005_level 0
+				
+				scoreboard players set @s skill_point 37
+			}
 		}
 		
-		func thief()
+		folder thief()
 		{
-			function ARG(_PATH)reset
-			
-			tag @s add thief
-			scoreboard players set @s job_level 1
-			# effect
-			playsound minecraft:game.job_changed player @a ~ ~ ~ 1 1 0
-			function skill:summon_font_effect/0000000job_changed
-			
-			scoreboard players set @s level 25
-			scoreboard players set @s hp 954
-			scoreboard players set @s hp_max 954
-			scoreboard players set @s hp_max_base 954
-			scoreboard players set @s mp 532
-			scoreboard players set @s mp_max 532
-			scoreboard players set @s mp_max_base 532
-			
-			scoreboard players set @s STR 4
-			scoreboard players set @s DEX 25
-			scoreboard players set @s INT 4
-			scoreboard players set @s LUK 87
-			scoreboard players set @s stat_point 25
-			
-			function stat:standard_pdd/set
-			execute if score @s hyper_buff_time matches 1.. run function skill:1/3/0/1007/set_hp_mp
-			
-			scoreboard players set @s 4000000_level 0
-			scoreboard players set @s 4000001_level 0
-			scoreboard players set @s 4001002_level 0
-			scoreboard players set @s 4001003_level 0
-			scoreboard players set @s 4001334_level 0
-			scoreboard players set @s 4001344_level 0
-			
-			scoreboard players set @s skill_point 46
+			func first()
+			{
+				function ARG(__PATH)reset
+				
+				tag @s add thief
+				scoreboard players set @s job_level 1
+				# effect
+				playsound minecraft:game.job_changed player @a ~ ~ ~ 1 1 0
+				function skill:summon_font_effect/0000000job_changed
+				
+				scoreboard players set @s level 25
+				scoreboard players set @s hp 954
+				scoreboard players set @s hp_max 954
+				scoreboard players set @s hp_max_base 954
+				scoreboard players set @s mp 532
+				scoreboard players set @s mp_max 532
+				scoreboard players set @s mp_max_base 532
+				
+				scoreboard players set @s STR 4
+				scoreboard players set @s DEX 25
+				scoreboard players set @s INT 4
+				scoreboard players set @s LUK 87
+				scoreboard players set @s stat_point 25
+				
+				function stat:standard_pdd/set
+				execute if score @s hyper_buff_time matches 1.. run function skill:1/3/0/1007/set_hp_mp
+				
+				scoreboard players set @s 4000000_level 0
+				scoreboard players set @s 4000001_level 0
+				scoreboard players set @s 4001002_level 0
+				scoreboard players set @s 4001003_level 0
+				scoreboard players set @s 4001334_level 0
+				scoreboard players set @s 4001344_level 0
+				
+				scoreboard players set @s skill_point 46
+			}
 		}
 	}
 	
