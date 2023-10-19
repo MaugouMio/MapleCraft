@@ -186,7 +186,7 @@
 # 185,if score @s map matches 100000201 at @s run function skill:3/2/0/transfer/check
 # 186,if score @s map matches 103000003 at @s run function skill:4/1/0/transfer/check
 # 187,if score @s map matches 103000003 at @s run function skill:4/2/0/transfer/check
-#
+# 保留到 207 給三轉四轉用
 174,unless score @s playing_game matches 1.. at @s run function main:test_job/warrior/first
 175,unless score @s playing_game matches 1.. at @s run function main:test_job/magician/first
 176,unless score @s playing_game matches 1.. at @s run function main:test_job/archer/first
@@ -202,19 +202,14 @@
 186,unless score @s playing_game matches 1.. at @s run function main:test_job/thief/assassin
 187,unless score @s playing_game matches 1.. at @s run function main:test_job/thief/bandit
 #
-# 188,
-# 189,
-# 190,
-# 191,
-192,if score @s map matches 103000000 if score @s level matches ..69 at @s run function main:test_job/level_up
-# 193,
-# 194,
-# 195,
-# 196,
-197,run tellraw @s ["\n",{"translate":"text.npc.maple_administrator.menu.how_to_projectile.response","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
-198,run tellraw @s ["\n",{"translate":"text.npc.maple_administrator.menu.how_to_equip.response","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
-199,run tellraw @s ["\n",{"translate":"text.npc.maple_administrator.menu.how_to_scroll.response","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
-200,run tellraw @s ["\n",{"translate":"text.tip.drop_meso","font":"minecraft:uniform","clickEvent":{"action":"suggest_command","value":"/trigger drop_meso set 10"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.tip.copy_to_chat"}}},"\n",{"translate":"text.meso.own","font":"minecraft:uniform","with":[{"score":{"objective":"meso","name":"@s"}}]}]
-201,if score @s map matches 221024500 run function quest:party_quest/ldpq/level_check
-202,if score @s map matches 221024500 run tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.menu.intro.detail","font":"minecraft:uniform"}]
-203,if score @s playing_game matches 2 run function quest:party_quest/reset_check
+208,run tellraw @s ["\n",{"translate":"text.tip.drop_meso","font":"minecraft:uniform","clickEvent":{"action":"suggest_command","value":"/trigger drop_meso set 10"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.tip.copy_to_chat"}}},"\n",{"translate":"text.meso.own","font":"minecraft:uniform","with":[{"score":{"objective":"meso","name":"@s"}}]}]
+209,run tellraw @s ["\n",{"translate":"text.npc.maple_administrator.menu.how_to_projectile.response","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+210,run tellraw @s ["\n",{"translate":"text.npc.maple_administrator.menu.how_to_equip.response","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+211,run tellraw @s ["\n",{"translate":"text.npc.maple_administrator.menu.how_to_scroll.response","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+212,run function main:npc/maple_administrator/potion_bag
+# 保留到 215 給 GM 對話擴充
+216,if score @s map matches 221024500 run function quest:party_quest/ldpq/level_check
+217,if score @s map matches 221024500 run tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.menu.intro.detail","font":"minecraft:uniform"}]
+218,if score @s playing_game matches 2 run function quest:party_quest/reset_check
+# 試玩用功能從 500 開始，避免干擾
+500,if score @s map matches 103000000 if score @s level matches ..69 at @s run function main:test_job/level_up

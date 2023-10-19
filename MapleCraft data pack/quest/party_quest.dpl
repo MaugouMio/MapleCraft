@@ -1060,7 +1060,7 @@ namespace party_quest() as virtual
 		func leave_confirm()
 		{
 			tellraw @s ["\n",{"translate":"text.quest.party_quest.common.leave_confirm","font":"minecraft:uniform","with":[{"translate":"npc.sgt_anderson"}]}]
-			tellraw @s [{"text":"> ","color":"gray","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 203"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},{"translate":"text.answer.yes","color":"yellow","bold":true}]
+			tellraw @s [{"text":"> ","color":"gray","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 218"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},{"translate":"text.answer.yes","color":"yellow","bold":true}]
 			tellraw @s {"text":"==================","font":"minecraft:uniform"}
 		}
 		
@@ -1104,8 +1104,8 @@ namespace party_quest() as virtual
 			func red_sign()
 			{
 				tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.menu","font":"minecraft:uniform"}]
-				tellraw @s {"translate":"text.quest.party_quest.common.menu.enter","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 201"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
-				tellraw @s {"translate":"text.quest.party_quest.common.menu.intro","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 202"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
+				tellraw @s {"translate":"text.quest.party_quest.common.menu.enter","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 216"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
+				tellraw @s {"translate":"text.quest.party_quest.common.menu.intro","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 217"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
 				tellraw @s {"text":"==================","font":"minecraft:uniform"}
 			}
 			
@@ -2813,7 +2813,7 @@ namespace party_quest() as virtual
 						func talk()
 						{
 							tellraw @s ["\n",{"translate":"text.quest.party_quest.common.leave_confirm","font":"minecraft:uniform","with":[{"translate":"npc.pink_balloon"}]}]
-							tellraw @s [{"text":"> ","color":"gray","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 203"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},{"translate":"text.answer.yes","color":"yellow","bold":true}]
+							tellraw @s [{"text":"> ","color":"gray","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 218"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},{"translate":"text.answer.yes","color":"yellow","bold":true}]
 							tellraw @s {"text":"==================","font":"minecraft:uniform"}
 						}
 					}
