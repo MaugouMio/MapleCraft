@@ -846,44 +846,45 @@ namespace main()
 		
 		func shop()
 		{
-			tellraw @s ["\n",{"translate":"text.quest.test_shop.menu","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+			tellraw @s[scores={map=103000000}] ["\n",{"translate":"text.quest.test_shop.menu","font":"minecraft:uniform","with":[{"translate":"npc.dr_faymus"}]},{"text":"\n==================","font":"minecraft:uniform"}]
+			tellraw @s[scores={map=221024500}] ["\n",{"translate":"text.quest.test_shop.menu","font":"minecraft:uniform","with":[{"translate":"npc.misky"}]},{"text":"\n==================","font":"minecraft:uniform"}]
 		}
 		
 		func dances_with_balrog()
 		{
 			tellraw @s ["\n",{"translate":"text.quest.test_warrior_transfer.menu","font":"minecraft:uniform"}]
-			tellraw @s[scores={map=103000000}] {"translate":"text.quest.test_warrior_transfer.menu.warrior","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 188"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
-			tellraw @s[scores={map=221024500}] {"translate":"text.quest.test_warrior_transfer.menu.fighter","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 178"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
-			tellraw @s[scores={map=221024500}] {"translate":"text.quest.test_warrior_transfer.menu.page","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 179"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
-			tellraw @s[scores={map=221024500}] {"translate":"text.quest.test_warrior_transfer.menu.spearman","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 180"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
+			tellraw @s[scores={map=103000000}] {"translate":"text.quest.test_warrior_transfer.menu.warrior","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 174"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
+			tellraw @s[scores={map=221024500}] {"translate":"text.quest.test_warrior_transfer.menu.fighter","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 178"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
+			tellraw @s[scores={map=221024500}] {"translate":"text.quest.test_warrior_transfer.menu.page","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 179"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
+			tellraw @s[scores={map=221024500}] {"translate":"text.quest.test_warrior_transfer.menu.spearman","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 180"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
 			tellraw @s {"text":"==================","font":"minecraft:uniform"}
 		}
 		
 		func grendel_the_really_old()
 		{
 			tellraw @s ["\n",{"translate":"text.quest.test_magician_transfer.menu","font":"minecraft:uniform"}]
-			tellraw @s[scores={map=103000000}] {"translate":"text.quest.test_magician_transfer.menu.magician","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 189"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
-			tellraw @s[scores={map=221024500}] {"translate":"text.quest.test_magician_transfer.menu.wizard_fp","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 181"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
-			tellraw @s[scores={map=221024500}] {"translate":"text.quest.test_magician_transfer.menu.wizard_il","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 182"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
-			tellraw @s[scores={map=221024500}] {"translate":"text.quest.test_magician_transfer.menu.cleric","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 183"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
+			tellraw @s[scores={map=103000000}] {"translate":"text.quest.test_magician_transfer.menu.magician","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 175"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
+			tellraw @s[scores={map=221024500}] {"translate":"text.quest.test_magician_transfer.menu.wizard_fp","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 181"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
+			tellraw @s[scores={map=221024500}] {"translate":"text.quest.test_magician_transfer.menu.wizard_il","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 182"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
+			tellraw @s[scores={map=221024500}] {"translate":"text.quest.test_magician_transfer.menu.cleric","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 183"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
 			tellraw @s {"text":"==================","font":"minecraft:uniform"}
 		}
 		
 		func athena_pierce()
 		{
 			tellraw @s ["\n",{"translate":"text.quest.test_archer_transfer.menu","font":"minecraft:uniform"}]
-			tellraw @s[scores={map=103000000}] {"translate":"text.quest.test_archer_transfer.menu.archer","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 190"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
-			tellraw @s[scores={map=221024500}] {"translate":"text.quest.test_archer_transfer.menu.hunter","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 184"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
-			tellraw @s[scores={map=221024500}] {"translate":"text.quest.test_archer_transfer.menu.crossbowman","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 185"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
+			tellraw @s[scores={map=103000000}] {"translate":"text.quest.test_archer_transfer.menu.archer","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 176"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
+			tellraw @s[scores={map=221024500}] {"translate":"text.quest.test_archer_transfer.menu.hunter","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 184"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
+			tellraw @s[scores={map=221024500}] {"translate":"text.quest.test_archer_transfer.menu.crossbowman","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 185"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
 			tellraw @s {"text":"==================","font":"minecraft:uniform"}
 		}
 		
 		func dark_lord()
 		{
 			tellraw @s ["\n",{"translate":"text.quest.test_thief_transfer.menu","font":"minecraft:uniform"}]
-			tellraw @s[scores={map=103000000}] {"translate":"text.quest.test_thief_transfer.menu.thief","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 191"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
-			tellraw @s[scores={map=221024500}] {"translate":"text.quest.test_thief_transfer.menu.assassin","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 186"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
-			tellraw @s[scores={map=221024500}] {"translate":"text.quest.test_thief_transfer.menu.bandit","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 187"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.second_require"}}}
+			tellraw @s[scores={map=103000000}] {"translate":"text.quest.test_thief_transfer.menu.thief","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 177"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
+			tellraw @s[scores={map=221024500}] {"translate":"text.quest.test_thief_transfer.menu.assassin","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 186"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
+			tellraw @s[scores={map=221024500}] {"translate":"text.quest.test_thief_transfer.menu.bandit","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 187"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
 			tellraw @s {"text":"==================","font":"minecraft:uniform"}
 		}
 	}
