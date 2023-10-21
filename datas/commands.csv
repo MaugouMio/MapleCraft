@@ -191,16 +191,16 @@
 175,unless score @s playing_game matches 1.. at @s run function main:test_job/magician/first
 176,unless score @s playing_game matches 1.. at @s run function main:test_job/archer/first
 177,unless score @s playing_game matches 1.. at @s run function main:test_job/thief/first
-178,unless score @s playing_game matches 1.. at @s run function main:test_job/warrior/fighter
-179,unless score @s playing_game matches 1.. at @s run function main:test_job/warrior/page
-180,unless score @s playing_game matches 1.. at @s run function main:test_job/warrior/spearman
-181,unless score @s playing_game matches 1.. at @s run function main:test_job/magician/wizard_fp
-182,unless score @s playing_game matches 1.. at @s run function main:test_job/magician/wizard_il
-183,unless score @s playing_game matches 1.. at @s run function main:test_job/magician/cleric
-184,unless score @s playing_game matches 1.. at @s run function main:test_job/archer/hunter
-185,unless score @s playing_game matches 1.. at @s run function main:test_job/archer/crossbowman
-186,unless score @s playing_game matches 1.. at @s run function main:test_job/thief/assassin
-187,unless score @s playing_game matches 1.. at @s run function main:test_job/thief/bandit
+178,unless score @s playing_game matches 1.. at @s run function main:test_job/warrior/second/fighter
+179,unless score @s playing_game matches 1.. at @s run function main:test_job/warrior/second/page
+180,unless score @s playing_game matches 1.. at @s run function main:test_job/warrior/second/spearman
+181,unless score @s playing_game matches 1.. at @s run function main:test_job/magician/second/wizard_fp
+182,unless score @s playing_game matches 1.. at @s run function main:test_job/magician/second/wizard_il
+183,unless score @s playing_game matches 1.. at @s run function main:test_job/magician/second/cleric
+184,unless score @s playing_game matches 1.. at @s run function main:test_job/archer/second/hunter
+185,unless score @s playing_game matches 1.. at @s run function main:test_job/archer/second/crossbowman
+186,unless score @s playing_game matches 1.. at @s run function main:test_job/thief/second/assassin
+187,unless score @s playing_game matches 1.. at @s run function main:test_job/thief/second/bandit
 #
 208,run tellraw @s ["\n",{"translate":"text.tip.drop_meso","font":"minecraft:uniform","clickEvent":{"action":"suggest_command","value":"/trigger drop_meso set 10"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.tip.copy_to_chat"}}},"\n",{"translate":"text.meso.own","font":"minecraft:uniform","with":[{"score":{"objective":"meso","name":"@s"}}]}]
 209,run tellraw @s ["\n",{"translate":"text.npc.maple_administrator.menu.how_to_projectile.response","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
