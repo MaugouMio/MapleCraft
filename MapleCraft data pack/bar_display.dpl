@@ -723,13 +723,18 @@ namespace bar_display()
 		
 		func hp()
 		{
-			scoreboard players remove @s next_hp_recover 1
+			scoreboard players set #GLOBAL temp 1
+			execute if block ~ ~ ~ #minecraft:climbable unless score @s hp_recover_time_l matches 1.. run scoreboard players set #GLOBAL temp 0
+			execute unless block ~ ~ ~ #minecraft:climbable run scoreboard players operation @s next_hp_recover < @s hp_recover_time
+
+			scoreboard players operation @s next_hp_recover -= #GLOBAL temp
 			execute if score @s next_hp_recover matches 0 at @s run function ARG(_PATH)do_recover_hp
 		}
 		
 		func do_recover_hp()
 		{
 			scoreboard players operation @s next_hp_recover = @s hp_recover_time
+			execute if block ~ ~ ~ #minecraft:climbable run scoreboard players operation @s next_hp_recover = @s hp_recover_time_l
 			
 			scoreboard players operation #GLOBAL temp = @s hp_recovery
 			execute on vehicle store result score #GLOBAL temp run data get entity @s item.tag.hp
@@ -954,7 +959,7 @@ namespace bar_display()
 		func schedule_1s()
 		{
 			execute as @a[tag=!hp_mp_varying] run function ARG(__PATH)update_bar/run
-			execute as @a[tag=!dead] if score @s hp < @s hp_max run function ARG(__PATH)recover/hp
+			execute as @a[tag=!dead] if score @s hp < @s hp_max at @s run function ARG(__PATH)recover/hp
 			
 			execute store result score #DEAD_PLAYER_AMOUNT temp if entity @a[tag=dead]
 			execute if score #TOMB_AMOUNT temp > #DEAD_PLAYER_AMOUNT temp as @e[type=item_display,tag=tomb] run function ARG(__PATH)death/tomb_check/find

@@ -205,6 +205,8 @@ namespace main()
 		
 		func climb()
 		{
+			scoreboard players operation @s next_hp_recover = @s hp_recover_time
+			execute if score @s hp_recover_time_l matches 1.. run scoreboard players operation @s next_hp_recover = @s hp_recover_time_l
 			tp @s ~ ~ ~
 			tp @s @s
 		}
@@ -519,7 +521,7 @@ namespace main()
 			binary_search_cmd(cmd_list, start, mid)
 			binary_search_cmd(cmd_list, mid_right, end)
 		
-		with open(PROJ_DIR + "/../datas/commands.csv") as f:
+		with open(PROJ_DIR + "/../datas/commands.csv", encoding="utf8") as f:
 			commands = []
 			for line in f.read().split("\n"):
 				if line[0] == '#':

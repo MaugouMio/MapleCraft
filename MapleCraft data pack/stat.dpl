@@ -18,6 +18,8 @@ namespace stat()
 		scoreboard objectives add real_speed dummy
 		
 		scoreboard objectives add hp_recover_time dummy
+		# recover time on ladder
+		scoreboard objectives add hp_recover_time_l dummy
 	}
 	
 	folder speed_changed()

@@ -192,6 +192,9 @@ namespace 41() as virtual
 				
 				func check()
 				{
+					scoreboard players set @s hp_recover_time_l 30
+					scoreboard players operation @s hp_recover_time_l -= @s 4100002_level
+
 					execute store result score @s hp_recovery run scoreboard players operation @s mp_recovery = @s 4100002_level
 					scoreboard players operation @s hp_recovery *= #3 const
 					scoreboard players add @s hp_recovery 10
@@ -202,24 +205,27 @@ namespace 41() as virtual
 				{
 					data modify block 250 0 0 front_text.messages[0] set value '""'
 					scoreboard players operation #GLOBAL temp = @s 4100002_level
+					scoreboard players operation #GLOBAL hp_recover_time_l = @s hp_recover_time_l
 					scoreboard players operation #GLOBAL hp_recovery = @s hp_recovery
 					scoreboard players operation #GLOBAL mp_recovery = @s mp_recovery
 					scoreboard players remove #GLOBAL hp_recovery 10
 					scoreboard players remove #GLOBAL mp_recovery 3
 					
 					execute if score @s 4100002_level matches ..19 run function ARG(_PATH)get_next_level
-					execute if score @s 4100002_level matches 1.. run data modify block 250 0 0 front_text.messages[0] set value '[{"translate":"skill.description.level.current","with":[{"score":{"objective":"temp","name":"#GLOBAL"}}]},{"translate":"skill.description.level.4100002","with":[{"score":{"objective":"hp_recovery","name":"#GLOBAL"}},{"score":{"objective":"mp_recovery","name":"#GLOBAL"}}]},{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}]'
+					execute if score @s 4100002_level matches 1.. run data modify block 250 0 0 front_text.messages[0] set value '[{"translate":"skill.description.level.current","with":[{"score":{"objective":"temp","name":"#GLOBAL"}}]},{"translate":"skill.description.level.4100002","with":[{"score":{"objective":"hp_recover_time_l","name":"#GLOBAL"}},{"score":{"objective":"hp_recovery","name":"#GLOBAL"}},{"score":{"objective":"mp_recovery","name":"#GLOBAL"}}]},{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}]'
 					data modify storage ui:main skill_level_info append from block 250 0 0 front_text.messages[0]
 				}
 				
 				func get_next_level()
 				{
 					scoreboard players add #GLOBAL temp 1
+					scoreboard players remove #GLOBAL hp_recover_time_l 1
 					scoreboard players add #GLOBAL hp_recovery 3
 					scoreboard players add #GLOBAL mp_recovery 1
-					data modify block 250 0 0 front_text.messages[0] set value '[{"translate":"skill.description.level.next","with":[{"score":{"objective":"temp","name":"#GLOBAL"}}]},{"translate":"skill.description.level.4100002","with":[{"score":{"objective":"hp_recovery","name":"#GLOBAL"}},{"score":{"objective":"mp_recovery","name":"#GLOBAL"}}]}]'
+					data modify block 250 0 0 front_text.messages[0] set value '[{"translate":"skill.description.level.next","with":[{"score":{"objective":"temp","name":"#GLOBAL"}}]},{"translate":"skill.description.level.4100002","with":[{"score":{"objective":"hp_recover_time_l","name":"#GLOBAL"}},{"score":{"objective":"hp_recovery","name":"#GLOBAL"}},{"score":{"objective":"mp_recovery","name":"#GLOBAL"}}]}]'
 					
 					scoreboard players remove #GLOBAL temp 1
+					scoreboard players add #GLOBAL hp_recover_time_l 1
 					scoreboard players remove #GLOBAL hp_recovery 3
 					scoreboard players remove #GLOBAL mp_recovery 1
 					execute if score @s 4100002_level matches 1.. run data modify block 250 0 0 front_text.messages[0] set value '["\\n",{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}]'

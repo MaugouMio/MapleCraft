@@ -1789,6 +1789,7 @@ namespace skill()
 	{
 		# basic skill constraints
 		scoreboard players operation @s next_hp_recover = @s hp_recover_time
+		execute if block ~ ~ ~ #minecraft:climbable run scoreboard players operation @s next_hp_recover = @s hp_recover_time_l
 		attribute @s minecraft:generic.movement_speed modifier add 5b908c48-54cb-4388-aa76-82f61b02032d skill_action -0.95 multiply
 		effect give @s minecraft:jump_boost infinite 128 true
 	}
@@ -1828,6 +1829,7 @@ namespace skill()
 			scoreboard players set @s addi_hp_point 0
 			scoreboard players reset @s 1000001_level
 			scoreboard players set @s hp_recover_time 10
+			scoreboard players reset @s hp_recover_time_l
 			scoreboard players reset @s 1000002_level
 			scoreboard players reset @s 1001003_level
 			scoreboard players reset @s 1001004_level

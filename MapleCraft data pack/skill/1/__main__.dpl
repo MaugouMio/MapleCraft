@@ -69,6 +69,8 @@ namespace 1() as virtual
 					
 					func check()
 					{
+						execute if score @s 1000000_level matches 1.. run scoreboard players set @s hp_recover_time 5
+
 						scoreboard players operation @s hp_recovery = @s 1000000_level
 						scoreboard players operation @s hp_recovery *= #3 const
 						scoreboard players add @s hp_recovery 10
@@ -180,7 +182,7 @@ namespace 1() as virtual
 					{
 						```
 						for i in range(1, 9):
-							print(f"execute if score @s 1000002_level matches {i} run scoreboard players set @s hp_recover_time {9-i//2}")
+							print(f"execute if score @s 1000002_level matches {i} run scoreboard players set @s hp_recover_time_l {34-i*3}")
 						```
 					}
 					
@@ -189,7 +191,7 @@ namespace 1() as virtual
 						data modify block 250 0 0 front_text.messages[0] set value '""'
 						data modify storage ui:main temp set value [0, 0, 0, 0]
 						execute store result storage ui:main temp[0] int 1 run scoreboard players get @s 1000002_level
-						execute store result storage ui:main temp[1] int 1 run scoreboard players get @s hp_recover_time
+						execute store result storage ui:main temp[1] int 1 run scoreboard players get @s hp_recover_time_l
 						
 						execute if score @s 1000002_level matches ..7 run function ARG(_PATH)get_next_level
 						execute if score @s 1000002_level matches 1.. run data modify block 250 0 0 front_text.messages[0] set value '[{"translate":"skill.description.level.current","with":[{"nbt":"temp[0]","storage":"ui:main"}]},{"translate":"skill.description.level.1000002","with":[{"nbt":"temp[1]","storage":"ui:main"}]},{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}]'
@@ -202,7 +204,7 @@ namespace 1() as virtual
 						
 						function ARG(_PATH)check
 						execute store result storage ui:main temp[2] int 1 run scoreboard players get @s 1000002_level
-						execute store result storage ui:main temp[3] int 1 run scoreboard players get @s hp_recover_time
+						execute store result storage ui:main temp[3] int 1 run scoreboard players get @s hp_recover_time_l
 						data modify block 250 0 0 front_text.messages[0] set value '[{"translate":"skill.description.level.next","with":[{"nbt":"temp[2]","storage":"ui:main"}]},{"translate":"skill.description.level.1000002","with":[{"nbt":"temp[3]","storage":"ui:main"}]}]'
 						
 						scoreboard players remove @s 1000002_level 1
