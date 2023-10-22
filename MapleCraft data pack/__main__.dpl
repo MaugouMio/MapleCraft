@@ -476,6 +476,7 @@ namespace main()
 			
 			scoreboard players operation @s skill_point *= #3 const
 			scoreboard players operation @s skill_point += @s job_level
+			scoreboard players add @s[scores={job_level=4}] skill_point 2
 		}
 	}
 	
@@ -1029,8 +1030,6 @@ namespace main()
 				scoreboard players set @s 1001005_level 20
 				function skill:1/0/0/1005/levels/check
 				
-				scoreboard players set @s allocated_sp 46
-				
 				tellraw @s {"translate":"text.quest.test_transfer.complete","font":"minecraft:uniform","color":"#efb7ab"}
 			}
 			
@@ -1082,8 +1081,6 @@ namespace main()
 					function skill:1/1/0/1006/levels/check
 					scoreboard players set @s 1101007_level 2
 					function skill:1/1/0/1007/levels/check
-					
-					scoreboard players set @s allocated_sp 107
 					
 					tellraw @s {"translate":"text.quest.test_transfer.complete","font":"minecraft:uniform","color":"#efb7ab"}
 				}
@@ -1137,8 +1134,6 @@ namespace main()
 					scoreboard players set @s 1101007_level 3
 					function skill:1/1/0/1007/levels/check
 					
-					scoreboard players set @s allocated_sp 107
-					
 					tellraw @s {"translate":"text.quest.test_transfer.complete","font":"minecraft:uniform","color":"#efb7ab"}
 				}
 				
@@ -1189,8 +1184,6 @@ namespace main()
 					scoreboard players set @s 1301007_level 18
 					function skill:1/3/0/1007/levels/check
 					
-					scoreboard players set @s allocated_sp 107
-					
 					tellraw @s {"translate":"text.quest.test_transfer.complete","font":"minecraft:uniform","color":"#efb7ab"}
 				}
 			}
@@ -1235,8 +1228,6 @@ namespace main()
 				function skill:3/0/0/1004/levels/check
 				scoreboard players set @s 3001005_level 14
 				function skill:3/0/0/1005/levels/check
-				
-				scoreboard players set @s allocated_sp 46
 					
 				tellraw @s {"translate":"text.quest.test_transfer.complete","font":"minecraft:uniform","color":"#efb7ab"}
 			}
@@ -1292,8 +1283,6 @@ namespace main()
 					scoreboard players set @s 3101005_level 14
 					function skill:3/1/0/1005/levels/check
 					
-					scoreboard players set @s allocated_sp 107
-					
 					tellraw @s {"translate":"text.quest.test_transfer.complete","font":"minecraft:uniform","color":"#efb7ab"}
 				}
 				
@@ -1344,8 +1333,6 @@ namespace main()
 					scoreboard players set @s 3201005_level 14
 					function skill:3/2/0/1005/levels/check
 					
-					scoreboard players set @s allocated_sp 107
-					
 					tellraw @s {"translate":"text.quest.test_transfer.complete","font":"minecraft:uniform","color":"#efb7ab"}
 				}
 			}
@@ -1390,8 +1377,6 @@ namespace main()
 				function skill:2/0/0/1004/levels/check
 				scoreboard players set @s 2001005_level 20
 				function skill:2/0/0/1005/levels/check
-				
-				scoreboard players set @s allocated_sp 52
 					
 				tellraw @s {"translate":"text.quest.test_transfer.complete","font":"minecraft:uniform","color":"#efb7ab"}
 			}
@@ -1446,8 +1431,6 @@ namespace main()
 					scoreboard players set @s 2101004_level 30
 					function skill:2/1/0/1004/levels/check
 					
-					scoreboard players set @s allocated_sp 113
-					
 					tellraw @s {"translate":"text.quest.test_transfer.complete","font":"minecraft:uniform","color":"#efb7ab"}
 				}
 				
@@ -1496,8 +1479,6 @@ namespace main()
 					function skill:2/2/0/1004/levels/check
 					scoreboard players set @s 2201005_level 30
 					function skill:2/2/0/1005/levels/check
-					
-					scoreboard players set @s allocated_sp 113
 					
 					tellraw @s {"translate":"text.quest.test_transfer.complete","font":"minecraft:uniform","color":"#efb7ab"}
 				}
@@ -1550,8 +1531,6 @@ namespace main()
 					scoreboard players set @s 2301004_level 10
 					function skill:2/3/0/1004/levels/check
 					
-					scoreboard players set @s allocated_sp 113
-					
 					tellraw @s {"translate":"text.quest.test_transfer.complete","font":"minecraft:uniform","color":"#efb7ab"}
 				}
 			}
@@ -1596,8 +1575,6 @@ namespace main()
 				scoreboard players set @s 4001334_level 0
 				scoreboard players set @s 4001344_level 20
 				function skill:4/0/0/1344/levels/check
-				
-				scoreboard players set @s allocated_sp 46
 					
 				tellraw @s {"translate":"text.quest.test_transfer.complete","font":"minecraft:uniform","color":"#efb7ab"}
 			}
@@ -1652,8 +1629,6 @@ namespace main()
 					scoreboard players set @s 4101004_level 5
 					function skill:4/1/0/1004/levels/check
 					
-					scoreboard players set @s allocated_sp 107
-					
 					tellraw @s {"translate":"text.quest.test_transfer.complete","font":"minecraft:uniform","color":"#efb7ab"}
 				}
 				
@@ -1702,8 +1677,6 @@ namespace main()
 					function skill:4/2/0/1002/levels/check
 					scoreboard players set @s 4201005_level 30
 					function skill:4/2/0/1005/levels/check
-					
-					scoreboard players set @s allocated_sp 107
 					
 					tellraw @s {"translate":"text.quest.test_transfer.complete","font":"minecraft:uniform","color":"#efb7ab"}
 				}

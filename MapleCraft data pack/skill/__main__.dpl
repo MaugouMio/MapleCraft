@@ -1785,6 +1785,58 @@ namespace skill()
 		}
 	}
 	
+	# 檢查能不能轉職或點技能用，當前的 skill_point 不得大於 #GLOBAL temp
+	folder sp_check()
+	{
+		func second()
+		{
+			scoreboard players operation #GLOBAL temp = @s level
+			scoreboard players remove #GLOBAL temp 30
+			scoreboard players operation #GLOBAL temp *= #3 const
+			scoreboard players operation #GLOBAL temp += @s job_level
+			execute if score @s job_level matches 4 run scoreboard players add #GLOBAL temp 2
+			scoreboard players remove #GLOBAL temp 1
+		}
+		
+		func notice_second()
+		{
+			tellraw @s {"translate":"warning.allocate_sp.2","font":"minecraft:uniform","color":"#efb7ab"}
+			playsound minecraft:game.dlg_notice player @s
+		}
+		
+		func third()
+		{
+			scoreboard players operation #GLOBAL temp = @s level
+			scoreboard players remove #GLOBAL temp 70
+			scoreboard players operation #GLOBAL temp *= #3 const
+			scoreboard players operation #GLOBAL temp += @s job_level
+			execute if score @s job_level matches 4 run scoreboard players add #GLOBAL temp 2
+			scoreboard players remove #GLOBAL temp 2
+		}
+		
+		func notice_third()
+		{
+			tellraw @s {"translate":"warning.allocate_sp.3","font":"minecraft:uniform","color":"#efb7ab"}
+			playsound minecraft:game.dlg_notice player @s
+		}
+		
+		func fourth()
+		{
+			scoreboard players operation #GLOBAL temp = @s level
+			scoreboard players remove #GLOBAL temp 120
+			scoreboard players operation #GLOBAL temp *= #3 const
+			scoreboard players operation #GLOBAL temp += @s job_level
+			execute if score @s job_level matches 4 run scoreboard players add #GLOBAL temp 2
+			scoreboard players remove #GLOBAL temp 3
+		}
+		
+		func notice_fourth()
+		{
+			tellraw @s {"translate":"warning.allocate_sp.4","font":"minecraft:uniform","color":"#efb7ab"}
+			playsound minecraft:game.dlg_notice player @s
+		}
+	}
+	
 	func use_constraint()
 	{
 		# basic skill constraints
@@ -1820,8 +1872,6 @@ namespace skill()
 	
 		func reset_all_skill()
 		{
-			scoreboard players set @s allocated_sp 0
-			
 			scoreboard players set @s 0001000_level 0
 			scoreboard players set @s 0001001_level 0
 			scoreboard players set @s 0001002_level 0

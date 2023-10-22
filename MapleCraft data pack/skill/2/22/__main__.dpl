@@ -29,9 +29,7 @@ namespace 22() as virtual
 		{
 			func check()
 			{
-				scoreboard players operation #GLOBAL temp = @s level
-				scoreboard players remove #GLOBAL temp 30
-				scoreboard players operation #GLOBAL temp *= #3 const
+				function skill:sp_check/second
 				execute if score @s[tag=magician] job_level matches 1 if score @s level matches 30.. unless score @s skill_point > #GLOBAL temp at @s run function ARG(_PATH)run
 			}
 			
@@ -138,6 +136,10 @@ namespace 22() as virtual
 			{
 				func add()
 				{
+					function skill:sp_check/second
+					execute if score @s skill_point > #GLOBAL temp at @s run function skill:sp_check/notice_second
+					execute if score @s skill_point > #GLOBAL temp run return
+
 					scoreboard players add @s 2201004_level 1
 					function ARG(_PATH)check
 					function skill:window/after_addition
@@ -284,6 +286,10 @@ namespace 22() as virtual
 			{
 				func add()
 				{
+					function skill:sp_check/second
+					execute if score @s skill_point > #GLOBAL temp at @s run function skill:sp_check/notice_second
+					execute if score @s skill_point > #GLOBAL temp run return
+
 					scoreboard players add @s 2201005_level 1
 					function ARG(_PATH)check
 					function skill:window/after_addition

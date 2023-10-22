@@ -49,7 +49,7 @@ namespace stat()
 			scoreboard players add @s job_level 1
 			scoreboard players add @s skill_point 1
 			scoreboard players add @s[scores={job_level=4}] skill_point 2
-			scoreboard players add @s[scores={job_level=4}] stat_point 3
+			scoreboard players add @s[scores={job_level=3..}] stat_point 5
 			# effect
 			playsound minecraft:game.job_changed player @a ~ ~ ~ 1 1 0
 			scoreboard players operation #BIND_PLAYER number = @s number

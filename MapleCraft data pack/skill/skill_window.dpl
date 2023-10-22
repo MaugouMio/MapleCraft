@@ -3,7 +3,6 @@ namespace skill_window() as virtual
 	func install()
 	{
 		scoreboard objectives add skill_point dummy
-		scoreboard objectives add allocated_sp dummy
 		scoreboard objectives add skill_point_beg dummy
 		scoreboard objectives add job_level dummy
 		
