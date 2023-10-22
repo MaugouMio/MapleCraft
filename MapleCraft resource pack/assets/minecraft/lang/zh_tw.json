@@ -1501,6 +1501,8 @@
 	"text.menu.reset_point": "點數重置",
 	"text.menu.reset_point.ap": "能力點數\n§6注意！投入HP與MP的點數無法重置§r",
 	"text.menu.reset_point.sp": "技能點數",
+	"text.menu.reset_point.ap.success": "已重置能力點數，請開啟能力值視窗進行分配。",
+	"text.menu.reset_point.sp.success": "已重置技能點數，請開啟技能視窗進行分配。",
 	
 	"text.meso.own": "持有楓幣: %s",
 	"text.meso.after_sell": "販售成功！ 持有楓幣: %s",
@@ -1519,8 +1521,8 @@
 	"text.scroll.destroy": "透過卷軸的力量，道具已經被破壞。",
 	
 	"text.npc.maple_administrator.menu": "<楓之谷GM> 需要什麼幫助嗎？",
-	"text.npc.maple_administrator.menu.reset_menu": "§7> §9我遺失了MENU書本§r",
-	"text.npc.maple_administrator.menu.reset_menu.response": "<楓之谷GM> 重新發給你MENU書本，輸入§7\"/trigger command set -1\"§r可以隨時補發。",
+	"text.npc.maple_administrator.menu.reset_menu": "§7> §9我遺失了MENU道具§r",
+	"text.npc.maple_administrator.menu.reset_menu.response": "<楓之谷GM> 重新發給你MENU道具，輸入§7\"/trigger command set -1\"§r可以隨時補發。",
 	"text.npc.maple_administrator.menu.how_to_projectile": "§7> §9如何使用飛鏢或箭矢？§r",
 	"text.npc.maple_administrator.menu.how_to_projectile.response": "<楓之谷GM> 將飛鏢或箭矢放在§c主手§r並點擊右鍵即可裝備，攻擊時會自動消耗裝備中的飛鏢或箭矢。",
 	"text.npc.maple_administrator.menu.how_to_equip": "§7> §9如何裝備道具？§r",

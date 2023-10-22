@@ -1471,8 +1471,10 @@
 	"text.menu.sys_opt.mp_alert": "MP ALERT",
 	"text.menu.key_reset": "KEY RESET",
 	"text.menu.reset_point": "POINT RESET",
-	"text.menu.reset_point.ap": "§lAbility Point§r\n§cThe points added to HP or MP will not be reset!§r",
-	"text.menu.reset_point.sp": "§lSkill Point§r",
+	"text.menu.reset_point.ap": "Ability Point\n§6The points added to HP or MP will not be reset!§r",
+	"text.menu.reset_point.sp": "Skill Point",
+	"text.menu.reset_point.ap.success": "Your ability points have been reset! Open the CHAR STATS window to allocate them.",
+	"text.menu.reset_point.sp.success": "Your skill points have been reset! Open the SKILLS window to allocate them.",
 	
 	"text.meso.own": "Mesos: %s",
 	"text.meso.after_sell": "Item sold! Mesos: %s",
@@ -1491,8 +1493,8 @@
 	"text.scroll.destroy": "The item is destroyed due to the overwhelming power of the scroll.",
 	
 	"text.npc.maple_administrator.menu": "<Maple Administrator> How may I help you?",
-	"text.npc.maple_administrator.menu.reset_menu": "§7> §9I lost my MENU book.§r",
-	"text.npc.maple_administrator.menu.reset_menu.response": "<Maple Administrator> I have reset your MENU book. Enter §7\"/trigger command set -1\"§r to reset the book anytime.",
+	"text.npc.maple_administrator.menu.reset_menu": "§7> §9I lost my MENU.§r",
+	"text.npc.maple_administrator.menu.reset_menu.response": "<Maple Administrator> I have reset your MENU. Enter §7\"/trigger command set -1\"§r to reset the book anytime.",
 	"text.npc.maple_administrator.menu.how_to_projectile": "§7> §9How to use throwing-stars or arrows?§r",
 	"text.npc.maple_administrator.menu.how_to_projectile.response": "<Maple Administrator> Place the throwing-stars or arrows in your §cmainhand§r, and right click to equip them. Equipped throwing-stars or arrows will be consumed automatically when you attack.",
 	"text.npc.maple_administrator.menu.how_to_equip": "§7> §9How to equip an item?§r",

@@ -804,6 +804,22 @@ namespace item()
 			# {
 				
 			# }
+
+			func remove_all()
+			{
+				execute if entity @s[tag=cap_equipped] run function ARG(_PATH)cap/remove
+				execute if entity @s[tag=cloth_equipped] run function ARG(_PATH)cloth/remove
+				execute if entity @s[tag=pants_equipped] run function ARG(_PATH)pants/remove
+				execute if entity @s[tag=gloves_equipped] run function ARG(_PATH)gloves/remove
+				execute if entity @s[tag=shoes_equipped] run function ARG(_PATH)shoes/remove
+				execute if entity @s[tag=cape_equipped] run function ARG(_PATH)cape/remove
+				execute if entity @s[tag=shield_equipped] run function ARG(_PATH)shield/remove
+				execute if entity @s[tag=forehead_equipped] run function ARG(_PATH)eye/remove
+				execute if entity @s[tag=face_equipped] run function ARG(_PATH)face/remove
+				execute if entity @s[tag=ear_equipped] run function ARG(_PATH)ear/remove
+				execute if entity @s[tag=pendant_equipped] run function ARG(_PATH)pendant/remove
+				execute if score @s weapon_type matches 2.. run function item:use/weapon/remove
+			}
 		}
 		
 		folder weapon()

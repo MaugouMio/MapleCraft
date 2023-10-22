@@ -422,12 +422,42 @@ namespace main()
 		
 		func reset_ap()
 		{
+			function item:use/equip/remove_all
+			```
+			raise Warning("TODO: Reset AP should consider Maple Warrior skill effect")
+			```
+			scoreboard players operation #GLOBAL temp = @s STR
+			scoreboard players set @s STR 4
+			scoreboard players set @s[tag=warrior] STR 35
+			scoreboard players operation #GLOBAL temp -= @s STR
+			scoreboard players operation @s stat_point += #GLOBAL temp
 			
+			scoreboard players operation #GLOBAL temp = @s DEX
+			scoreboard players set @s DEX 4
+			scoreboard players set @s[tag=archer] DEX 25
+			scoreboard players set @s[tag=thief] DEX 25
+			scoreboard players operation #GLOBAL temp -= @s DEX
+			scoreboard players operation @s stat_point += #GLOBAL temp
+			
+			scoreboard players operation #GLOBAL temp = @s INT
+			scoreboard players set @s INT 4
+			scoreboard players set @s[tag=magician] INT 25
+			scoreboard players operation #GLOBAL temp -= @s INT
+			scoreboard players operation @s stat_point += #GLOBAL temp
+			
+			scoreboard players operation #GLOBAL temp = @s LUK
+			scoreboard players set @s LUK 4
+			scoreboard players operation #GLOBAL temp -= @s LUK
+			scoreboard players operation @s stat_point += #GLOBAL temp
+			
+			tellraw @s {"translate":"text.menu.reset_point.ap.success","font":"minecraft:uniform","color":"#efb7ab"}
+			playsound minecraft:game.dlg_notice player @s
 		}
 		
 		func reset_sp()
 		{
-			
+			tellraw @s {"translate":"text.menu.reset_point.sp.success","font":"minecraft:uniform","color":"#efb7ab"}
+			playsound minecraft:game.dlg_notice player @s
 		}
 	}
 	
@@ -936,18 +966,7 @@ namespace main()
 			scoreboard players set @s skill_win_page3 0
 			scoreboard players set @s skill_win_page4 0
 			
-			execute if entity @s[tag=cap_equipped] run function item:use/equip/cap/remove
-			execute if entity @s[tag=cloth_equipped] run function item:use/equip/cloth/remove
-			execute if entity @s[tag=pants_equipped] run function item:use/equip/pants/remove
-			execute if entity @s[tag=gloves_equipped] run function item:use/equip/gloves/remove
-			execute if entity @s[tag=shoes_equipped] run function item:use/equip/shoes/remove
-			execute if entity @s[tag=cape_equipped] run function item:use/equip/cape/remove
-			execute if entity @s[tag=shield_equipped] run function item:use/equip/shield/remove
-			execute if entity @s[tag=forehead_equipped] run function item:use/equip/eye/remove
-			execute if entity @s[tag=face_equipped] run function item:use/equip/face/remove
-			execute if entity @s[tag=ear_equipped] run function item:use/equip/ear/remove
-			execute if entity @s[tag=pendant_equipped] run function item:use/equip/pendant/remove
-			execute if score @s weapon_type matches 2.. run function item:use/weapon/remove
+			function item:use/equip/remove_all
 			
 			clear @s minecraft:ender_eye
 			give @s minecraft:ender_eye{CustomModelData:199,skill:1b,HideFlags:127,display:{Name:'{"translate":"skill.attack","bold":true,"italic":false}'}} 2
