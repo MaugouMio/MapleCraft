@@ -1820,6 +1820,8 @@ namespace skill()
 	
 		func reset_all_skill()
 		{
+			scoreboard players set @s allocated_sp 0
+			
 			scoreboard players set @s 0001000_level 0
 			scoreboard players set @s 0001001_level 0
 			scoreboard players set @s 0001002_level 0
