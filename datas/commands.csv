@@ -211,5 +211,7 @@
 216,if score @s map matches 221024500 run function quest:party_quest/ldpq/level_check
 217,if score @s map matches 221024500 run tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.menu.intro.detail","font":"minecraft:uniform"}]
 218,if score @s playing_game matches 2 run function quest:party_quest/reset_check
+219,run function main:menu/reset_ap
+220,run function main:menu/reset_sp
 # 試玩用功能從 500 開始，避免干擾
 500,if score @s map matches 103000000 if score @s level matches ..69 at @s run function main:test_job/level_up
