@@ -2544,7 +2544,7 @@ namespace party_quest() as virtual
 					
 					title @s times 1 5 10
 					title @s title {"text":"4","font":"ui:main"}
-					# tp @s 391.0 168 -195.0 45 40
+					tp @s 1157 -51 -546 180 40
 				}
 				
 				func reset()
@@ -2632,13 +2632,13 @@ namespace party_quest() as virtual
 							
 							tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage_pass","with":[{"translate":"npc.blue_balloon"},"3"],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 							
-							# forceload add 369 183 392 206
-							# ```
-							# print("execute positioned 378 182.1 189 run", spawn_mob("9300006"))
-							# ```
-							# summon interaction x y z {Tags:["ldpq_mob"],Passengers:[{id:"minecraft:item_display",Tags:["ldpq_mob","box"],Rotation:[XXXf,0f],item:{id:"minecraft:splash_potion",Count:1b,tag:{info:{hp_max:4,hurt_sound:5,die_sound:9},model:1,CustomModelData:1,CustomPotionColor:0}},item_display:"head",shadow_strength:0.0f,shadow_radius:0.9f}]}
-							#
-							# forceload remove 369 183 392 206
+							forceload add 1131 -592 1183 -540
+							```
+							print("execute positioned 1152 -48.4 -572 run", spawn_mob("9300006"))
+							```
+							summon interaction 1152 -48.5 -572 {Tags:["ldpq_mob"],Passengers:[{id:"minecraft:item_display",Tags:["ldpq_mob","box"],Rotation:[0f,0f],item:{id:"minecraft:splash_potion",Count:1b,tag:{info:{hp_max:4,hurt_sound:5,die_sound:9},model:1,CustomModelData:1,CustomPotionColor:0}},item_display:"head",shadow_strength:0.0f,shadow_radius:0.9f}]}
+							
+							forceload remove 1131 -592 1183 -540
 							
 							function quest:party_quest/ldpq/stages/9/check_box/run
 							scoreboard players set #LDPQ_S9_LOADED temp 1
@@ -2651,10 +2651,10 @@ namespace party_quest() as virtual
 			{
 				func reset()
 				{
-					# forceload add 759 561 782 584
-					# execute positioned 758 88 560 run kill @e[type=item,dx=24,dy=40,dz=24]
-					# execute positioned 758 88 560 run kill @e[tag=ldpq_mob,dx=24,dy=40,dz=24]
-					# forceload remove 759 561 782 584
+					forceload add 1131 -592 1183 -540
+					execute positioned 1130 -53 -593 run kill @e[type=item,dx=54,dy=14,dz=54]
+					execute positioned 1130 -53 -593 run kill @e[tag=ldpq_mob,dx=54,dy=14,dz=54]
+					forceload remove 1131 -592 1183 -540
 					
 					schedule clear ARG(_PATH)check_box/run
 					scoreboard players reset #LDPQ_S9_LOADED temp
@@ -2666,7 +2666,7 @@ namespace party_quest() as virtual
 					{
 						func talk()
 						{
-							# execute positioned 758 88 560 store result score #GLOBAL temp if entity @a[scores={playing_game=2},dx=24,dy=40,dz=24]
+							execute positioned 1130 -53 -593 store result score #GLOBAL temp if entity @a[scores={playing_game=2},dx=54,dy=14,dz=54]
 							execute if score #GLOBAL temp < #LDPQ_MEMBER temp run tellraw @s ["\n",{"translate":"text.quest.party_quest.common.member_lost","with":[{"translate":"npc.violet_balloon"}],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 							execute if score #GLOBAL temp = #LDPQ_MEMBER temp run function ARG(_PATH)check
 						}
@@ -2753,7 +2753,7 @@ namespace party_quest() as virtual
 				{
 					func run()
 					{
-						# execute positioned 1139.0 -29.0 -186.0 as @e[type=item,nbt={Item:{id:"minecraft:stick",tag:{CustomModelData:4001022}}},dx=5,dy=15,dz=2] run function ARG(_PATH)countdown
+						execute positioned 1151.0 -48.5 -574.0 as @e[type=item,nbt={Item:{id:"minecraft:stick",tag:{CustomModelData:4001022}}},dx=2,dy=0,dz=4] run function ARG(_PATH)countdown
 						schedule function ARG(_PATH)run 1s
 					}
 					
@@ -2765,7 +2765,7 @@ namespace party_quest() as virtual
 					
 					func blow()
 					{
-						# execute positioned 1139.0 ~ -186.0 as @e[type=interaction,tag=box,dx=5,dy=0,dz=2] at @s run function ARG(_PATH)box_break
+						execute positioned 1151.0 -48.5 -574.0 as @e[type=interaction,tag=box,dx=2,dy=0,dz=4] at @s run function ARG(_PATH)box_break
 						kill @s
 					}
 					
@@ -2783,7 +2783,7 @@ namespace party_quest() as virtual
 					function ARG(__PATH)2/box_break
 					tellraw @a[scores={playing_game=2,game_stage=9}] {"translate":"text.quest.party_quest.ldpq.stage9.summon_boss","font":"minecraft:uniform","color":"#efb7ab"}
 					```
-					# print("execute positioned 1147 -52.9375 -195.0 run", spawn_mob("9300012"))
+					print("execute positioned 1157 -52 -581 run", spawn_mob("9300012"))
 					```
 				}
 			}
