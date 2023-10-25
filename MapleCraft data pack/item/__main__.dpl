@@ -1215,20 +1215,45 @@ namespace item()
 				
 				func use()
 				{
-					# use sound check
-					execute store result score #GLOBAL temp run data get entity @s SelectedItem.tag.sound
-					execute if score #GLOBAL temp matches 0 run playsound minecraft:item.potion player @s
-					execute if score #GLOBAL temp matches 1 run playsound minecraft:item.apple player @s
-					execute if score #GLOBAL temp matches 2 run playsound minecraft:item.unagi player @s
-					execute if score #GLOBAL temp matches 3 run playsound minecraft:item.sap_of_ancient_tree player @s
-					execute if score #GLOBAL temp matches 4 run playsound minecraft:item.cake player @s
-					execute if score #GLOBAL temp matches 5 run playsound minecraft:item.red_bean_sundae player @s
-					execute if score #GLOBAL temp matches 6 run playsound minecraft:item.ice_cream_pop player @s
+					function ARG(_PATH)sound/play
 					
 					function ARG(_PATH)remove
 					execute if score #USING_SKILL temp matches ..599 run function ARG(_PATH)recover/check
 					execute if score #USING_SKILL temp matches 600..699 run function ARG(_PATH)debuff/check
 					execute if score #USING_SKILL temp matches 700.. run function ARG(_PATH)buff/check
+				}
+				
+				folder sound()
+				{
+					func play()
+					{
+						# use sound check
+						execute store result score #GLOBAL temp run data get entity @s SelectedItem.tag.sound
+						execute if score #GLOBAL temp matches ..2 run function ARG(_PATH)1
+						execute if score #GLOBAL temp matches 3..5 run function ARG(_PATH)2
+						execute if score #GLOBAL temp matches 6.. run function ARG(_PATH)3
+					}
+					
+					func 1()
+					{
+						execute if score #GLOBAL temp matches 0 run playsound minecraft:item.potion player @s
+						execute if score #GLOBAL temp matches 1 run playsound minecraft:item.apple player @s
+						execute if score #GLOBAL temp matches 2 run playsound minecraft:item.unagi player @s
+					}
+					
+					func 2()
+					{
+						execute if score #GLOBAL temp matches 3 run playsound minecraft:item.sap_of_ancient_tree player @s
+						execute if score #GLOBAL temp matches 4 run playsound minecraft:item.cake player @s
+						execute if score #GLOBAL temp matches 5 run playsound minecraft:item.red_bean_sundae player @s
+					}
+					
+					func 3()
+					{
+						execute if score #GLOBAL temp matches 6 run playsound minecraft:item.ice_cream_pop player @s
+						execute if score #GLOBAL temp matches 7 run playsound minecraft:item.tonic player @s
+						execute if score #GLOBAL temp matches 8 run playsound minecraft:item.antidote player @s
+					}
 				}
 
 				func remove()
