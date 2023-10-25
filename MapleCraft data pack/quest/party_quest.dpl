@@ -2272,7 +2272,7 @@ namespace party_quest() as virtual
 					{
 						func talk()
 						{
-							["\n",{"translate":"text.quest.party_quest.ldpq.stage6.explain","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+							tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage6.explain","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 						}
 					}
 				}
