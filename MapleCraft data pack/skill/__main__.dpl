@@ -1326,6 +1326,18 @@ namespace skill()
 			execute if score #RESET_DEBUFF temp matches 1.. run function ARG(_PATH)blind/delete_icon
 		}
 		
+		# 死掉或重登使用，不需要刪特效
+		func clear_all()
+		{
+			scoreboard players reset @s blind_time
+			scoreboard players reset @s seal_time
+			# scoreboard players reset @s curse_time
+			# scoreboard players reset @s weak_time
+			# scoreboard players reset @s poison_time
+			
+			scoreboard players reset @s debuff_count
+		}
+		
 		folder blind()
 		{
 			func set_icon()

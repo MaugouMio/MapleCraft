@@ -322,9 +322,7 @@ namespace main()
 		title @s times 1 5 10
 		title @s title {"text":"4","font":"ui:main"}
 		
-		scoreboard players reset @s blind_time
-		scoreboard players reset @s seal_time
-		scoreboard players reset @s debuff_count
+		function skill:update_negative/clear_all
 		scoreboard players reset @s login
 	}
 	

@@ -394,6 +394,7 @@ namespace bar_display()
 			scoreboard players set @s hp 0
 			execute if score @s job_level matches 1.. run function ARG(_PATH)drop_exp
 			function skill:buff/reset_all
+			function skill:update_negative/clear_all
 			tag @s add dead
 			
 			playsound minecraft:game.die player @a ~ ~ ~ 1 1 0
