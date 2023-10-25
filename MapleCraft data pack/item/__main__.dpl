@@ -1227,7 +1227,8 @@ namespace item()
 					
 					function ARG(_PATH)remove
 					execute if score #USING_SKILL temp matches ..599 run function ARG(_PATH)recover/check
-					execute if score #USING_SKILL temp matches 600.. run function ARG(_PATH)buff/check
+					execute if score #USING_SKILL temp matches 600..699 run function ARG(_PATH)debuff/check
+					execute if score #USING_SKILL temp matches 700.. run function ARG(_PATH)buff/check
 				}
 
 				func remove()
@@ -1347,6 +1348,50 @@ namespace item()
 						
 						function bar_display:change/mp/recovered
 					}
+				}
+				
+				folder debuff()
+				{
+					func check()
+					{
+						execute store result score #GLOBAL temp run data get entity @s SelectedItem.tag.debuff
+						
+						execute if score #GLOBAL temp matches 8.. run function ARG(_PATH)seal
+						execute if score #GLOBAL temp matches 4.. run function ARG(_PATH)blind
+						# execute if score #GLOBAL temp matches 2.. run function ARG(_PATH)weak
+						# execute if score #GLOBAL temp matches 1.. run function ARG(_PATH)poison
+						
+						execute if score #RESET_DEBUFF temp matches 1.. run function skill:update_negative/reset
+					}
+					
+					func seal()
+					{
+						execute if score @s seal_time matches 1.. run function skill:update_negative/seal/reset
+						# 等詛咒效果實裝再把這個打開
+						# execute if score @s curse_time matches 1.. run function skill:update_negative/curse/reset
+						
+						scoreboard players remove #GLOBAL temp 8
+					}
+					
+					func blind()
+					{
+						execute if score @s blind_time matches 1.. run function skill:update_negative/blind/reset
+						scoreboard players remove #GLOBAL temp 4
+					}
+					
+					# 等虛弱效果實裝再把這個打開
+					# func weak()
+					# {
+						# execute if score @s weak_time matches 1.. run function skill:update_negative/weak/reset
+						# scoreboard players remove #GLOBAL temp 2
+					# }
+					
+					# 等中毒效果實裝再把這個打開
+					# func poison()
+					# {
+						# execute if score @s poison_time matches 1.. run function skill:update_negative/poison/reset
+						# scoreboard players remove #GLOBAL temp 1
+					# }
 				}
 				
 				folder buff()

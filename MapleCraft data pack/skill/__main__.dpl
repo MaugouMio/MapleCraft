@@ -1242,6 +1242,11 @@ namespace skill()
 		scoreboard objectives add mob_hp_length dummy
 		scoreboard objectives add show_hp_time dummy
 		
+		scoreboard objectives add debuff_count dummy
+		scoreboard objectives add blind_time dummy
+		scoreboard objectives add seal_time dummy
+		# scoreboard objectives add curse_time dummy
+		
 		scoreboard players set #WORLD_EXP_RATE const 1
 		scoreboard players set #WORLD_DROP_RATE const 1
 		scoreboard players set #WORLD_MESO_RATE const 1
@@ -1257,9 +1262,6 @@ namespace skill()
 				print(f"scoreboard objectives add {skill}_level dummy")
 			print(f"scoreboard objectives add {skill}_eid dummy")
 		```
-		scoreboard objectives add debuff_count dummy
-		scoreboard objectives add blind_time dummy
-		scoreboard objectives add seal_time dummy
 		
 		data modify storage skill:main bullet_rotate set value {axis:[1f,0f,0f],angle:0f}
 		
@@ -1303,6 +1305,7 @@ namespace skill()
 		{
 			execute if score @s blind_time matches 1.. run function ARG(_PATH)blind/update
 			execute if score @s seal_time matches 1.. run function ARG(_PATH)seal/update
+			# execute if score @s curse_time matches 1.. run function ARG(_PATH)curse/update
 			
 			execute if score #RESET_DEBUFF temp matches 1.. run function ARG(_PATH)reset
 		}
@@ -1318,6 +1321,7 @@ namespace skill()
 		func delete_icon()
 		{
 			# bit mask 處理，必須由大到小執行
+			# execute if score #RESET_DEBUFF temp matches 4.. run function ARG(_PATH)curse/delete_icon
 			execute if score #RESET_DEBUFF temp matches 2.. run function ARG(_PATH)seal/delete_icon
 			execute if score #RESET_DEBUFF temp matches 1.. run function ARG(_PATH)blind/delete_icon
 		}
@@ -1377,6 +1381,36 @@ namespace skill()
 				execute on passengers run kill @s[tag=seal]
 			}
 		}
+		
+		# 等詛咒效果實裝再把這裡打開
+		# folder curse()
+		# {
+			# func set_icon()
+			# {
+				## TODO: CustomModelData 還沒確定
+				# data merge entity @s {Tags:["curse"],item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:102,CustomPotionColor:24}},billboard:"center"}
+				# function skill:bind_player
+			# }
+			
+			# func update()
+			# {
+				# scoreboard players remove @s curse_time 1
+				# execute if score @s curse_time matches 0 run function ARG(_PATH)reset
+			# }
+			
+			# func reset()
+			# {
+				# scoreboard players add #RESET_DEBUFF temp 4
+				# scoreboard players remove @s debuff_count 1
+				# scoreboard players reset @s curse_time
+			# }
+			
+			# func delete_icon()
+			# {
+				# scoreboard players remove #RESET_DEBUFF temp 4
+				# execute on passengers run kill @s[tag=curse]
+			# }
+		# }
 	}
 	
 	folder main()
