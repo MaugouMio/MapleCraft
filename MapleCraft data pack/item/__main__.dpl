@@ -1516,7 +1516,7 @@ namespace item()
 				
 				data modify storage item:main chair set from entity @s SelectedItem.tag.chair
 				tag @s add sit
-				execute positioned ~ ~0.2 ~ summon item_display run function ARG(_PATH)set_chair
+				execute positioned ~ ~0.45 ~ summon item_display run function ARG(_PATH)set_chair
 				tag @s remove sit
 				
 				# 重置補血時間 (下椅子的時候就算了，懶得再連閃偵測那個)
@@ -1525,7 +1525,7 @@ namespace item()
 			
 			func set_chair()
 			{
-				data merge entity @s {item:{id:"minecraft:diamond_hoe",Count:1b},Tags:["chair"],transformation:{translation:[0.0f,0.3f,0.0f]}}
+				data merge entity @s {item:{id:"minecraft:diamond_hoe",Count:1b},Tags:["chair"],transformation:{translation:[0.0f,0.05f,0.0f]}}
 				data modify entity @s shadow_radius set from storage item:main chair.shadow
 				data modify entity @s item.tag.CustomModelData set from storage item:main chair.id
 				data modify entity @s item.tag.hp set from storage item:main chair.hp

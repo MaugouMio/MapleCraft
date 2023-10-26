@@ -661,7 +661,7 @@ namespace main()
 	{
 		title @s times 1 5 10
 		title @s title {"text":"4","font":"ui:main"}
-		playsound minecraft:game.portal player @s ~ ~ ~ 1 1 1
+		playsound minecraft:game.portal player @s ~ ~ ~ 16 1 1
 	}
 	
 	folder test_npc()
