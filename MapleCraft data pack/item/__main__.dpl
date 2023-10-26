@@ -1217,10 +1217,10 @@ namespace item()
 				{
 					function ARG(_PATH)sound/play
 					
-					function ARG(_PATH)remove
 					execute if score #USING_SKILL temp matches ..599 run function ARG(_PATH)recover/check
 					execute if score #USING_SKILL temp matches 600..699 run function ARG(_PATH)debuff/check
 					execute if score #USING_SKILL temp matches 700.. run function ARG(_PATH)buff/check
+					function ARG(_PATH)remove
 				}
 				
 				folder sound()
