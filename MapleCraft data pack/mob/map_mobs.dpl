@@ -7,7 +7,7 @@ namespace map_mobs() as virtual
 			```
 			spawn_positions = ["-1 31 497","-5 31 500","-3 31 502"]
 			for pos in spawn_positions:
-				print(f"execute positioned {pos} run", spawn_mob("2230101", uuid=MOB_UUID))
+				print(f"execute positioned {pos} run", spawn_mob("9300018", uuid=MOB_UUID))
 				MOB_UUID += 1
 			```
 		}

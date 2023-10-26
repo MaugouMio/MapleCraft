@@ -49,7 +49,7 @@ def spawn_mob(id, is_summon=False, uuid=None, prefix=None):
 	}
 	if is_summon:
 		args["add_tag"] = ',"new_summon"'
-	if uuid:
+	if uuid != None:
 		args["prefix"] += f"UUID:[I;1,0,1,{uuid}],"
 	if prefix:
 		args["prefix"] += prefix
