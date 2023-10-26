@@ -9,6 +9,13 @@
             {
               "function": "minecraft:fill_player_head",
               "entity": "killer"
+            },
+            {
+              "function": "minecraft:set_name",
+              "entity": "killer",
+              "name": {
+                "selector": "@s"
+              }
             }
           ],
           "conditions": [

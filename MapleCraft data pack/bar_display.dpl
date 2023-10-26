@@ -423,7 +423,8 @@ namespace bar_display()
 		{
 			data merge entity @s {Tags:["dead_decoration"],CustomNameVisible:1,transformation:{scale:[1.2f,1.2f,1.2f]}}
 			item replace entity @s container.0 from block 250 1 0 container.0
-			function ARG(_PATH)set_name
+			data modify entity @s CustomName set from entity @s item.tag.display.Name
+			
 			tp @s ~ ~2 ~ ~180 0
 			scoreboard players operation @s number = #GLOBAL temp
 		}
@@ -447,13 +448,6 @@ namespace bar_display()
 		{
 			execute store result score #GLOBAL temp run time query gametime
 			execute as @e[type=item_display,tag=tomb] if score @s temp = #GLOBAL temp run data merge entity @s {transformation:{translation:[0.0f,2.6f,0.0f]},interpolation_duration:13,start_interpolation:0}
-		}
-		
-		func set_name()
-		{
-			data modify storage bar:main name set from entity @s ArmorItems[3].tag.SkullOwner.Name
-			data modify block 250 0 0 front_text.messages[0] set value '{"nbt":"name","storage":"bar:main"}'
-			data modify entity @s CustomName set from block 250 0 0 front_text.messages[0]
 		}
 		
 		func revive()
