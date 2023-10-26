@@ -723,11 +723,11 @@ namespace main()
 		{
 			func talk()
 			{
-				execute if score @s tutorial matches 10 run tellraw @s ["\n",{"translate":"text.quest.tutorial.next_stage","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+				execute if score @s tutorial matches 10 run tellraw @s ["\n",{"translate":"text.quest.tutorial.roger.next_stage","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 				execute if score @s tutorial matches 9 run function ARG(_PATH)equip_check
 				execute if score @s tutorial matches 8 run function ARG(_PATH)equip
 				execute if score @s tutorial matches 7 at @s run function ARG(_PATH)skill_complete
-				execute if score @s tutorial matches 6 run tellraw @s ["\n",{"translate":"text.quest.tutorial.skill_teach","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+				execute if score @s tutorial matches 6 run tellraw @s ["\n",{"translate":"text.quest.tutorial.roger.skill_teach","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 				execute if score @s tutorial matches 5 run function ARG(_PATH)attack_check
 				execute if score @s tutorial matches 4 run function ARG(_PATH)attack
 				execute if score @s tutorial matches 2 run function ARG(_PATH)apple_check
