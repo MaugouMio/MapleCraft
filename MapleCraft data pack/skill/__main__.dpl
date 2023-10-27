@@ -1186,6 +1186,7 @@ namespace skill()
 	func install()
 	{
 		scoreboard objectives add quick_cast minecraft.dropped:minecraft.ender_eye
+		scoreboard objectives add block_skill dummy
 		scoreboard objectives add base_model dummy
 		scoreboard objectives add status dummy
 		scoreboard objectives add motion_x dummy
@@ -1283,6 +1284,7 @@ namespace skill()
 			execute as @a[scores={debuff_count=1..}] at @s run function ARG(__PATH)update_negative/run
 			scoreboard players remove @a[scores={tired_time=1..}] tired_time 1
 			execute as @e[type=marker,tag=box_spawner] run function skill:6/0/0/1000/box/respawn/check
+			scoreboard players reset @a block_skill
 		}
 		
 		func enemy()
@@ -2193,6 +2195,7 @@ namespace skill()
 			# 快捷施放技能
 			execute if score @s skill_id matches 1.. run scoreboard players operation #USING_SKILL temp = @s skill_id
 			execute unless score @s skill_id matches 1.. store result score #USING_SKILL temp run data get entity @s[predicate=skill:use_eye] SelectedItem.tag.CustomModelData
+			execute if score #USING_SKILL temp = @s block_skill run return 0
 			
 			execute if score @s seal_time matches 0.. unless score #USING_SKILL temp matches 199.. run scoreboard players reset #USING_SKILL temp
 			execute if score #USING_SKILL temp matches 1..300 at @s run function ARG(_PATH)binary_search/run

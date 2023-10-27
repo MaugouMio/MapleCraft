@@ -200,6 +200,8 @@ namespace 0() as virtual
 				func check()
 				{
 					execute if score @s 0001001_level matches 1.. unless score @s invis_buff_time matches 1.. run function ARG(_PATH)cd_check
+					# 有 CD 的技能按了以後要阻擋連續使用，避免洗 CD 訊息
+					scoreboard players set @s block_skill 2
 				}
 				
 				func cd_check()
@@ -323,6 +325,8 @@ namespace 0() as virtual
 				func check()
 				{
 					execute if score @s 0001002_level matches 1.. unless score @s invis_buff_time matches 1.. run function ARG(_PATH)cd_check
+					# 有 CD 的技能按了以後要阻擋連續使用，避免洗 CD 訊息
+					scoreboard players set @s block_skill 3
 				}
 				
 				func cd_check()
