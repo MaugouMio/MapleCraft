@@ -343,9 +343,9 @@ namespace 0() as virtual
 					
 					# set sub buff values
 					scoreboard players operation @s speed -= @s speed_buff_num
-					execute if score @s 0001000_level matches 1 run scoreboard players set @s speed_buff_num 10
-					execute if score @s 0001000_level matches 2 run scoreboard players set @s speed_buff_num 15
-					execute if score @s 0001000_level matches 3 run scoreboard players set @s speed_buff_num 20
+					execute if score @s 0001002_level matches 1 run scoreboard players set @s speed_buff_num 10
+					execute if score @s 0001002_level matches 2 run scoreboard players set @s speed_buff_num 15
+					execute if score @s 0001002_level matches 3 run scoreboard players set @s speed_buff_num 20
 					scoreboard players operation @s speed += @s speed_buff_num
 					function stat:speed_changed/check
 					
