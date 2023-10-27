@@ -106,7 +106,7 @@ namespace 21() as virtual
 				{
 					function skill:sp_check/second
 					execute if score @s skill_point > #GLOBAL temp at @s run function skill:sp_check/notice_second
-					execute if score @s skill_point > #GLOBAL temp run return
+					execute if score @s skill_point > #GLOBAL temp run return 0
 
 					scoreboard players add @s 2100000_level 1
 					function ARG(_PATH)check
@@ -219,7 +219,7 @@ namespace 21() as virtual
 				{
 					function skill:sp_check/second
 					execute if score @s skill_point > #GLOBAL temp at @s run function skill:sp_check/notice_second
-					execute if score @s skill_point > #GLOBAL temp run return
+					execute if score @s skill_point > #GLOBAL temp run return 0
 
 					scoreboard players add @s 2101001_level 1
 					function ARG(_PATH)check
@@ -473,7 +473,7 @@ namespace 21() as virtual
 				{
 					function skill:sp_check/second
 					execute if score @s skill_point > #GLOBAL temp at @s run function skill:sp_check/notice_second
-					execute if score @s skill_point > #GLOBAL temp run return
+					execute if score @s skill_point > #GLOBAL temp run return 0
 
 					scoreboard players add @s 2101002_level 1
 					function ARG(_PATH)check
@@ -652,7 +652,7 @@ namespace 21() as virtual
 				{
 					function skill:sp_check/second
 					execute if score @s skill_point > #GLOBAL temp at @s run function skill:sp_check/notice_second
-					execute if score @s skill_point > #GLOBAL temp run return
+					execute if score @s skill_point > #GLOBAL temp run return 0
 
 					scoreboard players add @s 2101003_level 1
 					function ARG(_PATH)check
@@ -802,7 +802,7 @@ namespace 21() as virtual
 				{
 					function skill:sp_check/second
 					execute if score @s skill_point > #GLOBAL temp at @s run function skill:sp_check/notice_second
-					execute if score @s skill_point > #GLOBAL temp run return
+					execute if score @s skill_point > #GLOBAL temp run return 0
 
 					scoreboard players add @s 2101004_level 1
 					function ARG(_PATH)check
@@ -965,7 +965,7 @@ namespace 21() as virtual
 				{
 					function skill:sp_check/second
 					execute if score @s skill_point > #GLOBAL temp at @s run function skill:sp_check/notice_second
-					execute if score @s skill_point > #GLOBAL temp run return
+					execute if score @s skill_point > #GLOBAL temp run return 0
 
 					scoreboard players add @s 2101005_level 1
 					function ARG(_PATH)check

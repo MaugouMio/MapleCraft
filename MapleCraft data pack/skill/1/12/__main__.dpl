@@ -61,7 +61,7 @@ namespace 12() as virtual
 				{
 					function skill:sp_check/second
 					execute if score @s skill_point > #GLOBAL temp at @s run function skill:sp_check/notice_second
-					execute if score @s skill_point > #GLOBAL temp run return
+					execute if score @s skill_point > #GLOBAL temp run return 0
 
 					scoreboard players add @s 1200001_level 1
 					function ARG(_PATH)check
@@ -136,7 +136,7 @@ namespace 12() as virtual
 				{
 					function skill:sp_check/second
 					execute if score @s skill_point > #GLOBAL temp at @s run function skill:sp_check/notice_second
-					execute if score @s skill_point > #GLOBAL temp run return
+					execute if score @s skill_point > #GLOBAL temp run return 0
 
 					scoreboard players add @s 1200003_level 1
 					function ARG(_PATH)check
@@ -275,7 +275,7 @@ namespace 12() as virtual
 				{
 					function skill:sp_check/second
 					execute if score @s skill_point > #GLOBAL temp at @s run function skill:sp_check/notice_second
-					execute if score @s skill_point > #GLOBAL temp run return
+					execute if score @s skill_point > #GLOBAL temp run return 0
 
 					scoreboard players add @s 1201006_level 1
 					function ARG(_PATH)check

@@ -288,7 +288,7 @@ namespace item()
 			{
 				execute store result score @s max_life run data get entity @s data.loot
 				execute if score @s max_life matches 0 run kill @s
-				execute if score @s max_life matches 0 run return
+				execute if score @s max_life matches 0 run return 0
 				
 				execute if entity @s[y_rotation=-45..45] run function ARG(_PATH)z_positive
 				execute if entity @s[y_rotation=45..135] run function ARG(_PATH)x_negative
@@ -347,7 +347,7 @@ namespace item()
 
 				execute if score @s life < @s max_life store result score @s number run schedule function ARG(_PATH)call_spawn 4t append
 				execute if score @s life = @s max_life run kill @s
-				execute if score @s life = @s max_life run return
+				execute if score @s life = @s max_life run return 0
 
 				execute if entity @s[y_rotation=-45..45] run scoreboard players add @s z 1
 				execute if entity @s[y_rotation=45..135] run scoreboard players remove @s x 1
