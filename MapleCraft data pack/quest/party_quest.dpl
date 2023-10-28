@@ -2644,6 +2644,7 @@ namespace party_quest() as virtual
 							forceload remove 1131 -592 1183 -540
 							
 							function quest:party_quest/ldpq/stages/9/check_box/run
+							function quest:party_quest/ldpq/stages/9/shine
 							scoreboard players set #LDPQ_S9_LOADED temp 1
 						}
 					}
@@ -2660,6 +2661,7 @@ namespace party_quest() as virtual
 					forceload remove 1131 -592 1183 -540
 					
 					schedule clear ARG(_PATH)check_box/run
+					schedule clear ARG(_PATH)shine
 					scoreboard players reset #LDPQ_S9_LOADED temp
 				}
 				
@@ -2756,7 +2758,7 @@ namespace party_quest() as virtual
 				{
 					func run()
 					{
-						execute positioned 1151.0 -48.5 -574.0 as @e[type=item,nbt={Item:{id:"minecraft:stick",tag:{CustomModelData:4001022}}},dx=2,dy=0,dz=4] run function ARG(_PATH)countdown
+						execute positioned 1151.0 -52.0 -574.0 as @e[type=item,nbt={Item:{id:"minecraft:stick",tag:{CustomModelData:4001022}}},dx=2,dy=3.5,dz=4] run function ARG(_PATH)countdown
 						schedule function ARG(_PATH)run 1s
 					}
 					
@@ -2788,6 +2790,12 @@ namespace party_quest() as virtual
 					```
 					print("execute positioned 1157 -52 -581 run", spawn_mob("9300012"))
 					```
+				}
+				
+				func shine()
+				{
+					execute positioned 1130 -53 -593 at @e[type=marker,tag=ldpq_shine,dx=54,dy=14,dz=54] run particle minecraft:end_rod ~ ~-0.5 ~ 0.7 1 0.7 0.01 1 force
+					schedule function ARG(_PATH)shine 8t
 				}
 			}
 			
