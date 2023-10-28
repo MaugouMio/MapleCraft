@@ -1714,6 +1714,7 @@ namespace loop()
 			# unlock players that set command trigger to 0
 			scoreboard players enable @a[scores={command=0}] command
 			scoreboard players enable @a[scores={drop_meso=0}] drop_meso
+			effect give @a minecraft:saturation infinite 10 true
 		}
 	}
 	
