@@ -261,14 +261,8 @@ namespace 32() as virtual
 				execute unless score @s bullet_amount matches 1.. run scoreboard players set #LACK_BULLET temp 1
 				execute if score @s soul_buff_time matches 1.. if score @s 3101004_weapon matches 18 run scoreboard players set #LACK_BULLET temp 0
 				
-				execute if score #LACK_BULLET temp matches 1 run function ARG(_PATH)lack_arrow
+				execute if score #LACK_BULLET temp matches 1.. run function skill:bullet/lack/arrow
 				execute if score #LACK_BULLET temp matches 0 run function ARG(_PATH)check_distance
-			}
-				
-			func lack_arrow()
-			{
-				tellraw @s {"translate":"warning.skill.lack_arrow","font":"minecraft:uniform","color":"#efb7ab"}
-				function skill:6/0/0/1003/mark_target
 			}
 			
 			func check_distance()
