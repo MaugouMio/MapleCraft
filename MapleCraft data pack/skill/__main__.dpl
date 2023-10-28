@@ -2186,8 +2186,8 @@ namespace skill()
 			func arrow()
 			{
 				data modify storage skill:main bullet_list set value []
-				execute if scoer #USED_WEAPON temp matches 16 run data modify storage skill:main bullet_list append from entity @s Inventory[{tag:{bullet_type:2b}}]
-				execute if scoer #USED_WEAPON temp matches 18 run data modify storage skill:main bullet_list append from entity @s Inventory[{tag:{bullet_type:3b}}]
+				execute if score #USED_WEAPON temp matches 16 run data modify storage skill:main bullet_list append from entity @s Inventory[{tag:{bullet_type:2b}}]
+				execute if score #USED_WEAPON temp matches 18 run data modify storage skill:main bullet_list append from entity @s Inventory[{tag:{bullet_type:3b}}]
 				
 				execute if data storage skill:main bullet_list[0] run function ARG(_PATH)filter_count
 				execute if data storage skill:main bullet_list[0] run function ARG(_PATH)charge with storage skill:main bullet_list[0].tag
