@@ -110,8 +110,8 @@ namespace party_quest() as virtual
 		title @s times 1 5 10
 		title @s title {"text":"4","font":"ui:main"}
 		
-		execute if score #GLOBAL playing_game matches 1 run function ARG(_PATH)party_quest/kpq/leave_stages
-		execute if score #GLOBAL playing_game matches 2 run function ARG(_PATH)party_quest/ldpq/leave_stages
+		execute if score #GLOBAL playing_game matches 1 run function ARG(_PATH)kpq/leave_stages
+		execute if score #GLOBAL playing_game matches 2 run function ARG(_PATH)ldpq/leave_stages
 	}
 
 	folder add_combination()
