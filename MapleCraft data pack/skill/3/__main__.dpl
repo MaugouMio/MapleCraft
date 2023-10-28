@@ -331,7 +331,7 @@ namespace 3() as virtual
 					scoreboard players set #LACK_BULLET temp 0
 					execute if score #USED_WEAPON temp matches 16 unless score @s bullet_item matches 21..25 run scoreboard players set #LACK_BULLET temp 1
 					execute if score #USED_WEAPON temp matches 18 unless score @s bullet_item matches 26..30 run scoreboard players set #LACK_BULLET temp 1
-					execute unless score @s bullet_amount matches 1.. temp run scoreboard players set #LACK_BULLET temp 1
+					execute unless score @s bullet_amount matches 1.. run scoreboard players set #LACK_BULLET temp 1
 					execute if score @s soul_buff_time matches 1.. if score @s 3101004_weapon = #USED_WEAPON temp run scoreboard players set #LACK_BULLET temp 0
 					
 					execute if score #LACK_BULLET temp matches 1.. run function skill:bullet/lack/arrow
