@@ -230,7 +230,9 @@ namespace 42() as virtual
 			{
 				data modify entity 00000000-0000-0001-0000-000000000001 DeathLootTable set from entity @s ArmorItems[3].tag.steal_loot
 				function skill:spawn_loot
+				scoreboard players set #DROP_SOUND temp 1
 				execute as @e[type=item,tag=!checked] at @s run function item:entity/check
+				scoreboard players reset #DROP_SOUND temp
 			}
 			
 			func append_scheduler()

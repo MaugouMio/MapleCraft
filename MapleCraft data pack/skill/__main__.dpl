@@ -844,7 +844,9 @@ namespace skill()
 
 								data modify entity 00000000-0000-0001-0000-000000000001 DeathLootTable set from entity @s item.tag.info.loot
 								function skill:spawn_loot
+								scoreboard players set #DROP_SOUND temp 1
 								execute as @e[type=item,tag=!checked] at @s run function item:entity/check
+								scoreboard players reset #DROP_SOUND temp
 							}
 							
 							folder check_break_event()
@@ -3638,7 +3640,9 @@ namespace skill()
 		{
 			data modify entity 00000000-0000-0001-0000-000000000001 DeathLootTable set from entity @s DeathLootTable
 			function skill:spawn_loot
+			scoreboard players set #DROP_SOUND temp 1
 			execute as @e[type=item,tag=!checked] at @s run function item:entity/check
+			scoreboard players reset #DROP_SOUND temp
 		}
 		
 		folder traverse_damages() from while_loop("if data storage skill:main damage_copy[0]")
