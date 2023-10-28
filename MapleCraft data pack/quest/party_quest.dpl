@@ -359,8 +359,8 @@ namespace party_quest() as virtual
 				func reset()
 				{
 					forceload add -266 -23 -314 23
-					execute positioned -328 60 -43 run kill @e[type=item,dx=86,dy=28,dz=86]
-					execute positioned -328 60 -43 run kill @e[tag=kpq_mob,dx=86,dy=28,dz=86]
+					execute positioned -328 45 -43 run kill @e[type=item,dx=86,dy=43,dz=86]
+					execute positioned -328 45 -43 run kill @e[tag=kpq_mob,dx=86,dy=43,dz=86]
 					data modify block -310 47 0 front_text.messages[0] set value '""'
 					data modify block -310 47 0 back_text.messages[0] set value '""'
 					forceload remove -266 -23 -314 23
@@ -447,7 +447,7 @@ namespace party_quest() as virtual
 							clear @s minecraft:stick{CustomModelData:4001007}
 							tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":[{"score":{"objective":"kpq_coupon","name":"@s"}},{"translate":"item.etc.4001007"}]}
 							```
-							print(f"give @s minecraft:warped_fungus_on_a_stick{itemDatas[33008]}")
+							print(f"give @s minecraft:stick{itemDatas[33008]}")
 							```
 							tellraw @s {"translate":"text.quest.item_gain","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4001008"}]}
 							tellraw @s ["\n",{"translate":"text.quest.party_quest.kpq.stage1.get_pass","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
