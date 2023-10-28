@@ -102,6 +102,7 @@ namespace party_quest() as virtual
 	func reset_check()
 	{
 		execute if entity @s[tag=dead] run function bar_display:death/revive
+		scoreboard players operation #GLOBAL playing_game = @s playing_game
 		scoreboard players reset @s playing_game
 		scoreboard players reset @s game_stage
 		tag @s remove pq_player
@@ -109,8 +110,8 @@ namespace party_quest() as virtual
 		title @s times 1 5 10
 		title @s title {"text":"4","font":"ui:main"}
 		
-		execute if score @s playing_game matches 1 run function ARG(_PATH)party_quest/kpq/leave_stages
-		execute if score @s playing_game matches 2 run function ARG(_PATH)party_quest/ldpq/leave_stages
+		execute if score #GLOBAL playing_game matches 1 run function ARG(_PATH)party_quest/kpq/leave_stages
+		execute if score #GLOBAL playing_game matches 2 run function ARG(_PATH)party_quest/ldpq/leave_stages
 	}
 
 	folder add_combination()
