@@ -2317,6 +2317,7 @@ namespace skill()
 			
 			scoreboard players operation #USED_WEAPON temp = @s weapon_type
 			execute if score #USED_WEAPON temp matches 0 run tellraw @s {"translate":"warning.skill.no_weapon","font":"minecraft:uniform","color":"#efb7ab"}
+			execute if score #USED_WEAPON temp matches 0 run scoreboard players operation @s block_skill = #USING_SKILL temp
 		}
 		
 		folder single_hand()
@@ -2332,6 +2333,7 @@ namespace skill()
 				scoreboard players operation #ACCEPTED_WEAPON temp = #USED_WEAPON temp
 				scoreboard players operation #ACCEPTED_WEAPON temp %= #2 const
 				execute if score #ACCEPTED_WEAPON temp matches 0 run tellraw @s {"translate":"warning.skill.wrong_weapon","font":"minecraft:uniform","color":"#efb7ab"}
+				execute if score #ACCEPTED_WEAPON temp matches 0 run scoreboard players operation @s block_skill = #USING_SKILL temp
 			}
 		}
 		
@@ -2348,6 +2350,7 @@ namespace skill()
 			{{
 				execute store success score #ACCEPTED_WEAPON temp if score #USED_WEAPON temp matches {range_string}
 				execute if score #ACCEPTED_WEAPON temp matches 0 run tellraw @s {{"translate":"warning.skill.wrong_weapon","font":"minecraft:uniform","color":"#efb7ab"}}
+				execute if score #ACCEPTED_WEAPON temp matches 0 run scoreboard players operation @s block_skill = #USING_SKILL temp
 			}}''')
 		
 		type_id_dict = {

@@ -505,8 +505,7 @@ namespace 23() as virtual
 			
 			func other_check()
 			{
-				scoreboard players operation #USED_WEAPON temp = @s weapon_type
-				execute if score #USED_WEAPON temp matches 0 run tellraw @s {"translate":"warning.skill.no_weapon","font":"minecraft:uniform","color":"#efb7ab"}
+				function skill:check_weapon/check_empty
 				
 				execute if score #USED_WEAPON temp matches 1.. if score @s mp < @s 2301005_mp run tellraw @s {"translate":"warning.skill.lack_mp","font":"minecraft:uniform","color":"#efb7ab"}
 				execute if score #USED_WEAPON temp matches 1.. if score @s mp >= @s 2301005_mp run function ARG(_PATH)run
