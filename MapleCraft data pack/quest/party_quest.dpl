@@ -819,6 +819,7 @@ namespace party_quest() as virtual
 					scoreboard players add @s game_stage 1
 					execute unless entity @a[scores={playing_game=1,game_stage=..5}] run function ARG(_PATH)reset
 					
+					data remove block 250 1 0 Items[]
 					loot replace block 250 1 0 container.0 loot quest:kpq_award
 					execute store result score #GLOBAL temp run data get block 250 1 0 Items[0].Count
 					execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_gain","font":"minecraft:uniform","color":"gray","with":[{"nbt":"Items[0].tag.display.Name","block":"250 1 0","interpret":true}]}
@@ -1133,6 +1134,7 @@ namespace party_quest() as virtual
 				
 				func award()
 				{
+					data remove block 250 1 0 Items[]
 					loot replace block 250 1 0 container.0 loot quest:ldpq_award
 					execute store result score #GLOBAL temp run data get block 250 1 0 Items[0].Count
 					execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_gain","font":"minecraft:uniform","color":"gray","with":[{"nbt":"Items[0].tag.display.Name","block":"250 1 0","interpret":true}]}
