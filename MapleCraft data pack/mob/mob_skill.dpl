@@ -4,7 +4,11 @@ namespace mob_skill() as virtual
 	{
 		func check()
 		{
-			execute unless score @s kb_time matches 1.. if score @s[nbt={OnGround:1b}] anger_time matches 1.. at @s run function ARG(_PATH)skill_check
+			function random:rand_rate
+			# idle 一段時間
+			execute if score #RAND_RESULT number matches ..19 run scoreboard players operation @s action_time = #RAND_RESULT number
+			execute if score #RAND_RESULT number matches ..19 run scoreboard players add @s action_time 20
+			execute if score #RAND_RESULT number matches 20.. unless score @s kb_time matches 1.. if score @s[nbt={OnGround:1b}] anger_time matches 1.. at @s run function ARG(_PATH)skill_check
 		}
 		
 		func skill_check()
