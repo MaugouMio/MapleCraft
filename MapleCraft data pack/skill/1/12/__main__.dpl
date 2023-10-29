@@ -206,7 +206,7 @@ namespace 12() as virtual
 			
 			func other_check()
 			{
-				execute if score @s mp < @s 1201006_mp run tellraw @s {"translate":"warning.skill.lack_mp","font":"minecraft:uniform","color":"#efb7ab"}
+				execute if score @s mp < @s 1201006_mp run function skill:check_consume/mp
 				execute if score @s mp >= @s 1201006_mp run function ARG(_PATH)cast_effect
 			}
 			

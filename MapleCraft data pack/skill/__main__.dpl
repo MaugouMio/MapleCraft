@@ -566,13 +566,13 @@ namespace booster_skill_template(skill_id, weapon, icon) as virtual
 	func other_check()
 	{
 		function skill:check_weapon/ARG(weapon)/run
-		execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s hp <= @s ARG(skill_id)_mp run tellraw @s {"translate":"warning.skill.lack_hp","font":"minecraft:uniform","color":"#efb7ab"}
+		execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s hp <= @s ARG(skill_id)_mp run function skill:check_consume/hp
 		execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s hp > @s ARG(skill_id)_mp run function ARG(_PATH)mp_check
 	}
 	
 	func mp_check()
 	{
-		execute if score @s mp < @s ARG(skill_id)_mp run tellraw @s {"translate":"warning.skill.lack_mp","font":"minecraft:uniform","color":"#efb7ab"}
+		execute if score @s mp < @s ARG(skill_id)_mp run function skill:check_consume/mp
 		execute if score @s mp >= @s ARG(skill_id)_mp run function ARG(_PATH)cast_effect
 	}
 	
@@ -2256,9 +2256,12 @@ namespace skill()
 			# 快捷施放技能
 			execute if score @s skill_id matches 1.. run scoreboard players operation #USING_SKILL temp = @s skill_id
 			execute unless score @s skill_id matches 1.. store result score #USING_SKILL temp run data get entity @s[predicate=skill:use_eye] SelectedItem.tag.CustomModelData
-			execute if score #USING_SKILL temp = @s block_skill run return 0
-			
 			execute if score @s seal_time matches 0.. unless score #USING_SKILL temp matches 199.. run scoreboard players reset #USING_SKILL temp
+			
+			# 阻擋施放時避免連續施放同個技能洗頻，但如果用過其他技能或道具，再切回來就讓他重試一次 (可能喝藥水之類的讓狀態改變了)
+			execute if score #USING_SKILL temp = @s block_skill run return 0
+			scoreboard players reset @s block_skill
+			
 			execute if score #USING_SKILL temp matches 1..300 at @s run function ARG(_PATH)binary_search/run
 			execute if score #USING_SKILL temp matches 301.. run function item:use/consume/check
 		}
@@ -2372,6 +2375,21 @@ namespace skill()
 			check_weapon_range(type_id_dict[t])
 			print("}")
 		```
+	}
+	
+	folder check_consume()
+	{
+		func hp()
+		{
+			tellraw @s {"translate":"warning.skill.lack_hp","font":"minecraft:uniform","color":"#efb7ab"}
+			scoreboard players operation @s block_skill = #USING_SKILL temp
+		}
+		
+		func mp()
+		{
+			tellraw @s {"translate":"warning.skill.lack_mp","font":"minecraft:uniform","color":"#efb7ab"}
+			scoreboard players operation @s block_skill = #USING_SKILL temp
+		}
 	}
 
 	folder enemy_search()

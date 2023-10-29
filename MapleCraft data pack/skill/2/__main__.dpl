@@ -165,7 +165,7 @@ namespace 2() as virtual
 				
 				func other_check()
 				{
-					execute if score @s mp < @s 2001002_mp run tellraw @s {"translate":"warning.skill.lack_mp","font":"minecraft:uniform","color":"#efb7ab"}
+					execute if score @s mp < @s 2001002_mp run function skill:check_consume/mp
 					execute if score @s mp >= @s 2001002_mp run function ARG(_PATH)cast_effect
 				}
 				
@@ -285,7 +285,7 @@ namespace 2() as virtual
 				
 				func other_check()
 				{
-					execute if score @s mp < @s 2001003_mp run tellraw @s {"translate":"warning.skill.lack_mp","font":"minecraft:uniform","color":"#efb7ab"}
+					execute if score @s mp < @s 2001003_mp run function skill:check_consume/mp
 					execute if score @s mp >= @s 2001003_mp run function ARG(_PATH)cast_effect
 				}
 				
@@ -399,7 +399,7 @@ namespace 2() as virtual
 				func other_check()
 				{
 					function skill:check_weapon/single_hand/run
-					execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 2001004_mp run tellraw @s {"translate":"warning.skill.lack_mp","font":"minecraft:uniform","color":"#efb7ab"}
+					execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 2001004_mp run function skill:check_consume/mp
 					execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp >= @s 2001004_mp run function ARG(_PATH)run
 				}
 				
@@ -545,7 +545,7 @@ namespace 2() as virtual
 				func other_check()
 				{
 					function skill:check_weapon/single_hand/run
-					execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 2001005_mp run tellraw @s {"translate":"warning.skill.lack_mp","font":"minecraft:uniform","color":"#efb7ab"}
+					execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp < @s 2001005_mp run function skill:check_consume/mp
 					execute if score #ACCEPTED_WEAPON temp matches 1.. if score @s mp >= @s 2001005_mp run function ARG(_PATH)run
 				}
 				

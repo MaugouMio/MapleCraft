@@ -164,7 +164,7 @@ namespace 21() as virtual
 			
 			func other_check()
 			{
-				execute if score @s mp < @s 2101001_mp run tellraw @s {"translate":"warning.skill.lack_mp","font":"minecraft:uniform","color":"#efb7ab"}
+				execute if score @s mp < @s 2101001_mp run function skill:check_consume/mp
 				execute if score @s mp >= @s 2101001_mp run function ARG(_PATH)cast_effect
 			}
 			
@@ -291,7 +291,7 @@ namespace 21() as virtual
 			
 			func other_check()
 			{
-				execute if score @s mp < @s 2101002_mp run tellraw @s {"translate":"warning.skill.lack_mp","font":"minecraft:uniform","color":"#efb7ab"}
+				execute if score @s mp < @s 2101002_mp run function skill:check_consume/mp
 				execute if score @s mp >= @s 2101002_mp run function ARG(_PATH)slab_check
 			}
 			
@@ -545,7 +545,7 @@ namespace 21() as virtual
 			
 			func other_check()
 			{
-				execute if score @s mp < @s 2101003_mp run tellraw @s {"translate":"warning.skill.lack_mp","font":"minecraft:uniform","color":"#efb7ab"}
+				execute if score @s mp < @s 2101003_mp run function skill:check_consume/mp
 				execute if score @s mp >= @s 2101003_mp run function ARG(_PATH)cast_effect
 			}
 			
@@ -726,7 +726,7 @@ namespace 21() as virtual
 			{
 				function skill:check_weapon/check_empty
 				
-				execute if score #USED_WEAPON temp matches 1.. if score @s mp < @s 2101004_mp run tellraw @s {"translate":"warning.skill.lack_mp","font":"minecraft:uniform","color":"#efb7ab"}
+				execute if score #USED_WEAPON temp matches 1.. if score @s mp < @s 2101004_mp run function skill:check_consume/mp
 				execute if score #USED_WEAPON temp matches 1.. if score @s mp >= @s 2101004_mp run function ARG(_PATH)run
 			}
 			
@@ -883,7 +883,7 @@ namespace 21() as virtual
 			{
 				function skill:check_weapon/check_empty
 				
-				execute if score #USED_WEAPON temp matches 1.. if score @s mp < @s 2101005_mp run tellraw @s {"translate":"warning.skill.lack_mp","font":"minecraft:uniform","color":"#efb7ab"}
+				execute if score #USED_WEAPON temp matches 1.. if score @s mp < @s 2101005_mp run function skill:check_consume/mp
 				execute if score #USED_WEAPON temp matches 1.. if score @s mp >= @s 2101005_mp run function ARG(_PATH)run
 			}
 			
