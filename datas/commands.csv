@@ -214,4 +214,4 @@
 219,at @s run function main:menu/reset_ap
 220,at @s run function main:menu/reset_sp
 # 試玩用功能從 500 開始，避免干擾
-500,if score @s map matches 103000000 if score @s level matches ..69 at @s run function main:test_job/level_up
+500,unless score @s playing_game matches 1.. if score @s level matches ..69 at @s run function main:test_job/level_up
