@@ -2550,7 +2550,7 @@
 	],
 	"display": {
 		"head": {
-			"translation": [0, 30, 0],
+			"translation": [0, 35, 0],
 			"scale": [3.2512, 3.2512, 3.2512]
 		}
 	},
@@ -2560,7 +2560,6 @@
 			"origin": [8, 12.49476, 4.35477],
 			"color": 0,
 			"nbt": "{}",
-			"armAnimationEnabled": false,
 			"children": [
 				0,
 				{
@@ -2568,7 +2567,6 @@
 					"origin": [8, 12.49476, 4.35477],
 					"color": 0,
 					"nbt": "{}",
-					"armAnimationEnabled": false,
 					"children": [
 						1,
 						2,
@@ -2610,14 +2608,12 @@
 							"origin": [8, 8, 8],
 							"color": 0,
 							"nbt": "{}",
-							"armAnimationEnabled": false,
 							"children": [
 								{
 									"name": "tentacle",
 									"origin": [8.85, 3.5, 6.95],
 									"color": 0,
 									"nbt": "{}",
-									"armAnimationEnabled": false,
 									"children": [36, 37, 38, 39, 40, 41, 42, 43, 44, 45]
 								},
 								{
@@ -2625,7 +2621,6 @@
 									"origin": [8, 3.5, 6.1],
 									"color": 0,
 									"nbt": "{}",
-									"armAnimationEnabled": false,
 									"children": [46, 47, 48, 49, 50, 51]
 								},
 								{
@@ -2633,7 +2628,6 @@
 									"origin": [8, 3.5, 6.1],
 									"color": 0,
 									"nbt": "{}",
-									"armAnimationEnabled": false,
 									"children": [52, 53, 54, 55, 56]
 								},
 								57,
@@ -2644,7 +2638,6 @@
 									"origin": [8, 3.5, 6.1],
 									"color": 0,
 									"nbt": "{}",
-									"armAnimationEnabled": false,
 									"children": [
 										60,
 										61,
@@ -2657,7 +2650,6 @@
 											"origin": [8, 3.5, 6.1],
 											"color": 0,
 											"nbt": "{}",
-											"armAnimationEnabled": false,
 											"children": [66, 67, 68, 69, 70, 71]
 										},
 										{
@@ -2665,7 +2657,6 @@
 											"origin": [8, 3.5, 6.1],
 											"color": 0,
 											"nbt": "{}",
-											"armAnimationEnabled": false,
 											"children": [72, 73, 74, 75, 76]
 										}
 									]
@@ -2712,21 +2703,18 @@
 			"origin": [-7.35, 9.9467, 8.01992],
 			"color": 0,
 			"nbt": "{}",
-			"armAnimationEnabled": false,
 			"children": [
 				{
 					"name": "right",
 					"origin": [-7.35, 9.9467, 8.01992],
 					"color": 0,
 					"nbt": "{}",
-					"armAnimationEnabled": false,
 					"children": [
 						{
 							"name": "shoulder",
 							"origin": [-0.85, 18.86459, 7.06282],
 							"color": 0,
 							"nbt": "{}",
-							"armAnimationEnabled": false,
 							"children": [108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119]
 						},
 						120,
@@ -2735,7 +2723,6 @@
 							"origin": [-7.35, 9.9467, 8.01992],
 							"color": 0,
 							"nbt": "{}",
-							"armAnimationEnabled": false,
 							"children": [121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139]
 						}
 					]
@@ -2745,14 +2732,12 @@
 					"origin": [-7.35, 9.9467, 8.01992],
 					"color": 0,
 					"nbt": "{}",
-					"armAnimationEnabled": false,
 					"children": [
 						{
 							"name": "shoulder",
 							"origin": [-0.85, 18.86459, 7.06282],
 							"color": 0,
 							"nbt": "{}",
-							"armAnimationEnabled": false,
 							"children": [140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152]
 						},
 						153,
@@ -2761,7 +2746,6 @@
 							"origin": [-7.35, 9.9467, 8.01992],
 							"color": 0,
 							"nbt": "{}",
-							"armAnimationEnabled": false,
 							"children": [154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172]
 						}
 					]
@@ -2773,14 +2757,12 @@
 			"origin": [4, 3.41306, 14.80866],
 			"color": 0,
 			"nbt": "{}",
-			"armAnimationEnabled": false,
 			"children": [
 				{
 					"name": "right",
 					"origin": [12, -1.58694, 12.80866],
 					"color": 0,
 					"nbt": "{}",
-					"armAnimationEnabled": false,
 					"children": [173, 174, 175, 176, 177, 178, 179]
 				},
 				{
@@ -2788,7 +2770,6 @@
 					"origin": [4, 3.41306, 14.80866],
 					"color": 0,
 					"nbt": "{}",
-					"armAnimationEnabled": false,
 					"children": [180, 181, 182, 183, 184, 185, 186]
 				}
 			]
@@ -2798,7 +2779,6 @@
 			"origin": [8, 12.49476, 4.35477],
 			"color": 0,
 			"nbt": "{}",
-			"armAnimationEnabled": false,
 			"children": [187, 188]
 		}
 	]
