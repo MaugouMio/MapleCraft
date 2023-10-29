@@ -53,7 +53,11 @@ namespace 11() as virtual
 			{
 				tag @s add fighter
 				function stat:job/hp_mp/warrior/fighter
-					
+				function ARG(_PATH)init_skill_level
+			}
+
+			func init_skill_level()
+			{
 				scoreboard players set @s 1100000_level 0
 				scoreboard players set @s 1100001_level 0
 				scoreboard players set @s 1100002_level 0

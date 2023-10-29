@@ -54,7 +54,11 @@ namespace 13() as virtual
 			{
 				tag @s add spearman
 				function stat:job/hp_mp/warrior/page_spearman
-					
+				function ARG(_PATH)init_skill_level
+			}
+
+			func init_skill_level()
+			{
 				scoreboard players set @s 1300000_level 0
 				scoreboard players set @s 1300001_level 0
 				scoreboard players set @s 1300002_level 0

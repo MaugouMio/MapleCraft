@@ -41,7 +41,11 @@ namespace 23() as virtual
 			{
 				tag @s add cleric
 				function stat:job/hp_mp/magician/second
-					
+				function ARG(_PATH)init_skill_level
+			}
+
+			func init_skill_level()
+			{
 				scoreboard players set @s 2100000_level 0
 				scoreboard players set @s 2101002_level 0
 				scoreboard players set @s 2301002_level 0

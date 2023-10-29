@@ -38,7 +38,11 @@ namespace 32() as virtual
 			{
 				tag @s add crossbowman
 				function stat:job/hp_mp/archer_thief/second
-					
+				function ARG(_PATH)init_skill_level
+			}
+
+			func init_skill_level()
+			{
 				scoreboard players set @s 3200000_level 0
 				scoreboard players set @s 3200001_level 0
 				scoreboard players set @s 3201002_level 0

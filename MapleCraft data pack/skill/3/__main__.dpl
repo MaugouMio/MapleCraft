@@ -43,7 +43,11 @@ namespace 3() as virtual
 					tag @s add archer
 					function stat:job/hp_mp/archer_thief/first
 					function stat:standard_pdd/set
-					
+					function ARG(_PATH)init_skill_level
+				}
+
+				func init_skill_level()
+				{
 					scoreboard players set @s 3000000_level 0
 					scoreboard players set @s 3000001_level 0
 					scoreboard players set @s 3000002_level 0

@@ -39,7 +39,11 @@ namespace 42() as virtual
 			{
 				tag @s add bandit
 				function stat:job/hp_mp/archer_thief/second
-				
+				function ARG(_PATH)init_skill_level
+			}
+
+			func init_skill_level()
+			{
 				scoreboard players set @s 4200000_level 0
 				scoreboard players set @s 4100002_level 0
 				scoreboard players set @s 4201002_level 0
