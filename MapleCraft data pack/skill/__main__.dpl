@@ -2247,7 +2247,7 @@ namespace skill()
 	{
 		func run()
 		{
-			execute if entity @s[tag=!dead,predicate=!skill:sitting] run function ARG(_PATH)check
+			execute if entity @s[tag=!dead] run function ARG(_PATH)check
 			advancement revoke @s only skill:use_item
 		}
 		
@@ -2262,7 +2262,7 @@ namespace skill()
 			execute if score #USING_SKILL temp = @s block_skill run return 0
 			scoreboard players reset @s block_skill
 			
-			execute if score #USING_SKILL temp matches 1..300 at @s run function ARG(_PATH)binary_search/run
+			execute if score #USING_SKILL temp matches 1..300 at @s[predicate=!skill:sitting] run function ARG(_PATH)binary_search/run
 			execute if score #USING_SKILL temp matches 301.. run function item:use/consume/check
 		}
 		
