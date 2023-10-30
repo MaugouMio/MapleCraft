@@ -1271,8 +1271,8 @@ namespace party_quest() as virtual
 					execute if score #LDPQ_S2_H_LOADED temp matches 1 run function ARG(_PATH)hide/reset
 					
 					forceload add 375 -201 398 -178
-					execute positioned 374 -55 -179 run kill @e[type=item,dx=24,dy=96,dz=24]
-					execute positioned 374 -55 -179 run kill @e[tag=ldpq_mob,dx=24,dy=96,dz=24]
+					execute positioned 374 -55 -202 run kill @e[type=item,dx=24,dy=96,dz=24]
+					execute positioned 374 -55 -202 run kill @e[tag=ldpq_mob,dx=24,dy=96,dz=24]
 					forceload remove 375 -201 398 -178
 					
 					scoreboard players reset #LDPQ_S2_LOADED temp
