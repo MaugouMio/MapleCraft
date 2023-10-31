@@ -1380,11 +1380,15 @@ namespace party_quest() as virtual
 					
 					func tp()
 					{
+						execute store success score #GLOBAL temp if entity @s[distance=..10]
 						scoreboard players add #LDPQ_S2_H_PLAYER temp 1
 						
 						title @s times 1 5 10
 						title @s title {"text":"4","font":"ui:main"}
 						tp @s 380.0 160 -587 40 50
+						
+						# 給被傳走的人補箱子打破的音效 (16格內都聽得到，但距離太遠太小聲就不要給他補音效了)
+						execute if score #GLOBAL temp matches 1 at @s run playsound minecraft:mob.hurt.b_22020023 player @s ~ ~ ~ 1 1 0
 					}
 					
 					func leave()
