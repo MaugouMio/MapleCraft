@@ -701,14 +701,14 @@ namespace main()
 	{
 		scoreboard players operation #BIND_PLAYER number = @s number
 		execute summon text_display run function skill:summon_font_effect/2101002effect
-		playsound minecraft:game.portal player @s ~ ~ ~ 16 1 1
+		playsound minecraft:game.portal player @s
 	}
 	
 	func cross_map_effect()
 	{
 		title @s times 1 5 10
 		title @s title {"text":"4","font":"ui:main"}
-		playsound minecraft:game.portal player @s ~ ~ ~ 512 1 1
+		playsound minecraft:game.portal player @s
 	}
 	
 	folder test_npc()
