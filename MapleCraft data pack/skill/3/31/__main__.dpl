@@ -566,7 +566,9 @@ namespace 31() as virtual
 			{
 				scoreboard players operation #GLOBAL temp = @s number
 				
-				execute as @e[type=armor_stand,tag=new_bullet] run function skill:bullet/setting
+				scoreboard players operation #BIND_PLAYER number = @s number
+				execute on passengers if entity @s[type=interaction] store result score #HORIZON_OFFSET temp run data get entity @s width 50
+				execute as @e[type=item_display,tag=new_bullet] run function skill:bullet/setting
 				
 				scoreboard players set #BOMB_DIRECT_HIT temp 1
 				function ARG(_PATH)calculate_damage/run
