@@ -1030,6 +1030,8 @@ namespace main()
 			scoreboard players set @s skill_win_page3 0
 			scoreboard players set @s skill_win_page4 0
 			
+			scoreboard players set @s exp 0
+			
 			function item:use/equip/remove_all
 			
 			clear @s minecraft:ender_eye
@@ -1060,6 +1062,8 @@ namespace main()
 				scoreboard players set @s DEX 50
 				scoreboard players set @s INT 4
 				scoreboard players set @s LUK 4
+				
+				scoreboard players set @s exp_max 47216
 				
 				function stat:standard_pdd/set
 				execute if score @s hyper_buff_time matches 1.. run function skill:1/3/0/1007/set_hp_mp
@@ -1103,6 +1107,8 @@ namespace main()
 					scoreboard players set @s DEX 60
 					scoreboard players set @s INT 4
 					scoreboard players set @s LUK 4
+					
+					scoreboard players set @s exp_max 468450
 					
 					function stat:standard_pdd/set
 					execute if score @s hyper_buff_time matches 1.. run function skill:1/3/0/1007/set_hp_mp
@@ -1158,6 +1164,8 @@ namespace main()
 					scoreboard players set @s INT 4
 					scoreboard players set @s LUK 4
 					
+					scoreboard players set @s exp_max 468450
+					
 					function stat:standard_pdd/set
 					execute if score @s hyper_buff_time matches 1.. run function skill:1/3/0/1007/set_hp_mp
 					
@@ -1212,6 +1220,8 @@ namespace main()
 					scoreboard players set @s DEX 60
 					scoreboard players set @s INT 4
 					scoreboard players set @s LUK 4
+					
+					scoreboard players set @s exp_max 468450
 					
 					function stat:standard_pdd/set
 					execute if score @s hyper_buff_time matches 1.. run function skill:1/3/0/1007/set_hp_mp
@@ -1270,6 +1280,8 @@ namespace main()
 				scoreboard players set @s INT 4
 				scoreboard players set @s LUK 4
 				
+				scoreboard players set @s exp_max 47216
+				
 				function stat:standard_pdd/set
 				execute if score @s hyper_buff_time matches 1.. run function skill:1/3/0/1007/set_hp_mp
 				
@@ -1313,6 +1325,8 @@ namespace main()
 					scoreboard players set @s DEX 187
 					scoreboard players set @s INT 4
 					scoreboard players set @s LUK 4
+					
+					scoreboard players set @s exp_max 468450
 					
 					function stat:standard_pdd/set
 					execute if score @s hyper_buff_time matches 1.. run function skill:1/3/0/1007/set_hp_mp
@@ -1367,6 +1381,8 @@ namespace main()
 					scoreboard players set @s DEX 187
 					scoreboard players set @s INT 4
 					scoreboard players set @s LUK 4
+					
+					scoreboard players set @s exp_max 468450
 					
 					function stat:standard_pdd/set
 					execute if score @s hyper_buff_time matches 1.. run function skill:1/3/0/1007/set_hp_mp
@@ -1423,6 +1439,8 @@ namespace main()
 				scoreboard players set @s INT 109
 				scoreboard players set @s LUK 28
 				
+				scoreboard players set @s exp_max 47216
+				
 				function stat:standard_pdd/set
 				execute if score @s hyper_buff_time matches 1.. run function skill:1/3/0/1007/set_hp_mp
 				
@@ -1466,6 +1484,8 @@ namespace main()
 					scoreboard players set @s DEX 4
 					scoreboard players set @s INT 189
 					scoreboard players set @s LUK 48
+					
+					scoreboard players set @s exp_max 468450
 					
 					function stat:standard_pdd/set
 					execute if score @s hyper_buff_time matches 1.. run function skill:1/3/0/1007/set_hp_mp
@@ -1521,6 +1541,8 @@ namespace main()
 					scoreboard players set @s INT 189
 					scoreboard players set @s LUK 48
 					
+					scoreboard players set @s exp_max 468450
+					
 					function stat:standard_pdd/set
 					execute if score @s hyper_buff_time matches 1.. run function skill:1/3/0/1007/set_hp_mp
 					
@@ -1572,6 +1594,8 @@ namespace main()
 					scoreboard players set @s DEX 4
 					scoreboard players set @s INT 189
 					scoreboard players set @s LUK 48
+					
+					scoreboard players set @s exp_max 468450
 					
 					function stat:standard_pdd/set
 					execute if score @s hyper_buff_time matches 1.. run function skill:1/3/0/1007/set_hp_mp
@@ -1628,6 +1652,8 @@ namespace main()
 				scoreboard players set @s INT 4
 				scoreboard players set @s LUK 87
 				
+				scoreboard players set @s exp_max 47216
+				
 				function stat:standard_pdd/set
 				execute if score @s hyper_buff_time matches 1.. run function skill:1/3/0/1007/set_hp_mp
 				
@@ -1671,6 +1697,8 @@ namespace main()
 					scoreboard players set @s DEX 85
 					scoreboard players set @s INT 4
 					scoreboard players set @s LUK 152
+					
+					scoreboard players set @s exp_max 468450
 					
 					function stat:standard_pdd/set
 					execute if score @s hyper_buff_time matches 1.. run function skill:1/3/0/1007/set_hp_mp
@@ -1724,6 +1752,8 @@ namespace main()
 					scoreboard players set @s DEX 85
 					scoreboard players set @s INT 4
 					scoreboard players set @s LUK 152
+					
+					scoreboard players set @s exp_max 468450
 					
 					function stat:standard_pdd/set
 					execute if score @s hyper_buff_time matches 1.. run function skill:1/3/0/1007/set_hp_mp
