@@ -359,8 +359,7 @@ namespace party_quest() as virtual
 				func reset()
 				{
 					forceload add -266 -23 -314 23
-					execute positioned -328 45 -43 run kill @e[type=item,dx=86,dy=43,dz=86]
-					execute positioned -328 45 -43 run kill @e[tag=kpq_mob,dx=86,dy=43,dz=86]
+					execute positioned -328 45 -43 run kill @e[type=!player,tag=!fixed,dx=86,dy=43,dz=86]
 					data modify block -310 47 0 front_text.messages[0] set value '""'
 					data modify block -310 47 0 back_text.messages[0] set value '""'
 					forceload remove -266 -23 -314 23
@@ -478,7 +477,7 @@ namespace party_quest() as virtual
 				func reset()
 				{
 					forceload add -550 -25 -500 25
-					execute positioned -565 41 -40 run kill @e[type=item,dx=80,dy=37,dz=80]
+					execute positioned -565 41 -40 run kill @e[type=!player,tag=!fixed,dx=80,dy=37,dz=80]
 					data modify block -540 43 0 front_text.messages[0] set value '""'
 					data modify block -540 43 0 back_text.messages[0] set value '""'
 					kill @e[type=item_display,tag=kpq_mob]
@@ -580,7 +579,7 @@ namespace party_quest() as virtual
 				func reset()
 				{
 					forceload add -852 -10 -800 10
-					execute positioned -852 31 -10 run kill @e[type=item,dx=52,dy=28,dz=20]
+					execute positioned -852 31 -10 run kill @e[type=!player,tag=!fixed,dx=52,dy=28,dz=20]
 					data modify block -850 47 0 front_text.messages[0] set value '""'
 					data modify block -850 47 0 back_text.messages[0] set value '""'
 					setblock -849 47 3 minecraft:air
@@ -698,7 +697,7 @@ namespace party_quest() as virtual
 				func reset()
 				{
 					forceload add -1197 2 -1171 29
-					execute positioned -1197 31 2 run kill @e[type=item,dx=26,dy=29,dz=27]
+					execute positioned -1197 31 2 run kill @e[type=!player,tag=!fixed,dx=26,dy=29,dz=27]
 					data modify block -1195 55 24 front_text.messages[0] set value '""'
 					data modify block -1195 55 24 back_text.messages[0] set value '""'
 					setblock -1194 55 21 minecraft:air
@@ -839,8 +838,7 @@ namespace party_quest() as virtual
 				func reset()
 				{
 					forceload add -1530 1 -1490 21
-					execute positioned -1530 50 1 run kill @e[type=item,dx=40,dy=60,dz=20]
-					execute positioned -1530 50 1 run kill @e[tag=kpq_mob,dx=40,dy=60,dz=20]
+					execute positioned -1530 50 1 run kill @e[type=!player,tag=!fixed,dx=40,dy=60,dz=20]
 					setblock -1525 103 9 minecraft:air
 					setblock -1525 103 15 minecraft:air
 					forceload remove -1530 1 -1490 21
@@ -950,8 +948,7 @@ namespace party_quest() as virtual
 				func reset()
 				{
 					forceload add -1847 -7 -1815 11
-					execute positioned -1847 36 -7 run kill @e[type=item,dx=32,dy=24,dz=18]
-					kill @e[tag=kpq_mob]
+					execute positioned -1847 36 -7 run kill @e[type=!player,tag=!fixed,dx=32,dy=24,dz=18]
 					forceload remove -1847 -7 -1815 11
 					
 					scoreboard players reset #KPQ_S6_LOADED temp
@@ -1178,8 +1175,7 @@ namespace party_quest() as virtual
 				func reset()
 				{
 					forceload add 369 183 392 206
-					execute positioned 368 -55 182 run kill @e[type=item,dx=24,dy=105,dz=24]
-					execute positioned 368 -55 182 run kill @e[tag=ldpq_mob,dx=24,dy=105,dz=24]
+					execute positioned 368 -55 182 run kill @e[type=!player,tag=!fixed,dx=24,dy=105,dz=24]
 					forceload remove 369 183 392 206
 					
 					scoreboard players reset #LDPQ_S1_LOADED temp
@@ -1271,8 +1267,7 @@ namespace party_quest() as virtual
 					execute if score #LDPQ_S2_H_LOADED temp matches 1 run function ARG(_PATH)hide/reset
 					
 					forceload add 375 -201 398 -178
-					execute positioned 374 -55 -202 run kill @e[type=item,dx=24,dy=96,dz=24]
-					execute positioned 374 -55 -202 run kill @e[tag=ldpq_mob,dx=24,dy=96,dz=24]
+					execute positioned 374 -55 -202 run kill @e[type=!player,tag=!fixed,dx=24,dy=96,dz=24]
 					forceload remove 375 -201 398 -178
 					
 					scoreboard players reset #LDPQ_S2_LOADED temp
@@ -1405,8 +1400,7 @@ namespace party_quest() as virtual
 					
 					func clear()
 					{
-						execute positioned 367 157 -593 run kill @e[type=item,dx=24,dy=128,dz=24]
-						execute positioned 367 157 -593 run kill @e[tag=ldpq_mob,dx=24,dy=128,dz=24]
+						execute positioned 367 157 -593 run kill @e[type=!player,tag=!fixed,dx=24,dy=128,dz=24]
 						scoreboard players reset #LDPQ_S2_H_LOADED temp
 					}
 					
@@ -1447,8 +1441,7 @@ namespace party_quest() as virtual
 				func reset()
 				{
 					forceload add 369 183 392 206
-					execute positioned 368 78 182 run kill @e[type=item,dx=24,dy=71,dz=24]
-					execute positioned 368 78 182 run kill @e[tag=ldpq_mob,dx=24,dy=71,dz=24]
+					execute positioned 368 78 182 run kill @e[type=!player,tag=!fixed,dx=24,dy=71,dz=24]
 					forceload remove 369 183 392 206
 					
 					scoreboard players reset #LDPQ_S3_LOADED temp
@@ -1533,7 +1526,7 @@ namespace party_quest() as virtual
 					execute if score #LDPQ_S4_D_LOADED temp matches 1 run function ARG(_PATH)dimension/reset
 					
 					forceload add 375 -201 398 -178
-					execute positioned 374 65 -202 run kill @e[type=item,dx=24,dy=75,dz=24]
+					execute positioned 374 65 -202 run kill @e[type=!player,tag=!fixed,dx=24,dy=75,dz=24]
 					forceload remove 375 -201 398 -178
 					
 					scoreboard players reset #LDPQ_S4_LOADED temp
@@ -1615,8 +1608,7 @@ namespace party_quest() as virtual
 						schedule clear ARG(__PATH)eyes/loop
 						
 						forceload add 376 -598 383 -563
-						execute positioned 375 -54 -599 run kill @e[type=item,dx=8,dy=180,dz=36]
-						execute positioned 375 -54 -599 run kill @e[tag=ldpq_mob,dx=8,dy=180,dz=36]
+						execute positioned 375 -54 -599 run kill @e[type=!player,tag=!fixed,dx=8,dy=180,dz=36]
 						forceload remove 376 -598 383 -563
 						
 						scoreboard players reset #LDPQ_S4_D_LOADED temp
@@ -1901,8 +1893,7 @@ namespace party_quest() as virtual
 					execute if score #LDPQ_S5_6_LOADED temp matches 1 run function ARG(_PATH)sub/6/reset
 					
 					forceload add 369 183 392 206
-					execute positioned 368 174 182 run kill @e[type=item,dx=24,dy=64,dz=24]
-					execute positioned 368 174 182 run kill @e[tag=ldpq_mob,dx=24,dy=64,dz=24]
+					execute positioned 368 174 182 run kill @e[type=!player,tag=!fixed,dx=24,dy=64,dz=24]
 					forceload remove 369 183 392 206
 					
 					scoreboard players reset #LDPQ_S5_LOADED temp
@@ -1978,8 +1969,7 @@ namespace party_quest() as virtual
 							scoreboard players reset #LDPQ_S5_1_LOADED temp
 							
 							forceload add 759 561 782 584
-							execute positioned 758 -55 560 run kill @e[type=item,dx=24,dy=118,dz=24]
-							execute positioned 758 -55 560 run kill @e[tag=ldpq_mob,dx=24,dy=118,dz=24]
+							execute positioned 758 -55 560 run kill @e[type=!player,tag=!fixed,dx=24,dy=118,dz=24]
 							forceload remove 759 561 782 584
 						}
 						
@@ -2022,8 +2012,7 @@ namespace party_quest() as virtual
 							scoreboard players reset #LDPQ_S5_2_LOADED temp
 							
 							forceload add 753 177 776 200
-							execute positioned 752 -55 176 run kill @e[type=item,dx=24,dy=120,dz=24]
-							execute positioned 752 -55 176 run kill @e[tag=ldpq_mob,dx=24,dy=120,dz=24]
+							execute positioned 752 -55 176 run kill @e[type=!player,tag=!fixed,dx=24,dy=120,dz=24]
 							forceload remove 753 177 776 200
 						}
 						
@@ -2066,8 +2055,7 @@ namespace party_quest() as virtual
 							scoreboard players reset #LDPQ_S5_3_LOADED temp
 							
 							forceload add 753 -201 776 -178
-							execute positioned 752 -55 -202 run kill @e[type=item,dx=24,dy=120,dz=24]
-							execute positioned 752 -55 -202 run kill @e[tag=ldpq_mob,dx=24,dy=120,dz=24]
+							execute positioned 752 -55 -202 run kill @e[type=!player,tag=!fixed,dx=24,dy=120,dz=24]
 							forceload remove 753 -201 776 -178
 						}
 						
@@ -2110,8 +2098,7 @@ namespace party_quest() as virtual
 							scoreboard players reset #LDPQ_S5_4_LOADED temp
 							
 							forceload add 753 -585 776 -562
-							execute positioned 752 -55 -586 run kill @e[type=item,dx=24,dy=120,dz=24]
-							execute positioned 752 -55 -586 run kill @e[tag=ldpq_mob,dx=24,dy=120,dz=24]
+							execute positioned 752 -55 -586 run kill @e[type=!player,tag=!fixed,dx=24,dy=120,dz=24]
 							forceload remove 753 -585 776 -562
 						}
 						
@@ -2154,8 +2141,7 @@ namespace party_quest() as virtual
 							scoreboard players reset #LDPQ_S5_5_LOADED temp
 							
 							forceload add 1137 567 1160 590
-							execute positioned 1136 -55 566 run kill @e[type=item,dx=24,dy=120,dz=24]
-							execute positioned 1136 -55 566 run kill @e[tag=ldpq_mob,dx=24,dy=120,dz=24]
+							execute positioned 1136 -55 566 run kill @e[type=!player,tag=!fixed,dx=24,dy=120,dz=24]
 							forceload remove 1137 567 1160 590
 						}
 						
@@ -2206,8 +2192,7 @@ namespace party_quest() as virtual
 							scoreboard players reset #LDPQ_S5_6_LOADED temp
 							
 							forceload add 1137 183 1160 206
-							execute positioned 1136 -55 560 run kill @e[type=item,dx=24,dy=116,dz=24]
-							execute positioned 1136 -55 560 run kill @e[tag=ldpq_mob,dx=24,dy=116,dz=24]
+							execute positioned 1136 -55 182 run kill @e[type=!player,tag=!fixed,dx=24,dy=116,dz=24]
 							forceload remove 1137 183 1160 206
 						}
 						
@@ -2267,7 +2252,7 @@ namespace party_quest() as virtual
 				func reset()
 				{
 					forceload add 375 -201 398 -178
-					execute positioned 374 165 -202 run kill @e[type=item,dx=24,dy=98,dz=24]
+					execute positioned 374 165 -202 run kill @e[type=!player,tag=!fixed,dx=24,dy=98,dz=24]
 					forceload remove 375 -201 398 -178
 					
 					scoreboard players reset #LDPQ_S6_LOADED temp
@@ -2410,8 +2395,7 @@ namespace party_quest() as virtual
 				func reset()
 				{
 					forceload add 1137 -201 1160 -178
-					execute positioned 1136 -54 -202 run kill @e[type=item,dx=24,dy=55,dz=24]
-					execute positioned 1136 -54 -202 run kill @e[tag=ldpq_mob,dx=24,dy=55,dz=24]
+					execute positioned 1136 -54 -202 run kill @e[type=!player,tag=!fixed,dx=24,dy=55,dz=24]
 					forceload remove 1137 -201 1160 -178
 					
 					schedule clear ARG(_PATH)check_box/run
@@ -2557,7 +2541,7 @@ namespace party_quest() as virtual
 				func reset()
 				{
 					forceload add 759 561 782 584
-					execute positioned 758 88 560 run kill @e[type=item,dx=24,dy=40,dz=24]
+					execute positioned 758 88 560 run kill @e[type=!player,tag=!fixed,dx=24,dy=40,dz=24]
 					forceload remove 759 561 782 584
 					
 					scoreboard players reset #LDPQ_S8_LOADED temp
@@ -2660,8 +2644,7 @@ namespace party_quest() as virtual
 				func reset()
 				{
 					forceload add 1131 -592 1183 -540
-					execute positioned 1130 -53 -593 run kill @e[type=item,dx=54,dy=14,dz=54]
-					execute positioned 1130 -53 -593 run kill @e[tag=ldpq_mob,dx=54,dy=14,dz=54]
+					execute positioned 1130 -53 -593 run kill @e[type=!player,tag=!fixed,dx=54,dy=14,dz=54]
 					forceload remove 1131 -592 1183 -540
 					
 					schedule clear ARG(_PATH)check_box/run
@@ -2814,8 +2797,7 @@ namespace party_quest() as virtual
 				func reset()
 				{
 					forceload add 753 177 776 200
-					execute positioned 752 90 176 run kill @e[type=item,dx=24,dy=139,dz=24]
-					execute positioned 752 90 176 run kill @e[tag=ldpq_mob,dx=24,dy=139,dz=24]
+					execute positioned 752 90 176 run kill @e[type=!player,tag=!fixed,dx=24,dy=139,dz=24]
 					forceload remove 753 177 776 200
 					
 					scoreboard players reset #LDPQ_S10_LOADED temp
