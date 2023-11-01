@@ -1285,7 +1285,7 @@ namespace party_quest() as virtual
 						
 						func check_member()
 						{
-							execute positioned 374 -55 -179 store result score #GLOBAL temp if entity @a[scores={playing_game=2},dx=24,dy=96,dz=24]
+							execute positioned 374 -55 -202 store result score #GLOBAL temp if entity @a[scores={playing_game=2},dx=24,dy=96,dz=24]
 							execute if score #GLOBAL temp < #LDPQ_MEMBER temp run tellraw @s ["\n",{"translate":"text.quest.party_quest.common.member_lost","with":[{"translate":"npc.orange_balloon"}],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 							execute if score #GLOBAL temp = #LDPQ_MEMBER temp run function ARG(_PATH)check
 						}
