@@ -224,6 +224,7 @@ namespace mob_skill() as virtual
 			scoreboard players set #STATUS temp 5
 			scoreboard players set #ACTION_FRAME_S temp 62
 			scoreboard players reset #FORCE_MODEL temp
+			scoreboard players reset #MODEL_COLOR temp
 			
 			playsound minecraft:mob.special.4130103_attack player @a ~ ~ ~ 1 1 0
 			execute store result score @s skill_delay run schedule function ARG(_PATH)call_attack 22t append
