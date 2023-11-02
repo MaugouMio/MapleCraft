@@ -179,16 +179,21 @@ namespace mob_skill() as virtual
 		{
 			summon marker ~ ~ ~ {Tags:["rand_pos"]}
 			summon marker ~ ~ ~ {Tags:["rand_pos"]}
-			```
-			raise Warning("TODO: set block golem random spawn position under height")
-			```
-			spreadplayers ~ ~ 0 4 under 10 false @e[type=marker,tag=rand_pos]
+			
+			execute store result score #Y temp run data get entity @s Pos[1]
+			execute store result storage skill:main summon_pos.y int 1 run scoreboard players add #Y temp 2
+			function ARG(_PATH)spread with storage skill:main summon_pos
 			```
 			print("execute at @e[type=marker,tag=rand_pos] run", spawn_mob("9300009", is_summon=True))
 			```
 			kill @e[type=marker,tag=rand_pos]
 			
 			execute as @e[type=ocelot,tag=new_summon] at @s run function ARG(_PATH)summon_setting
+		}
+		
+		func spread()
+		{
+			$spreadplayers ~ ~ 0 4 under $(y) false @e[type=marker,tag=rand_pos]
 		}
 		
 		func summon_setting()
