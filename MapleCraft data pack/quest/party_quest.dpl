@@ -1018,6 +1018,8 @@ namespace party_quest() as virtual
 			print("execute positioned 376.0 39.1 199 run", spawn_mob("9300005"))
 			```
 			forceload remove 369 183 392 206
+			
+			schedule function ARG(_PATH)item_collector 1s
 		}
 		
 		func join()
@@ -1033,6 +1035,8 @@ namespace party_quest() as virtual
 			scoreboard players add #LDPQ_MEMBER temp 1
 			scoreboard players set @s bgm 7
 			function main:bgm/search/fantasia
+			
+			tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.pick_support","font":"minecraft:uniform","color":"gray"}]
 		}
 		
 		func leave()
@@ -1149,6 +1153,12 @@ namespace party_quest() as virtual
 			}
 		}
 		
+		func item_collector()
+		{
+			execute as @e[type=item,nbt={Item:{id:"minecraft:stick",tag:{CustomModelData:4001022}}}] at @s run tp @s @p[gamemode=adventure,scores={playing_game=2}]
+			schedule function ARG(_PATH)item_collector 1s
+		}
+		
 		folder stages()
 		{
 			folder 1()
@@ -1170,6 +1180,8 @@ namespace party_quest() as virtual
 					title @s times 1 5 10
 					title @s title {"text":"4","font":"ui:main"}
 					tp @s 394 24 -189 60 50
+			
+					tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.pick_support","font":"minecraft:uniform","color":"gray"}]
 				}
 				
 				func reset()
@@ -1179,6 +1191,7 @@ namespace party_quest() as virtual
 					forceload remove 369 183 392 206
 					
 					scoreboard players reset #LDPQ_S1_LOADED temp
+					execute unless score #LDPQ_S2_LOADED temp matches 1 run schedule clear quest:party_quest/ldpq/item_collector
 				}
 				
 				folder npc()
@@ -1260,6 +1273,8 @@ namespace party_quest() as virtual
 					title @s times 1 5 10
 					title @s title {"text":"4","font":"ui:main"}
 					tp @s 385.0 110 189 0 50
+			
+					tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.pick_support","font":"minecraft:uniform","color":"gray"}]
 				}
 				
 				func reset()
@@ -1271,6 +1286,7 @@ namespace party_quest() as virtual
 					forceload remove 375 -201 398 -178
 					
 					scoreboard players reset #LDPQ_S2_LOADED temp
+					execute unless score #LDPQ_S3_LOADED temp matches 1 run schedule clear quest:party_quest/ldpq/item_collector
 				}
 				
 				folder npc()
@@ -1445,6 +1461,7 @@ namespace party_quest() as virtual
 					forceload remove 369 183 392 206
 					
 					scoreboard players reset #LDPQ_S3_LOADED temp
+					schedule clear quest:party_quest/ldpq/item_collector
 				}
 				
 				folder npc()
@@ -1519,6 +1536,8 @@ namespace party_quest() as virtual
 					title @s times 1 5 10
 					title @s title {"text":"4","font":"ui:main"}
 					tp @s 385 191 190 90 50
+			
+					tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.pick_support","font":"minecraft:uniform","color":"gray"}]
 				}
 				
 				func reset()
@@ -1579,6 +1598,8 @@ namespace party_quest() as virtual
 							```
 							forceload remove 369 183 392 206
 							scoreboard players set #LDPQ_S5_LOADED temp 1
+							
+							schedule function quest:party_quest/ldpq/item_collector 1s
 						}
 					}
 				}
@@ -1897,6 +1918,7 @@ namespace party_quest() as virtual
 					forceload remove 369 183 392 206
 					
 					scoreboard players reset #LDPQ_S5_LOADED temp
+					schedule clear quest:party_quest/ldpq/item_collector
 				}
 				
 				folder npc()
