@@ -729,7 +729,7 @@ namespace bar_display()
 		func do_recover_hp()
 		{
 			scoreboard players operation @s next_hp_recover = @s hp_recover_time
-			execute if block ~ ~ ~ #minecraft:climbable run scoreboard players operation @s next_hp_recover = @s hp_recover_time_l
+			execute if block ~ ~ ~ #minecraft:climbable if score @s hp_recover_time_l matches 1.. run scoreboard players operation @s next_hp_recover = @s hp_recover_time_l
 			
 			scoreboard players operation #GLOBAL temp = @s hp_recovery
 			execute on vehicle store result score #GLOBAL temp run data get entity @s item.tag.hp
