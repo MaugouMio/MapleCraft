@@ -1036,7 +1036,7 @@ namespace party_quest() as virtual
 			scoreboard players set @s bgm 7
 			function main:bgm/search/fantasia
 			
-			tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.pick_support","font":"minecraft:uniform","color":"gray"}]
+			tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.pick_support","font":"minecraft:uniform"},{"text":"=================="}]
 		}
 		
 		func leave()
@@ -1155,7 +1155,7 @@ namespace party_quest() as virtual
 		
 		func item_collector()
 		{
-			execute as @e[type=item,nbt={Item:{id:"minecraft:stick",tag:{CustomModelData:4001022}}}] at @s run tp @s @p[gamemode=adventure,scores={playing_game=2}]
+			execute as @e[type=item,nbt={Item:{id:"minecraft:stick",tag:{CustomModelData:4001022}}}] at @s unless entity @a[gamemode=adventure,scores={playing_game=2},distance=..3] run tp @s @p[gamemode=adventure,scores={playing_game=2}]
 			schedule function ARG(_PATH)item_collector 1s
 		}
 		
@@ -1181,7 +1181,7 @@ namespace party_quest() as virtual
 					title @s title {"text":"4","font":"ui:main"}
 					tp @s 394 24 -189 60 50
 			
-					tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.pick_support","font":"minecraft:uniform","color":"gray"}]
+					tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.pick_support","font":"minecraft:uniform"},{"text":"=================="}]
 				}
 				
 				func reset()
@@ -1274,7 +1274,7 @@ namespace party_quest() as virtual
 					title @s title {"text":"4","font":"ui:main"}
 					tp @s 385.0 110 189 0 50
 			
-					tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.pick_support","font":"minecraft:uniform","color":"gray"}]
+					tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.pick_support","font":"minecraft:uniform"},{"text":"=================="}]
 				}
 				
 				func reset()
@@ -1537,7 +1537,7 @@ namespace party_quest() as virtual
 					title @s title {"text":"4","font":"ui:main"}
 					tp @s 385 191 190 90 50
 			
-					tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.pick_support","font":"minecraft:uniform","color":"gray"}]
+					tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.pick_support","font":"minecraft:uniform"},{"text":"=================="}]
 				}
 				
 				func reset()
