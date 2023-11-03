@@ -1443,7 +1443,7 @@ namespace skill()
 			execute as @a[scores={action_time=1..}] run function ARG(_PATH)action/countdown
 			execute as @a[scores={teleport_time=1..}] run function ARG(_PATH)tp_countdown
 			execute as @a[tag=delay_tp] at @s run function skill:2/1/0/1002/move/horizon/run
-			execute as @a[scores={quick_cast=1..}] run function skill:quick_cast
+			execute as @a[scores={quick_cast=1..}] at @s run function skill:quick_cast/check
 			
 			# touch damage check
 			execute as @a[gamemode=adventure,tag=!dead] unless score @s hurt_time matches 1.. unless score @s invis_buff_time matches 1.. at @s run function ARG(_PATH)touch/check
@@ -5225,22 +5225,33 @@ namespace skill()
 		advancement revoke @s only skill:cast
 	}
 	
-	func quick_cast()
+	folder quick_cast()
 	{
-		scoreboard players reset @s quick_cast
+		func check()
+		{
+			scoreboard players reset @s quick_cast
 
-		# 實際上是檢查手上剩下的是不是技能，檢查被丟出去的是什麼太麻煩了
-		execute unless predicate skill:use_eye run return 0
-		execute store result score #GLOBAL temp run data get entity @s SelectedItem.tag.CustomModelData
-		execute unless score #GLOBAL temp matches 1..300 run return 0
-		# 把道具補回 2 個
-		item modify entity @s weapon.mainhand skill:charge_icon
+			# 實際上是檢查手上剩下的是不是技能，檢查被丟出去的是什麼太麻煩了
+			execute unless predicate skill:use_eye run return 0
+			execute store result score #GLOBAL temp run data get entity @s SelectedItem.tag.CustomModelData
+			execute unless score #GLOBAL temp matches 1..300 run return 0
+			# 把道具補回 2 個
+			item modify entity @s weapon.mainhand skill:charge_icon
+			
+			# 在繩子上沒有可以快捷施放的招，借來當跳離繩子用
+			execute if block ~ ~ ~ minecraft:scaffolding align xz positioned ~0.5 ~ ~0.5 run function main:rope/jump
+			# 不在繩子上再檢查有沒有要快捷施放的技能
+			execute unless block ~ ~ ~ minecraft:scaffolding run function ARG(_PATH)skill
+		}
+		
+		func skill()
+		{
+			scoreboard players set @s[scores={2101002_level=1..}] skill_id 59
+			execute unless score @s skill_id = @s skill_id run return 0
 
-		scoreboard players set @s[scores={2101002_level=1..}] skill_id 59
-		execute unless score @s skill_id = @s skill_id run return 0
-
-		function skill:check_skill/run
-		scoreboard players reset @s skill_id
+			function skill:check_skill/run
+			scoreboard players reset @s skill_id
+		}
 	}
 	
 	# 呼叫前須先設定 #BIND_PLAYER number
