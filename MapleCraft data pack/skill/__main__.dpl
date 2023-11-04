@@ -187,6 +187,8 @@ namespace attack_skill_template(skill_id) as virtual
 	
 	func knock_back()
 	{
+		execute unless block ~ ~-0.4 ~ #skill:passable run data modify entity @s[tag=!no_jump] ArmorItems[3].tag.last_pos set from entity @s Pos
+		
 		scoreboard players set @s pushed_time 12
 		scoreboard players operation @s kb_time > @s pushed_time
 		execute if score @s status matches ..3 run scoreboard players set @s status 1
@@ -418,6 +420,8 @@ namespace bullet_skill_template(skill_id) as virtual
 	
 	func knock_back()
 	{
+		execute unless block ~ ~-0.4 ~ #skill:passable run data modify entity @s[tag=!no_jump] ArmorItems[3].tag.last_pos set from entity @s Pos
+
 		scoreboard players set @s pushed_time 12
 		scoreboard players operation @s kb_time > @s pushed_time
 		execute if score @s status matches ..3 run scoreboard players set @s status 1
@@ -1711,20 +1715,38 @@ namespace skill()
 				scoreboard players reset @s[scores={pushed_time=0}] pushed_time
 				
 				# 順便做懸崖檢查
-				execute at @s[tag=!fly_enemy] rotated ~ 0 if block ^ ^-0.4 ^-0.45 #skill:passable run function ARG(_PATH)cliff_stop
+				execute at @s[tag=!fly_enemy] run function ARG(_PATH)avoid_drop/check
 			}
-
-			func cliff_stop()
+			
+			folder avoid_drop()
 			{
-				tp @s ^ ^0.2 ^0.5
-				execute positioned as @s unless block ~ ~-0.4 ~ #skill:passable run data modify entity @s Motion set value [0.0,0.0,0.0]
-				execute positioned as @s run function ARG(_PATH)force_land
-			}
+				func check()
+				{
+					# 不會跳的怪物做更嚴密的修正
+					execute if entity @s[tag=no_jump] run function ARG(_PATH)force_pos
+					# 會跳的沒辦法抓那麼細，就試著回推位置
+					execute unless entity @s[tag=no_jump] rotated ~ 0 if block ^ ^-0.4 ^-0.45 #skill:passable run function ARG(_PATH)cliff_stop
+				}
+				
+				func force_pos()
+				{
+					execute unless block ~ ~-0.4 ~ #skill:passable run data modify entity @s ArmorItems[3].tag.last_pos set from entity @s Pos
+					execute if block ~ ~-0.4 ~ #skill:passable run data modify entity @s Pos set from entity @s ArmorItems[3].tag.last_pos
+					execute if block ~ ~-0.4 ~ #skill:passable run data modify entity @s Motion set value [0.0,0.0,0.0]
+				}
 
-			func force_land()
-			{
-				execute unless block ~ ~-0.4 ~ #skill:passable align y run tp @s ~ ~0.1 ~
-				execute if block ~ ~-0.4 ~ #skill:passable positioned ~ ~-0.5 ~ run function ARG(_PATH)force_land
+				func cliff_stop()
+				{
+					tp @s ^ ^0.2 ^0.5
+					execute positioned as @s unless block ~ ~-0.4 ~ #skill:passable run data modify entity @s Motion set value [0.0,0.0,0.0]
+					execute positioned as @s run function ARG(_PATH)force_land
+				}
+
+				func force_land()
+				{
+					execute unless block ~ ~-0.4 ~ #skill:passable align y run tp @s ~ ~0.1 ~
+					execute if block ~ ~-0.4 ~ #skill:passable positioned ~ ~-0.5 ~ run function ARG(_PATH)force_land
+				}
 			}
 			
 			folder mob_effect()
