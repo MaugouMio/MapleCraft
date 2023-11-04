@@ -4092,7 +4092,7 @@ namespace skill()
 				if len(sound_list) == 1:
 					print("func run()")
 					print("{")
-					print(f"\texecute if score @s hurt_sound matches {sound_list[0][1]} run playsound minecraft:mob.hurt.{sound_list[0][0]} player @a ~ ~ ~ 1 1 0")
+					print(f"\texecute if score @s hurt_sound matches {sound_list[0][1]} run playsound minecraft:mob.hurt.{sound_list[0][0]} player @a ~ ~ ~ 3 1 0")
 					print("}")
 					return
 				
@@ -4108,11 +4108,11 @@ namespace skill()
 					print(f"func {start}_{end}()")
 				print("{")
 				if start == mid:
-					print(f"\texecute if score @s hurt_sound matches {sound_list[start][1]} run playsound minecraft:mob.hurt.{sound_list[start][0]} player @a ~ ~ ~ 1 1 0")
+					print(f"\texecute if score @s hurt_sound matches {sound_list[start][1]} run playsound minecraft:mob.hurt.{sound_list[start][0]} player @a ~ ~ ~ 3 1 0")
 				else:
 					print(f"\texecute if score @s hurt_sound matches {sound_list[start][1]}..{sound_list[mid][1]} run function ARG(_PATH){start}_{mid}")
 				if mid_right == end:
-					print(f"\texecute if score @s hurt_sound matches {sound_list[end][1]} run playsound minecraft:mob.hurt.{sound_list[end][0]} player @a ~ ~ ~ 1 1 0")
+					print(f"\texecute if score @s hurt_sound matches {sound_list[end][1]} run playsound minecraft:mob.hurt.{sound_list[end][0]} player @a ~ ~ ~ 3 1 0")
 				else:
 					print(f"\texecute if score @s hurt_sound matches {sound_list[mid_right][1]}..{sound_list[end][1]} run function ARG(_PATH){mid_right}_{end}")
 				print("}")
@@ -4137,7 +4137,7 @@ namespace skill()
 				if len(sound_list) == 1:
 					print("func run()")
 					print("{")
-					print(f"\texecute if score @s die_sound matches {sound_list[0][1]} run playsound minecraft:mob.die.{sound_list[0][0]} player @a ~ ~ ~ 1 1 0")
+					print(f"\texecute if score @s die_sound matches {sound_list[0][1]} run playsound minecraft:mob.die.{sound_list[0][0]} player @a ~ ~ ~ 3 1 0")
 					print("}")
 					return
 				
@@ -4153,11 +4153,11 @@ namespace skill()
 					print(f"func {start}_{end}()")
 				print("{")
 				if start == mid:
-					print(f"\texecute if score @s die_sound matches {sound_list[start][1]} run playsound minecraft:mob.die.{sound_list[start][0]} player @a ~ ~ ~ 1 1 0")
+					print(f"\texecute if score @s die_sound matches {sound_list[start][1]} run playsound minecraft:mob.die.{sound_list[start][0]} player @a ~ ~ ~ 3 1 0")
 				else:
 					print(f"\texecute if score @s die_sound matches {sound_list[start][1]}..{sound_list[mid][1]} run function ARG(_PATH){start}_{mid}")
 				if mid_right == end:
-					print(f"\texecute if score @s die_sound matches {sound_list[end][1]} run playsound minecraft:mob.die.{sound_list[end][0]} player @a ~ ~ ~ 1 1 0")
+					print(f"\texecute if score @s die_sound matches {sound_list[end][1]} run playsound minecraft:mob.die.{sound_list[end][0]} player @a ~ ~ ~ 3 1 0")
 				else:
 					print(f"\texecute if score @s die_sound matches {sound_list[mid_right][1]}..{sound_list[end][1]} run function ARG(_PATH){mid_right}_{end}")
 				print("}")

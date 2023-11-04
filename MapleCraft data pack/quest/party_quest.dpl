@@ -1387,15 +1387,15 @@ namespace party_quest() as virtual
 					
 					func tp()
 					{
-						execute store success score #GLOBAL temp if entity @s[distance=..10]
+						execute store success score #GLOBAL temp if entity @s[distance=..32]
 						scoreboard players add #LDPQ_S2_H_PLAYER temp 1
 						
 						title @s times 1 5 10
 						title @s title {"text":"4","font":"ui:main"}
 						tp @s 380.0 160 -587 40 50
 						
-						# 給被傳走的人補箱子打破的音效 (16格內都聽得到，但距離太遠太小聲就不要給他補音效了)
-						execute if score #GLOBAL temp matches 1 at @s run playsound minecraft:mob.hurt.b_22020023 player @s ~ ~ ~ 1 1 0
+						# 給被傳走的人補箱子打破的音效 (48格內都聽得到，但距離太遠太小聲就不要給他補音效了)
+						execute if score #GLOBAL temp matches 1 at @s run playsound minecraft:mob.hurt.b_22020023 player @s ~ ~ ~ 3 1 0
 					}
 					
 					func leave()
@@ -2508,7 +2508,7 @@ namespace party_quest() as virtual
 						execute unless score @s hp matches 0.. run function skill:6/0/0/1000/box/search_box/setting
 						scoreboard players set @s status 14
 						scoreboard players set @s hp 0
-						scoreboard players set @s base_model 169
+						scoreboard players set @s base_model 69
 					}
 				}
 				
@@ -2770,7 +2770,7 @@ namespace party_quest() as virtual
 						execute unless score @s hp matches 0.. run function skill:6/0/0/1000/box/search_box/setting
 						scoreboard players set @s status 14
 						scoreboard players set @s hp 0
-						scoreboard players set @s base_model 169
+						scoreboard players set @s base_model 69
 					}
 				}
 				
