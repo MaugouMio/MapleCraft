@@ -1047,6 +1047,9 @@ namespace party_quest() as virtual
 		
 		func leave_map()
 		{
+			execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001023}
+			execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4001023"}]}
+			
 			execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001022}
 			execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4001022"}]}
 			execute if score #GLOBAL temp matches 2.. run tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"translate":"item.etc.4001022"}]}
@@ -1171,9 +1174,6 @@ namespace party_quest() as virtual
 				
 				func tp()
 				{
-					execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001022}
-					execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4001022"}]}
-					
 					scoreboard players set @s game_stage 2
 					execute unless entity @a[scores={playing_game=2,game_stage=1}] run function ARG(_PATH)reset
 					
@@ -1222,7 +1222,7 @@ namespace party_quest() as virtual
 							scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
 							execute as @a[scores={playing_game=2},tag=!dead] at @s run function quest:get_exp
 							
-							clear @s minecraft:stick{CustomModelData:4001022}
+							clear @s minecraft:stick{CustomModelData:4001022} 25
 							execute if score #GLOBAL temp matches 2.. run tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"translate":"item.etc.4001022"}]}
 							execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4001022"}]}
 							tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage_pass","with":[{"translate":"npc.red_balloon"},"25"],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
@@ -1264,9 +1264,6 @@ namespace party_quest() as virtual
 				
 				func tp()
 				{
-					execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001022}
-					execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4001022"}]}
-					
 					scoreboard players set @s game_stage 3
 					execute unless entity @a[scores={playing_game=2,game_stage=..2}] run function ARG(_PATH)reset
 					
@@ -1324,7 +1321,7 @@ namespace party_quest() as virtual
 							scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
 							execute as @a[scores={playing_game=2},tag=!dead] at @s run function quest:get_exp
 							
-							clear @s minecraft:stick{CustomModelData:4001022}
+							clear @s minecraft:stick{CustomModelData:4001022} 15
 							execute if score #GLOBAL temp matches 2.. run tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"translate":"item.etc.4001022"}]}
 							execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4001022"}]}
 							tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage_pass","with":[{"translate":"npc.orange_balloon"},"15"],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
@@ -1441,9 +1438,6 @@ namespace party_quest() as virtual
 				
 				func tp()
 				{
-					execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001022}
-					execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4001022"}]}
-					
 					scoreboard players set @s game_stage 4
 					execute unless entity @a[scores={playing_game=2,game_stage=..3}] run function ARG(_PATH)reset
 					
@@ -1499,7 +1493,7 @@ namespace party_quest() as virtual
 							scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
 							execute as @a[scores={playing_game=2},tag=!dead] at @s run function quest:get_exp
 							
-							clear @s minecraft:stick{CustomModelData:4001022}
+							clear @s minecraft:stick{CustomModelData:4001022} 32
 							execute if score #GLOBAL temp matches 2.. run tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"translate":"item.etc.4001022"}]}
 							execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4001022"}]}
 							tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage_pass","with":[{"translate":"npc.yellow_balloon"},"32"],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
@@ -1527,9 +1521,6 @@ namespace party_quest() as virtual
 				
 				func tp()
 				{
-					execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001022}
-					execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4001022"}]}
-					
 					scoreboard players set @s game_stage 5
 					execute unless entity @a[scores={playing_game=2,game_stage=..4}] run function ARG(_PATH)reset
 					
@@ -1586,7 +1577,7 @@ namespace party_quest() as virtual
 							scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
 							execute as @a[scores={playing_game=2},tag=!dead] at @s run function quest:get_exp
 							
-							clear @s minecraft:stick{CustomModelData:4001022}
+							clear @s minecraft:stick{CustomModelData:4001022} 6
 							execute if score #GLOBAL temp matches 2.. run tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"translate":"item.etc.4001022"}]}
 							execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4001022"}]}
 							tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage_pass","with":[{"translate":"npc.lime_balloon"},"6"],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
@@ -1891,9 +1882,6 @@ namespace party_quest() as virtual
 				
 				func tp()
 				{
-					execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001022}
-					execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4001022"}]}
-					
 					scoreboard players set @s game_stage 6
 					execute unless entity @a[scores={playing_game=2,game_stage=..5}] run function ARG(_PATH)reset
 					
@@ -1956,7 +1944,7 @@ namespace party_quest() as virtual
 							scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
 							execute as @a[scores={playing_game=2},tag=!dead] at @s run function quest:get_exp
 							
-							clear @s minecraft:stick{CustomModelData:4001022}
+							clear @s minecraft:stick{CustomModelData:4001022} 24
 							execute if score #GLOBAL temp matches 2.. run tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"translate":"item.etc.4001022"}]}
 							execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4001022"}]}
 							tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage_pass","with":[{"translate":"npc.green_balloon"},"24"],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
@@ -2401,9 +2389,6 @@ namespace party_quest() as virtual
 				
 				func tp()
 				{
-					execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001022}
-					execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4001022"}]}
-					
 					scoreboard players set @s game_stage 8
 					execute unless entity @a[scores={playing_game=2,game_stage=..7}] run function ARG(_PATH)reset
 					
@@ -2459,7 +2444,7 @@ namespace party_quest() as virtual
 							scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
 							execute as @a[scores={playing_game=2},tag=!dead] at @s run function quest:get_exp
 							
-							clear @s minecraft:stick{CustomModelData:4001022}
+							clear @s minecraft:stick{CustomModelData:4001022} 3
 							execute if score #GLOBAL temp matches 2.. run tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"translate":"item.etc.4001022"}]}
 							execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4001022"}]}
 							tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage_pass","with":[{"translate":"npc.sky_blue_balloon"},"3"],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
@@ -2687,7 +2672,7 @@ namespace party_quest() as virtual
 						
 						func check()
 						{
-							execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001023} 0
+							execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001023} 1
 							execute unless score #GLOBAL temp matches 1.. run tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage9.require_key","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 							execute if score #GLOBAL temp matches 1.. run function ARG(_PATH)pass
 						}
