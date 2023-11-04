@@ -1049,6 +1049,7 @@ namespace party_quest() as virtual
 		{
 			execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001023}
 			execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4001023"}]}
+			execute if score #GLOBAL temp matches 2.. run tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"translate":"item.etc.4001023"}]}
 			
 			execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001022}
 			execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4001022"}]}
@@ -1223,8 +1224,7 @@ namespace party_quest() as virtual
 							execute as @a[scores={playing_game=2},tag=!dead] at @s run function quest:get_exp
 							
 							clear @s minecraft:stick{CustomModelData:4001022} 25
-							execute if score #GLOBAL temp matches 2.. run tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"translate":"item.etc.4001022"}]}
-							execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4001022"}]}
+							tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":["25",{"translate":"item.etc.4001022"}]}
 							tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage_pass","with":[{"translate":"npc.red_balloon"},"25"],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 							
 							forceload add 375 -201 398 -178
@@ -1322,8 +1322,7 @@ namespace party_quest() as virtual
 							execute as @a[scores={playing_game=2},tag=!dead] at @s run function quest:get_exp
 							
 							clear @s minecraft:stick{CustomModelData:4001022} 15
-							execute if score #GLOBAL temp matches 2.. run tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"translate":"item.etc.4001022"}]}
-							execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4001022"}]}
+							tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":["15",{"translate":"item.etc.4001022"}]}
 							tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage_pass","with":[{"translate":"npc.orange_balloon"},"15"],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 							
 							forceload add 369 183 392 206
@@ -1494,8 +1493,7 @@ namespace party_quest() as virtual
 							execute as @a[scores={playing_game=2},tag=!dead] at @s run function quest:get_exp
 							
 							clear @s minecraft:stick{CustomModelData:4001022} 32
-							execute if score #GLOBAL temp matches 2.. run tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"translate":"item.etc.4001022"}]}
-							execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4001022"}]}
+							tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":["32",{"translate":"item.etc.4001022"}]}
 							tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage_pass","with":[{"translate":"npc.yellow_balloon"},"32"],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 						}
 					}
@@ -1578,8 +1576,7 @@ namespace party_quest() as virtual
 							execute as @a[scores={playing_game=2},tag=!dead] at @s run function quest:get_exp
 							
 							clear @s minecraft:stick{CustomModelData:4001022} 6
-							execute if score #GLOBAL temp matches 2.. run tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"translate":"item.etc.4001022"}]}
-							execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4001022"}]}
+							tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":["6",{"translate":"item.etc.4001022"}]}
 							tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage_pass","with":[{"translate":"npc.lime_balloon"},"6"],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 							
 							forceload add 369 183 392 206
@@ -1945,8 +1942,7 @@ namespace party_quest() as virtual
 							execute as @a[scores={playing_game=2},tag=!dead] at @s run function quest:get_exp
 							
 							clear @s minecraft:stick{CustomModelData:4001022} 24
-							execute if score #GLOBAL temp matches 2.. run tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"translate":"item.etc.4001022"}]}
-							execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4001022"}]}
+							tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":["24",{"translate":"item.etc.4001022"}]}
 							tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage_pass","with":[{"translate":"npc.green_balloon"},"24"],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 						}
 					}
@@ -2445,8 +2441,7 @@ namespace party_quest() as virtual
 							execute as @a[scores={playing_game=2},tag=!dead] at @s run function quest:get_exp
 							
 							clear @s minecraft:stick{CustomModelData:4001022} 3
-							execute if score #GLOBAL temp matches 2.. run tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"translate":"item.etc.4001022"}]}
-							execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4001022"}]}
+							tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":["3",{"translate":"item.etc.4001022"}]}
 							tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage_pass","with":[{"translate":"npc.sky_blue_balloon"},"3"],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 							
 							function ARG(_PATH)s8_question/generate
@@ -2679,6 +2674,8 @@ namespace party_quest() as virtual
 						
 						func pass()
 						{
+							tellraw @s {"translate":"text.quest.item_lost","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4001023"}]}
+							
 							playsound minecraft:game.pq_clear player @a[scores={playing_game=2}] ~ ~ ~ 5 1 1
 							scoreboard players set #LDPQ_CLOCK_TIME temp 60
 							
