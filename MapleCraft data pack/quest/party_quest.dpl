@@ -2499,7 +2499,7 @@ namespace party_quest() as virtual
 					
 					func blow()
 					{
-						execute positioned 1139.0 ~ -186.0 as @e[type=interaction,tag=box,dx=5,dy=0,dz=2] on passengers at @s run function ARG(_PATH)box_break
+						execute at @s positioned 1139.0 ~ -186.0 as @e[type=interaction,tag=box,dx=5,dy=0,dz=2] on passengers at @s run function ARG(_PATH)box_break
 						kill @s
 					}
 					
