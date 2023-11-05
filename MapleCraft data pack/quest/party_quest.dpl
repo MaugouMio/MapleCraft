@@ -2545,6 +2545,9 @@ namespace party_quest() as virtual
 					scoreboard players set @s game_stage 9
 					execute unless entity @a[scores={playing_game=2,game_stage=..8}] run function ARG(_PATH)reset
 					
+					scoreboard players set @s bgm 9
+					function main:bgm/search/they_menacing_you
+					
 					title @s times 1 5 10
 					title @s title {"text":"4","font":"ui:main"}
 					tp @s 1157 -51 -546 180 40
@@ -2637,9 +2640,9 @@ namespace party_quest() as virtual
 							
 							forceload add 1131 -592 1183 -540
 							```
-							print("execute positioned 1152 -48.4 -572 run", spawn_mob("9300006"))
+							print("execute positioned 1152 -47.4 -572 run", spawn_mob("9300006"))
 							```
-							summon interaction 1152 -48.5 -572 {Tags:["ldpq_mob"],Passengers:[{id:"minecraft:item_display",Tags:["ldpq_mob","box"],Rotation:[0f,0f],item:{id:"minecraft:splash_potion",Count:1b,tag:{info:{hp_max:4,hurt_sound:5,die_sound:9},model:1,CustomModelData:1,CustomPotionColor:0}},item_display:"head",shadow_strength:0.0f,shadow_radius:0.9f}]}
+							summon interaction 1152 -47.5 -572 {Tags:["ldpq_mob"],Passengers:[{id:"minecraft:item_display",Tags:["ldpq_mob","box"],Rotation:[0f,0f],item:{id:"minecraft:splash_potion",Count:1b,tag:{info:{hp_max:4,hurt_sound:5,die_sound:5},model:1,CustomModelData:1,CustomPotionColor:0}},item_display:"head",shadow_strength:0.0f,shadow_radius:0.9f}]}
 							
 							forceload remove 1131 -592 1183 -540
 							
@@ -2759,7 +2762,7 @@ namespace party_quest() as virtual
 				{
 					func run()
 					{
-						execute positioned 1151.0 -52.0 -574.0 as @e[type=item,nbt={Item:{id:"minecraft:stick",tag:{CustomModelData:4001022}}},dx=2,dy=3.5,dz=4] run function ARG(_PATH)countdown
+						execute positioned 1151.0 -52.0 -574.0 as @e[type=item,nbt={Item:{id:"minecraft:stick",tag:{CustomModelData:4001022}}},dx=2,dy=4.5,dz=4] run function ARG(_PATH)countdown
 						schedule function ARG(_PATH)run 1s
 					}
 					
@@ -2771,7 +2774,7 @@ namespace party_quest() as virtual
 					
 					func blow()
 					{
-						execute positioned 1151.0 -48.5 -574.0 as @e[type=interaction,tag=box,dx=2,dy=0,dz=4] on passengers at @s run function ARG(_PATH)box_break
+						execute positioned 1151.0 -47.5 -574.0 as @e[type=interaction,tag=box,dx=2,dy=0,dz=4] on passengers at @s run function ARG(_PATH)box_break
 						kill @s
 					}
 					
