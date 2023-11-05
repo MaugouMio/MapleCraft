@@ -240,6 +240,7 @@ namespace bar_display()
 				scoreboard players set #AVOIDABILITY temp 0
 				execute if score @s level < #ATTACKER_LEVEL temp run function ARG(_PATH)level_effect
 				scoreboard players operation #AVOIDABILITY temp += @s avoidability
+				scoreboard players operation #AVOIDABILITY temp > #0 const
 			}
 			
 			func level_effect()
