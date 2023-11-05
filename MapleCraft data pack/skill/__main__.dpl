@@ -4068,7 +4068,7 @@ namespace skill()
 			{
 				func run()
 				{
-					execute as @e[type=zombified_piglin] if score @s number = #GLOBAL temp run function ARG(_PATH)dead_anim
+					execute on passengers if entity @s[type=zombified_piglin] run function ARG(_PATH)dead_anim
 				}
 				
 				func dead_anim()
