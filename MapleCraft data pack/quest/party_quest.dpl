@@ -2801,7 +2801,7 @@ namespace party_quest() as virtual
 				{
 					func run()
 					{
-						execute positioned 1151.0 -52.0 -574.0 as @e[type=item,nbt={Item:{id:"minecraft:stick",tag:{CustomModelData:4001022}}},dx=2,dy=4.5,dz=4] run function ARG(_PATH)countdown
+						execute as @e[type=item,nbt={Item:{id:"minecraft:stick",tag:{CustomModelData:4001022}}}] run function ARG(_PATH)countdown
 						schedule function ARG(_PATH)run 1s
 					}
 					
