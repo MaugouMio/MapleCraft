@@ -1157,6 +1157,12 @@ namespace party_quest() as virtual
 			}
 		}
 		
+		func entry_tp_up()
+		{
+			tp @s 383 -44 582 90 50
+			function main:tp_effect
+		}
+		
 		func item_collector()
 		{
 			execute as @e[type=item,nbt={Item:{id:"minecraft:stick",tag:{CustomModelData:4001022}}}] at @s unless entity @a[gamemode=adventure,scores={playing_game=2},distance=..3] run tp @s @p[gamemode=adventure,scores={playing_game=2}]
