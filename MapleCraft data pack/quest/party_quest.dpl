@@ -2757,6 +2757,9 @@ namespace party_quest() as virtual
 						{
 							tag @s add ldpq_pass
 							
+							scoreboard players set @s bgm 7
+							function main:bgm/search/fantasia
+							
 							title @s times 1 5 10
 							title @s title {"text":"4","font":"ui:main"}
 							tp @s 767 121 183 20 45
