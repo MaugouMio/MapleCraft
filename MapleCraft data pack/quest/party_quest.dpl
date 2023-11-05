@@ -2514,7 +2514,8 @@ namespace party_quest() as virtual
 				
 				func summon_golem()
 				{
-					function ARG(__PATH)2/box_break
+					playsound minecraft:mob.hurt.b_22020020 player @a ~ ~ ~ 3 1 0
+					particle minecraft:poof ~ ~0.5 ~ 0.3 0.1 0.3 0.01 7 force
 					tellraw @a[scores={playing_game=2,game_stage=7}] {"translate":"text.quest.party_quest.ldpq.stage7.summon_golem","font":"minecraft:uniform","color":"#efb7ab"}
 					```
 					print("execute positioned 1147 -52.9375 -195.0 run", spawn_mob("9300010"))
@@ -2776,7 +2777,8 @@ namespace party_quest() as virtual
 				
 				func summon_boss()
 				{
-					function ARG(__PATH)2/box_break
+					playsound minecraft:mob.hurt.b_22020020 player @a ~ ~ ~ 3 1 0
+					particle minecraft:poof ~ ~0.5 ~ 0.3 0.1 0.3 0.01 7 force
 					tellraw @a[scores={playing_game=2,game_stage=9}] {"translate":"text.quest.party_quest.ldpq.stage9.summon_boss","font":"minecraft:uniform","color":"#efb7ab"}
 					```
 					print("execute positioned 1157 -52 -581 run", spawn_mob("9300012"))
