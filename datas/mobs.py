@@ -42,13 +42,16 @@ mob_dict["9300017"] = '''summon ocelot ~ ~ ~ {%(prefix)sTags:["ldpq_mob","new_en
 # 機械鯨魚王
 mob_dict["9300012"] = '''summon ocelot ~ ~ ~ {%(prefix)sTags:["ldpq_mob","new_enemy","dead_effect","objmc","boss","ice_resist","fire_resist","lightning_resist","holy_resist","poison_resist"%(add_tag)s],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{info:{level:56,hp_max:125000,mp_max:2500,accuracy:160,avoidability:26,weapon_attack:280,magic_attack:260,weapon_defense:210,magic_defense:240,kb:1500,speed:70,exp:4800,hurt_sound:12,die_sound:18,skill_id:5},offset_color:'{"text":"","color":"#00002E"}',AttributeModifiers:[{AttributeName:"generic.movement_speed",Name:"slow",Amount:0,Operation:2,UUID:[I;0,2,0,2]}]}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Age:-2147483648,Trusting:1,Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.movement_speed",Base:0.251}],DeathLootTable:"skill:mob/special/alishar",Invulnerable:1b,OnGround:1b,Team:"enemy",CustomName:'{"text":"2","font":"space:default"}',CustomNameVisible:1b,Passengers:[{id:"minecraft:zombified_piglin",Tags:["ldpq_mob","objmc"],ArmorItems:[{},{},{},{id:"minecraft:potion",Count:1b,tag:{CustomModelData:10942,CustomPotionColor:0}}],ArmorDropChances:[0.0,0.0,0.0,0.0],Silent:1,PersistenceRequired:1,Attributes:[{Name:"generic.attack_damage",Base:0.0},{Name:"generic.follow_range",Base:0.0}],Invulnerable:1b,AngerTime:2147483647,Team:"enemy"},{id:"minecraft:interaction",Tags:["ldpq_mob","boss"],width:4,height:4.5}]}'''
 
-def spawn_mob(id, is_summon=False, uuid=None, prefix=None):
+def spawn_mob(id, is_summon=False, uuid=None, prefix=None, add_tag=None):
 	args = {
 		"add_tag": '',
 		"prefix": ''
 	}
 	if is_summon:
 		args["add_tag"] = ',"new_summon"'
+	if add_tag != None:
+		for tag in add_tag:
+			args["add_tag"] += ',"' + tag + '"'
 	if uuid != None:
 		args["prefix"] += f"UUID:[I;1,0,1,{uuid}],"
 	if prefix:

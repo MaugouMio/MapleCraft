@@ -2237,8 +2237,8 @@ namespace party_quest() as virtual
 					forceload add 1137 -201 1160 -178
 					```
 					print("execute positioned 1144 -28.9 -185 run", spawn_mob("9300006"))
-					print("execute positioned 1143 -21.9 -185 run", spawn_mob("9300005"))
-					print("execute positioned 1143 -13.9 -185 run", spawn_mob("9300007"))
+					print("execute positioned 1143 -21.9 -185 run", spawn_mob("9300005", add_tag=["ldpq_s7_tp"]))
+					print("execute positioned 1143 -13.9 -185 run", spawn_mob("9300007", add_tag=["ldpq_s7_tp"]))
 					
 					points = [
 						("1143 -29 -185", -90),
@@ -2489,6 +2489,9 @@ namespace party_quest() as virtual
 					{
 						execute positioned 1139.0 -29.0 -186.0 as @e[type=item,nbt={Item:{id:"minecraft:stick",tag:{CustomModelData:4001022}}},dx=5,dy=15,dz=2] run function ARG(_PATH)countdown
 						schedule function ARG(_PATH)run 1s
+						
+						# 借用來讓怪物隨機時間往玩家靠近，避免整天打不到
+						execute as @e[type=ocelot,tag=ldpq_s7_tp] unless score @s kb_time matches 1.. at @s run function ARG(_PATH)rand_move
 					}
 					
 					func countdown()
@@ -2509,6 +2512,12 @@ namespace party_quest() as virtual
 						scoreboard players set @s status 14
 						scoreboard players set @s hp 0
 						scoreboard players set @s base_model 69
+					}
+					
+					func rand_move()
+					{
+						function random:rand_rate
+						execute if score #RAND_RESULT number matches ..15 run tp @s 1143.6 ~ ~
 					}
 				}
 				
