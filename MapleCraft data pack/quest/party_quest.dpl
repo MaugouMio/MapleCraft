@@ -225,9 +225,13 @@ namespace party_quest() as virtual
 			scoreboard players operation #KPQ_PASS_REQUIRED temp = #KPQ_MEMBER temp
 			execute if score #KPQ_PASS_REQUIRED temp matches 2.. run scoreboard players remove #KPQ_PASS_REQUIRED temp 1
 			
-			forceload add -282 6
+			forceload add -266 -23 -314 23
+			execute positioned -328 45 -43 run kill @e[type=!player,tag=!fixed,dx=86,dy=43,dz=86]
+			data modify block -310 47 0 front_text.messages[0] set value '""'
+			data modify block -310 47 0 back_text.messages[0] set value '""'
+			
 			summon minecraft:marker -282 39 6 {Tags:["mob_spawner","kpq_mob"]}
-			forceload remove -282 6
+			forceload remove -266 -23 -314 23
 		}
 		
 		func join()
@@ -393,7 +397,7 @@ namespace party_quest() as virtual
 						func pass()
 						{
 							function quest:party_quest/kpq/title/clear/run
-							scoreboard players add #KPQ_STAGE temp 1
+							scoreboard players set #KPQ_STAGE temp 2
 							
 							data modify block -310 47 0 front_text.messages[0] set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -310.0 46 -1.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/1/portal"}}'
 							data modify block -310 47 0 back_text.messages[0] set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -310.0 46 -1.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/1/portal"}}'
@@ -413,6 +417,8 @@ namespace party_quest() as virtual
 							execute if score #RAND_RESULT number matches 25..49 run scoreboard players set #KPQ_PASS_REQUIRED temp 11
 							execute if score #RAND_RESULT number matches 50..74 run scoreboard players set #KPQ_PASS_REQUIRED temp 13
 							execute if score #RAND_RESULT number matches 75.. run scoreboard players set #KPQ_PASS_REQUIRED temp 14
+							
+							function quest:party_quest/kpq/stages/2/reset
 						}
 						
 						func coupon_check()
@@ -480,7 +486,6 @@ namespace party_quest() as virtual
 					execute positioned -565 41 -40 run kill @e[type=!player,tag=!fixed,dx=80,dy=37,dz=80]
 					data modify block -540 43 0 front_text.messages[0] set value '""'
 					data modify block -540 43 0 back_text.messages[0] set value '""'
-					kill @e[type=item_display,tag=kpq_mob]
 					forceload remove -550 -25 -500 25
 					
 					scoreboard players reset #KPQ_S2_LOADED temp
@@ -537,7 +542,7 @@ namespace party_quest() as virtual
 						func pass()
 						{
 							function quest:party_quest/kpq/title/clear/run
-							scoreboard players add #KPQ_STAGE temp 1
+							scoreboard players set #KPQ_STAGE temp 3
 							
 							data modify block -540 43 0 front_text.messages[0] set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -540.0 42 -1.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/2/portal"}}'
 							data modify block -540 43 0 back_text.messages[0] set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -540.0 42 -1.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/2/portal"}}'
@@ -558,6 +563,8 @@ namespace party_quest() as virtual
 							execute if score #RAND_RESULT number matches 70..79 run scoreboard players set #KPQ_PASS_REQUIRED temp 22
 							execute if score #RAND_RESULT number matches 80..89 run scoreboard players set #KPQ_PASS_REQUIRED temp 26
 							execute if score #RAND_RESULT number matches 90.. run scoreboard players set #KPQ_PASS_REQUIRED temp 28
+							
+							function quest:party_quest/kpq/stages/3/reset
 						}
 					}
 				}
@@ -584,7 +591,6 @@ namespace party_quest() as virtual
 					data modify block -850 47 0 back_text.messages[0] set value '""'
 					setblock -849 47 3 minecraft:air
 					setblock -849 47 -3 minecraft:air
-					kill @e[type=item_display,tag=kpq_mob]
 					forceload remove -852 -10 -800 10
 					
 					scoreboard players reset #KPQ_S3_LOADED temp
@@ -644,7 +650,7 @@ namespace party_quest() as virtual
 						func pass()
 						{
 							function quest:party_quest/kpq/title/clear/run
-							scoreboard players add #KPQ_STAGE temp 1
+							scoreboard players set #KPQ_STAGE temp 4
 							
 							data modify block -850 47 0 front_text.messages[0] set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -850.0 46 -1.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/3/portal"}}'
 							data modify block -850 47 0 back_text.messages[0] set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -850.0 46 -1.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/3/portal"}}'
@@ -677,6 +683,8 @@ namespace party_quest() as virtual
 							execute if score #RAND_RESULT number matches 85..89 run scoreboard players set #KPQ_PASS_REQUIRED temp 44
 							execute if score #RAND_RESULT number matches 90..94 run scoreboard players set #KPQ_PASS_REQUIRED temp 52
 							execute if score #RAND_RESULT number matches 95..99 run scoreboard players set #KPQ_PASS_REQUIRED temp 56
+							
+							function quest:party_quest/kpq/stages/4/reset
 						}
 					}
 				}
@@ -702,7 +710,6 @@ namespace party_quest() as virtual
 					data modify block -1195 55 24 back_text.messages[0] set value '""'
 					setblock -1194 55 21 minecraft:air
 					setblock -1194 55 27 minecraft:air
-					kill @e[type=item_display,tag=kpq_mob]
 					forceload remove -1197 2 -1171 29
 					
 					scoreboard players reset #KPQ_S4_LOADED temp
@@ -765,7 +772,7 @@ namespace party_quest() as virtual
 						func pass()
 						{
 							function quest:party_quest/kpq/title/clear/run
-							scoreboard players add #KPQ_STAGE temp 1
+							scoreboard players set #KPQ_STAGE temp 5
 							scoreboard players set #KPQ_S5_LOADED temp 1
 							
 							data modify block -1195 55 24 front_text.messages[0] set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -1195.0 54.0 23.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/4/portal"}}'
@@ -779,6 +786,9 @@ namespace party_quest() as virtual
 							execute as @a[scores={playing_game=1},tag=!dead] at @s run function quest:get_exp
 							
 							forceload add -1530 1 -1490 21
+							execute positioned -1530 50 1 run kill @e[type=!player,tag=!fixed,dx=40,dy=60,dz=20]
+							setblock -1525 103 9 minecraft:air
+							setblock -1525 103 15 minecraft:air
 							
 							# summon mobs
 							```
@@ -920,12 +930,14 @@ namespace party_quest() as virtual
 						func pass()
 						{
 							function quest:party_quest/kpq/title/clear/run
-							scoreboard players add #KPQ_STAGE temp 1
-							scoreboard players set #KPQ_S6_LOADED temp 1
 							
-							forceload add -1831 2
+							forceload add -1847 -7 -1815 11
+							execute positioned -1847 29 -7 run kill @e[type=!player,tag=!fixed,dx=32,dy=31,dz=18]
 							summon minecraft:marker -1831 30 2 {Tags:["mob_spawner","kpq_mob"]}
-							forceload remove -1831 2
+							forceload remove -1847 -7 -1815 11
+							
+							scoreboard players set #KPQ_STAGE temp 6
+							scoreboard players set #KPQ_S6_LOADED temp 1
 							
 							summon minecraft:item_display -1525.5 103.5 12.5 {Tags:["kpq_mob"],item:{id:"minecraft:splash_potion",Count:1b,tag:{CustomModelData:1000002,CustomPotionColor:-1}}}
 							setblock -1525 103 9 minecraft:fire
@@ -948,7 +960,7 @@ namespace party_quest() as virtual
 				func reset()
 				{
 					forceload add -1847 -7 -1815 11
-					execute positioned -1847 36 -7 run kill @e[type=!player,tag=!fixed,dx=32,dy=24,dz=18]
+					execute positioned -1847 29 -7 run kill @e[type=!player,tag=!fixed,dx=32,dy=31,dz=18]
 					forceload remove -1847 -7 -1815 11
 					
 					scoreboard players reset #KPQ_S6_LOADED temp
@@ -990,6 +1002,7 @@ namespace party_quest() as virtual
 			scoreboard players set #LDPQ_S1_LOADED temp 1
 						
 			forceload add 369 183 392 206
+			execute positioned 368 -55 182 run kill @e[type=!player,tag=!fixed,dx=24,dy=105,dz=24]
 			```
 			print("execute positioned 376 -37.9 190 run", spawn_mob("9300006"))
 			print("execute positioned 377 -34.9 196 run", spawn_mob("9300006"))
@@ -1234,6 +1247,7 @@ namespace party_quest() as virtual
 							tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage_pass","with":[{"translate":"npc.red_balloon"},"25"],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 							
 							forceload add 375 -201 398 -178
+							execute positioned 374 -55 -202 run kill @e[type=!player,tag=!fixed,dx=24,dy=96,dz=24]
 							```
 							points = [
 								("386 18.0625 -194", 180),
@@ -1332,6 +1346,7 @@ namespace party_quest() as virtual
 							tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage_pass","with":[{"translate":"npc.orange_balloon"},"15"],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 							
 							forceload add 369 183 392 206
+							execute positioned 368 78 182 run kill @e[type=!player,tag=!fixed,dx=24,dy=71,dz=24]
 							```
 							print("execute positioned 382 118.1 200 run", spawn_mob("9300007"))
 							print("execute positioned 376 132.1 194 run", spawn_mob("9300007"))
@@ -1376,6 +1391,7 @@ namespace party_quest() as virtual
 						scoreboard players set #LDPQ_S2_H_LOADED temp 1
 						
 						forceload add 368 -592 391 -569
+						execute positioned 367 157 -593 run kill @e[type=!player,tag=!fixed,dx=24,dy=128,dz=24]
 						```
 						points = [
 							("376.0 177 -584.0", -90),
@@ -1450,6 +1466,7 @@ namespace party_quest() as virtual
 					title @s title {"text":"4","font":"ui:main"}
 					tp @s 384 121 -195 40 50
 					
+					execute unless score #LDPQ_S4_LOADED temp matches 1 run function ARG(__PATH)4/reset
 					scoreboard players set #LDPQ_S4_LOADED temp 1
 				}
 				
@@ -1586,6 +1603,7 @@ namespace party_quest() as virtual
 							tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage_pass","with":[{"translate":"npc.lime_balloon"},"6"],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 							
 							forceload add 369 183 392 206
+							execute positioned 368 174 182 run kill @e[type=!player,tag=!fixed,dx=24,dy=64,dz=24]
 							```
 							print("execute positioned 378 182.1 189 run", spawn_mob("9300013"))
 							print("execute positioned 375 182.1 189 run", spawn_mob("9300013"))
@@ -1605,6 +1623,7 @@ namespace party_quest() as virtual
 						scoreboard players set #LDPQ_S4_D_LOADED temp 1
 						
 						forceload add 376 -598 383 -563
+						execute positioned 375 -54 -599 run kill @e[type=!player,tag=!fixed,dx=8,dy=180,dz=36]
 						```
 						print("execute positioned 381.0 113.1 -580 run", spawn_mob("9300008"))
 						print("execute positioned 382.0 73.6 -593 run", spawn_mob("9300008"))
@@ -1892,6 +1911,7 @@ namespace party_quest() as virtual
 					title @s title {"text":"4","font":"ui:main"}
 					tp @s 391.0 168 -195.0 45 40
 					
+					execute unless score #LDPQ_S6_LOADED temp matches 1 run function ARG(__PATH)6/reset
 					scoreboard players set #LDPQ_S6_LOADED temp 1
 				}
 				
@@ -1963,6 +1983,7 @@ namespace party_quest() as virtual
 							scoreboard players set #LDPQ_S5_1_LOADED temp 1
 							
 							forceload add 759 561 782 584
+							execute positioned 758 -55 560 run kill @e[type=!player,tag=!fixed,dx=24,dy=118,dz=24]
 							```
 							points = [
 								("770 45.0625 577", -90),
@@ -2006,6 +2027,7 @@ namespace party_quest() as virtual
 							scoreboard players set #LDPQ_S5_2_LOADED temp 1
 							
 							forceload add 753 177 776 200
+							execute positioned 752 -55 176 run kill @e[type=!player,tag=!fixed,dx=24,dy=120,dz=24]
 							```
 							points = [
 								("758 -15 182", -90),
@@ -2049,6 +2071,7 @@ namespace party_quest() as virtual
 							scoreboard players set #LDPQ_S5_3_LOADED temp 1
 							
 							forceload add 753 -201 776 -178
+							execute positioned 752 -55 -202 run kill @e[type=!player,tag=!fixed,dx=24,dy=120,dz=24]
 							```
 							points = [
 								("758 -31 -196", -90),
@@ -2092,6 +2115,7 @@ namespace party_quest() as virtual
 							scoreboard players set #LDPQ_S5_4_LOADED temp 1
 							
 							forceload add 753 -585 776 -562
+							execute positioned 752 -55 -586 run kill @e[type=!player,tag=!fixed,dx=24,dy=120,dz=24]
 							```
 							points = [
 								("761.0 -19 -575.0", 180),
@@ -2135,6 +2159,7 @@ namespace party_quest() as virtual
 							scoreboard players set #LDPQ_S5_5_LOADED temp 1
 							
 							forceload add 1137 567 1160 590
+							execute positioned 1136 -55 566 run kill @e[type=!player,tag=!fixed,dx=24,dy=120,dz=24]
 							```
 							points = [
 								("1142 -31 572", -90),
@@ -2178,6 +2203,7 @@ namespace party_quest() as virtual
 							scoreboard players set #LDPQ_S5_6_LOADED temp 1
 							
 							forceload add 1137 183 1160 206
+							execute positioned 1136 -55 182 run kill @e[type=!player,tag=!fixed,dx=24,dy=116,dz=24]
 							```
 							print("execute positioned 1147 -46.9 190 run", spawn_mob("9300013"))
 							print("execute positioned 1150 -46.9 190 run", spawn_mob("9300013"))
@@ -2241,6 +2267,7 @@ namespace party_quest() as virtual
 				func load_s7()
 				{
 					forceload add 1137 -201 1160 -178
+					execute positioned 1136 -54 -202 run kill @e[type=!player,tag=!fixed,dx=24,dy=55,dz=24]
 					```
 					print("execute positioned 1144 -28.9 -185 run", spawn_mob("9300006"))
 					print("execute positioned 1143 -21.9 -185 run", spawn_mob("9300005", add_tag=["ldpq_s7_tp"]))
@@ -2398,6 +2425,7 @@ namespace party_quest() as virtual
 					title @s title {"text":"4","font":"ui:main"}
 					tp @s 775 91 566 90 60
 					
+					execute unless score #LDPQ_S8_LOADED temp matches 1 run function ARG(__PATH)8/reset
 					scoreboard players set #LDPQ_S8_LOADED temp 1
 				}
 				
@@ -2645,6 +2673,7 @@ namespace party_quest() as virtual
 							tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage_pass","with":[{"translate":"npc.blue_balloon"},"3"],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 							
 							forceload add 1131 -592 1183 -540
+							execute positioned 1130 -53 -593 run kill @e[type=!player,tag=!fixed,dx=54,dy=14,dz=54]
 							```
 							print("execute positioned 1152 -47.4 -572 run", spawn_mob("9300006"))
 							```
@@ -2703,6 +2732,7 @@ namespace party_quest() as virtual
 							execute as @a[scores={playing_game=2},tag=!dead] at @s run function quest:get_exp
 							
 							forceload add 753 177 776 200
+							execute positioned 752 90 176 run kill @e[type=!player,tag=!fixed,dx=24,dy=139,dz=24]
 							```
 							points = [
 								("759 94 183", -90),
