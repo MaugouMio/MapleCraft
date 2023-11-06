@@ -74,7 +74,7 @@ namespace attack_skill_template(skill_id) as virtual
 		function ARG(_PATH)set_numeric
 		function ARG(_PATH)cast_effect
 		```
-		if "ARG(skill_id)" not in ["3201005", "6001001", "6001003"]:
+		if "ARG(skill_id)" not in ["2301002", "3201005", "6001001", "6001003"]:
 			print("function ARG(_PATH)mark_target")
 		```
 		

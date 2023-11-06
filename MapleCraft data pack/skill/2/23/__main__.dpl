@@ -78,6 +78,7 @@ namespace 23() as virtual
 				execute if score @s mp >= @s 2301002_mp run function ARG(_PATH)run
 			}
 			
+			# 這邊走特規，不會在 template 預設的時機呼叫，手動在 mark_target 之後呼叫
 			func mark_target()
 			{
 				tag @s add target
@@ -122,6 +123,8 @@ namespace 23() as virtual
 			
 			func set_numeric()
 			{
+				function ARG(_PATH)mark_target
+				
 				data modify storage skill:main damage[0].attribute set value 1
 				function skill:damage_formula/heal
 				
