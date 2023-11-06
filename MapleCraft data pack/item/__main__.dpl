@@ -174,7 +174,7 @@ namespace item()
 			data modify storage item:main picker set from entity @s UUID
 			
 			scoreboard players set #PICKED temp 0
-			execute as @e[type=item,distance=..1.8,tag=checked,sort=nearest] run function ARG(_PATH)check_owner
+			execute as @e[type=item,distance=..1.6,tag=checked,sort=nearest,nbt={OnGround:1b}] run function ARG(_PATH)check_owner
 		}
 		
 		func check_owner()
