@@ -335,7 +335,7 @@ namespace bar_display()
 		{
 			scoreboard players set @s display_num_type 2
 			scoreboard players set @s display_number 0
-			execute positioned ~ ~2 ~ run function number_display:show
+			execute positioned ~ ~2.3 ~ run function number_display:show
 			
 			scoreboard players set @s hurt_time 30
 			scoreboard players reset @s damage_taken
@@ -351,7 +351,7 @@ namespace bar_display()
 			
 			scoreboard players set @s display_num_type 2
 			scoreboard players operation @s display_number = @s damage_taken
-			execute positioned ~ ~2 ~ run function number_display:show
+			execute positioned ~ ~2.3 ~ run function number_display:show
 			
 			execute if score @s mguar_buff_time matches 1.. if score @s mp matches 1.. run function skill:2/0/0/1002/guard
 			scoreboard players operation @s damage_taken > #1 const
@@ -739,7 +739,7 @@ namespace bar_display()
 			
 			scoreboard players set @s display_num_type 3
 			scoreboard players operation @s display_number = #GLOBAL temp
-			execute positioned ~ ~2 ~ run function number_display:show
+			execute positioned ~ ~2.3 ~ run function number_display:show
 			
 			function ARG(__PATH)change/hp/recovered
 		}
