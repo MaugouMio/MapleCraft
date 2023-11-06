@@ -2807,6 +2807,7 @@ namespace party_quest() as virtual
 					
 					func countdown()
 					{
+						execute positioned 1151.0 -47.5 -574.0 unless entity @s[dx=2,dy=0,dz=4] run tp @s 1152 -47.4 -572
 						scoreboard players add @s life 1
 						execute if score @s life matches 4 run function ARG(_PATH)blow
 					}
