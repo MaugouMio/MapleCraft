@@ -1034,7 +1034,7 @@ namespace main()
 			
 			function item:use/equip/remove_all
 			
-			clear @s minecraft:ender_eye
+			clear @s minecraft:ender_eye{skill:1b}
 			give @s minecraft:ender_eye{CustomModelData:199,skill:1b,HideFlags:127,display:{Name:'{"translate":"skill.attack","bold":true,"italic":false}'}} 2
 		}
 		
