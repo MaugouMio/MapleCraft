@@ -1,30 +1,30 @@
 ```
 buff_types = set(["watk", "matk", "wdef", "mdef", "accu", "avoid", "speed", "jump"])
 buff_info_dict = {
-	"watk": {"buff_list": set(["watk"]), "uuid": "40fe3cf6-6440-4e27-8e2f-f052c66382c3"},
-	"matk": {"buff_list": set(["matk"]), "uuid": "314e9d0f-5dbb-49b6-9f0b-483b96524e3e"},
-	"wdef": {"buff_list": set(["wdef"]), "uuid": "f777a759-19ad-46ad-958c-21a3cf555528"},
-	"accu": {"buff_list": set(["accu"]), "uuid": "2f4cc2f7-0591-4895-9aa4-ccc8cb3eb628"},
-	"avoid": {"buff_list": set(["avoid"]), "uuid": "0af581fb-6d2c-45bb-bf47-9f8e39649f29"},
-	"speed": {"buff_list": set(["speed"]), "uuid": "811b4e32-7a16-4a3d-b668-3824f3439602"},
-	"rage": {"buff_list": set(["watk", "wdef"]), "uuid": "743db87e-fb29-419b-9f21-811132c0676f"},
-	"wmdef": {"buff_list": set(["wdef", "mdef"]), "uuid": "a43142ca-ea11-48a8-93c1-5356a1bd1131"},
-	"focus": {"buff_list": set(["accu", "avoid"]), "uuid": "b0fd1cdc-a5eb-471c-9565-876d25b328eb"},
-	"angel": {"buff_list": set(["wdef", "mdef", "accu", "avoid"]), "uuid": "62892587-b6cc-4882-848f-821a96aeccc0"},
-	"haste": {"buff_list": set(["speed", "jump"]), "uuid": "0ccd70b4-7ebe-4200-b664-238b568e8814"},
-	"hex": {"buff_list": set(["watk", "wdef", "mdef", "accu", "avoid"]), "uuid": "2c0a45fd-036c-4559-ab38-a57a9492ae93"}
+	"watk": {"buff_list": set(["watk"]), "icon": [], "uuid": "40fe3cf6-6440-4e27-8e2f-f052c66382c3"},
+	"matk": {"buff_list": set(["matk"]), "icon": ["3"], "uuid": "314e9d0f-5dbb-49b6-9f0b-483b96524e3e"},
+	"wdef": {"buff_list": set(["wdef"]), "icon": ["0", "1"], "uuid": "f777a759-19ad-46ad-958c-21a3cf555528"},
+	"accu": {"buff_list": set(["accu"]), "icon": [], "uuid": "2f4cc2f7-0591-4895-9aa4-ccc8cb3eb628"},
+	"avoid": {"buff_list": set(["avoid"]), "icon": [], "uuid": "0af581fb-6d2c-45bb-bf47-9f8e39649f29"},
+	"speed": {"buff_list": set(["speed"]), "icon": ["2"], "uuid": "811b4e32-7a16-4a3d-b668-3824f3439602"},
+	"rage": {"buff_list": set(["watk", "wdef"]), "icon": ["7"], "uuid": "743db87e-fb29-419b-9f21-811132c0676f"},
+	"wmdef": {"buff_list": set(["wdef", "mdef"]), "icon": ["8"], "uuid": "a43142ca-ea11-48a8-93c1-5356a1bd1131"},
+	"focus": {"buff_list": set(["accu", "avoid"]), "icon": ["9"], "uuid": "b0fd1cdc-a5eb-471c-9565-876d25b328eb"},
+	"angel": {"buff_list": set(["wdef", "mdef", "accu", "avoid"]), "icon": ["a"], "uuid": "62892587-b6cc-4882-848f-821a96aeccc0"},
+	"haste": {"buff_list": set(["speed", "jump"]), "icon": ["b"], "uuid": "0ccd70b4-7ebe-4200-b664-238b568e8814"},
+	"hex": {"buff_list": set(["watk", "wdef", "mdef", "accu", "avoid"]), "icon": [], "uuid": "2c0a45fd-036c-4559-ab38-a57a9492ae93"}
 }
 simple_buff_info_dict = {
-	"invis": {"buff_list": set(), "uuid": "eae3a991-53b7-4225-ae20-72e518418db3"},
-	"drake": {"buff_list": set(["watk"]), "uuid": "16d3f9a5-a9ae-4bb1-9555-593e4a363a81"},
-	"conce": {"buff_list": set(["watk"]), "uuid": "d6d764da-de76-4ad5-9923-5a849d60e22f"},
-	"recov": {"buff_list": set(), "uuid": "dadf7b57-e0bd-4da9-91f6-2f51765d49d9"},
-	"mguar": {"buff_list": set(), "uuid": "af97b5dc-0246-4cb5-b158-95298e49ae32"},
-	"boost": {"buff_list": set(), "uuid": "b31f2767-cfab-44b9-976c-efce2d890516"},
-	"refle": {"buff_list": set(), "uuid": "7723b370-831f-45f3-a787-0329572a3a2b"},
-	"hyper": {"buff_list": set(), "uuid": "389e85cc-bb89-467b-9988-77d4fea7ff69"},
-	"invin": {"buff_list": set(), "uuid": "361c294b-9e2f-4d46-8749-5fdec81ea9f5"},
-	"soul": {"buff_list": set(), "uuid": "b2c4f1a6-fe90-4feb-bcb2-09ad6966bc51"}
+	"invis": {"buff_list": set(), "icon": ["d"], "uuid": "eae3a991-53b7-4225-ae20-72e518418db3"},
+	"drake": {"buff_list": set(["watk"]), "icon": ["e"], "uuid": "16d3f9a5-a9ae-4bb1-9555-593e4a363a81"},
+	"conce": {"buff_list": set(["watk"]), "icon": ["f"], "uuid": "d6d764da-de76-4ad5-9923-5a849d60e22f"},
+	"recov": {"buff_list": set(), "icon": ["g"], "uuid": "dadf7b57-e0bd-4da9-91f6-2f51765d49d9"},
+	"mguar": {"buff_list": set(), "icon": ["h"], "uuid": "af97b5dc-0246-4cb5-b158-95298e49ae32"},
+	"boost": {"buff_list": set(), "icon": ["i", "j", "k", "l", "m", "n", "o", "p", "q"], "uuid": "b31f2767-cfab-44b9-976c-efce2d890516"},
+	"refle": {"buff_list": set(), "icon": ["r"], "uuid": "7723b370-831f-45f3-a787-0329572a3a2b"},
+	"hyper": {"buff_list": set(), "icon": ["s"], "uuid": "389e85cc-bb89-467b-9988-77d4fea7ff69"},
+	"invin": {"buff_list": set(), "icon": ["t"], "uuid": "361c294b-9e2f-4d46-8749-5fdec81ea9f5"},
+	"soul": {"buff_list": set(), "icon": ["u"], "uuid": "b2c4f1a6-fe90-4feb-bcb2-09ad6966bc51"}
 }
 buff_id = 0
 ```
@@ -34,6 +34,7 @@ namespace simple_buff_template(name) as virtual
 {
 	func run()
 	{
+		function skill:buff/start_write_buff
 		```
 		buff_list = simple_buff_info_dict["ARG(name)"]["buff_list"]
 		for buff in buff_list:
@@ -44,12 +45,24 @@ namespace simple_buff_template(name) as virtual
 					print(f"execute if score @s {buff}_buff_time matches 1.. run function skill:buff/{buff}/reset/run")
 				elif len(buff_info_dict[buff]["buff_list"].intersection(buff_list)) > 0:
 					print(f"execute if score @s {buff}_buff_time matches 1.. run function skill:buff/{buff}/reset/check")
-		print(f"attribute @s minecraft:generic.luck modifier remove {simple_buff_info_dict['ARG(name)']['uuid']}")
+		# print(f"attribute @s minecraft:generic.luck modifier remove {simple_buff_info_dict['ARG(name)']['uuid']}")
+		print(f"data remove storage skill:main buff[{{id:{buff_id}s}}]")
 		
 		print(f"execute unless score @s ARG(name)_buff_time matches 1.. run scoreboard players add #{'ARG(name)'.upper()}_BUFF_PEOPLE temp 1")
 		print(f"execute if score #{'ARG(name)'.upper()}_BUFF_PEOPLE temp matches 1 run schedule function ARG(_PATH)counter/loop 1s")
 		```
 	}
+	
+	```
+	for icon in simple_buff_info_dict["ARG(name)"]["icon"]:
+		print(f'''
+			func add_{icon}()
+			{{
+				data modify storage skill:main buff append value {{id:{buff_id}s,icon:"{icon}",mask:9}}
+				function skill:buff/end_write_buff
+			}}
+		''')
+	```
 	
 	folder counter()
 	{
@@ -92,8 +105,10 @@ namespace simple_buff_template(name) as virtual
 		func run()
 		{
 			scoreboard players reset @s ARG(name)_buff_time
+			function skill:buff/start_write_buff
 			```
-			print(f"attribute @s minecraft:generic.luck modifier remove {simple_buff_info_dict['ARG(name)']['uuid']}")
+			# print(f"attribute @s minecraft:generic.luck modifier remove {simple_buff_info_dict['ARG(name)']['uuid']}")
+			print(f"data remove storage skill:main buff[{{id:{buff_id}s}}]")
 			print(f"scoreboard players remove #{'ARG(name)'.upper()}_BUFF_PEOPLE temp 1")
 			if "ARG(name)" == "invis":
 				print("effect clear @s minecraft:invisibility")
@@ -103,6 +118,7 @@ namespace simple_buff_template(name) as virtual
 			elif "ARG(name)" == "hyper":
 				print("function skill:1/3/0/1007/reset_effect")
 			```
+			function skill:buff/end_write_buff
 		}
 		
 		```
@@ -134,6 +150,7 @@ namespace buff_template(name) as virtual
 {
 	func run()
 	{
+		function skill:buff/start_write_buff
 		```
 		buff_list = buff_info_dict["ARG(name)"]["buff_list"]
 		for buff in buff_list:
@@ -146,12 +163,24 @@ namespace buff_template(name) as virtual
 				elif len(buff_info_dict[buff]["buff_list"].intersection(buff_list)) > 0:
 					print(f"execute if score @s {buff}_buff_time matches 1.. run function skill:buff/{buff}/reset/check")
 			else:
-				print(f"attribute @s minecraft:generic.luck modifier remove {buff_info_dict['ARG(name)']['uuid']}")
-		
+				# print(f"attribute @s minecraft:generic.luck modifier remove {buff_info_dict['ARG(name)']['uuid']}")
+				print(f"data remove storage skill:main buff[{{id:{buff_id}s}}]")
+				
 		print(f"execute unless score @s ARG(name)_buff_time matches 1.. run scoreboard players add #{'ARG(name)'.upper()}_BUFF_PEOPLE temp 1")
 		print(f"execute if score #{'ARG(name)'.upper()}_BUFF_PEOPLE temp matches 1 run schedule function ARG(_PATH)counter/loop 1s")
 		```
 	}
+	
+	```
+	for icon in buff_info_dict["ARG(name)"]["icon"]:
+		print(f'''
+			func add_{icon}()
+			{{
+				data modify storage skill:main buff append value {{id:{buff_id}s,icon:"{icon}",mask:9}}
+				function skill:buff/end_write_buff
+			}}
+		''')
+	```
 	
 	folder counter()
 	{
@@ -191,10 +220,13 @@ namespace buff_template(name) as virtual
 		func run()
 		{
 			scoreboard players reset @s ARG(name)_buff_time
+			function skill:buff/start_write_buff
 			```
-			print(f"attribute @s minecraft:generic.luck modifier remove {buff_info_dict['ARG(name)']['uuid']}")
+			# print(f"attribute @s minecraft:generic.luck modifier remove {buff_info_dict['ARG(name)']['uuid']}")
+			print(f"data remove storage skill:main buff[{{id:{buff_id}s}}]")
 			print(f"scoreboard players remove #{'ARG(name)'.upper()}_BUFF_PEOPLE temp 1")
 			```
+			function skill:buff/end_write_buff
 		}
 		
 		```
@@ -260,6 +292,18 @@ namespace buff() as virtual
 		execute if score @s hyper_buff_time matches 1.. run function skill:1/3/0/1007/hyper/reset/run
 		execute if score @s invin_buff_time matches 1.. run function skill:2/3/0/1003/invin/reset/run
 		execute if score @s soul_buff_time matches 1.. run function skill:3/1/0/1004/soul/reset/run
+	}
+	
+	func start_write_buff()
+	{
+		execute unless score #WRITING_BUFF temp matches 1.. run data modify storage skill:main buff set from entity @s Inventory[{Slot:103b}].tag.buff
+		scoreboard players add #WRITING_BUFF temp 1
+	}
+	
+	func end_write_buff()
+	{
+		scoreboard players remove #WRITING_BUFF temp 1
+		execute if score #WRITING_BUFF temp matches 0 run item modify entity @s armor.head skill:set_buff
 	}
 	
 	```

@@ -399,8 +399,9 @@ namespace 11() as virtual
 				
 				# set this buff values
 				scoreboard players operation @s rage_buff_time = #RAGE_TIME temp
+				function skill:buff/rage/add_7
 				```
-				print(f"attribute @s minecraft:generic.luck modifier add {buff_info_dict['rage']['uuid']} 7 0 add")
+				# print(f"attribute @s minecraft:generic.luck modifier add {buff_info_dict['rage']['uuid']} 7 0 add")
 				```
 			}
 			
@@ -498,8 +499,9 @@ namespace 11() as virtual
 				# set this buff values
 				scoreboard players operation @s refle_buff_time = @s 1101007_time
 				scoreboard players operation @s refle_buff_num = @s 1101007_rate
+				function ARG(_PATH)refle/add_r
 				```
-				print(f"attribute @s minecraft:generic.luck modifier add {simple_buff_info_dict['refle']['uuid']} r 0 add")
+				# print(f"attribute @s minecraft:generic.luck modifier add {simple_buff_info_dict['refle']['uuid']} r 0 add")
 				```
 				# VVV since we got mp change below, no need to update the bar display VVV
 				# tag @s add hp_mp_varying

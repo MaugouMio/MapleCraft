@@ -399,8 +399,9 @@ namespace 13() as virtual
 				
 				# set this buff values
 				scoreboard players operation @s wmdef_buff_time = #IRON_WILL_TIME temp
+				function skill:buff/wmdef/add_8
 				```
-				print(f"attribute @s minecraft:generic.luck modifier add {buff_info_dict['wmdef']['uuid']} 8 0 add")
+				# print(f"attribute @s minecraft:generic.luck modifier add {buff_info_dict['wmdef']['uuid']} 8 0 add")
 				```
 			}
 			
@@ -520,8 +521,10 @@ namespace 13() as virtual
 				
 				function bar_display:change/hp/recovered
 				# mp recovered is not needed for caster (so moved to take_effect for allies)
+
+				function ARG(_PATH)hyper/add_s
 				```
-				print(f"attribute @s minecraft:generic.luck modifier add {simple_buff_info_dict['hyper']['uuid']} s 0 add")
+				# print(f"attribute @s minecraft:generic.luck modifier add {simple_buff_info_dict['hyper']['uuid']} s 0 add")
 				```
 			}
 			

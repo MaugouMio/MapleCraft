@@ -282,8 +282,9 @@ namespace 23() as virtual
 				# set this buff values
 				scoreboard players operation @s invin_buff_time = @s 2301003_time
 				scoreboard players operation @s invin_buff_num = @s 2301003_rate
+				function ARG(_PATH)invin/add_t
 				```
-				print(f"attribute @s minecraft:generic.luck modifier add {simple_buff_info_dict['invin']['uuid']} t 0 add")
+				# print(f"attribute @s minecraft:generic.luck modifier add {simple_buff_info_dict['invin']['uuid']} t 0 add")
 				```
 				# VVV since we got mp change below, no need to update the bar display VVV
 				# tag @s add hp_mp_varying
@@ -433,8 +434,9 @@ namespace 23() as virtual
 				
 				# set this buff values
 				scoreboard players operation @s angel_buff_time = #BLESS_TIME temp
+				function skill:buff/angel/add_a
 				```
-				print(f"attribute @s minecraft:generic.luck modifier add {buff_info_dict['angel']['uuid']} a 0 add")
+				# print(f"attribute @s minecraft:generic.luck modifier add {buff_info_dict['angel']['uuid']} a 0 add")
 				```
 			}
 			

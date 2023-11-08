@@ -320,8 +320,9 @@ namespace 41() as virtual
 				
 				# set this buff values
 				scoreboard players operation @s haste_buff_time = #HASTE_TIME temp
+				function skill:buff/haste/add_b
 				```
-				print(f"attribute @s minecraft:generic.luck modifier add {buff_info_dict['haste']['uuid']} b 0 add")
+				# print(f"attribute @s minecraft:generic.luck modifier add {buff_info_dict['haste']['uuid']} b 0 add")
 				```
 			}
 			

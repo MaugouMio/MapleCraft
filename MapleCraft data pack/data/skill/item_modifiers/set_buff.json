@@ -1,0 +1,16 @@
+[
+  {
+    "function": "minecraft:copy_nbt",
+    "source": {
+      "type": "minecraft:storage",
+      "source": "skill:main"
+    },
+    "ops": [
+      {
+        "source": "buff",
+        "target": "buff",
+        "op": "replace"
+      }
+    ]
+  }
+]

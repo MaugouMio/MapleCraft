@@ -178,8 +178,9 @@ namespace 2() as virtual
 					# set this buff values
 					scoreboard players operation @s mguar_buff_time = @s 2001002_time
 					scoreboard players operation @s mguar_buff_num = @s 2001002_rate
+					function ARG(_PATH)mguar/add_h
 					```
-					print(f"attribute @s minecraft:generic.luck modifier add {simple_buff_info_dict['mguar']['uuid']} h 0 add")
+					# print(f"attribute @s minecraft:generic.luck modifier add {simple_buff_info_dict['mguar']['uuid']} h 0 add")
 					```
 					# VVV since we got mp change below, no need to update the bar display VVV
 					# tag @s add hp_mp_varying
@@ -301,8 +302,9 @@ namespace 2() as virtual
 					
 					# set this buff values
 					scoreboard players operation @s wdef_buff_time = @s 2001003_time
+					function skill:buff/wdef/add_1
 					```
-					print(f"attribute @s minecraft:generic.luck modifier add {buff_info_dict['wdef']['uuid']} 1 0 add")
+					# print(f"attribute @s minecraft:generic.luck modifier add {buff_info_dict['wdef']['uuid']} 1 0 add")
 					```
 					# VVV since we got mp change below, no need to update the bar display VVV
 					# tag @s add hp_mp_varying

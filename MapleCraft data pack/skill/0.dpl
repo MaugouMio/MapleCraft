@@ -222,8 +222,9 @@ namespace 0() as virtual
 					
 					# set this buff values
 					scoreboard players set @s recov_buff_time 30
+					function ARG(_PATH)recov/add_g
 					```
-					print(f"attribute @s minecraft:generic.luck modifier add {simple_buff_info_dict['recov']['uuid']} g 0 add")
+					# print(f"attribute @s minecraft:generic.luck modifier add {simple_buff_info_dict['recov']['uuid']} g 0 add")
 					```
 					# VVV since we got mp change below, no need to update the bar display VVV
 					# tag @s add hp_mp_varying
@@ -355,8 +356,9 @@ namespace 0() as virtual
 					
 					# set this buff values
 					scoreboard players operation @s speed_buff_time = @s 0001002_time
+					function skill:buff/speed/add_2
 					```
-					print(f"attribute @s minecraft:generic.luck modifier add {buff_info_dict['speed']['uuid']} 2 0 add")
+					# print(f"attribute @s minecraft:generic.luck modifier add {buff_info_dict['speed']['uuid']} 2 0 add")
 					```
 					# VVV since we got mp change below, no need to update the bar display VVV
 					# tag @s add hp_mp_varying

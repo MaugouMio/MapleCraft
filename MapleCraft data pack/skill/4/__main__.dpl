@@ -380,8 +380,9 @@ namespace 4() as virtual
 					function stat:speed_changed/check
 					
 					effect give @s minecraft:invisibility infinite 0 true
+					function ARG(_PATH)invis/add_d
 					```
-					print(f"attribute @s minecraft:generic.luck modifier add {simple_buff_info_dict['invis']['uuid']} d 0 add")
+					# print(f"attribute @s minecraft:generic.luck modifier add {simple_buff_info_dict['invis']['uuid']} d 0 add")
 					```
 					# VVV since we got mp change below, no need to update the bar display VVV
 					# tag @s add hp_mp_varying
