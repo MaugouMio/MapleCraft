@@ -105,6 +105,7 @@ namespace simple_buff_template(name) as virtual
 		func run()
 		{
 			scoreboard players reset @s ARG(name)_buff_time
+			scoreboard players reset @s ARG(name)_buff_tmax
 			function skill:buff/start_write_buff
 			```
 			# print(f"attribute @s minecraft:generic.luck modifier remove {simple_buff_info_dict['ARG(name)']['uuid']}")
@@ -220,6 +221,7 @@ namespace buff_template(name) as virtual
 		func run()
 		{
 			scoreboard players reset @s ARG(name)_buff_time
+			scoreboard players reset @s ARG(name)_buff_tmax
 			function skill:buff/start_write_buff
 			```
 			# print(f"attribute @s minecraft:generic.luck modifier remove {buff_info_dict['ARG(name)']['uuid']}")
@@ -266,8 +268,10 @@ namespace buff() as virtual
 		
 		for buff in buff_info_dict:
 			print(f"scoreboard objectives add {buff}_buff_time dummy")
+			print(f"scoreboard objectives add {buff}_buff_tmax dummy")
 		for buff in simple_buff_info_dict:
 			print(f"scoreboard objectives add {buff}_buff_time dummy")
+			print(f"scoreboard objectives add {buff}_buff_tmax dummy")
 		```
 		
 		scoreboard objectives add mguar_buff_num dummy

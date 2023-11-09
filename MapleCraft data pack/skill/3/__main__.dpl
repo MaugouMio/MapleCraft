@@ -228,7 +228,8 @@ namespace 3() as virtual
 					function stat:calc_avoid/run
 					
 					# set this buff values
-					scoreboard players operation @s focus_buff_time = @s 3001003_time
+					scoreboard players operation @s focus_buff_tmax = @s 3001003_time
+					scoreboard players operation @s focus_buff_time = @s focus_buff_tmax
 					function skill:buff/focus/add_9
 					```
 					# print(f"attribute @s minecraft:generic.luck modifier add {buff_info_dict['focus']['uuid']} 9 0 add")

@@ -373,7 +373,8 @@ namespace 4() as virtual
 					function ARG(_PATH)invis/run
 					
 					# set this buff values
-					scoreboard players operation @s invis_buff_time = @s 4001003_time
+					scoreboard players operation @s invis_buff_tmax = @s 4001003_time
+					scoreboard players operation @s invis_buff_time = @s invis_buff_tmax
 					scoreboard players operation @s invis_buff_speed = @s 4001003_speed
 					
 					scoreboard players operation @s speed += @s invis_buff_speed

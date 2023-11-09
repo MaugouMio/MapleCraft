@@ -358,7 +358,8 @@ namespace 31() as virtual
 				function ARG(_PATH)soul/run
 				
 				# set this buff values
-				scoreboard players operation @s soul_buff_time = @s 3101004_time
+				scoreboard players operation @s soul_buff_tmax = @s 3101004_time
+				scoreboard players operation @s soul_buff_time = @s soul_buff_tmax
 				function ARG(_PATH)soul/add_u
 				```
 				# print(f"attribute @s minecraft:generic.luck modifier add {simple_buff_info_dict['soul']['uuid']} u 0 add")

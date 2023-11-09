@@ -242,7 +242,8 @@ namespace 1() as virtual
 					scoreboard players operation @s wdef_buff_num *= #2 const
 					
 					# set this buff values
-					scoreboard players operation @s wdef_buff_time = @s 1001003_time
+					scoreboard players operation @s wdef_buff_tmax = @s 1001003_time
+					scoreboard players operation @s wdef_buff_time = @s wdef_buff_tmax
 					function skill:buff/wdef/add_0
 					```
 					# print(f"attribute @s minecraft:generic.luck modifier add {buff_info_dict['wdef']['uuid']} 0 0 add")

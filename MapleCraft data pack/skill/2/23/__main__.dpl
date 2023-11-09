@@ -280,7 +280,8 @@ namespace 23() as virtual
 				function ARG(_PATH)invin/run
 				
 				# set this buff values
-				scoreboard players operation @s invin_buff_time = @s 2301003_time
+				scoreboard players operation @s invin_buff_tmax = @s 2301003_time
+				scoreboard players operation @s invin_buff_time = @s invin_buff_tmax
 				scoreboard players operation @s invin_buff_num = @s 2301003_rate
 				function ARG(_PATH)invin/add_t
 				```
@@ -433,7 +434,8 @@ namespace 23() as virtual
 				function stat:calc_avoid/run
 				
 				# set this buff values
-				scoreboard players operation @s angel_buff_time = #BLESS_TIME temp
+				scoreboard players operation @s angel_buff_tmax = #BLESS_TIME temp
+				scoreboard players operation @s angel_buff_time = @s angel_buff_tmax
 				function skill:buff/angel/add_a
 				```
 				# print(f"attribute @s minecraft:generic.luck modifier add {buff_info_dict['angel']['uuid']} a 0 add")

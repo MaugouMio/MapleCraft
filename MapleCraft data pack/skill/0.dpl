@@ -221,7 +221,8 @@ namespace 0() as virtual
 					function ARG(_PATH)recov/run
 					
 					# set this buff values
-					scoreboard players set @s recov_buff_time 30
+					scoreboard players set @s recov_buff_tmax 30
+					scoreboard players operation @s recov_buff_time = @s recov_buff_tmax
 					function ARG(_PATH)recov/add_g
 					```
 					# print(f"attribute @s minecraft:generic.luck modifier add {simple_buff_info_dict['recov']['uuid']} g 0 add")
@@ -355,7 +356,8 @@ namespace 0() as virtual
 					function stat:speed_changed/check
 					
 					# set this buff values
-					scoreboard players operation @s speed_buff_time = @s 0001002_time
+					scoreboard players operation @s speed_buff_tmax = @s 0001002_time
+					scoreboard players operation @s speed_buff_time = @s speed_buff_tmax
 					function skill:buff/speed/add_2
 					```
 					# print(f"attribute @s minecraft:generic.luck modifier add {buff_info_dict['speed']['uuid']} 2 0 add")

@@ -211,7 +211,8 @@ namespace 21() as virtual
 				scoreboard players operation @s matk_buff_num = #MEDITATE_LEVEL temp
 				
 				# set this buff values
-				scoreboard players operation @s matk_buff_time = #MEDITATE_TIME temp
+				scoreboard players operation @s matk_buff_tmax = #MEDITATE_TIME temp
+				scoreboard players operation @s matk_buff_time = @s matk_buff_tmax
 				function skill:buff/matk/add_3
 				```
 				# print(f"attribute @s minecraft:generic.luck modifier add {buff_info_dict['matk']['uuid']} 3 0 add")

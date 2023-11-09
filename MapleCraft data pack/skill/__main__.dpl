@@ -587,7 +587,8 @@ namespace booster_skill_template(skill_id, weapon, icon) as virtual
 		function skill:buff/boost/run
 		
 		# set this buff values
-		scoreboard players operation @s boost_buff_time = @s ARG(skill_id)_time
+		scoreboard players operation @s boost_buff_tmax = @s ARG(skill_id)_time
+		scoreboard players operation @s boost_buff_time = @s boost_buff_tmax
 		function skill:buff/boost/add_ARG(icon)
 		```
 		# print(f"attribute @s minecraft:generic.luck modifier add {simple_buff_info_dict['boost']['uuid']} ARG(icon) 0 add")

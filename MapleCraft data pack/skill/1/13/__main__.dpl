@@ -398,7 +398,8 @@ namespace 13() as virtual
 				scoreboard players operation @s mdef_buff_num = #IRON_WILL_VALUE temp
 				
 				# set this buff values
-				scoreboard players operation @s wmdef_buff_time = #IRON_WILL_TIME temp
+				scoreboard players operation @s wmdef_buff_tmax = #IRON_WILL_TIME temp
+				scoreboard players operation @s wmdef_buff_time = @s wmdef_buff_tmax
 				function skill:buff/wmdef/add_8
 				```
 				# print(f"attribute @s minecraft:generic.luck modifier add {buff_info_dict['wmdef']['uuid']} 8 0 add")
@@ -515,7 +516,8 @@ namespace 13() as virtual
 				function ARG(_PATH)hyper/run
 				
 				# set this buff values
-				scoreboard players operation @s hyper_buff_time = #HYPER_TIME temp
+				scoreboard players operation @s hyper_buff_tmax = #HYPER_TIME temp
+				scoreboard players operation @s hyper_buff_time = @s hyper_buff_tmax
 				scoreboard players operation @s hyper_buff_num = #HYPER_VALUE temp
 				function ARG(_PATH)set_hp_mp
 				

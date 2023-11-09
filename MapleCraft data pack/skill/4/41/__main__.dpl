@@ -319,7 +319,8 @@ namespace 41() as virtual
 				execute if score @s jump_buff_num matches 1 run effect give @s minecraft:jump_boost infinite 1 true
 				
 				# set this buff values
-				scoreboard players operation @s haste_buff_time = #HASTE_TIME temp
+				scoreboard players operation @s haste_buff_tmax = #HASTE_TIME temp
+				scoreboard players operation @s haste_buff_time = @s haste_buff_tmax
 				function skill:buff/haste/add_b
 				```
 				# print(f"attribute @s minecraft:generic.luck modifier add {buff_info_dict['haste']['uuid']} b 0 add")
