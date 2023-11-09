@@ -29,6 +29,18 @@ void main() {
 	
 	vec3 offsetPosition = Position;
 	vec4 finalColor = Color;
+	ivec3 colorCheck = ivec3(Color.rgb * 255);
+	// buff disappearing flash
+	if (colorCheck == ivec3(255, 255, 251))
+	{
+		float alpha = (10.0 - mod(GameTime * 24000, 10.0)) / 10.0;
+		finalColor = vec4(0.3333, 0.3882, 0.5059, alpha);
+	}
+	else if (colorCheck == ivec3(255, 255, 250))  // anti-shadow default color
+		finalColor = vec4(1);
+	else if (colorCheck == ivec3(63, 63, 62))  // shadow of buff icon
+		finalColor = vec4(0);
+	
 	// up lift
 	ivec4 vertexTexel = ivec4(texture(Sampler0, UV0) * 255);
 	if (vertexTexel.rgb == ivec3(1,3,5)) {

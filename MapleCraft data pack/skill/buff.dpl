@@ -58,7 +58,7 @@ namespace simple_buff_template(name) as virtual
 		print(f'''
 			func add_{icon}()
 			{{
-				data modify storage skill:main buff append value {{id:{buff_id}s,icon:"{icon}",mask:"a"}}
+				data modify storage skill:main buff append value {{id:{buff_id}s,icon:'{{"text":"{icon}","color":"#fffffa"}}',mask:"a"}}
 				function skill:buff/end_write_buff
 			}}
 		''')
@@ -81,12 +81,58 @@ namespace simple_buff_template(name) as virtual
 				print("execute at @s run function ARG(__PATH)execute")
 			```
 			scoreboard players remove @s ARG(name)_buff_time 1
+			execute if score @s ARG(name)_buff_time matches 5 run function ARG(_PATH)set_flash
+			execute if score @s ARG(name)_buff_time matches 6.. run function ARG(_PATH)check_mask/run
 			```
 			if len(buff_list) > 0:
 				print("execute if score @s ARG(name)_buff_time matches 0 run function ARG(_PATH)reset")
 			else:
 				print("execute if score @s ARG(name)_buff_time matches 0 run function ARG(__PATH)reset/run")
 			```
+		}
+		
+		func set_flash()
+		{
+			function skill:buff/start_write_buff
+			```
+			print(f'''
+			data modify block 250 0 0 front_text.messages[0] set value '{{"nbt":"buff[{{id:{buff_id}s}}].icon","storage":"skill:main","interpret":true,"color":"#fffffb"}}'
+			data modify storage skill:main buff[{{id:{buff_id}s}}].icon set from block 250 0 0 front_text.messages[0]
+			data modify storage skill:main buff[{{id:{buff_id}s}}].mask set value "a"
+			''')
+			```
+			function skill:buff/end_write_buff
+		}
+		
+		folder check_mask()
+		{
+			func run()
+			{
+				scoreboard players operation #NEW_MASK temp = @s ARG(name)_buff_time
+				scoreboard players operation #NEW_MASK temp *= #11 const
+				scoreboard players operation #NEW_MASK temp /= @s ARG(name)_buff_tmax
+				
+				execute if score #NEW_MASK temp matches ..9 run function ARG(_PATH)check_vary
+			}
+			
+			func check_vary()
+			{
+				scoreboard players operation #LAST_MASK temp = @s ARG(name)_buff_time
+				scoreboard players add #LAST_MASK temp 1
+				scoreboard players operation #LAST_MASK temp *= #11 const
+				scoreboard players operation #LAST_MASK temp /= @s ARG(name)_buff_tmax
+				
+				execute if score #NEW_MASK temp < #LAST_MASK temp run function ARG(_PATH)modify
+			}
+			
+			func modify()
+			{
+				function skill:buff/start_write_buff
+				```
+				print(f"execute store result storage skill:main buff[{{id:{buff_id}s}}].mask int 1 run scoreboard players get #NEW_MASK temp")
+				```
+				function skill:buff/end_write_buff
+			}
 		}
 		
 		```
@@ -177,7 +223,7 @@ namespace buff_template(name) as virtual
 		print(f'''
 			func add_{icon}()
 			{{
-				data modify storage skill:main buff append value {{id:{buff_id}s,icon:"{icon}",mask:"a"}}
+				data modify storage skill:main buff append value {{id:{buff_id}s,icon:'{{"text":"{icon}","color":"#fffffa"}}',mask:"a"}}
 				function skill:buff/end_write_buff
 			}}
 		''')
@@ -196,7 +242,53 @@ namespace buff_template(name) as virtual
 		func countdown()
 		{
 			scoreboard players remove @s ARG(name)_buff_time 1
+			execute if score @s ARG(name)_buff_time matches 5 run function ARG(_PATH)set_flash
+			execute if score @s ARG(name)_buff_time matches 6.. run function ARG(_PATH)check_mask/run
 			execute if score @s ARG(name)_buff_time matches 0 run function ARG(_PATH)reset
+		}
+		
+		func set_flash()
+		{
+			function skill:buff/start_write_buff
+			```
+			print(f'''
+			data modify block 250 0 0 front_text.messages[0] set value '{{"nbt":"buff[{{id:{buff_id}s}}].icon","storage":"skill:main","interpret":true,"color":"#fffffb"}}'
+			data modify storage skill:main buff[{{id:{buff_id}s}}].icon set from block 250 0 0 front_text.messages[0]
+			data modify storage skill:main buff[{{id:{buff_id}s}}].mask set value "a"
+			''')
+			```
+			function skill:buff/end_write_buff
+		}
+		
+		folder check_mask()
+		{
+			func run()
+			{
+				scoreboard players operation #NEW_MASK temp = @s ARG(name)_buff_time
+				scoreboard players operation #NEW_MASK temp *= #11 const
+				scoreboard players operation #NEW_MASK temp /= @s ARG(name)_buff_tmax
+				
+				execute if score #NEW_MASK temp matches ..9 run function ARG(_PATH)check_vary
+			}
+			
+			func check_vary()
+			{
+				scoreboard players operation #LAST_MASK temp = @s ARG(name)_buff_time
+				scoreboard players add #LAST_MASK temp 1
+				scoreboard players operation #LAST_MASK temp *= #11 const
+				scoreboard players operation #LAST_MASK temp /= @s ARG(name)_buff_tmax
+				
+				execute if score #NEW_MASK temp < #LAST_MASK temp run function ARG(_PATH)modify
+			}
+			
+			func modify()
+			{
+				function skill:buff/start_write_buff
+				```
+				print(f"execute store result storage skill:main buff[{{id:{buff_id}s}}].mask int 1 run scoreboard players get #NEW_MASK temp")
+				```
+				function skill:buff/end_write_buff
+			}
 		}
 		
 		func reset()
