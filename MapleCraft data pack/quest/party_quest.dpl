@@ -2670,8 +2670,6 @@ namespace party_quest() as virtual
 							scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
 							execute as @a[scores={playing_game=2},tag=!dead] at @s run function quest:get_exp
 							
-							tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage_pass","with":[{"translate":"npc.blue_balloon"},"3"],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
-							
 							forceload add 1131 -592 1183 -540
 							execute positioned 1130 -53 -593 run kill @e[type=!player,tag=!fixed,dx=54,dy=14,dz=54]
 							```
