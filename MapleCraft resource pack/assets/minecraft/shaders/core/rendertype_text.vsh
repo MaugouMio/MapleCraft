@@ -34,7 +34,7 @@ void main() {
 	if (colorCheck == ivec3(255, 255, 251))
 	{
 		float alpha = (10.0 - mod(GameTime * 24000, 10.0)) / 10.0;
-		finalColor = vec4(0.3333, 0.3882, 0.5059, alpha);
+		finalColor = vec4(1, 1, 1, alpha);
 	}
 	else if (colorCheck == ivec3(255, 255, 250))  // anti-shadow default color
 		finalColor = vec4(1);

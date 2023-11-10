@@ -82,7 +82,7 @@ namespace simple_buff_template(name) as virtual
 			```
 			scoreboard players remove @s ARG(name)_buff_time 1
 			execute if score @s ARG(name)_buff_time matches 5 run function ARG(_PATH)set_flash
-			execute if score @s ARG(name)_buff_time matches 6.. run function ARG(_PATH)check_mask/run
+			execute if score @s ARG(name)_buff_time matches 1.. run function ARG(_PATH)check_mask/run
 			```
 			if len(buff_list) > 0:
 				print("execute if score @s ARG(name)_buff_time matches 0 run function ARG(_PATH)reset")
@@ -98,7 +98,6 @@ namespace simple_buff_template(name) as virtual
 			print(f'''
 			data modify block 250 0 0 front_text.messages[0] set value '{{"nbt":"buff[{{id:{buff_id}s}}].icon","storage":"skill:main","interpret":true,"color":"#fffffb"}}'
 			data modify storage skill:main buff[{{id:{buff_id}s}}].icon set from block 250 0 0 front_text.messages[0]
-			data modify storage skill:main buff[{{id:{buff_id}s}}].mask set value "a"
 			''')
 			```
 			function skill:buff/end_write_buff
@@ -128,8 +127,10 @@ namespace simple_buff_template(name) as virtual
 			func modify()
 			{
 				function skill:buff/start_write_buff
+				execute if score @s ARG(name)_buff_time matches 6.. run data modify block 250 0 0 front_text.messages[0] set value '{"score":{"objective":"temp","name":"#NEW_MASK"},"color":"#fffffa"}'
+				execute if score @s ARG(name)_buff_time matches ..5 run data modify block 250 0 0 front_text.messages[0] set value '{"score":{"objective":"temp","name":"#NEW_MASK"},"color":"#fffffb"}'
 				```
-				print(f"execute store result storage skill:main buff[{{id:{buff_id}s}}].mask int 1 run scoreboard players get #NEW_MASK temp")
+				print(f"data modify storage skill:main buff[{{id:{buff_id}s}}].mask set from block 250 0 0 front_text.messages[0]")
 				```
 				function skill:buff/end_write_buff
 			}
@@ -243,7 +244,7 @@ namespace buff_template(name) as virtual
 		{
 			scoreboard players remove @s ARG(name)_buff_time 1
 			execute if score @s ARG(name)_buff_time matches 5 run function ARG(_PATH)set_flash
-			execute if score @s ARG(name)_buff_time matches 6.. run function ARG(_PATH)check_mask/run
+			execute if score @s ARG(name)_buff_time matches 1.. run function ARG(_PATH)check_mask/run
 			execute if score @s ARG(name)_buff_time matches 0 run function ARG(_PATH)reset
 		}
 		
@@ -254,7 +255,6 @@ namespace buff_template(name) as virtual
 			print(f'''
 			data modify block 250 0 0 front_text.messages[0] set value '{{"nbt":"buff[{{id:{buff_id}s}}].icon","storage":"skill:main","interpret":true,"color":"#fffffb"}}'
 			data modify storage skill:main buff[{{id:{buff_id}s}}].icon set from block 250 0 0 front_text.messages[0]
-			data modify storage skill:main buff[{{id:{buff_id}s}}].mask set value "a"
 			''')
 			```
 			function skill:buff/end_write_buff
@@ -284,8 +284,10 @@ namespace buff_template(name) as virtual
 			func modify()
 			{
 				function skill:buff/start_write_buff
+				execute if score @s ARG(name)_buff_time matches 6.. run data modify block 250 0 0 front_text.messages[0] set value '{"score":{"objective":"temp","name":"#NEW_MASK"},"color":"#fffffa"}'
+				execute if score @s ARG(name)_buff_time matches ..5 run data modify block 250 0 0 front_text.messages[0] set value '{"score":{"objective":"temp","name":"#NEW_MASK"},"color":"#fffffb"}'
 				```
-				print(f"execute store result storage skill:main buff[{{id:{buff_id}s}}].mask int 1 run scoreboard players get #NEW_MASK temp")
+				print(f"data modify storage skill:main buff[{{id:{buff_id}s}}].mask set from block 250 0 0 front_text.messages[0]")
 				```
 				function skill:buff/end_write_buff
 			}
