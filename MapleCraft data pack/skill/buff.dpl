@@ -58,7 +58,7 @@ namespace simple_buff_template(name) as virtual
 		print(f'''
 			func add_{icon}()
 			{{
-				data modify storage skill:main buff append value {{id:{buff_id}s,icon:'{{"text":"{icon}","color":"#fffffa"}}',mask:"a"}}
+				data modify storage skill:main buff append value {{id:{buff_id}s,icon:'{{"text":"{icon}","color":"#fffffa"}}',mask:'{{"text":"a","color":"#fffffa"}}'}}
 				function skill:buff/end_write_buff
 			}}
 		''')
@@ -224,7 +224,7 @@ namespace buff_template(name) as virtual
 		print(f'''
 			func add_{icon}()
 			{{
-				data modify storage skill:main buff append value {{id:{buff_id}s,icon:'{{"text":"{icon}","color":"#fffffa"}}',mask:"a"}}
+				data modify storage skill:main buff append value {{id:{buff_id}s,icon:'{{"text":"{icon}","color":"#fffffa"}}',mask:'{{"text":"a","color":"#fffffa"}}'}}
 				function skill:buff/end_write_buff
 			}}
 		''')
