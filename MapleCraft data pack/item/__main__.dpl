@@ -1580,7 +1580,7 @@ namespace item()
 			func check()
 			{
 				execute store result score #USING_ITEM temp run data get entity @s[nbt={SelectedItem:{id:"minecraft:warped_fungus_on_a_stick"}}] SelectedItem.tag.CustomModelData
-				execute if score #USING_ITEM temp matches ..20 run function ARG(_PATH)check_amount
+				execute if score #USING_ITEM temp matches 1..20 run function ARG(_PATH)check_amount
 			}
 			
 			func check_amount()
