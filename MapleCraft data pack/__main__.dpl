@@ -1048,6 +1048,7 @@ namespace main()
 				scoreboard players set @s job_level 1
 				# effect
 				playsound minecraft:game.job_changed player @a ~ ~ ~ 1 1 0
+				scoreboard players operation #BIND_PLAYER number = @s number
 				execute summon text_display run function skill:summon_font_effect/0000000job_changed
 				
 				scoreboard players set @s level 25
@@ -1094,6 +1095,7 @@ namespace main()
 					scoreboard players set @s job_level 2
 					# effect
 					playsound minecraft:game.job_changed player @a ~ ~ ~ 1 1 0
+					scoreboard players operation #BIND_PLAYER number = @s number
 					execute summon text_display run function skill:summon_font_effect/0000000job_changed
 					
 					scoreboard players set @s level 45
@@ -1151,6 +1153,7 @@ namespace main()
 					scoreboard players set @s job_level 2
 					# effect
 					playsound minecraft:game.job_changed player @a ~ ~ ~ 1 1 0
+					scoreboard players operation #BIND_PLAYER number = @s number
 					execute summon text_display run function skill:summon_font_effect/0000000job_changed
 					
 					scoreboard players set @s level 45
@@ -1209,6 +1212,7 @@ namespace main()
 					scoreboard players set @s job_level 2
 					# effect
 					playsound minecraft:game.job_changed player @a ~ ~ ~ 1 1 0
+					scoreboard players operation #BIND_PLAYER number = @s number
 					execute summon text_display run function skill:summon_font_effect/0000000job_changed
 					
 					scoreboard players set @s level 45
@@ -1269,6 +1273,7 @@ namespace main()
 				scoreboard players set @s job_level 1
 				# effect
 				playsound minecraft:game.job_changed player @a ~ ~ ~ 1 1 0
+				scoreboard players operation #BIND_PLAYER number = @s number
 				execute summon text_display run function skill:summon_font_effect/0000000job_changed
 				
 				scoreboard players set @s level 25
@@ -1316,6 +1321,7 @@ namespace main()
 					scoreboard players set @s job_level 2
 					# effect
 					playsound minecraft:game.job_changed player @a ~ ~ ~ 1 1 0
+					scoreboard players operation #BIND_PLAYER number = @s number
 					execute summon text_display run function skill:summon_font_effect/0000000job_changed
 					
 					scoreboard players set @s level 45
@@ -1373,6 +1379,7 @@ namespace main()
 					scoreboard players set @s job_level 2
 					# effect
 					playsound minecraft:game.job_changed player @a ~ ~ ~ 1 1 0
+					scoreboard players operation #BIND_PLAYER number = @s number
 					execute summon text_display run function skill:summon_font_effect/0000000job_changed
 					
 					scoreboard players set @s level 45
@@ -1432,6 +1439,7 @@ namespace main()
 				scoreboard players set @s job_level 1
 				# effect
 				playsound minecraft:game.job_changed player @a ~ ~ ~ 1 1 0
+				scoreboard players operation #BIND_PLAYER number = @s number
 				execute summon text_display run function skill:summon_font_effect/0000000job_changed
 				
 				scoreboard players set @s level 25
@@ -1479,6 +1487,7 @@ namespace main()
 					scoreboard players set @s job_level 2
 					# effect
 					playsound minecraft:game.job_changed player @a ~ ~ ~ 1 1 0
+					scoreboard players operation #BIND_PLAYER number = @s number
 					execute summon text_display run function skill:summon_font_effect/0000000job_changed
 					
 					scoreboard players set @s level 45
@@ -1536,6 +1545,7 @@ namespace main()
 					scoreboard players set @s job_level 2
 					# effect
 					playsound minecraft:game.job_changed player @a ~ ~ ~ 1 1 0
+					scoreboard players operation #BIND_PLAYER number = @s number
 					execute summon text_display run function skill:summon_font_effect/0000000job_changed
 					
 					scoreboard players set @s level 45
@@ -1591,6 +1601,7 @@ namespace main()
 					scoreboard players set @s job_level 2
 					# effect
 					playsound minecraft:game.job_changed player @a ~ ~ ~ 1 1 0
+					scoreboard players operation #BIND_PLAYER number = @s number
 					execute summon text_display run function skill:summon_font_effect/0000000job_changed
 					
 					scoreboard players set @s level 45
@@ -1650,6 +1661,7 @@ namespace main()
 				scoreboard players set @s job_level 1
 				# effect
 				playsound minecraft:game.job_changed player @a ~ ~ ~ 1 1 0
+				scoreboard players operation #BIND_PLAYER number = @s number
 				execute summon text_display run function skill:summon_font_effect/0000000job_changed
 				
 				scoreboard players set @s level 25
@@ -1697,6 +1709,7 @@ namespace main()
 					scoreboard players set @s job_level 2
 					# effect
 					playsound minecraft:game.job_changed player @a ~ ~ ~ 1 1 0
+					scoreboard players operation #BIND_PLAYER number = @s number
 					execute summon text_display run function skill:summon_font_effect/0000000job_changed
 					
 					scoreboard players set @s level 45
@@ -1753,6 +1766,7 @@ namespace main()
 					scoreboard players set @s job_level 2
 					# effect
 					playsound minecraft:game.job_changed player @a ~ ~ ~ 1 1 0
+					scoreboard players operation #BIND_PLAYER number = @s number
 					execute summon text_display run function skill:summon_font_effect/0000000job_changed
 					
 					scoreboard players set @s level 45
