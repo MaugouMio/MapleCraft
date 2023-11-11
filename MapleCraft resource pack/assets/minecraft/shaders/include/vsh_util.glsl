@@ -88,16 +88,4 @@ mat4 getOrthoMat(mat4 ProjMat, float Zoom) {
                 -(right + left) / (right - left),   -(top + bottom) / (top - bottom),   -(far + near) / (far - near),   1.0);
 }
 
-/*
- * Return proj matrix without fov and hurt rotation effect
- * Will not affect GUI display
- */
-mat4 fixProjMat(mat4 ProjMat) {
-	if (__isGUI(ProjMat))
-		return ProjMat;
-	
-    return mat4(	0.5,	0.0,								0.0,			0.0,
-					0.0,	0.888,	0.0,			0.0,
-					0.0,	0.0,								ProjMat[2][2],	-1.0,
-					0.0,	0.0,								ProjMat[3][2],	0.0		);
-}
+#moj_import <proj_mat.glsl>
