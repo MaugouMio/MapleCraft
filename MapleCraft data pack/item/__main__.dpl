@@ -123,6 +123,7 @@ namespace item()
 		
 		# delete no owner chair
 		kill @e[type=item_display,tag=chair,predicate=!skill:sitted]
+		execute as @a[tag=was_sitting,predicate=!skill:sitting] at @s run function ARG(_PATH)use/chair/down
 	}
 	
 	folder drop_meso()
@@ -429,7 +430,7 @@ namespace item()
 			execute if score #USING_ITEM temp matches 1..30 run function ARG(_PATH)consume/weapon/check
 			execute if score #USING_ITEM temp matches 10001..10500 unless score @s action_time matches 1.. unless score @s tired_time matches 1.. run function ARG(_PATH)weapon/check
 			execute if score #USING_ITEM temp matches 10501..100000 unless score @s action_time matches 1.. unless score @s tired_time matches 1.. run function ARG(_PATH)equip/check
-			execute if score #USING_ITEM temp matches 3010000.. unless score @s action_time matches 1.. unless score @s tired_time matches 1.. unless block ~ ~ ~ #minecraft:climbable if entity @s[nbt={OnGround:1b}] run function ARG(_PATH)chair/check
+			execute if score #USING_ITEM temp matches 3010000.. unless score @s action_time matches 1.. unless score @s tired_time matches 1.. unless block ~ ~ ~ #minecraft:climbable unless predicate main:sneaking if entity @s[nbt={OnGround:1b}] run function ARG(_PATH)chair/check
 		}
 		
 		folder equip_numeric()
@@ -1525,8 +1526,8 @@ namespace item()
 				execute positioned ~ ~0.45 ~ summon item_display run function ARG(_PATH)set_chair
 				tag @s remove sit
 				
-				# 重置補血時間 (下椅子的時候就算了，懶得再連閃偵測那個)
-				scoreboard players operation @s next_hp_recover = @s hp_recover_time
+				# 重置補血時間
+				tag @s add was_sitting
 			}
 			
 			func set_chair()
@@ -1538,6 +1539,13 @@ namespace item()
 				
 				data modify entity @s transformation.left_rotation set from storage main:main rotation
 				ride @a[tag=sit,limit=1] mount @s
+			}
+
+			func down()
+			{
+				scoreboard players operation @s next_hp_recover = @s hp_recover_time
+				tp @s ~ ~0.5 ~
+				tag @s remove was_sitting
 			}
 		}
 	}
