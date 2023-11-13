@@ -14,6 +14,11 @@ ivec2 uvoffset = ivec2(metauvoffset.r*256 + metauvoffset.g,
                        metauvoffset.b+1); //no alpha due to optifine, max number of faces greatly limited (probably still a couple million more than needed)
 //find and read topleft pixel
 ivec2 topleft = uv - uvoffset;
+
+#ifdef ENTITY
+isGUI = int(__isGUI(ProjMat));
+#endif
+
 //if topleft marker is correct
 if (ivec4(texelFetch(Sampler0, topleft, 0)*255) == ivec4(12,34,56,78)) {
     isCustom = 1;
@@ -119,7 +124,6 @@ if (ivec4(texelFetch(Sampler0, topleft, 0)*255) == ivec4(12,34,56,78)) {
     }
 //custom entity rotation
 #ifdef ENTITY
-    isGUI = int(isgui(ProjMat));
     isHand = int(ishand(FogStart));
     if (any(greaterThan(autorotate,vec2(0))) && isGUI == 0) {
         //normal estimated rotation calculation from The Der Discohund

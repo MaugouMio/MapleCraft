@@ -9,6 +9,7 @@ uniform vec4 ColorModulator;
 uniform float FogStart;
 uniform float FogEnd;
 uniform vec4 FogColor;
+uniform float GameTime;
 
 uniform vec3 Light0_Direction;
 uniform vec3 Light1_Direction;
