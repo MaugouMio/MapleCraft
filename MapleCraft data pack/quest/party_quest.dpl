@@ -1106,16 +1106,16 @@ namespace party_quest() as virtual
 		
 		func reset()
 		{
-			execute if score #LDPQ_S1_LOADED temp matches 1 unless entity @a[scores={playing_game=1,game_stage=1}] run function ARG(_PATH)stages/1/reset
-			execute if score #LDPQ_S2_LOADED temp matches 1 unless entity @a[scores={playing_game=1,game_stage=..2}] run function ARG(_PATH)stages/2/reset
-			execute if score #LDPQ_S3_LOADED temp matches 1 unless entity @a[scores={playing_game=1,game_stage=..3}] run function ARG(_PATH)stages/3/reset
-			execute if score #LDPQ_S4_LOADED temp matches 1 unless entity @a[scores={playing_game=1,game_stage=..4}] run function ARG(_PATH)stages/4/reset
-			execute if score #LDPQ_S5_LOADED temp matches 1 unless entity @a[scores={playing_game=1,game_stage=..5}] run function ARG(_PATH)stages/5/reset
-			execute if score #LDPQ_S6_LOADED temp matches 1 unless entity @a[scores={playing_game=1,game_stage=..6}] run function ARG(_PATH)stages/6/reset
-			execute if score #LDPQ_S7_LOADED temp matches 1 unless entity @a[scores={playing_game=1,game_stage=..7}] run function ARG(_PATH)stages/7/reset
-			execute if score #LDPQ_S8_LOADED temp matches 1 unless entity @a[scores={playing_game=1,game_stage=..8}] run function ARG(_PATH)stages/8/reset
-			execute if score #LDPQ_S9_LOADED temp matches 1 unless entity @a[scores={playing_game=1,game_stage=..9}] run function ARG(_PATH)stages/9/reset
-			execute if score #LDPQ_S10_LOADED temp matches 1 unless entity @a[scores={playing_game=1,game_stage=..10}] run function ARG(_PATH)stages/10/reset
+			execute if score #LDPQ_S1_LOADED temp matches 1 unless entity @a[scores={playing_game=2,game_stage=1}] run function ARG(_PATH)stages/1/reset
+			execute if score #LDPQ_S2_LOADED temp matches 1 unless entity @a[scores={playing_game=2,game_stage=..2}] run function ARG(_PATH)stages/2/reset
+			execute if score #LDPQ_S3_LOADED temp matches 1 unless entity @a[scores={playing_game=2,game_stage=..3}] run function ARG(_PATH)stages/3/reset
+			execute if score #LDPQ_S4_LOADED temp matches 1 unless entity @a[scores={playing_game=2,game_stage=..4}] run function ARG(_PATH)stages/4/reset
+			execute if score #LDPQ_S5_LOADED temp matches 1 unless entity @a[scores={playing_game=2,game_stage=..5}] run function ARG(_PATH)stages/5/reset
+			execute if score #LDPQ_S6_LOADED temp matches 1 unless entity @a[scores={playing_game=2,game_stage=..6}] run function ARG(_PATH)stages/6/reset
+			execute if score #LDPQ_S7_LOADED temp matches 1 unless entity @a[scores={playing_game=2,game_stage=..7}] run function ARG(_PATH)stages/7/reset
+			execute if score #LDPQ_S8_LOADED temp matches 1 unless entity @a[scores={playing_game=2,game_stage=..8}] run function ARG(_PATH)stages/8/reset
+			execute if score #LDPQ_S9_LOADED temp matches 1 unless entity @a[scores={playing_game=2,game_stage=..9}] run function ARG(_PATH)stages/9/reset
+			execute if score #LDPQ_S10_LOADED temp matches 1 unless entity @a[scores={playing_game=2,game_stage=..10}] run function ARG(_PATH)stages/10/reset
 			execute unless entity @a[scores={playing_game=2}] run scoreboard players reset #LDPQ_STAGE temp
 		}
 		
