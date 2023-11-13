@@ -833,6 +833,8 @@ namespace main()
 			func attack_check()
 			{
 				execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4000083} 1
+				# 有打怪一定會升到 3 等
+				execute if score #GLOBAL temp matches 1 store success score #GLOBAL temp if score @s level matches 3..
 				execute if score #GLOBAL temp matches 0 run tellraw @s ["\n",{"translate":"text.quest.tutorial.roger.attack_teach","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 				execute if score #GLOBAL temp matches 1 at @s run function ARG(_PATH)attack_complete
 			}
