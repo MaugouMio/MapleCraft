@@ -752,7 +752,7 @@ namespace bar_display()
 			data modify storage bar:main head set value []
 			
 			execute as @a[gamemode=adventure] at @s run function ARG(_PATH)write_data
-			execute as @e[type=interaction,tag=player_pos] run function ARG(_PATH)update_pos
+			execute as @e[type=text_display,tag=head_hp] run function ARG(_PATH)update_data
 			
 			execute if data storage bar:main head[0] run function ARG(_PATH)spawn
 		}
@@ -772,7 +772,7 @@ namespace bar_display()
 			kill @s
 		}
 		
-		func update_pos()
+		func update_data()
 		{
 			execute unless data storage bar:main head[0] run function ARG(_PATH)deep_kill
 			execute if data storage bar:main head[0] run function ARG(_PATH)check_owner
@@ -783,31 +783,24 @@ namespace bar_display()
 			execute store result score #GLOBAL temp run data get storage bar:main head[0].id
 			# 新生出來的物件初始化
 			execute unless score @s number matches 0.. run scoreboard players operation @s number = #GLOBAL temp
+			execute if score @s number = #GLOBAL temp run function ARG(_PATH)read_data
 			execute unless score @s number = #GLOBAL temp run function ARG(_PATH)deep_kill
-			execute if score @s number = #GLOBAL temp run function ARG(_PATH)read_pos
-		}
-		
-		func read_pos()
-		{
-			data modify entity @s Pos set from storage bar:main head[0].pos
-			execute store result entity @s Air short 1 run time query gametime
-			
-			execute on passengers if entity @s[type=text_display,tag=head_hp] run function ARG(_PATH)read_data
-			
-			data remove storage bar:main head[0]
 		}
 		
 		func read_data()
 		{
-			execute store result score #GLOBAL temp run data get storage bar:main head[0].value
-			execute unless score @s hp_level = #GLOBAL temp run function ARG(_PATH)set_name/check
+			data modify entity @s Pos set from storage bar:main head[0].pos
+			execute store result score #GLOBAL hp_level run data get storage bar:main head[0].value
+			execute unless score @s hp_level = #GLOBAL hp_level run function ARG(_PATH)set_name/check
+			
+			data remove storage bar:main head[0]
 		}
 		
 		folder set_name()
 		{
 			func check()
 			{
-				scoreboard players operation @s hp_level = #GLOBAL temp
+				scoreboard players operation @s hp_level = #GLOBAL hp_level
 				
 				execute if score @s hp_level matches ..11 run function ARG(_PATH)search/0_11
 				execute if score @s hp_level matches 12..23 run function ARG(_PATH)search/12_23
@@ -944,7 +937,7 @@ namespace bar_display()
 		
 		func spawn()
 		{
-			summon interaction 250 0 0 {width:0,height:0,Tags:["player_pos"],Passengers:[{id:"minecraft:text_display",background:0,billboard:"center",Tags:["head_hp"]}]}
+			summon text_display 250 0 0 {teleport_duration:1,background:0,billboard:"center",Tags:["head_hp"]}
 			data remove storage bar:main head[0]
 			execute if data storage bar:main head[0] run function ARG(_PATH)spawn
 		}

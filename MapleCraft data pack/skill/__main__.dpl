@@ -1323,7 +1323,7 @@ namespace skill()
 		func reset()
 		{
 			scoreboard players operation #GLOBAL temp = @s number
-			execute as @e[type=interaction,tag=player_pos,distance=..12] if score @s number = #GLOBAL temp run function ARG(_PATH)delete_icon
+			execute as @e[type=text_display,tag=head_hp] if score @s number = #GLOBAL temp run function ARG(_PATH)delete_icon
 			
 			scoreboard players reset #RESET_DEBUFF temp
 		}
@@ -5281,9 +5281,9 @@ namespace skill()
 	# 呼叫前須先設定 #BIND_PLAYER number
 	func bind_player()
 	{
-		execute as @e[type=interaction,tag=player_pos,distance=..12] if score @s number = #BIND_PLAYER number run tag @s add bind
-		ride @s mount @e[type=interaction,tag=bind,limit=1]
-		tag @e[type=interaction,tag=bind,limit=1] remove bind
+		execute as @e[type=text_display,tag=head_hp] if score @s number = #BIND_PLAYER number run tag @s add bind
+		ride @s mount @e[type=text_display,tag=bind,limit=1]
+		tag @e[type=text_display,tag=bind,limit=1] remove bind
 	}
 	
 	# 呼叫前須先設定 #BIND_PLAYER number
