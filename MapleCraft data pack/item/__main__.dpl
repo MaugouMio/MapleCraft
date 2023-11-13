@@ -426,7 +426,7 @@ namespace item()
 		{
 			execute store result score #USING_ITEM temp run data get entity @s[predicate=skill:use_fungus] SelectedItem.tag.CustomModelData
 			
-			execute if score #USING_ITEM temp matches ..30 run function ARG(_PATH)consume/weapon/check
+			execute if score #USING_ITEM temp matches 1..30 run function ARG(_PATH)consume/weapon/check
 			execute if score #USING_ITEM temp matches 10001..10500 unless score @s action_time matches 1.. unless score @s tired_time matches 1.. run function ARG(_PATH)weapon/check
 			execute if score #USING_ITEM temp matches 10501..100000 unless score @s action_time matches 1.. unless score @s tired_time matches 1.. run function ARG(_PATH)equip/check
 			execute if score #USING_ITEM temp matches 3010000.. unless score @s action_time matches 1.. unless score @s tired_time matches 1.. unless block ~ ~ ~ #minecraft:climbable if entity @s[nbt={OnGround:1b}] run function ARG(_PATH)chair/check
