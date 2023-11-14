@@ -28,6 +28,7 @@ flat in int isCustom;
 flat in int isGUI;
 flat in int isHand;
 flat in int noshadow;
+flat in int iconMode;
 
 out vec4 fragColor;
 

@@ -37,6 +37,7 @@ flat out int isCustom;
 flat out int isGUI;
 flat out int isHand;
 flat out int noshadow;
+flat out int iconMode;
 
 #moj_import <objmc_tools.glsl>
 

@@ -17,6 +17,8 @@ ivec2 topleft = uv - uvoffset;
 
 #ifdef ENTITY
 isGUI = int(__isGUI(ProjMat));
+ivec3 colorByte = ivec3(Color.rgb * 255);
+iconMode = 0;
 #endif
 
 //if topleft marker is correct
@@ -52,30 +54,30 @@ if (ivec4(texelFetch(Sampler0, topleft, 0)*255) == ivec4(12,34,56,78)) {
     overlayColor = vec4(1);
     int colorbehavior = meta.b;
     if (colorbehavior == 243) { //animation frames 0-8388607
-        tcolor = (int(Color.r*255)*65536)%32768 + int(Color.g*255)*256 + int(Color.b*255);
+        tcolor = (colorByte.r*65536)%32768 + colorByte.g*256 + colorByte.b;
         //interpolation disabled past 8388608, suso's idea to define starting tick with color
         autoplay = (Color.r <= 0.5);
     } else {
         //bits from colorbehavior
         vec3 accuracy = vec3(255./256.);
         switch ((colorbehavior/64)%4) { //first byte of color
-            case 0: rotation.x += Color.r*255; accuracy.r *= 256; break;
-            case 1: rotation.y += Color.r*255; accuracy.g *= 256; break;
-            case 2: rotation.z += Color.r*255; accuracy.b *= 256; break;
-            case 3: tcolor = tcolor * 256 + int(Color.r*255); break;
+            case 0: rotation.x += colorByte.r; accuracy.r *= 256; break;
+            case 1: rotation.y += colorByte.r; accuracy.g *= 256; break;
+            case 2: rotation.z += colorByte.r; accuracy.b *= 256; break;
+            case 3: tcolor = tcolor * 256 + colorByte.r; break;
         }
         switch ((colorbehavior/16)%4) { //second byte of color
-            case 0: rotation.x += Color.g*255; accuracy.r *= 256; break;
-            case 1: rotation.y += Color.g*255; accuracy.g *= 256; break;
-            case 2: rotation.z += Color.g*255; accuracy.b *= 256; break;
-            case 3: tcolor = tcolor * 256 + int(Color.g*255); break;
+            case 0: rotation.x += colorByte.g; accuracy.r *= 256; break;
+            case 1: rotation.y += colorByte.g; accuracy.g *= 256; break;
+            case 2: rotation.z += colorByte.g; accuracy.b *= 256; break;
+            case 3: tcolor = tcolor * 256 + colorByte.g; break;
         }
         switch (colorbehavior%16) { //third byte of color
-            case 0: rotation.x += Color.b*255; accuracy.r *= 256; break;
-            case 1: rotation.y += Color.b*255; accuracy.g *= 256; break;
-            case 2: rotation.z += Color.b*255; accuracy.b *= 256; break;
-            case 3: tcolor = tcolor * 256 + int(Color.b*255); break;
-            case 4: if (Color.b > 0) overlayColor = vec4(customOverlay(int(Color.b * 255)),1); break;
+            case 0: rotation.x += colorByte.b; accuracy.r *= 256; break;
+            case 1: rotation.y += colorByte.b; accuracy.g *= 256; break;
+            case 2: rotation.z += colorByte.b; accuracy.b *= 256; break;
+            case 3: tcolor = tcolor * 256 + colorByte.b; break;
+            case 4: if (Color.b > 0) overlayColor = vec4(customOverlay(colorByte.b),1); break;
         }
         rotation = rotation/accuracy * 2*PI;
     }
@@ -190,6 +192,16 @@ else if (metauvoffset.rgb == ivec3(1,2,4) && metauvoffset.a <= 2) {
 		alpha = 1;
 	else
 		alpha = (5.0 - tick) / 4.0;
+}
+// custom icon item - model
+else if (colorByte == ivec3(0,218,255)) {
+	vertexColor = vec4(1);
+	iconMode = 1;
+}
+// custom icon item - icon
+else if (colorByte == ivec3(0,173,255)) {
+	vertexColor = vec4(1);
+	iconMode = 2;
 }
 #endif
 //debug
