@@ -6,14 +6,14 @@ back_font = []
 equip_type = "weapon"
 font_index = int("0xB1a6", 16)
 
-base_path = f"MapleCraft resource pack/assets/ui/textures/font/window/equip/icon/{equip_type}"
+base_path = f"../MapleCraft resource pack/assets/ui/textures/font/window/equip/icon/{equip_type}"
 if not os.path.isdir(base_path):
 	os.mkdir(base_path)
 
 if equip_type == "weapon":
-	target_root = f"MapleCraft resource pack/assets/minecraft/textures/item/weapon"
+	target_root = f"../MapleCraft resource pack/assets/minecraft/textures/item/weapon"
 else:
-	target_root = f"MapleCraft resource pack/assets/minecraft/textures/item/equip/{equip_type}"
+	target_root = f"../MapleCraft resource pack/assets/minecraft/textures/item/equip/{equip_type}"
 	
 for w in os.walk(target_root):
 	for file in w[2]:
