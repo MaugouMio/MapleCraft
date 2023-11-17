@@ -1,6 +1,26 @@
 import os, json
 from PIL import Image
 
+DEFAULT_TRANSLATION = {
+	"spear": [0, 3, -0.5],
+	"polearm": [0, 3, -3],
+	"staff": [0, 0, 0.5],
+	"wand": [0, 0, 0.5],
+	"bow": [0, -1.5, 2],
+	"crossbow": [0, 1, 0],
+	"claw": [0.5, -2, 1]
+}
+
+DEFAULT_ROTATION = {
+	"spear": [-20, 110, 90],
+	"polearm": [-20, 110, 90],
+	"staff": [-15, 110, 90],
+	"wand": [-15, 110, 90],
+	"bow": [0, 90, 90],
+	"crossbow": [-90, 0, -45],
+	"claw": [0, 90, 90]
+}
+
 def generateBoarderIcon():
 	dir = [(1, 0), (0, 1), (-1, 0), (0, -1)]
 	icon = Image.new("RGBA", (42, 42))
@@ -35,13 +55,10 @@ for item_type in ["weapon"]:
 					
 				for file in os.listdir(texture_parent_path):
 					file_path = os.path.join(texture_parent_path, file)
-					if os.path.isdir(file_path):
-						# TODO: spawn handheld model
-						pass
-					else:
+					if not os.path.isdir(file_path):
+						file = file[:file.find('.')]
 						icon = Image.open(file_path)
 						img_size = icon.size
-						file = file[:file.find('.')]
 						with open(os.path.join(model_parent_path, file + ".json"), "w") as f:
 							model = {
 								"parent": "minecraft:item/generated",
@@ -73,14 +90,46 @@ for item_type in ["weapon"]:
 							}
 							f.write(json.dumps(model))
 							
-						# weapon need to generate extra icon with boarder
 						if item_type == "weapon":
+							# 包含提示外框的 icon 圖片
 							boarder_icon = generateBoarderIcon()
 							boarder_icon.paste(icon, ((boarder_icon.size[0]-icon.size[0]+1)//2, (boarder_icon.size[1]-icon.size[1]+1)//2), icon)
 							target_texture_path = os.path.join(texture_parent_path, "equip")
 							if not os.path.isdir(target_texture_path):
 								os.mkdir(target_texture_path)
 							boarder_icon.save(os.path.join(target_texture_path, file + ".png"))
+						
+							# 裝飾用武器模型 (只是生成一個大略的模型，生成完還是要進遊戲確認調整)
+							model_img_path = os.path.join(texture_parent_path, "equip/" + file + "_m.png")
+							if not os.path.isfile(model_img_path):  # 有圖片才生模型
+								continue
+							model_path = os.path.join(model_parent_path, "equip/" + file + ".json")
+							if os.path.isfile(model_path):  # 已經生成的模型不要蓋掉
+								continue
+							model_img = Image.open(model_img_path)
+							img_size = model_img.size
+							with open(model_path, "w") as f:
+								thickness = 1
+								if folder == "crossbow":
+									thickness = 1.5
+								elif folder == "claw":
+									thickness = 4
+									
+								model = {
+									"parent": "minecraft:item/weapon/base",
+									"textures": {
+										"layer0": f"minecraft:item/{item_type}/{folder}/equip/{file}_m",
+										"layer1": f"minecraft:item/{item_type}/{folder}/equip/{file}"
+									},
+									"display": {
+										"thirdperson_lefthand": {
+											"rotation": DEFAULT_ROTATION[folder],
+											"translation": DEFAULT_TRANSLATION[folder],
+											"scale": [ img_size[0] / 32, img_size[1] / 32, thickness ]
+										}
+									}
+								}
+								f.write(json.dumps(model))
 						
 	except Exception as e:
 		print(e)
