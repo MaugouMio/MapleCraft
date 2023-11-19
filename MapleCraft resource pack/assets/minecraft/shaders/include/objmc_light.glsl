@@ -13,9 +13,9 @@ if (isCustom == 0) {
 			color = vec4(0);
 		}
 		else {
-			if (ivec3(color.rgb * 255) == ivec3(255,255,254)) {
+			if (ivec3(color.rga * 255) == ivec3(0,1,0)) {
 				float offset = mod(GameTime * 24000, 20);
-				float relativePos = mod(color.a * 20 - offset + 20, 20);
+				float relativePos = mod(color.b * 20 - offset + 20, 20);
 				if (relativePos > 0 && relativePos <= 3)
 					color = vec4(1,1,0,relativePos/3);
 				else if (relativePos > 10 && relativePos <= 13)
@@ -25,6 +25,8 @@ if (isCustom == 0) {
 				else
 					color = vec4(0);
 			}
+			else if (ivec2(color.rg * 255) != ivec2(0, 0))
+				color = vec4(color.rgb, 1);
 		}
 	}
 	#endif

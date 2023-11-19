@@ -45,12 +45,23 @@ def generateBoarderIcon():
 		axis = [i, i]
 		for k in range(4):
 			for j in range(i, 41 - i):
-				icon.putpixel(tuple(axis), (255, 255, 254, idx * 255 // maxIdx))
+				icon.putpixel(tuple(axis), (0, 1, idx * 255 // maxIdx, 0))
 				axis[0] += dir[dirIdx][0]
 				axis[1] += dir[dirIdx][1]
 				idx += 1
 			dirIdx += 1
 	return icon
+
+def generateWeaponIcon(icon):
+	boarder_icon = generateBoarderIcon()
+	start_row = (boarder_icon.size[0] - icon.size[0] + 1) // 2
+	start_col = (boarder_icon.size[1] - icon.size[1] + 1) // 2
+	for i in range(icon.size[0]):
+		for j in range(icon.size[1]):
+			pixel = icon.getpixel((i, j))
+			if pixel[3] > 0:
+				boarder_icon.putpixel((start_row + i, start_col + j), (max(pixel[0], 1), max(pixel[1], 1), pixel[2], 0))
+	return boarder_icon
 
 for item_type in ["weapon"]:
 	texture_folder = "../MapleCraft resource pack/assets/minecraft/textures/item/" + item_type
@@ -106,8 +117,7 @@ for item_type in ["weapon"]:
 							
 						if item_type == "weapon":
 							# 包含提示外框的 icon 圖片
-							boarder_icon = generateBoarderIcon()
-							boarder_icon.paste(icon, ((boarder_icon.size[0]-icon.size[0]+1)//2, (boarder_icon.size[1]-icon.size[1]+1)//2), icon)
+							boarder_icon = generateWeaponIcon(icon)
 							target_texture_path = os.path.join(texture_parent_path, "equip")
 							if not os.path.isdir(target_texture_path):
 								os.mkdir(target_texture_path)
