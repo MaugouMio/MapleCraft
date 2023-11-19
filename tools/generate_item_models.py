@@ -8,7 +8,14 @@ DEFAULT_TRANSLATION = {
 	"wand": [0, 0, 0.5],
 	"bow": [0, -1.5, 2],
 	"crossbow": [0, 1, 0],
-	"claw": [0.5, -2, 1]
+	"claw": [0.5, -2, 1],
+	"dagger": [0, -2, -2],
+	"oh_sword": [0, 4.5, -1],
+	"th_sword": [0, 8, -2],
+	"oh_axe": [0, 4.5, -1],
+	"th_axe": [0, 4, -3],
+	"oh_blunt": [0, 4, -1],
+	"th_blunt": [0, 4, -1]
 }
 
 DEFAULT_ROTATION = {
@@ -18,7 +25,14 @@ DEFAULT_ROTATION = {
 	"wand": [-15, 110, 90],
 	"bow": [0, 90, 90],
 	"crossbow": [-90, 0, -45],
-	"claw": [0, 90, 90]
+	"claw": [0, 90, 90],
+	"dagger": [0, 90, 90],
+	"oh_sword": [-20, 110, 90],
+	"th_sword": [-20, 100, 90],
+	"oh_axe": [-20, 100, 90],
+	"th_axe": [-20, 100, 90],
+	"oh_blunt": [-20, 100, 90],
+	"th_blunt": [-20, 100, 90]
 }
 
 def generateBoarderIcon():
@@ -110,8 +124,10 @@ for item_type in ["weapon"]:
 							img_size = model_img.size
 							with open(model_path, "w") as f:
 								thickness = 1
-								if folder == "crossbow":
+								if folder == "crossbow" or folder == "oh_blunt":
 									thickness = 1.5
+								elif folder == "th_blunt":
+									thickness = 2
 								elif folder == "claw":
 									thickness = 4
 									
