@@ -212,7 +212,6 @@ namespace 1() as virtual
 						data modify block 250 0 0 front_text.messages[0] set value '[{"translate":"skill.description.level.next","with":[{"nbt":"temp[2]","storage":"ui:main"}]},{"translate":"skill.description.level.1000002","with":[{"nbt":"temp[3]","storage":"ui:main"}]}]'
 						
 						scoreboard players remove @s 1000002_level 1
-						execute store result score @s hp_recover_time run data get storage ui:main temp[1]
 						execute if score @s 1000002_level matches 1.. run data modify block 250 0 0 front_text.messages[0] set value '["\\n",{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}]'
 					}
 				}
