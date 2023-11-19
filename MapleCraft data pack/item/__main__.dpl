@@ -70,7 +70,7 @@ namespace item()
 	{
 		scoreboard objectives add pick_meso minecraft.picked_up:minecraft.diamond
 		scoreboard objectives add pick_etc minecraft.picked_up:minecraft.stick
-		scoreboard objectives add pick_weapon minecraft.picked_up:minecraft.diamond_axe
+		scoreboard objectives add pick_weapon minecraft.picked_up:minecraft.allay_spawn_egg
 		scoreboard objectives add pick_consume minecraft.picked_up:minecraft.warped_fungus_on_a_stick
 		scoreboard objectives add pick_potion minecraft.picked_up:minecraft.ender_eye
 		
@@ -875,12 +875,15 @@ namespace item()
 				execute if score #GLOBAL temp matches 0 if entity @s[tag=shield_equipped] run function ARG(__PATH)equip/shield/remove
 				
 				# give weapon for display
-				item replace block 250 1 0 container.0 with minecraft:diamond_axe
+				item replace block 250 1 0 container.0 with minecraft:allay_spawn_egg
 				data modify block 250 1 0 Items[0].tag set from entity @s SelectedItem.tag
 				data remove block 250 1 0 Items[0].tag.price
 				data modify block 250 1 0 Items[0].tag.no_trade set value 1b
 				data modify block 250 1 0 Items[0].tag.display.Name set from entity @s SelectedItem.tag.original_name
 				data modify block 250 1 0 Items[0].tag.display.Lore set value ['{"translate":"item.notice.untradeable","font":"minecraft:uniform","color":"#FE8811","italic":false}','{"translate":"item.notice.for_display","font":"minecraft:uniform","color":"white","italic":false}']
+				```
+				print('data modify block 250 1 0 Items[0].tag.EntityTag set value {id:"minecraft:marker",UUID:%s}' %UUID_LIST["root"])
+				```
 				item replace entity @s weapon.mainhand from block 250 1 0 container.0
 				
 				# equip new weapon
@@ -901,7 +904,7 @@ namespace item()
 			func remove()
 			{
 				# clear display weapon
-				clear @s diamond_axe
+				clear @s allay_spawn_egg
 				
 				data remove block 250 1 0 Items[]
 				item replace block 250 1 0 container.0 with minecraft:warped_fungus_on_a_stick
