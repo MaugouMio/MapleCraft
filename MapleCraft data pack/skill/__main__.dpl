@@ -734,6 +734,8 @@ namespace skill()
 							data modify storage skill:main damage set value [{min_damage:0,max_damage:0,accuracy:0,player_level:0,crit_rate:0,crit_damage:0,base_percent:100,attribute:0}]
 							
 							function skill:enemy_search/check_weapon_distance
+							
+							scoreboard players reset @s f_attack_skill
 							function skill:afterimage/warrior_swing/check
 							scoreboard players set #NO_AFTERIMAGE temp 1
 						}
