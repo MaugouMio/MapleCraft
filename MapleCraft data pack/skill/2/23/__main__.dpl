@@ -78,17 +78,13 @@ namespace 23() as virtual
 				execute if score @s mp >= @s 2301002_mp run function ARG(_PATH)run
 			}
 			
-			# 這邊走特規，不會在 template 預設的時機呼叫，手動在 mark_target 之後呼叫
+			# 這邊走特規，不會在 template 預設的時機呼叫，手動在 set_numberic 之前呼叫
 			func mark_target()
 			{
 				tag @s add target
-				execute positioned ~-4 ~-3 ~-4 store result score #FOUND_ALLY temp run tag @a[tag=!dead,tag=!target,dx=7,dy=5.5,dz=7,limit=5,sort=random] add target
+				execute positioned ~-4 ~-3 ~-4 store result score #FOUND_ALLY temp run tag @a[gamemode=adventure,tag=!dead,tag=!target,dx=7,dy=5.5,dz=7,limit=5,sort=random] add target
 				scoreboard players add #FOUND_ALLY temp 1
 				execute if score #FOUND_ALLY temp matches ..5 run function ARG(_PATH)mark_enemy/run
-				
-				tag @s add caster
-				execute as @a[tag=target] at @s run function ARG(_PATH)heal
-				tag @s remove caster
 			}
 			
 			folder mark_enemy()
@@ -132,6 +128,10 @@ namespace 23() as virtual
 				function bar_display:change/mp/dropped
 				
 				scoreboard players set @s action_time 12
+				
+				tag @s add caster
+				execute as @a[tag=target] at @s run function ARG(_PATH)heal
+				tag @s remove caster
 			}
 			
 			func cast_effect()
