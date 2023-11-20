@@ -239,7 +239,7 @@ namespace 3() as virtual
 					
 					scoreboard players operation #BIND_PLAYER number = @s number
 					execute summon text_display run function skill:summon_font_effect/3001003effect
-					playsound minecraft:skill.3001003 player @a ~ ~ ~ 1 1 0
+					playsound minecraft:skill.3001003 player @a ~ ~ ~ 3 1 0
 					
 					scoreboard players operation @s mp -= @s 3001003_mp
 					function bar_display:change/mp/dropped
@@ -406,21 +406,21 @@ namespace 3() as virtual
 				{
 					execute if score #USED_WEAPON temp matches 16 run function ARG(_PATH)bow_effect
 					execute if score #USED_WEAPON temp matches 18 run function ARG(_PATH)crossbow_effect
-					playsound minecraft:skill.3001004 player @a ~ ~ ~ 1 1 0
+					playsound minecraft:skill.3001004 player @a ~ ~ ~ 3 1 0
 				}
 				
 				func bow_effect()
 				{
 					function skill:afterimage/bow/shoot
 					# soul arrow does not play arrow sound
-					execute unless score #GLOBAL bullet_model matches 3001 run playsound minecraft:skill.attack.bow player @a ~ ~ ~ 1 1 0
+					execute unless score #GLOBAL bullet_model matches 3001 run playsound minecraft:skill.attack.bow player @a ~ ~ ~ 3 1 0
 				}
 				
 				func crossbow_effect()
 				{
 					function skill:afterimage/crossbow/shoot
 					# soul arrow does not play arrow sound
-					execute unless score #GLOBAL bullet_model matches 3001 run playsound minecraft:skill.attack.crossbow player @a ~ ~ ~ 1 1 0
+					execute unless score #GLOBAL bullet_model matches 3001 run playsound minecraft:skill.attack.crossbow player @a ~ ~ ~ 3 1 0
 				}
 				
 				func effect()
@@ -632,14 +632,14 @@ namespace 3() as virtual
 				{
 					function skill:afterimage/bow/shoot
 					# soul arrow does not play arrow sound
-					execute unless score #GLOBAL bullet_model matches 3001 run playsound minecraft:skill.3001005_bow player @a ~ ~ ~ 1 1 0
+					execute unless score #GLOBAL bullet_model matches 3001 run playsound minecraft:skill.3001005_bow player @a ~ ~ ~ 3 1 0
 				}
 				
 				func crossbow_effect()
 				{
 					function skill:afterimage/crossbow/shoot
 					# soul arrow does not play arrow sound
-					execute unless score #GLOBAL bullet_model matches 3001 run playsound minecraft:skill.3001005_crossbow player @a ~ ~ ~ 1 1 0
+					execute unless score #GLOBAL bullet_model matches 3001 run playsound minecraft:skill.3001005_crossbow player @a ~ ~ ~ 3 1 0
 				}
 				
 				func effect()
@@ -800,16 +800,16 @@ namespace 3() as virtual
 				
 				func bow_effect()
 				{
-					playsound minecraft:skill.attack.sword_s player @a ~ ~ ~ 1 1 0
+					playsound minecraft:skill.attack.sword_s player @a ~ ~ ~ 3 1 0
 					# soul arrow does not play arrow sound
-					execute unless score #GLOBAL bullet_model matches 3001 run playsound minecraft:skill.attack.bow player @a ~ ~ ~ 1 1 0
+					execute unless score #GLOBAL bullet_model matches 3001 run playsound minecraft:skill.attack.bow player @a ~ ~ ~ 3 1 0
 				}
 				
 				func crossbow_effect()
 				{
-					playsound minecraft:skill.attack.mace player @a ~ ~ ~ 1 1 0
+					playsound minecraft:skill.attack.mace player @a ~ ~ ~ 3 1 0
 					# soul arrow does not play arrow sound
-					execute unless score #GLOBAL bullet_model matches 3001 run playsound minecraft:skill.attack.crossbow player @a ~ ~ ~ 1 1 0
+					execute unless score #GLOBAL bullet_model matches 3001 run playsound minecraft:skill.attack.crossbow player @a ~ ~ ~ 3 1 0
 				}
 				
 				func effect()

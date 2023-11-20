@@ -248,7 +248,7 @@ namespace 31() as virtual
 				# share function with crossbow version (3201003)
 				execute if score #USED_WEAPON temp matches 16 run function skill:afterimage/bow/swing
 				execute if score #USED_WEAPON temp matches 18 run function skill:afterimage/crossbow/swing
-				playsound minecraft:skill.3101003 player @a ~ ~ ~ 1 1 0
+				playsound minecraft:skill.3101003 player @a ~ ~ ~ 3 1 0
 			}
 			
 			func effect()
@@ -371,7 +371,7 @@ namespace 31() as virtual
 				# angle to PI
 				execute store result storage main:main rotation.angle float 0.0001745329 run data get entity @s Rotation[0] 100
 				execute rotated ~ 0 summon minecraft:item_display run function ARG(_PATH)effect_model_set
-				playsound minecraft:skill.3101004 player @a ~ ~ ~ 1 1 0
+				playsound minecraft:skill.3101004 player @a ~ ~ ~ 3 1 0
 				
 				scoreboard players operation @s 3101004_weapon = #USED_WEAPON temp
 				scoreboard players operation @s mp -= @s 3101004_mp
@@ -556,11 +556,11 @@ namespace 31() as virtual
 			
 			func cast_effect()
 			{
-				playsound minecraft:skill.3101005_use player @a ~ ~ ~ 1 1 0
+				playsound minecraft:skill.3101005_use player @a ~ ~ ~ 3 1 0
 				
 				function skill:afterimage/bow/shoot
 				# soul arrow does not play arrow sound
-				execute unless score #GLOBAL bullet_model matches 3001 run playsound minecraft:skill.attack.bow player @a ~ ~ ~ 1 1 0
+				execute unless score #GLOBAL bullet_model matches 3001 run playsound minecraft:skill.attack.bow player @a ~ ~ ~ 3 1 0
 			}
 	
 			# override function
@@ -772,7 +772,7 @@ namespace 31() as virtual
 			
 			func explosion()
 			{
-				playsound minecraft:skill.3101005_hit player @a ~ ~ ~ 1 1 0
+				playsound minecraft:skill.3101005_hit player @a ~ ~ ~ 3 1 0
 				
 				execute store result score #IS_SPLASH temp run data get entity @s ArmorItems[3].tag.3101005_effect_queue[0].splash
 				execute summon item_display run function ARG(_PATH)effect_model_set

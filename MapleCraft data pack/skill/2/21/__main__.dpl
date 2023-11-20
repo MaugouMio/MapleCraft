@@ -186,7 +186,7 @@ namespace 21() as virtual
 				
 				scoreboard players operation #BIND_PLAYER number = @s number
 				execute summon text_display run function skill:summon_font_effect/2101001effect
-				playsound minecraft:skill.2101001 player @a ~ ~ ~ 1 1 0
+				playsound minecraft:skill.2101001 player @a ~ ~ ~ 3 1 0
 				
 				scoreboard players operation @s mp -= @s 2101001_mp
 				function bar_display:change/mp/dropped
@@ -332,7 +332,7 @@ namespace 21() as virtual
 				{
 					scoreboard players operation #BIND_PLAYER number = @s number
 					execute summon text_display run function skill:summon_font_effect/2101002effect
-					playsound minecraft:skill.2101002 player @a ~ ~ ~ 1 1 0
+					playsound minecraft:skill.2101002 player @a ~ ~ ~ 3 1 0
 				}
 				
 				folder up()
@@ -559,7 +559,7 @@ namespace 21() as virtual
 				
 				scoreboard players operation #BIND_PLAYER number = @s number
 				execute summon text_display run function skill:summon_font_effect/2101003effect
-				playsound minecraft:skill.2101003_use player @a ~ ~ ~ 1 1 0
+				playsound minecraft:skill.2101003_use player @a ~ ~ ~ 3 1 0
 				```
 				print("summon marker ~ ~ ~ {UUID:%s}" %UUID_LIST["face_effect"])
 				```
@@ -587,7 +587,7 @@ namespace 21() as virtual
 			func set_debuff()
 			{
 				execute facing entity 00000000-0000-0004-0000-000000000004 feet rotated ~ 0 run function ARG(_PATH)forward_effect/start
-				playsound minecraft:skill.2101003_hit player @a ~ ~ ~ 1 1 0
+				playsound minecraft:skill.2101003_hit player @a ~ ~ ~ 3 1 0
 				
 				scoreboard players operation @s 2101003_time = #SLOW_TIME temp
 				scoreboard players operation @s 2101003_level = #SLOW_TIME temp
@@ -765,7 +765,7 @@ namespace 21() as virtual
 				# angle to PI
 				execute store result storage main:main rotation.angle float 0.0001745329 run data get entity @s Rotation[0] 100
 				execute rotated ~ 0 summon minecraft:item_display run function ARG(_PATH)effect_model_set
-				playsound minecraft:skill.2101004 player @a ~ ~ ~ 1 1 0
+				playsound minecraft:skill.2101004 player @a ~ ~ ~ 3 1 0
 			}
 			
 			func effect_model_set()
@@ -926,7 +926,7 @@ namespace 21() as virtual
 			{
 				scoreboard players operation #BIND_PLAYER number = @s number
 				execute summon text_display run function skill:summon_font_effect/2101005effect
-				playsound minecraft:skill.2101005_use player @a ~ ~ ~ 1 1 0
+				playsound minecraft:skill.2101005_use player @a ~ ~ ~ 3 1 0
 			}
 			
 			func add_debuff()
@@ -943,7 +943,7 @@ namespace 21() as virtual
 			func effect()
 			{
 				execute if score @s display_number matches 1.. summon item_display run function ARG(_PATH)effect_model_set
-				playsound minecraft:skill.2101005_hit player @a ~ ~ ~ 1 1 0
+				playsound minecraft:skill.2101005_hit player @a ~ ~ ~ 3 1 0
 			}
 			
 			func effect_model_set()

@@ -197,7 +197,7 @@ namespace 4() as virtual
 				{
 					execute unless score #USED_WEAPON temp matches 24 run function skill:afterimage/warrior_swing/check
 					execute if score #USED_WEAPON temp matches 24 run function skill:afterimage/claw/stab
-					playsound minecraft:skill.4001002 player @a ~ ~ ~ 1 1 0
+					playsound minecraft:skill.4001002 player @a ~ ~ ~ 3 1 0
 					
 					# hit_effect: 0 => None, 1 => mace, 2 => sword
 					data modify storage skill:main damage_info.hit_effect set value 1
@@ -390,7 +390,7 @@ namespace 4() as virtual
 					
 					scoreboard players operation #BIND_PLAYER number = @s number
 					execute summon text_display run function skill:summon_font_effect/4001003effect
-					playsound minecraft:skill.4001003 player @a ~ ~ ~ 1 1 0
+					playsound minecraft:skill.4001003 player @a ~ ~ ~ 3 1 0
 					
 					scoreboard players operation @s mp -= @s 4001003_mp
 					function bar_display:change/mp/dropped
@@ -406,7 +406,7 @@ namespace 4() as virtual
 					
 					scoreboard players operation #BIND_PLAYER number = @s number
 					execute summon text_display run function skill:summon_font_effect/4001003effect
-					playsound minecraft:skill.4001003 player @a ~ ~ ~ 1 1 0
+					playsound minecraft:skill.4001003 player @a ~ ~ ~ 3 1 0
 					
 					tag @s add hp_mp_varying
 					
@@ -539,7 +539,7 @@ namespace 4() as virtual
 				func cast_effect()
 				{
 					function skill:afterimage/dagger/stab
-					playsound minecraft:skill.4001334 player @a ~ ~ ~ 1 1 0
+					playsound minecraft:skill.4001334 player @a ~ ~ ~ 3 1 0
 					# borrow hit_effect variable to set custom hit effect
 					scoreboard players set #RANGE_MAX temp 5
 					function main:rand_range
@@ -738,7 +738,7 @@ namespace 4() as virtual
 					execute store result storage main:main rotation.angle float 0.0001745329 run data get entity @s Rotation[0] 100
 					execute rotated ~ 0 summon minecraft:item_display run function ARG(_PATH)effect_model_set
 					function skill:afterimage/claw/swing
-					playsound minecraft:skill.4001344 player @a ~ ~ ~ 1 1 0
+					playsound minecraft:skill.4001344 player @a ~ ~ ~ 3 1 0
 				}
 				
 				func effect_model_set()

@@ -103,7 +103,7 @@ namespace 22() as virtual
 			{
 				scoreboard players operation #BIND_PLAYER number = @s number
 				execute summon text_display run function skill:summon_font_effect/2201004effect
-				playsound minecraft:skill.2201004 player @a ~ ~ ~ 1 1 0
+				playsound minecraft:skill.2201004 player @a ~ ~ ~ 3 1 0
 			}
 			
 			func add_debuff()
@@ -272,7 +272,7 @@ namespace 22() as virtual
 			{
 				scoreboard players operation #BIND_PLAYER number = @s number
 				execute summon text_display run function skill:summon_font_effect/2201005effect
-				playsound minecraft:skill.2201005 player @a ~ ~ ~ 1 1 0
+				playsound minecraft:skill.2201005 player @a ~ ~ ~ 3 1 0
 			}
 			
 			func effect()

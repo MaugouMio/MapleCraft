@@ -372,7 +372,7 @@ namespace 13() as virtual
 				
 				scoreboard players operation #BIND_PLAYER number = @s number
 				execute summon text_display run function skill:summon_font_effect/1301006effect
-				playsound minecraft:skill.1301006 player @a ~ ~ ~ 1 1 0
+				playsound minecraft:skill.1301006 player @a ~ ~ ~ 3 1 0
 				
 				scoreboard players operation @s mp -= @s 1301006_mp
 				function bar_display:change/mp/dropped
@@ -494,7 +494,7 @@ namespace 13() as virtual
 				
 				scoreboard players operation #BIND_PLAYER number = @s number
 				execute positioned ~ ~-0.4 ~ summon text_display run function skill:summon_font_effect/1301007effect
-				playsound minecraft:skill.1301007 player @a ~ ~ ~ 1 1 0
+				playsound minecraft:skill.1301007 player @a ~ ~ ~ 3 1 0
 				
 				scoreboard players operation @s mp -= @s 1301007_mp
 				function bar_display:change/mp/dropped

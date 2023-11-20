@@ -344,11 +344,11 @@ namespace 32() as virtual
 			{
 				scoreboard players operation #BIND_PLAYER number = @s number
 				execute rotated ~ 0 summon item_display run function ARG(_PATH)effect_model_set
-				playsound minecraft:skill.3201005 player @a ~ ~ ~ 1 1 0
+				playsound minecraft:skill.3201005 player @a ~ ~ ~ 3 1 0
 				
 				function skill:afterimage/crossbow/shoot
 				# soul arrow does not play arrow sound
-				execute unless score #GLOBAL bullet_model matches 3001 run playsound minecraft:skill.attack.crossbow player @a ~ ~ ~ 1 1 0
+				execute unless score #GLOBAL bullet_model matches 3001 run playsound minecraft:skill.attack.crossbow player @a ~ ~ ~ 3 1 0
 			}
 			
 			func effect_model_set()

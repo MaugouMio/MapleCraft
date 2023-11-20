@@ -138,7 +138,7 @@ namespace 23() as virtual
 			{
 				scoreboard players operation #BIND_PLAYER number = @s number
 				execute summon text_display run function skill:summon_font_effect/2301002effect
-				playsound minecraft:skill.2301002 player @a ~ ~ ~ 1 1 0
+				playsound minecraft:skill.2301002 player @a ~ ~ ~ 3 1 0
 			}
 			
 			func heal()
@@ -292,7 +292,7 @@ namespace 23() as virtual
 				
 				scoreboard players operation #BIND_PLAYER number = @s number
 				execute summon text_display run function skill:summon_font_effect/2301003effect
-				playsound minecraft:skill.2301003 player @a ~ ~ ~ 1 1 0
+				playsound minecraft:skill.2301003 player @a ~ ~ ~ 3 1 0
 				
 				scoreboard players operation @s mp -= @s 2301003_mp
 				function bar_display:change/mp/dropped
@@ -405,7 +405,7 @@ namespace 23() as virtual
 				
 				scoreboard players operation #BIND_PLAYER number = @s number
 				execute summon text_display run function skill:summon_font_effect/2301004effect
-				playsound minecraft:skill.2301004 player @a ~ ~ ~ 1 1 0
+				playsound minecraft:skill.2301004 player @a ~ ~ ~ 3 1 0
 				
 				scoreboard players operation @s mp -= @s 2301004_mp
 				function bar_display:change/mp/dropped
@@ -555,7 +555,7 @@ namespace 23() as virtual
 				# angle to PI
 				execute store result storage main:main rotation.angle float 0.0001745329 run data get entity @s Rotation[0] 100
 				execute rotated ~ 0 summon minecraft:item_display run function ARG(_PATH)effect_model_set
-				playsound minecraft:skill.2301005 player @a ~ ~ ~ 1 1 0
+				playsound minecraft:skill.2301005 player @a ~ ~ ~ 3 1 0
 			}
 			
 			func effect_model_set()

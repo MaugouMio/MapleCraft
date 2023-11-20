@@ -191,7 +191,7 @@ namespace 42() as virtual
 				
 				execute unless score #USED_WEAPON temp matches 24 run function skill:afterimage/warrior_swing/check
 				execute if score #USED_WEAPON temp matches 24 run function skill:afterimage/claw/stab
-				playsound minecraft:skill.4201004 player @a ~ ~ ~ 1 1 0
+				playsound minecraft:skill.4201004 player @a ~ ~ ~ 3 1 0
 				
 				# hit_effect: 0 => None, 1 => mace, 2 => sword
 				data modify storage skill:main damage_info.hit_effect set value 1
@@ -362,7 +362,7 @@ namespace 42() as virtual
 			{
 				scoreboard players operation #BIND_PLAYER number = @s number
 				execute summon text_display run function skill:summon_font_effect/4201005effect
-				playsound minecraft:skill.4201005_use player @a ~ ~ ~ 1 1 0
+				playsound minecraft:skill.4201005_use player @a ~ ~ ~ 3 1 0
 
 				# borrow hit_effect variable to set custom hit effect
 				scoreboard players set #RANGE_MAX temp 2
@@ -373,7 +373,7 @@ namespace 42() as virtual
 			func effect()
 			{
 				execute if score @s display_number matches 1.. summon item_display run function ARG(_PATH)effect_model_set
-				playsound minecraft:skill.4201005_hit player @a ~ ~ ~ 1 1 0
+				playsound minecraft:skill.4201005_hit player @a ~ ~ ~ 3 1 0
 			}
 			
 			func effect_model_set()

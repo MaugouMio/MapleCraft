@@ -287,7 +287,7 @@ namespace 41() as virtual
 				
 				scoreboard players operation #BIND_PLAYER number = @s number
 				execute summon text_display run function skill:summon_font_effect/4101004effect
-				playsound minecraft:skill.4101004 player @a ~ ~ ~ 1 1 0
+				playsound minecraft:skill.4101004 player @a ~ ~ ~ 3 1 0
 				
 				scoreboard players operation @s mp -= @s 4101004_mp
 				function bar_display:change/mp/dropped
@@ -500,8 +500,8 @@ namespace 41() as virtual
 				execute store result storage main:main rotation.angle float 0.0001745329 run data get entity @s Rotation[0] 100
 				execute summon minecraft:item_display run function ARG(_PATH)effect_model_set
 				function skill:afterimage/claw/swing
-				playsound minecraft:skill.4101005 player @a ~ ~ ~ 1 1 0
-				playsound minecraft:skill.attack.throw player @a ~ ~ ~ 1 1 0
+				playsound minecraft:skill.4101005 player @a ~ ~ ~ 3 1 0
+				playsound minecraft:skill.attack.throw player @a ~ ~ ~ 3 1 0
 				
 				# hit_effect: 0 => None, 1 => mace, 2 => sword
 				data modify storage skill:main damage_info.hit_effect set value 1

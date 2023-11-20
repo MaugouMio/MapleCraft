@@ -598,7 +598,7 @@ namespace booster_skill_template(skill_id, weapon, icon) as virtual
 		
 		scoreboard players operation #BIND_PLAYER number = @s number
 		execute summon text_display run function skill:summon_font_effect/1101004effect
-		playsound minecraft:skill.1101004 player @a ~ ~ ~ 1 1 0
+		playsound minecraft:skill.1101004 player @a ~ ~ ~ 3 1 0
 		
 		scoreboard players operation @s hp -= @s ARG(skill_id)_mp
 		scoreboard players operation @s mp -= @s ARG(skill_id)_mp
@@ -1118,20 +1118,20 @@ namespace skill()
 					{
 						function skill:afterimage/bow/shoot
 						# soul arrow does not play arrow sound
-						execute unless score #GLOBAL bullet_model matches 3001 run playsound minecraft:skill.attack.bow player @a ~ ~ ~ 1 1 0
+						execute unless score #GLOBAL bullet_model matches 3001 run playsound minecraft:skill.attack.bow player @a ~ ~ ~ 3 1 0
 					}
 					
 					func crossbow_effect()
 					{
 						function skill:afterimage/crossbow/shoot
 						# soul arrow does not play arrow sound
-						execute unless score #GLOBAL bullet_model matches 3001 run playsound minecraft:skill.attack.crossbow player @a ~ ~ ~ 1 1 0
+						execute unless score #GLOBAL bullet_model matches 3001 run playsound minecraft:skill.attack.crossbow player @a ~ ~ ~ 3 1 0
 					}
 					
 					func claw_effect()
 					{
 						function skill:afterimage/claw/swing
-						playsound minecraft:skill.attack.throw player @a ~ ~ ~ 1 1 0
+						playsound minecraft:skill.attack.throw player @a ~ ~ ~ 3 1 0
 					}
 				
 					func effect()
@@ -4316,7 +4316,7 @@ namespace skill()
 				execute if score @s claw_mastery matches ..55 run function ARG(_PATH)set_color
 				function ARG(__PATH)summon_model
 				
-				playsound minecraft:skill.attack.punch player @a ~ ~ ~ 1 1 0
+				playsound minecraft:skill.attack.punch player @a ~ ~ ~ 3 1 0
 			}
 			
 			func set_color()
@@ -4333,7 +4333,7 @@ namespace skill()
 				scoreboard players set #AFTERIMAGE_COLOR temp 255
 				function ARG(__PATH)summon_model
 				
-				playsound minecraft:skill.attack.punch player @a ~ ~ ~ 1 1 0
+				playsound minecraft:skill.attack.punch player @a ~ ~ ~ 3 1 0
 				function skill:damage_formula/claw/punch
 				scoreboard players add @s action_time 16
 			}
@@ -4352,7 +4352,7 @@ namespace skill()
 				execute if score @s dagger_mastery matches ..55 run function ARG(_PATH)set_color
 				function ARG(__PATH)summon_model
 				
-				playsound minecraft:skill.attack.sword_s player @a ~ ~ ~ 1 1 0
+				playsound minecraft:skill.attack.sword_s player @a ~ ~ ~ 3 1 0
 				execute if entity @s[tag=thief] run function skill:damage_formula/dagger/thief
 				execute if entity @s[tag=!thief] run function skill:damage_formula/dagger/non_thief
 				scoreboard players add @s action_time 15
@@ -4367,7 +4367,7 @@ namespace skill()
 				execute if score @s dagger_mastery matches ..55 run function ARG(_PATH)set_color
 				function ARG(__PATH)summon_model
 				
-				playsound minecraft:skill.attack.sword_s player @a ~ ~ ~ 1 1 0
+				playsound minecraft:skill.attack.sword_s player @a ~ ~ ~ 3 1 0
 			}
 			
 			func set_color()
@@ -4390,7 +4390,7 @@ namespace skill()
 				execute if score @s bow_mastery matches ..55 run function ARG(_PATH)set_color
 				function ARG(__PATH)summon_model
 				
-				playsound minecraft:skill.attack.sword_s player @a ~ ~ ~ 1 1 0
+				playsound minecraft:skill.attack.sword_s player @a ~ ~ ~ 3 1 0
 				function skill:damage_formula/bow/power_knock_back
 				scoreboard players add @s action_time 16
 			}
@@ -4404,7 +4404,7 @@ namespace skill()
 				execute if score @s bow_mastery matches ..55 run function ARG(_PATH)set_color
 				function ARG(__PATH)summon_model
 				
-				playsound minecraft:skill.attack.sword_s player @a ~ ~ ~ 1 1 0
+				playsound minecraft:skill.attack.sword_s player @a ~ ~ ~ 3 1 0
 				execute if score @s f_attack_skill matches 1.. if score @s bow_final_rate matches 1.. run function ARG(_PATH)final_attack/try
 			}
 			
@@ -4445,7 +4445,7 @@ namespace skill()
 				execute if score @s cbow_mastery matches ..55 run function ARG(_PATH)set_color
 				function ARG(__PATH)summon_model_delay
 				
-				playsound minecraft:skill.attack.mace player @a ~ ~ ~ 1 1 0
+				playsound minecraft:skill.attack.mace player @a ~ ~ ~ 3 1 0
 				function skill:damage_formula/crossbow/power_knock_back
 				scoreboard players add @s action_time 17
 			}
@@ -4459,7 +4459,7 @@ namespace skill()
 				execute if score @s cbow_mastery matches ..55 run function ARG(_PATH)set_color
 				function ARG(__PATH)summon_model_delay
 				
-				playsound minecraft:skill.attack.mace player @a ~ ~ ~ 1 1 0
+				playsound minecraft:skill.attack.mace player @a ~ ~ ~ 3 1 0
 				execute if score @s f_attack_skill matches 1.. if score @s cbow_final_rate matches 1.. run function ARG(_PATH)final_attack/try
 			}
 			
@@ -4497,7 +4497,7 @@ namespace skill()
 				scoreboard players set #AFTERIMAGE_COLOR temp 255
 				function ARG(__PATH)summon_model
 				
-				playsound minecraft:skill.attack.mace player @a ~ ~ ~ 1 1 0
+				playsound minecraft:skill.attack.mace player @a ~ ~ ~ 3 1 0
 				function skill:damage_formula/staff/swing
 				scoreboard players add @s action_time 16
 			}
@@ -4517,7 +4517,7 @@ namespace skill()
 				scoreboard players set #AFTERIMAGE_COLOR temp 0
 				execute if score @s polearm_mastery matches ..55 run function ARG(_PATH)set_color
 				function ARG(__PATH)summon_model
-				playsound minecraft:skill.attack.polearm player @a ~ ~ ~ 1 1 0
+				playsound minecraft:skill.attack.polearm player @a ~ ~ ~ 3 1 0
 				
 				scoreboard players add @s action_time 15
 				execute if score @s f_attack_skill matches 1.. if score @s p_arm_final_rate matches 1.. run function ARG(_PATH)final_attack/try
@@ -4583,7 +4583,7 @@ namespace skill()
 					scoreboard players set #AFTERIMAGE_COLOR temp 0
 					execute if score @s polearm_mastery matches ..55 run function ARG(__PATH)set_color
 					function skill:afterimage/summon_model
-					playsound minecraft:skill.attack.polearm player @a ~ ~ ~ 1 1 0
+					playsound minecraft:skill.attack.polearm player @a ~ ~ ~ 3 1 0
 				}
 			}
 			
@@ -4608,7 +4608,7 @@ namespace skill()
 				scoreboard players set #AFTERIMAGE_COLOR temp 0
 				execute if score @s spear_mastery matches ..55 run function ARG(_PATH)set_color
 				function ARG(__PATH)summon_model
-				playsound minecraft:skill.attack.spear player @a ~ ~ ~ 1 1 0
+				playsound minecraft:skill.attack.spear player @a ~ ~ ~ 3 1 0
 				
 				scoreboard players add @s action_time 15
 				execute if score @s f_attack_skill matches 1.. if score @s spear_final_rate matches 1.. run function ARG(_PATH)final_attack/try
@@ -4674,7 +4674,7 @@ namespace skill()
 					scoreboard players set #AFTERIMAGE_COLOR temp 0
 					execute if score @s spear_mastery matches ..55 run function ARG(__PATH)set_color
 					function skill:afterimage/summon_model
-					playsound minecraft:skill.attack.spear player @a ~ ~ ~ 1 1 0
+					playsound minecraft:skill.attack.spear player @a ~ ~ ~ 3 1 0
 				}
 			}
 			
@@ -4702,7 +4702,7 @@ namespace skill()
 				execute if score @s sword_mastery matches ..55 run function ARG(_PATH)set_color
 				function ARG(__PATH)summon_model
 				
-				playsound minecraft:skill.attack.sword_s player @a ~ ~ ~ 1 1 0
+				playsound minecraft:skill.attack.sword_s player @a ~ ~ ~ 3 1 0
 				function skill:damage_formula/sword/one_hand
 				
 				scoreboard players add @s action_time 16
@@ -4741,7 +4741,7 @@ namespace skill()
 					scoreboard players set #AFTERIMAGE_COLOR temp 0
 					execute if score @s sword_mastery matches ..55 run function ARG(__PATH)set_color
 					function skill:afterimage/summon_model
-					playsound minecraft:skill.attack.sword_s player @a ~ ~ ~ 1 1 0
+					playsound minecraft:skill.attack.sword_s player @a ~ ~ ~ 3 1 0
 				}
 			}
 			
@@ -4768,7 +4768,7 @@ namespace skill()
 				scoreboard players set #AFTERIMAGE_COLOR temp 0
 				execute if score @s axe_mastery matches ..55 run function ARG(_PATH)set_color
 				function ARG(__PATH)summon_model
-				playsound minecraft:skill.attack.sword_l player @a ~ ~ ~ 1 1 0
+				playsound minecraft:skill.attack.sword_l player @a ~ ~ ~ 3 1 0
 				
 				scoreboard players add @s action_time 16
 				execute if score @s f_attack_skill matches 1.. if score @s axe_final_rate matches 1.. run function ARG(_PATH)final_attack/try
@@ -4820,7 +4820,7 @@ namespace skill()
 					scoreboard players set #AFTERIMAGE_COLOR temp 0
 					execute if score @s axe_mastery matches ..55 run function ARG(__PATH)set_color
 					function skill:afterimage/summon_model
-					playsound minecraft:skill.attack.sword_l player @a ~ ~ ~ 1 1 0
+					playsound minecraft:skill.attack.sword_l player @a ~ ~ ~ 3 1 0
 				}
 			}
 			
@@ -4847,7 +4847,7 @@ namespace skill()
 				scoreboard players set #AFTERIMAGE_COLOR temp 0
 				execute if score @s blunt_mastery matches ..55 run function ARG(_PATH)set_color
 				function ARG(__PATH)summon_model
-				playsound minecraft:skill.attack.mace player @a ~ ~ ~ 1 1 0
+				playsound minecraft:skill.attack.mace player @a ~ ~ ~ 3 1 0
 				
 				scoreboard players add @s action_time 16
 				execute if score @s f_attack_skill matches 1.. if score @s blunt_final_rate matches 1.. run function ARG(_PATH)final_attack/try
@@ -4899,7 +4899,7 @@ namespace skill()
 					scoreboard players set #AFTERIMAGE_COLOR temp 0
 					execute if score @s blunt_mastery matches ..55 run function ARG(__PATH)set_color
 					function skill:afterimage/summon_model
-					playsound minecraft:skill.attack.mace player @a ~ ~ ~ 1 1 0
+					playsound minecraft:skill.attack.mace player @a ~ ~ ~ 3 1 0
 				}
 			}
 			
@@ -4925,7 +4925,7 @@ namespace skill()
 				execute if score @s sword_mastery matches ..55 run function ARG(__PATH)oh_sword/set_color
 				function ARG(__PATH)summon_model
 				
-				playsound minecraft:skill.attack.sword_l player @a ~ ~ ~ 1 1 0
+				playsound minecraft:skill.attack.sword_l player @a ~ ~ ~ 3 1 0
 				function skill:damage_formula/sword/two_hand
 				
 				scoreboard players add @s action_time 16
@@ -4979,7 +4979,7 @@ namespace skill()
 					scoreboard players set #AFTERIMAGE_COLOR temp 0
 					execute if score @s sword_mastery matches ..55 run function skill:afterimage/oh_sword/set_color
 					function skill:afterimage/summon_model
-					playsound minecraft:skill.attack.sword_l player @a ~ ~ ~ 1 1 0
+					playsound minecraft:skill.attack.sword_l player @a ~ ~ ~ 3 1 0
 				}
 			}
 		}
@@ -4998,7 +4998,7 @@ namespace skill()
 				scoreboard players set #AFTERIMAGE_COLOR temp 0
 				execute if score @s axe_mastery matches ..55 run function ARG(__PATH)oh_axe/set_color
 				function ARG(__PATH)summon_model
-				playsound minecraft:skill.attack.sword_s player @a ~ ~ ~ 1 1 0
+				playsound minecraft:skill.attack.sword_s player @a ~ ~ ~ 3 1 0
 				
 				scoreboard players add @s action_time 16
 				execute if score @s f_attack_skill matches 1.. if score @s axe_final_rate matches 1.. run function ARG(_PATH)final_attack/try
@@ -5064,7 +5064,7 @@ namespace skill()
 					scoreboard players set #AFTERIMAGE_COLOR temp 0
 					execute if score @s axe_mastery matches ..55 run function skill:afterimage/oh_axe/set_color
 					function skill:afterimage/summon_model
-					playsound minecraft:skill.attack.sword_s player @a ~ ~ ~ 1 1 0
+					playsound minecraft:skill.attack.sword_s player @a ~ ~ ~ 3 1 0
 				}
 			}
 		}
@@ -5083,7 +5083,7 @@ namespace skill()
 				scoreboard players set #AFTERIMAGE_COLOR temp 0
 				execute if score @s blunt_mastery matches ..55 run function ARG(__PATH)oh_blunt/set_color
 				function ARG(__PATH)summon_model
-				playsound minecraft:skill.attack.mace player @a ~ ~ ~ 1 1 0
+				playsound minecraft:skill.attack.mace player @a ~ ~ ~ 3 1 0
 				
 				scoreboard players add @s action_time 16
 				execute if score @s f_attack_skill matches 1.. if score @s blunt_final_rate matches 1.. run function ARG(_PATH)final_attack/try
@@ -5149,7 +5149,7 @@ namespace skill()
 					scoreboard players set #AFTERIMAGE_COLOR temp 0
 					execute if score @s blunt_mastery matches ..55 run function skill:afterimage/oh_blunt/set_color
 					function skill:afterimage/summon_model
-					playsound minecraft:skill.attack.mace player @a ~ ~ ~ 1 1 0
+					playsound minecraft:skill.attack.mace player @a ~ ~ ~ 3 1 0
 				}
 			}
 		}
