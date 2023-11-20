@@ -34,11 +34,13 @@ void main() {
 	if (colorCheck == ivec3(255, 255, 251))
 	{
 		float alpha = (10.0 - mod(GameTime * 24000, 10.0)) / 10.0;
-		finalColor = vec4(1, 1, 1, alpha);
+		finalColor = vec4(1, 1, 1, alpha * 0.82);
 	}
-	else if (colorCheck == ivec3(255, 255, 250))  // anti-shadow default color
+	else if (colorCheck == ivec3(255, 255, 250))  // buff default color
+		finalColor = vec4(1, 1, 1, 0.82);
+	else if (colorCheck == ivec3(255, 255, 249))  // anti-shadow default color
 		finalColor = vec4(1);
-	else if (colorCheck == ivec3(63, 63, 62))  // shadow of buff icon
+	else if (colorCheck == ivec3(63, 63, 62))  // shadow of anti-shadow color
 		finalColor = vec4(0);
 	
 	// up lift
