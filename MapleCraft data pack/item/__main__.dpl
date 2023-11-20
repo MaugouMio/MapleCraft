@@ -7,7 +7,7 @@ namespace use_equip_template(equip) as virtual
 	func check()
 	{
 		execute if entity @s[tag=ARG(equip)_equipped] run function ARG(_PATH)get_ori_equip_stats
-		execute unless entity @s[tag=ARG(equip)_equipped] run function ARG(_PATH)reset_equip_stats
+		execute unless entity @s[tag=ARG(equip)_equipped] run function item:use/reset_equip_stats
 		function item:use/equip_qulification
 		
 		execute if score #ACCEPTED_EQUIP temp matches 0 run playsound minecraft:game.dlg_notice player @s
@@ -20,14 +20,6 @@ namespace use_equip_template(equip) as virtual
 		execute store result score #EQUIP_DEX temp run data get entity @s Inventory[{Slot:103b}].tag.ARG(equip).dex
 		execute store result score #EQUIP_INT temp run data get entity @s Inventory[{Slot:103b}].tag.ARG(equip).int
 		execute store result score #EQUIP_LUK temp run data get entity @s Inventory[{Slot:103b}].tag.ARG(equip).luk
-	}
-	
-	func reset_equip_stats()
-	{
-		scoreboard players set #EQUIP_STR temp 0
-		scoreboard players set #EQUIP_DEX temp 0
-		scoreboard players set #EQUIP_INT temp 0
-		scoreboard players set #EQUIP_LUK temp 0
 	}
 	
 	func equip()
@@ -576,6 +568,14 @@ namespace item()
 			
 			execute if score #ACCEPTED_EQUIP temp matches 0 run tellraw @s {"translate":"warning.equip.invalid_stat","font":"minecraft:uniform","color":"#efb7ab"}
 		}
+
+		func reset_equip_stats()
+		{
+			scoreboard players set #EQUIP_STR temp 0
+			scoreboard players set #EQUIP_DEX temp 0
+			scoreboard players set #EQUIP_INT temp 0
+			scoreboard players set #EQUIP_LUK temp 0
+		}
 		
 		folder equip()
 		{
@@ -671,7 +671,7 @@ namespace item()
 				func check()
 				{
 					execute if entity @s[tag=cloth_equipped] run function ARG(_PATH)get_ori_equip_stats
-					execute unless entity @s[tag=cloth_equipped] run function ARG(_PATH)reset_equip_stats
+					execute unless entity @s[tag=cloth_equipped] run function item:use/reset_equip_stats
 					execute if entity @s[tag=pants_equipped] run function ARG(_PATH)add_pants_numeric
 					function item:use/equip_qulification
 					
@@ -685,14 +685,6 @@ namespace item()
 					execute store result score #EQUIP_DEX temp run data get entity @s Inventory[{Slot:103b}].tag.cloth.dex
 					execute store result score #EQUIP_INT temp run data get entity @s Inventory[{Slot:103b}].tag.cloth.int
 					execute store result score #EQUIP_LUK temp run data get entity @s Inventory[{Slot:103b}].tag.cloth.luk
-				}
-				
-				func reset_equip_stats()
-				{
-					scoreboard players set #EQUIP_STR temp 0
-					scoreboard players set #EQUIP_DEX temp 0
-					scoreboard players set #EQUIP_INT temp 0
-					scoreboard players set #EQUIP_LUK temp 0
 				}
 				
 				func add_pants_numeric()
@@ -831,15 +823,21 @@ namespace item()
 		{
 			func check()
 			{
-				execute store result score #EQUIP_STR temp run data get entity @s Inventory[{Slot:103b}].tag.weapon.str
-				execute store result score #EQUIP_DEX temp run data get entity @s Inventory[{Slot:103b}].tag.weapon.dex
-				execute store result score #EQUIP_INT temp run data get entity @s Inventory[{Slot:103b}].tag.weapon.int
-				execute store result score #EQUIP_LUK temp run data get entity @s Inventory[{Slot:103b}].tag.weapon.luk
+				execute if score @s weapon_type matches 1.. run function ARG(_PATH)get_ori_equip_stats
+				execute unless score @s weapon_type matches 1.. run function item:use/reset_equip_stats
 				execute if entity @s[tag=shield_equipped] run function ARG(_PATH)hand_check
 				function ARG(__PATH)equip_qulification
 				
 				execute if score #ACCEPTED_EQUIP temp matches 0 run playsound minecraft:game.dlg_notice player @s
 				execute if score #ACCEPTED_EQUIP temp matches 1 run function ARG(_PATH)equip
+			}
+
+			func get_ori_equip_stats()
+			{
+				execute store result score #EQUIP_STR temp run data get entity @s Inventory[{Slot:103b}].tag.weapon.str
+				execute store result score #EQUIP_DEX temp run data get entity @s Inventory[{Slot:103b}].tag.weapon.dex
+				execute store result score #EQUIP_INT temp run data get entity @s Inventory[{Slot:103b}].tag.weapon.int
+				execute store result score #EQUIP_LUK temp run data get entity @s Inventory[{Slot:103b}].tag.weapon.luk
 			}
 			
 			func hand_check()
