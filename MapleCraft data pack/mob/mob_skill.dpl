@@ -14,7 +14,7 @@ namespace mob_skill() as virtual
 		func skill_check()
 		{
 			scoreboard players set #GLOBAL temp 0
-			execute if score @s hp matches ..4000 unless entity @s[tag=skill_used] store result score #GLOBAL temp run function ARG(_PATH)skill
+			execute if score @s hp matches ..4000 if entity @s[tag=!skill_used,tag=!no_drop] store result score #GLOBAL temp run function ARG(_PATH)skill
 			execute if score #GLOBAL temp matches 0 run function ARG(_PATH)attack_check
 		}
 		

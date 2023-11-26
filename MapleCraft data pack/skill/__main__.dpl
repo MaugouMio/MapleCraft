@@ -4033,7 +4033,7 @@ namespace skill()
 		{
 			func check()
 			{
-				execute if entity @s[tag=king_slime] run function ARG(_PATH)king_slime/run
+				execute if entity @s[tag=king_slime,tag=!no_drop] run function ARG(_PATH)king_slime/run
 				execute if entity @s[tag=objmc] run function ARG(_PATH)objmc/run
 			}
 			
