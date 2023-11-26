@@ -1,0 +1,27 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"1": "npc/so_gong",
+		"particle": "npc/so_gong"
+	},
+	"elements": [
+		{
+			"from": [-3.125, -16, 8],
+			"to": [19.125, 1.75, 8],
+			"faces": {
+				"north": {"uv": [0, 0, 16, 16], "texture": "#1"},
+				"east": {"uv": [0, 0, 0, 16], "texture": "#1"},
+				"south": {"uv": [16, 0, 0, 16], "texture": "#1"},
+				"west": {"uv": [0, 0, 0, 16], "texture": "#1"},
+				"up": {"uv": [16, 0, 0, 0], "texture": "#1"},
+				"down": {"uv": [16, 0, 0, 0], "texture": "#1"}
+			}
+		}
+	],
+	"display": {
+		"head": {
+			"translation": [0, 34.5, 0],
+			"scale": [1.5, 1.5, 1]
+		}
+	}
+}
