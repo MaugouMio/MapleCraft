@@ -96,7 +96,7 @@ namespace map_mobs() as virtual
 		func check_spawn()
 		{
 			execute unless data entity 00000000-0000-0008-0000-000000000008 item.tag.mob_id run return 0
-			function mob:map/dojo_train/spawn with entity 00000000-0000-0008-0000-000000000008 item.tag
+			function ARG(_PATH)spawn with entity 00000000-0000-0008-0000-000000000008 item.tag
 		}
 		
 		func spawn()
