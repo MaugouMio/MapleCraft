@@ -3676,7 +3676,7 @@ namespace skill()
 		{
 			attribute @s minecraft:generic.movement_speed base set -100.0
 			
-			execute if data entity @s DeathLootTable run function ARG(_PATH)loot			
+			execute if data entity @s[tag=!no_drop] DeathLootTable run function ARG(_PATH)loot			
 			scoreboard players operation #EXP_GAIN temp += @s exp
 			tag @s add dead
 

@@ -226,7 +226,7 @@ namespace 42() as virtual
 			
 			func steal()
 			{
-				execute if data entity @s ArmorItems[3].tag.steal_loot run function ARG(_PATH)real_steal
+				execute if data entity @s[tag=!no_drop] ArmorItems[3].tag.steal_loot run function ARG(_PATH)real_steal
 				tag @s add stolen
 			}
 

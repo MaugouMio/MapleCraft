@@ -15,7 +15,8 @@ UUID_LIST = {
 	"face_effect":	"[I;0,4,0,4]",
 	"knockback":	"[I;0,5,0,5]",
 	"mob_damage":	"[I;0,6,0,6]",
-	"proj_spawn":	"[I;0,7,0,7]"
+	"proj_spawn":	"[I;0,7,0,7]",
+	"dojo_mob_type":"[I;0,8,0,8]"
 }
 
 import pickle

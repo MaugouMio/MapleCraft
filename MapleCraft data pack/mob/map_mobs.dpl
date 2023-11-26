@@ -82,4 +82,74 @@ namespace map_mobs() as virtual
 			}
 		}
 	}
+	
+	folder dojo_train()
+	{
+		func change_card()
+		{
+			execute unless data entity @s SelectedItem.tag.mob_id run return 0
+			
+			item replace entity 00000000-0000-0008-0000-000000000008 container.0 from entity @s weapon.mainhand
+			playsound minecraft:item.equip player @a ~ ~ ~ 5 1 0
+		}
+		
+		func check_spawn()
+		{
+			execute unless data entity 00000000-0000-0008-0000-000000000008 item.tag.mob_id run return 0
+			function mob:map/dojo_train/spawn with entity 00000000-0000-0008-0000-000000000008 item.tag
+		}
+		
+		func spawn()
+		{
+			$function ARG(_PATH)$(mob_id)
+		}
+		
+		```
+		available_mobs = [
+			("0210100", 37001),
+			("1110100", 37002),
+			("2130103", 37003),
+			("2110200", 37004),
+			("2230101", 37005),
+			("3110100", 37006),
+			("3110102", 37007),
+			("3210205", 37008),
+			("3230100", 37009),
+			("3230302", 37010),
+			("3230306", 37011),
+			("4230114", 37012),
+			("4230109", 37013),
+			("4230110", 37014),
+			("4230115", 37015),
+			("4130103", 37016),
+			("9300003", 37017),
+			("9300012", 37018)
+		]
+		spawn_positions = ["x y z", "x y z"]
+		# 為了讓所有類型怪物共用一組 UUID，每次 loop 開始會先回歸 index
+		MOB_UUID += len(spawn_positions)
+		for mob in available_mobs:
+			MOB_UUID -= len(spawn_positions)
+			print(f"func {mob[0]}()")
+			print("{")
+			for pos in spawn_positions:
+				print(f"execute positioned {pos} run", spawn_mob(mob[0], uuid=MOB_UUID, add_tag="no_drop"))
+				MOB_UUID += 1
+			print("}")
+		```
+		
+		func fill_card()
+		{
+			data remove block ~ ~1 ~ Items[]
+			```
+			if len(available_mobs) > 27:
+				raise Exception("ERROR: Dojo available train mob count > 27")
+				
+			i = 0
+			for mob in available_mobs:
+				print(f"item replace block ~ ~1 ~ container.{i} with minecraft:stick{itemDatas[mob[1]]} 64")
+				i += 1
+			```
+		}
+	}
 }
