@@ -661,7 +661,7 @@ namespace main()
 			if start == end:
 				print(f"func {bgm_list[start][1]}()")
 				print("{")
-				print("stopsound @s")
+				print("stopsound @s[scores={bgm_time=1..}] record")
 				print(f"playsound minecraft:bgm.{bgm_list[start][1]} record @s ~ ~ ~ 1 1 1")
 				print(f"scoreboard players set @s bgm_time {bgm_list[start][2]}")
 				print("}")

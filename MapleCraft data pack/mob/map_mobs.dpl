@@ -125,7 +125,7 @@ namespace map_mobs() as virtual
 			("9300003", 37017),
 			("9300012", 37018)
 		]
-		spawn_positions = ["x y z", "x y z"]
+		spawn_positions = ["250 -5 0"]
 		# 為了讓所有類型怪物共用一組 UUID，每次 loop 開始會先回歸 index
 		MOB_UUID += len(spawn_positions)
 		for mob in available_mobs:
