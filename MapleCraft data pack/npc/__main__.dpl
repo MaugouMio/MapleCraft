@@ -1,0 +1,343 @@
+namespace npc()
+{
+	folder common()
+	{
+		folder maple_administrator()
+		{
+			func talk()
+			{
+				tellraw @s ["\n",{"translate":"text.npc.maple_administrator.menu","font":"minecraft:uniform"}]
+				tellraw @s {"translate":"text.npc.maple_administrator.menu.reset_menu","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set -1"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
+				tellraw @s {"translate":"text.npc.maple_administrator.menu.how_to_projectile","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 209"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
+				tellraw @s {"translate":"text.npc.maple_administrator.menu.how_to_equip","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 210"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
+				tellraw @s {"translate":"text.npc.maple_administrator.menu.how_to_scroll","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 211"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
+				tellraw @s {"translate":"text.npc.maple_administrator.menu.potion_bag","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 212"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
+				tellraw @s {"text":"==================","font":"minecraft:uniform"}
+			}
+			
+			func potion_bag()
+			{
+				tellraw @s {"translate":"text.quest.item_gain","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.consume.potion_bag"}]}
+				```
+				print(f"give @s {potion_bag}")
+				```
+				tellraw @s ["\n",{"translate":"text.npc.maple_administrator.menu.potion_bag.get","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+			}
+		}
+		
+		folder gachapon()
+		{
+			func talk()
+			{
+				# check slot
+				execute store result score #GLOBAL temp run data get entity @s Inventory
+				execute if data entity @s Inventory[{Slot:-106b}] run scoreboard players remove #GLOBAL temp 1
+				execute if score #GLOBAL temp matches 38 run tellraw @s ["\n",{"translate":"text.npc.gachapon.require_slot","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+				execute if score #GLOBAL temp matches ..37 run function ARG(_PATH)check_ticket
+			}
+			
+			func check_ticket()
+			{
+				execute store result score #GLOBAL temp run clear @s stick{CustomModelData:5220050} 1
+				execute if score #GLOBAL temp matches 0 run tellraw @s ["\n",{"translate":"text.npc.gachapon.no_ticket","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+				execute if score #GLOBAL temp matches 1 run function ARG(_PATH)draw
+			}
+			
+			func draw()
+			{
+				data remove block 250 1 0 Items[]
+				loot replace block 250 1 0 container.0 loot main:gachapon
+				execute store result score #GLOBAL temp run data get block 250 1 0 Items[0].Count
+				execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.npc.gachapon.get","font":"minecraft:uniform","with":[{"nbt":"Items[0].tag.display.Name","block":"250 1 0","interpret":true}]}
+				execute if score #GLOBAL temp matches 2.. run tellraw @s {"translate":"text.npc.gachapon.get_multiple","font":"minecraft:uniform","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"nbt":"Items[0].tag.display.Name","block":"250 1 0","interpret":true}]}
+				loot give @s mine 250 1 0 minecraft:air{modify_player:1b}
+			}
+		}
+	}
+	
+	folder test()
+	{
+		func start_tutorial()
+		{
+			scoreboard players set @s bgm 5
+			function main:bgm/search/rest_n_peace
+			
+			function main:cross_map_effect
+			tp @s -8 30 488 -60 50
+		}
+		
+		folder next_tutorial()
+		{
+			func check()
+			{
+				execute if entity @s[tag=skip_tutorial] run scoreboard players set @s tutorial 10
+				tag @s add skip_tutorial
+				
+				execute unless score @s tutorial matches 10 run tellraw @s ["\n",{"translate":"text.quest.tutorial.not_yet","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+				execute if score @s tutorial matches 10 run function ARG(_PATH)go
+			}
+			
+			func go()
+			{
+				tag @s remove skip_tutorial
+				
+				function main:cross_map_effect
+				tp @s -387 -39 503 10 50
+			}
+		}
+		
+		folder start_game()
+		{
+			func check()
+			{
+				execute if entity @s[tag=skip_tutorial] run scoreboard players set @s tutorial 13
+				tag @s add skip_tutorial
+				
+				execute unless score @s tutorial matches 13 run tellraw @s ["\n",{"translate":"text.quest.tutorial.not_yet","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+				execute if score @s tutorial matches 13 run function ARG(_PATH)start
+			}
+			
+			func start()
+			{
+				tag @s remove skip_tutorial
+				
+				scoreboard players set @s map 103000000
+				scoreboard players set @s bgm 2
+				function main:bgm/search/bad_guys
+				
+				function main:cross_map_effect
+				tp @s -1 34 -6 90 40
+			}
+		}
+		
+		folder roger()
+		{
+			func talk()
+			{
+				execute if score @s tutorial matches 10 run tellraw @s ["\n",{"translate":"text.quest.tutorial.roger.next_stage","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+				execute if score @s tutorial matches 9 run function ARG(_PATH)equip_check
+				execute if score @s tutorial matches 8 run function ARG(_PATH)equip
+				execute if score @s tutorial matches 7 at @s run function ARG(_PATH)skill_complete
+				execute if score @s tutorial matches 6 run tellraw @s ["\n",{"translate":"text.quest.tutorial.roger.skill_teach","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+				execute if score @s tutorial matches 5 run function ARG(_PATH)attack_check
+				execute if score @s tutorial matches 4 run function ARG(_PATH)attack
+				execute if score @s tutorial matches 2 run function ARG(_PATH)apple_check
+				execute if score @s tutorial matches 1 run function ARG(_PATH)apple
+				execute unless score @s tutorial matches 1.. run function ARG(_PATH)greet
+			}
+			
+			func greet()
+			{
+				tellraw @s ["\n",{"translate":"text.quest.tutorial.roger.greet","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+				scoreboard players set @s tutorial 1
+			}
+			
+			func apple()
+			{
+				scoreboard players set @s hp 25
+				function bar_display:change/hp/dropped
+				scoreboard players operation @s next_hp_recover = @s hp_recover_time
+				
+				tellraw @s {"translate":"text.quest.item_gain","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.consume.2010000"}]}
+				```
+				print(f"give @s minecraft:ender_eye{itemDatas[20504]}")
+				```
+				tellraw @s ["\n",{"translate":"text.quest.tutorial.roger.apple","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+				scoreboard players set @s tutorial 2
+			}
+			
+			func apple_check()
+			{
+				# 要求身上沒有蘋果 + 滿血
+				execute store result score #GLOBAL temp run clear @s minecraft:ender_eye{CustomModelData:403} 0
+				execute if score @s hp < @s hp_max run scoreboard players set #GLOBAL temp 1
+				
+				execute unless score #GLOBAL temp matches 0 run tellraw @s ["\n",{"translate":"text.quest.tutorial.roger.apple_teach","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+				execute if score #GLOBAL temp matches 0 at @s run function ARG(_PATH)apple_complete
+			}
+			
+			func apple_complete()
+			{
+				# lv 1 -> lv 2 full exp
+				scoreboard players set #EXP_GAIN temp 48
+				scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
+				function quest:get_exp
+				function quest:complete_effect
+				
+				tellraw @s ["\n",{"translate":"text.quest.tutorial.roger.apple_complete","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+				scoreboard players set @s tutorial 4
+			}
+			
+			func attack()
+			{
+				tellraw @s ["\n",{"translate":"text.quest.tutorial.roger.attack","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+				scoreboard players set @s tutorial 5
+			}
+			
+			func attack_check()
+			{
+				execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4000083} 1
+				# 有打怪一定會升到 3 等
+				execute if score #GLOBAL temp matches 1 store success score #GLOBAL temp if score @s level matches 3..
+				execute if score #GLOBAL temp matches 0 run tellraw @s ["\n",{"translate":"text.quest.tutorial.roger.attack_teach","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+				execute if score #GLOBAL temp matches 1 at @s run function ARG(_PATH)attack_complete
+			}
+			
+			func attack_complete()
+			{
+				tellraw @s {"translate":"text.quest.item_lost","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4000083"}]}
+				
+				# lv 3 -> lv 4
+				scoreboard players set #EXP_GAIN temp 57
+				scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
+				function quest:get_exp
+				function quest:complete_effect
+				
+				tellraw @s ["\n",{"translate":"text.quest.tutorial.roger.attack_complete","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+				scoreboard players set @s tutorial 6
+			}
+			
+			func skill_complete()
+			{
+				# lv 4 -> lv 5
+				scoreboard players set #EXP_GAIN temp 92
+				scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
+				function quest:get_exp
+				function quest:complete_effect
+				
+				tellraw @s ["\n",{"translate":"text.quest.tutorial.roger.skill_complete","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+				scoreboard players set @s tutorial 8
+			}
+			
+			func equip()
+			{
+				tellraw @s {"translate":"text.quest.item_gain","font":"minecraft:uniform","color":"gray","with":[{"translate":"weapon.dagger.5"}]}
+				```
+				print(f"give @s minecraft:warped_fungus_on_a_stick{itemDatas[416]}")
+				```				
+				tellraw @s ["\n",{"translate":"text.quest.tutorial.roger.equip","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+				scoreboard players set @s tutorial 9
+			}
+			
+			func equip_check()
+			{
+				execute unless score @s weapon_type matches 23 run tellraw @s ["\n",{"translate":"text.quest.tutorial.roger.equip_teach","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+				execute if score @s weapon_type matches 23 at @s run function ARG(_PATH)equip_complete
+			}
+			
+			func equip_complete()
+			{
+				function quest:complete_effect
+				
+				tellraw @s ["\n",{"translate":"text.quest.tutorial.roger.equip_complete","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+				scoreboard players set @s tutorial 10
+			}
+		}
+		
+		folder pio()
+		{
+			func talk()
+			{
+				execute if score @s tutorial matches 13 run tellraw @s ["\n",{"translate":"text.quest.tutorial.pio.bye","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+				execute if score @s tutorial matches 12 run function ARG(_PATH)relax_chair
+				execute if score @s tutorial matches 11 run function ARG(_PATH)material_check
+				execute if score @s tutorial matches 10 run function ARG(_PATH)greet
+			}
+			
+			func greet()
+			{
+				tellraw @s ["\n",{"translate":"text.quest.tutorial.pio.greet","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+				scoreboard players set @s tutorial 11
+			}
+			
+			func material_check()
+			{
+				execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4031161} 0
+				execute if score #GLOBAL temp matches 10.. store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4031162} 0
+				execute if score #GLOBAL temp matches ..9 run tellraw @s ["\n",{"translate":"text.quest.tutorial.pio.greet","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+				execute if score #GLOBAL temp matches 10.. run function ARG(_PATH)box_complete
+			}
+			
+			func box_complete()
+			{
+				execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4031161} 10
+				execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4031162} 10
+				tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":["10",{"translate":"item.etc.4031161"}]}
+				tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":["10",{"translate":"item.etc.4031162"}]}
+				
+				# lv 5 -> lv 6
+				scoreboard players set #EXP_GAIN temp 135
+				scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
+				function quest:get_exp
+				function quest:complete_effect
+				
+				tellraw @s ["\n",{"translate":"text.quest.tutorial.pio.box_complete","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+				scoreboard players set @s tutorial 12
+			}
+			
+			func relax_chair()
+			{
+				```
+				print(f"give @s minecraft:warped_fungus_on_a_stick{itemDatas[32001]}")
+				```
+				tellraw @s {"translate":"text.quest.item_gain","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.install.3010000"}]}
+				
+				function quest:complete_effect
+				
+				tellraw @s ["\n",{"translate":"text.quest.tutorial.pio.give_chair","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
+				scoreboard players set @s tutorial 13
+			}
+		}
+		
+		func helper()
+		{
+			tellraw @s ["\n",{"translate":"text.quest.test_server_helper.menu","font":"minecraft:uniform"}]
+			tellraw @s {"translate":"text.quest.test_server_helper.menu.level_up","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 500"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
+			tellraw @s {"text":"==================","font":"minecraft:uniform"}
+		}
+		
+		func shop()
+		{
+			tellraw @s[scores={map=103000000}] ["\n",{"translate":"text.quest.test_shop.menu","font":"minecraft:uniform","with":[{"translate":"npc.dr_faymus"}]},{"text":"\n==================","font":"minecraft:uniform"}]
+			tellraw @s[scores={map=221024500}] ["\n",{"translate":"text.quest.test_shop.menu","font":"minecraft:uniform","with":[{"translate":"npc.misky"}]},{"text":"\n==================","font":"minecraft:uniform"}]
+		}
+		
+		func dances_with_balrog()
+		{
+			tellraw @s ["\n",{"translate":"text.quest.test_warrior_transfer.menu","font":"minecraft:uniform"}]
+			tellraw @s[scores={map=103000000}] {"translate":"text.quest.test_warrior_transfer.menu.warrior","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 174"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
+			tellraw @s[scores={map=221024500}] {"translate":"text.quest.test_warrior_transfer.menu.fighter","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 178"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
+			tellraw @s[scores={map=221024500}] {"translate":"text.quest.test_warrior_transfer.menu.page","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 179"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
+			tellraw @s[scores={map=221024500}] {"translate":"text.quest.test_warrior_transfer.menu.spearman","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 180"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
+			tellraw @s {"text":"==================","font":"minecraft:uniform"}
+		}
+		
+		func grendel_the_really_old()
+		{
+			tellraw @s ["\n",{"translate":"text.quest.test_magician_transfer.menu","font":"minecraft:uniform"}]
+			tellraw @s[scores={map=103000000}] {"translate":"text.quest.test_magician_transfer.menu.magician","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 175"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
+			tellraw @s[scores={map=221024500}] {"translate":"text.quest.test_magician_transfer.menu.wizard_fp","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 181"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
+			tellraw @s[scores={map=221024500}] {"translate":"text.quest.test_magician_transfer.menu.wizard_il","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 182"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
+			tellraw @s[scores={map=221024500}] {"translate":"text.quest.test_magician_transfer.menu.cleric","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 183"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
+			tellraw @s {"text":"==================","font":"minecraft:uniform"}
+		}
+		
+		func athena_pierce()
+		{
+			tellraw @s ["\n",{"translate":"text.quest.test_archer_transfer.menu","font":"minecraft:uniform"}]
+			tellraw @s[scores={map=103000000}] {"translate":"text.quest.test_archer_transfer.menu.archer","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 176"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
+			tellraw @s[scores={map=221024500}] {"translate":"text.quest.test_archer_transfer.menu.hunter","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 184"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
+			tellraw @s[scores={map=221024500}] {"translate":"text.quest.test_archer_transfer.menu.crossbowman","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 185"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
+			tellraw @s {"text":"==================","font":"minecraft:uniform"}
+		}
+		
+		func dark_lord()
+		{
+			tellraw @s ["\n",{"translate":"text.quest.test_thief_transfer.menu","font":"minecraft:uniform"}]
+			tellraw @s[scores={map=103000000}] {"translate":"text.quest.test_thief_transfer.menu.thief","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 177"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
+			tellraw @s[scores={map=221024500}] {"translate":"text.quest.test_thief_transfer.menu.assassin","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 186"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
+			tellraw @s[scores={map=221024500}] {"translate":"text.quest.test_thief_transfer.menu.bandit","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 187"},"hoverEvent":{"action":"show_text","contents":{"translate":"text.quest.test_transfer.notice"}}}
+			tellraw @s {"text":"==================","font":"minecraft:uniform"}
+		}
+	}
+}
