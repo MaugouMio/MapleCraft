@@ -213,5 +213,6 @@
 218,if score @s playing_game matches 2 run function quest:party_quest/reset_check
 219,at @s run function main:menu/reset_ap
 220,at @s run function main:menu/reset_sp
+221,if score @s map = @s town_map at @s run function npc:dojo/enter
 # 試玩用功能從 500 開始，避免干擾
 500,unless score @s playing_game matches 1.. if score @s level matches ..69 at @s run function main:test_job/level_up

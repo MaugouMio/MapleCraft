@@ -241,7 +241,7 @@ namespace party_quest() as virtual
 			tp @s -260 45 0 90 50
 			
 			tag @s add pq_player
-			scoreboard players set @s map 103000890
+			scoreboard players set @s map 103000800
 			scoreboard players set @s playing_game 1
 			scoreboard players set @s game_stage 1
 			scoreboard players add #KPQ_MEMBER temp 1
@@ -1042,7 +1042,7 @@ namespace party_quest() as virtual
 			tp @s 380 -51 188 -50 40
 			
 			tag @s add pq_player
-			scoreboard players set @s map 922010000
+			scoreboard players set @s map 922010100
 			scoreboard players set @s playing_game 2
 			scoreboard players set @s game_stage 1
 			scoreboard players add #LDPQ_MEMBER temp 1

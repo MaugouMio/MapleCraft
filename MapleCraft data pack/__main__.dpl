@@ -81,6 +81,8 @@ namespace main()
 		scoreboard objectives add command trigger
 		scoreboard objectives add login minecraft.custom:minecraft.leave_game
 		scoreboard objectives add map dummy
+		scoreboard objectives add town_map dummy
+		scoreboard objectives add event_back_map dummy
 		scoreboard objectives add bgm dummy
 		scoreboard objectives add bgm_time dummy
 		scoreboard objectives add tutorial dummy
@@ -353,23 +355,10 @@ namespace main()
 			execute unless score @s login matches 1.. run function ARG(_PATH)reset_screen
 		}
 		
-		folder town_search()
+		func normal()
 		{
-			func run()
-			{
-				function bar_display:death/revive
-				
-				# check nearest town accoring to map score
-				# TODO: 增加紀錄回城目標地圖 ID 分數
-				execute if score @s map matches 103000000 run function ARG(_PATH)kerning_city
-			}
-			
-			func kerning_city()
-			{
-				tp @s -1 34 -6 90 40
-				scoreboard players set @s bgm 2
-				function main:bgm/search/bad_guys
-			}
+			function bar_display:death/revive
+			function ARG(__PATH)town_search/run
 		}
 		
 		func reset_screen()
@@ -379,6 +368,39 @@ namespace main()
 			tellraw @s "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
 			title @s times 1 5 10
 			title @s title {"text":"4","font":"ui:main"}
+		}
+	}
+	
+	folder town_search()
+	{
+		func run()
+		{
+			execute if score @s town_map matches 103000000 run function ARG(_PATH)kerning_city
+			execute if score @s town_map matches 221024500 run function ARG(_PATH)eos_tower101
+			execute if score @s town_map matches 925020001 run function ARG(_PATH)dojo
+			
+			scoreboard players operation @s map = @s town_map
+		}
+		
+		func kerning_city()
+		{
+			tp @s -1 34 -6 90 40
+			scoreboard players set @s bgm 2
+			function main:bgm/search/bad_guys
+		}
+		
+		func eos_tower101()
+		{
+			tp @s 387 -53 573 0 40
+			scoreboard players set @s bgm 6
+			function main:bgm/search/funny_time_maker
+		}
+		
+		func dojo()
+		{
+			# tp @s x y z rx ry
+			scoreboard players set @s bgm 10
+			function main:bgm/search/mureung_school1
 		}
 	}
 	
