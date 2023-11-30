@@ -299,6 +299,7 @@ namespace party_quest() as virtual
 			function ARG(_PATH)reset
 			tp @s -2010 31 0 -90 50
 			
+			scoreboard players set @s map 103000890
 			execute unless score @s bgm matches 3 run function main:bgm/search/jungle_book
 			scoreboard players set @s bgm 3
 			
@@ -351,8 +352,9 @@ namespace party_quest() as virtual
 					execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001008}
 					execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4001008"}]}
 					
+					scoreboard players set @s map 103000801
 					scoreboard players set #KPQ_S2_LOADED temp 1
-					scoreboard players add @s game_stage 1
+					scoreboard players set @s game_stage 2
 					execute unless entity @a[scores={playing_game=1,game_stage=1}] run function ARG(_PATH)reset
 					
 					title @s times 1 5 10
@@ -468,8 +470,9 @@ namespace party_quest() as virtual
 			{
 				func portal()
 				{
+					scoreboard players set @s map 103000802
 					scoreboard players set #KPQ_S3_LOADED temp 1
-					scoreboard players add @s game_stage 1
+					scoreboard players set @s game_stage 3
 					execute unless entity @a[scores={playing_game=1,game_stage=..2}] run function ARG(_PATH)reset
 					
 					scoreboard players set @s bgm 4
@@ -574,8 +577,9 @@ namespace party_quest() as virtual
 			{
 				func portal()
 				{
+					scoreboard players set @s map 103000803
 					scoreboard players set #KPQ_S4_LOADED temp 1
-					scoreboard players add @s game_stage 1
+					scoreboard players set @s game_stage 4
 					execute unless entity @a[scores={playing_game=1,game_stage=..3}] run function ARG(_PATH)reset
 					
 					title @s times 1 5 10
@@ -694,7 +698,8 @@ namespace party_quest() as virtual
 			{
 				func portal()
 				{
-					scoreboard players add @s game_stage 1
+					scoreboard players set @s map 103000804
+					scoreboard players set @s game_stage 5
 					execute unless entity @a[scores={playing_game=1,game_stage=..4}] run function ARG(_PATH)reset
 					
 					title @s times 1 5 10
@@ -825,8 +830,9 @@ namespace party_quest() as virtual
 				
 				func complete()
 				{
+					scoreboard players set @s map 103000805
 					scoreboard players set #KPQ_S6_LOADED temp 1
-					scoreboard players add @s game_stage 1
+					scoreboard players set @s game_stage 6
 					execute unless entity @a[scores={playing_game=1,game_stage=..5}] run function ARG(_PATH)reset
 					
 					data remove block 250 1 0 Items[]
@@ -1098,6 +1104,7 @@ namespace party_quest() as virtual
 		
 		func tp_leave()
 		{
+			scoreboard players set @s map 922010000
 			tp @s 382 119 583 180 50
 			
 			execute unless score @s bgm matches 7 run function main:bgm/search/fantasia
@@ -1194,6 +1201,7 @@ namespace party_quest() as virtual
 				
 				func tp()
 				{
+					scoreboard players set @s map 922010200
 					scoreboard players set @s game_stage 2
 					execute unless entity @a[scores={playing_game=2,game_stage=1}] run function ARG(_PATH)reset
 					
@@ -1284,6 +1292,7 @@ namespace party_quest() as virtual
 				
 				func tp()
 				{
+					scoreboard players set @s map 922010300
 					scoreboard players set @s game_stage 3
 					execute unless entity @a[scores={playing_game=2,game_stage=..2}] run function ARG(_PATH)reset
 					
@@ -1318,7 +1327,7 @@ namespace party_quest() as virtual
 						
 						func check_member()
 						{
-							execute positioned 374 -55 -202 store result score #GLOBAL temp if entity @a[scores={playing_game=2},dx=24,dy=96,dz=24]
+							execute store result score #GLOBAL temp if entity @a[scores={map=922010200}]
 							execute if score #GLOBAL temp < #LDPQ_MEMBER temp run tellraw @s ["\n",{"translate":"text.quest.party_quest.common.member_lost","with":[{"translate":"npc.orange_balloon"}],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 							execute if score #GLOBAL temp = #LDPQ_MEMBER temp run function ARG(_PATH)check
 						}
@@ -1409,6 +1418,8 @@ namespace party_quest() as virtual
 					
 					func tp()
 					{
+						scoreboard players set @s map 922010201
+						
 						execute store success score #GLOBAL temp if entity @s[distance=..32]
 						scoreboard players add #LDPQ_S2_H_PLAYER temp 1
 						
@@ -1422,6 +1433,8 @@ namespace party_quest() as virtual
 					
 					func leave()
 					{
+						scoreboard players set @s map 922010200
+						
 						scoreboard players remove #LDPQ_S2_H_PLAYER temp 1
 						execute if score #LDPQ_S2_H_PLAYER temp matches 0 run function ARG(_PATH)clear
 						
@@ -1459,6 +1472,7 @@ namespace party_quest() as virtual
 				
 				func tp()
 				{
+					scoreboard players set @s map 922010400
 					scoreboard players set @s game_stage 4
 					execute unless entity @a[scores={playing_game=2,game_stage=..3}] run function ARG(_PATH)reset
 					
@@ -1492,7 +1506,7 @@ namespace party_quest() as virtual
 						
 						func check_member()
 						{
-							execute positioned 368 78 182 store result score #GLOBAL temp if entity @a[scores={playing_game=2},dx=24,dy=71,dz=24]
+							execute store result score #GLOBAL temp if entity @a[scores={map=922010300}]
 							execute if score #GLOBAL temp < #LDPQ_MEMBER temp run tellraw @s ["\n",{"translate":"text.quest.party_quest.common.member_lost","with":[{"translate":"npc.yellow_balloon"}],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 							execute if score #GLOBAL temp = #LDPQ_MEMBER temp run function ARG(_PATH)check
 						}
@@ -1542,6 +1556,7 @@ namespace party_quest() as virtual
 				
 				func tp()
 				{
+					scoreboard players set @s map 922010500
 					scoreboard players set @s game_stage 5
 					execute unless entity @a[scores={playing_game=2,game_stage=..4}] run function ARG(_PATH)reset
 					
@@ -1575,7 +1590,7 @@ namespace party_quest() as virtual
 						
 						func check_member()
 						{
-							execute positioned 374 65 -202 store result score #GLOBAL temp if entity @a[scores={playing_game=2},dx=24,dy=75,dz=24]
+							execute store result score #GLOBAL temp if entity @a[scores={map=922010400}]
 							execute if score #GLOBAL temp < #LDPQ_MEMBER temp run tellraw @s ["\n",{"translate":"text.quest.party_quest.common.member_lost","with":[{"translate":"npc.lime_balloon"}],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 							execute if score #GLOBAL temp = #LDPQ_MEMBER temp run function ARG(_PATH)check
 						}
@@ -1659,6 +1674,8 @@ namespace party_quest() as virtual
 					
 					func leave_effect()
 					{
+						scoreboard players set @s map 922010400
+						
 						function main:cross_map_effect
 						scoreboard players set @s bgm 7
 						function main:bgm/search/fantasia
@@ -1668,6 +1685,7 @@ namespace party_quest() as virtual
 					{
 						func enter()
 						{
+							scoreboard players set @s map 922010401
 							function ARG(__PATH)enter_effect
 							tp @s 378 121 -596.0 0 60
 						}
@@ -1683,6 +1701,7 @@ namespace party_quest() as virtual
 					{
 						func enter()
 						{
+							scoreboard players set @s map 922010402
 							function ARG(__PATH)enter_effect
 							tp @s 378 80 -596.0 0 60
 						}
@@ -1698,6 +1717,7 @@ namespace party_quest() as virtual
 					{
 						func enter()
 						{
+							scoreboard players set @s map 922010403
 							function ARG(__PATH)enter_effect
 							tp @s 377 39 -564.0 -130 70
 						}
@@ -1713,6 +1733,7 @@ namespace party_quest() as virtual
 					{
 						func enter()
 						{
+							scoreboard players set @s map 922010404
 							function ARG(__PATH)enter_effect
 							tp @s 377 -2 -564.0 -130 70
 						}
@@ -1724,6 +1745,7 @@ namespace party_quest() as virtual
 					{
 						func enter()
 						{
+							scoreboard players set @s map 922010405
 							function ARG(__PATH)enter_effect
 							tp @s 378 -43 -596.0 0 60
 						}
@@ -1904,6 +1926,7 @@ namespace party_quest() as virtual
 				
 				func tp()
 				{
+					scoreboard players set @s map 922010600
 					scoreboard players set @s game_stage 6
 					execute unless entity @a[scores={playing_game=2,game_stage=..5}] run function ARG(_PATH)reset
 					
@@ -1944,7 +1967,7 @@ namespace party_quest() as virtual
 						
 						func check_member()
 						{
-							execute positioned 368 174 182 store result score #GLOBAL temp if entity @a[scores={playing_game=2},dx=24,dy=64,dz=24]
+							execute store result score #GLOBAL temp if entity @a[scores={map=922010500}]
 							execute if score #GLOBAL temp < #LDPQ_MEMBER temp run tellraw @s ["\n",{"translate":"text.quest.party_quest.common.member_lost","with":[{"translate":"npc.green_balloon"}],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 							execute if score #GLOBAL temp = #LDPQ_MEMBER temp run function ARG(_PATH)check
 						}
@@ -2008,6 +2031,7 @@ namespace party_quest() as virtual
 						
 						func enter()
 						{
+							scoreboard players set @s map 922010501
 							execute unless score #LDPQ_S5_1_LOADED temp matches 1 run function ARG(_PATH)init
 							function main:cross_map_effect
 							tp @s 775 50 577 180 50
@@ -2015,6 +2039,7 @@ namespace party_quest() as virtual
 						
 						func leave()
 						{
+							scoreboard players set @s map 922010500
 							function main:cross_map_effect
 							tp @s 382 223 190.0 0 30
 						}
@@ -2052,6 +2077,7 @@ namespace party_quest() as virtual
 						
 						func enter()
 						{
+							scoreboard players set @s map 922010502
 							execute unless score #LDPQ_S5_2_LOADED temp matches 1 run function ARG(_PATH)init
 							function main:cross_map_effect
 							tp @s 760 -52 192 -160 50
@@ -2059,6 +2085,7 @@ namespace party_quest() as virtual
 						
 						func leave()
 						{
+							scoreboard players set @s map 922010500
 							function main:cross_map_effect
 							tp @s 375 216 190.0 180 40
 						}
@@ -2096,6 +2123,7 @@ namespace party_quest() as virtual
 						
 						func enter()
 						{
+							scoreboard players set @s map 922010503
 							execute unless score #LDPQ_S5_3_LOADED temp matches 1 run function ARG(_PATH)init
 							function main:cross_map_effect
 							tp @s 760 -52 -186 -160 50
@@ -2103,6 +2131,7 @@ namespace party_quest() as virtual
 						
 						func leave()
 						{
+							scoreboard players set @s map 922010500
 							function main:cross_map_effect
 							tp @s 376.0 213 200 90 40
 						}
@@ -2140,6 +2169,7 @@ namespace party_quest() as virtual
 						
 						func enter()
 						{
+							scoreboard players set @s map 922010504
 							execute unless score #LDPQ_S5_4_LOADED temp matches 1 run function ARG(_PATH)init
 							function main:cross_map_effect
 							tp @s 760 -52 -570 -160 50
@@ -2147,6 +2177,7 @@ namespace party_quest() as virtual
 						
 						func leave()
 						{
+							scoreboard players set @s map 922010500
 							function main:cross_map_effect
 							tp @s 384 210 201.0 0 40
 						}
@@ -2184,6 +2215,7 @@ namespace party_quest() as virtual
 						
 						func enter()
 						{
+							scoreboard players set @s map 922010505
 							execute unless score #LDPQ_S5_5_LOADED temp matches 1 run function ARG(_PATH)init
 							function main:cross_map_effect
 							tp @s 1144 -52 582 -160 50
@@ -2191,6 +2223,7 @@ namespace party_quest() as virtual
 						
 						func leave()
 						{
+							scoreboard players set @s map 922010500
 							function main:cross_map_effect
 							tp @s 377 200 191.0 0 40
 						}
@@ -2236,6 +2269,7 @@ namespace party_quest() as virtual
 						
 						func enter()
 						{
+							scoreboard players set @s map 922010506
 							execute unless score #LDPQ_S5_6_LOADED temp matches 1 run function ARG(_PATH)init
 							function main:cross_map_effect
 							tp @s 1144 -52 198 -160 50
@@ -2243,6 +2277,7 @@ namespace party_quest() as virtual
 						
 						func leave()
 						{
+							scoreboard players set @s map 922010500
 							function main:cross_map_effect
 							tp @s 385 177 189.0 0 40
 						}
@@ -2256,6 +2291,7 @@ namespace party_quest() as virtual
 				{
 					execute unless score #LDPQ_S7_LOADED temp matches 1 run function ARG(_PATH)load_s7
 					
+					scoreboard players set @s map 922010700
 					scoreboard players set @s game_stage 7
 					execute unless entity @a[scores={playing_game=2,game_stage=..6}] run function ARG(_PATH)reset
 					
@@ -2418,6 +2454,7 @@ namespace party_quest() as virtual
 				
 				func tp()
 				{
+					scoreboard players set @s map 922010800
 					scoreboard players set @s game_stage 8
 					execute unless entity @a[scores={playing_game=2,game_stage=..7}] run function ARG(_PATH)reset
 					
@@ -2451,7 +2488,7 @@ namespace party_quest() as virtual
 						
 						func check_member()
 						{
-							execute positioned 1136 -54 -202 store result score #GLOBAL temp if entity @a[scores={playing_game=2},dx=24,dy=55,dz=24]
+							execute store result score #GLOBAL temp if entity @a[scores={map=922010700}]
 							execute if score #GLOBAL temp < #LDPQ_MEMBER temp run tellraw @s ["\n",{"translate":"text.quest.party_quest.common.member_lost","with":[{"translate":"npc.sky_blue_balloon"}],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 							execute if score #GLOBAL temp = #LDPQ_MEMBER temp run function ARG(_PATH)check
 						}
@@ -2576,6 +2613,7 @@ namespace party_quest() as virtual
 				
 				func tp()
 				{
+					scoreboard players set @s map 922010900
 					scoreboard players set @s game_stage 9
 					execute unless entity @a[scores={playing_game=2,game_stage=..8}] run function ARG(_PATH)reset
 					
@@ -2608,7 +2646,7 @@ namespace party_quest() as virtual
 						
 						func check_member()
 						{
-							execute positioned 758 88 560 store result score #GLOBAL temp if entity @a[scores={playing_game=2},dx=24,dy=40,dz=24]
+							execute store result score #GLOBAL temp if entity @a[scores={map=922010800}]
 							execute if score #GLOBAL temp < #LDPQ_MEMBER temp run tellraw @s ["\n",{"translate":"text.quest.party_quest.common.member_lost","with":[{"translate":"npc.blue_balloon"}],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 							execute if score #GLOBAL temp = #LDPQ_MEMBER temp run function ARG(_PATH)check
 						}
@@ -2785,6 +2823,7 @@ namespace party_quest() as virtual
 						{
 							tag @s add ldpq_pass
 							
+							scoreboard players set @s map 922011000
 							scoreboard players set @s bgm 7
 							function main:bgm/search/fantasia
 							
