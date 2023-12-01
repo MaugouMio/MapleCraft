@@ -213,6 +213,11 @@
 218,if score @s playing_game matches 2 run function quest:party_quest/reset_check
 219,at @s run function main:menu/reset_ap
 220,at @s run function main:menu/reset_sp
-221,if score @s map = @s town_map at @s run function npc:dojo/enter
+221,if score @s map = @s town_map at @s run function npc:dojo/mu_lung_dojo_bulletin_board/enter
+222,if score @s map matches 925020001 at @s run function npc:dojo/so_gong/enter_train
+223,if score @s map matches 925020001 run tellraw @s ["\n",{"translate":"text.npc.so_gong.explain.train","font":"minecraft:uniform"}]
+# 保留 224 跟 225 給正式武陵道場功能使用
+# 224,if score @s map matches 925020001 at @s run function npc:dojo/so_gong/challenge
+# 225,if score @s map matches 925020001 run tellraw @s ["\n",{"translate":"text.npc.so_gong.explain.challenge","font":"minecraft:uniform"}]
 # 試玩用功能從 500 開始，避免干擾
 500,unless score @s playing_game matches 1.. if score @s level matches ..69 at @s run function main:test_job/level_up

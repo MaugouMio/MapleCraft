@@ -149,31 +149,78 @@ namespace npc()
 	
 	folder dojo()
 	{
-		func mu_lung_dojo_bulletin_board()
+		folder mu_lung_dojo_bulletin_board()
 		{
-			tellraw @s ["\n",{"translate":"text.npc.mu_lung_dojo_bulletin_board.talk","font":"minecraft:uniform"}]
-			tellraw @s ["\n",{"translate":"text.npc.mu_lung_dojo_bulletin_board.enter","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 221"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}]
-			tellraw @s {"text":"\n==================","font":"minecraft:uniform"}
+			func talk()
+			{
+				tellraw @s ["\n",{"translate":"text.npc.mu_lung_dojo_bulletin_board.talk","font":"minecraft:uniform"}]
+				tellraw @s {"translate":"text.npc.mu_lung_dojo_bulletin_board.enter","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 221"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
+				tellraw @s {"text":"\n==================","font":"minecraft:uniform"}
+			}
+			
+			func enter()
+			{
+				scoreboard players operation @s event_back_map = @s map
+				scoreboard players set @s town_map 925020001
+				scoreboard players set @s map 925020001
+				
+				scoreboard players set @s bgm 10
+				function main:bgm/search/mureung_school1
+				
+				function main:cross_map_effect
+				# tp @s x y z rx ry
+			}
 		}
 		
-		func enter()
+		folder so_gong()
 		{
-			scoreboard players operation @s event_back_map = @s map
-			scoreboard players set @s town_map 925020001
-			scoreboard players set @s map 925020001
+			func talk()
+			{
+				tellraw @s ["\n",{"translate":"text.npc.so_gong.talk","font":"minecraft:uniform"}]
+				# tellraw @s {"translate":"text.npc.so_gong.challenge","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 224"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
+				tellraw @s {"translate":"text.npc.so_gong.enter_train","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 222"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
+				# tellraw @s {"translate":"text.npc.so_gong.help.challenge","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 225"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
+				tellraw @s {"translate":"text.npc.so_gong.help.train","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 223"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
+				tellraw @s {"text":"\n==================","font":"minecraft:uniform"}
+			}
 			
-			scoreboard players set @s bgm 10
-			function main:bgm/search/mureung_school1
+			func enter_train()
+			{
+				scoreboard players set @s map 925020003
+				# tp @s x y z rx ry
+				function main:cross_map_effect
+			}
 			
-			function main:cross_map_effect
-			# tp @s x y z rx ry
+			# func challenge()
+			# {
+				
+			# }
 		}
 		
-		func leave()
+		folder portal()
 		{
-			scoreboard players operation @s town_map = @s event_back_map
-			function main:town_search/run
-			function main:cross_map_effect
+			func leave()
+			{
+				scoreboard players operation @s town_map = @s event_back_map
+				function main:town_search/run
+				function main:cross_map_effect
+			}
+			
+			folder train()
+			{
+				func tp_up()
+				{
+					function main:tp_effect
+					# tp @s x y z rx ry
+				}
+				
+				func leave()
+				{
+					scoreboard players set @s map 925020001
+					# tp @s x y z rx ry
+					function main:cross_map_effect
+				}
+			}
 		}
 	}
 	
