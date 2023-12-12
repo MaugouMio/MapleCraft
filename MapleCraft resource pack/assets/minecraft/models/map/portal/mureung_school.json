@@ -1,0 +1,27 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"layer0": "map/portal/mureung_school"
+	},
+	"elements": [
+		{
+			"from": [7.5, -16, 8],
+			"to": [8.5, 21.16667, 23.16667],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, -8]},
+			"faces": {
+				"north": {"uv": [16, 0, 15.82418, 16], "texture": "#layer0"},
+				"east": {"uv": [0, 0, 16, 16], "texture": "#layer0", "tintindex": 0},
+				"south": {"uv": [0.17582, 0, 0, 16], "texture": "#layer0"},
+				"west": {"uv": [16, 0, 0, 16], "texture": "#layer0", "tintindex": 0},
+				"up": {"uv": [0, 0.17582, 16, 0], "texture": "#layer0"},
+				"down": {"uv": [0, 15.82418, 16, 16], "texture": "#layer0"}
+			}
+		}
+	],
+	"display": {
+		"head": {
+			"translation": [0, 25.3, 0],
+			"scale": [1.6, 1.7, 1.59]
+		}
+	}
+}
