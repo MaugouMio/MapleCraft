@@ -167,8 +167,8 @@ namespace npc()
 				scoreboard players set @s bgm 10
 				function main:bgm/search/mureung_school1
 				
+				tp @s -371.0 -2 -521 90 40
 				function main:cross_map_effect
-				# tp @s x y z rx ry
 			}
 		}
 		
@@ -187,7 +187,7 @@ namespace npc()
 			func enter_train()
 			{
 				scoreboard players set @s map 925020003
-				# tp @s x y z rx ry
+				tp @s -372 -42 -521 90 40
 				function main:cross_map_effect
 			}
 			
@@ -211,13 +211,13 @@ namespace npc()
 				func tp_up()
 				{
 					function main:tp_effect
-					# tp @s x y z rx ry
+					tp @s -386 -43 -521 90 50
 				}
 				
 				func leave()
 				{
 					scoreboard players set @s map 925020001
-					# tp @s x y z rx ry
+					tp @s -371.0 -2 -521 90 40
 					function main:cross_map_effect
 				}
 			}
