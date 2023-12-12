@@ -1,26 +1,12 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"1": "npc/mu_lung_dojo_bulletin_board",
 		"2": "npc/mu_lung_dojo_bulletin_board/board",
 		"3": "npc/mu_lung_dojo_bulletin_board/wood",
 		"4": "npc/mu_lung_dojo_bulletin_board/brick",
-		"5": "npc/mu_lung_dojo_bulletin_board/top_wood",
-		"particle": "npc/mu_lung_dojo_bulletin_board"
+		"5": "npc/mu_lung_dojo_bulletin_board/top_wood"
 	},
 	"elements": [
-		{
-			"from": [-6, -16, 8],
-			"to": [22, 16.25, 8],
-			"faces": {
-				"north": {"uv": [0, 0, 16, 16], "texture": "#1"},
-				"east": {"uv": [0, 0, 0, 16], "texture": "#1"},
-				"south": {"uv": [16, 0, 0, 16], "texture": "#1"},
-				"west": {"uv": [0, 0, 0, 16], "texture": "#1"},
-				"up": {"uv": [16, 0, 0, 0], "texture": "#1"},
-				"down": {"uv": [16, 0, 0, 0], "texture": "#1"}
-			}
-		},
 		{
 			"name": "board",
 			"from": [1.75, -9.5, 7.75],
@@ -766,21 +752,21 @@
 		6,
 		7,
 		8,
-		9,
 		{
 			"name": "feet",
 			"origin": [-0.125, -14.10273, 8],
 			"color": 0,
 			"nbt": "{}",
-			"children": [10, 11, 12, 13, 14, 15, 16]
+			"children": [9, 10, 11, 12, 13, 14, 15]
 		},
 		{
 			"name": "feet",
 			"origin": [-0.125, -14.10273, 8],
 			"color": 0,
 			"nbt": "{}",
-			"children": [17, 18, 19, 20, 21, 22, 23]
+			"children": [16, 17, 18, 19, 20, 21, 22]
 		},
+		23,
 		24,
 		25,
 		26,
@@ -808,7 +794,6 @@
 		48,
 		49,
 		50,
-		51,
-		52
+		51
 	]
 }
