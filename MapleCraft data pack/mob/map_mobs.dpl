@@ -138,7 +138,7 @@ namespace map_mobs() as virtual
 			print(f"func {mob[0]}()")
 			print("{")
 			for pos in spawn_positions:
-				print(f"execute positioned {pos} run", spawn_mob(mob[0], uuid=MOB_UUID, add_tag="no_drop"))
+				print(f"execute positioned {pos} run", spawn_mob(mob[0], uuid=MOB_UUID, add_tag=["no_drop"]))
 				MOB_UUID += 1
 			print("}")
 		# 為了讓所有類型怪物共用一組 UUID，每次 loop 開始會先回歸 index
@@ -148,7 +148,7 @@ namespace map_mobs() as virtual
 			print(f"func {mob[0]}()")
 			print("{")
 			for pos in boss_spawn_positions:
-				print(f"execute positioned {pos} run", spawn_mob(mob[0], uuid=MOB_UUID, add_tag="no_drop"))
+				print(f"execute positioned {pos} run", spawn_mob(mob[0], uuid=MOB_UUID, add_tag=["no_drop"]))
 				MOB_UUID += 1
 			print("}")
 		```
