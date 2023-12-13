@@ -155,7 +155,7 @@ namespace npc()
 			{
 				tellraw @s ["\n",{"translate":"text.npc.mu_lung_dojo_bulletin_board.talk","font":"minecraft:uniform"}]
 				tellraw @s {"translate":"text.npc.mu_lung_dojo_bulletin_board.enter","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 221"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
-				tellraw @s {"text":"\n==================","font":"minecraft:uniform"}
+				tellraw @s {"text":"==================","font":"minecraft:uniform"}
 			}
 			
 			func enter()
@@ -181,7 +181,7 @@ namespace npc()
 				tellraw @s {"translate":"text.npc.so_gong.enter_train","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 222"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
 				# tellraw @s {"translate":"text.npc.so_gong.help.challenge","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 225"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
 				tellraw @s {"translate":"text.npc.so_gong.help.train","font":"minecraft:uniform","clickEvent":{"action":"run_command","value":"/trigger command set 223"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}}
-				tellraw @s {"text":"\n==================","font":"minecraft:uniform"}
+				tellraw @s {"text":"==================","font":"minecraft:uniform"}
 			}
 			
 			func enter_train()
