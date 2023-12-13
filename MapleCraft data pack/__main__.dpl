@@ -398,7 +398,7 @@ namespace main()
 		
 		func dojo()
 		{
-			# tp @s x y z rx ry
+			tp @s -371.0 -2 -521 90 40
 			scoreboard players set @s bgm 10
 			function main:bgm/search/mureung_school1
 		}
