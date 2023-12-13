@@ -121,11 +121,14 @@ namespace map_mobs() as virtual
 			("4230109", 37013),
 			("4230110", 37014),
 			("4230115", 37015),
-			("4130103", 37016),
+			("4130103", 37016)
+		]
+		available_bosses = [
 			("9300003", 37017),
 			("9300012", 37018)
 		]
-		spawn_positions = ["250 -5 0"]
+		spawn_positions = ["-384 -53 -514","-384 -53 -521","-384 -53 -528","-381 -53 -517","-381 -53 -525","-377 -53 -518","-377 -53 -524","-372 -53 -514","-373 -53 -521","-372 -53 -528"]
+		boss_spawn_positions = ["-384 -53 -514","-384 -53 -528"]
 		# 為了讓所有類型怪物共用一組 UUID，每次 loop 開始會先回歸 index
 		MOB_UUID += len(spawn_positions)
 		for mob in available_mobs:
@@ -133,6 +136,16 @@ namespace map_mobs() as virtual
 			print(f"func {mob[0]}()")
 			print("{")
 			for pos in spawn_positions:
+				print(f"execute positioned {pos} run", spawn_mob(mob[0], uuid=MOB_UUID, add_tag="no_drop"))
+				MOB_UUID += 1
+			print("}")
+		# 為了讓所有類型怪物共用一組 UUID，每次 loop 開始會先回歸 index
+		MOB_UUID += len(boss_spawn_positions)
+		for mob in available_mobs:
+			MOB_UUID -= len(boss_spawn_positions)
+			print(f"func {mob[0]}()")
+			print("{")
+			for pos in boss_spawn_positions:
 				print(f"execute positioned {pos} run", spawn_mob(mob[0], uuid=MOB_UUID, add_tag="no_drop"))
 				MOB_UUID += 1
 			print("}")
