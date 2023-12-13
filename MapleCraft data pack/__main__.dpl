@@ -677,7 +677,7 @@ namespace main()
 	{
 		title @s times 1 5 10
 		title @s title {"text":"4","font":"ui:main"}
-		playsound minecraft:game.portal player @s
+		execute at @s run playsound minecraft:game.portal player @s
 	}
 	
 	folder test_job()
