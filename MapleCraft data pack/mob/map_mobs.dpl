@@ -141,7 +141,7 @@ namespace map_mobs() as virtual
 			print("}")
 		# 為了讓所有類型怪物共用一組 UUID，每次 loop 開始會先回歸 index
 		MOB_UUID += len(boss_spawn_positions)
-		for mob in available_mobs:
+		for mob in available_bosses:
 			MOB_UUID -= len(boss_spawn_positions)
 			print(f"func {mob[0]}()")
 			print("{")
@@ -155,11 +155,14 @@ namespace map_mobs() as virtual
 		{
 			data remove block ~ ~1 ~ Items[]
 			```
-			if len(available_mobs) > 27:
+			if len(available_mobs) + len(available_bosses) > 27:
 				raise Exception("ERROR: Dojo available train mob count > 27")
 				
 			i = 0
 			for mob in available_mobs:
+				print(f"item replace block ~ ~1 ~ container.{i} with minecraft:stick{itemDatas[mob[1]]} 64")
+				i += 1
+			for mob in available_bosses:
 				print(f"item replace block ~ ~1 ~ container.{i} with minecraft:stick{itemDatas[mob[1]]} 64")
 				i += 1
 			```
