@@ -349,7 +349,7 @@ namespace main()
 	{
 		func run()
 		{
-			execute unless score @s playing_game matches 1.. run function ARG(_PATH)town_search/run
+			execute unless score @s playing_game matches 1.. run function ARG(_PATH)normal
 			execute if score @s playing_game matches 1.. run function quest:party_quest/reset_check
 			
 			execute unless score @s login matches 1.. run function ARG(_PATH)reset_screen

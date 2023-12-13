@@ -478,7 +478,7 @@ namespace bar_display()
 			func clear()
 			{
 				function ARG(__PATH)remove_dead_decoration/reset
-				execute as @e[type=item_display,tag=dead_decoration,distance=..1] if score @s number = #GLOBAL temp run kill @s
+				execute as @e[type=item_display,tag=dead_decoration,distance=..3] if score @s number = #GLOBAL temp run kill @s
 				execute as @e[type=item_display,tag=tomb] at @s run forceload add ~ ~
 			}
 		}
