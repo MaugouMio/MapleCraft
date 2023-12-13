@@ -89,8 +89,10 @@ namespace map_mobs() as virtual
 		{
 			execute unless data entity @s SelectedItem.tag.mob_id run return 0
 			
+			execute positioned -389.0 -54.0 -533.0 run kill @e[type=#skill:enemy,tag=enemy,dx=21,dy=10,dz=24]
 			item replace entity 00000000-0000-0008-0000-000000000008 container.0 from entity @s weapon.mainhand
-			playsound minecraft:item.equip player @a ~ ~ ~ 5 1 0
+			execute at 00000000-0000-0008-0000-000000000008 run particle minecraft:flash ~ ~ ~ 0 0 0 1 2 force
+			playsound minecraft:game.job_changed player @a[scores={map=925020003}] ~ ~ ~ 5 1 0
 		}
 		
 		func check_spawn()
