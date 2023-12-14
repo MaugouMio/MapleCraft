@@ -315,7 +315,12 @@ namespace party_quest() as virtual
 			execute if score #KPQ_S4_LOADED temp matches 1 unless entity @a[scores={playing_game=1,game_stage=..4}] run function ARG(_PATH)stages/4/reset
 			execute if score #KPQ_S5_LOADED temp matches 1 unless entity @a[scores={playing_game=1,game_stage=..5}] run function ARG(_PATH)stages/5/reset
 			execute if score #KPQ_S6_LOADED temp matches 1 unless entity @a[scores={playing_game=1,game_stage=..6}] run function ARG(_PATH)stages/6/reset
-			execute unless entity @a[scores={playing_game=1}] run scoreboard players reset #KPQ_STAGE temp
+			execute unless entity @a[scores={playing_game=1}] run schedule function ARG(_PATH)delay_reset 1s
+		}
+		
+		func delay_reset()
+		{
+			scoreboard players reset #KPQ_STAGE temp
 		}
 		
 		folder npc_talk()
@@ -365,12 +370,16 @@ namespace party_quest() as virtual
 				func reset()
 				{
 					forceload add -266 -23 -314 23
+					schedule function ARG(_PATH)delay_reset 4t
+					scoreboard players reset #KPQ_S1_LOADED temp
+				}
+				
+				func delay_reset()
+				{
 					execute positioned -328 45 -43 run kill @e[type=!player,tag=!fixed,dx=86,dy=43,dz=86]
 					data modify block -310 47 0 front_text.messages[0] set value '""'
 					data modify block -310 47 0 back_text.messages[0] set value '""'
 					forceload remove -266 -23 -314 23
-					
-					scoreboard players reset #KPQ_S1_LOADED temp
 				}
 				
 				folder npc()
@@ -486,12 +495,16 @@ namespace party_quest() as virtual
 				func reset()
 				{
 					forceload add -550 -25 -500 25
+					schedule function ARG(_PATH)delay_reset 4t
+					scoreboard players reset #KPQ_S2_LOADED temp
+				}
+				
+				func delay_reset()
+				{
 					execute positioned -565 41 -40 run kill @e[type=!player,tag=!fixed,dx=80,dy=37,dz=80]
 					data modify block -540 43 0 front_text.messages[0] set value '""'
 					data modify block -540 43 0 back_text.messages[0] set value '""'
 					forceload remove -550 -25 -500 25
-					
-					scoreboard players reset #KPQ_S2_LOADED temp
 				}
 				
 				folder npc()
@@ -590,14 +603,18 @@ namespace party_quest() as virtual
 				func reset()
 				{
 					forceload add -852 -10 -800 10
+					schedule function ARG(_PATH)delay_reset 4t
+					scoreboard players reset #KPQ_S3_LOADED temp
+				}
+				
+				func delay_reset()
+				{
 					execute positioned -852 31 -10 run kill @e[type=!player,tag=!fixed,dx=52,dy=28,dz=20]
 					data modify block -850 47 0 front_text.messages[0] set value '""'
 					data modify block -850 47 0 back_text.messages[0] set value '""'
 					setblock -849 47 3 minecraft:air
 					setblock -849 47 -3 minecraft:air
 					forceload remove -852 -10 -800 10
-					
-					scoreboard players reset #KPQ_S3_LOADED temp
 				}
 				
 				folder npc()
@@ -710,14 +727,18 @@ namespace party_quest() as virtual
 				func reset()
 				{
 					forceload add -1197 2 -1171 29
+					schedule function ARG(_PATH)delay_reset 4t
+					scoreboard players reset #KPQ_S4_LOADED temp
+				}
+				
+				func delay_reset()
+				{
 					execute positioned -1197 31 2 run kill @e[type=!player,tag=!fixed,dx=26,dy=29,dz=27]
 					data modify block -1195 55 24 front_text.messages[0] set value '""'
 					data modify block -1195 55 24 back_text.messages[0] set value '""'
 					setblock -1194 55 21 minecraft:air
 					setblock -1194 55 27 minecraft:air
 					forceload remove -1197 2 -1171 29
-					
-					scoreboard players reset #KPQ_S4_LOADED temp
 				}
 				
 				folder npc()
@@ -854,12 +875,16 @@ namespace party_quest() as virtual
 				func reset()
 				{
 					forceload add -1530 1 -1490 21
+					schedule function ARG(_PATH)delay_reset 4t
+					scoreboard players reset #KPQ_S5_LOADED temp
+				}
+				
+				func delay_reset()
+				{
 					execute positioned -1530 50 1 run kill @e[type=!player,tag=!fixed,dx=40,dy=60,dz=20]
 					setblock -1525 103 9 minecraft:air
 					setblock -1525 103 15 minecraft:air
 					forceload remove -1530 1 -1490 21
-					
-					scoreboard players reset #KPQ_S5_LOADED temp
 				}
 				
 				folder npc()
@@ -966,10 +991,14 @@ namespace party_quest() as virtual
 				func reset()
 				{
 					forceload add -1847 -7 -1815 11
+					schedule function ARG(_PATH)delay_reset 4t
+					scoreboard players reset #KPQ_S6_LOADED temp
+				}
+				
+				func delay_reset()
+				{
 					execute positioned -1847 29 -7 run kill @e[type=!player,tag=!fixed,dx=32,dy=31,dz=18]
 					forceload remove -1847 -7 -1815 11
-					
-					scoreboard players reset #KPQ_S6_LOADED temp
 				}
 			}
 		}
@@ -1123,7 +1152,12 @@ namespace party_quest() as virtual
 			execute if score #LDPQ_S8_LOADED temp matches 1 unless entity @a[scores={playing_game=2,game_stage=..8}] run function ARG(_PATH)stages/8/reset
 			execute if score #LDPQ_S9_LOADED temp matches 1 unless entity @a[scores={playing_game=2,game_stage=..9}] run function ARG(_PATH)stages/9/reset
 			execute if score #LDPQ_S10_LOADED temp matches 1 unless entity @a[scores={playing_game=2,game_stage=..10}] run function ARG(_PATH)stages/10/reset
-			execute unless entity @a[scores={playing_game=2}] run scoreboard players reset #LDPQ_STAGE temp
+			execute unless entity @a[scores={playing_game=2}] run schedule function ARG(_PATH)delay_reset 1s
+		}
+		
+		func delay_reset()
+		{
+			scoreboard players reset #LDPQ_STAGE temp
 		}
 		
 		folder npc_talk()
@@ -1215,11 +1249,15 @@ namespace party_quest() as virtual
 				func reset()
 				{
 					forceload add 369 183 392 206
-					execute positioned 368 -55 182 run kill @e[type=!player,tag=!fixed,dx=24,dy=105,dz=24]
-					forceload remove 369 183 392 206
-					
+					schedule function ARG(_PATH)delay_reset 4t
 					scoreboard players reset #LDPQ_S1_LOADED temp
 					execute unless score #LDPQ_S2_LOADED temp matches 1 run schedule clear quest:party_quest/ldpq/item_collector
+				}
+				
+				func delay_reset()
+				{
+					execute positioned 368 -55 182 run kill @e[type=!player,tag=!fixed,dx=24,dy=105,dz=24]
+					forceload remove 369 183 392 206
 				}
 				
 				folder npc()
@@ -1308,11 +1346,15 @@ namespace party_quest() as virtual
 					execute if score #LDPQ_S2_H_LOADED temp matches 1 run function ARG(_PATH)hide/reset
 					
 					forceload add 375 -201 398 -178
-					execute positioned 374 -55 -202 run kill @e[type=!player,tag=!fixed,dx=24,dy=96,dz=24]
-					forceload remove 375 -201 398 -178
-					
+					schedule function ARG(_PATH)delay_reset 4t
 					scoreboard players reset #LDPQ_S2_LOADED temp
 					execute unless score #LDPQ_S3_LOADED temp matches 1 run schedule clear quest:party_quest/ldpq/item_collector
+				}
+				
+				func delay_reset()
+				{
+					execute positioned 374 -55 -202 run kill @e[type=!player,tag=!fixed,dx=24,dy=96,dz=24]
+					forceload remove 375 -201 398 -178
 				}
 				
 				folder npc()
@@ -1456,6 +1498,11 @@ namespace party_quest() as virtual
 						scoreboard players reset #LDPQ_S2_H_PLAYER temp
 						
 						forceload add 368 -592 391 -569
+						schedule function ARG(_PATH)delay_reset 4t
+					}
+					
+					func delay_reset()
+					{
 						function ARG(_PATH)clear
 						forceload remove 368 -592 391 -569
 					}
@@ -1487,11 +1534,15 @@ namespace party_quest() as virtual
 				func reset()
 				{
 					forceload add 369 183 392 206
-					execute positioned 368 78 182 run kill @e[type=!player,tag=!fixed,dx=24,dy=71,dz=24]
-					forceload remove 369 183 392 206
-					
+					schedule function ARG(_PATH)delay_reset 4t
 					scoreboard players reset #LDPQ_S3_LOADED temp
 					schedule clear quest:party_quest/ldpq/item_collector
+				}
+				
+				func delay_reset()
+				{
+					execute positioned 368 78 182 run kill @e[type=!player,tag=!fixed,dx=24,dy=71,dz=24]
+					forceload remove 369 183 392 206
 				}
 				
 				folder npc()
@@ -1572,10 +1623,14 @@ namespace party_quest() as virtual
 					execute if score #LDPQ_S4_D_LOADED temp matches 1 run function ARG(_PATH)dimension/reset
 					
 					forceload add 375 -201 398 -178
+					schedule function ARG(_PATH)delay_reset 4t
+					scoreboard players reset #LDPQ_S4_LOADED temp
+				}
+				
+				func delay_reset()
+				{
 					execute positioned 374 65 -202 run kill @e[type=!player,tag=!fixed,dx=24,dy=75,dz=24]
 					forceload remove 375 -201 398 -178
-					
-					scoreboard players reset #LDPQ_S4_LOADED temp
 				}
 				
 				folder npc()
@@ -1657,10 +1712,14 @@ namespace party_quest() as virtual
 						schedule clear ARG(__PATH)eyes/loop
 						
 						forceload add 376 -598 383 -563
+						schedule function ARG(_PATH)delay_reset 4t
+						scoreboard players reset #LDPQ_S4_D_LOADED temp
+					}
+					
+					func delay_reset()
+					{
 						execute positioned 375 -54 -599 run kill @e[type=!player,tag=!fixed,dx=8,dy=180,dz=36]
 						forceload remove 376 -598 383 -563
-						
-						scoreboard players reset #LDPQ_S4_D_LOADED temp
 					}
 					
 					func enter_effect()
@@ -1948,11 +2007,15 @@ namespace party_quest() as virtual
 					execute if score #LDPQ_S5_6_LOADED temp matches 1 run function ARG(_PATH)sub/6/reset
 					
 					forceload add 369 183 392 206
-					execute positioned 368 174 182 run kill @e[type=!player,tag=!fixed,dx=24,dy=64,dz=24]
-					forceload remove 369 183 392 206
-					
+					schedule function ARG(_PATH)delay_reset 4t
 					scoreboard players reset #LDPQ_S5_LOADED temp
 					schedule clear quest:party_quest/ldpq/item_collector
+				}
+				
+				func delay_reset()
+				{
+					execute positioned 368 174 182 run kill @e[type=!player,tag=!fixed,dx=24,dy=64,dz=24]
+					forceload remove 369 183 392 206
 				}
 				
 				folder npc()
@@ -2025,6 +2088,11 @@ namespace party_quest() as virtual
 							scoreboard players reset #LDPQ_S5_1_LOADED temp
 							
 							forceload add 759 561 782 584
+							schedule function ARG(_PATH)delay_reset 4t
+						}
+						
+						func delay_reset()
+						{
 							execute positioned 758 -55 560 run kill @e[type=!player,tag=!fixed,dx=24,dy=118,dz=24]
 							forceload remove 759 561 782 584
 						}
@@ -2071,6 +2139,11 @@ namespace party_quest() as virtual
 							scoreboard players reset #LDPQ_S5_2_LOADED temp
 							
 							forceload add 753 177 776 200
+							schedule function ARG(_PATH)delay_reset 4t
+						}
+						
+						func delay_reset()
+						{
 							execute positioned 752 -55 176 run kill @e[type=!player,tag=!fixed,dx=24,dy=120,dz=24]
 							forceload remove 753 177 776 200
 						}
@@ -2117,6 +2190,11 @@ namespace party_quest() as virtual
 							scoreboard players reset #LDPQ_S5_3_LOADED temp
 							
 							forceload add 753 -201 776 -178
+							schedule function ARG(_PATH)delay_reset 4t
+						}
+						
+						func delay_reset()
+						{
 							execute positioned 752 -55 -202 run kill @e[type=!player,tag=!fixed,dx=24,dy=120,dz=24]
 							forceload remove 753 -201 776 -178
 						}
@@ -2163,6 +2241,11 @@ namespace party_quest() as virtual
 							scoreboard players reset #LDPQ_S5_4_LOADED temp
 							
 							forceload add 753 -585 776 -562
+							schedule function ARG(_PATH)delay_reset 4t
+						}
+						
+						func delay_reset()
+						{
 							execute positioned 752 -55 -586 run kill @e[type=!player,tag=!fixed,dx=24,dy=120,dz=24]
 							forceload remove 753 -585 776 -562
 						}
@@ -2209,6 +2292,11 @@ namespace party_quest() as virtual
 							scoreboard players reset #LDPQ_S5_5_LOADED temp
 							
 							forceload add 1137 567 1160 590
+							schedule function ARG(_PATH)delay_reset 4t
+						}
+						
+						func delay_reset()
+						{
 							execute positioned 1136 -55 566 run kill @e[type=!player,tag=!fixed,dx=24,dy=120,dz=24]
 							forceload remove 1137 567 1160 590
 						}
@@ -2263,6 +2351,11 @@ namespace party_quest() as virtual
 							scoreboard players reset #LDPQ_S5_6_LOADED temp
 							
 							forceload add 1137 183 1160 206
+							schedule function ARG(_PATH)delay_reset 4t
+						}
+						
+						func delay_reset()
+						{
 							execute positioned 1136 -55 182 run kill @e[type=!player,tag=!fixed,dx=24,dy=116,dz=24]
 							forceload remove 1137 183 1160 206
 						}
@@ -2327,10 +2420,15 @@ namespace party_quest() as virtual
 				func reset()
 				{
 					forceload add 375 -201 398 -178
-					execute positioned 374 165 -202 run kill @e[type=!player,tag=!fixed,dx=24,dy=98,dz=24]
-					forceload remove 375 -201 398 -178
+					schedule function ARG(_PATH)delay_reset 4t
 					
 					scoreboard players reset #LDPQ_S6_LOADED temp
+				}
+				
+				func delay_reset()
+				{
+					execute positioned 374 165 -202 run kill @e[type=!player,tag=!fixed,dx=24,dy=98,dz=24]
+					forceload remove 375 -201 398 -178
 				}
 				
 				folder npc()
@@ -2469,11 +2567,16 @@ namespace party_quest() as virtual
 				func reset()
 				{
 					forceload add 1137 -201 1160 -178
-					execute positioned 1136 -54 -202 run kill @e[type=!player,tag=!fixed,dx=24,dy=55,dz=24]
-					forceload remove 1137 -201 1160 -178
+					schedule function ARG(_PATH)delay_reset 4t
 					
 					schedule clear ARG(_PATH)check_box/run
 					scoreboard players reset #LDPQ_S7_LOADED temp
+				}
+				
+				func delay_reset()
+				{
+					execute positioned 1136 -54 -202 run kill @e[type=!player,tag=!fixed,dx=24,dy=55,dz=24]
+					forceload remove 1137 -201 1160 -178
 				}
 				
 				folder npc()
@@ -2628,10 +2731,15 @@ namespace party_quest() as virtual
 				func reset()
 				{
 					forceload add 759 561 782 584
-					execute positioned 758 88 560 run kill @e[type=!player,tag=!fixed,dx=24,dy=40,dz=24]
-					forceload remove 759 561 782 584
+					schedule function ARG(_PATH)delay_reset 4t
 					
 					scoreboard players reset #LDPQ_S8_LOADED temp
+				}
+				
+				func delay_reset()
+				{
+					execute positioned 758 88 560 run kill @e[type=!player,tag=!fixed,dx=24,dy=40,dz=24]
+					forceload remove 759 561 782 584
 				}
 				
 				folder npc()
@@ -2730,12 +2838,17 @@ namespace party_quest() as virtual
 				func reset()
 				{
 					forceload add 1131 -592 1183 -540
-					execute positioned 1130 -53 -593 run kill @e[type=!player,tag=!fixed,dx=54,dy=14,dz=54]
-					forceload remove 1131 -592 1183 -540
+					schedule function ARG(_PATH)delay_reset 4t
 					
 					schedule clear ARG(_PATH)check_box/run
 					schedule clear ARG(_PATH)shine
 					scoreboard players reset #LDPQ_S9_LOADED temp
+				}
+				
+				func delay_reset()
+				{
+					execute positioned 1130 -53 -593 run kill @e[type=!player,tag=!fixed,dx=54,dy=14,dz=54]
+					forceload remove 1131 -592 1183 -540
 				}
 				
 				folder npc()
@@ -2892,10 +3005,15 @@ namespace party_quest() as virtual
 				func reset()
 				{
 					forceload add 753 177 776 200
-					execute positioned 752 90 176 run kill @e[type=!player,tag=!fixed,dx=24,dy=139,dz=24]
-					forceload remove 753 177 776 200
+					schedule function ARG(_PATH)delay_reset 4t
 					
 					scoreboard players reset #LDPQ_S10_LOADED temp
+				}
+				
+				func delay_reset()
+				{
+					execute positioned 752 90 176 run kill @e[type=!player,tag=!fixed,dx=24,dy=139,dz=24]
+					forceload remove 753 177 776 200
 				}
 				
 				folder npc()
