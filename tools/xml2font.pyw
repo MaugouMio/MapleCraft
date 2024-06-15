@@ -202,7 +202,7 @@ def generateFont(resourcepack_path, xml_files, anchor, formula):
 			for i in range(len(images)):
 				images[i].save(f"{texture_path}/{i}.png")
 
-		with open("MapleCraft data pack/data/skill/functions/summon_font_effect/" + file_name + ".mcfunction", "w") as f:
+		with open("../MapleCraft data pack/data/skill/functions/summon_font_effect/" + file_name + ".mcfunction", "w") as f:
 			initial_name = page_order[0].replace('"text":""', '"text":"0"')
 			tags = ",".join(page_order)
 			f.write('''data merge entity @s {text:'%s',Tags:%s,billboard:"center",text_opacity:10,background:0}\n''' %(initial_name, tags))
