@@ -1,0 +1,27 @@
+{
+    "oversized_in_gui": true,
+    "model": {
+        "type": "range_dispatch",
+        "property": "custom_model_data",
+        "fallback": {
+            "type": "model",
+            "model": "item/diamond_hoe"
+        },
+        "entries": [
+            {
+                "threshold": 3010000,
+                "model": {
+                    "type": "model",
+                    "model": "install/3010000"
+                }
+            },
+            {
+                "threshold": 3014000,
+                "model": {
+                    "type": "model",
+                    "model": "install/3014000"
+                }
+            }
+        ]
+    }
+}

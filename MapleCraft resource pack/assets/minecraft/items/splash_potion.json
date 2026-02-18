@@ -1,0 +1,243 @@
+{
+    "oversized_in_gui": true,
+    "model": {
+        "type": "range_dispatch",
+        "property": "custom_model_data",
+        "fallback": {
+            "type": "model",
+            "model": "minecraft:item/potion",
+            "tints": [
+                {
+                    "type": "minecraft:potion",
+                    "default": -13083194
+                }
+            ]
+        },
+        "entries": [
+            {
+                "threshold": 1,
+                "model": {
+                    "type": "model",
+                    "model": "box/2202002/0"
+                }
+            },
+            {
+                "threshold": 10,
+                "model": {
+                    "type": "model",
+                    "model": "box/2202002/1"
+                }
+            },
+            {
+                "threshold": 13,
+                "model": {
+                    "type": "model",
+                    "model": "box/2202002/0"
+                }
+            },
+            {
+                "threshold": 30,
+                "model": {
+                    "type": "model",
+                    "model": "box/2202002/2"
+                }
+            },
+            {
+                "threshold": 33,
+                "model": {
+                    "type": "model",
+                    "model": "box/2202002/0"
+                }
+            },
+            {
+                "threshold": 50,
+                "model": {
+                    "type": "model",
+                    "model": "box/2202002/1"
+                }
+            },
+            {
+                "threshold": 53,
+                "model": {
+                    "type": "model",
+                    "model": "box/2202002/0"
+                }
+            },
+            {
+                "threshold": 70,
+                "model": {
+                    "type": "model",
+                    "model": "box/2202002/3"
+                }
+            },
+            {
+                "threshold": 73,
+                "model": {
+                    "type": "model",
+                    "model": "box/2202002/4"
+                }
+            },
+            {
+                "threshold": 76,
+                "model": {
+                    "type": "model",
+                    "model": "box/2202002/5"
+                }
+            },
+            {
+                "threshold": 80,
+                "model": {
+                    "type": "model",
+                    "model": "item/empty"
+                }
+            },
+            {
+                "threshold": 101,
+                "model": {
+                    "type": "model",
+                    "model": "box/0002000/0"
+                }
+            },
+            {
+                "threshold": 110,
+                "model": {
+                    "type": "model",
+                    "model": "box/0002000/1"
+                }
+            },
+            {
+                "threshold": 113,
+                "model": {
+                    "type": "model",
+                    "model": "box/0002000/0"
+                }
+            },
+            {
+                "threshold": 130,
+                "model": {
+                    "type": "model",
+                    "model": "box/0002000/1"
+                }
+            },
+            {
+                "threshold": 133,
+                "model": {
+                    "type": "model",
+                    "model": "box/0002000/0"
+                }
+            },
+            {
+                "threshold": 150,
+                "model": {
+                    "type": "model",
+                    "model": "box/0002000/1"
+                }
+            },
+            {
+                "threshold": 153,
+                "model": {
+                    "type": "model",
+                    "model": "box/0002000/0"
+                }
+            },
+            {
+                "threshold": 170,
+                "model": {
+                    "type": "model",
+                    "model": "box/0002000/1"
+                }
+            },
+            {
+                "threshold": 173,
+                "model": {
+                    "type": "model",
+                    "model": "box/0002000/2"
+                }
+            },
+            {
+                "threshold": 176,
+                "model": {
+                    "type": "model",
+                    "model": "box/0002000/3"
+                }
+            },
+            {
+                "threshold": 176,
+                "model": {
+                    "type": "model",
+                    "model": "box/0002000/4"
+                }
+            },
+            {
+                "threshold": 180,
+                "model": {
+                    "type": "model",
+                    "model": "item/empty"
+                }
+            },
+            {
+                "threshold": 1000001,
+                "model": {
+                    "type": "model",
+                    "model": "map/portal/common"
+                }
+            },
+            {
+                "threshold": 1000002,
+                "model": {
+                    "type": "model",
+                    "model": "map/portal/kpq"
+                }
+            },
+            {
+                "threshold": 1000003,
+                "model": {
+                    "type": "model",
+                    "model": "map/portal/ldpq/stage"
+                }
+            },
+            {
+                "threshold": 1000004,
+                "model": {
+                    "type": "model",
+                    "model": "map/portal/ldpq/hole0"
+                }
+            },
+            {
+                "threshold": 1000005,
+                "model": {
+                    "type": "model",
+                    "model": "map/portal/ldpq/hole1"
+                }
+            },
+            {
+                "threshold": 1000006,
+                "model": {
+                    "type": "model",
+                    "model": "map/portal/ldpq/hole2"
+                }
+            },
+            {
+                "threshold": 1000007,
+                "model": {
+                    "type": "model",
+                    "model": "map/portal/ldpq/machine"
+                }
+            },
+            {
+                "threshold": 1000008,
+                "model": {
+                    "type": "model",
+                    "model": "map/portal/arrow_up"
+                }
+            },
+            {
+                "threshold": 1000009,
+                "model": {
+                    "type": "model",
+                    "model": "map/portal/mureung_school"
+                }
+            }
+        ]
+    }
+}

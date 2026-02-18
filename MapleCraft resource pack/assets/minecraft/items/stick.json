@@ -1,0 +1,440 @@
+{
+    "oversized_in_gui": true,
+    "model": {
+        "type": "range_dispatch",
+        "property": "custom_model_data",
+        "fallback": {
+            "type": "model",
+            "model": "item/stick"
+        },
+        "entries": [
+            {
+                "threshold": 2000,
+                "model": {
+                    "type": "model",
+                    "model": "npc/roger"
+                }
+            },
+            {
+                "threshold": 10000,
+                "model": {
+                    "type": "model",
+                    "model": "npc/pio"
+                }
+            },
+            {
+                "threshold": 1002003,
+                "model": {
+                    "type": "model",
+                    "model": "npc/mr_goldstein"
+                }
+            },
+            {
+                "threshold": 1012100,
+                "model": {
+                    "type": "model",
+                    "model": "npc/athena_pierce"
+                }
+            },
+            {
+                "threshold": 1022000,
+                "model": {
+                    "type": "model",
+                    "model": "npc/dances_with_balrog"
+                }
+            },
+            {
+                "threshold": 1032001,
+                "model": {
+                    "type": "model",
+                    "model": "npc/grendel_the_really_old"
+                }
+            },
+            {
+                "threshold": 1051002,
+                "model": {
+                    "type": "model",
+                    "model": "npc/dr_faymus"
+                }
+            },
+            {
+                "threshold": 1052001,
+                "model": {
+                    "type": "model",
+                    "model": "npc/dark_lord"
+                }
+            },
+            {
+                "threshold": 2040047,
+                "model": {
+                    "type": "model",
+                    "model": "npc/sgt_anderson"
+                }
+            },
+            {
+                "threshold": 2041006,
+                "model": {
+                    "type": "model",
+                    "model": "npc/misky"
+                }
+            },
+            {
+                "threshold": 2044034,
+                "model": {
+                    "type": "model",
+                    "model": "npc/red_sign"
+                }
+            },
+            {
+                "threshold": 2044035,
+                "model": {
+                    "type": "model",
+                    "model": "npc/arturo"
+                }
+            },
+            {
+                "threshold": 2044036,
+                "model": {
+                    "type": "model",
+                    "model": "npc/red_balloon"
+                }
+            },
+            {
+                "threshold": 2044037,
+                "model": {
+                    "type": "model",
+                    "model": "npc/orange_balloon"
+                }
+            },
+            {
+                "threshold": 2044038,
+                "model": {
+                    "type": "model",
+                    "model": "npc/yellow_balloon"
+                }
+            },
+            {
+                "threshold": 2044039,
+                "model": {
+                    "type": "model",
+                    "model": "npc/lime_balloon"
+                }
+            },
+            {
+                "threshold": 2044040,
+                "model": {
+                    "type": "model",
+                    "model": "npc/green_balloon"
+                }
+            },
+            {
+                "threshold": 2044041,
+                "model": {
+                    "type": "model",
+                    "model": "npc/aqua_balloon"
+                }
+            },
+            {
+                "threshold": 2044042,
+                "model": {
+                    "type": "model",
+                    "model": "npc/sky_blue_balloon"
+                }
+            },
+            {
+                "threshold": 2044043,
+                "model": {
+                    "type": "model",
+                    "model": "npc/blue_balloon"
+                }
+            },
+            {
+                "threshold": 2044044,
+                "model": {
+                    "type": "model",
+                    "model": "npc/violet_balloon"
+                }
+            },
+            {
+                "threshold": 2044045,
+                "model": {
+                    "type": "model",
+                    "model": "npc/pink_balloon"
+                }
+            },
+            {
+                "threshold": 2091005,
+                "model": {
+                    "type": "model",
+                    "model": "npc/so_gong"
+                }
+            },
+            {
+                "threshold": 2091006,
+                "model": {
+                    "type": "model",
+                    "model": "npc/mu_lung_dojo_bulletin_board"
+                }
+            },
+            {
+                "threshold": 2380005,
+                "model": {
+                    "type": "model",
+                    "model": "item/etc/238/0005"
+                }
+            },
+            {
+                "threshold": 2380011,
+                "model": {
+                    "type": "model",
+                    "model": "item/etc/238/0011"
+                }
+            },
+            {
+                "threshold": 2381006,
+                "model": {
+                    "type": "model",
+                    "model": "item/etc/238/1006"
+                }
+            },
+            {
+                "threshold": 2381007,
+                "model": {
+                    "type": "model",
+                    "model": "item/etc/238/1007"
+                }
+            },
+            {
+                "threshold": 2381016,
+                "model": {
+                    "type": "model",
+                    "model": "item/etc/238/1016"
+                }
+            },
+            {
+                "threshold": 2382002,
+                "model": {
+                    "type": "model",
+                    "model": "item/etc/238/2002"
+                }
+            },
+            {
+                "threshold": 2382005,
+                "model": {
+                    "type": "model",
+                    "model": "item/etc/238/2005"
+                }
+            },
+            {
+                "threshold": 2382016,
+                "model": {
+                    "type": "model",
+                    "model": "item/etc/238/2016"
+                }
+            },
+            {
+                "threshold": 2382018,
+                "model": {
+                    "type": "model",
+                    "model": "item/etc/238/2018"
+                }
+            },
+            {
+                "threshold": 2382022,
+                "model": {
+                    "type": "model",
+                    "model": "item/etc/238/2022"
+                }
+            },
+            {
+                "threshold": 2382032,
+                "model": {
+                    "type": "model",
+                    "model": "item/etc/238/2032"
+                }
+            },
+            {
+                "threshold": 2382049,
+                "model": {
+                    "type": "model",
+                    "model": "item/etc/238/2049"
+                }
+            },
+            {
+                "threshold": 2382054,
+                "model": {
+                    "type": "model",
+                    "model": "item/etc/238/2054"
+                }
+            },
+            {
+                "threshold": 2382066,
+                "model": {
+                    "type": "model",
+                    "model": "item/etc/238/2066"
+                }
+            },
+            {
+                "threshold": 2383002,
+                "model": {
+                    "type": "model",
+                    "model": "item/etc/238/3002"
+                }
+            },
+            {
+                "threshold": 2383004,
+                "model": {
+                    "type": "model",
+                    "model": "item/etc/238/3004"
+                }
+            },
+            {
+                "threshold": 2388001,
+                "model": {
+                    "type": "model",
+                    "model": "item/etc/238/8001"
+                }
+            },
+            {
+                "threshold": 2388004,
+                "model": {
+                    "type": "model",
+                    "model": "item/etc/238/8004"
+                }
+            },
+            {
+                "threshold": 3000001,
+                "model": {
+                    "type": "model",
+                    "model": "mob/slime/move/3"
+                }
+            },
+            {
+                "threshold": 4000004,
+                "model": {
+                    "type": "model",
+                    "model": "item/etc/400/0004"
+                }
+            },
+            {
+                "threshold": 4000008,
+                "model": {
+                    "type": "model",
+                    "model": "item/etc/400/0008"
+                }
+            },
+            {
+                "threshold": 4000010,
+                "model": {
+                    "type": "model",
+                    "model": "item/etc/400/0010"
+                }
+            },
+            {
+                "threshold": 4000012,
+                "model": {
+                    "type": "model",
+                    "model": "item/etc/400/0012"
+                }
+            },
+            {
+                "threshold": 4000015,
+                "model": {
+                    "type": "model",
+                    "model": "item/etc/400/0015"
+                }
+            },
+            {
+                "threshold": 4000083,
+                "model": {
+                    "type": "model",
+                    "model": "item/etc/400/0083"
+                }
+            },
+            {
+                "threshold": 4001007,
+                "model": {
+                    "type": "model",
+                    "model": "item/etc/400/1007"
+                }
+            },
+            {
+                "threshold": 4001008,
+                "model": {
+                    "type": "model",
+                    "model": "item/etc/400/1008"
+                }
+            },
+            {
+                "threshold": 4001022,
+                "model": {
+                    "type": "model",
+                    "model": "item/etc/400/1008"
+                }
+            },
+            {
+                "threshold": 4001023,
+                "model": {
+                    "type": "model",
+                    "model": "item/etc/400/1023"
+                }
+            },
+            {
+                "threshold": 4031161,
+                "model": {
+                    "type": "model",
+                    "model": "item/etc/403/1161"
+                }
+            },
+            {
+                "threshold": 4031162,
+                "model": {
+                    "type": "model",
+                    "model": "item/etc/403/1162"
+                }
+            },
+            {
+                "threshold": 5220050,
+                "model": {
+                    "type": "model",
+                    "model": "item/cash/522/0050"
+                }
+            },
+            {
+                "threshold": 9010000,
+                "model": {
+                    "type": "model",
+                    "model": "npc/maple_administrator"
+                }
+            },
+            {
+                "threshold": 9020000,
+                "model": {
+                    "type": "model",
+                    "model": "npc/lakelis"
+                }
+            },
+            {
+                "threshold": 9020001,
+                "model": {
+                    "type": "model",
+                    "model": "npc/cloto"
+                }
+            },
+            {
+                "threshold": 9020002,
+                "model": {
+                    "type": "model",
+                    "model": "npc/nella"
+                }
+            },
+            {
+                "threshold": 9100100,
+                "model": {
+                    "type": "model",
+                    "model": "npc/gachapon"
+                }
+            }
+        ]
+    }
+}

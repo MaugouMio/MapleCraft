@@ -1,0 +1,27 @@
+{
+    "oversized_in_gui": true,
+    "model": {
+        "type": "range_dispatch",
+        "property": "custom_model_data",
+        "fallback": {
+            "type": "model",
+            "model": "item/emerald"
+        },
+        "entries": [
+            {
+                "threshold": 1,
+                "model": {
+                    "type": "model",
+                    "model": "map/decoration/board/woman"
+                }
+            },
+            {
+                "threshold": 2,
+                "model": {
+                    "type": "model",
+                    "model": "map/decoration/board/child"
+                }
+            }
+        ]
+    }
+}

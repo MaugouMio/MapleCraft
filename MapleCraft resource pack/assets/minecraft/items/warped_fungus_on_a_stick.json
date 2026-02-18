@@ -1,0 +1,4066 @@
+{
+    "oversized_in_gui": true,
+    "model": {
+        "type": "range_dispatch",
+        "property": "custom_model_data",
+        "fallback": {
+            "type": "model",
+            "model": "item/warped_fungus_on_a_stick"
+        },
+        "entries": [
+            {
+                "threshold": 1,
+                "model": {
+                    "type": "model",
+                    "model": "item/consume/207/0000"
+                }
+            },
+            {
+                "threshold": 2,
+                "model": {
+                    "type": "model",
+                    "model": "item/consume/207/0001"
+                }
+            },
+            {
+                "threshold": 3,
+                "model": {
+                    "type": "model",
+                    "model": "item/consume/207/0002"
+                }
+            },
+            {
+                "threshold": 4,
+                "model": {
+                    "type": "model",
+                    "model": "item/consume/207/0003"
+                }
+            },
+            {
+                "threshold": 5,
+                "model": {
+                    "type": "model",
+                    "model": "item/consume/207/0004"
+                }
+            },
+            {
+                "threshold": 6,
+                "model": {
+                    "type": "model",
+                    "model": "item/consume/207/0005"
+                }
+            },
+            {
+                "threshold": 7,
+                "model": {
+                    "type": "model",
+                    "model": "item/consume/207/0006"
+                }
+            },
+            {
+                "threshold": 21,
+                "model": {
+                    "type": "model",
+                    "model": "item/consume/206/0000"
+                }
+            },
+            {
+                "threshold": 22,
+                "model": {
+                    "type": "model",
+                    "model": "item/consume/206/0001"
+                }
+            },
+            {
+                "threshold": 23,
+                "model": {
+                    "type": "model",
+                    "model": "item/consume/206/0002"
+                }
+            },
+            {
+                "threshold": 24,
+                "model": {
+                    "type": "model",
+                    "model": "item/consume/206/0003"
+                }
+            },
+            {
+                "threshold": 25,
+                "model": {
+                    "type": "model",
+                    "model": "item/consume/206/0004"
+                }
+            },
+            {
+                "threshold": 26,
+                "model": {
+                    "type": "model",
+                    "model": "item/consume/206/1000"
+                }
+            },
+            {
+                "threshold": 27,
+                "model": {
+                    "type": "model",
+                    "model": "item/consume/206/1001"
+                }
+            },
+            {
+                "threshold": 28,
+                "model": {
+                    "type": "model",
+                    "model": "item/consume/206/1002"
+                }
+            },
+            {
+                "threshold": 29,
+                "model": {
+                    "type": "model",
+                    "model": "item/consume/206/1003"
+                }
+            },
+            {
+                "threshold": 30,
+                "model": {
+                    "type": "model",
+                    "model": "item/consume/206/1004"
+                }
+            },
+            {
+                "threshold": 10001,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/staff/10"
+                }
+            },
+            {
+                "threshold": 10002,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/staff/15"
+                }
+            },
+            {
+                "threshold": 10003,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/staff/20"
+                }
+            },
+            {
+                "threshold": 10004,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/staff/25"
+                }
+            },
+            {
+                "threshold": 10005,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/staff/30"
+                }
+            },
+            {
+                "threshold": 10006,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/staff/35"
+                }
+            },
+            {
+                "threshold": 10007,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/staff/40"
+                }
+            },
+            {
+                "threshold": 10008,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/staff/45"
+                }
+            },
+            {
+                "threshold": 10009,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/staff/55"
+                }
+            },
+            {
+                "threshold": 10010,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/staff/65"
+                }
+            },
+            {
+                "threshold": 10011,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/staff/75"
+                }
+            },
+            {
+                "threshold": 10012,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/staff/85"
+                }
+            },
+            {
+                "threshold": 10027,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/staff/maple35"
+                }
+            },
+            {
+                "threshold": 10028,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/staff/maple43"
+                }
+            },
+            {
+                "threshold": 10029,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/staff/maple64"
+                }
+            },
+            {
+                "threshold": 10031,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/claw/10"
+                }
+            },
+            {
+                "threshold": 10032,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/claw/15"
+                }
+            },
+            {
+                "threshold": 10033,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/claw/20"
+                }
+            },
+            {
+                "threshold": 10034,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/claw/25"
+                }
+            },
+            {
+                "threshold": 10035,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/claw/30"
+                }
+            },
+            {
+                "threshold": 10036,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/claw/35"
+                }
+            },
+            {
+                "threshold": 10037,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/claw/40"
+                }
+            },
+            {
+                "threshold": 10038,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/claw/55"
+                }
+            },
+            {
+                "threshold": 10039,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/claw/60"
+                }
+            },
+            {
+                "threshold": 10040,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/claw/70"
+                }
+            },
+            {
+                "threshold": 10041,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/claw/80"
+                }
+            },
+            {
+                "threshold": 10042,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/claw/90"
+                }
+            },
+            {
+                "threshold": 10057,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/claw/maple35"
+                }
+            },
+            {
+                "threshold": 10058,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/claw/maple43"
+                }
+            },
+            {
+                "threshold": 10059,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/claw/maple64"
+                }
+            },
+            {
+                "threshold": 10061,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/dagger/12"
+                }
+            },
+            {
+                "threshold": 10062,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/dagger/17"
+                }
+            },
+            {
+                "threshold": 10063,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/dagger/22"
+                }
+            },
+            {
+                "threshold": 10064,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/dagger/30"
+                }
+            },
+            {
+                "threshold": 10065,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/dagger/35"
+                }
+            },
+            {
+                "threshold": 10066,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/dagger/40"
+                }
+            },
+            {
+                "threshold": 10067,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/dagger/50"
+                }
+            },
+            {
+                "threshold": 10068,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/dagger/53"
+                }
+            },
+            {
+                "threshold": 10069,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/dagger/60"
+                }
+            },
+            {
+                "threshold": 10070,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/dagger/70"
+                }
+            },
+            {
+                "threshold": 10071,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/dagger/80"
+                }
+            },
+            {
+                "threshold": 10072,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/dagger/90"
+                }
+            },
+            {
+                "threshold": 10076,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/dagger/5"
+                }
+            },
+            {
+                "threshold": 10087,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/dagger/korean"
+                }
+            },
+            {
+                "threshold": 10088,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/dagger/maple43"
+                }
+            },
+            {
+                "threshold": 10089,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/dagger/maple64"
+                }
+            },
+            {
+                "threshold": 10091,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/spear/10"
+                }
+            },
+            {
+                "threshold": 10092,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/spear/15"
+                }
+            },
+            {
+                "threshold": 10093,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/spear/20"
+                }
+            },
+            {
+                "threshold": 10094,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/spear/30"
+                }
+            },
+            {
+                "threshold": 10095,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/spear/35"
+                }
+            },
+            {
+                "threshold": 10096,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/spear/40"
+                }
+            },
+            {
+                "threshold": 10097,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/spear/50"
+                }
+            },
+            {
+                "threshold": 10098,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/spear/60"
+                }
+            },
+            {
+                "threshold": 10099,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/spear/70"
+                }
+            },
+            {
+                "threshold": 10100,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/spear/80"
+                }
+            },
+            {
+                "threshold": 10101,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/spear/90"
+                }
+            },
+            {
+                "threshold": 10102,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/spear/100"
+                }
+            },
+            {
+                "threshold": 10117,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/spear/bamboo"
+                }
+            },
+            {
+                "threshold": 10118,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/spear/maple43"
+                }
+            },
+            {
+                "threshold": 10119,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/spear/maple64"
+                }
+            },
+            {
+                "threshold": 10121,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/polearm/10"
+                }
+            },
+            {
+                "threshold": 10122,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/polearm/15"
+                }
+            },
+            {
+                "threshold": 10123,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/polearm/25"
+                }
+            },
+            {
+                "threshold": 10124,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/polearm/30"
+                }
+            },
+            {
+                "threshold": 10125,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/polearm/35"
+                }
+            },
+            {
+                "threshold": 10126,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/polearm/40"
+                }
+            },
+            {
+                "threshold": 10127,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/polearm/50"
+                }
+            },
+            {
+                "threshold": 10128,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/polearm/60"
+                }
+            },
+            {
+                "threshold": 10129,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/polearm/70"
+                }
+            },
+            {
+                "threshold": 10130,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/polearm/80"
+                }
+            },
+            {
+                "threshold": 10131,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/polearm/90"
+                }
+            },
+            {
+                "threshold": 10132,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/polearm/100"
+                }
+            },
+            {
+                "threshold": 10147,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/polearm/guanyu"
+                }
+            },
+            {
+                "threshold": 10148,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/polearm/maple43"
+                }
+            },
+            {
+                "threshold": 10149,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/polearm/maple64"
+                }
+            },
+            {
+                "threshold": 10151,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/wand/8"
+                }
+            },
+            {
+                "threshold": 10152,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/wand/13"
+                }
+            },
+            {
+                "threshold": 10153,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/wand/18"
+                }
+            },
+            {
+                "threshold": 10154,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/wand/23"
+                }
+            },
+            {
+                "threshold": 10155,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/wand/28"
+                }
+            },
+            {
+                "threshold": 10156,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/wand/33"
+                }
+            },
+            {
+                "threshold": 10157,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/wand/38"
+                }
+            },
+            {
+                "threshold": 10158,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/wand/48"
+                }
+            },
+            {
+                "threshold": 10159,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/wand/58"
+                }
+            },
+            {
+                "threshold": 10160,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/wand/68"
+                }
+            },
+            {
+                "threshold": 10161,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/wand/78"
+                }
+            },
+            {
+                "threshold": 10162,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/wand/88"
+                }
+            },
+            {
+                "threshold": 10177,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/wand/zhugeliang"
+                }
+            },
+            {
+                "threshold": 10178,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/wand/hinomaru"
+                }
+            },
+            {
+                "threshold": 10179,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/wand/maple64"
+                }
+            },
+            {
+                "threshold": 10181,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/bow/10"
+                }
+            },
+            {
+                "threshold": 10182,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/bow/15"
+                }
+            },
+            {
+                "threshold": 10183,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/bow/20"
+                }
+            },
+            {
+                "threshold": 10184,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/bow/25"
+                }
+            },
+            {
+                "threshold": 10185,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/bow/30"
+                }
+            },
+            {
+                "threshold": 10186,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/bow/35"
+                }
+            },
+            {
+                "threshold": 10187,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/bow/40"
+                }
+            },
+            {
+                "threshold": 10188,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/bow/50"
+                }
+            },
+            {
+                "threshold": 10189,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/bow/60"
+                }
+            },
+            {
+                "threshold": 10190,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/bow/70"
+                }
+            },
+            {
+                "threshold": 10191,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/bow/80"
+                }
+            },
+            {
+                "threshold": 10192,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/bow/90"
+                }
+            },
+            {
+                "threshold": 10207,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/bow/maple35"
+                }
+            },
+            {
+                "threshold": 10208,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/bow/maple43"
+                }
+            },
+            {
+                "threshold": 10209,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/bow/maple64"
+                }
+            },
+            {
+                "threshold": 10211,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/crossbow/12"
+                }
+            },
+            {
+                "threshold": 10212,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/crossbow/18"
+                }
+            },
+            {
+                "threshold": 10213,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/crossbow/22"
+                }
+            },
+            {
+                "threshold": 10214,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/crossbow/28"
+                }
+            },
+            {
+                "threshold": 10215,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/crossbow/32"
+                }
+            },
+            {
+                "threshold": 10216,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/crossbow/38"
+                }
+            },
+            {
+                "threshold": 10217,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/crossbow/42"
+                }
+            },
+            {
+                "threshold": 10218,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/crossbow/50"
+                }
+            },
+            {
+                "threshold": 10219,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/crossbow/60"
+                }
+            },
+            {
+                "threshold": 10220,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/crossbow/70"
+                }
+            },
+            {
+                "threshold": 10221,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/crossbow/80"
+                }
+            },
+            {
+                "threshold": 10222,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/crossbow/90"
+                }
+            },
+            {
+                "threshold": 10237,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/crossbow/maple35"
+                }
+            },
+            {
+                "threshold": 10238,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/crossbow/maple43"
+                }
+            },
+            {
+                "threshold": 10239,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/crossbow/maple64"
+                }
+            },
+            {
+                "threshold": 10241,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_sword/10"
+                }
+            },
+            {
+                "threshold": 10242,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_sword/15"
+                }
+            },
+            {
+                "threshold": 10243,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_sword/20"
+                }
+            },
+            {
+                "threshold": 10244,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_sword/25"
+                }
+            },
+            {
+                "threshold": 10245,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_sword/30"
+                }
+            },
+            {
+                "threshold": 10246,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_sword/35"
+                }
+            },
+            {
+                "threshold": 10247,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_sword/40"
+                }
+            },
+            {
+                "threshold": 10248,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_sword/50"
+                }
+            },
+            {
+                "threshold": 10249,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_sword/60"
+                }
+            },
+            {
+                "threshold": 10250,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_sword/70"
+                }
+            },
+            {
+                "threshold": 10251,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_sword/80"
+                }
+            },
+            {
+                "threshold": 10252,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_sword/90"
+                }
+            },
+            {
+                "threshold": 10267,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_sword/bat"
+                }
+            },
+            {
+                "threshold": 10268,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_sword/map"
+                }
+            },
+            {
+                "threshold": 10269,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_sword/maple64"
+                }
+            },
+            {
+                "threshold": 10271,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_sword/10"
+                }
+            },
+            {
+                "threshold": 10272,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_sword/15"
+                }
+            },
+            {
+                "threshold": 10273,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_sword/20"
+                }
+            },
+            {
+                "threshold": 10274,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_sword/25"
+                }
+            },
+            {
+                "threshold": 10275,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_sword/30"
+                }
+            },
+            {
+                "threshold": 10276,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_sword/35"
+                }
+            },
+            {
+                "threshold": 10277,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_sword/40"
+                }
+            },
+            {
+                "threshold": 10278,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_sword/50"
+                }
+            },
+            {
+                "threshold": 10279,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_sword/60"
+                }
+            },
+            {
+                "threshold": 10280,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_sword/70"
+                }
+            },
+            {
+                "threshold": 10281,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_sword/80"
+                }
+            },
+            {
+                "threshold": 10282,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_sword/90"
+                }
+            },
+            {
+                "threshold": 10286,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_sword/0"
+                }
+            },
+            {
+                "threshold": 10297,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_sword/maple35"
+                }
+            },
+            {
+                "threshold": 10298,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_sword/maple43"
+                }
+            },
+            {
+                "threshold": 10299,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_sword/maple64"
+                }
+            },
+            {
+                "threshold": 10301,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_axe/10"
+                }
+            },
+            {
+                "threshold": 10302,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_axe/15"
+                }
+            },
+            {
+                "threshold": 10303,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_axe/25"
+                }
+            },
+            {
+                "threshold": 10304,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_axe/30"
+                }
+            },
+            {
+                "threshold": 10305,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_axe/35"
+                }
+            },
+            {
+                "threshold": 10306,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_axe/40"
+                }
+            },
+            {
+                "threshold": 10307,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_axe/50"
+                }
+            },
+            {
+                "threshold": 10308,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_axe/60"
+                }
+            },
+            {
+                "threshold": 10309,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_axe/70"
+                }
+            },
+            {
+                "threshold": 10310,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_axe/80"
+                }
+            },
+            {
+                "threshold": 10311,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_axe/90"
+                }
+            },
+            {
+                "threshold": 10312,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_axe/100"
+                }
+            },
+            {
+                "threshold": 10327,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_axe/extra15"
+                }
+            },
+            {
+                "threshold": 10328,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_axe/maple43"
+                }
+            },
+            {
+                "threshold": 10329,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_axe/maple64"
+                }
+            },
+            {
+                "threshold": 10331,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_axe/10"
+                }
+            },
+            {
+                "threshold": 10332,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_axe/15"
+                }
+            },
+            {
+                "threshold": 10333,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_axe/20"
+                }
+            },
+            {
+                "threshold": 10334,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_axe/25"
+                }
+            },
+            {
+                "threshold": 10335,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_axe/30"
+                }
+            },
+            {
+                "threshold": 10336,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_axe/35"
+                }
+            },
+            {
+                "threshold": 10337,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_axe/40"
+                }
+            },
+            {
+                "threshold": 10338,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_axe/50"
+                }
+            },
+            {
+                "threshold": 10339,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_axe/60"
+                }
+            },
+            {
+                "threshold": 10340,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_axe/70"
+                }
+            },
+            {
+                "threshold": 10341,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_axe/80"
+                }
+            },
+            {
+                "threshold": 10342,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_axe/90"
+                }
+            },
+            {
+                "threshold": 10357,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_axe/brush"
+                }
+            },
+            {
+                "threshold": 10358,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_axe/hoop"
+                }
+            },
+            {
+                "threshold": 10359,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_axe/maple64"
+                }
+            },
+            {
+                "threshold": 10361,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_blunt/10"
+                }
+            },
+            {
+                "threshold": 10362,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_blunt/15"
+                }
+            },
+            {
+                "threshold": 10363,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_blunt/20"
+                }
+            },
+            {
+                "threshold": 10364,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_blunt/25"
+                }
+            },
+            {
+                "threshold": 10365,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_blunt/30"
+                }
+            },
+            {
+                "threshold": 10366,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_blunt/35"
+                }
+            },
+            {
+                "threshold": 10367,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_blunt/40"
+                }
+            },
+            {
+                "threshold": 10368,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_blunt/50"
+                }
+            },
+            {
+                "threshold": 10369,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_blunt/60"
+                }
+            },
+            {
+                "threshold": 10370,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_blunt/70"
+                }
+            },
+            {
+                "threshold": 10371,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_blunt/80"
+                }
+            },
+            {
+                "threshold": 10372,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_blunt/90"
+                }
+            },
+            {
+                "threshold": 10387,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_blunt/pickaxe"
+                }
+            },
+            {
+                "threshold": 10388,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_blunt/maple43"
+                }
+            },
+            {
+                "threshold": 10389,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_blunt/maple64"
+                }
+            },
+            {
+                "threshold": 10391,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_blunt/15"
+                }
+            },
+            {
+                "threshold": 10392,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_blunt/20"
+                }
+            },
+            {
+                "threshold": 10393,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_blunt/25"
+                }
+            },
+            {
+                "threshold": 10394,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_blunt/30"
+                }
+            },
+            {
+                "threshold": 10395,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_blunt/35"
+                }
+            },
+            {
+                "threshold": 10396,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_blunt/40"
+                }
+            },
+            {
+                "threshold": 10397,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_blunt/50"
+                }
+            },
+            {
+                "threshold": 10398,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_blunt/60"
+                }
+            },
+            {
+                "threshold": 10399,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_blunt/70"
+                }
+            },
+            {
+                "threshold": 10400,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_blunt/75"
+                }
+            },
+            {
+                "threshold": 10401,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_blunt/80"
+                }
+            },
+            {
+                "threshold": 10402,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_blunt/90"
+                }
+            },
+            {
+                "threshold": 10417,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_blunt/illustrated"
+                }
+            },
+            {
+                "threshold": 10418,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_blunt/pan"
+                }
+            },
+            {
+                "threshold": 10419,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_blunt/maple64"
+                }
+            },
+            {
+                "threshold": 10501,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/common/red_headband"
+                }
+            },
+            {
+                "threshold": 10502,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/common/white_bandana"
+                }
+            },
+            {
+                "threshold": 10503,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/common/metal_gear"
+                }
+            },
+            {
+                "threshold": 10504,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/common/yellow_starry_bandana"
+                }
+            },
+            {
+                "threshold": 10505,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/common/brown_bamboo_hat"
+                }
+            },
+            {
+                "threshold": 10506,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/common/blue_bamboo_hat"
+                }
+            },
+            {
+                "threshold": 10507,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/common/green_bamboo_hat"
+                }
+            },
+            {
+                "threshold": 10551,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/warrior/bronze_koif"
+                }
+            },
+            {
+                "threshold": 10552,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/warrior/bronze_helmet"
+                }
+            },
+            {
+                "threshold": 10553,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/warrior/bronze_full_helm"
+                }
+            },
+            {
+                "threshold": 10554,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/warrior/bronze_viking_helm"
+                }
+            },
+            {
+                "threshold": 10555,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/warrior/steel_sharp_helm"
+                }
+            },
+            {
+                "threshold": 10556,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/warrior/iron_burgernet_helm"
+                }
+            },
+            {
+                "threshold": 10557,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/warrior/jousting_helmet"
+                }
+            },
+            {
+                "threshold": 10558,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/warrior/great_brown_helmet"
+                }
+            },
+            {
+                "threshold": 10559,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/warrior/gold_nordic_helm"
+                }
+            },
+            {
+                "threshold": 10560,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/warrior/mithril_crusader_helm"
+                }
+            },
+            {
+                "threshold": 10561,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/warrior/red_oriental_helmet"
+                }
+            },
+            {
+                "threshold": 10562,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/warrior/silver_planet"
+                }
+            },
+            {
+                "threshold": 10563,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/warrior/red_dragon_babuta"
+                }
+            },
+            {
+                "threshold": 10564,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/warrior/dark_grace_helmet"
+                }
+            },
+            {
+                "threshold": 10565,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/warrior/green_valhalla_helmet"
+                }
+            },
+            {
+                "threshold": 10601,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/archer/brown_winter_hat"
+                }
+            },
+            {
+                "threshold": 10602,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/archer/red_feather_hat"
+                }
+            },
+            {
+                "threshold": 10603,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/archer/green_robin_hat"
+                }
+            },
+            {
+                "threshold": 10604,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/archer/blue_hunter"
+                }
+            },
+            {
+                "threshold": 10605,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/archer/green_hawkeye"
+                }
+            },
+            {
+                "threshold": 10606,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/archer/green_pole_feather_hat"
+                }
+            },
+            {
+                "threshold": 10607,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/archer/green_distinction"
+                }
+            },
+            {
+                "threshold": 10608,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/archer/green_maro"
+                }
+            },
+            {
+                "threshold": 10609,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/archer/black_polyfeather_hat"
+                }
+            },
+            {
+                "threshold": 10610,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/archer/beige_patriot"
+                }
+            },
+            {
+                "threshold": 10611,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/archer/green_falcon"
+                }
+            },
+            {
+                "threshold": 10612,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/archer/blue_arlic_helmet"
+                }
+            },
+            {
+                "threshold": 10613,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/archer/red_arnah_cap"
+                }
+            },
+            {
+                "threshold": 10651,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/magician/brown_apprentice_hat"
+                }
+            },
+            {
+                "threshold": 10652,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/magician/blue_moon_conehat"
+                }
+            },
+            {
+                "threshold": 10653,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/magician/green_wizardry_hat"
+                }
+            },
+            {
+                "threshold": 10654,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/magician/green_jester"
+                }
+            },
+            {
+                "threshold": 10655,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/magician/green_matty"
+                }
+            },
+            {
+                "threshold": 10656,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/magician/brown_guiltian"
+                }
+            },
+            {
+                "threshold": 10657,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/magician/flame_golden_circlet"
+                }
+            },
+            {
+                "threshold": 10658,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/magician/green_seraphis"
+                }
+            },
+            {
+                "threshold": 10659,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/magician/blue_infinium_circlet"
+                }
+            },
+            {
+                "threshold": 10660,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/magician/dark_galaxy"
+                }
+            },
+            {
+                "threshold": 10661,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/magician/red_oriental_fury_hat"
+                }
+            },
+            {
+                "threshold": 10662,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/magician/red_varr_hat"
+                }
+            },
+            {
+                "threshold": 10701,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/thief/red_ghetto_beanie"
+                }
+            },
+            {
+                "threshold": 10702,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/thief/blue_thief_hood"
+                }
+            },
+            {
+                "threshold": 10703,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/thief/brown_loosecap"
+                }
+            },
+            {
+                "threshold": 10704,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/thief/green_tiberian"
+                }
+            },
+            {
+                "threshold": 10705,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/thief/dark_guise"
+                }
+            },
+            {
+                "threshold": 10706,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/thief/dark_burgler"
+                }
+            },
+            {
+                "threshold": 10707,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/thief/dark_pilfer"
+                }
+            },
+            {
+                "threshold": 10708,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/thief/brown_sonata"
+                }
+            },
+            {
+                "threshold": 10709,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/thief/bronze_identity"
+                }
+            },
+            {
+                "threshold": 10710,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/thief/blood_nightfox"
+                }
+            },
+            {
+                "threshold": 10711,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/thief/red_pireta_hat"
+                }
+            },
+            {
+                "threshold": 10712,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/thief/purple_osfa_hat"
+                }
+            },
+            {
+                "threshold": 10713,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cap/thief/green_canal_hood"
+                }
+            },
+            {
+                "threshold": 10801,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cloth/common/white_undershirt"
+                }
+            },
+            {
+                "threshold": 10802,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cloth/common/blue_one_lined_t_shirt"
+                }
+            },
+            {
+                "threshold": 10851,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cloth/warrior/brown_lolico_armor"
+                }
+            },
+            {
+                "threshold": 10852,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cloth/warrior/steel_corporal"
+                }
+            },
+            {
+                "threshold": 10853,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cloth/warrior/blue_sergeant"
+                }
+            },
+            {
+                "threshold": 10854,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cloth/warrior/dark_master_sergeant"
+                }
+            },
+            {
+                "threshold": 10855,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cloth/warrior/red_hwarang_shirt"
+                }
+            },
+            {
+                "threshold": 10856,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cloth/warrior/gold_dragon"
+                }
+            },
+            {
+                "threshold": 10857,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cloth/warrior/blue_jangoon_armor"
+                }
+            },
+            {
+                "threshold": 10858,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cloth/warrior/blue_shouldermail"
+                }
+            },
+            {
+                "threshold": 10859,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cloth/warrior/red_orientican"
+                }
+            },
+            {
+                "threshold": 10860,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cloth/warrior/orihalcon_platine"
+                }
+            },
+            {
+                "threshold": 10861,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cloth/warrior/green_commodore"
+                }
+            },
+            {
+                "threshold": 10862,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cloth/warrior/blue_neos"
+                }
+            },
+            {
+                "threshold": 10901,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cloth/archer/green_archer_top"
+                }
+            },
+            {
+                "threshold": 10902,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cloth/archer/green_leather_hoodwear"
+                }
+            },
+            {
+                "threshold": 10903,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cloth/archer/brown_hard_leather_top"
+                }
+            },
+            {
+                "threshold": 10904,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cloth/archer/green_bennis_chainmail"
+                }
+            },
+            {
+                "threshold": 10905,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cloth/archer/dark_hunter_s_armor"
+                }
+            },
+            {
+                "threshold": 10906,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cloth/archer/red_legolier"
+                }
+            },
+            {
+                "threshold": 10907,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cloth/archer/brown_piette"
+                }
+            },
+            {
+                "threshold": 10951,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cloth/magician/grey_brown_training_shirt"
+                }
+            },
+            {
+                "threshold": 10952,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cloth/magician/black_split_piece"
+                }
+            },
+            {
+                "threshold": 11001,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cloth/thief/red_cloth_vest"
+                }
+            },
+            {
+                "threshold": 11002,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cloth/thief/dark_nightshift"
+                }
+            },
+            {
+                "threshold": 11003,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cloth/thief/black_pao"
+                }
+            },
+            {
+                "threshold": 11004,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cloth/thief/brown_sneak"
+                }
+            },
+            {
+                "threshold": 11005,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cloth/thief/dark_silver_stealer"
+                }
+            },
+            {
+                "threshold": 11006,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cloth/thief/green_knucklevest"
+                }
+            },
+            {
+                "threshold": 11007,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cloth/thief/marine_shadow"
+                }
+            },
+            {
+                "threshold": 11008,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cloth/thief/red_china"
+                }
+            },
+            {
+                "threshold": 11009,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cloth/thief/oaker_scorpio"
+                }
+            },
+            {
+                "threshold": 11010,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cloth/thief/brown_stud"
+                }
+            },
+            {
+                "threshold": 11011,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cloth/thief/red_pirate_top"
+                }
+            },
+            {
+                "threshold": 11012,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cloth/thief/purple_osfa_suit"
+                }
+            },
+            {
+                "threshold": 11101,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/pants/common/blue_jean_shorts"
+                }
+            },
+            {
+                "threshold": 11102,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/pants/common/grey_thick_sweat_pants"
+                }
+            },
+            {
+                "threshold": 11103,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/pants/common/ice_jeans"
+                }
+            },
+            {
+                "threshold": 11104,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/pants/common/warfare_pants"
+                }
+            },
+            {
+                "threshold": 11151,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/pants/warrior/brown_lolico_pants"
+                }
+            },
+            {
+                "threshold": 11152,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/pants/warrior/steel_corporal_pants"
+                }
+            },
+            {
+                "threshold": 11153,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/pants/warrior/steel_sergeant_kilt"
+                }
+            },
+            {
+                "threshold": 11154,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/pants/warrior/dark_master_sergeant_kilt"
+                }
+            },
+            {
+                "threshold": 11155,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/pants/warrior/white_martial_arts_pants"
+                }
+            },
+            {
+                "threshold": 11156,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/pants/warrior/white_martial_arts_shorts"
+                }
+            },
+            {
+                "threshold": 11157,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/pants/warrior/white_jangoon_pants"
+                }
+            },
+            {
+                "threshold": 11158,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/pants/warrior/blue_shouldermail_pants"
+                }
+            },
+            {
+                "threshold": 11159,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/pants/warrior/red_orientican_pants"
+                }
+            },
+            {
+                "threshold": 11160,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/pants/warrior/orihalcon_platine_pants"
+                }
+            },
+            {
+                "threshold": 11161,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/pants/warrior/green_commodore_pants"
+                }
+            },
+            {
+                "threshold": 11162,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/pants/warrior/black_neos_pants"
+                }
+            },
+            {
+                "threshold": 11201,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/pants/archer/archer_pants"
+                }
+            },
+            {
+                "threshold": 11202,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/pants/archer/brown_hard_leather_pants"
+                }
+            },
+            {
+                "threshold": 11203,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/pants/archer/bennis_chainpants"
+                }
+            },
+            {
+                "threshold": 11204,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/pants/archer/dark_hunter_s_pants"
+                }
+            },
+            {
+                "threshold": 11205,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/pants/archer/dark_legolier_pants"
+                }
+            },
+            {
+                "threshold": 11206,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/pants/archer/brown_piette_pants"
+                }
+            },
+            {
+                "threshold": 11251,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/pants/magician/grey_brown_training_pants"
+                }
+            },
+            {
+                "threshold": 11252,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/pants/magician/white_split_pants"
+                }
+            },
+            {
+                "threshold": 11301,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/pants/thief/red_cloth_pants"
+                }
+            },
+            {
+                "threshold": 11302,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/pants/thief/blue_nightshift_pants"
+                }
+            },
+            {
+                "threshold": 11303,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/pants/thief/black_pao_bottom"
+                }
+            },
+            {
+                "threshold": 11304,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/pants/thief/dark_brown_sneak_pants"
+                }
+            },
+            {
+                "threshold": 11305,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/pants/thief/dark_silver_stealer_pants"
+                }
+            },
+            {
+                "threshold": 11306,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/pants/thief/blue_knucklevest_pants"
+                }
+            },
+            {
+                "threshold": 11307,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/pants/thief/marine_shadow_pants"
+                }
+            },
+            {
+                "threshold": 11308,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/pants/thief/red_china_pants"
+                }
+            },
+            {
+                "threshold": 11309,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/pants/thief/oaker_scorpio_pants"
+                }
+            },
+            {
+                "threshold": 11310,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/pants/thief/brown_stud_pants"
+                }
+            },
+            {
+                "threshold": 11311,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/pants/thief/red_pirate_pants"
+                }
+            },
+            {
+                "threshold": 11312,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/pants/thief/red_osfa_pants"
+                }
+            },
+            {
+                "threshold": 11401,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/overall/common/bathrobe_for_men"
+                }
+            },
+            {
+                "threshold": 11402,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/overall/common/blue_sauna_robe"
+                }
+            },
+            {
+                "threshold": 11451,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/overall/warrior/blue_kendo_robe"
+                }
+            },
+            {
+                "threshold": 11452,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/overall/warrior/black_dragon_robe"
+                }
+            },
+            {
+                "threshold": 11453,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/overall/warrior/dark_crusader_chainmail"
+                }
+            },
+            {
+                "threshold": 11454,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/overall/warrior/red_battle_lord"
+                }
+            },
+            {
+                "threshold": 11501,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/overall/archer/blue_lined_kismet"
+                }
+            },
+            {
+                "threshold": 11502,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/overall/archer/red_tai"
+                }
+            },
+            {
+                "threshold": 11503,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/overall/archer/green_linnex"
+                }
+            },
+            {
+                "threshold": 11504,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/overall/archer/green_pris"
+                }
+            },
+            {
+                "threshold": 11505,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/overall/archer/green_ades"
+                }
+            },
+            {
+                "threshold": 11506,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/overall/archer/blue_arzuna"
+                }
+            },
+            {
+                "threshold": 11551,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/overall/magician/beige_plain_robe"
+                }
+            },
+            {
+                "threshold": 11552,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/overall/magician/brown_doros_robe"
+                }
+            },
+            {
+                "threshold": 11553,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/overall/magician/black_wizard_robe"
+                }
+            },
+            {
+                "threshold": 11554,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/overall/magician/blood_chaos_robe"
+                }
+            },
+            {
+                "threshold": 11555,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/overall/magician/red_starlight"
+                }
+            },
+            {
+                "threshold": 11556,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/overall/magician/orange_calas"
+                }
+            },
+            {
+                "threshold": 11557,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/overall/magician/white_anakamoon"
+                }
+            },
+            {
+                "threshold": 11558,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/overall/magician/brown_requiem"
+                }
+            },
+            {
+                "threshold": 11559,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/overall/magician/blue_enigmatic"
+                }
+            },
+            {
+                "threshold": 11560,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/overall/magician/green_oriental_fury_coat"
+                }
+            },
+            {
+                "threshold": 11561,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/overall/magician/blue_varuna"
+                }
+            },
+            {
+                "threshold": 11601,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/overall/thief/dark_katinas"
+                }
+            },
+            {
+                "threshold": 11701,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/common/work_gloves"
+                }
+            },
+            {
+                "threshold": 11702,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/common/yellow_work_gloves"
+                }
+            },
+            {
+                "threshold": 11703,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/common/red_work_gloves"
+                }
+            },
+            {
+                "threshold": 11704,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/common/blue_work_gloves"
+                }
+            },
+            {
+                "threshold": 11705,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/common/purple_work_gloves"
+                }
+            },
+            {
+                "threshold": 11706,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/common/grey_work_gloves"
+                }
+            },
+            {
+                "threshold": 11707,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/common/brown_work_gloves"
+                }
+            },
+            {
+                "threshold": 11751,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/warrior/juno"
+                }
+            },
+            {
+                "threshold": 11752,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/warrior/steel_fingerless_gloves"
+                }
+            },
+            {
+                "threshold": 11753,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/warrior/venon"
+                }
+            },
+            {
+                "threshold": 11754,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/warrior/white_fingerless_gloves"
+                }
+            },
+            {
+                "threshold": 11755,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/warrior/bronze_missel"
+                }
+            },
+            {
+                "threshold": 11756,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/warrior/yellow_briggon"
+                }
+            },
+            {
+                "threshold": 11757,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/warrior/iron_knuckle"
+                }
+            },
+            {
+                "threshold": 11758,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/warrior/steel_brist"
+                }
+            },
+            {
+                "threshold": 11759,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/warrior/bronze_clench"
+                }
+            },
+            {
+                "threshold": 11760,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/warrior/bronze_husk"
+                }
+            },
+            {
+                "threshold": 11761,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/warrior/blood_emperor"
+                }
+            },
+            {
+                "threshold": 11762,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/warrior/purple_imperial"
+                }
+            },
+            {
+                "threshold": 11763,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/warrior/blue_korben"
+                }
+            },
+            {
+                "threshold": 11801,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/archer/basic_archer_glove"
+                }
+            },
+            {
+                "threshold": 11802,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/archer/blue_diros"
+                }
+            },
+            {
+                "threshold": 11803,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/archer/blue_savata"
+                }
+            },
+            {
+                "threshold": 11804,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/archer/green_marker"
+                }
+            },
+            {
+                "threshold": 11805,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/archer/mithril_scaler"
+                }
+            },
+            {
+                "threshold": 11806,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/archer/dark_brace"
+                }
+            },
+            {
+                "threshold": 11807,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/archer/red_willow"
+                }
+            },
+            {
+                "threshold": 11808,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/archer/dark_garner"
+                }
+            },
+            {
+                "threshold": 11809,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/archer/dark_eyes"
+                }
+            },
+            {
+                "threshold": 11810,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/archer/green_cordon"
+                }
+            },
+            {
+                "threshold": 11811,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/archer/green_focus"
+                }
+            },
+            {
+                "threshold": 11812,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/archer/green_arcina"
+                }
+            },
+            {
+                "threshold": 11851,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/magician/lemona"
+                }
+            },
+            {
+                "threshold": 11852,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/magician/blue_morrican"
+                }
+            },
+            {
+                "threshold": 11853,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/magician/ocean_mesana"
+                }
+            },
+            {
+                "threshold": 11854,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/magician/blue_lutia"
+                }
+            },
+            {
+                "threshold": 11855,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/magician/dark_noel"
+                }
+            },
+            {
+                "threshold": 11856,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/magician/blue_arten"
+                }
+            },
+            {
+                "threshold": 11857,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/magician/blue_pennance"
+                }
+            },
+            {
+                "threshold": 11858,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/magician/dark_manute"
+                }
+            },
+            {
+                "threshold": 11859,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/magician/blue_lorin"
+                }
+            },
+            {
+                "threshold": 11860,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/magician/dark_clarity"
+                }
+            },
+            {
+                "threshold": 11861,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/magician/green_sage"
+                }
+            },
+            {
+                "threshold": 11862,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/magician/blue_ciara"
+                }
+            },
+            {
+                "threshold": 11901,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/thief/brown_duo"
+                }
+            },
+            {
+                "threshold": 11902,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/thief/bronze_mischief"
+                }
+            },
+            {
+                "threshold": 11903,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/thief/bronze_wolfskin"
+                }
+            },
+            {
+                "threshold": 11904,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/thief/gold_sylvia"
+                }
+            },
+            {
+                "threshold": 11905,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/thief/orihalcon_arbion"
+                }
+            },
+            {
+                "threshold": 11906,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/thief/dark_cleave"
+                }
+            },
+            {
+                "threshold": 11907,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/thief/brown_moon_gloves"
+                }
+            },
+            {
+                "threshold": 11908,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/thief/steel_pow"
+                }
+            },
+            {
+                "threshold": 11909,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/thief/silver_rover"
+                }
+            },
+            {
+                "threshold": 11910,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/thief/blood_larceny"
+                }
+            },
+            {
+                "threshold": 11911,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/thief/green_mystra"
+                }
+            },
+            {
+                "threshold": 11912,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/gloves/thief/blue_anelin"
+                }
+            },
+            {
+                "threshold": 12001,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/common/leather_sandals"
+                }
+            },
+            {
+                "threshold": 12002,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/common/white_gomushin"
+                }
+            },
+            {
+                "threshold": 12003,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/common/bronze_aroa_boots"
+                }
+            },
+            {
+                "threshold": 12004,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/common/blue_ankle_strap_sandals"
+                }
+            },
+            {
+                "threshold": 12005,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/common/orange_whitebottom_boots"
+                }
+            },
+            {
+                "threshold": 12006,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/common/red_sneakers"
+                }
+            },
+            {
+                "threshold": 12007,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/common/yellow_snowshoes"
+                }
+            },
+            {
+                "threshold": 12008,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/common/violet_snowshoes"
+                }
+            },
+            {
+                "threshold": 12051,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/warrior/bronze_grieves"
+                }
+            },
+            {
+                "threshold": 12052,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/warrior/brown_high_boots"
+                }
+            },
+            {
+                "threshold": 12053,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/warrior/mithril_war_boots"
+                }
+            },
+            {
+                "threshold": 12054,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/warrior/silver_battle_grieves"
+                }
+            },
+            {
+                "threshold": 12055,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/warrior/mithril_trigger"
+                }
+            },
+            {
+                "threshold": 12056,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/warrior/maroon_jangoon_shoes"
+                }
+            },
+            {
+                "threshold": 12057,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/warrior/mithril_hildon_boots"
+                }
+            },
+            {
+                "threshold": 12058,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/warrior/blood_camel_boots"
+                }
+            },
+            {
+                "threshold": 12059,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/warrior/purple_carzen_boots"
+                }
+            },
+            {
+                "threshold": 12060,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/warrior/red_rivers_boots"
+                }
+            },
+            {
+                "threshold": 12061,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/warrior/emerald_war_greave"
+                }
+            },
+            {
+                "threshold": 12062,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/warrior/blue_crescent_boots"
+                }
+            },
+            {
+                "threshold": 12101,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/archer/brown_hard_leather_boots"
+                }
+            },
+            {
+                "threshold": 12102,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/archer/blue_woodsman_boots"
+                }
+            },
+            {
+                "threshold": 12103,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/archer/bear_huntertop"
+                }
+            },
+            {
+                "threshold": 12104,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/archer/brown_jack_boots"
+                }
+            },
+            {
+                "threshold": 12105,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/archer/red_hunter_boots"
+                }
+            },
+            {
+                "threshold": 12106,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/archer/blue_silky_boots"
+                }
+            },
+            {
+                "threshold": 12107,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/archer/red_pierre_shoes"
+                }
+            },
+            {
+                "threshold": 12108,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/archer/green_steel_tip_boots"
+                }
+            },
+            {
+                "threshold": 12109,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/archer/green_gore_boots"
+                }
+            },
+            {
+                "threshold": 12110,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/archer/dark_elf_shoes"
+                }
+            },
+            {
+                "threshold": 12111,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/archer/green_wing_boots"
+                }
+            },
+            {
+                "threshold": 12112,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/archer/dark_ades_shoes"
+                }
+            },
+            {
+                "threshold": 12113,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/archer/red_arnah_shoes"
+                }
+            },
+            {
+                "threshold": 12151,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/magician/yellow_basic_boots"
+                }
+            },
+            {
+                "threshold": 12152,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/magician/beige_nitty"
+                }
+            },
+            {
+                "threshold": 12153,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/magician/blue_jewelry_shoes"
+                }
+            },
+            {
+                "threshold": 12154,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/magician/yellow_windshoes"
+                }
+            },
+            {
+                "threshold": 12155,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/magician/white_magicshoes"
+                }
+            },
+            {
+                "threshold": 12156,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/magician/red_salt_shoes"
+                }
+            },
+            {
+                "threshold": 12157,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/magician/gold_moon_shoes"
+                }
+            },
+            {
+                "threshold": 12158,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/magician/blue_goldwind_shoes"
+                }
+            },
+            {
+                "threshold": 12159,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/magician/blue_goldrunners"
+                }
+            },
+            {
+                "threshold": 12160,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/magician/gold_lapiz_sandals"
+                }
+            },
+            {
+                "threshold": 12161,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/magician/purple_enigma_shoes"
+                }
+            },
+            {
+                "threshold": 12162,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/magician/blue_neli_shoes"
+                }
+            },
+            {
+                "threshold": 12163,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/magician/blue_varr_shoes"
+                }
+            },
+            {
+                "threshold": 12201,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/thief/blue_gidder_shoes"
+                }
+            },
+            {
+                "threshold": 12202,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/thief/white_ninja_sandals"
+                }
+            },
+            {
+                "threshold": 12203,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/thief/red_enamel_boots"
+                }
+            },
+            {
+                "threshold": 12204,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/thief/green_lappy_boots"
+                }
+            },
+            {
+                "threshold": 12205,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/thief/iron_chain_boots"
+                }
+            },
+            {
+                "threshold": 12206,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/thief/blue_white_line_boots"
+                }
+            },
+            {
+                "threshold": 12207,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/thief/black_yellow_lined_shoes"
+                }
+            },
+            {
+                "threshold": 12208,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/thief/red_goni_shoes"
+                }
+            },
+            {
+                "threshold": 12209,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/thief/dark_moss_boots"
+                }
+            },
+            {
+                "threshold": 12210,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/thief/red_mystique_shoes"
+                }
+            },
+            {
+                "threshold": 12211,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/thief/green_pirate_boots"
+                }
+            },
+            {
+                "threshold": 12212,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/thief/purple_osfa_boots"
+                }
+            },
+            {
+                "threshold": 12213,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shoes/thief/red_katina_boots"
+                }
+            },
+            {
+                "threshold": 12301,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cape/common/old_raggedy_cape"
+                }
+            },
+            {
+                "threshold": 12302,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cape/common/oxygen_tank"
+                }
+            },
+            {
+                "threshold": 12303,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cape/common/cape_of_warmness"
+                }
+            },
+            {
+                "threshold": 12304,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cape/common/icarus_cape_2"
+                }
+            },
+            {
+                "threshold": 12305,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cape/common/white_napoleon"
+                }
+            },
+            {
+                "threshold": 12306,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cape/common/pink_adventurer_cape"
+                }
+            },
+            {
+                "threshold": 12307,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cape/common/purple_adventurer_cape"
+                }
+            },
+            {
+                "threshold": 12308,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cape/common/black_justice_cape"
+                }
+            },
+            {
+                "threshold": 12309,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cape/common/blue_magic_cape"
+                }
+            },
+            {
+                "threshold": 12310,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cape/common/red_gaia_cape"
+                }
+            },
+            {
+                "threshold": 12311,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cape/common/pink_gaia_cape"
+                }
+            },
+            {
+                "threshold": 12312,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cape/common/purple_gaia_cape"
+                }
+            },
+            {
+                "threshold": 12313,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cape/common/green_seraph_cape"
+                }
+            },
+            {
+                "threshold": 12314,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/cape/common/purple_giles_cape"
+                }
+            },
+            {
+                "threshold": 12601,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shield/common/stolen_fence"
+                }
+            },
+            {
+                "threshold": 12602,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shield/common/pan_lid"
+                }
+            },
+            {
+                "threshold": 12603,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shield/common/maple_shield"
+                }
+            },
+            {
+                "threshold": 12604,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shield/common/palette"
+                }
+            },
+            {
+                "threshold": 12651,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shield/warrior/wooden_buckler"
+                }
+            },
+            {
+                "threshold": 12652,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shield/warrior/steel_shield"
+                }
+            },
+            {
+                "threshold": 12653,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shield/warrior/mithril_buckler"
+                }
+            },
+            {
+                "threshold": 12654,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shield/warrior/red_triangular_shield"
+                }
+            },
+            {
+                "threshold": 12655,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shield/warrior/red_cross_shield"
+                }
+            },
+            {
+                "threshold": 12656,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shield/warrior/battle_shield"
+                }
+            },
+            {
+                "threshold": 12657,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shield/warrior/mithril_tower_shield"
+                }
+            },
+            {
+                "threshold": 12658,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shield/warrior/skull_shield"
+                }
+            },
+            {
+                "threshold": 12659,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shield/warrior/silver_legend_shield"
+                }
+            },
+            {
+                "threshold": 12660,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shield/warrior/maple_warrior_shield"
+                }
+            },
+            {
+                "threshold": 12661,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shield/warrior/gold_ancient_shield"
+                }
+            },
+            {
+                "threshold": 12662,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shield/warrior/gold_aquila_shield"
+                }
+            },
+            {
+                "threshold": 12663,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shield/warrior/silver_kalkan"
+                }
+            },
+            {
+                "threshold": 12664,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shield/warrior/green_hoflon"
+                }
+            },
+            {
+                "threshold": 12751,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shield/magician/mystic_shield"
+                }
+            },
+            {
+                "threshold": 12752,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shield/magician/esther_shield"
+                }
+            },
+            {
+                "threshold": 12753,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shield/magician/maple_magician_shield"
+                }
+            },
+            {
+                "threshold": 12801,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shield/thief/seclusion_wristguard"
+                }
+            },
+            {
+                "threshold": 12802,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shield/thief/nimble_wristguard"
+                }
+            },
+            {
+                "threshold": 12803,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shield/thief/jurgen_wristguard"
+                }
+            },
+            {
+                "threshold": 12804,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shield/thief/maple_thief_shield"
+                }
+            },
+            {
+                "threshold": 12805,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/shield/thief/khanjar"
+                }
+            },
+            {
+                "threshold": 12901,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/eye/common/owl_mask"
+                }
+            },
+            {
+                "threshold": 12902,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/eye/common/raccoon_mask"
+                }
+            },
+            {
+                "threshold": 12903,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/eye/common/white_raccoon_mask"
+                }
+            },
+            {
+                "threshold": 13201,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/face/common/dog_nose"
+                }
+            },
+            {
+                "threshold": 13501,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/ear/common/amethyst_earrings"
+                }
+            },
+            {
+                "threshold": 13502,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/ear/common/single_earring"
+                }
+            },
+            {
+                "threshold": 13503,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/ear/common/yellow_square"
+                }
+            },
+            {
+                "threshold": 13504,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/ear/common/weighted_earrings"
+                }
+            },
+            {
+                "threshold": 13505,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/ear/common/gold_earrings"
+                }
+            },
+            {
+                "threshold": 13506,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/ear/common/red_cross_earrings"
+                }
+            },
+            {
+                "threshold": 13507,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/ear/common/leaf_earrings"
+                }
+            },
+            {
+                "threshold": 13508,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/ear/common/fallen_leaf_earrings"
+                }
+            },
+            {
+                "threshold": 13509,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/ear/common/lightning_earrings"
+                }
+            },
+            {
+                "threshold": 13510,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/ear/common/emerald_earrings"
+                }
+            },
+            {
+                "threshold": 13511,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/ear/common/star_earrings"
+                }
+            },
+            {
+                "threshold": 13512,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/ear/common/cat_s_eye"
+                }
+            },
+            {
+                "threshold": 13513,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/ear/common/sapphire_earrings"
+                }
+            },
+            {
+                "threshold": 13514,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/ear/common/blue_moon"
+                }
+            },
+            {
+                "threshold": 13515,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/ear/common/pansy_earrings"
+                }
+            },
+            {
+                "threshold": 13516,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/ear/common/skull_earrings"
+                }
+            },
+            {
+                "threshold": 13517,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/ear/common/red_hearted_earrings"
+                }
+            },
+            {
+                "threshold": 13518,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/ear/common/crystal_flower_earrings"
+                }
+            },
+            {
+                "threshold": 13519,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/ear/common/holy_cross_earrings"
+                }
+            },
+            {
+                "threshold": 13520,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/ear/common/pink_flowered_earrings"
+                }
+            },
+            {
+                "threshold": 13521,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/ear/common/gold_drop_earrings"
+                }
+            },
+            {
+                "threshold": 13522,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/ear/common/metal_silver_earrings"
+                }
+            },
+            {
+                "threshold": 13523,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/ear/common/half_earrings"
+                }
+            },
+            {
+                "threshold": 13524,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/ear/common/metal_heart_earrings"
+                }
+            },
+            {
+                "threshold": 13525,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/ear/common/strawberry_earrings"
+                }
+            },
+            {
+                "threshold": 13526,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/ear/common/rose_earrings"
+                }
+            },
+            {
+                "threshold": 13527,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/ear/common/sword_earrings"
+                }
+            },
+            {
+                "threshold": 13801,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/pendant/common/bow_tie_green"
+                }
+            },
+            {
+                "threshold": 13802,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/pendant/common/bow_tie_yellow"
+                }
+            },
+            {
+                "threshold": 13803,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/pendant/common/bow_tie_pink"
+                }
+            },
+            {
+                "threshold": 13804,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/pendant/common/bow_tie_blue"
+                }
+            },
+            {
+                "threshold": 13805,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/pendant/common/bow_tie_red"
+                }
+            },
+            {
+                "threshold": 13806,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/pendant/common/bow_tie_black"
+                }
+            },
+            {
+                "threshold": 13807,
+                "model": {
+                    "type": "model",
+                    "model": "item/equip/pendant/common/spiegelmann_s_necklace"
+                }
+            },
+            {
+                "threshold": 3010000,
+                "model": {
+                    "type": "model",
+                    "model": "item/install/301/0000"
+                }
+            },
+            {
+                "threshold": 3014000,
+                "model": {
+                    "type": "model",
+                    "model": "item/install/301/4000"
+                }
+            }
+        ]
+    }
+}

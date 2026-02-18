@@ -2,148 +2,217 @@
 //https://github.com/Godlander/objmc
 
 isCustom = 0;
+transition = 0;
 int corner = gl_VertexID % 4;
 ivec2 atlasSize = textureSize(Sampler0, 0);
 vec2 onepixel = 1./atlasSize;
 ivec2 uv = ivec2((UV0 * atlasSize));
 vec3 posoffset = vec3(0);
+float scale = 1;
 vec3 rotation = vec3(0);
+int headerheight = 0;
+bool compression = false;
+ivec4 t[8];
 //read uv offset
-ivec4 metauvoffset = ivec4(texelFetch(Sampler0, uv, 0) * 255);
-ivec2 uvoffset = ivec2(metauvoffset.r*256 + metauvoffset.g,
-                       metauvoffset.b+1); //no alpha due to optifine, max number of faces greatly limited (probably still a couple million more than needed)
+t[0] = ivec4(texelFetch(Sampler0, uv, 0) * 255);
+ivec4 metauvoffset = t[0];
+ivec2 uvoffset = ivec2(t[0].r*256 + t[0].g, t[0].b*256 + t[0].a);
 //find and read topleft pixel
 ivec2 topleft = uv - uvoffset;
-
-#ifdef ENTITY
-isGUI = int(__isGUI(ProjMat));
-ivec3 colorByte = ivec3(Color.rgb * 255);
-iconMode = 0;
-#endif
-
 //if topleft marker is correct
-if (ivec4(texelFetch(Sampler0, topleft, 0)*255) == ivec4(12,34,56,78)) {
+ivec4 marker = ivec4(texelFetch(Sampler0, topleft, 0)*255);
+if (marker == ivec4(12,34,56,78)) {
+    compression = marker.a == 79;
     isCustom = 1;
-    //grab meta
-    ivec4 meta = getmeta(topleft, 1);
-    vec2 autorotate = vec2(getb(meta.r, 6), getb(meta.r, 5));
-    noshadow = getb(meta.r, 7);
-    //size
-    ivec4 metasize = getmeta(topleft, 2);
-    ivec2 size = ivec2(metasize.r*256 + metasize.g,
-                       metasize.b*256 + metasize.a-128+geta(meta.a,6));
-    //nvertices
-    ivec4 metanvertices = getmeta(topleft, 3);
-    int nvertices = metanvertices.r*16777216 + metanvertices.g*65536 + metanvertices.b*256 + metanvertices.a-128+geta(meta.a,5);
-    //frames
-    ivec4 metaanim = getmeta(topleft, 4);
-    int nframes = clamp(metaanim.r, 1,255);
-    int ntextures = clamp(metaanim.g, 1,255);
-    float duration = float(metaanim.b + 1);
-    bool autoplay = bool(getb(metaanim.a, 6));
-    int easing = metaanim.a & 7;
-    //data heights
-    ivec4 metaheight = getmeta(topleft, 5);
-    int vph = metaheight.r*256 + metaheight.g;
-    int vth = metaheight.b*256 + metaheight.a-128+geta(meta.a,4);
+    // header
+    //| 2^32   | 2^16x2   | 2^32      | 2^24 + 2^8   | 2^24    + \1 2^1  + 2^2   + 2^2 \2| 2^16x2       | 2^1     + 2^2       + 2^3      \1 2^9        \16|
+    //| marker | tex size | nvertices | nobjs, ntexs | duration, autoplay, easing, interp| data heights | noshadow, autorotate, visibility, colorbehavior |
+
+    // header
+    //| 2^32   | 2^16x2   | 2^32      | 2^32 | 2^32 | 2^16 + 2^16     | 2^12         + 2^2     + 2^2   + 2^2       + 2^1     + 2^3    \10 |
+    //| marker | tex size | nvertices | npos | nuvs | nobjs, duration | colorbehavior, autoplay, easing, autorotate, noshadow, visibility |
+
+    //colorbehavior
+    // 0: nothing
+    // 1, 2, 3: rotation xyz
+    // 7: scale
+    // 8: time
+    // 9: texture variant
+    // 10: hue/tint
+    // 11: armor model
+
+    for (int i = 1; i < 8; i++) {
+        t[i] = getmeta(topleft, i);
+    }
+    //1: texsize
+    ivec2 size = ivec2(t[1].r*256 + t[1].g, t[1].b*256 + t[1].a);
+    //2: nvertices
+    int nvertices = t[2].r*16777216 + t[2].g*65536 + t[2].b*256 + t[2].a;
+    //3: nobjs, ntexs
+    int nframes = max(t[3].r*65536 + t[3].g*256 + t[3].b, 1);
+    int ntextures = max(t[3].a, 1);
+    //4: duration, autoplay, easing
+    float duration = max(t[4].r*65536 + t[4].g*256 + t[4].b, 1);
+    bool autoplay = getb(t[4].a, 6);
+    ivec2 easing = ivec2(getb(t[4].a, 4, 2), getb(t[4].a, 2, 2));
+    //5: data heights
+    int vph = t[5].r*256 + t[5].g;
+    int vth = t[5].b*256 + t[5].a;
+    //6: noshadow, autorotate, visibility, colorbehavior
+    noshadow = getb(t[6].r, 7, 1);
+    vec2 autorotate = vec2(getb(t[6].r, 6, 1), getb(t[6].r, 5, 1));
+    bvec3 visibility = bvec3(getb(t[6].r, 4), getb(t[6].r, 3), getb(t[6].r, 2));
+    int colorbehavior = getb(t[6].r, 0, 1)*256 + t[6].g;
+
     //time in ticks
     float time = GameTime * 24000;
     int tcolor = 0;
-//colorbehavior
-#ifdef ENTITY
-    overlayColor = vec4(1);
-    int colorbehavior = meta.b;
-    if (colorbehavior == 243) { //animation frames 0-8388607
-        tcolor = (colorByte.r*65536)%32768 + colorByte.g*256 + colorByte.b;
-        //interpolation disabled past 8388608, suso's idea to define starting tick with color
-        autoplay = (Color.r <= 0.5);
+
+#ifdef BLOCK
+    if (!visibility.x) { //world
+        Pos = vec3(0); posoffset = vec3(0);
     } else {
-        //bits from colorbehavior
-        vec3 accuracy = vec3(255./256.);
-        switch ((colorbehavior/64)%4) { //first byte of color
-            case 0: rotation.x += colorByte.r; accuracy.r *= 256; break;
-            case 1: rotation.y += colorByte.r; accuracy.g *= 256; break;
-            case 2: rotation.z += colorByte.r; accuracy.b *= 256; break;
-            case 3: tcolor = tcolor * 256 + colorByte.r; break;
-        }
-        switch ((colorbehavior/16)%4) { //second byte of color
-            case 0: rotation.x += colorByte.g; accuracy.r *= 256; break;
-            case 1: rotation.y += colorByte.g; accuracy.g *= 256; break;
-            case 2: rotation.z += colorByte.g; accuracy.b *= 256; break;
-            case 3: tcolor = tcolor * 256 + colorByte.g; break;
-        }
-        switch (colorbehavior%16) { //third byte of color
-            case 0: rotation.x += colorByte.b; accuracy.r *= 256; break;
-            case 1: rotation.y += colorByte.b; accuracy.g *= 256; break;
-            case 2: rotation.z += colorByte.b; accuracy.b *= 256; break;
-            case 3: tcolor = tcolor * 256 + colorByte.b; break;
-            case 4: if (Color.b > 0) overlayColor = vec4(customOverlay(colorByte.b),1); break;
-        }
-        rotation = rotation/accuracy * 2*PI;
-    }
 #endif
-    time = autoplay ? time + (nframes*duration) - mod(tcolor, nframes*duration) : tcolor;
-    int frame = int(time/duration) % nframes;
-    //relative vertex id from unique face uv
-    int id = (((uvoffset.y-1) * size.x) + uvoffset.x) * 4 + corner;
-    id += frame * nvertices;
-    //calculate height offsets
-    int headerheight = 1 + int(ceil(nvertices*0.25/size.x));
-    int height = headerheight + (size.y);
-    //read data
-    ivec2 index = getvert(topleft, size.x, height+vph+vth, id);
-    posoffset = getpos(topleft, size.x, height, index.x);
-    texCoord = getuv(topleft, size.x, height+vph, index.y) * size;
-    if (nframes > 1 && easing > 0) {
-        int nids = (nframes * nvertices);
-        //next frame
-        id = (id+nvertices) % nids;
-        index = getvert(topleft, size.x, height+vph+vth, id);
-        vec3 posoffset2 = getpos(topleft, size.x, height, index.x);
-        //interpolate
-        transition = fract(time/duration);
-        switch (easing) { //easing
-            case 1: //linear
-                posoffset = mix(posoffset, posoffset2, transition);
-                break;
-            case 2: //in-out cubic
-                transition = transition < 0.5 ? 4 * transition * transition * transition : 1 - pow(-2 * transition + 2, 3) * 0.5;
-                posoffset = mix(posoffset, posoffset2, transition);
-                break;
-            case 3: //4-point bezier
-                //third point
-                id = (id+nvertices) % nids;
-                index = getvert(topleft, size.x, height+vph+vth, id);
-                vec3 posoffset3 = getpos(topleft, size.x, height, index.x);
-                //fourth point
-                id = (id+nvertices) % nids;
-                index = getvert(topleft, size.x, height+vph+vth, id);
-                vec3 posoffset4 = getpos(topleft, size.x, height, index.x);
-                //bezier
-                posoffset = bezier(posoffset, posoffset2, posoffset3, posoffset4, transition);
-                break;
+#ifdef ENTITY
+    isGUI = int(isgui(ProjMat));
+    isHand = int(ishand(ProjMat));
+    if (((isGUI + isHand == 0) && visibility.x) || (bool(isHand) && visibility.y) || (bool(isGUI) && visibility.z)) {
+        //colorbehavior
+        overlayColor = vec4(1);
+        if (colorbehavior == 219) { //animation frames 0-8388607
+            tcolor = (int(Color.r*255)*65536)%32768 + int(Color.g*255)*256 + int(Color.b*255);
+            //interpolation disabled past 8388608, suso's idea to define starting tick with color
+            autoplay = (Color.r <= 0.5);
+        } else {
+            //bits from colorbehavior
+            vec3 accuracy = vec3(255./256.);
+            vec2 tscale = vec2(0, 255./256.);
+            vec2 thue = vec2(0, 255./256.);
+            switch ((colorbehavior>>6)&7) { //first 3 bits, r
+                //rotation
+                case 0: rotation.x += Color.r*255; accuracy.r *= 256; break;
+                case 1: rotation.y += Color.r*255; accuracy.g *= 256; break;
+                case 2: rotation.z += Color.r*255; accuracy.b *= 256; break;
+                //time
+                case 3: tcolor = tcolor*256 + int(Color.r*255); break;
+                //scale
+                case 4: tscale.x = Color.r*255; tscale.y *= 256; break;
+                //hue
+                case 5: thue.x = Color.r*255; thue.y *= 256; break;
+                //hurt tint
+                case 6: if (Color.r != 0) overlayColor = vec4(1,0.7,0.7,1); break;
+            }
+            switch ((colorbehavior>>3)&7) { //second 3 bits, g
+                //rotation
+                case 0: rotation.x = rotation.x*256 + Color.g*255; accuracy.r *= 256; break;
+                case 1: rotation.y = rotation.y*256 + Color.g*255; accuracy.g *= 256; break;
+                case 2: rotation.z = rotation.z*256 + Color.g*255; accuracy.b *= 256; break;
+                //time
+                case 3: tcolor = tcolor*256 + int(Color.g*255); break;
+                //scale
+                case 4: tscale.x = tscale.x*256 + Color.g*255; tscale.y *= 256; break;
+                //hue
+                case 5: thue.x = thue.x*256 + Color.g*255; thue.y *= 256; break;
+                //hurt tint
+                case 6: if (Color.g != 0) overlayColor = vec4(1,0.7,0.7,1); break;
+            }
+            switch (colorbehavior&7) { //third 3 bits, b
+                //rotation
+                case 0: rotation.x = rotation.x*256 + Color.b*255; accuracy.r *= 256; break;
+                case 1: rotation.y = rotation.y*256 + Color.b*255; accuracy.g *= 256; break;
+                case 2: rotation.z = rotation.z*256 + Color.b*255; accuracy.b *= 256; break;
+                //time
+                case 3: tcolor = tcolor*256 + int(Color.b*255); break;
+                //scale
+                case 4: tscale.x = tscale.x*256 + Color.b*255; tscale.y *= 256; break;
+                //hue
+                case 5: thue.x = thue.x*256 + Color.b*255; thue.y *= 256; break;
+                //hurt tint
+                case 6: if (Color.b != 0) overlayColor = vec4(1,0.7,0.7,1); break;
+            }
+            rotation = rotation/accuracy * 2*PI;
+            if (tscale.x > 0) scale = tscale.x/tscale.y;
+            if (thue.x > 0) overlayColor = vec4(hrgb(thue.x/thue.y),1);
         }
-    }
+#endif
+        time = autoplay ? time + duration - mod(tcolor, duration) : tcolor;
+        int frame = int(time * nframes / duration) % nframes;
+        //relative vertex id from unique face uv
+        int id = (((uvoffset.y-1) * size.x) + uvoffset.x) * 4 + corner;
+        id += frame * nvertices;
+        //calculate height offsets
+        headerheight = 1 + int(ceil(nvertices*0.25/size.x));
+        int height = headerheight + (size.y * ntextures);
+        //read data
+        ivec2 index = getvert(topleft, size.x, height+vph+vth, id, compression);
+        posoffset = getpos(topleft, size.x, height, index.x);
+        if (nframes > 1) {
+            int nids = (nframes * nvertices);
+            //next frame
+            id = (id+nvertices) % nids;
+            index = getvert(topleft, size.x, height+vph+vth, id, compression);
+            vec3 posoffset2 = getpos(topleft, size.x, height, index.x);
+            //interpolate
+            transition = fract(time * nframes / duration);
+            switch (easing.x) { //easing
+                case 1: //linear
+                    posoffset = mix(posoffset, posoffset2, transition);
+                    break;
+                case 2: //in-out cubic
+                    transition = transition < 0.5 ? 4 * transition * transition * transition : 1 - pow(-2 * transition + 2, 3) * 0.5;
+                    posoffset = mix(posoffset, posoffset2, transition);
+                    break;
+                case 3: //4-point bezier
+                    //third point
+                    id = (id+nvertices) % nids;
+                    index = getvert(topleft, size.x, height+vph+vth, id, compression);
+                    vec3 posoffset3 = getpos(topleft, size.x, height, index.x);
+                    //fourth point
+                    id = (id+nvertices) % nids;
+                    index = getvert(topleft, size.x, height+vph+vth, id, compression);
+                    vec3 posoffset4 = getpos(topleft, size.x, height, index.x);
+                    //bezier
+                    posoffset = bezier(posoffset, posoffset2, posoffset3, posoffset4, transition);
+                    break;
+            }
+        }
+        transition = 0;
+        texCoord = getuv(topleft, size.x, height+vph, index.y);
 //custom entity rotation
 #ifdef ENTITY
-    isHand = int(ishand(FogStart));
-    if (any(greaterThan(autorotate,vec2(0))) && isGUI == 0) {
-        //normal estimated rotation calculation from The Der Discohund
-        vec3 local = IViewRotMat * Normal;
-        float yaw = -atan(local.x, local.z);
-        float pitch = -atan(local.y, length(local.xz));
-        posoffset = rotate(vec3(vec2(pitch,yaw)*autorotate,0) + rotation) * posoffset * IViewRotMat;
+        posoffset *= scale;
+        if (isGUI == 1) {
+            posoffset *= 24;
+            posoffset.y += 4;
+            posoffset.zy *= -1;
+            posoffset = rotate(rotation + vec3(0,1,0)) * posoffset;
+        }
+        if (isHand == 1) {
+            posoffset.zx *= -1;
+            posoffset = (vec4(posoffset,0) * ModelViewMat).xyz;
+        }
+        if (isHand + isGUI == 0) {
+            if (any(greaterThan(autorotate,vec2(0)))) {
+                //normal estimated rotation calculation from The Der Discohund
+                float yaw = -atan(Normal.x, Normal.z);
+                float pitch = -atan(Normal.y, length(Normal.xz));
+                posoffset = rotate(vec3(vec2(pitch,yaw)*autorotate,0) + rotation) * posoffset;
+            }
+            //pure color rotation
+            else {
+                posoffset = rotate(rotation) * posoffset;
+            }
+        }
     }
-    //pure color rotation
-    else if (isHand == 0) {
-        posoffset = rotate(rotation) * posoffset * IViewRotMat;
+#endif
+#ifdef BLOCK
     }
 #endif
     //final pos and uv
     Pos += posoffset;
-    texCoord = (vec2(topleft.x, topleft.y+headerheight) + texCoord)/atlasSize
+    texCoord = (vec2(topleft.x,topleft.y+headerheight) + texCoord*size)/atlasSize
                 //make sure that faces with same uv beginning/ending renders
-                + vec2(onepixel.x * 0.0001 * corner, onepixel.y * 0.0001 * ((corner + 1) % 4));
+                + vec2(onepixel.x*0.0001*corner,onepixel.y*0.0001*((corner+1)%4));
 				
 	// custom glowing effect
 	ivec3 realVertexTexel = ivec3(texture(Sampler0, texCoord).rgb * 255);
@@ -172,7 +241,7 @@ else if (metauvoffset.rgb == ivec3(1,2,3)) {
 	float height = Color.b * 25.5;
 	// red color == theta (0.0 ~ 1.0 represents 0 ~ 360 degree)
 	// green color : forward == 1 : 0.1
-	Pos += WorldMat * vec3(-sin(Color.r*PI*2) * Color.g * 25.5, Color.b * 25.5, cos(Color.r*PI*2) * Color.g * 25.5);
+	Pos += WorldMat * vec3(-sin(Color.r*PI*2) * Color.g * 25.5, height, cos(Color.r*PI*2) * Color.g * 25.5);
 }
 // afterimage fade out effect (need to keep Color, but green used for time offset)
 else if (metauvoffset.rgb == ivec3(1,2,4) && metauvoffset.a <= 2) {
@@ -194,15 +263,15 @@ else if (metauvoffset.rgb == ivec3(1,2,4) && metauvoffset.a <= 2) {
 		alpha = (5.0 - tick) / 4.0;
 }
 // custom icon item - model
-else if (colorByte == ivec3(0,218,255)) {
-	vertexColor = vec4(1);
-	iconMode = 1;
-}
+// else if (colorByte == ivec3(0,218,255)) {
+	// vertexColor = vec4(1);
+	// iconMode = 1;
+// }
 // custom icon item - icon
-else if (colorByte == ivec3(0,173,255)) {
-	vertexColor = vec4(1);
-	iconMode = 2;
-}
+// else if (colorByte == ivec3(0,173,255)) {
+	// vertexColor = vec4(1);
+	// iconMode = 2;
+// }
 #endif
 //debug
 //else {

@@ -1,0 +1,41 @@
+{
+    "oversized_in_gui": true,
+    "model": {
+        "type": "range_dispatch",
+        "property": "custom_model_data",
+        "fallback": {
+            "type": "model",
+            "model": "item/diamond"
+        },
+        "entries": [
+            {
+                "threshold": 1,
+                "model": {
+                    "type": "model",
+                    "model": "item/meso/1"
+                }
+            },
+            {
+                "threshold": 50,
+                "model": {
+                    "type": "model",
+                    "model": "item/meso/50"
+                }
+            },
+            {
+                "threshold": 100,
+                "model": {
+                    "type": "model",
+                    "model": "item/meso/100"
+                }
+            },
+            {
+                "threshold": 1000,
+                "model": {
+                    "type": "model",
+                    "model": "item/meso/1000"
+                }
+            }
+        ]
+    }
+}

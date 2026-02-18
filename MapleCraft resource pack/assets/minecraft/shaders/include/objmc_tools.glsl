@@ -26,21 +26,38 @@ vec2 getuv(ivec2 topleft, int w, int h, int index) {
         ((y.g*65280)+(y.b*255))/65535
     );
 }
-ivec2 getvert(ivec2 topleft, int w, int h, int index) {
-    int i = index*2;
-    ivec4 a = ivec4(texelFetch(Sampler0, topleft + ivec2((i  )%w,h+((i  )/w)), 0)*255);
-    ivec4 b = ivec4(texelFetch(Sampler0, topleft + ivec2((i+1)%w,h+((i+1)/w)), 0)*255);
-    return ivec2(
-        ((a.r*65536)+(a.g*256)+a.b),
-        ((b.r*65536)+(b.g*256)+b.b)
-    );
+ivec2 getvert(ivec2 topleft, int w, int h, int index, bool compressionEnabled) {
+
+    if(!compressionEnabled) {
+        int i = index*2;
+        ivec4 a = ivec4(texelFetch(Sampler0, topleft + ivec2((i  )%w,h+((i  )/w)), 0)*255);
+        ivec4 b = ivec4(texelFetch(Sampler0, topleft + ivec2((i+1)%w,h+((i+1)/w)), 0)*255);
+        return ivec2(
+            ((a.r*65536)+(a.g*256)+a.b),
+            ((b.r*65536)+(b.g*256)+b.b)
+        );
+    } else {
+        ivec4 a = ivec4(texelFetch(Sampler0, topleft + ivec2((index  )%w,h+((index  )/w)), 0)*255);
+        return ivec2(
+            ((a.r*65536)+(a.g*256)+a.b),
+            a.a - 1
+        );
+    }
 }
 
-int getb(int i, int b) {
-    return (i>>b)&1;
+ivec2 huv(int id) {
+  if (id < 1056)
+    return ivec2((32 + id % 32), (id/32));
+  else
+    id -= 1056;
+    return ivec2((id % 64), 33 + int(id/64));
 }
-int geta(int i, int b) {
-    return getb(i,b)<<7;
+
+bool getb(int i, int b) {
+    return bool((i>>b)&1);
+}
+int getb(int i, int b, int s) {
+    return (i>>b)&((1<<s)-1);
 }
 
 //3d rotation matrix from Barf Creations
@@ -51,18 +68,20 @@ mat3 rotate(vec3 angles) {
     float cy = cos(-angles.y);
     float sz = sin(-angles.z);
     float cz = cos(-angles.z);
-    return mat3(cy*cz,            cy*sz,           -sy,
-                sx*sy*cz - cx*sz, sx*sy*sz + cx*cz, sx*cy,
-                cx*sy*cz + sx*sz, cx*sy*sz - sx*cz, cx*cy);
+    return mat3(
+        -sx*sy*sz+cy*cz, -cx*sz, -sx*cy*sz-sy*cz,
+        sx*sy*cz+cy*sz, cx*cz, -sy*sz+sx*cy*cz,
+        cx*sy, -sx, cx*cy
+    );
 }
 
 //gui item model detection from Onnowhere
 bool isgui(mat4 ProjMat) {
-    return ProjMat[3][2] == -2.0;
+    return ProjMat[2][3] == 0.0;
 }
-//first person hand item model detection from esben
-bool ishand(float FogStart) {
-    return FogStart*0.000001 > 1;
+//first person hand item model detection (Bálint nonsense)
+bool ishand(mat4 ProjMat) {
+    return abs(ProjMat[3][2] + 0.10005) < 0.00001;
 }
 
 //hue to rgb
@@ -90,4 +109,18 @@ vec3 bezb(vec3 a, vec3 b, vec3 c, vec3 d, float t) {
 }
 vec3 bezier(vec3 a, vec3 b, vec3 c, vec3 d, float t) {
     return bezb(b,b+(c-a)/6,c-(d-b)/6,c,t);
+}
+
+
+float over_color(float c_a, float a_a, float c_b, float a_b, float a_0) {
+    return (c_a * a_a + c_b * a_b * (1.0 - a_a)) / a_0;
+}
+vec4 over(vec4 overC, vec4 under) {
+    float a_0 = overC.a + (under.a * (1.0 - overC.a));
+    return vec4(
+        over_color(overC.r, overC.a, under.r, under.a, a_0),
+        over_color(overC.g, overC.a, under.g, under.a, a_0),
+        over_color(overC.b, overC.a, under.b, under.a, a_0),
+        a_0
+    );
 }

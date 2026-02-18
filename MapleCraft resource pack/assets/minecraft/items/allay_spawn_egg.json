@@ -1,0 +1,1497 @@
+{
+    "oversized_in_gui": true,
+    "model": {
+        "type": "range_dispatch",
+        "property": "custom_model_data",
+        "fallback": {
+            "type": "model",
+            "model": "item/template_spawn_egg"
+        },
+        "entries": [
+            {
+                "threshold": 10001,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/staff/equip/10"
+                }
+            },
+            {
+                "threshold": 10002,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/staff/equip/15"
+                }
+            },
+            {
+                "threshold": 10003,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/staff/equip/20"
+                }
+            },
+            {
+                "threshold": 10004,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/staff/equip/25"
+                }
+            },
+            {
+                "threshold": 10005,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/staff/equip/30"
+                }
+            },
+            {
+                "threshold": 10006,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/staff/equip/35"
+                }
+            },
+            {
+                "threshold": 10007,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/staff/equip/40"
+                }
+            },
+            {
+                "threshold": 10008,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/staff/equip/45"
+                }
+            },
+            {
+                "threshold": 10009,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/staff/equip/55"
+                }
+            },
+            {
+                "threshold": 10010,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/staff/equip/65"
+                }
+            },
+            {
+                "threshold": 10011,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/staff/equip/75"
+                }
+            },
+            {
+                "threshold": 10012,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/staff/equip/85"
+                }
+            },
+            {
+                "threshold": 10027,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/staff/equip/maple35"
+                }
+            },
+            {
+                "threshold": 10028,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/staff/equip/maple43"
+                }
+            },
+            {
+                "threshold": 10029,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/staff/equip/maple64"
+                }
+            },
+            {
+                "threshold": 10031,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/claw/equip/10"
+                }
+            },
+            {
+                "threshold": 10032,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/claw/equip/15"
+                }
+            },
+            {
+                "threshold": 10033,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/claw/equip/20"
+                }
+            },
+            {
+                "threshold": 10034,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/claw/equip/25"
+                }
+            },
+            {
+                "threshold": 10035,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/claw/equip/30"
+                }
+            },
+            {
+                "threshold": 10036,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/claw/equip/35"
+                }
+            },
+            {
+                "threshold": 10037,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/claw/equip/40"
+                }
+            },
+            {
+                "threshold": 10038,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/claw/equip/55"
+                }
+            },
+            {
+                "threshold": 10039,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/claw/equip/60"
+                }
+            },
+            {
+                "threshold": 10040,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/claw/equip/70"
+                }
+            },
+            {
+                "threshold": 10041,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/claw/equip/80"
+                }
+            },
+            {
+                "threshold": 10042,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/claw/equip/90"
+                }
+            },
+            {
+                "threshold": 10057,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/claw/equip/maple35"
+                }
+            },
+            {
+                "threshold": 10058,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/claw/equip/maple43"
+                }
+            },
+            {
+                "threshold": 10059,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/claw/equip/maple64"
+                }
+            },
+            {
+                "threshold": 10061,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/dagger/equip/12"
+                }
+            },
+            {
+                "threshold": 10062,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/dagger/equip/17"
+                }
+            },
+            {
+                "threshold": 10063,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/dagger/equip/22"
+                }
+            },
+            {
+                "threshold": 10064,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/dagger/equip/30"
+                }
+            },
+            {
+                "threshold": 10065,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/dagger/equip/35"
+                }
+            },
+            {
+                "threshold": 10066,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/dagger/equip/40"
+                }
+            },
+            {
+                "threshold": 10067,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/dagger/equip/50"
+                }
+            },
+            {
+                "threshold": 10068,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/dagger/equip/53"
+                }
+            },
+            {
+                "threshold": 10069,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/dagger/equip/60"
+                }
+            },
+            {
+                "threshold": 10070,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/dagger/equip/70"
+                }
+            },
+            {
+                "threshold": 10071,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/dagger/equip/80"
+                }
+            },
+            {
+                "threshold": 10072,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/dagger/equip/90"
+                }
+            },
+            {
+                "threshold": 10076,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/dagger/equip/5"
+                }
+            },
+            {
+                "threshold": 10087,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/dagger/equip/korean"
+                }
+            },
+            {
+                "threshold": 10088,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/dagger/equip/maple43"
+                }
+            },
+            {
+                "threshold": 10089,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/dagger/equip/maple64"
+                }
+            },
+            {
+                "threshold": 10091,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/spear/equip/10"
+                }
+            },
+            {
+                "threshold": 10092,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/spear/equip/15"
+                }
+            },
+            {
+                "threshold": 10093,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/spear/equip/20"
+                }
+            },
+            {
+                "threshold": 10094,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/spear/equip/30"
+                }
+            },
+            {
+                "threshold": 10095,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/spear/equip/35"
+                }
+            },
+            {
+                "threshold": 10096,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/spear/equip/40"
+                }
+            },
+            {
+                "threshold": 10097,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/spear/equip/50"
+                }
+            },
+            {
+                "threshold": 10098,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/spear/equip/60"
+                }
+            },
+            {
+                "threshold": 10099,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/spear/equip/70"
+                }
+            },
+            {
+                "threshold": 10100,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/spear/equip/80"
+                }
+            },
+            {
+                "threshold": 10101,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/spear/equip/90"
+                }
+            },
+            {
+                "threshold": 10102,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/spear/equip/100"
+                }
+            },
+            {
+                "threshold": 10117,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/spear/equip/bamboo"
+                }
+            },
+            {
+                "threshold": 10118,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/spear/equip/maple43"
+                }
+            },
+            {
+                "threshold": 10119,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/spear/equip/maple64"
+                }
+            },
+            {
+                "threshold": 10121,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/polearm/equip/10"
+                }
+            },
+            {
+                "threshold": 10122,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/polearm/equip/15"
+                }
+            },
+            {
+                "threshold": 10123,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/polearm/equip/25"
+                }
+            },
+            {
+                "threshold": 10124,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/polearm/equip/30"
+                }
+            },
+            {
+                "threshold": 10125,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/polearm/equip/35"
+                }
+            },
+            {
+                "threshold": 10126,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/polearm/equip/40"
+                }
+            },
+            {
+                "threshold": 10127,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/polearm/equip/50"
+                }
+            },
+            {
+                "threshold": 10128,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/polearm/equip/60"
+                }
+            },
+            {
+                "threshold": 10129,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/polearm/equip/70"
+                }
+            },
+            {
+                "threshold": 10130,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/polearm/equip/80"
+                }
+            },
+            {
+                "threshold": 10131,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/polearm/equip/90"
+                }
+            },
+            {
+                "threshold": 10132,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/polearm/equip/100"
+                }
+            },
+            {
+                "threshold": 10147,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/polearm/equip/guanyu"
+                }
+            },
+            {
+                "threshold": 10148,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/polearm/equip/maple43"
+                }
+            },
+            {
+                "threshold": 10149,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/polearm/equip/maple64"
+                }
+            },
+            {
+                "threshold": 10151,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/wand/equip/8"
+                }
+            },
+            {
+                "threshold": 10152,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/wand/equip/13"
+                }
+            },
+            {
+                "threshold": 10153,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/wand/equip/18"
+                }
+            },
+            {
+                "threshold": 10154,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/wand/equip/23"
+                }
+            },
+            {
+                "threshold": 10155,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/wand/equip/28"
+                }
+            },
+            {
+                "threshold": 10156,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/wand/equip/33"
+                }
+            },
+            {
+                "threshold": 10157,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/wand/equip/38"
+                }
+            },
+            {
+                "threshold": 10158,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/wand/equip/48"
+                }
+            },
+            {
+                "threshold": 10159,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/wand/equip/58"
+                }
+            },
+            {
+                "threshold": 10160,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/wand/equip/68"
+                }
+            },
+            {
+                "threshold": 10161,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/wand/equip/78"
+                }
+            },
+            {
+                "threshold": 10162,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/wand/equip/88"
+                }
+            },
+            {
+                "threshold": 10177,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/wand/equip/zhugeliang"
+                }
+            },
+            {
+                "threshold": 10178,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/wand/equip/hinomaru"
+                }
+            },
+            {
+                "threshold": 10179,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/wand/equip/maple64"
+                }
+            },
+            {
+                "threshold": 10181,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/bow/equip/10"
+                }
+            },
+            {
+                "threshold": 10182,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/bow/equip/15"
+                }
+            },
+            {
+                "threshold": 10183,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/bow/equip/20"
+                }
+            },
+            {
+                "threshold": 10184,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/bow/equip/25"
+                }
+            },
+            {
+                "threshold": 10185,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/bow/equip/30"
+                }
+            },
+            {
+                "threshold": 10186,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/bow/equip/35"
+                }
+            },
+            {
+                "threshold": 10187,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/bow/equip/40"
+                }
+            },
+            {
+                "threshold": 10188,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/bow/equip/50"
+                }
+            },
+            {
+                "threshold": 10189,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/bow/equip/60"
+                }
+            },
+            {
+                "threshold": 10190,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/bow/equip/70"
+                }
+            },
+            {
+                "threshold": 10191,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/bow/equip/80"
+                }
+            },
+            {
+                "threshold": 10192,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/bow/equip/90"
+                }
+            },
+            {
+                "threshold": 10207,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/bow/equip/maple35"
+                }
+            },
+            {
+                "threshold": 10208,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/bow/equip/maple43"
+                }
+            },
+            {
+                "threshold": 10209,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/bow/equip/maple64"
+                }
+            },
+            {
+                "threshold": 10211,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/crossbow/equip/12"
+                }
+            },
+            {
+                "threshold": 10212,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/crossbow/equip/18"
+                }
+            },
+            {
+                "threshold": 10213,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/crossbow/equip/22"
+                }
+            },
+            {
+                "threshold": 10214,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/crossbow/equip/28"
+                }
+            },
+            {
+                "threshold": 10215,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/crossbow/equip/32"
+                }
+            },
+            {
+                "threshold": 10216,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/crossbow/equip/38"
+                }
+            },
+            {
+                "threshold": 10217,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/crossbow/equip/42"
+                }
+            },
+            {
+                "threshold": 10218,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/crossbow/equip/50"
+                }
+            },
+            {
+                "threshold": 10219,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/crossbow/equip/60"
+                }
+            },
+            {
+                "threshold": 10220,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/crossbow/equip/70"
+                }
+            },
+            {
+                "threshold": 10221,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/crossbow/equip/80"
+                }
+            },
+            {
+                "threshold": 10222,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/crossbow/equip/90"
+                }
+            },
+            {
+                "threshold": 10237,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/crossbow/equip/maple35"
+                }
+            },
+            {
+                "threshold": 10238,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/crossbow/equip/maple43"
+                }
+            },
+            {
+                "threshold": 10239,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/crossbow/equip/maple64"
+                }
+            },
+            {
+                "threshold": 10241,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_sword/equip/10"
+                }
+            },
+            {
+                "threshold": 10242,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_sword/equip/15"
+                }
+            },
+            {
+                "threshold": 10243,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_sword/equip/20"
+                }
+            },
+            {
+                "threshold": 10244,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_sword/equip/25"
+                }
+            },
+            {
+                "threshold": 10245,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_sword/equip/30"
+                }
+            },
+            {
+                "threshold": 10246,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_sword/equip/35"
+                }
+            },
+            {
+                "threshold": 10247,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_sword/equip/40"
+                }
+            },
+            {
+                "threshold": 10248,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_sword/equip/50"
+                }
+            },
+            {
+                "threshold": 10249,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_sword/equip/60"
+                }
+            },
+            {
+                "threshold": 10250,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_sword/equip/70"
+                }
+            },
+            {
+                "threshold": 10251,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_sword/equip/80"
+                }
+            },
+            {
+                "threshold": 10252,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_sword/equip/90"
+                }
+            },
+            {
+                "threshold": 10267,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_sword/equip/bat"
+                }
+            },
+            {
+                "threshold": 10268,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_sword/equip/map"
+                }
+            },
+            {
+                "threshold": 10269,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_sword/equip/maple64"
+                }
+            },
+            {
+                "threshold": 10271,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_sword/equip/10"
+                }
+            },
+            {
+                "threshold": 10272,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_sword/equip/15"
+                }
+            },
+            {
+                "threshold": 10273,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_sword/equip/20"
+                }
+            },
+            {
+                "threshold": 10274,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_sword/equip/25"
+                }
+            },
+            {
+                "threshold": 10275,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_sword/equip/30"
+                }
+            },
+            {
+                "threshold": 10276,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_sword/equip/35"
+                }
+            },
+            {
+                "threshold": 10277,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_sword/equip/40"
+                }
+            },
+            {
+                "threshold": 10278,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_sword/equip/50"
+                }
+            },
+            {
+                "threshold": 10279,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_sword/equip/60"
+                }
+            },
+            {
+                "threshold": 10280,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_sword/equip/70"
+                }
+            },
+            {
+                "threshold": 10281,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_sword/equip/80"
+                }
+            },
+            {
+                "threshold": 10282,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_sword/equip/90"
+                }
+            },
+            {
+                "threshold": 10286,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_sword/equip/0"
+                }
+            },
+            {
+                "threshold": 10297,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_sword/equip/maple35"
+                }
+            },
+            {
+                "threshold": 10298,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_sword/equip/maple43"
+                }
+            },
+            {
+                "threshold": 10299,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_sword/equip/maple64"
+                }
+            },
+            {
+                "threshold": 10301,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_axe/equip/10"
+                }
+            },
+            {
+                "threshold": 10302,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_axe/equip/15"
+                }
+            },
+            {
+                "threshold": 10303,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_axe/equip/25"
+                }
+            },
+            {
+                "threshold": 10304,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_axe/equip/30"
+                }
+            },
+            {
+                "threshold": 10305,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_axe/equip/35"
+                }
+            },
+            {
+                "threshold": 10306,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_axe/equip/40"
+                }
+            },
+            {
+                "threshold": 10307,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_axe/equip/50"
+                }
+            },
+            {
+                "threshold": 10308,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_axe/equip/60"
+                }
+            },
+            {
+                "threshold": 10309,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_axe/equip/70"
+                }
+            },
+            {
+                "threshold": 10310,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_axe/equip/80"
+                }
+            },
+            {
+                "threshold": 10311,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_axe/equip/90"
+                }
+            },
+            {
+                "threshold": 10312,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_axe/equip/100"
+                }
+            },
+            {
+                "threshold": 10327,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_axe/equip/extra15"
+                }
+            },
+            {
+                "threshold": 10328,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_axe/equip/maple43"
+                }
+            },
+            {
+                "threshold": 10329,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_axe/equip/maple64"
+                }
+            },
+            {
+                "threshold": 10331,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_axe/equip/10"
+                }
+            },
+            {
+                "threshold": 10332,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_axe/equip/15"
+                }
+            },
+            {
+                "threshold": 10333,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_axe/equip/20"
+                }
+            },
+            {
+                "threshold": 10334,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_axe/equip/25"
+                }
+            },
+            {
+                "threshold": 10335,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_axe/equip/30"
+                }
+            },
+            {
+                "threshold": 10336,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_axe/equip/35"
+                }
+            },
+            {
+                "threshold": 10337,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_axe/equip/40"
+                }
+            },
+            {
+                "threshold": 10338,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_axe/equip/50"
+                }
+            },
+            {
+                "threshold": 10339,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_axe/equip/60"
+                }
+            },
+            {
+                "threshold": 10340,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_axe/equip/70"
+                }
+            },
+            {
+                "threshold": 10341,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_axe/equip/80"
+                }
+            },
+            {
+                "threshold": 10342,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_axe/equip/90"
+                }
+            },
+            {
+                "threshold": 10357,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_axe/equip/brush"
+                }
+            },
+            {
+                "threshold": 10358,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_axe/equip/hoop"
+                }
+            },
+            {
+                "threshold": 10359,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_axe/equip/maple64"
+                }
+            },
+            {
+                "threshold": 10361,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_blunt/equip/10"
+                }
+            },
+            {
+                "threshold": 10362,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_blunt/equip/15"
+                }
+            },
+            {
+                "threshold": 10363,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_blunt/equip/20"
+                }
+            },
+            {
+                "threshold": 10364,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_blunt/equip/25"
+                }
+            },
+            {
+                "threshold": 10365,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_blunt/equip/30"
+                }
+            },
+            {
+                "threshold": 10366,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_blunt/equip/35"
+                }
+            },
+            {
+                "threshold": 10367,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_blunt/equip/40"
+                }
+            },
+            {
+                "threshold": 10368,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_blunt/equip/50"
+                }
+            },
+            {
+                "threshold": 10369,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_blunt/equip/60"
+                }
+            },
+            {
+                "threshold": 10370,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_blunt/equip/70"
+                }
+            },
+            {
+                "threshold": 10371,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_blunt/equip/80"
+                }
+            },
+            {
+                "threshold": 10372,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_blunt/equip/90"
+                }
+            },
+            {
+                "threshold": 10387,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_blunt/equip/pickaxe"
+                }
+            },
+            {
+                "threshold": 10388,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_blunt/equip/maple43"
+                }
+            },
+            {
+                "threshold": 10389,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/th_blunt/equip/maple64"
+                }
+            },
+            {
+                "threshold": 10391,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_blunt/equip/15"
+                }
+            },
+            {
+                "threshold": 10392,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_blunt/equip/20"
+                }
+            },
+            {
+                "threshold": 10393,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_blunt/equip/25"
+                }
+            },
+            {
+                "threshold": 10394,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_blunt/equip/30"
+                }
+            },
+            {
+                "threshold": 10395,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_blunt/equip/35"
+                }
+            },
+            {
+                "threshold": 10396,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_blunt/equip/40"
+                }
+            },
+            {
+                "threshold": 10397,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_blunt/equip/50"
+                }
+            },
+            {
+                "threshold": 10398,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_blunt/equip/60"
+                }
+            },
+            {
+                "threshold": 10399,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_blunt/equip/70"
+                }
+            },
+            {
+                "threshold": 10400,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_blunt/equip/75"
+                }
+            },
+            {
+                "threshold": 10401,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_blunt/equip/80"
+                }
+            },
+            {
+                "threshold": 10402,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_blunt/equip/90"
+                }
+            },
+            {
+                "threshold": 10417,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_blunt/equip/illustrated"
+                }
+            },
+            {
+                "threshold": 10418,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_blunt/equip/pan"
+                }
+            },
+            {
+                "threshold": 10419,
+                "model": {
+                    "type": "model",
+                    "model": "item/weapon/oh_blunt/equip/maple64"
+                }
+            }
+        ]
+    }
+}

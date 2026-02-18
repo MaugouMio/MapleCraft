@@ -87,5 +87,3 @@ mat4 getOrthoMat(mat4 ProjMat, float Zoom) {
                 0.0,                                0.0,                                -2.0 / (far - near),            0.0,
                 -(right + left) / (right - left),   -(top + bottom) / (top - bottom),   -(far + near) / (far - near),   1.0);
 }
-
-#moj_import <proj_mat.glsl>
