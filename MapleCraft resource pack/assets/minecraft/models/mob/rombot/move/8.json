@@ -2,7 +2,8 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [32, 32],
 	"textures": {
-		"1": "mob/rombot/base"
+		"1": "mob/rombot/base",
+		"particle": "empty"
 	},
 	"elements": [
 		{
@@ -2149,12 +2150,12 @@
 			"rotation": {"angle": 0, "axis": "x", "origin": [-4.51, -7.59797, 0.36793]},
 			"color": 4,
 			"faces": {
-				"north": {"uv": [0, 10.66667, 5.33333, 16], "texture": "#missing", "tintindex": 0},
-				"east": {"uv": [0, 10.66667, 5.33333, 16], "texture": "#missing", "tintindex": 0},
-				"south": {"uv": [0, 10.66667, 5.33333, 16], "texture": "#missing", "tintindex": 0},
-				"west": {"uv": [0, 10.66667, 5.33333, 16], "texture": "#missing", "tintindex": 0},
-				"up": {"uv": [0, 10.66667, 5.33333, 16], "texture": "#missing", "tintindex": 0},
-				"down": {"uv": [0, 10.66667, 5.33333, 16], "texture": "#missing", "tintindex": 0}
+				"north": {"uv": [0, 10.66667, 5.33333, 16], "texture": "#1", "tintindex": 0},
+				"east": {"uv": [0, 10.66667, 5.33333, 16], "texture": "#1", "tintindex": 0},
+				"south": {"uv": [0, 10.66667, 5.33333, 16], "texture": "#1", "tintindex": 0},
+				"west": {"uv": [0, 10.66667, 5.33333, 16], "texture": "#1", "tintindex": 0},
+				"up": {"uv": [0, 10.66667, 5.33333, 16], "texture": "#1", "tintindex": 0},
+				"down": {"uv": [0, 10.66667, 5.33333, 16], "texture": "#1", "tintindex": 0}
 			}
 		},
 		{

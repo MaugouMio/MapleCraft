@@ -2,7 +2,8 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [32, 32],
 	"textures": {
-		"1": "mob/rombot/base"
+		"1": "mob/rombot/base",
+		"particle": "empty"
 	},
 	"elements": [
 		{
@@ -2415,7 +2416,7 @@
 				"south": {"uv": [4, 0, 8, 4], "texture": "#1", "tintindex": 0},
 				"west": {"uv": [4, 0, 8, 4], "texture": "#1", "tintindex": 0},
 				"up": {"uv": [4, 0, 8, 4], "texture": "#1", "tintindex": 0},
-				"down": {"uv": [5.33333, 0, 10.66667, 5.33333], "texture": "#missing", "tintindex": 0}
+				"down": {"uv": [5.33333, 0, 10.66667, 5.33333], "texture": "#1", "tintindex": 0}
 			}
 		},
 		{
@@ -2428,7 +2429,7 @@
 				"south": {"uv": [4, 0, 8, 4], "texture": "#1", "tintindex": 0},
 				"west": {"uv": [4, 0, 8, 4], "texture": "#1", "tintindex": 0},
 				"up": {"uv": [4, 0, 8, 4], "texture": "#1", "tintindex": 0},
-				"down": {"uv": [5.33333, 0, 10.66667, 5.33333], "texture": "#missing", "tintindex": 0}
+				"down": {"uv": [5.33333, 0, 10.66667, 5.33333], "texture": "#1", "tintindex": 0}
 			}
 		}
 	],

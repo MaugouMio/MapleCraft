@@ -1,16 +1,16 @@
 {
   "variants": {
     "attached=false,disarmed=false,east=false,north=false,south=false,west=false": {
-      "model": "minecraft:empty"
+      "model": "minecraft:item/empty"
     },
     "attached=true,disarmed=false,east=false,north=false,south=false,west=false": {
-      "model": "minecraft:empty"
+      "model": "minecraft:item/empty"
     },
     "attached=false,disarmed=true,east=false,north=false,south=false,west=false": {
-      "model": "minecraft:empty"
+      "model": "minecraft:item/empty"
     },
     "attached=true,disarmed=true,east=false,north=false,south=false,west=false": {
-      "model": "minecraft:empty"
+      "model": "minecraft:item/empty"
     },
     "attached=false,disarmed=false,east=true,north=false,south=false,west=false": {
       "model": "minecraft:map/rope/swamp/0"
