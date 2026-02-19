@@ -30,7 +30,9 @@ if (isCustom == 0) {
 		// }
 	// }
 	// #endif
+#ifndef BLOCK
     color *= vertexColor * ColorModulator;
+#endif
 #ifndef EMISSIVE
     color *= lightColor;
 #endif
@@ -60,5 +62,7 @@ else if (noshadow == 0) {
     color *= minecraft_mix_light(Light0_Direction, Light1_Direction, normal, overlayColor);
 #endif
 
+#ifndef BLOCK
     color *= lightColor * ColorModulator;
+#endif
 }
