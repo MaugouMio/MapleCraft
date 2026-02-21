@@ -132,8 +132,8 @@ namespace 42() as virtual
 		{
 			func get()
 			{
-				clear @s minecraft:ender_eye{CustomModelData:148}
-				give @s minecraft:ender_eye{CustomModelData:148,skill:1b,HideFlags:127,display:{Name:'{"translate":"skill.4201002","font":"minecraft:uniform","bold":true,"italic":false}'}} 2
+				clear @s minecraft:ender_eye[custom_model_data={floats:[148f]}]
+				give @s minecraft:ender_eye[custom_model_data={floats:[148f]},custom_data={skill:1b},custom_name={"translate":"skill.0001000","font":"minecraft:uniform","bold":true,"italic":false}] 2
 			}
 		}
 		
@@ -200,7 +200,7 @@ namespace 42() as virtual
 				
 			func effect_model_set()
 			{
-				data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:420000}},transformation:{scale:[0.625f,0.625f,0.625f],translation:[0.0f,1.6885f,0.0f]},item_display:"head"}
+				data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",count:1,components: {"minecraft:custom_data": {}, "minecraft:custom_model_data": 420000}},transformation:{scale:[0.625f,0.625f,0.625f],translation:[0.0f,1.6885f,0.0f]},item_display:"head"}
 				scoreboard players set @s max_life 14
 				scoreboard players set @s base_model 420000
 				
@@ -226,13 +226,13 @@ namespace 42() as virtual
 			
 			func steal()
 			{
-				execute if data entity @s[tag=!no_drop] ArmorItems[3].tag.steal_loot run function ARG(_PATH)real_steal
+				execute if data entity @s[tag=!no_drop] equipment.head.components.minecraft:custom_data.steal_loot run function ARG(_PATH)real_steal
 				tag @s add stolen
 			}
 
 			func real_steal()
 			{
-				data modify entity 00000000-0000-0001-0000-000000000001 DeathLootTable set from entity @s ArmorItems[3].tag.steal_loot
+				data modify entity 00000000-0000-0001-0000-000000000001 DeathLootTable set from entity @s equipment.head.components.minecraft:custom_data.steal_loot
 				function skill:spawn_loot
 				scoreboard players set #DROP_SOUND temp 1
 				execute as @e[type=item,tag=!checked] at @s run function item:entity/check
@@ -303,8 +303,8 @@ namespace 42() as virtual
 			
 			func get()
 			{
-				clear @s minecraft:ender_eye{CustomModelData:149}
-				give @s minecraft:ender_eye{CustomModelData:149,skill:1b,HideFlags:127,display:{Name:'{"translate":"skill.4201004","font":"minecraft:uniform","bold":true,"italic":false}'}} 2
+				clear @s minecraft:ender_eye[custom_model_data={floats:[149f]}]
+				give @s minecraft:ender_eye[custom_model_data={floats:[149f]},custom_data={skill:1b},custom_name={"translate":"skill.0001000","font":"minecraft:uniform","bold":true,"italic":false}] 2
 			}
 		}
 		
@@ -378,17 +378,17 @@ namespace 42() as virtual
 			
 			func effect_model_set()
 			{
-				data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:1}},item_display:"head",billboard:"center"}
+				data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",count:1,components: {"minecraft:custom_data": {}, "minecraft:custom_model_data": 1}},item_display:"head",billboard:"center"}
 				scoreboard players set @s max_life 2
-				execute if score #HIT_EFFECT temp matches 3 store result entity @s item.tag.CustomModelData int 1 run scoreboard players set @s base_model 420014
-				execute if score #HIT_EFFECT temp matches 4 store result entity @s item.tag.CustomModelData int 1 run scoreboard players set @s base_model 420016
-				execute if score #HIT_EFFECT temp matches 5 store result entity @s item.tag.CustomModelData int 1 run scoreboard players set @s base_model 420018
+				execute if score #HIT_EFFECT temp matches 3 store result entity @s item.components.minecraft:custom_model_data int 1 run scoreboard players set @s base_model 420014
+				execute if score #HIT_EFFECT temp matches 4 store result entity @s item.components.minecraft:custom_model_data int 1 run scoreboard players set @s base_model 420016
+				execute if score #HIT_EFFECT temp matches 5 store result entity @s item.components.minecraft:custom_model_data int 1 run scoreboard players set @s base_model 420018
 
 				tp @s ~ ~ ~ ~ 0
 				function skill:get_horizon_offset_color
 				# 迴旋斬特效額外提高位置
 				scoreboard players add #MODEL_COLOR temp 3
-				execute store result entity @s item.tag.CustomPotionColor int 1 run scoreboard players operation #MODEL_COLOR temp += #OFFSET_Y temp
+				execute store result entity @s item.components."minecraft:potion_contents".custom_color int 1 run scoreboard players operation #MODEL_COLOR temp += #OFFSET_Y temp
 			}
 			
 			func append_scheduler()
@@ -478,8 +478,8 @@ namespace 42() as virtual
 			
 			func get()
 			{
-				clear @s minecraft:ender_eye{CustomModelData:150}
-				give @s minecraft:ender_eye{CustomModelData:150,skill:1b,HideFlags:127,display:{Name:'{"translate":"skill.4201005","font":"minecraft:uniform","bold":true,"italic":false}'}} 2
+				clear @s minecraft:ender_eye[custom_model_data={floats:[150f]}]
+				give @s minecraft:ender_eye[custom_model_data={floats:[150f]},custom_data={skill:1b},custom_name={"translate":"skill.0001000","font":"minecraft:uniform","bold":true,"italic":false}] 2
 			}
 		}
 	}

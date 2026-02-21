@@ -45,7 +45,7 @@ namespace mob_skill() as virtual
 		
 		func flash()
 		{
-			particle minecraft:flash ~ ~7 ~ 0 0 0 1 1 force
+			particle minecraft:flash{color:-1} ~ ~7 ~ 0 0 0 1 1 force
 			particle minecraft:explosion ~ ~7 ~ 0 0 0 0 1 force
 			
 			scoreboard players set @s status 5
@@ -307,7 +307,7 @@ namespace mob_skill() as virtual
 		
 		func effect_model_set()
 		{
-			data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:900000}},transformation:{scale:[0.625f,0.625f,0.625f],translation:[0.0f,1.426f,0.0f]},item_display:"head"}
+			data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",count:1,components:{"minecraft:custom_model_data":{floats:[900000f]}}},transformation:{scale:[0.625f,0.625f,0.625f],translation:[0.0f,1.426f,0.0f]},item_display:"head"}
 			scoreboard players set @s max_life 26
 			scoreboard players set @s base_model 900000
 			
@@ -394,7 +394,7 @@ namespace mob_skill() as virtual
 		
 		func effect_model_set()
 		{
-			data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:900026}},transformation:{scale:[0.625f,0.625f,0.625f],translation:[0.0f,1.426f,0.0f]},item_display:"head"}
+			data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",count:1,components:{"minecraft:custom_model_data":{floats:[900026f]}}},transformation:{scale:[0.625f,0.625f,0.625f],translation:[0.0f,1.426f,0.0f]},item_display:"head"}
 			scoreboard players set @s max_life 26
 			scoreboard players set @s base_model 900026
 
@@ -730,7 +730,7 @@ namespace mob_skill() as virtual
 		
 		func effect_model_set()
 		{
-			data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:900052}},transformation:{scale:[0.625f,0.625f,0.625f],translation:[0.0f,2.926f,0.0f]},item_display:"head"}
+			data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",count:1,components:{"minecraft:custom_model_data":{floats:[900052f]}}},transformation:{scale:[0.625f,0.625f,0.625f],translation:[0.0f,2.926f,0.0f]},item_display:"head"}
 			scoreboard players set @s max_life 36
 			scoreboard players set @s base_model 900052
 
@@ -792,8 +792,8 @@ namespace mob_skill() as virtual
 		scoreboard players reset @s action_frame_max
 		execute if score #ACTION_FRAME_S temp matches 1.. run scoreboard players operation @s action_frame_max = #KB_TIME temp
 		
-		execute if score #FORCE_MODEL temp matches 1.. store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players get #FORCE_MODEL temp
-		execute if score #MODEL_COLOR temp matches 0.. store result entity @s ArmorItems[3].tag.CustomPotionColor int 1 run scoreboard players get #MODEL_COLOR temp
+		execute if score #FORCE_MODEL temp matches 1.. store result entity @s equipment.head.components.minecraft:custom_data.CustomModelData int 1 run scoreboard players get #FORCE_MODEL temp
+		execute if score #MODEL_COLOR temp matches 0.. store result entity @s equipment.head.components.minecraft:custom_data.CustomPotionColor int 1 run scoreboard players get #MODEL_COLOR temp
 	}
 	
 	func write_target_uuid()

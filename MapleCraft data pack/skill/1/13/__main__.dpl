@@ -328,8 +328,8 @@ namespace 13() as virtual
 		{
 			func get()
 			{
-				clear @s minecraft:ender_eye{CustomModelData:40}
-				give @s minecraft:ender_eye{CustomModelData:40,skill:1b,HideFlags:127,display:{Name:'{"translate":"skill.1301004","font":"minecraft:uniform","bold":true,"italic":false}'}} 2
+				clear @s minecraft:ender_eye[custom_model_data={floats:[40f]}]
+				give @s minecraft:ender_eye[custom_model_data={floats:[40f]},custom_data={skill:1b},custom_name={"translate":"skill.0001000","font":"minecraft:uniform","bold":true,"italic":false}] 2
 			}
 		}
 		
@@ -337,8 +337,8 @@ namespace 13() as virtual
 		{
 			func get()
 			{
-				clear @s minecraft:ender_eye{CustomModelData:41}
-				give @s minecraft:ender_eye{CustomModelData:41,skill:1b,HideFlags:127,display:{Name:'{"translate":"skill.1301005","font":"minecraft:uniform","bold":true,"italic":false}'}} 2
+				clear @s minecraft:ender_eye[custom_model_data={floats:[41f]}]
+				give @s minecraft:ender_eye[custom_model_data={floats:[41f]},custom_data={skill:1b},custom_name={"translate":"skill.0001000","font":"minecraft:uniform","bold":true,"italic":false}] 2
 			}
 		}
 		
@@ -402,7 +402,7 @@ namespace 13() as virtual
 				scoreboard players operation @s wmdef_buff_time = @s wmdef_buff_tmax
 				function skill:buff/wmdef/add_8
 				```
-				# print(f"attribute @s minecraft:generic.luck modifier add {buff_info_dict['wmdef']['uuid']} 8 0 add")
+				# print(f"attribute @s minecraft:luck modifier add {buff_info_dict['wmdef']['uuid']} 8 0 add")
 				```
 			}
 			
@@ -459,8 +459,8 @@ namespace 13() as virtual
 			
 			func get()
 			{
-				clear @s minecraft:ender_eye{CustomModelData:42}
-				give @s minecraft:ender_eye{CustomModelData:42,skill:1b,HideFlags:127,display:{Name:'{"translate":"skill.1301006","font":"minecraft:uniform","bold":true,"italic":false}'}} 2
+				clear @s minecraft:ender_eye[custom_model_data={floats:[42f]}]
+				give @s minecraft:ender_eye[custom_model_data={floats:[42f]},custom_data={skill:1b},custom_name={"translate":"skill.0001000","font":"minecraft:uniform","bold":true,"italic":false}] 2
 			}
 		}
 		
@@ -526,7 +526,7 @@ namespace 13() as virtual
 
 				function ARG(_PATH)hyper/add_s
 				```
-				# print(f"attribute @s minecraft:generic.luck modifier add {simple_buff_info_dict['hyper']['uuid']} s 0 add")
+				# print(f"attribute @s minecraft:luck modifier add {simple_buff_info_dict['hyper']['uuid']} s 0 add")
 				```
 			}
 			
@@ -616,8 +616,8 @@ namespace 13() as virtual
 			
 			func get()
 			{
-				clear @s minecraft:ender_eye{CustomModelData:43}
-				give @s minecraft:ender_eye{CustomModelData:43,skill:1b,HideFlags:127,display:{Name:'{"translate":"skill.1301007","font":"minecraft:uniform","bold":true,"italic":false}'}} 2
+				clear @s minecraft:ender_eye[custom_model_data={floats:[43f]}]
+				give @s minecraft:ender_eye[custom_model_data={floats:[43f]},custom_data={skill:1b},custom_name={"translate":"skill.0001000","font":"minecraft:uniform","bold":true,"italic":false}] 2
 			}
 		}
 	}

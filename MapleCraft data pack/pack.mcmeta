@@ -1,17 +1,18 @@
 {
 	"pack": {
-		"pack_format": 26,
+		"min_format": 99,
+		"max_format": 10000,
 		"description": "MapleCraft data pack"
 	},
 	"filter": {
 		"block": [
 			{
 				"namespace": "minecraft",
-				"path": "recipes/.*"
+				"path": "recipe/.*"
 			},
 			{
 				"namespace": "minecraft",
-				"path": "advancements/.*"
+				"path": "advancement/.*"
 			}
 		]
 	}

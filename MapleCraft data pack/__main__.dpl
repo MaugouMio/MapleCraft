@@ -5,8 +5,8 @@ description = "MapleCraft data pack"
 
 ```
 constants = [-7, -3, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 16, 17, 20, 22, 23, 25, 28, 30, 32, 34, 36, 40, 41, 44, 45, 46, 48, 50, 55, 56, 57, 59, 60, 64, 66, 92, 100, 125, 128, 150, 225, 250, 256, 500, 560, 700, 1000, 2000, 7000, 10000, 24000, 30000, 65536, 99999, 100000, 1000000]
-menu_book = '''minecraft:written_book{no_trade:1b,menu:1b,author:"",title:"MENU",HideFlags:127,pages:['["",{"translate":"text.menu.shortcut","font":"minecraft:uniform","bold":true},"\\\\n",[{"text":"0","font":"ui:menu","color":"white","clickEvent":{"action":"run_command","value":"/trigger command set 8"},"hoverEvent":{"action":"show_text","contents":[{"translate":"text.menu.shortcut.equip","font":"minecraft:uniform"}]}},{"text":"1","clickEvent":{"action":"run_command","value":"/trigger command set 9"},"hoverEvent":{"action":"show_text","contents":[{"translate":"text.menu.shortcut.stat","font":"minecraft:uniform"}]}},{"text":"2","clickEvent":{"action":"run_command","value":"/trigger command set 10"},"hoverEvent":{"action":"show_text","contents":[{"translate":"text.menu.shortcut.skill","font":"minecraft:uniform"}]}},{"text":"9","clickEvent":{"action":"run_command","value":"/trigger command set 208"},"hoverEvent":{"action":"show_text","contents":[{"translate":"text.menu.shortcut.meso","font":"minecraft:uniform"}]}}],"\\\\n\\\\n",{"translate":"text.menu.sys_opt","font":"minecraft:uniform","bold":true},"\\\\n",[{"text":"3","font":"ui:menu","color":"white","clickEvent":{"action":"run_command","value":"/trigger command set 11"},"hoverEvent":{"action":"show_text","contents":[{"translate":"text.menu.sys_opt.hp_alert","font":"minecraft:uniform"}]}},{"text":"4","clickEvent":{"action":"run_command","value":"/trigger command set 12"},"hoverEvent":{"action":"show_text","contents":[{"translate":"text.menu.sys_opt.mp_alert","font":"minecraft:uniform"}]}},"\\\\n",{"text":"5","font":"ui:menu","color":"white","clickEvent":{"action":"run_command","value":"/trigger command set 11"},"hoverEvent":{"action":"show_text","contents":[{"translate":"text.menu.sys_opt.hp_alert","font":"minecraft:uniform"}]}},{"text":"6","clickEvent":{"action":"run_command","value":"/trigger command set 12"},"hoverEvent":{"action":"show_text","contents":[{"translate":"text.menu.sys_opt.mp_alert","font":"minecraft:uniform"}]}}],"\\\\n\\\\n",{"translate":"text.menu.key_reset","font":"minecraft:uniform","bold":true},"\\\\n",[{"text":"7","font":"ui:menu","color":"white","clickEvent":{"action":"run_command","value":"/trigger command set 153"},"hoverEvent":{"action":"show_text","contents":[{"translate":"skill.attack","font":"minecraft:uniform"}]}},"\\\\n",{"text":"8","font":"ui:menu","color":"white","clickEvent":{"action":"run_command","value":"/trigger command set 153"},"hoverEvent":{"action":"show_text","contents":[{"translate":"skill.attack","font":"minecraft:uniform"}]}}],"\\\\n\\\\n",{"translate":"text.menu.reset_point","font":"minecraft:uniform","bold":true},"\\\\n",[{"text":"A","font":"ui:menu","color":"white","clickEvent":{"action":"run_command","value":"/trigger command set 219"},"hoverEvent":{"action":"show_text","contents":[{"translate":"text.menu.reset_point.ap","font":"minecraft:uniform"}]}},{"text":"C","font":"ui:menu","color":"white","clickEvent":{"action":"run_command","value":"/trigger command set 220"},"hoverEvent":{"action":"show_text","contents":[{"translate":"text.menu.reset_point.sp","font":"minecraft:uniform"}]}},"\\\\n",{"text":"B","font":"ui:menu","color":"white","clickEvent":{"action":"run_command","value":"/trigger command set 219"},"hoverEvent":{"action":"show_text","contents":[{"translate":"text.menu.reset_point.ap","font":"minecraft:uniform"}]}},{"text":"D","font":"ui:menu","color":"white","clickEvent":{"action":"run_command","value":"/trigger command set 220"},"hoverEvent":{"action":"show_text","contents":[{"translate":"text.menu.reset_point.sp","font":"minecraft:uniform"}]}}]]']}'''
-potion_bag = '''minecraft:bundle{no_trade:1b,display:{Name:'{"translate":"item.consume.potion_bag","font":"minecraft:uniform","bold":true,"italic":false}',Lore:['{"translate":"item.notice.untradeable","font":"minecraft:uniform","color":"#FE8811","italic":false}','{"translate":"item.notice.potion.bag","font":"minecraft:uniform","color":"white","italic":false}','{"translate":"item.notice.potion.bag2","font":"minecraft:uniform","color":"white","italic":false}','{"translate":"item.notice.potion.bag3","font":"minecraft:uniform","color":"white","italic":false}']}}'''
+menu_book = '''minecraft:written_book[custom_data={no_trade:1b,menu:1b},written_book_content={title:"MENU",author:"",pages:['["",{"translate":"text.menu.shortcut","font":"minecraft:uniform","bold":true},"\\\\n",[{"text":"0","font":"ui:menu","color":"white","clickEvent":{"action":"run_command","value":"/trigger command set 8"},"hoverEvent":{"action":"show_text","contents":[{"translate":"text.menu.shortcut.equip","font":"minecraft:uniform"}]}},{"text":"1","clickEvent":{"action":"run_command","value":"/trigger command set 9"},"hoverEvent":{"action":"show_text","contents":[{"translate":"text.menu.shortcut.stat","font":"minecraft:uniform"}]}},{"text":"2","clickEvent":{"action":"run_command","value":"/trigger command set 10"},"hoverEvent":{"action":"show_text","contents":[{"translate":"text.menu.shortcut.skill","font":"minecraft:uniform"}]}},{"text":"9","clickEvent":{"action":"run_command","value":"/trigger command set 208"},"hoverEvent":{"action":"show_text","contents":[{"translate":"text.menu.shortcut.meso","font":"minecraft:uniform"}]}}],"\\\\n\\\\n",{"translate":"text.menu.sys_opt","font":"minecraft:uniform","bold":true},"\\\\n",[{"text":"3","font":"ui:menu","color":"white","clickEvent":{"action":"run_command","value":"/trigger command set 11"},"hoverEvent":{"action":"show_text","contents":[{"translate":"text.menu.sys_opt.hp_alert","font":"minecraft:uniform"}]}},{"text":"4","clickEvent":{"action":"run_command","value":"/trigger command set 12"},"hoverEvent":{"action":"show_text","contents":[{"translate":"text.menu.sys_opt.mp_alert","font":"minecraft:uniform"}]}},"\\\\n",{"text":"5","font":"ui:menu","color":"white","clickEvent":{"action":"run_command","value":"/trigger command set 11"},"hoverEvent":{"action":"show_text","contents":[{"translate":"text.menu.sys_opt.hp_alert","font":"minecraft:uniform"}]}},{"text":"6","clickEvent":{"action":"run_command","value":"/trigger command set 12"},"hoverEvent":{"action":"show_text","contents":[{"translate":"text.menu.sys_opt.mp_alert","font":"minecraft:uniform"}]}}],"\\\\n\\\\n",{"translate":"text.menu.key_reset","font":"minecraft:uniform","bold":true},"\\\\n",[{"text":"7","font":"ui:menu","color":"white","clickEvent":{"action":"run_command","value":"/trigger command set 153"},"hoverEvent":{"action":"show_text","contents":[{"translate":"skill.attack","font":"minecraft:uniform"}]}},"\\\\n",{"text":"8","font":"ui:menu","color":"white","clickEvent":{"action":"run_command","value":"/trigger command set 153"},"hoverEvent":{"action":"show_text","contents":[{"translate":"skill.attack","font":"minecraft:uniform"}]}}],"\\\\n\\\\n",{"translate":"text.menu.reset_point","font":"minecraft:uniform","bold":true},"\\\\n",[{"text":"A","font":"ui:menu","color":"white","clickEvent":{"action":"run_command","value":"/trigger command set 219"},"hoverEvent":{"action":"show_text","contents":[{"translate":"text.menu.reset_point.ap","font":"minecraft:uniform"}]}},{"text":"C","font":"ui:menu","color":"white","clickEvent":{"action":"run_command","value":"/trigger command set 220"},"hoverEvent":{"action":"show_text","contents":[{"translate":"text.menu.reset_point.sp","font":"minecraft:uniform"}]}},"\\\\n",{"text":"B","font":"ui:menu","color":"white","clickEvent":{"action":"run_command","value":"/trigger command set 219"},"hoverEvent":{"action":"show_text","contents":[{"translate":"text.menu.reset_point.ap","font":"minecraft:uniform"}]}},{"text":"D","font":"ui:menu","color":"white","clickEvent":{"action":"run_command","value":"/trigger command set 220"},"hoverEvent":{"action":"show_text","contents":[{"translate":"text.menu.reset_point.sp","font":"minecraft:uniform"}]}}]]']}]'''
+potion_bag = '''minecraft:bundle[custom_data={no_trade:1b},custom_name={"translate":"item.consume.potion_bag","font":"minecraft:uniform","bold":true,"italic":false},lore=['{"translate":"item.notice.untradeable","font":"minecraft:uniform","color":"#FE8811","italic":false}','{"translate":"item.notice.potion.bag","font":"minecraft:uniform","color":"white","italic":false}','{"translate":"item.notice.potion.bag2","font":"minecraft:uniform","color":"white","italic":false}','{"translate":"item.notice.potion.bag3","font":"minecraft:uniform","color":"white","italic":false}']]'''
 
 UUID_LIST = {
 	"root":			"[I;0,1,0,1]",
@@ -38,32 +38,39 @@ namespace main()
 {
 	func install()
 	{
-		gamerule commandBlockOutput false
-		gamerule disableRaids true
-		gamerule doDaylightCycle false
-		gamerule doEntityDrops false
-		gamerule doFireTick false
-		gamerule doInsomnia false
-		gamerule doMobLoot false
-		gamerule doMobSpawning false
-		gamerule doPatrolSpawning false
-		gamerule doTileDrops false
-		gamerule doTraderSpawning false
-		gamerule doWeatherCycle false
-		gamerule drowningDamage false
-		gamerule fallDamage false
-		gamerule forgiveDeadPlayers true
-		gamerule keepInventory true
-		gamerule logAdminCommands false
-		gamerule mobGriefing false
-		gamerule naturalRegeneration false
-		gamerule randomTickSpeed 0
-		gamerule sendCommandFeedback false
-		gamerule showDeathMessages false
-		gamerule spawnRadius 0
-		gamerule universalAnger false
-		gamerule maxCommandChainLength 1048576
-		gamerule doLimitedCrafting true
+		gamerule advance_time false
+		gamerule advance_weather false
+		gamerule block_drops false
+		gamerule command_block_output false
+		gamerule command_blocks_work true
+		gamerule drowning_damage false
+		gamerule entity_drops false
+		gamerule fall_damage false
+		gamerule fire_spread_radius_around_player 0
+		gamerule forgive_dead_players true
+		gamerule keep_inventory true
+		gamerule limited_crafting true
+		gamerule locator_bar false
+		gamerule log_admin_commands false
+		gamerule max_command_forks 65536
+		gamerule max_command_sequence_length 1048576
+		gamerule mob_drops false
+		gamerule mob_griefing false
+		gamerule natural_health_regeneration false
+		gamerule pvp false
+		gamerule raids false
+		gamerule random_tick_speed 0
+		gamerule respawn_radius 0
+		gamerule send_command_feedback false
+		gamerule show_advancement_messages false
+		gamerule show_death_messages false
+		gamerule spawn_mobs false
+		gamerule spawn_monsters false
+		gamerule spawn_patrols false
+		gamerule spawn_phantoms false
+		gamerule spawn_wandering_traders false
+		gamerule spread_vines false
+		gamerule universal_anger false
 		
 		defaultgamemode adventure
 		difficulty normal
@@ -110,7 +117,7 @@ namespace main()
 		```
 		print("summon minecraft:snow_golem 250 -2 0 {NoAI:1,NoGravity:1,Invulnerable:1,Silent:1,UUID:%s}" %UUID_LIST["root"])
 		```
-		item replace entity 00000000-0000-0001-0000-000000000001 weapon.mainhand with minecraft:potion{CustomModelData:1,Enchantments:[{id:"minecraft:looting",lvl:1}]}
+		item replace entity 00000000-0000-0001-0000-000000000001 weapon.mainhand with minecraft:potion[custom_model_data={floats:[1f]},enchantments={"minecraft:looting":1}]
 		
 		data modify storage main:main rotation set value {angle:0.0f,axis:[0.0f,-1.0f,0.0f]}
 		
@@ -291,16 +298,16 @@ namespace main()
 		effect give @s minecraft:jump_boost infinite 0 true
 		effect give @s minecraft:resistance infinite 255 true
 		effect give @s minecraft:water_breathing infinite 0 true
-		attribute @s minecraft:generic.attack_damage base set -100.0
+		attribute @s minecraft:attack_damage base set -100.0
 		tag @s add cloth_equipped
 		tag @s add pants_equipped
 		tag @s add shoes_equipped
 		scoreboard players set @s weapon_type 7
-		item replace entity @s armor.head with minecraft:carved_pumpkin{weapon:{level:0,job:[1,1,1,1,1,1],stats:[0,0,0,0],equip_type:7,CustomModelData:10286,weapon_attack:17,action_time:-2,icon:['"\\uB1a4"','"\\uB1a5"'],scroll_left:7,price:1,original_name:'{"translate":"weapon.oh_sword.0","font":"minecraft:uniform","bold":true,"italic":false}',display:{Name:'{"translate":"weapon.oh_sword.0","font":"minecraft:uniform","bold":true,"italic":false}',Lore:['{"translate":"item.notice.require.level","font":"minecraft:uniform","with":["0"],"color":"white","italic":false}','{"translate":"item.notice.require.str","font":"minecraft:uniform","with":["0"],"color":"white","italic":false}','{"translate":"item.notice.require.dex","font":"minecraft:uniform","with":["0"],"color":"white","italic":false}','{"translate":"item.notice.require.int","font":"minecraft:uniform","with":["0"],"color":"white","italic":false}','{"translate":"item.notice.require.luk","font":"minecraft:uniform","with":["0"],"color":"white","italic":false}','{"text":"02468a","font":"ui:equip","color":"white","italic":false}','{"text":"--------------------------------------","font":"minecraft:uniform","color":"white","italic":false}','{"translate":"item.notice.weapon_category","font":"minecraft:uniform","color":"white","italic":false,"with":[{"translate":"item.notice.weapon_category.oh_sword","font":"minecraft:uniform","color":"white","italic":false}]}','{"translate":"item.notice.attack_speed","font":"minecraft:uniform","color":"white","italic":false,"with":[{"translate":"item.notice.attack_speed.fast","font":"minecraft:uniform","color":"white","italic":false}]}','{"translate":"item.notice.weapon_attack","font":"minecraft:uniform","color":"white","italic":false,"with":[{"text":"17","font":"minecraft:uniform","color":"white","italic":false}]}','{"translate":"item.notice.scroll","font":"minecraft:uniform","color":"white","italic":false,"with":[7]}']},HideFlags:127,Unbreakable:1},cloth:{level:0,job:[1,1,1,1,1,1],stats:[0,0,0,0],equip_type:31,CustomModelData:10801,defense:3,icon:['"\\uc410"','"\\uc411"'],scroll_left:7,price:1,original_name:'{"translate":"equip.cloth.common.white_undershirt","font":"minecraft:uniform","bold":true,"italic":false}',display:{Name:'{"translate":"equip.cloth.common.white_undershirt","font":"minecraft:uniform","bold":true,"italic":false}',Lore:['{"translate":"item.notice.require.level","font":"minecraft:uniform","with":["0"],"color":"white","italic":false}','{"translate":"item.notice.require.str","font":"minecraft:uniform","with":["0"],"color":"white","italic":false}','{"translate":"item.notice.require.dex","font":"minecraft:uniform","with":["0"],"color":"white","italic":false}','{"translate":"item.notice.require.int","font":"minecraft:uniform","with":["0"],"color":"white","italic":false}','{"translate":"item.notice.require.luk","font":"minecraft:uniform","with":["0"],"color":"white","italic":false}','{"text":"02468a","font":"ui:equip","color":"white","italic":false}','{"text":"--------------------------------------","font":"minecraft:uniform","color":"white","italic":false}','{"translate":"item.notice.equip_category","font":"minecraft:uniform","color":"white","italic":false,"with":[{"translate":"item.notice.equip_category.cloth","font":"minecraft:uniform","color":"white","italic":false}]}','{"translate":"item.notice.weapon_def","font":"minecraft:uniform","color":"white","italic":false,"with":[{"text":"3","font":"minecraft:uniform","color":"white","italic":false}]}','{"translate":"item.notice.scroll","font":"minecraft:uniform","color":"white","italic":false,"with":[7]}']},HideFlags:127,Unbreakable:1},pants:{level:0,job:[1,1,1,1,1,1],stats:[0,0,0,0],equip_type:32,CustomModelData:11101,defense:2,icon:['"\\uc60c"','"\\uc60d"'],scroll_left:7,price:25,original_name:'{"translate":"equip.pants.common.blue_jean_shorts","font":"minecraft:uniform","bold":true,"italic":false}',display:{Name:'{"translate":"equip.pants.common.blue_jean_shorts","font":"minecraft:uniform","bold":true,"italic":false}',Lore:['{"translate":"item.notice.require.level","font":"minecraft:uniform","with":["0"],"color":"white","italic":false}','{"translate":"item.notice.require.str","font":"minecraft:uniform","with":["0"],"color":"white","italic":false}','{"translate":"item.notice.require.dex","font":"minecraft:uniform","with":["0"],"color":"white","italic":false}','{"translate":"item.notice.require.int","font":"minecraft:uniform","with":["0"],"color":"white","italic":false}','{"translate":"item.notice.require.luk","font":"minecraft:uniform","with":["0"],"color":"white","italic":false}','{"text":"02468a","font":"ui:equip","color":"white","italic":false}','{"text":"--------------------------------------","font":"minecraft:uniform","color":"white","italic":false}','{"translate":"item.notice.equip_category","font":"minecraft:uniform","color":"white","italic":false,"with":[{"translate":"item.notice.equip_category.pants","font":"minecraft:uniform","color":"white","italic":false}]}','{"translate":"item.notice.weapon_def","font":"minecraft:uniform","color":"white","italic":false,"with":[{"text":"2","font":"minecraft:uniform","color":"white","italic":false}]}','{"translate":"item.notice.scroll","font":"minecraft:uniform","color":"white","italic":false,"with":[7]}']},HideFlags:127,Unbreakable:1},shoes:{level:0,job:[1,1,1,1,1,1],stats:[0,0,0,0],equip_type:35,CustomModelData:12001,defense:2,icon:['"\\uc21e"','"\\uc21f"'],scroll_left:5,price:25,original_name:'{"translate":"equip.shoes.common.leather_sandals","font":"minecraft:uniform","bold":true,"italic":false}',display:{Name:'{"translate":"equip.shoes.common.leather_sandals","font":"minecraft:uniform","bold":true,"italic":false}',Lore:['{"translate":"item.notice.require.level","font":"minecraft:uniform","with":["0"],"color":"white","italic":false}','{"translate":"item.notice.require.str","font":"minecraft:uniform","with":["0"],"color":"white","italic":false}','{"translate":"item.notice.require.dex","font":"minecraft:uniform","with":["0"],"color":"white","italic":false}','{"translate":"item.notice.require.int","font":"minecraft:uniform","with":["0"],"color":"white","italic":false}','{"translate":"item.notice.require.luk","font":"minecraft:uniform","with":["0"],"color":"white","italic":false}','{"text":"02468a","font":"ui:equip","color":"white","italic":false}','{"text":"--------------------------------------","font":"minecraft:uniform","color":"white","italic":false}','{"translate":"item.notice.equip_category","font":"minecraft:uniform","color":"white","italic":false,"with":[{"translate":"item.notice.equip_category.shoes","font":"minecraft:uniform","color":"white","italic":false}]}','{"translate":"item.notice.weapon_def","font":"minecraft:uniform","color":"white","italic":false,"with":[{"text":"2","font":"minecraft:uniform","color":"white","italic":false}]}','{"translate":"item.notice.scroll","font":"minecraft:uniform","color":"white","italic":false,"with":[5]}']},HideFlags:127,Unbreakable:1},buff:[],display:{Name:'""'},HideFlags:127,Enchantments:[{id:"minecraft:binding_curse",lvl:1}],AttributeModifiers:[{AttributeName:"generic.movement_speed",Name:"equip",Amount:0,Operation:1,UUID:[I;0,1,0,1]}]}
-		item replace entity @s armor.legs with minecraft:diamond_leggings{display:{Name:'""'},Unbreakable:1,HideFlags:127,Enchantments:[{id:"minecraft:swift_sneak",lvl:5s},{id:"minecraft:binding_curse",lvl:1}]}
-		item replace entity @s hotbar.0 with minecraft:ender_eye{CustomModelData:199,skill:1b,HideFlags:127,display:{Name:'{"translate":"skill.attack","font":"minecraft:uniform","bold":true,"italic":false}'}} 2
+		item replace entity @s armor.head with minecraft:carved_pumpkin[custom_data={weapon:{level:0,job:[1,1,1,1,1,1],stats:[0,0,0,0],equip_type:7,custom_model_data:10286,weapon_attack:17,action_time:-2,icon:['"\\uB1a4"','"\\uB1a5"'],scroll_left:7,price:1,original_name:'{"translate":"weapon.oh_sword.0","font":"minecraft:uniform","bold":true,"italic":false}'},cloth:{level:0,job:[1,1,1,1,1,1],stats:[0,0,0,0],equip_type:31,custom_model_data:10801,defense:3,icon:['"\\uc410"','"\\uc411"'],scroll_left:7,price:1,original_name:'{"translate":"equip.cloth.common.white_undershirt","font":"minecraft:uniform","bold":true,"italic":false}'},pants:{level:0,job:[1,1,1,1,1,1],stats:[0,0,0,0],equip_type:32,custom_model_data:11101,defense:2,icon:['"\\uc60c"','"\\uc60d"'],scroll_left:7,price:25,original_name:'{"translate":"equip.pants.common.blue_jean_shorts","font":"minecraft:uniform","bold":true,"italic":false}'},shoes:{level:0,job:[1,1,1,1,1,1],stats:[0,0,0,0],equip_type:35,custom_model_data:12001,defense:2,icon:['"\\uc21e"','"\\uc21f"'],scroll_left:5,price:25,original_name:'{"translate":"equip.shoes.common.leather_sandals","font":"minecraft:uniform","bold":true,"italic":false}'},buff:[]},tooltip_display={hide_tooltip:true},enchantments={"minecraft:binding_curse":1},attribute_modifiers=[{type:"minecraft:movement_speed",id:"player_speed",name:"equip",amount:0,operation:"add_multiplied_base",slot:"head"}]]
+		item replace entity @s armor.legs with minecraft:diamond_leggings[unbreakable={},tooltip_display={hide_tooltip:true},enchantments={"minecraft:swift_sneak":5,"minecraft:binding_curse":1}]
+		item replace entity @s hotbar.0 with minecraft:ender_eye[custom_model_data={floats:[199f]},custom_data={skill:1b},custom_name={"translate":"skill.attack","font":"minecraft:uniform","bold":true,"italic":false}] 2
 		```
-		print('''item replace entity @s weapon.offhand with minecraft:allay_spawn_egg{CustomModelData:10286,EntityTag:{id:"minecraft:marker",UUID:%s},HideFlags:127,display:{Name:'{"translate":"weapon.oh_sword.0","font":"minecraft:uniform","bold":true,"italic":false}',Lore:['{"translate":"item.notice.for_display"}']}}''' %UUID_LIST["root"])
+		print('''item replace entity @s weapon.offhand with minecraft:allay_spawn_egg[custom_model_data={floats:[10286f]},entity_data={id:"minecraft:marker",UUID:%s},custom_name={"translate":"weapon.oh_sword.0","font":"minecraft:uniform","bold":true,"italic":false},lore=[{"translate":"item.notice.for_display"}]]''' %UUID_LIST["root"])
 		print(f"item replace entity @s hotbar.7 with {potion_bag}")
 		print(f"item replace entity @s hotbar.8 with {menu_book}")
 		```
@@ -408,7 +415,7 @@ namespace main()
 	{
 		func reset()
 		{
-			clear @s minecraft:written_book{menu:1b}
+			clear @s minecraft:written_book[custom_data={menu:1b}]
 			```
 			print(f"give @s {menu_book}")
 			```
@@ -437,8 +444,8 @@ namespace main()
 		{
 			func attack()
 			{
-				clear @s minecraft:ender_eye{CustomModelData:199}
-				give @s minecraft:ender_eye{CustomModelData:199,skill:1b,HideFlags:127,display:{Name:'{"translate":"skill.attack","font":"minecraft:uniform","bold":true,"italic":false}'}} 2
+				clear @s minecraft:ender_eye[custom_model_data={floats:[199f]}]
+				give @s minecraft:ender_eye[custom_model_data={floats:[199f]},custom_data={skill:1b},custom_name={"translate":"skill.attack","font":"minecraft:uniform","bold":true,"italic":false}] 2
 			}
 		}
 		
@@ -719,8 +726,8 @@ namespace main()
 			
 			function item:use/equip/remove_all
 			
-			clear @s minecraft:ender_eye{skill:1b}
-			give @s minecraft:ender_eye{CustomModelData:199,skill:1b,HideFlags:127,display:{Name:'{"translate":"skill.attack","bold":true,"italic":false}'}} 2
+			clear @s minecraft:ender_eye[custom_data={skill:1b}]
+			give @s minecraft:ender_eye[custom_model_data={floats:[199f]},custom_data={skill:1b},custom_name={"translate":"skill.attack","bold":true,"italic":false}] 2
 		}
 		
 		folder warrior()

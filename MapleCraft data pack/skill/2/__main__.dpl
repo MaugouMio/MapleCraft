@@ -181,7 +181,7 @@ namespace 2() as virtual
 					scoreboard players operation @s mguar_buff_num = @s 2001002_rate
 					function ARG(_PATH)mguar/add_h
 					```
-					# print(f"attribute @s minecraft:generic.luck modifier add {simple_buff_info_dict['mguar']['uuid']} h 0 add")
+					# print(f"attribute @s minecraft:luck modifier add {simple_buff_info_dict['mguar']['uuid']} h 0 add")
 					```
 					# VVV since we got mp change below, no need to update the bar display VVV
 					# tag @s add hp_mp_varying
@@ -273,8 +273,8 @@ namespace 2() as virtual
 				
 				func get()
 				{
-					clear @s minecraft:ender_eye{CustomModelData:54}
-					give @s minecraft:ender_eye{CustomModelData:54,skill:1b,HideFlags:127,display:{Name:'{"translate":"skill.2001002","font":"minecraft:uniform","bold":true,"italic":false}'}} 2
+					clear @s minecraft:ender_eye[custom_model_data={floats:[54f]}]
+					give @s minecraft:ender_eye[custom_model_data={floats:[54f]},custom_data={skill:1b},custom_name={"translate":"skill.0001000","font":"minecraft:uniform","bold":true,"italic":false}] 2
 				}
 			}
 			
@@ -306,7 +306,7 @@ namespace 2() as virtual
 					scoreboard players operation @s wdef_buff_time = @s wdef_buff_tmax
 					function skill:buff/wdef/add_1
 					```
-					# print(f"attribute @s minecraft:generic.luck modifier add {buff_info_dict['wdef']['uuid']} 1 0 add")
+					# print(f"attribute @s minecraft:luck modifier add {buff_info_dict['wdef']['uuid']} 1 0 add")
 					```
 					# VVV since we got mp change below, no need to update the bar display VVV
 					# tag @s add hp_mp_varying
@@ -381,8 +381,8 @@ namespace 2() as virtual
 				
 				func get()
 				{
-					clear @s minecraft:ender_eye{CustomModelData:55}
-					give @s minecraft:ender_eye{CustomModelData:55,skill:1b,HideFlags:127,display:{Name:'{"translate":"skill.2001003","font":"minecraft:uniform","bold":true,"italic":false}'}} 2
+					clear @s minecraft:ender_eye[custom_model_data={floats:[55f]}]
+					give @s minecraft:ender_eye[custom_model_data={floats:[55f]},custom_data={skill:1b},custom_name={"translate":"skill.0001000","font":"minecraft:uniform","bold":true,"italic":false}] 2
 				}
 			}
 			
@@ -418,7 +418,7 @@ namespace 2() as virtual
 				func summon_bullet()
 				{
 					# max_distance should be set to (#DISTANCE temp - 1)
-					execute rotated ~ 0 run summon minecraft:item_display ^ ^ ^1 {Tags:["first_bullet","new_bullet","bullet"],item:{id:"minecraft:potion",Count:1,tag:{appear_delay:11,max_distance:8,skill_id:1,bullet_model:2000,CustomModelData:1}},item_display:"head"}
+					execute rotated ~ 0 run summon minecraft:item_display ^ ^ ^1 {Tags:["first_bullet","new_bullet","bullet"],item:{id:"minecraft:potion",count:1,components: {"minecraft:custom_data": {appear_delay:11,max_distance:8,skill_id:1,bullet_model:2000}, "minecraft:custom_model_data": 1}},item_display:"head"}
 				}
 				
 				func set_numeric()
@@ -447,13 +447,13 @@ namespace 2() as virtual
 				
 				func effect_model_set()
 				{
-					data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:200000}},item_display:"head",billboard:"center"}
+					data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",count:1,components: {"minecraft:custom_data": {}, "minecraft:custom_model_data": 200000}},item_display:"head",billboard:"center"}
 					scoreboard players set @s max_life 5
 					scoreboard players set @s base_model 200000
 
 					tp @s ~ ~ ~ ~ 0
 					function skill:get_horizon_offset_color
-					execute store result entity @s item.tag.CustomPotionColor int 1 run scoreboard players operation #MODEL_COLOR temp += #OFFSET_Y temp
+					execute store result entity @s item.components."minecraft:potion_contents".custom_color int 1 run scoreboard players operation #MODEL_COLOR temp += #OFFSET_Y temp
 				}
 				
 				func append_scheduler()
@@ -527,8 +527,8 @@ namespace 2() as virtual
 				
 				func get()
 				{
-					clear @s minecraft:ender_eye{CustomModelData:56}
-					give @s minecraft:ender_eye{CustomModelData:56,skill:1b,HideFlags:127,display:{Name:'{"translate":"skill.2001004","font":"minecraft:uniform","bold":true,"italic":false}'}} 2
+					clear @s minecraft:ender_eye[custom_model_data={floats:[56f]}]
+					give @s minecraft:ender_eye[custom_model_data={floats:[56f]},custom_data={skill:1b},custom_name={"translate":"skill.0001000","font":"minecraft:uniform","bold":true,"italic":false}] 2
 				}
 			}
 			
@@ -591,13 +591,13 @@ namespace 2() as virtual
 				
 				func effect_model_set()
 				{
-					data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:200005}},item_display:"head",billboard:"center"}
+					data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",count:1,components: {"minecraft:custom_data": {}, "minecraft:custom_model_data": 200005}},item_display:"head",billboard:"center"}
 					scoreboard players set @s max_life 12
 					scoreboard players set @s base_model 200005
 
 					tp @s ~ ~ ~ ~ 0
 					function skill:get_horizon_offset_color
-					execute store result entity @s item.tag.CustomPotionColor int 1 run scoreboard players operation #MODEL_COLOR temp += #OFFSET_Y temp
+					execute store result entity @s item.components."minecraft:potion_contents".custom_color int 1 run scoreboard players operation #MODEL_COLOR temp += #OFFSET_Y temp
 				}
 				
 				func append_scheduler()
@@ -673,8 +673,8 @@ namespace 2() as virtual
 				
 				func get()
 				{
-					clear @s minecraft:ender_eye{CustomModelData:57}
-					give @s minecraft:ender_eye{CustomModelData:57,skill:1b,HideFlags:127,display:{Name:'{"translate":"skill.2001005","font":"minecraft:uniform","bold":true,"italic":false}'}} 2
+					clear @s minecraft:ender_eye[custom_model_data={floats:[57f]}]
+					give @s minecraft:ender_eye[custom_model_data={floats:[57f]},custom_data={skill:1b},custom_name={"translate":"skill.0001000","font":"minecraft:uniform","bold":true,"italic":false}] 2
 				}
 			}
 		}

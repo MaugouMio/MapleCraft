@@ -196,8 +196,8 @@ namespace 31() as virtual
 		{
 			func get()
 			{
-				clear @s minecraft:ender_eye{CustomModelData:102}
-				give @s minecraft:ender_eye{CustomModelData:102,skill:1b,HideFlags:127,display:{Name:'{"translate":"skill.3101002","font":"minecraft:uniform","bold":true,"italic":false}'}} 2
+				clear @s minecraft:ender_eye[custom_model_data={floats:[102f]}]
+				give @s minecraft:ender_eye[custom_model_data={floats:[102f]},custom_data={skill:1b},custom_name={"translate":"skill.0001000","font":"minecraft:uniform","bold":true,"italic":false}] 2
 			}
 		}
 		
@@ -332,8 +332,8 @@ namespace 31() as virtual
 			
 			func get()
 			{
-				clear @s minecraft:ender_eye{CustomModelData:103}
-				give @s minecraft:ender_eye{CustomModelData:103,skill:1b,HideFlags:127,display:{Name:'{"translate":"skill.3101003","font":"minecraft:uniform","bold":true,"italic":false}'}} 2
+				clear @s minecraft:ender_eye[custom_model_data={floats:[103f]}]
+				give @s minecraft:ender_eye[custom_model_data={floats:[103f]},custom_data={skill:1b},custom_name={"translate":"skill.0001000","font":"minecraft:uniform","bold":true,"italic":false}] 2
 			}
 		}
 		
@@ -362,7 +362,7 @@ namespace 31() as virtual
 				scoreboard players operation @s soul_buff_time = @s soul_buff_tmax
 				function ARG(_PATH)soul/add_u
 				```
-				# print(f"attribute @s minecraft:generic.luck modifier add {simple_buff_info_dict['soul']['uuid']} u 0 add")
+				# print(f"attribute @s minecraft:luck modifier add {simple_buff_info_dict['soul']['uuid']} u 0 add")
 				```
 				# VVV since we got mp change below, no need to update the bar display VVV
 				# tag @s add hp_mp_varying
@@ -382,7 +382,7 @@ namespace 31() as virtual
 			
 			func effect_model_set()
 			{
-				data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:310000}},transformation:{scale:[0.625f,0.625f,0.625f],translation:[0.0f,1.6885f,0.0f]},item_display:"head"}
+				data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",count:1,components: {"minecraft:custom_data": {}, "minecraft:custom_model_data": 310000}},transformation:{scale:[0.625f,0.625f,0.625f],translation:[0.0f,1.6885f,0.0f]},item_display:"head"}
 				scoreboard players set @s max_life 13
 				scoreboard players set @s base_model 310000
 				
@@ -445,8 +445,8 @@ namespace 31() as virtual
 			
 			func get()
 			{
-				clear @s minecraft:ender_eye{CustomModelData:104}
-				give @s minecraft:ender_eye{CustomModelData:104,skill:1b,HideFlags:127,display:{Name:'{"translate":"skill.3101004","font":"minecraft:uniform","bold":true,"italic":false}'}} 2
+				clear @s minecraft:ender_eye[custom_model_data={floats:[104f]}]
+				give @s minecraft:ender_eye[custom_model_data={floats:[104f]},custom_data={skill:1b},custom_name={"translate":"skill.0001000","font":"minecraft:uniform","bold":true,"italic":false}] 2
 			}
 		}
 		
@@ -528,7 +528,7 @@ namespace 31() as virtual
 
 			func set_bullet()
 			{
-				data merge entity @s {Tags:["first_bullet","new_bullet","bullet"],item:{id:"minecraft:potion",Count:1,tag:{appear_delay:7,max_distance:10,skill_id:10,bullet_model:3100,CustomModelData:1}},item_display:"head"}
+				data merge entity @s {Tags:["first_bullet","new_bullet","bullet"],item:{id:"minecraft:potion",count:1,components: {"minecraft:custom_data": {appear_delay:7,max_distance:10,skill_id:10,bullet_model:3100}, "minecraft:custom_model_data": 1}},item_display:"head"}
 				execute store result entity @s item.tag.max_distance int 1 run scoreboard players get #BULLET_DISTANCE temp
 			}
 			
@@ -578,10 +578,10 @@ namespace 31() as virtual
 				execute if score #DID_HIT temp matches 1 run function ARG(_PATH)add_debuff
 				
 				scoreboard players add @s queuing_effect 1
-				data modify entity @s ArmorItems[3].tag.bullet_list append value {}
-				execute store result entity @s ArmorItems[3].tag.bullet_list[-1].bullet_id int 1 run scoreboard players get #BULLET_ID number
-				data modify entity @s ArmorItems[3].tag.bullet_list[-1].damage_record set from entity @s ArmorItems[3].tag.damage_record
-				data modify entity @s ArmorItems[3].tag.bullet_list[-1].damage_info set from storage skill:main damage_info
+				data modify entity @s equipment.head.components.minecraft:custom_data.bullet_list append value {}
+				execute store result entity @s equipment.head.components.minecraft:custom_data.bullet_list[-1].bullet_id int 1 run scoreboard players get #BULLET_ID number
+				data modify entity @s equipment.head.components.minecraft:custom_data.bullet_list[-1].damage_record set from entity @s equipment.head.components.minecraft:custom_data.damage_record
+				data modify entity @s equipment.head.components.minecraft:custom_data.bullet_list[-1].damage_info set from storage skill:main damage_info
 				
 				execute if score @s display_number matches 1.. as @e[type=ocelot,tag=new_splashed] run function ARG(_PATH)splashed
 				execute unless score @s display_number matches 1.. run tag @e[type=ocelot,tag=new_splashed] remove new_splashed
@@ -597,10 +597,10 @@ namespace 31() as virtual
 				execute if score #DID_HIT temp matches 1 run function ARG(_PATH)add_debuff
 				
 				scoreboard players add @s queuing_effect 1
-				data modify entity @s ArmorItems[3].tag.bullet_list append value {}
-				execute store result entity @s ArmorItems[3].tag.bullet_list[-1].bullet_id int 1 run scoreboard players get #BULLET_ID number
-				data modify entity @s ArmorItems[3].tag.bullet_list[-1].damage_record set from entity @s ArmorItems[3].tag.damage_record
-				data modify entity @s ArmorItems[3].tag.bullet_list[-1].damage_info set from storage skill:main damage_info
+				data modify entity @s equipment.head.components.minecraft:custom_data.bullet_list append value {}
+				execute store result entity @s equipment.head.components.minecraft:custom_data.bullet_list[-1].bullet_id int 1 run scoreboard players get #BULLET_ID number
+				data modify entity @s equipment.head.components.minecraft:custom_data.bullet_list[-1].damage_record set from entity @s equipment.head.components.minecraft:custom_data.damage_record
+				data modify entity @s equipment.head.components.minecraft:custom_data.bullet_list[-1].damage_info set from storage skill:main damage_info
 				
 				tag @s remove new_splashed
 				scoreboard players add @s 3101005_splashed 1
@@ -611,7 +611,7 @@ namespace 31() as virtual
 			{
 				func run()
 				{
-					data modify entity @s ArmorItems[3].tag.damage_record set value []
+					data modify entity @s equipment.head.components.minecraft:custom_data.damage_record set value []
 					# copy damage list (for accuracy and defense calculation)
 					data modify storage skill:main damage_copy set from storage skill:main damage
 					scoreboard players set #DID_HIT temp 0
@@ -629,7 +629,7 @@ namespace 31() as virtual
 					function skill:calculate_damage/traverse_damages/weapon_formula
 					#########################
 					
-					data modify entity @s ArmorItems[3].tag.damage_record append value {number:0,crit:0,height:0}
+					data modify entity @s equipment.head.components.minecraft:custom_data.damage_record append value {number:0,crit:0,height:0}
 					execute on passengers if entity @s[type=interaction] store result score #NUMBER_HEIGHT temp run data get entity @s height 100
 					# calculate hit height
 					scoreboard players operation #MAX_HEIGHT temp = #NUMBER_HEIGHT temp
@@ -640,8 +640,8 @@ namespace 31() as virtual
 					scoreboard players operation #OFFSET_Y temp -= #POSY2 temp
 					scoreboard players operation #OFFSET_Y temp > #0 const
 					scoreboard players operation #OFFSET_Y temp < #MAX_HEIGHT temp
-					execute store result entity @s ArmorItems[3].tag.damage_record[-1].height int 1 run scoreboard players get #NUMBER_HEIGHT temp
-					execute store result entity @s ArmorItems[3].tag.damage_record[-1].offset int 1 run scoreboard players get #OFFSET_Y temp
+					execute store result entity @s equipment.head.components.minecraft:custom_data.damage_record[-1].height int 1 run scoreboard players get #NUMBER_HEIGHT temp
+					execute store result entity @s equipment.head.components.minecraft:custom_data.damage_record[-1].offset int 1 run scoreboard players get #OFFSET_Y temp
 					
 					function random:rand_rate
 					execute if score #HIT_RATE temp > #RAND_RESULT number run function ARG(_PATH)deal_damage
@@ -672,7 +672,7 @@ namespace 31() as virtual
 					scoreboard players operation @s display_number > #1 const
 					
 					scoreboard players operation @s hp -= @s display_number
-					execute store result entity @s ArmorItems[3].tag.damage_record[-1].number int 1 run scoreboard players get @s display_number
+					execute store result entity @s equipment.head.components.minecraft:custom_data.damage_record[-1].number int 1 run scoreboard players get @s display_number
 					
 					scoreboard players set #DID_HIT temp 1
 				}
@@ -684,7 +684,7 @@ namespace 31() as virtual
 					
 					scoreboard players operation @s display_number *= #CRIT_DAMAGE temp
 					scoreboard players operation @s display_number /= #100 const
-					data modify entity @s ArmorItems[3].tag.damage_record[-1].crit set value 1
+					data modify entity @s equipment.head.components.minecraft:custom_data.damage_record[-1].crit set value 1
 				}
 			}
 			
@@ -712,11 +712,11 @@ namespace 31() as virtual
 					data modify storage skill:main new_queue set value []
 					function ARG(__PATH)merge_schedule
 					data modify storage skill:main new_queue[-1].splash set value 0
-					data modify entity @s ArmorItems[3].tag.3101005_effect_queue prepend from storage skill:main new_queue[]
-					execute store result score @s 3101005_eid run data get entity @s ArmorItems[3].tag.3101005_effect_queue[0].time
+					data modify entity @s equipment.head.components.minecraft:custom_data.3101005_effect_queue prepend from storage skill:main new_queue[]
+					execute store result score @s 3101005_eid run data get entity @s equipment.head.components.minecraft:custom_data.3101005_effect_queue[0].time
 					
-					data remove entity @s ArmorItems[3].tag.bullet_list[0]
-					data modify entity @s ArmorItems[3].tag.bullet_list prepend from storage skill:main temp[]
+					data remove entity @s equipment.head.components.minecraft:custom_data.bullet_list[0]
+					data modify entity @s equipment.head.components.minecraft:custom_data.bullet_list prepend from storage skill:main temp[]
 					
 					# append scheduler
 					data modify storage skill:main new_schedule set value [{delay:0,time:0}]
@@ -731,9 +731,9 @@ namespace 31() as virtual
 				{
 					data modify storage skill:main temp set value []
 					function ARG(_PATH)pop_bullet_list
-					execute if data entity @s ArmorItems[3].tag.bullet_list[0] run function ARG(_PATH)set
+					execute if data entity @s equipment.head.components.minecraft:custom_data.bullet_list[0] run function ARG(_PATH)set
 					
-					data modify entity @s ArmorItems[3].tag.bullet_list prepend from storage skill:main temp[]
+					data modify entity @s equipment.head.components.minecraft:custom_data.bullet_list prepend from storage skill:main temp[]
 				}
 				
 				func set()
@@ -743,24 +743,24 @@ namespace 31() as virtual
 					data modify storage skill:main new_queue set value []
 					function ARG(__PATH)merge_schedule
 					data modify storage skill:main new_queue[-1].splash set value 1
-					data modify entity @s ArmorItems[3].tag.3101005_effect_queue prepend from storage skill:main new_queue[]
-					execute store result score @s 3101005_eid run data get entity @s ArmorItems[3].tag.3101005_effect_queue[0].time
+					data modify entity @s equipment.head.components.minecraft:custom_data.3101005_effect_queue prepend from storage skill:main new_queue[]
+					execute store result score @s 3101005_eid run data get entity @s equipment.head.components.minecraft:custom_data.3101005_effect_queue[0].time
 					
-					data remove entity @s ArmorItems[3].tag.bullet_list[0]
+					data remove entity @s equipment.head.components.minecraft:custom_data.bullet_list[0]
 					scoreboard players remove @s 3101005_splashed 1
 				}
 				
 				func pop_bullet_list()
 				{
-					execute store result score #CUR_BULLET_ID temp run data get entity @s ArmorItems[3].tag.bullet_list[0].bullet_id
+					execute store result score #CUR_BULLET_ID temp run data get entity @s equipment.head.components.minecraft:custom_data.bullet_list[0].bullet_id
 					execute unless score #CUR_BULLET_ID temp = #BULLET_ID temp run function ARG(_PATH)check_next
 				}
 				
 				func check_next()
 				{
-					data modify storage skill:main temp append from entity @s ArmorItems[3].tag.bullet_list[0]
-					data remove entity @s ArmorItems[3].tag.bullet_list[0]
-					execute if data entity @s ArmorItems[3].tag.bullet_list[0] run function ARG(_PATH)pop_bullet_list
+					data modify storage skill:main temp append from entity @s equipment.head.components.minecraft:custom_data.bullet_list[0]
+					data remove entity @s equipment.head.components.minecraft:custom_data.bullet_list[0]
+					execute if data entity @s equipment.head.components.minecraft:custom_data.bullet_list[0] run function ARG(_PATH)pop_bullet_list
 				}
 			}
 			
@@ -774,37 +774,37 @@ namespace 31() as virtual
 			{
 				playsound minecraft:skill.3101005_hit player @a ~ ~ ~ 3 1 0
 				
-				execute store result score #IS_SPLASH temp run data get entity @s ArmorItems[3].tag.3101005_effect_queue[0].splash
+				execute store result score #IS_SPLASH temp run data get entity @s equipment.head.components.minecraft:custom_data.3101005_effect_queue[0].splash
 				execute summon item_display run function ARG(_PATH)effect_model_set
 			}
 			
 			func effect_model_set()
 			{
-				data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:1}},item_display:"head",billboard:"center"}
+				data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",count:1,components: {"minecraft:custom_data": {}, "minecraft:custom_model_data": 1}},item_display:"head",billboard:"center"}
 				scoreboard players set @s max_life 15
-				execute if score #IS_SPLASH temp matches 0 store result entity @s item.tag.CustomModelData int 1 run scoreboard players set @s base_model 310013
-				execute if score #IS_SPLASH temp matches 1 store result entity @s item.tag.CustomModelData int 1 run scoreboard players set @s base_model 310028
+				execute if score #IS_SPLASH temp matches 0 store result entity @s item.components.minecraft:custom_model_data int 1 run scoreboard players set @s base_model 310013
+				execute if score #IS_SPLASH temp matches 1 store result entity @s item.components.minecraft:custom_model_data int 1 run scoreboard players set @s base_model 310028
 				execute if score #IS_SPLASH temp matches 1 run scoreboard players set @s max_life 9
 
 				tp @s ~ ~ ~ ~ 0
 				function skill:get_horizon_offset_color
-				execute store result entity @s item.tag.CustomPotionColor int 1 run scoreboard players operation #MODEL_COLOR temp += #OFFSET_Y temp
+				execute store result entity @s item.components."minecraft:potion_contents".custom_color int 1 run scoreboard players operation #MODEL_COLOR temp += #OFFSET_Y temp
 			}
 	
 			# replace merge_schedule (add flag to separate splash from hit and for multi target use)
 			func merge_schedule()
 			{
 				execute store result score #LEFT temp run data get storage skill:main new_schedule[0].time
-				execute store result score #RIGHT temp run data get entity @s ArmorItems[3].tag.3101005_effect_queue[0].time
+				execute store result score #RIGHT temp run data get entity @s equipment.head.components.minecraft:custom_data.3101005_effect_queue[0].time
 				function ARG(_PATH)merge_ori_schedule/run
 				
 				data modify storage skill:main new_queue append value {time:0,damage:0,attacker:[I;0,0,0,0],knock_back:[]}
 				execute store result storage skill:main new_queue[-1].time int 1 run scoreboard players get #LEFT temp
-				data modify storage skill:main new_queue[-1].damage set from entity @s ArmorItems[3].tag.bullet_list[0].damage_record[0]
-				data modify storage skill:main new_queue[-1].attacker set from entity @s ArmorItems[3].tag.bullet_list[0].damage_info.attacker
-				data modify storage skill:main new_queue[-1].attacker_id set from entity @s ArmorItems[3].tag.bullet_list[0].damage_info.attacker_id
-				data modify storage skill:main new_queue[-1].hit_effect set from entity @s ArmorItems[3].tag.bullet_list[0].damage_info.hit_effect
-				data modify storage skill:main new_queue[-1].knock_back set from entity @s ArmorItems[3].tag.bullet_list[0].damage_info.knock_back
+				data modify storage skill:main new_queue[-1].damage set from entity @s equipment.head.components.minecraft:custom_data.bullet_list[0].damage_record[0]
+				data modify storage skill:main new_queue[-1].attacker set from entity @s equipment.head.components.minecraft:custom_data.bullet_list[0].damage_info.attacker
+				data modify storage skill:main new_queue[-1].attacker_id set from entity @s equipment.head.components.minecraft:custom_data.bullet_list[0].damage_info.attacker_id
+				data modify storage skill:main new_queue[-1].hit_effect set from entity @s equipment.head.components.minecraft:custom_data.bullet_list[0].damage_info.hit_effect
+				data modify storage skill:main new_queue[-1].knock_back set from entity @s equipment.head.components.minecraft:custom_data.bullet_list[0].damage_info.knock_back
 				
 				scoreboard players add @s queuing_effect 1
 			}
@@ -878,8 +878,8 @@ namespace 31() as virtual
 			
 			func get()
 			{
-				clear @s minecraft:ender_eye{CustomModelData:105}
-				give @s minecraft:ender_eye{CustomModelData:105,skill:1b,HideFlags:127,display:{Name:'{"translate":"skill.3101005","font":"minecraft:uniform","bold":true,"italic":false}'}} 2
+				clear @s minecraft:ender_eye[custom_model_data={floats:[105f]}]
+				give @s minecraft:ender_eye[custom_model_data={floats:[105f]},custom_data={skill:1b},custom_name={"translate":"skill.0001000","font":"minecraft:uniform","bold":true,"italic":false}] 2
 			}
 		}
 	}

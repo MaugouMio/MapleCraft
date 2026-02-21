@@ -251,8 +251,8 @@ namespace 41() as virtual
 		{
 			func get()
 			{
-				clear @s minecraft:ender_eye{CustomModelData:134}
-				give @s minecraft:ender_eye{CustomModelData:134,skill:1b,HideFlags:127,display:{Name:'{"translate":"skill.4101003","font":"minecraft:uniform","bold":true,"italic":false}'}} 2
+				clear @s minecraft:ender_eye[custom_model_data={floats:[134f]}]
+				give @s minecraft:ender_eye[custom_model_data={floats:[134f]},custom_data={skill:1b},custom_name={"translate":"skill.0001000","font":"minecraft:uniform","bold":true,"italic":false}] 2
 			}
 		}
 		
@@ -323,7 +323,7 @@ namespace 41() as virtual
 				scoreboard players operation @s haste_buff_time = @s haste_buff_tmax
 				function skill:buff/haste/add_b
 				```
-				# print(f"attribute @s minecraft:generic.luck modifier add {buff_info_dict['haste']['uuid']} b 0 add")
+				# print(f"attribute @s minecraft:luck modifier add {buff_info_dict['haste']['uuid']} b 0 add")
 				```
 			}
 			
@@ -386,8 +386,8 @@ namespace 41() as virtual
 			
 			func get()
 			{
-				clear @s minecraft:ender_eye{CustomModelData:135}
-				give @s minecraft:ender_eye{CustomModelData:135,skill:1b,HideFlags:127,display:{Name:'{"translate":"skill.4101004","font":"minecraft:uniform","bold":true,"italic":false}'}} 2
+				clear @s minecraft:ender_eye[custom_model_data={floats:[135f]}]
+				give @s minecraft:ender_eye[custom_model_data={floats:[135f]},custom_data={skill:1b},custom_name={"translate":"skill.0001000","font":"minecraft:uniform","bold":true,"italic":false}] 2
 			}
 		}
 		
@@ -438,7 +438,7 @@ namespace 41() as virtual
 			
 			func effect_model_set()
 			{
-				data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:410000}},transformation:{scale:[0.625f,0.625f,0.625f],translation:[0.0f,1.6885f,0.0f]},item_display:"head"}
+				data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",count:1,components: {"minecraft:custom_data": {}, "minecraft:custom_model_data": 410000}},transformation:{scale:[0.625f,0.625f,0.625f],translation:[0.0f,1.6885f,0.0f]},item_display:"head"}
 				scoreboard players set @s max_life 12
 				scoreboard players set @s base_model 410000
 
@@ -457,7 +457,7 @@ namespace 41() as virtual
 			
 			func set_bullet()
 			{
-				data merge entity @s {Tags:["first_bullet","new_bullet","bullet"],item:{id:"minecraft:potion",Count:1,tag:{appear_delay:7,max_distance:10,skill_id:9,bullet_model:4005,CustomModelData:1}},item_display:"head"}
+				data merge entity @s {Tags:["first_bullet","new_bullet","bullet"],item:{id:"minecraft:potion",count:1,components: {"minecraft:custom_data": {appear_delay:7,max_distance:10,skill_id:9,bullet_model:4005}, "minecraft:custom_model_data": 1}},item_display:"head"}
 				execute store result entity @s item.tag.max_distance int 1 run scoreboard players get #BULLET_DISTANCE temp
 				execute store result entity @s item.tag.bullet_model int 1 run scoreboard players get #GLOBAL bullet_model
 			}
@@ -482,9 +482,9 @@ namespace 41() as virtual
 			
 			func add_debuff()
 			{
-				execute store result score #DRAIN_AMOUNT temp run data get entity @s ArmorItems[3].tag.damage_record[-1].number
+				execute store result score #DRAIN_AMOUNT temp run data get entity @s equipment.head.components.minecraft:custom_data.damage_record[-1].number
 				```
-				raise Warning("TODO: if got shadow partner, add #DRAIN_AMOUNT temp by ArmorItems[3].tag.damage_record[-2].number")
+				raise Warning("TODO: if got shadow partner, add #DRAIN_AMOUNT temp by equipment.head.components.\"minecraft:custom_data\".damage_record[-2].number")
 				```
 				scoreboard players operation #DRAIN_AMOUNT temp *= #DRAIN_RATE temp
 				scoreboard players operation #DRAIN_AMOUNT temp /= #100 const
@@ -576,8 +576,8 @@ namespace 41() as virtual
 			
 			func get()
 			{
-				clear @s minecraft:ender_eye{CustomModelData:136}
-				give @s minecraft:ender_eye{CustomModelData:136,skill:1b,HideFlags:127,display:{Name:'{"translate":"skill.4101005","font":"minecraft:uniform","bold":true,"italic":false}'}} 2
+				clear @s minecraft:ender_eye[custom_model_data={floats:[136f]}]
+				give @s minecraft:ender_eye[custom_model_data={floats:[136f]},custom_data={skill:1b},custom_name={"translate":"skill.0001000","font":"minecraft:uniform","bold":true,"italic":false}] 2
 			}
 		}
 	}

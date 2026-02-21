@@ -1,0 +1,55 @@
+{
+  "condition": "minecraft:any_of",
+  "terms": [
+    {
+      "condition": "minecraft:entity_scores",
+      "entity": "this",
+      "scores": {
+        "pick_etc": {
+          "min": 1,
+          "max": 2304
+        }
+      }
+    },
+    {
+      "condition": "minecraft:entity_scores",
+      "entity": "this",
+      "scores": {
+        "pick_meso": {
+          "min": 1,
+          "max": 2304
+        }
+      }
+    },
+    {
+      "condition": "minecraft:entity_scores",
+      "entity": "this",
+      "scores": {
+        "pick_weapon": {
+          "min": 1,
+          "max": 2304
+        }
+      }
+    },
+    {
+      "condition": "minecraft:entity_scores",
+      "entity": "this",
+      "scores": {
+        "pick_consume": {
+          "min": 1,
+          "max": 2304
+        }
+      }
+    },
+    {
+      "condition": "minecraft:entity_scores",
+      "entity": "this",
+      "scores": {
+        "pick_potion": {
+          "min": 1,
+          "max": 2304
+        }
+      }
+    }
+  ]
+}

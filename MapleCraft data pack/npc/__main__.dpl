@@ -38,7 +38,7 @@ namespace npc()
 			
 			func check_ticket()
 			{
-				execute store result score #GLOBAL temp run clear @s stick{CustomModelData:5220050} 1
+				execute store result score #GLOBAL temp run clear @s stick[custom_model_data={floats:[5220050f]}] 1
 				execute if score #GLOBAL temp matches 0 run tellraw @s ["\n",{"translate":"text.npc.gachapon.no_ticket","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 				execute if score #GLOBAL temp matches 1 run function ARG(_PATH)draw
 			}
@@ -48,9 +48,9 @@ namespace npc()
 				data remove block 250 1 0 Items[]
 				loot replace block 250 1 0 container.0 loot main:gachapon
 				execute store result score #GLOBAL temp run data get block 250 1 0 Items[0].Count
-				execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.npc.gachapon.get","font":"minecraft:uniform","with":[{"nbt":"Items[0].tag.display.Name","block":"250 1 0","interpret":true}]}
-				execute if score #GLOBAL temp matches 2.. run tellraw @s {"translate":"text.npc.gachapon.get_multiple","font":"minecraft:uniform","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"nbt":"Items[0].tag.display.Name","block":"250 1 0","interpret":true}]}
-				loot give @s mine 250 1 0 minecraft:air{modify_player:1b}
+				execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.npc.gachapon.get","font":"minecraft:uniform","with":[{"nbt":"Items[0].components.minecraft:custom_name","block":"250 1 0","interpret":true}]}
+				execute if score #GLOBAL temp matches 2.. run tellraw @s {"translate":"text.npc.gachapon.get_multiple","font":"minecraft:uniform","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"nbt":"Items[0].components.minecraft:custom_name","block":"250 1 0","interpret":true}]}
+				loot give @s mine 250 1 0 minecraft:air[custom_data={modify_player:1b}]
 			}
 		}
 	}
@@ -310,7 +310,7 @@ namespace npc()
 				
 				tellraw @s {"translate":"text.quest.item_gain","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.consume.2010000"}]}
 				```
-				print(f"give @s minecraft:ender_eye{itemDatas[20504]}")
+				print(f"give @s minecraft:ender_eye[]")
 				```
 				tellraw @s ["\n",{"translate":"text.quest.tutorial.roger.apple","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 				scoreboard players set @s tutorial 2
@@ -319,7 +319,7 @@ namespace npc()
 			func apple_check()
 			{
 				# 要求身上沒有蘋果 + 滿血
-				execute store result score #GLOBAL temp run clear @s minecraft:ender_eye{CustomModelData:403} 0
+				execute store result score #GLOBAL temp run clear @s minecraft:ender_eye[custom_model_data={floats:[403f]}] 0
 				execute if score @s hp < @s hp_max run scoreboard players set #GLOBAL temp 1
 				
 				execute unless score #GLOBAL temp matches 0 run tellraw @s ["\n",{"translate":"text.quest.tutorial.roger.apple_teach","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
@@ -346,7 +346,7 @@ namespace npc()
 			
 			func attack_check()
 			{
-				execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4000083} 1
+				execute store result score #GLOBAL temp run clear @s minecraft:stick[custom_model_data={floats:[4000083f]}] 1
 				# 有打怪一定會升到 3 等
 				execute if score #GLOBAL temp matches 1 store success score #GLOBAL temp if score @s level matches 3..
 				execute if score #GLOBAL temp matches 0 run tellraw @s ["\n",{"translate":"text.quest.tutorial.roger.attack_teach","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
@@ -383,7 +383,7 @@ namespace npc()
 			{
 				tellraw @s {"translate":"text.quest.item_gain","font":"minecraft:uniform","color":"gray","with":[{"translate":"weapon.dagger.5"}]}
 				```
-				print(f"give @s minecraft:warped_fungus_on_a_stick{itemDatas[416]}")
+				print(f"give @s minecraft:warped_fungus_on_a_stick[]")
 				```				
 				tellraw @s ["\n",{"translate":"text.quest.tutorial.roger.equip","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 				scoreboard players set @s tutorial 9
@@ -422,16 +422,16 @@ namespace npc()
 			
 			func material_check()
 			{
-				execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4031161} 0
-				execute if score #GLOBAL temp matches 10.. store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4031162} 0
+				execute store result score #GLOBAL temp run clear @s minecraft:stick[custom_model_data={floats:[4031161f]}] 0
+				execute if score #GLOBAL temp matches 10.. store result score #GLOBAL temp run clear @s minecraft:stick[custom_model_data={floats:[4031162f]}] 0
 				execute if score #GLOBAL temp matches ..9 run tellraw @s ["\n",{"translate":"text.quest.tutorial.pio.greet","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 				execute if score #GLOBAL temp matches 10.. run function ARG(_PATH)box_complete
 			}
 			
 			func box_complete()
 			{
-				execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4031161} 10
-				execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4031162} 10
+				execute store result score #GLOBAL temp run clear @s minecraft:stick[custom_model_data={floats:[4031161f]}] 10
+				execute store result score #GLOBAL temp run clear @s minecraft:stick[custom_model_data={floats:[4031162f]}] 10
 				tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":["10",{"translate":"item.etc.4031161"}]}
 				tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":["10",{"translate":"item.etc.4031162"}]}
 				
@@ -448,7 +448,7 @@ namespace npc()
 			func relax_chair()
 			{
 				```
-				print(f"give @s minecraft:warped_fungus_on_a_stick{itemDatas[32001]}")
+				print(f"give @s minecraft:warped_fungus_on_a_stick[]")
 				```
 				tellraw @s {"translate":"text.quest.item_gain","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.install.3010000"}]}
 				

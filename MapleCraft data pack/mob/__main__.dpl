@@ -33,17 +33,17 @@ namespace mob()
 		{
 			execute store result score #GLOBAL temp run scoreboard players add @s spawn_alpha 1
 			execute if score @s spawn_alpha matches 1 on controller run function ARG(_PATH)set_model
-			execute if score @s spawn_alpha matches ..9 on controller store result entity @s ArmorItems[3].tag.CustomPotionColor int 10 run scoreboard players get #GLOBAL temp
+			execute if score @s spawn_alpha matches ..9 on controller store result entity @s equipment.head.components."minecraft:potion_contents".custom_color int 10 run scoreboard players get #GLOBAL temp
 			execute if score @s spawn_alpha matches 10 run function ARG(_PATH)run
 		}
 		
 		func set_model()
 		{
-			execute if data entity @s ArmorItems[3].tag.info.move_frame store result score @s move_frame run data get entity @s ArmorItems[3].tag.info.move_frame
-			execute if data entity @s ArmorItems[3].tag.info.stand_frame store result score @s stand_frame run data get entity @s ArmorItems[3].tag.info.stand_frame
-			execute store result score @s base_model run data get entity @s ArmorItems[3].tag.CustomModelData
+			execute if data entity @s equipment.head.components.minecraft:custom_data.info.move_frame store result score @s move_frame run data get entity @s equipment.head.components.minecraft:custom_data.info.move_frame
+			execute if data entity @s equipment.head.components.minecraft:custom_data.info.stand_frame store result score @s stand_frame run data get entity @s equipment.head.components.minecraft:custom_data.info.stand_frame
+			execute store result score @s base_model run data get entity @s equipment.head.components.minecraft:custom_model_data
 			
-			data remove entity @s ArmorItems[3].tag.info
+			data remove entity @s equipment.head.components.minecraft:custom_data.info
 		}
 		
 		func run()
@@ -67,30 +67,30 @@ namespace mob()
 		
 		func set_stats()
 		{
-			execute store result score @s level run data get entity @s ArmorItems[3].tag.info.level
+			execute store result score @s level run data get entity @s equipment.head.components.minecraft:custom_data.info.level
 			
-			execute store result score @s hp_max run data get entity @s ArmorItems[3].tag.info.hp_max
+			execute store result score @s hp_max run data get entity @s equipment.head.components.minecraft:custom_data.info.hp_max
 			scoreboard players operation @s hp = @s hp_max
-			execute store result score @s mp_max run data get entity @s ArmorItems[3].tag.info.mp_max
+			execute store result score @s mp_max run data get entity @s equipment.head.components.minecraft:custom_data.info.mp_max
 			scoreboard players operation @s mp = @s mp_max
 			
-			execute store result score @s base_accuracy run data get entity @s ArmorItems[3].tag.info.accuracy
-			execute store result score @s avoidability run data get entity @s ArmorItems[3].tag.info.avoidability
+			execute store result score @s base_accuracy run data get entity @s equipment.head.components.minecraft:custom_data.info.accuracy
+			execute store result score @s avoidability run data get entity @s equipment.head.components.minecraft:custom_data.info.avoidability
 			
-			execute store result score #WEAPON_ATTACK temp run data get entity @s ArmorItems[3].tag.info.weapon_attack
+			execute store result score #WEAPON_ATTACK temp run data get entity @s equipment.head.components.minecraft:custom_data.info.weapon_attack
 			execute if score #WEAPON_ATTACK temp matches 1.. run scoreboard players operation @s weapon_attack = #WEAPON_ATTACK temp
-			execute if data entity @s ArmorItems[3].tag.info.magic_attack store result score @s weapon_mattack run data get entity @s ArmorItems[3].tag.info.magic_attack
-			execute store result score @s weapon_defense run data get entity @s ArmorItems[3].tag.info.weapon_defense
-			execute store result score @s magic_defense run data get entity @s ArmorItems[3].tag.info.magic_defense
-			execute store result score @s kb run data get entity @s ArmorItems[3].tag.info.kb
-			execute store result score @s speed run data get entity @s ArmorItems[3].tag.info.speed
-			execute store result score @s exp run data get entity @s ArmorItems[3].tag.info.exp
-			execute store result score @s hurt_sound run data get entity @s ArmorItems[3].tag.info.hurt_sound
-			execute store result score @s die_sound run data get entity @s ArmorItems[3].tag.info.die_sound
+			execute if data entity @s equipment.head.components.minecraft:custom_data.info.magic_attack store result score @s weapon_mattack run data get entity @s equipment.head.components.minecraft:custom_data.info.magic_attack
+			execute store result score @s weapon_defense run data get entity @s equipment.head.components.minecraft:custom_data.info.weapon_defense
+			execute store result score @s magic_defense run data get entity @s equipment.head.components.minecraft:custom_data.info.magic_defense
+			execute store result score @s kb run data get entity @s equipment.head.components.minecraft:custom_data.info.kb
+			execute store result score @s speed run data get entity @s equipment.head.components.minecraft:custom_data.info.speed
+			execute store result score @s exp run data get entity @s equipment.head.components.minecraft:custom_data.info.exp
+			execute store result score @s hurt_sound run data get entity @s equipment.head.components.minecraft:custom_data.info.hurt_sound
+			execute store result score @s die_sound run data get entity @s equipment.head.components.minecraft:custom_data.info.die_sound
 			
-			execute if data entity @s ArmorItems[3].tag.info.skill_id store result score @s skill_id run data get entity @s ArmorItems[3].tag.info.skill_id
+			execute if data entity @s equipment.head.components.minecraft:custom_data.info.skill_id store result score @s skill_id run data get entity @s equipment.head.components.minecraft:custom_data.info.skill_id
 			
-			data remove entity @s ArmorItems[3].tag.info
+			data remove entity @s equipment.head.components.minecraft:custom_data.info
 			
 			# scoreboard players set @s status 0
 			scoreboard players set @s hit_distance 0
@@ -102,7 +102,7 @@ namespace mob()
 		{
 			# 召喚的怪物不會經過淡入流程，這邊要再做一次模型設定
 			execute unless score @s base_model matches 1.. run function ARG(_PATH)set_model
-			data modify entity @s ArmorItems[3].tag.CustomPotionColor set value -1
+			data modify entity @s equipment.head.components."minecraft:potion_contents".custom_color set value -1
 		}
 	}
 	
@@ -129,7 +129,7 @@ namespace mob()
 			
 			func reset()
 			{
-				execute on controller run attribute @s minecraft:generic.follow_range base set 0.0
+				execute on controller run attribute @s minecraft:follow_range base set 0.0
 				scoreboard players reset @s anger_time
 			}
 		}

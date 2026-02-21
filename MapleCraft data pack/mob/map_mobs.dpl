@@ -87,11 +87,11 @@ namespace map_mobs() as virtual
 	{
 		func change_card()
 		{
-			execute unless data entity @s SelectedItem.tag.mob_id run return 0
+			execute unless data entity @s SelectedItem.components.minecraft:custom_data.mob_id run return 0
 			
 			execute positioned -389.0 -54.0 -533.0 run kill @e[type=#skill:enemy,tag=enemy,dx=21,dy=10,dz=24]
 			item replace entity 00000000-0000-0008-0000-000000000008 container.0 from entity @s weapon.mainhand
-			execute at 00000000-0000-0008-0000-000000000008 run particle minecraft:flash ~ ~ ~ 0 0 0 1 2 force
+			execute at 00000000-0000-0008-0000-000000000008 run particle minecraft:flash{color:-1} ~ ~ ~ 0 0 0 1 2 force
 			playsound minecraft:game.job_changed player @a[scores={map=925020003}] ~ ~ ~ 5 1 0
 		}
 		
@@ -162,10 +162,10 @@ namespace map_mobs() as virtual
 				
 			i = 0
 			for mob in available_mobs:
-				print(f"item replace block ~ ~1 ~ container.{i} with minecraft:stick{itemDatas[mob[1]]} 64")
+				print(f"item replace block ~ ~1 ~ container.{i} with minecraft:stick[] 64")
 				i += 1
 			for mob in available_bosses:
-				print(f"item replace block ~ ~1 ~ container.{i} with minecraft:stick{itemDatas[mob[1]]} 64")
+				print(f"item replace block ~ ~1 ~ container.{i} with minecraft:stick[] 64")
 				i += 1
 			```
 		}

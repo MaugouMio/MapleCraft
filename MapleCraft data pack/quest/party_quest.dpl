@@ -190,7 +190,7 @@ namespace party_quest() as virtual
 	
 	func get_dummy()
 	{
-		give @s minecraft:stick{display:{Name:'{"translate":"item.etc.dummy","font":"minecraft:uniform","bold":true,"italic":false}'},HideFlags:127,CustomModelData:3000001,dummy:1b}
+		give @s minecraft:stick[custom_model_data={floats:[3000001f]},custom_data={dummy:1b}]
 	}
 	
 	folder kpq()
@@ -267,10 +267,10 @@ namespace party_quest() as virtual
 		
 		func leave_map()
 		{
-			execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001007}
+			execute store result score #GLOBAL temp run clear @s minecraft:stick[custom_model_data={floats:[4001007f]}]
 			execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4001007"}]}
 			execute if score #GLOBAL temp matches 2.. run tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"translate":"item.etc.4001007"}]}
-			execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001008}
+			execute store result score #GLOBAL temp run clear @s minecraft:stick[custom_model_data={floats:[4001008f]}]
 			execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4001008"}]}
 			execute if score #GLOBAL temp matches 2.. run tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"translate":"item.etc.4001008"}]}
 			
@@ -304,7 +304,7 @@ namespace party_quest() as virtual
 			scoreboard players set @s bgm 3
 			
 			bossbar set ui:clock/kpq players @a[scores={playing_game=1}]
-			clear @s minecraft:stick{dummy:1b}
+			clear @s minecraft:stick[custom_data={dummy:1b}]
 		}
 		
 		func reset()
@@ -354,7 +354,7 @@ namespace party_quest() as virtual
 			{
 				func portal()
 				{
-					execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001008}
+					execute store result score #GLOBAL temp run clear @s minecraft:stick[custom_model_data={floats:[4001008f]}]
 					execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4001008"}]}
 					
 					scoreboard players set @s map 103000801
@@ -400,7 +400,7 @@ namespace party_quest() as virtual
 						
 						func pass_check()
 						{
-							execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001008} 0
+							execute store result score #GLOBAL temp run clear @s minecraft:stick[custom_model_data={floats:[4001008f]}] 0
 							execute unless score #GLOBAL temp >= #KPQ_PASS_REQUIRED temp run tellraw @s ["\n",{"translate":"text.quest.party_quest.kpq.stage1.require_pass","font":"minecraft:uniform","with":[{"score":{"objective":"temp","name":"#KPQ_PASS_REQUIRED"},"color":"blue"}]},{"text":"\n==================","font":"minecraft:uniform"}]
 							execute if score #GLOBAL temp >= #KPQ_PASS_REQUIRED temp run function ARG(_PATH)pass
 						}
@@ -412,13 +412,13 @@ namespace party_quest() as virtual
 							
 							data modify block -310 47 0 front_text.messages[0] set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -310.0 46 -1.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/1/portal"}}'
 							data modify block -310 47 0 back_text.messages[0] set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -310.0 46 -1.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/1/portal"}}'
-							summon minecraft:item_display -309.5 47.5 0.5 {Tags:["kpq_mob"],item:{id:"minecraft:splash_potion",Count:1b,tag:{CustomModelData:1000002,CustomPotionColor:-1}}}
+							summon minecraft:item_display -309.5 47.5 0.5 {Tags:["kpq_mob"],item:{id:"minecraft:splash_potion",count:1,components: {"minecraft:custom_data": {CustomPotionColor:-1}, "minecraft:custom_model_data": 1000002}}}
 							
 							scoreboard players set #EXP_GAIN temp 100
 							scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
 							execute as @a[scores={playing_game=1},tag=!dead] at @s run function quest:get_exp
 							
-							clear @s minecraft:stick{CustomModelData:4001008}
+							clear @s minecraft:stick[custom_model_data={floats:[4001008f]}]
 							execute if score #GLOBAL temp matches 2.. run tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"translate":"item.etc.4001008"}]}
 							execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4001008"}]}
 							tellraw @s ["\n",{"translate":"text.quest.party_quest.kpq.stage1.pass","font":"minecraft:uniform","with":[{"score":{"objective":"temp","name":"#KPQ_PASS_REQUIRED"},"color":"blue"}]},{"text":"\n==================","font":"minecraft:uniform"}]
@@ -434,7 +434,7 @@ namespace party_quest() as virtual
 						
 						func coupon_check()
 						{
-							execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001007} 0
+							execute store result score #GLOBAL temp run clear @s minecraft:stick[custom_model_data={floats:[4001007f]}] 0
 							execute unless score #GLOBAL temp = @s kpq_coupon run function ARG(_PATH)show_question
 							execute if score #GLOBAL temp = @s kpq_coupon run function ARG(_PATH)get_pass
 						}
@@ -460,10 +460,10 @@ namespace party_quest() as virtual
 						
 						func get_pass()
 						{
-							clear @s minecraft:stick{CustomModelData:4001007}
+							clear @s minecraft:stick[custom_model_data={floats:[4001007f]}]
 							tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":[{"score":{"objective":"kpq_coupon","name":"@s"}},{"translate":"item.etc.4001007"}]}
 							```
-							print(f"give @s minecraft:stick{itemDatas[33008]}")
+							print(f"give @s minecraft:stick[]")
 							```
 							tellraw @s {"translate":"text.quest.item_gain","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4001008"}]}
 							tellraw @s ["\n",{"translate":"text.quest.party_quest.kpq.stage1.get_pass","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
@@ -562,7 +562,7 @@ namespace party_quest() as virtual
 							
 							data modify block -540 43 0 front_text.messages[0] set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -540.0 42 -1.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/2/portal"}}'
 							data modify block -540 43 0 back_text.messages[0] set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -540.0 42 -1.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/2/portal"}}'
-							summon minecraft:item_display -539.5 43.5 0.5 {Tags:["kpq_mob"],item:{id:"minecraft:splash_potion",Count:1b,tag:{CustomModelData:1000002,CustomPotionColor:-1}}}
+							summon minecraft:item_display -539.5 43.5 0.5 {Tags:["kpq_mob"],item:{id:"minecraft:splash_potion",count:1,components: {"minecraft:custom_data": {CustomPotionColor:-1}, "minecraft:custom_model_data": 1000002}}}
 							
 							scoreboard players set #EXP_GAIN temp 200
 							scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
@@ -675,7 +675,7 @@ namespace party_quest() as virtual
 							
 							data modify block -850 47 0 front_text.messages[0] set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -850.0 46 -1.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/3/portal"}}'
 							data modify block -850 47 0 back_text.messages[0] set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -850.0 46 -1.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/3/portal"}}'
-							summon minecraft:item_display -849.5 47.5 0.5 {Tags:["kpq_mob"],item:{id:"minecraft:splash_potion",Count:1b,tag:{CustomModelData:1000002,CustomPotionColor:-1}}}
+							summon minecraft:item_display -849.5 47.5 0.5 {Tags:["kpq_mob"],item:{id:"minecraft:splash_potion",count:1,components: {"minecraft:custom_data": {CustomPotionColor:-1}, "minecraft:custom_model_data": 1000002}}}
 							setblock -849 47 3 minecraft:fire
 							setblock -849 47 -3 minecraft:fire
 							
@@ -803,7 +803,7 @@ namespace party_quest() as virtual
 							
 							data modify block -1195 55 24 front_text.messages[0] set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -1195.0 54.0 23.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/4/portal"}}'
 							data modify block -1195 55 24 back_text.messages[0] set value '{"text":"","clickEvent":{"action":"run_command","value":"execute positioned -1195.0 54.0 23.0 if entity @s[dx=0,dy=1,dz=2] run function quest:party_quest/kpq/stages/4/portal"}}'
-							summon minecraft:item_display -1194.5 55.5 24.5 {Tags:["kpq_mob"],item:{id:"minecraft:splash_potion",Count:1b,tag:{CustomModelData:1000002,CustomPotionColor:-1}}}
+							summon minecraft:item_display -1194.5 55.5 24.5 {Tags:["kpq_mob"],item:{id:"minecraft:splash_potion",count:1,components: {"minecraft:custom_data": {CustomPotionColor:-1}, "minecraft:custom_model_data": 1000002}}}
 							setblock -1194 55 21 fire
 							setblock -1194 55 27 fire
 							
@@ -859,12 +859,12 @@ namespace party_quest() as virtual
 					data remove block 250 1 0 Items[]
 					loot replace block 250 1 0 container.0 loot quest:kpq_award
 					execute store result score #GLOBAL temp run data get block 250 1 0 Items[0].Count
-					execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_gain","font":"minecraft:uniform","color":"gray","with":[{"nbt":"Items[0].tag.display.Name","block":"250 1 0","interpret":true}]}
-					execute if score #GLOBAL temp matches 2.. run tellraw @s {"translate":"text.quest.item_gain_multiple","font":"minecraft:uniform","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"nbt":"Items[0].tag.display.Name","block":"250 1 0","interpret":true}]}
-					loot give @s mine 250 1 0 minecraft:air{modify_player:1b}
+					execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_gain","font":"minecraft:uniform","color":"gray","with":[{"nbt":"Items[0].components.minecraft:custom_name","block":"250 1 0","interpret":true}]}
+					execute if score #GLOBAL temp matches 2.. run tellraw @s {"translate":"text.quest.item_gain_multiple","font":"minecraft:uniform","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"nbt":"Items[0].components.minecraft:custom_name","block":"250 1 0","interpret":true}]}
+					loot give @s mine 250 1 0 minecraft:air[custom_data={modify_player:1b}]
 					tellraw @s {"translate":"text.quest.item_gain_multiple","font":"minecraft:uniform","color":"gray","with":["10",{"translate":"item.etc.5220050","bold":true,"italic":false,"font":"minecraft:uniform"}]}
 					```
-					print(f"give @s minecraft:stick{itemDatas[33012]} 10")
+					print(f"give @s minecraft:stick[] 10")
 					```
 					
 					title @s times 1 5 10
@@ -953,7 +953,7 @@ namespace party_quest() as virtual
 						
 						func check()
 						{
-							execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001008} 0
+							execute store result score #GLOBAL temp run clear @s minecraft:stick[custom_model_data={floats:[4001008f]}] 0
 							execute unless score #GLOBAL temp matches 10 run tellraw @s ["\n",{"translate":"text.quest.party_quest.kpq.stage5.require_pass","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 							execute if score #GLOBAL temp matches 10 run function ARG(_PATH)pass
 						}
@@ -970,7 +970,7 @@ namespace party_quest() as virtual
 							scoreboard players set #KPQ_STAGE temp 6
 							scoreboard players set #KPQ_S6_LOADED temp 1
 							
-							summon minecraft:item_display -1525.5 103.5 12.5 {Tags:["kpq_mob"],item:{id:"minecraft:splash_potion",Count:1b,tag:{CustomModelData:1000002,CustomPotionColor:-1}}}
+							summon minecraft:item_display -1525.5 103.5 12.5 {Tags:["kpq_mob"],item:{id:"minecraft:splash_potion",count:1,components: {"minecraft:custom_data": {CustomPotionColor:-1}, "minecraft:custom_model_data": 1000002}}}
 							setblock -1525 103 9 minecraft:fire
 							setblock -1525 103 15 minecraft:fire
 							
@@ -978,7 +978,7 @@ namespace party_quest() as virtual
 							scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
 							execute as @a[scores={playing_game=1},tag=!dead] at @s run function quest:get_exp
 							
-							clear @s minecraft:stick{CustomModelData:4001008}
+							clear @s minecraft:stick[custom_model_data={floats:[4001008f]}]
 							tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":["10",{"translate":"item.etc.4001008"}]}
 							tellraw @a[scores={playing_game=1}] ["\n",{"translate":"text.quest.party_quest.kpq.stage5.pass","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 						}
@@ -1095,11 +1095,11 @@ namespace party_quest() as virtual
 		
 		func leave_map()
 		{
-			execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001023}
+			execute store result score #GLOBAL temp run clear @s minecraft:stick[custom_model_data={floats:[4001023f]}]
 			execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4001023"}]}
 			execute if score #GLOBAL temp matches 2.. run tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"translate":"item.etc.4001023"}]}
 			
-			execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001022}
+			execute store result score #GLOBAL temp run clear @s minecraft:stick[custom_model_data={floats:[4001022f]}]
 			execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_lost","font":"minecraft:uniform","color":"gray","with":[{"translate":"item.etc.4001022"}]}
 			execute if score #GLOBAL temp matches 2.. run tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"translate":"item.etc.4001022"}]}
 			
@@ -1128,7 +1128,7 @@ namespace party_quest() as virtual
 			tag @s remove ldpq_pass
 			
 			bossbar set ui:clock/ldpq players @a[scores={playing_game=2}]
-			clear @s minecraft:stick{dummy:1b}
+			clear @s minecraft:stick[custom_data={dummy:1b}]
 		}
 		
 		func tp_leave()
@@ -1197,12 +1197,12 @@ namespace party_quest() as virtual
 					data remove block 250 1 0 Items[]
 					loot replace block 250 1 0 container.0 loot quest:ldpq_award
 					execute store result score #GLOBAL temp run data get block 250 1 0 Items[0].Count
-					execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_gain","font":"minecraft:uniform","color":"gray","with":[{"nbt":"Items[0].tag.display.Name","block":"250 1 0","interpret":true}]}
-					execute if score #GLOBAL temp matches 2.. run tellraw @s {"translate":"text.quest.item_gain_multiple","font":"minecraft:uniform","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"nbt":"Items[0].tag.display.Name","block":"250 1 0","interpret":true}]}
-					loot give @s mine 250 1 0 minecraft:air{modify_player:1b}
+					execute if score #GLOBAL temp matches 1 run tellraw @s {"translate":"text.quest.item_gain","font":"minecraft:uniform","color":"gray","with":[{"nbt":"Items[0].components.minecraft:custom_name","block":"250 1 0","interpret":true}]}
+					execute if score #GLOBAL temp matches 2.. run tellraw @s {"translate":"text.quest.item_gain_multiple","font":"minecraft:uniform","color":"gray","with":[{"score":{"objective":"temp","name":"#GLOBAL"}},{"nbt":"Items[0].components.minecraft:custom_name","block":"250 1 0","interpret":true}]}
+					loot give @s mine 250 1 0 minecraft:air[custom_data={modify_player:1b}]
 					tellraw @s {"translate":"text.quest.item_gain_multiple","font":"minecraft:uniform","color":"gray","with":["30",{"translate":"item.etc.5220050","bold":true,"italic":false,"font":"minecraft:uniform"}]}
 					```
-					print(f"give @s minecraft:stick{itemDatas[33012]} 30")
+					print(f"give @s minecraft:stick[] 30")
 					```
 					
 					function quest:party_quest/ldpq/leave_map
@@ -1219,7 +1219,7 @@ namespace party_quest() as virtual
 		
 		func item_collector()
 		{
-			execute as @e[type=item,nbt={Item:{id:"minecraft:stick",tag:{CustomModelData:4001022}}}] at @s unless entity @a[gamemode=adventure,scores={playing_game=2},distance=..3] run tp @s @p[gamemode=adventure,scores={playing_game=2}]
+			execute as @e[type=item,nbt={Item:{id:"minecraft:stick",components:{"minecraft:custom_model_data":{floats:[4001022f]}}}}] at @s unless entity @a[gamemode=adventure,scores={playing_game=2},distance=..3] run tp @s @p[gamemode=adventure,scores={playing_game=2}]
 			schedule function ARG(_PATH)item_collector 1s
 		}
 		
@@ -1272,7 +1272,7 @@ namespace party_quest() as virtual
 						
 						func check()
 						{
-							execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001022} 0
+							execute store result score #GLOBAL temp run clear @s minecraft:stick[custom_model_data={floats:[4001022f]}] 0
 							execute unless score #GLOBAL temp matches 25.. run tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage1.require_pass","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 							execute if score #GLOBAL temp matches 25.. run function ARG(_PATH)pass
 						}
@@ -1282,13 +1282,13 @@ namespace party_quest() as virtual
 							function quest:party_quest/ldpq/title/clear/run
 							scoreboard players set #LDPQ_STAGE temp 2
 							
-							summon minecraft:item_display 381 -44 190 {Tags:["ldpq_mob"],item:{id:"minecraft:splash_potion",Count:1b,tag:{CustomModelData:1000003,CustomPotionColor:-1}},billboard:"vertical"}
+							summon minecraft:item_display 381 -44 190 {Tags:["ldpq_mob"],item:{id:"minecraft:splash_potion",count:1,components: {"minecraft:custom_data": {CustomPotionColor:-1}, "minecraft:custom_model_data": 1000003}},billboard:"vertical"}
 							
 							scoreboard players set #EXP_GAIN temp 3000
 							scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
 							execute as @a[scores={playing_game=2},tag=!dead] at @s run function quest:get_exp
 							
-							clear @s minecraft:stick{CustomModelData:4001022} 25
+							clear @s minecraft:stick[custom_model_data={floats:[4001022f]}] 25
 							tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":["25",{"translate":"item.etc.4001022"}]}
 							tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage_pass","with":[{"translate":"npc.red_balloon"},"25"],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 							
@@ -1309,9 +1309,9 @@ namespace party_quest() as virtual
 								("384.0 -52.9375 -195.0", -90)
 							]
 							for p in points:
-								print('summon interaction %s {Tags:["ldpq_mob"],Passengers:[{id:"minecraft:item_display",Tags:["ldpq_mob","box"],Rotation:[%df,0f],item:{id:"minecraft:splash_potion",Count:1b,tag:{info:{hp_max:4,hurt_sound:5,die_sound:1,loot:"skill:mob/special/pass_dimension"},model:1,CustomModelData:1,CustomPotionColor:0}},item_display:"head",shadow_strength:0.0f,shadow_radius:0.9f}]}' %(p[0], p[1]))
+								print('summon interaction %s {Tags:["ldpq_mob"],Passengers:[{id:"minecraft:item_display",Tags:["ldpq_mob","box"],Rotation:[%df,0f],item:{id:"minecraft:splash_potion",count:1,components: {"minecraft:custom_data": {info:{hp_max:4,hurt_sound:5,die_sound:1,loot:"skill:mob/special/pass_dimension"}},model:1,CustomModelData:1,CustomPotionColor:0}},item_display:"head",shadow_strength:0.0f,shadow_radius:0.9f}]}' %(p[0], p[1]))
 							```
-							summon interaction 386 11 -184 {Tags:["ldpq_mob"],Passengers:[{id:"minecraft:item_display",Tags:["ldpq_mob","box"],Rotation:[90f,0f],item:{id:"minecraft:splash_potion",Count:1b,tag:{info:{hp_max:4,hurt_sound:5,die_sound:2},model:1,CustomModelData:1,CustomPotionColor:0}},item_display:"head",shadow_strength:0.0f,shadow_radius:0.9f}]}
+							summon interaction 386 11 -184 {Tags:["ldpq_mob"],Passengers:[{id:"minecraft:item_display",Tags:["ldpq_mob","box"],Rotation:[90f,0f],item:{id:"minecraft:splash_potion",count:1,components: {"minecraft:custom_data": {info:{hp_max:4,hurt_sound:5,die_sound:2}},model:1,CustomModelData:1,CustomPotionColor:0}},item_display:"head",shadow_strength:0.0f,shadow_radius:0.9f}]}
 							forceload remove 375 -201 398 -178
 							
 							scoreboard players set #LDPQ_S2_LOADED temp 1
@@ -1376,7 +1376,7 @@ namespace party_quest() as virtual
 						
 						func check()
 						{
-							execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001022} 0
+							execute store result score #GLOBAL temp run clear @s minecraft:stick[custom_model_data={floats:[4001022f]}] 0
 							execute unless score #GLOBAL temp matches 15.. run tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage2.require_pass","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 							execute if score #GLOBAL temp matches 15.. run function ARG(_PATH)pass
 						}
@@ -1386,13 +1386,13 @@ namespace party_quest() as virtual
 							function quest:party_quest/ldpq/title/clear/run
 							scoreboard players set #LDPQ_STAGE temp 3
 							
-							summon minecraft:item_display 388 27.1 -185 {Tags:["ldpq_mob"],item:{id:"minecraft:splash_potion",Count:1b,tag:{CustomModelData:1000003,CustomPotionColor:-1}},billboard:"vertical"}
+							summon minecraft:item_display 388 27.1 -185 {Tags:["ldpq_mob"],item:{id:"minecraft:splash_potion",count:1,components: {"minecraft:custom_data": {CustomPotionColor:-1}, "minecraft:custom_model_data": 1000003}},billboard:"vertical"}
 							
 							scoreboard players set #EXP_GAIN temp 3600
 							scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
 							execute as @a[scores={playing_game=2},tag=!dead] at @s run function quest:get_exp
 							
-							clear @s minecraft:stick{CustomModelData:4001022} 15
+							clear @s minecraft:stick[custom_model_data={floats:[4001022f]}] 15
 							tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":["15",{"translate":"item.etc.4001022"}]}
 							tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage_pass","with":[{"translate":"npc.orange_balloon"},"15"],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 							
@@ -1419,7 +1419,7 @@ namespace party_quest() as virtual
 								("387.0 80.0625 188", 90)
 							]
 							for p in points:
-								print('summon interaction %s {Tags:["ldpq_mob"],Passengers:[{id:"minecraft:item_display",Tags:["ldpq_mob","box"],Rotation:[%df,0f],item:{id:"minecraft:splash_potion",Count:1b,tag:{info:{hp_max:4,hurt_sound:5,die_sound:3},model:1,CustomModelData:1,CustomPotionColor:0}},item_display:"head",shadow_strength:0.0f,shadow_radius:0.9f}]}' %(p[0], p[1]))
+								print('summon interaction %s {Tags:["ldpq_mob"],Passengers:[{id:"minecraft:item_display",Tags:["ldpq_mob","box"],Rotation:[%df,0f],item:{id:"minecraft:splash_potion",count:1,components: {"minecraft:custom_data": {info:{hp_max:4,hurt_sound:5,die_sound:3}},model:1,CustomModelData:1,CustomPotionColor:0}},item_display:"head",shadow_strength:0.0f,shadow_radius:0.9f}]}' %(p[0], p[1]))
 							```
 							forceload remove 369 183 392 206
 							scoreboard players set #LDPQ_S3_LOADED temp 1
@@ -1451,7 +1451,7 @@ namespace party_quest() as virtual
 							("375 248 -581", 180)
 						]
 						for p in points:
-							print('summon interaction %s {Tags:["ldpq_mob"],Passengers:[{id:"minecraft:item_display",Tags:["ldpq_mob","box"],Rotation:[%df,0f],item:{id:"minecraft:splash_potion",Count:1b,tag:{info:{hp_max:4,hurt_sound:5,die_sound:1,loot:"skill:mob/special/pass_dimension"},model:1,CustomModelData:1,CustomPotionColor:0}},item_display:"head",shadow_strength:0.0f,shadow_radius:0.9f}]}' %(p[0], p[1]))
+							print('summon interaction %s {Tags:["ldpq_mob"],Passengers:[{id:"minecraft:item_display",Tags:["ldpq_mob","box"],Rotation:[%df,0f],item:{id:"minecraft:splash_potion",count:1,components: {"minecraft:custom_data": {info:{hp_max:4,hurt_sound:5,die_sound:1,loot:"skill:mob/special/pass_dimension"}},model:1,CustomModelData:1,CustomPotionColor:0}},item_display:"head",shadow_strength:0.0f,shadow_radius:0.9f}]}' %(p[0], p[1]))
 						```
 						forceload remove 368 -592 391 -569
 						
@@ -1564,7 +1564,7 @@ namespace party_quest() as virtual
 						
 						func check()
 						{
-							execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001022} 0
+							execute store result score #GLOBAL temp run clear @s minecraft:stick[custom_model_data={floats:[4001022f]}] 0
 							execute unless score #GLOBAL temp matches 32.. run tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage3.require_pass","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 							execute if score #GLOBAL temp matches 32.. run function ARG(_PATH)pass
 						}
@@ -1574,13 +1574,13 @@ namespace party_quest() as virtual
 							function quest:party_quest/ldpq/title/clear/run
 							scoreboard players set #LDPQ_STAGE temp 4
 							
-							summon minecraft:item_display 382 112.1 201 {Tags:["ldpq_mob"],item:{id:"minecraft:splash_potion",Count:1b,tag:{CustomModelData:1000003,CustomPotionColor:-1}},billboard:"vertical"}
+							summon minecraft:item_display 382 112.1 201 {Tags:["ldpq_mob"],item:{id:"minecraft:splash_potion",count:1,components: {"minecraft:custom_data": {CustomPotionColor:-1}, "minecraft:custom_model_data": 1000003}},billboard:"vertical"}
 							
 							scoreboard players set #EXP_GAIN temp 4200
 							scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
 							execute as @a[scores={playing_game=2},tag=!dead] at @s run function quest:get_exp
 							
-							clear @s minecraft:stick{CustomModelData:4001022} 32
+							clear @s minecraft:stick[custom_model_data={floats:[4001022f]}] 32
 							tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":["32",{"translate":"item.etc.4001022"}]}
 							tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage_pass","with":[{"translate":"npc.yellow_balloon"},"32"],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 						}
@@ -1652,7 +1652,7 @@ namespace party_quest() as virtual
 						
 						func check()
 						{
-							execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001022} 0
+							execute store result score #GLOBAL temp run clear @s minecraft:stick[custom_model_data={floats:[4001022f]}] 0
 							execute unless score #GLOBAL temp matches 6.. run tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage4.require_pass","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 							execute if score #GLOBAL temp matches 6.. run function ARG(_PATH)pass
 						}
@@ -1662,13 +1662,13 @@ namespace party_quest() as virtual
 							function quest:party_quest/ldpq/title/clear/run
 							scoreboard players set #LDPQ_STAGE temp 5
 							
-							summon minecraft:item_display 382 127 -183 {Tags:["ldpq_mob"],item:{id:"minecraft:splash_potion",Count:1b,tag:{CustomModelData:1000003,CustomPotionColor:-1}},billboard:"vertical"}
+							summon minecraft:item_display 382 127 -183 {Tags:["ldpq_mob"],item:{id:"minecraft:splash_potion",count:1,components: {"minecraft:custom_data": {CustomPotionColor:-1}, "minecraft:custom_model_data": 1000003}},billboard:"vertical"}
 							
 							scoreboard players set #EXP_GAIN temp 4800
 							scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
 							execute as @a[scores={playing_game=2},tag=!dead] at @s run function quest:get_exp
 							
-							clear @s minecraft:stick{CustomModelData:4001022} 6
+							clear @s minecraft:stick[custom_model_data={floats:[4001022f]}] 6
 							tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":["6",{"translate":"item.etc.4001022"}]}
 							tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage_pass","with":[{"translate":"npc.lime_balloon"},"6"],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 							
@@ -1827,7 +1827,7 @@ namespace party_quest() as virtual
 					
 					func hit()
 					{
-						execute on vehicle run data modify entity @s CustomName set from entity @s ArmorItems[3].tag.health_bar
+						execute on vehicle run data modify entity @s CustomName set from entity @s equipment.head.components.minecraft:custom_data.health_bar
 						function ARG(_PATH)open
 					}
 					
@@ -1875,7 +1875,7 @@ namespace party_quest() as virtual
 						# 預設面向
 						execute unless score @s eye_move_dir matches -1.. run scoreboard players set @s eye_move_dir 1
 						
-						execute store result score #GLOBAL temp run data get entity @s ArmorItems[3].tag.move_speed 10000
+						execute store result score #GLOBAL temp run data get entity @s equipment.head.components.minecraft:custom_data.move_speed 10000
 						execute if score @s 2101003_time matches 1.. run function ARG(_PATH)calc_slow
 						scoreboard players operation #GLOBAL temp *= @s eye_move_dir
 						execute store result entity @s Motion[2] double 0.0001 run scoreboard players get #GLOBAL temp
@@ -2037,7 +2037,7 @@ namespace party_quest() as virtual
 						
 						func check()
 						{
-							execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001022} 0
+							execute store result score #GLOBAL temp run clear @s minecraft:stick[custom_model_data={floats:[4001022f]}] 0
 							execute unless score #GLOBAL temp matches 24.. run tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage5.require_pass","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 							execute if score #GLOBAL temp matches 24.. run function ARG(_PATH)pass
 						}
@@ -2047,13 +2047,13 @@ namespace party_quest() as virtual
 							function quest:party_quest/ldpq/title/clear/run
 							scoreboard players set #LDPQ_STAGE temp 6
 							
-							summon minecraft:item_display 375 191 194 {Tags:["ldpq_mob"],item:{id:"minecraft:splash_potion",Count:1b,tag:{CustomModelData:1000003,CustomPotionColor:-1}},billboard:"vertical"}
+							summon minecraft:item_display 375 191 194 {Tags:["ldpq_mob"],item:{id:"minecraft:splash_potion",count:1,components: {"minecraft:custom_data": {CustomPotionColor:-1}, "minecraft:custom_model_data": 1000003}},billboard:"vertical"}
 							
 							scoreboard players set #EXP_GAIN temp 5400
 							scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
 							execute as @a[scores={playing_game=2},tag=!dead] at @s run function quest:get_exp
 							
-							clear @s minecraft:stick{CustomModelData:4001022} 24
+							clear @s minecraft:stick[custom_model_data={floats:[4001022f]}] 24
 							tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":["24",{"translate":"item.etc.4001022"}]}
 							tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage_pass","with":[{"translate":"npc.green_balloon"},"24"],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 						}
@@ -2078,7 +2078,7 @@ namespace party_quest() as virtual
 								("775 -3 571", -90)
 							]
 							for p in points:
-								print('summon interaction %s {Tags:["ldpq_mob"],Passengers:[{id:"minecraft:item_display",Tags:["ldpq_mob","box"],Rotation:[%df,0f],item:{id:"minecraft:splash_potion",Count:1b,tag:{info:{hp_max:4,hurt_sound:5,die_sound:1,loot:"skill:mob/special/pass_dimension"},model:1,CustomModelData:1,CustomPotionColor:0}},item_display:"head",shadow_strength:0.0f,shadow_radius:0.9f}]}' %(p[0], p[1]))
+								print('summon interaction %s {Tags:["ldpq_mob"],Passengers:[{id:"minecraft:item_display",Tags:["ldpq_mob","box"],Rotation:[%df,0f],item:{id:"minecraft:splash_potion",count:1,components: {"minecraft:custom_data": {info:{hp_max:4,hurt_sound:5,die_sound:1,loot:"skill:mob/special/pass_dimension"}},model:1,CustomModelData:1,CustomPotionColor:0}},item_display:"head",shadow_strength:0.0f,shadow_radius:0.9f}]}' %(p[0], p[1]))
 							```
 							forceload remove 759 561 782 584
 						}
@@ -2129,7 +2129,7 @@ namespace party_quest() as virtual
 								("758 33 194", -90)
 							]
 							for p in points:
-								print('summon interaction %s {Tags:["ldpq_mob"],Passengers:[{id:"minecraft:item_display",Tags:["ldpq_mob","box"],Rotation:[%df,0f],item:{id:"minecraft:splash_potion",Count:1b,tag:{info:{hp_max:4,hurt_sound:5,die_sound:1,loot:"skill:mob/special/pass_dimension"},model:1,CustomModelData:1,CustomPotionColor:0}},item_display:"head",shadow_strength:0.0f,shadow_radius:0.9f}]}' %(p[0], p[1]))
+								print('summon interaction %s {Tags:["ldpq_mob"],Passengers:[{id:"minecraft:item_display",Tags:["ldpq_mob","box"],Rotation:[%df,0f],item:{id:"minecraft:splash_potion",count:1,components: {"minecraft:custom_data": {info:{hp_max:4,hurt_sound:5,die_sound:1,loot:"skill:mob/special/pass_dimension"}},model:1,CustomModelData:1,CustomPotionColor:0}},item_display:"head",shadow_strength:0.0f,shadow_radius:0.9f}]}' %(p[0], p[1]))
 							```
 							forceload remove 753 177 776 200
 						}
@@ -2180,7 +2180,7 @@ namespace party_quest() as virtual
 								("758 33 -184", -90)
 							]
 							for p in points:
-								print('summon interaction %s {Tags:["ldpq_mob"],Passengers:[{id:"minecraft:item_display",Tags:["ldpq_mob","box"],Rotation:[%df,0f],item:{id:"minecraft:splash_potion",Count:1b,tag:{info:{hp_max:4,hurt_sound:5,die_sound:1,loot:"skill:mob/special/pass_dimension"},model:1,CustomModelData:1,CustomPotionColor:0}},item_display:"head",shadow_strength:0.0f,shadow_radius:0.9f}]}' %(p[0], p[1]))
+								print('summon interaction %s {Tags:["ldpq_mob"],Passengers:[{id:"minecraft:item_display",Tags:["ldpq_mob","box"],Rotation:[%df,0f],item:{id:"minecraft:splash_potion",count:1,components: {"minecraft:custom_data": {info:{hp_max:4,hurt_sound:5,die_sound:1,loot:"skill:mob/special/pass_dimension"}},model:1,CustomModelData:1,CustomPotionColor:0}},item_display:"head",shadow_strength:0.0f,shadow_radius:0.9f}]}' %(p[0], p[1]))
 							```
 							forceload remove 753 -201 776 -178
 						}
@@ -2231,7 +2231,7 @@ namespace party_quest() as virtual
 								("758 33 -568", -90)
 							]
 							for p in points:
-								print('summon interaction %s {Tags:["ldpq_mob"],Passengers:[{id:"minecraft:item_display",Tags:["ldpq_mob","box"],Rotation:[%df,0f],item:{id:"minecraft:splash_potion",Count:1b,tag:{info:{hp_max:4,hurt_sound:5,die_sound:1,loot:"skill:mob/special/pass_dimension"},model:1,CustomModelData:1,CustomPotionColor:0}},item_display:"head",shadow_strength:0.0f,shadow_radius:0.9f}]}' %(p[0], p[1]))
+								print('summon interaction %s {Tags:["ldpq_mob"],Passengers:[{id:"minecraft:item_display",Tags:["ldpq_mob","box"],Rotation:[%df,0f],item:{id:"minecraft:splash_potion",count:1,components: {"minecraft:custom_data": {info:{hp_max:4,hurt_sound:5,die_sound:1,loot:"skill:mob/special/pass_dimension"}},model:1,CustomModelData:1,CustomPotionColor:0}},item_display:"head",shadow_strength:0.0f,shadow_radius:0.9f}]}' %(p[0], p[1]))
 							```
 							forceload remove 753 -585 776 -562
 						}
@@ -2282,7 +2282,7 @@ namespace party_quest() as virtual
 								("1142 33 584", -90)
 							]
 							for p in points:
-								print('summon interaction %s {Tags:["ldpq_mob"],Passengers:[{id:"minecraft:item_display",Tags:["ldpq_mob","box"],Rotation:[%df,0f],item:{id:"minecraft:splash_potion",Count:1b,tag:{info:{hp_max:4,hurt_sound:5,die_sound:1,loot:"skill:mob/special/pass_dimension"},model:1,CustomModelData:1,CustomPotionColor:0}},item_display:"head",shadow_strength:0.0f,shadow_radius:0.9f}]}' %(p[0], p[1]))
+								print('summon interaction %s {Tags:["ldpq_mob"],Passengers:[{id:"minecraft:item_display",Tags:["ldpq_mob","box"],Rotation:[%df,0f],item:{id:"minecraft:splash_potion",count:1,components: {"minecraft:custom_data": {info:{hp_max:4,hurt_sound:5,die_sound:1,loot:"skill:mob/special/pass_dimension"}},model:1,CustomModelData:1,CustomPotionColor:0}},item_display:"head",shadow_strength:0.0f,shadow_radius:0.9f}]}' %(p[0], p[1]))
 							```
 							forceload remove 1137 567 1160 590
 						}
@@ -2341,7 +2341,7 @@ namespace party_quest() as virtual
 								("1150 45.0625 190", 90)
 							]
 							for p in points:
-								print('summon interaction %s {Tags:["ldpq_mob"],Passengers:[{id:"minecraft:item_display",Tags:["ldpq_mob","box"],Rotation:[%df,0f],item:{id:"minecraft:splash_potion",Count:1b,tag:{info:{hp_max:4,hurt_sound:5,die_sound:1,loot:"skill:mob/special/pass_dimension"},model:1,CustomModelData:1,CustomPotionColor:0}},item_display:"head",shadow_strength:0.0f,shadow_radius:0.9f}]}' %(p[0], p[1]))
+								print('summon interaction %s {Tags:["ldpq_mob"],Passengers:[{id:"minecraft:item_display",Tags:["ldpq_mob","box"],Rotation:[%df,0f],item:{id:"minecraft:splash_potion",count:1,components: {"minecraft:custom_data": {info:{hp_max:4,hurt_sound:5,die_sound:1,loot:"skill:mob/special/pass_dimension"}},model:1,CustomModelData:1,CustomPotionColor:0}},item_display:"head",shadow_strength:0.0f,shadow_radius:0.9f}]}' %(p[0], p[1]))
 							```
 							forceload remove 1137 183 1160 206
 						}
@@ -2408,7 +2408,7 @@ namespace party_quest() as virtual
 						("1142 -14 -185", -90)
 					]
 					for p in points:
-						print('summon interaction %s {Tags:["ldpq_mob"],Passengers:[{id:"minecraft:item_display",Tags:["ldpq_mob","box"],Rotation:[%df,0f],item:{id:"minecraft:splash_potion",Count:1b,tag:{info:{hp_max:4,hurt_sound:5,die_sound:4},model:1,CustomModelData:1,CustomPotionColor:0}},item_display:"head",shadow_strength:0.0f,shadow_radius:0.9f}]}' %(p[0], p[1]))
+						print('summon interaction %s {Tags:["ldpq_mob"],Passengers:[{id:"minecraft:item_display",Tags:["ldpq_mob","box"],Rotation:[%df,0f],item:{id:"minecraft:splash_potion",count:1,components: {"minecraft:custom_data": {info:{hp_max:4,hurt_sound:5,die_sound:4}},model:1,CustomModelData:1,CustomPotionColor:0}},item_display:"head",shadow_strength:0.0f,shadow_radius:0.9f}]}' %(p[0], p[1]))
 					```
 					forceload remove 1137 -201 1160 -178
 					
@@ -2598,7 +2598,7 @@ namespace party_quest() as virtual
 						
 						func check()
 						{
-							execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001022} 0
+							execute store result score #GLOBAL temp run clear @s minecraft:stick[custom_model_data={floats:[4001022f]}] 0
 							execute unless score #GLOBAL temp matches 3.. run tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage7.require_pass","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 							execute if score #GLOBAL temp matches 3.. run function ARG(_PATH)pass
 						}
@@ -2608,13 +2608,13 @@ namespace party_quest() as virtual
 							function quest:party_quest/ldpq/title/clear/run
 							scoreboard players set #LDPQ_STAGE temp 8
 							
-							summon minecraft:item_display 1145 -36 -195 {Tags:["ldpq_mob"],item:{id:"minecraft:splash_potion",Count:1b,tag:{CustomModelData:1000003,CustomPotionColor:-1}},billboard:"vertical"}
+							summon minecraft:item_display 1145 -36 -195 {Tags:["ldpq_mob"],item:{id:"minecraft:splash_potion",count:1,components: {"minecraft:custom_data": {CustomPotionColor:-1}, "minecraft:custom_model_data": 1000003}},billboard:"vertical"}
 							
 							scoreboard players set #EXP_GAIN temp 6600
 							scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
 							execute as @a[scores={playing_game=2},tag=!dead] at @s run function quest:get_exp
 							
-							clear @s minecraft:stick{CustomModelData:4001022} 3
+							clear @s minecraft:stick[custom_model_data={floats:[4001022f]}] 3
 							tellraw @s {"translate":"text.quest.item_lost_multiple","font":"minecraft:uniform","color":"gray","with":["3",{"translate":"item.etc.4001022"}]}
 							tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage_pass","with":[{"translate":"npc.sky_blue_balloon"},"3"],"font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 							
@@ -2661,7 +2661,7 @@ namespace party_quest() as virtual
 				{
 					func run()
 					{
-						execute positioned 1139.0 -29.0 -186.0 as @e[type=item,nbt={Item:{id:"minecraft:stick",tag:{CustomModelData:4001022}}},dx=5,dy=15,dz=2] run function ARG(_PATH)countdown
+						execute positioned 1139.0 -29.0 -186.0 as @e[type=item,nbt={Item:{id:"minecraft:stick",components:{"minecraft:custom_model_data":{floats:[4001022f]}}}},dx=5,dy=15,dz=2] run function ARG(_PATH)countdown
 						schedule function ARG(_PATH)run 1s
 						
 						# 借用來讓怪物隨機時間往玩家靠近，避免整天打不到
@@ -2810,7 +2810,7 @@ namespace party_quest() as virtual
 							function quest:party_quest/ldpq/title/clear/run
 							scoreboard players set #LDPQ_STAGE temp 9
 							
-							summon minecraft:item_display 774 115 569 {Tags:["ldpq_mob"],item:{id:"minecraft:splash_potion",Count:1b,tag:{CustomModelData:1000003,CustomPotionColor:-1}},billboard:"vertical"}
+							summon minecraft:item_display 774 115 569 {Tags:["ldpq_mob"],item:{id:"minecraft:splash_potion",count:1,components: {"minecraft:custom_data": {CustomPotionColor:-1}, "minecraft:custom_model_data": 1000003}},billboard:"vertical"}
 							
 							scoreboard players set #EXP_GAIN temp 7200
 							scoreboard players operation #EXP_GAIN temp *= #WORLD_EXP_RATE const
@@ -2821,7 +2821,7 @@ namespace party_quest() as virtual
 							```
 							print("execute positioned 1152 -47.4 -572 run", spawn_mob("9300006"))
 							```
-							summon interaction 1152 -47.5 -572 {Tags:["ldpq_mob"],Passengers:[{id:"minecraft:item_display",Tags:["ldpq_mob","box"],Rotation:[0f,0f],item:{id:"minecraft:splash_potion",Count:1b,tag:{info:{hp_max:4,hurt_sound:5,die_sound:5},model:1,CustomModelData:1,CustomPotionColor:0}},item_display:"head",shadow_strength:0.0f,shadow_radius:0.9f}]}
+							summon interaction 1152 -47.5 -572 {Tags:["ldpq_mob"],Passengers:[{id:"minecraft:item_display",Tags:["ldpq_mob","box"],Rotation:[0f,0f],item:{id:"minecraft:splash_potion",count:1,components: {"minecraft:custom_data": {info:{hp_max:4,hurt_sound:5,die_sound:5}},model:1,CustomModelData:1,CustomPotionColor:0}},item_display:"head",shadow_strength:0.0f,shadow_radius:0.9f}]}
 							
 							forceload remove 1131 -592 1183 -540
 							
@@ -2864,7 +2864,7 @@ namespace party_quest() as virtual
 						
 						func check()
 						{
-							execute store result score #GLOBAL temp run clear @s minecraft:stick{CustomModelData:4001023} 1
+							execute store result score #GLOBAL temp run clear @s minecraft:stick[custom_model_data={floats:[4001023f]}] 1
 							execute unless score #GLOBAL temp matches 1.. run tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.stage9.require_key","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 							execute if score #GLOBAL temp matches 1.. run function ARG(_PATH)pass
 						}
@@ -2922,7 +2922,7 @@ namespace party_quest() as virtual
 								("760 216.0625 187", 90)
 							]
 							for p in points:
-								print('summon interaction %s {Tags:["ldpq_mob"],Passengers:[{id:"minecraft:item_display",Tags:["ldpq_mob","box"],Rotation:[%df,0f],item:{id:"minecraft:splash_potion",Count:1b,tag:{info:{hp_max:4,hurt_sound:5,die_sound:6},model:1,CustomModelData:1,CustomPotionColor:0}},item_display:"head",shadow_strength:0.0f,shadow_radius:0.9f}]}' %(p[0], p[1]))
+								print('summon interaction %s {Tags:["ldpq_mob"],Passengers:[{id:"minecraft:item_display",Tags:["ldpq_mob","box"],Rotation:[%df,0f],item:{id:"minecraft:splash_potion",count:1,components: {"minecraft:custom_data": {info:{hp_max:4,hurt_sound:5,die_sound:6}},model:1,CustomModelData:1,CustomPotionColor:0}},item_display:"head",shadow_strength:0.0f,shadow_radius:0.9f}]}' %(p[0], p[1]))
 							```
 							forceload remove 753 177 776 200
 							
@@ -2951,7 +2951,7 @@ namespace party_quest() as virtual
 				{
 					func run()
 					{
-						execute as @e[type=item,nbt={Item:{id:"minecraft:stick",tag:{CustomModelData:4001022}}}] run function ARG(_PATH)countdown
+						execute as @e[type=item,nbt={Item:{id:"minecraft:stick",components:{"minecraft:custom_model_data":{floats:[4001022f]}}}}] run function ARG(_PATH)countdown
 						schedule function ARG(_PATH)run 1s
 					}
 					

@@ -1,4 +1,4 @@
-import os, json, pickle, pygsheets
+import os, json, json5, pickle, pygsheets
 from copy import deepcopy
 
 PAGE_WEAPON		= 0
@@ -25,15 +25,20 @@ ENTRY_TEMPLATE = {
 	"name": "minecraft:warped_fungus_on_a_stick",
 	"functions": [
 		{
-			"function": "minecraft:set_nbt",
-			"tag": ""
+			"function": "minecraft:set_components",
+			"components": {}
 		}
 	]
 }
 CHANCE_TEMPLATE = {
-	"condition": "minecraft:random_chance_with_looting",
-	"chance": 0,
-	"looting_multiplier": 1.0
+	"condition": "minecraft:random_chance_with_enchanted_bonus",
+	"unenchanted_chance": 0,
+	"enchanted_chance": {
+		"type": "minecraft:linear",
+		"base": 0,
+		"per_level_above_first": 0
+	},
+	"enchantment": "minecraft:looting"
 }
 FIXED_CHANCE_TEMPLATE = {
 	"condition": "minecraft:random_chance",
@@ -51,9 +56,9 @@ MESO_TEMPLATE = {
 			"function": "minecraft:set_attributes",
 			"modifiers": [
 				{
-					"name": "meso",
-					"attribute": "minecraft:generic.attack_damage",
-					"operation": "addition",
+					"id": "meso",
+					"attribute": "minecraft:attack_damage",
+					"operation": "add_value",
 					"amount": {
 						"min": 0.001,
 						"max": 0.001
@@ -63,12 +68,12 @@ MESO_TEMPLATE = {
 			]
 		},
 		{
-			"function": "minecraft:set_name",
-			"name": ""
-		},
-		{
-			"function": "minecraft:set_nbt",
-			"tag": "{HideFlags:127}"
+			"function": "minecraft:set_components",
+			"components": {
+				"tooltip_display": {
+					"hide_tooltip": True
+				}
+			}
 		}
 	]
 }
@@ -113,7 +118,53 @@ def GetItemID(index):
 	elif index > 20500:
 		return "minecraft:ender_eye"
 	return "minecraft:warped_fungus_on_a_stick"
-	
+
+def ParseComponents(components):
+	pairs = dict()
+	stack = 0
+	content = ""
+	key = None
+	for c in components:
+		if key is not None or c != ",":
+			content += c
+		if c == '{' or c == '[':
+			stack += 1
+			if stack == 1:
+				key = content[:-2]
+				content = c
+		elif c == '}' or c == ']':
+			stack -= 1
+			if stack == 0:
+				pairs[key] = content
+				content = ""
+				key = None
+	return pairs
+
+def SetComponents(entry, components_text):
+	components = ParseComponents(components_text)
+	for k, v in components.items():
+		match k:
+			case "custom_model_data":
+				key = "minecraft:custom_model_data"
+				value = json5.loads(v.replace("f]", "]"))
+			case "custom_data":
+				key = "minecraft:custom_data"
+				value = v
+			case "custom_name":
+				key = "minecraft:custom_name"
+				value = json5.loads(v)
+			case "lore":
+				key = "minecraft:lore"
+				value = json5.loads(v)
+			case "tooltip_display":
+				key = "minecraft:tooltip_display"
+				value = json5.loads(v)
+			case "unbreakable":
+				key = "minecraft:unbreakable"
+				value = {}
+
+		entry["functions"][0]["components"][key] = value
+
 def GenerateEntry(id, weight = 1, min_num = 1, max_num = 1):
 	if id == 0:  # 楓幣
 		entry = deepcopy(MESO_TEMPLATE)
@@ -123,7 +174,7 @@ def GenerateEntry(id, weight = 1, min_num = 1, max_num = 1):
 	else:
 		entry = deepcopy(ENTRY_TEMPLATE)
 		entry["name"] = GetItemID(id)
-		entry["functions"][0]["tag"] = itemDatas[id]
+		SetComponents(entry, itemDatas[id])
 		if min_num > 1 or max_num > 1:
 			count_obj = deepcopy(COUNT_TEMPLATE)
 			if min_num == max_num:
@@ -143,7 +194,8 @@ def SetChance(entry, chance):
 		chance_obj["chance"] = -chance
 	else:
 		chance_obj = deepcopy(CHANCE_TEMPLATE)
-		chance_obj["looting_multiplier"] = chance
+		chance_obj["enchanted_chance"]["base"] = chance
+		chance_obj["enchanted_chance"]["per_level_above_first"] = chance
 	entry["conditions"] = [chance_obj]
 
 # 建立掉落池表
@@ -170,7 +222,7 @@ for i in range(loot_pool_df.shape[0]):
 # 輸出掉落表
 loot_df = sh[PAGE_LOOT].get_as_df()
 for i in range(loot_df.shape[0]):
-	path = "../MapleCraft data pack/data/" + loot_df["路徑"][i].replace(":", "/loot_tables/") + ".json"
+	path = "../MapleCraft data pack/data/" + loot_df["路徑"][i].replace(":", "/loot_table/") + ".json"
 	dir_name = os.path.dirname(path)
 	if not os.path.isdir(dir_name):
 		os.makedirs(dir_name)
@@ -200,7 +252,7 @@ for i in range(loot_df.shape[0]):
 		f.write(json.dumps(data))
 
 # 順便生成妙手術掉落表
-for w in os.walk("../MapleCraft data pack/data/skill/loot_tables/mob"):
+for w in os.walk("../MapleCraft data pack/data/skill/loot_table/mob"):
 	if w[0][-7:] == "special":
 		continue
 	
@@ -212,17 +264,17 @@ for w in os.walk("../MapleCraft data pack/data/skill/loot_tables/mob"):
 			steal_loot = {"pools":[{"rolls": 1.0, "entries": []}]}
 			for pool in loot_table["pools"]:
 				copied_entry = deepcopy(pool["entries"][0])
-				copied_entry["weight"] = int(pool["conditions"][0]["looting_multiplier"] * 1000)
+				copied_entry["weight"] = int(pool["conditions"][0]["enchanted_chance"]["base"] * 1000)
 				if copied_entry["name"] == "minecraft:diamond":
 					copied_entry["functions"][0]["modifiers"][0]["amount"]["min"] /= 2
 					copied_entry["functions"][0]["modifiers"][0]["amount"]["max"] /= 2
 				steal_loot["pools"][0]["entries"].append(copied_entry)
 			
-			with open(os.path.join(w[0], file).replace("loot_tables/mob", "loot_tables/steal"), "w") as f:
+			with open(os.path.join(w[0], file).replace("loot_table/mob", "loot_table/steal"), "w") as f:
 				f.write(json.dumps(steal_loot))
 						
 	except Exception as e:
-		print(e)
+		print(f"{e!r}")
 		os.system("pause")
 
 os.system("pause")

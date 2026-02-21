@@ -1,0 +1,48 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:alternatives",
+          "children": [
+            {
+              "type": "minecraft:dynamic",
+              "name": "minecraft:contents",
+              "conditions": [
+                {
+                  "condition": "minecraft:match_tool",
+                  "predicate": {
+                    "item": "minecraft:air",
+                    "components": {
+                      "minecraft:custom_data": {
+                        "modify_player": 1
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "minecraft:item",
+              "name": "minecraft:shulker_box",
+              "functions": [
+                {
+                  "function": "minecraft:copy_components",
+                  "include": [
+                    "minecraft:custom_name",
+                    "minecraft:container",
+                    "minecraft:lock",
+                    "minecraft:container_loot"
+                  ],
+                  "source": "block_entity"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

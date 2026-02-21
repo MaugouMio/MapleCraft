@@ -40,7 +40,7 @@ class Folder:
 			sub_dir = dir + self.name
 			os.mkdir(sub_dir)
 			if self.is_namespace:
-				sub_dir += "\\functions"
+				sub_dir += "\\function"
 				os.mkdir(sub_dir)
 			
 			for key in self.items.keys():
@@ -757,8 +757,8 @@ def build_datapack(proj_path):
 		os.mkdir(build_dir + "minecraft")
 	if not os.path.isdir(build_dir + "minecraft\\tags"):
 		os.mkdir(build_dir + "minecraft\\tags")
-	if not os.path.isdir(build_dir + "minecraft\\tags\\functions"):
-		os.mkdir(build_dir + "minecraft\\tags\\functions")
+	if not os.path.isdir(build_dir + "minecraft\\tags\\function"):
+		os.mkdir(build_dir + "minecraft\\tags\\function")
 	
 	for key in tags.keys():
 		exist_tags = set()
@@ -767,7 +767,7 @@ def build_datapack(proj_path):
 			if tag not in exist_tags:
 				tag_order.append(tag)
 				exist_tags.add(tag)
-		with open(build_dir + "minecraft\\tags\\functions\\" + key + ".json", "w", encoding="utf-8") as f:
+		with open(build_dir + "minecraft\\tags\\function\\" + key + ".json", "w", encoding="utf-8") as f:
 			f.write('{\n\t"values":[\n\t\t%s\n\t]\n}' %",\n\t\t".join(tag_order))
 	
 	# copy side packages

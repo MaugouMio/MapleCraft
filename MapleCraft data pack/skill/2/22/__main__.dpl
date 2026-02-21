@@ -119,7 +119,7 @@ namespace 22() as virtual
 			
 			func effect_model_set()
 			{
-				data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:220000}},item_display:"head",billboard:"vertical"}
+				data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",count:1,components: {"minecraft:custom_data": {}, "minecraft:custom_model_data": 220000}},item_display:"head",billboard:"vertical"}
 				scoreboard players set @s max_life 12
 				scoreboard players set @s base_model 220000
 
@@ -127,7 +127,7 @@ namespace 22() as virtual
 				function skill:get_horizon_offset_color
 				# 往後退 0.2 格，再往上位移
 				scoreboard players remove #MODEL_COLOR temp 512
-				execute store result entity @s item.tag.CustomPotionColor int 1 run scoreboard players operation #MODEL_COLOR temp += #OFFSET_Y temp
+				execute store result entity @s item.components."minecraft:potion_contents".custom_color int 1 run scoreboard players operation #MODEL_COLOR temp += #OFFSET_Y temp
 			}
 			
 			func append_scheduler()
@@ -206,8 +206,8 @@ namespace 22() as virtual
 			
 			func get()
 			{
-				clear @s minecraft:ender_eye{CustomModelData:75}
-				give @s minecraft:ender_eye{CustomModelData:75,skill:1b,HideFlags:127,display:{Name:'{"translate":"skill.2201004","font":"minecraft:uniform","bold":true,"italic":false}'}} 2
+				clear @s minecraft:ender_eye[custom_model_data={floats:[75f]}]
+				give @s minecraft:ender_eye[custom_model_data={floats:[75f]},custom_data={skill:1b},custom_name={"translate":"skill.0001000","font":"minecraft:uniform","bold":true,"italic":false}] 2
 			}
 		}
 		
@@ -346,8 +346,8 @@ namespace 22() as virtual
 			
 			func get()
 			{
-				clear @s minecraft:ender_eye{CustomModelData:76}
-				give @s minecraft:ender_eye{CustomModelData:76,skill:1b,HideFlags:127,display:{Name:'{"translate":"skill.2201005","font":"minecraft:uniform","bold":true,"italic":false}'}} 2
+				clear @s minecraft:ender_eye[custom_model_data={floats:[76f]}]
+				give @s minecraft:ender_eye[custom_model_data={floats:[76f]},custom_data={skill:1b},custom_name={"translate":"skill.0001000","font":"minecraft:uniform","bold":true,"italic":false}] 2
 			}
 		}
 	}

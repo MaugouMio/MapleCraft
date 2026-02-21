@@ -45,7 +45,7 @@ namespace simple_buff_template(name) as virtual
 					print(f"execute if score @s {buff}_buff_time matches 1.. run function skill:buff/{buff}/reset/run")
 				elif len(buff_info_dict[buff]["buff_list"].intersection(buff_list)) > 0:
 					print(f"execute if score @s {buff}_buff_time matches 1.. run function skill:buff/{buff}/reset/check")
-		# print(f"attribute @s minecraft:generic.luck modifier remove {simple_buff_info_dict['ARG(name)']['uuid']}")
+		# print(f"attribute @s minecraft:luck modifier remove {simple_buff_info_dict['ARG(name)']['uuid']}")
 		print(f"data remove storage skill:main buff[{{id:{buff_id}s}}]")
 		
 		print(f"execute unless score @s ARG(name)_buff_time matches 1.. run scoreboard players add #{'ARG(name)'.upper()}_BUFF_PEOPLE temp 1")
@@ -155,7 +155,7 @@ namespace simple_buff_template(name) as virtual
 			scoreboard players reset @s ARG(name)_buff_tmax
 			function skill:buff/start_write_buff
 			```
-			# print(f"attribute @s minecraft:generic.luck modifier remove {simple_buff_info_dict['ARG(name)']['uuid']}")
+			# print(f"attribute @s minecraft:luck modifier remove {simple_buff_info_dict['ARG(name)']['uuid']}")
 			print(f"data remove storage skill:main buff[{{id:{buff_id}s}}]")
 			print(f"scoreboard players remove #{'ARG(name)'.upper()}_BUFF_PEOPLE temp 1")
 			if "ARG(name)" == "invis":
@@ -211,7 +211,7 @@ namespace buff_template(name) as virtual
 				elif len(buff_info_dict[buff]["buff_list"].intersection(buff_list)) > 0:
 					print(f"execute if score @s {buff}_buff_time matches 1.. run function skill:buff/{buff}/reset/check")
 			else:
-				# print(f"attribute @s minecraft:generic.luck modifier remove {buff_info_dict['ARG(name)']['uuid']}")
+				# print(f"attribute @s minecraft:luck modifier remove {buff_info_dict['ARG(name)']['uuid']}")
 				print(f"data remove storage skill:main buff[{{id:{buff_id}s}}]")
 				
 		print(f"execute unless score @s ARG(name)_buff_time matches 1.. run scoreboard players add #{'ARG(name)'.upper()}_BUFF_PEOPLE temp 1")
@@ -318,7 +318,7 @@ namespace buff_template(name) as virtual
 			scoreboard players reset @s ARG(name)_buff_tmax
 			function skill:buff/start_write_buff
 			```
-			# print(f"attribute @s minecraft:generic.luck modifier remove {buff_info_dict['ARG(name)']['uuid']}")
+			# print(f"attribute @s minecraft:luck modifier remove {buff_info_dict['ARG(name)']['uuid']}")
 			print(f"data remove storage skill:main buff[{{id:{buff_id}s}}]")
 			print(f"scoreboard players remove #{'ARG(name)'.upper()}_BUFF_PEOPLE temp 1")
 			```
@@ -394,7 +394,7 @@ namespace buff() as virtual
 	
 	func start_write_buff()
 	{
-		execute unless score #WRITING_BUFF temp matches 1.. run data modify storage skill:main buff set from entity @s Inventory[{Slot:103b}].tag.buff
+		execute unless score #WRITING_BUFF temp matches 1.. run data modify storage skill:main buff set from entity @s equipment.head.components.minecraft:custom_data.buff
 		scoreboard players add #WRITING_BUFF temp 1
 	}
 	

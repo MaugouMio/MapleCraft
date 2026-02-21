@@ -192,8 +192,8 @@ namespace 12() as virtual
 		{
 			func get()
 			{
-				clear @s minecraft:ender_eye{CustomModelData:25}
-				give @s minecraft:ender_eye{CustomModelData:25,skill:1b,HideFlags:127,display:{Name:'{"translate":"skill.1201005","font":"minecraft:uniform","bold":true,"italic":false}'}} 2
+				clear @s minecraft:ender_eye[custom_model_data={floats:[25f]}]
+				give @s minecraft:ender_eye[custom_model_data={floats:[25f]},custom_data={skill:1b},custom_name={"translate":"skill.0001000","font":"minecraft:uniform","bold":true,"italic":false}] 2
 			}
 		}
 		
@@ -240,9 +240,9 @@ namespace 12() as virtual
 				execute on vehicle run function ARG(_PATH)set_debuff
 				
 				# weapon attack drop
-				# execute store result score #GLOBAL temp run attribute @s minecraft:generic.attack_damage base get 10
+				# execute store result score #GLOBAL temp run attribute @s minecraft:attack_damage base get 10
 				# scoreboard players remove #GLOBAL temp 1
-				# execute store result entity @s ArmorItems[3].tag.AttributeModifiers[{Name:"disorder"}].Amount float -0.1 run scoreboard players operation #GLOBAL temp < #THREATEN_LEVEL temp
+				# execute store result entity @s equipment.head.components.minecraft:custom_data.AttributeModifiers[{Name:"disorder"}].Amount float -0.1 run scoreboard players operation #GLOBAL temp < #THREATEN_LEVEL temp
 				# scoreboard players set @s weaken_from 2
 			}
 			
@@ -270,8 +270,8 @@ namespace 12() as virtual
 			
 			func bind_threaten()
 			{
-				data merge entity @s {Tags:["threaten"],item:{id:"minecraft:potion",Count:1b,tag:{CustomModelData:104}},billboard:"center"}
-				execute store result entity @s item.tag.CustomPotionColor int 1 run scoreboard players get #MAX_HEIGHT temp
+				data merge entity @s {Tags:["threaten"],item:{id:"minecraft:potion",count:1,components: {"minecraft:custom_data": {}, "minecraft:custom_model_data": 104}},billboard:"center"}
+				execute store result entity @s item.components."minecraft:potion_contents".custom_color int 1 run scoreboard players get #MAX_HEIGHT temp
 				function skill:bind_mob
 			}
 			
@@ -328,8 +328,8 @@ namespace 12() as virtual
 			
 			func get()
 			{
-				clear @s minecraft:ender_eye{CustomModelData:26}
-				give @s minecraft:ender_eye{CustomModelData:26,skill:1b,HideFlags:127,display:{Name:'{"translate":"skill.1201006","font":"minecraft:uniform","bold":true,"italic":false}'}} 2
+				clear @s minecraft:ender_eye[custom_model_data={floats:[26f]}]
+				give @s minecraft:ender_eye[custom_model_data={floats:[26f]},custom_data={skill:1b},custom_name={"translate":"skill.0001000","font":"minecraft:uniform","bold":true,"italic":false}] 2
 			}
 		}
 		

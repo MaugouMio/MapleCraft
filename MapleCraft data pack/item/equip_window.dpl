@@ -54,7 +54,7 @@ namespace equip_window() as virtual
 		
 		func set()
 		{
-			data modify storage ui:main equip.cap set from entity @s Inventory[{Slot:103b}].tag.cap
+			data modify storage ui:main equip.cap set from entity @s equipment.head.tag.cap
 			data modify block 250 0 0 front_text.messages[0] set value '["",{"nbt":"equip.cap.display.Name","storage":"ui:main","interpret":true}]'
 			function ARG(_PATH)set_display
 			data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 156"},"hoverEvent":{"action":"show_text","contents":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
@@ -95,7 +95,7 @@ namespace equip_window() as virtual
 			
 			func set()
 			{
-				data modify storage ui:main equip.forehead set from entity @s Inventory[{Slot:103b}].tag.forehead
+				data modify storage ui:main equip.forehead set from entity @s equipment.head.tag.forehead
 				data modify block 250 0 0 front_text.messages[0] set value '["",{"nbt":"equip.forehead.display.Name","storage":"ui:main","interpret":true}]'
 				function ARG(_PATH)set_display
 				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 157"},"hoverEvent":{"action":"show_text","contents":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
@@ -127,7 +127,7 @@ namespace equip_window() as virtual
 			
 			func set()
 			{
-				data modify storage ui:main equip.ring1 set from entity @s Inventory[{Slot:103b}].tag.ring1
+				data modify storage ui:main equip.ring1 set from entity @s equipment.head.tag.ring1
 				data modify block 250 0 0 front_text.messages[0] set value '["",{"nbt":"equip.ring1.display.Name","storage":"ui:main","interpret":true}]'
 				function ARG(_PATH)set_display
 				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 158"},"hoverEvent":{"action":"show_text","contents":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
@@ -159,7 +159,7 @@ namespace equip_window() as virtual
 			
 			func set()
 			{
-				data modify storage ui:main equip.ring2 set from entity @s Inventory[{Slot:103b}].tag.ring2
+				data modify storage ui:main equip.ring2 set from entity @s equipment.head.tag.ring2
 				data modify block 250 0 0 front_text.messages[0] set value '["",{"nbt":"equip.ring2.display.Name","storage":"ui:main","interpret":true}]'
 				function ARG(_PATH)set_display
 				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 159"},"hoverEvent":{"action":"show_text","contents":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
@@ -200,7 +200,7 @@ namespace equip_window() as virtual
 			
 			func set()
 			{
-				data modify storage ui:main equip.face set from entity @s Inventory[{Slot:103b}].tag.face
+				data modify storage ui:main equip.face set from entity @s equipment.head.tag.face
 				data modify block 250 0 0 front_text.messages[0] set value '["",{"nbt":"equip.face.display.Name","storage":"ui:main","interpret":true}]'
 				function ARG(_PATH)set_display
 				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 160"},"hoverEvent":{"action":"show_text","contents":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
@@ -232,7 +232,7 @@ namespace equip_window() as virtual
 			
 			func set()
 			{
-				data modify storage ui:main equip.ear set from entity @s Inventory[{Slot:103b}].tag.ear
+				data modify storage ui:main equip.ear set from entity @s equipment.head.tag.ear
 				data modify block 250 0 0 front_text.messages[0] set value '["",{"nbt":"equip.ear.display.Name","storage":"ui:main","interpret":true}]'
 				function ARG(_PATH)set_display
 				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 161"},"hoverEvent":{"action":"show_text","contents":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
@@ -276,7 +276,7 @@ namespace equip_window() as virtual
 			
 			func set()
 			{
-				data modify storage ui:main equip.cape set from entity @s Inventory[{Slot:103b}].tag.cape
+				data modify storage ui:main equip.cape set from entity @s equipment.head.tag.cape
 				data modify block 250 0 0 front_text.messages[0] set value '["",{"nbt":"equip.cape.display.Name","storage":"ui:main","interpret":true}]'
 				function ARG(_PATH)set_display
 				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 162"},"hoverEvent":{"action":"show_text","contents":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
@@ -308,7 +308,7 @@ namespace equip_window() as virtual
 			
 			func set()
 			{
-				data modify storage ui:main equip.cloth set from entity @s Inventory[{Slot:103b}].tag.cloth
+				data modify storage ui:main equip.cloth set from entity @s equipment.head.tag.cloth
 				data modify block 250 0 0 front_text.messages[0] set value '["",{"nbt":"equip.cloth.display.Name","storage":"ui:main","interpret":true}]'
 				function ARG(_PATH)set_display
 				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 163"},"hoverEvent":{"action":"show_text","contents":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
@@ -340,7 +340,7 @@ namespace equip_window() as virtual
 			
 			func set()
 			{
-				data modify storage ui:main equip.pendant set from entity @s Inventory[{Slot:103b}].tag.pendant
+				data modify storage ui:main equip.pendant set from entity @s equipment.head.tag.pendant
 				data modify block 250 0 0 front_text.messages[0] set value '["",{"nbt":"equip.pendant.display.Name","storage":"ui:main","interpret":true}]'
 				function ARG(_PATH)set_display
 				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 164"},"hoverEvent":{"action":"show_text","contents":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
@@ -372,7 +372,7 @@ namespace equip_window() as virtual
 			
 			func set()
 			{
-				data modify storage ui:main equip.weapon set from entity @s Inventory[{Slot:103b}].tag.weapon
+				data modify storage ui:main equip.weapon set from entity @s equipment.head.tag.weapon
 				data modify block 250 0 0 front_text.messages[0] set value '["",{"nbt":"equip.weapon.display.Name","storage":"ui:main","interpret":true}]'
 				function ARG(_PATH)set_display
 				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 155"},"hoverEvent":{"action":"show_text","contents":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
@@ -404,7 +404,7 @@ namespace equip_window() as virtual
 			
 			func set()
 			{
-				data modify storage ui:main equip.shield set from entity @s Inventory[{Slot:103b}].tag.shield
+				data modify storage ui:main equip.shield set from entity @s equipment.head.tag.shield
 				data modify block 250 0 0 front_text.messages[0] set value '["",{"nbt":"equip.shield.display.Name","storage":"ui:main","interpret":true}]'
 				function ARG(_PATH)set_display
 				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 165"},"hoverEvent":{"action":"show_text","contents":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
@@ -448,7 +448,7 @@ namespace equip_window() as virtual
 			
 			func set()
 			{
-				data modify storage ui:main equip.gloves set from entity @s Inventory[{Slot:103b}].tag.gloves
+				data modify storage ui:main equip.gloves set from entity @s equipment.head.tag.gloves
 				data modify block 250 0 0 front_text.messages[0] set value '["",{"nbt":"equip.gloves.display.Name","storage":"ui:main","interpret":true}]'
 				function ARG(_PATH)set_display
 				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 166"},"hoverEvent":{"action":"show_text","contents":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
@@ -480,7 +480,7 @@ namespace equip_window() as virtual
 			
 			func set()
 			{
-				data modify storage ui:main equip.pants set from entity @s Inventory[{Slot:103b}].tag.pants
+				data modify storage ui:main equip.pants set from entity @s equipment.head.tag.pants
 				data modify block 250 0 0 front_text.messages[0] set value '["",{"nbt":"equip.pants.display.Name","storage":"ui:main","interpret":true}]'
 				function ARG(_PATH)set_display
 				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 167"},"hoverEvent":{"action":"show_text","contents":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
@@ -512,7 +512,7 @@ namespace equip_window() as virtual
 			
 			func set()
 			{
-				data modify storage ui:main equip.shoes set from entity @s Inventory[{Slot:103b}].tag.shoes
+				data modify storage ui:main equip.shoes set from entity @s equipment.head.tag.shoes
 				data modify block 250 0 0 front_text.messages[0] set value '["",{"nbt":"equip.shoes.display.Name","storage":"ui:main","interpret":true}]'
 				function ARG(_PATH)set_display
 				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 168"},"hoverEvent":{"action":"show_text","contents":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
@@ -544,7 +544,7 @@ namespace equip_window() as virtual
 			
 			func set()
 			{
-				data modify storage ui:main equip.ring3 set from entity @s Inventory[{Slot:103b}].tag.ring3
+				data modify storage ui:main equip.ring3 set from entity @s equipment.head.tag.ring3
 				data modify block 250 0 0 front_text.messages[0] set value '["",{"nbt":"equip.ring3.display.Name","storage":"ui:main","interpret":true}]'
 				function ARG(_PATH)set_display
 				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 169"},"hoverEvent":{"action":"show_text","contents":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
@@ -576,7 +576,7 @@ namespace equip_window() as virtual
 			
 			func set()
 			{
-				data modify storage ui:main equip.ring4 set from entity @s Inventory[{Slot:103b}].tag.ring4
+				data modify storage ui:main equip.ring4 set from entity @s equipment.head.tag.ring4
 				data modify block 250 0 0 front_text.messages[0] set value '["",{"nbt":"equip.ring4.display.Name","storage":"ui:main","interpret":true}]'
 				function ARG(_PATH)set_display
 				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 170"},"hoverEvent":{"action":"show_text","contents":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
