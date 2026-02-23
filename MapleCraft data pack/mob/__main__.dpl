@@ -33,7 +33,7 @@ namespace mob()
 		{
 			execute store result score #GLOBAL temp run scoreboard players add @s spawn_alpha 1
 			execute if score @s spawn_alpha matches 1 on controller run function ARG(_PATH)set_model
-			execute if score @s spawn_alpha matches ..9 on controller store result entity @s equipment.head.components."minecraft:potion_contents".custom_color int 10 run scoreboard players get #GLOBAL temp
+			execute if score @s spawn_alpha matches ..9 on controller store result entity @s equipment.head.components.minecraft:potion_contents.custom_color int 10 run scoreboard players get #GLOBAL temp
 			execute if score @s spawn_alpha matches 10 run function ARG(_PATH)run
 		}
 		
@@ -102,7 +102,7 @@ namespace mob()
 		{
 			# 召喚的怪物不會經過淡入流程，這邊要再做一次模型設定
 			execute unless score @s base_model matches 1.. run function ARG(_PATH)set_model
-			data modify entity @s equipment.head.components."minecraft:potion_contents".custom_color set value -1
+			data modify entity @s equipment.head.components.minecraft:potion_contents.custom_color set value -1
 		}
 	}
 	

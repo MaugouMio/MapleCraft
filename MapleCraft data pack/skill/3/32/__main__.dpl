@@ -335,8 +335,8 @@ namespace 32() as virtual
 
 			func set_bullet()
 			{
-				data merge entity @s {Tags:["first_bullet","new_bullet","bullet"],item:{id:"minecraft:potion",count:1,components: {"minecraft:custom_data": {appear_delay:8,max_distance:10,skill_id:0,bullet_model:3200}, "minecraft:custom_model_data": 1}}}
-				execute store result entity @s item.tag.max_distance int 1 run scoreboard players get #BULLET_DISTANCE temp
+				data merge entity @s {Tags:["first_bullet","new_bullet","bullet"],item:{id:"minecraft:potion",count:1,components:{custom_data:{appear_delay:8,max_distance:10,skill_id:0,bullet_model:3200}, custom_model_data:{floats:[1f]}}}}
+				execute store result entity @s item.components.minecraft:custom_data.max_distance int 1 run scoreboard players get #BULLET_DISTANCE temp
 				function skill:bullet/no_target_setting
 			}
 			
@@ -353,7 +353,7 @@ namespace 32() as virtual
 			
 			func effect_model_set()
 			{
-				data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",count:1,components: {"minecraft:custom_data": {}, "minecraft:custom_model_data": 320000}},transformation:{scale:[1.333f,1.333f,1.333f]},billboard:"center"}
+				data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",count:1,components:{custom_model_data:{floats:[320000f]}}},transformation:{scale:[1.333f,1.333f,1.333f]},billboard:"center"}
 				scoreboard players set @s max_life 10
 				scoreboard players set @s base_model 320000
 
@@ -362,7 +362,7 @@ namespace 32() as virtual
 				execute store result score #MODEL_COLOR temp run data get entity @s Rotation[0] 0.7083333
 				execute if score #MODEL_COLOR temp matches ..-1 run scoreboard players add #MODEL_COLOR temp 255
 				scoreboard players operation #MODEL_COLOR temp *= #65536 const
-				execute store result entity @s item.components."minecraft:potion_contents".custom_color int 1 run scoreboard players add #MODEL_COLOR temp 2573
+				execute store result entity @s item.components.minecraft:potion_contents.custom_color int 1 run scoreboard players add #MODEL_COLOR temp 2573
 				
 				function skill:bind_player
 			}
@@ -375,13 +375,13 @@ namespace 32() as virtual
 			
 			func hit_effect_model_set()
 			{
-				data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",count:1,components: {"minecraft:custom_data": {}, "minecraft:custom_model_data": 320010}},item_display:"head",billboard:"center"}
+				data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",count:1,components:{custom_model_data:{floats:[320010f]}}},item_display:"head",billboard:"center"}
 				scoreboard players set @s max_life 9
 				scoreboard players set @s base_model 320010
 
 				tp @s ~ ~ ~ ~ 0
 				function skill:get_horizon_offset_color
-				execute store result entity @s item.components."minecraft:potion_contents".custom_color int 1 run scoreboard players operation #MODEL_COLOR temp += #OFFSET_Y temp
+				execute store result entity @s item.components.minecraft:potion_contents.custom_color int 1 run scoreboard players operation #MODEL_COLOR temp += #OFFSET_Y temp
 			}
 			
 			```

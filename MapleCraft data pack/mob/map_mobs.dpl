@@ -97,7 +97,7 @@ namespace map_mobs() as virtual
 		
 		func check_spawn()
 		{
-			execute unless data entity 00000000-0000-0008-0000-000000000008 item.tag.mob_id run return 0
+			execute unless data entity 00000000-0000-0008-0000-000000000008 item.components.minecraft:custom_data.mob_id run return 0
 			function ARG(_PATH)spawn with entity 00000000-0000-0008-0000-000000000008 item.tag
 		}
 		

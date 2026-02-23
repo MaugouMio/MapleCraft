@@ -191,13 +191,13 @@ namespace 23() as virtual
 			
 			func effect_model_set()
 			{
-				data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",count:1,components: {"minecraft:custom_data": {}, "minecraft:custom_model_data": 230019}},item_display:"head",billboard:"vertical"}
+				data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",count:1,components:{custom_model_data:{floats:[230019f]}}},item_display:"head",billboard:"vertical"}
 				scoreboard players set @s max_life 18
 				scoreboard players set @s base_model 230019
 
 				tp @s ~ ~ ~ ~ 0
 				function skill:get_horizon_offset_color
-				execute store result entity @s item.components."minecraft:potion_contents".custom_color int 1 run scoreboard players operation #MODEL_COLOR temp += #VERTICAL_OFFSET temp
+				execute store result entity @s item.components.minecraft:potion_contents.custom_color int 1 run scoreboard players operation #MODEL_COLOR temp += #VERTICAL_OFFSET temp
 			}
 			
 			```
@@ -533,7 +533,7 @@ namespace 23() as virtual
 			func summon_bullet()
 			{
 				# max_distance should be set to (#DISTANCE temp - 1)
-				execute rotated ~ 0 run summon minecraft:item_display ^ ^ ^1 {Tags:["first_bullet","new_bullet","bullet"],item:{id:"minecraft:potion",count:1,components: {"minecraft:custom_data": {appear_delay:11,max_distance:8,skill_id:5,bullet_model:2300}, "minecraft:custom_model_data": 1}},item_display:"head"}
+				execute rotated ~ 0 run summon minecraft:item_display ^ ^ ^1 {Tags:["first_bullet","new_bullet","bullet"],item:{id:"minecraft:potion",count:1,components:{custom_data:{appear_delay:11,max_distance:8,skill_id:5,bullet_model:2300}, custom_model_data:{floats:[1f]}}},item_display:"head"}
 			}
 			
 			func set_numeric()
@@ -560,7 +560,7 @@ namespace 23() as virtual
 			
 			func effect_model_set()
 			{
-				data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",count:1,components: {"minecraft:custom_data": {}, "minecraft:custom_model_data": 230000}},transformation:{scale:[0.625f,0.625f,0.625f],translation:[0.0f,1.6885f,0.0f]},item_display:"head"}
+				data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",count:1,components:{custom_model_data:{floats:[230000f]}}},transformation:{scale:[0.625f,0.625f,0.625f],translation:[0.0f,1.6885f,0.0f]},item_display:"head"}
 				scoreboard players set @s max_life 14
 				scoreboard players set @s base_model 230000
 				
@@ -576,13 +576,13 @@ namespace 23() as virtual
 			
 			func hit_effect_model_set()
 			{
-				data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",count:1,components: {"minecraft:custom_data": {}, "minecraft:custom_model_data": 230014}},item_display:"head",billboard:"center"}
+				data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",count:1,components:{custom_model_data:{floats:[230014f]}}},item_display:"head",billboard:"center"}
 				scoreboard players set @s max_life 5
 				scoreboard players set @s base_model 230014
 
 				tp @s ~ ~ ~ ~ 0
 				function skill:get_horizon_offset_color
-				execute store result entity @s item.components."minecraft:potion_contents".custom_color int 1 run scoreboard players operation #MODEL_COLOR temp += #OFFSET_Y temp
+				execute store result entity @s item.components.minecraft:potion_contents.custom_color int 1 run scoreboard players operation #MODEL_COLOR temp += #OFFSET_Y temp
 			}
 			
 			func append_scheduler()

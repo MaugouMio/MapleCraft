@@ -223,13 +223,13 @@ namespace 4() as virtual
 				
 				func effect_model_set()
 				{
-					data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",count:1,components: {"minecraft:custom_data": {}, "minecraft:custom_model_data": 400021}},billboard:"center"}
+					data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",count:1,components:{custom_model_data:{floats:[400021f]}}},billboard:"center"}
 					scoreboard players set @s max_life 20
 					scoreboard players set @s base_model 400021
 
 					tp @s ~ ~ ~ ~ 0
 					function skill:get_horizon_offset_color
-					execute store result entity @s item.components."minecraft:potion_contents".custom_color int 1 run scoreboard players operation #MODEL_COLOR temp += #VERTICAL_OFFSET temp
+					execute store result entity @s item.components.minecraft:potion_contents.custom_color int 1 run scoreboard players operation #MODEL_COLOR temp += #VERTICAL_OFFSET temp
 					
 					function skill:bind_mob
 				}
@@ -554,14 +554,14 @@ namespace 4() as virtual
 				
 				func effect_model_set()
 				{
-					data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",count:1,components: {"minecraft:custom_data": {}, "minecraft:custom_model_data": 1}},item_display:"head",billboard:"center"}
+					data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",count:1,components:{custom_model_data:{floats:[1f]}}},item_display:"head",billboard:"center"}
 					scoreboard players set @s max_life 6
-					execute if score #HIT_EFFECT temp matches 3..5 store result entity @s item.components.minecraft:custom_model_data int 1 run scoreboard players set @s base_model 400041
-					execute if score #HIT_EFFECT temp matches 6..8 store result entity @s item.components.minecraft:custom_model_data int 1 run scoreboard players set @s base_model 400047
+					execute if score #HIT_EFFECT temp matches 3..5 store result entity @s item.components.minecraft:custom_model_data.floats[0] float 1 run scoreboard players set @s base_model 400041
+					execute if score #HIT_EFFECT temp matches 6..8 store result entity @s item.components.minecraft:custom_model_data.floats[0] float 1 run scoreboard players set @s base_model 400047
 
 					tp @s ~ ~ ~ ~ 0
 					function skill:get_horizon_offset_color
-					execute store result entity @s item.components."minecraft:potion_contents".custom_color int 1 run scoreboard players operation #MODEL_COLOR temp += #OFFSET_Y temp
+					execute store result entity @s item.components.minecraft:potion_contents.custom_color int 1 run scoreboard players operation #MODEL_COLOR temp += #OFFSET_Y temp
 				}
 				
 				func append_scheduler()
@@ -697,20 +697,20 @@ namespace 4() as virtual
 				{
 					func first()
 					{
-						data merge entity @s {Tags:["first_bullet","new_bullet","bullet"],item:{id:"minecraft:potion",count:1,components: {"minecraft:custom_data": {appear_delay:7,max_distance:10,skill_id:2,bullet_model:4005}, "minecraft:custom_model_data": 1}},item_display:"head"}
+						data merge entity @s {Tags:["first_bullet","new_bullet","bullet"],item:{id:"minecraft:potion",count:1,components:{custom_data:{appear_delay:7,max_distance:10,skill_id:2,bullet_model:4005}, custom_model_data:{floats:[1f]}}},item_display:"head"}
 						function ARG(_PATH)base
 					}
 
 					func second()
 					{
-						data merge entity @s {Tags:["new_bullet","bullet"],item:{id:"minecraft:potion",count:1,components: {"minecraft:custom_data": {appear_delay:9,max_distance:10,skill_id:2,bullet_model:4005}, "minecraft:custom_model_data": 1}},item_display:"head"}
+						data merge entity @s {Tags:["new_bullet","bullet"],item:{id:"minecraft:potion",count:1,components:{custom_data:{appear_delay:9,max_distance:10,skill_id:2,bullet_model:4005}, custom_model_data:{floats:[1f]}}},item_display:"head"}
 						function ARG(_PATH)base
 					}
 
 					func base()
 					{
-						execute store result entity @s item.tag.max_distance int 1 run scoreboard players get #BULLET_DISTANCE temp
-						execute store result entity @s item.tag.bullet_model int 1 run scoreboard players get #GLOBAL bullet_model
+						execute store result entity @s item.components.minecraft:custom_data.max_distance int 1 run scoreboard players get #BULLET_DISTANCE temp
+						execute store result entity @s item.components.minecraft:custom_data.bullet_model int 1 run scoreboard players get #GLOBAL bullet_model
 					}
 				}
 				
@@ -743,7 +743,7 @@ namespace 4() as virtual
 				
 				func effect_model_set()
 				{
-					data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",count:1,components: {"minecraft:custom_data": {}, "minecraft:custom_model_data": 400000}},transformation:{scale:[0.625f,0.625f,0.625f],translation:[0.0f,1.6885f,0.0f]},item_display:"head"}
+					data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",count:1,components:{custom_model_data:{floats:[400000f]}}},transformation:{scale:[0.625f,0.625f,0.625f],translation:[0.0f,1.6885f,0.0f]},item_display:"head"}
 					scoreboard players set @s max_life 21
 					scoreboard players set @s base_model 400000
 					
@@ -759,13 +759,13 @@ namespace 4() as virtual
 				
 				func hit_effect_model_set()
 				{
-					data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",count:1,components: {"minecraft:custom_data": {}, "minecraft:custom_model_data": 400053}},item_display:"head",billboard:"center"}
+					data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",count:1,components:{custom_model_data:{floats:[400053f]}}},item_display:"head",billboard:"center"}
 					scoreboard players set @s max_life 8
 					scoreboard players set @s base_model 400053
 
 					tp @s ~ ~ ~ ~ 0
 					function skill:get_horizon_offset_color
-					execute store result entity @s item.components."minecraft:potion_contents".custom_color int 1 run scoreboard players operation #MODEL_COLOR temp += #OFFSET_Y temp
+					execute store result entity @s item.components.minecraft:potion_contents.custom_color int 1 run scoreboard players operation #MODEL_COLOR temp += #OFFSET_Y temp
 				}
 				
 				func append_scheduler()

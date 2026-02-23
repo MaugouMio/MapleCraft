@@ -200,7 +200,7 @@ namespace 42() as virtual
 				
 			func effect_model_set()
 			{
-				data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",count:1,components: {"minecraft:custom_data": {}, "minecraft:custom_model_data": 420000}},transformation:{scale:[0.625f,0.625f,0.625f],translation:[0.0f,1.6885f,0.0f]},item_display:"head"}
+				data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",count:1,components:{custom_model_data:{floats:[420000f]}}},transformation:{scale:[0.625f,0.625f,0.625f],translation:[0.0f,1.6885f,0.0f]},item_display:"head"}
 				scoreboard players set @s max_life 14
 				scoreboard players set @s base_model 420000
 				
@@ -378,17 +378,17 @@ namespace 42() as virtual
 			
 			func effect_model_set()
 			{
-				data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",count:1,components: {"minecraft:custom_data": {}, "minecraft:custom_model_data": 1}},item_display:"head",billboard:"center"}
+				data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",count:1,components:{custom_model_data:{floats:[1f]}}},item_display:"head",billboard:"center"}
 				scoreboard players set @s max_life 2
-				execute if score #HIT_EFFECT temp matches 3 store result entity @s item.components.minecraft:custom_model_data int 1 run scoreboard players set @s base_model 420014
-				execute if score #HIT_EFFECT temp matches 4 store result entity @s item.components.minecraft:custom_model_data int 1 run scoreboard players set @s base_model 420016
-				execute if score #HIT_EFFECT temp matches 5 store result entity @s item.components.minecraft:custom_model_data int 1 run scoreboard players set @s base_model 420018
+				execute if score #HIT_EFFECT temp matches 3 store result entity @s item.components.minecraft:custom_model_data.floats[0] float 1 run scoreboard players set @s base_model 420014
+				execute if score #HIT_EFFECT temp matches 4 store result entity @s item.components.minecraft:custom_model_data.floats[0] float 1 run scoreboard players set @s base_model 420016
+				execute if score #HIT_EFFECT temp matches 5 store result entity @s item.components.minecraft:custom_model_data.floats[0] float 1 run scoreboard players set @s base_model 420018
 
 				tp @s ~ ~ ~ ~ 0
 				function skill:get_horizon_offset_color
 				# 迴旋斬特效額外提高位置
 				scoreboard players add #MODEL_COLOR temp 3
-				execute store result entity @s item.components."minecraft:potion_contents".custom_color int 1 run scoreboard players operation #MODEL_COLOR temp += #OFFSET_Y temp
+				execute store result entity @s item.components.minecraft:potion_contents.custom_color int 1 run scoreboard players operation #MODEL_COLOR temp += #OFFSET_Y temp
 			}
 			
 			func append_scheduler()

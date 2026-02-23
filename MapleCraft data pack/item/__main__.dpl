@@ -149,7 +149,7 @@ namespace item()
 			scoreboard players operation @s meso -= @s drop_meso
 			scoreboard players operation #GLOBAL temp = @s drop_meso
 			
-			summon item ~ ~1 ~ {Age:2400,PickupDelay:32767s,Motion:[0.0,0.35,0.0],Item:{id:"minecraft:diamond",count:1},Tags:["player_drop","checked","new"]}
+			summon item ~ ~1 ~ {Age:2400,PickupDelay:32767s,Motion:[0.0,0.35,0.0],Item:{id:"minecraft:diamond",count:1,components:{custom_model_data:{floats:[0f]}}},Tags:["player_drop","checked","new"]}
 			execute as @e[type=item,tag=player_drop,tag=new,limit=1] run function ARG(_PATH)setting
 			
 			playsound minecraft:game.drop_item player @a ~ ~ ~ 1 1 0
@@ -157,7 +157,7 @@ namespace item()
 		
 		func setting()
 		{
-			execute store result entity @s Item.components.minecraft:custom_model_data int 1 run scoreboard players get #GLOBAL temp
+			execute store result entity @s Item.components.minecraft:custom_model_data.floats[0] float 1 run scoreboard players get #GLOBAL temp
 			tag @s remove new
 		}
 		
@@ -210,7 +210,7 @@ namespace item()
 			# set meso
 			execute if data entity @s Item{id:"minecraft:diamond"} run function ARG(_PATH)set_meso
 			# skill items can not pick back
-			execute if data entity @s Item{components:{"minecraft:custom_data":{skill:1b}}} run kill @s
+			execute if data entity @s Item{components:{custom_data:{skill:1b}}} run kill @s
 			# set loot item
 			execute unless data entity @s Thrower unless data entity @s Owner run function ARG(_PATH)loot
 			# player drop items
@@ -224,7 +224,7 @@ namespace item()
 		{
 			scoreboard players set #GLOBAL temp 0
 			# no_trade item can not be picked up by other players
-			execute if data entity @s Item{components:{"minecraft:custom_data":{no_trade:1b}}} run scoreboard players set #GLOBAL temp 1
+			execute if data entity @s Item{components:{custom_data:{no_trade:1b}}} run scoreboard players set #GLOBAL temp 1
 			execute if score #GLOBAL temp matches 1 run data modify entity @s Owner set from entity @s Thrower
 			
 			execute if score #GLOBAL temp matches 0 run function ARG(_PATH)set_player_drop
@@ -232,7 +232,7 @@ namespace item()
 		
 		func set_player_drop()
 		{
-			execute if data entity @s Item{components:{"minecraft:custom_data":{dummy:1b}}} run tag @s add pq_player
+			execute if data entity @s Item{components:{custom_data:{dummy:1b}}} run tag @s add pq_player
 			data modify entity @s pickup_delay set value 32767s
 			tag @s add player_drop
 		}
@@ -240,7 +240,7 @@ namespace item()
 		func set_meso()
 		{
 			execute store result score #GLOBAL temp run data get entity @s Item.components.minecraft:attribute_modifiers[0].amount 1000
-			execute store result entity @s Item.components.minecraft:custom_model_data int 1 run scoreboard players operation #GLOBAL temp *= #WORLD_MESO_RATE const
+			execute store result entity @s Item.components.minecraft:custom_model_data.floats[0] float 1 run scoreboard players operation #GLOBAL temp *= #WORLD_MESO_RATE const
 		}
 		
 		func loot()
@@ -267,7 +267,7 @@ namespace item()
 			func free()
 			{
 				data modify storage item:main item set from entity @s Item
-				summon item ~ ~ ~ {Item:{id:"minecraft:potion",count:1,components:{"minecraft:custom_model_data":{floats:[1f]}}},Age:4800,Tags:["checked","new"]}
+				summon item ~ ~ ~ {Item:{id:"minecraft:potion",count:1,components:{custom_model_data:{floats:[1f]}}},Age:4800,Tags:["checked","new"]}
 				execute as @e[type=item,tag=new,limit=1] run function ARG(_PATH)respawn
 				kill @s
 			}
@@ -354,7 +354,7 @@ namespace item()
 
 			func summon_item()
 			{
-				$summon item ~ ~ ~ {Item:{id:"minecraft:potion",count:1,components:{"minecraft:custom_model_data":{floats:[1f]}}},Motion:[$(x)d,0.45d,$(z)d],age:2400,pickup_delay:-32767s,Tags:["checked","new"]}
+				$summon item ~ ~ ~ {Item:{id:"minecraft:potion",count:1,components:{custom_model_data:{floats:[1f]}}},Motion:[$(x)d,0.45d,$(z)d],age:2400,pickup_delay:-32767s,Tags:["checked","new"]}
 			}
 
 			func item_setting()
@@ -974,11 +974,11 @@ namespace item()
 					execute store result block 250 1 0 Items[0].components.minecraft:custom_data.quality int 1 run scoreboard players get #SCROLL_QUALITY temp
 					execute store result score #SCROLL_PASSED temp run data get block 250 1 0 Items[0].components.minecraft:custom_data.scroll_passed
 					execute store result block 250 1 0 Items[0].components.minecraft:custom_data.scroll_passed int 1 run scoreboard players add #SCROLL_PASSED temp 1
-					execute if score #SCROLL_QUALITY temp matches ..-1 run data modify block 250 0 0 front_text.messages[0] set value '[{"nbt":"Items[0].components.\\"minecraft:custom_data\\".original_name","block":"250 1 0","interpret":true,"color":"#9c9c9c"}," (+",{"score":{"objective":"temp","name":"#SCROLL_PASSED"}},")"]'
-					execute if score #SCROLL_QUALITY temp matches 0..4 run data modify block 250 0 0 front_text.messages[0] set value '[{"nbt":"Items[0].components.\\"minecraft:custom_data\\".original_name","block":"250 1 0","interpret":true,"color":"#ffbc2b"}," (+",{"score":{"objective":"temp","name":"#SCROLL_PASSED"}},")"]'
-					execute if score #SCROLL_QUALITY temp matches 5..21 run data modify block 250 0 0 front_text.messages[0] set value '[{"nbt":"Items[0].components.\\"minecraft:custom_data\\".original_name","block":"250 1 0","interpret":true,"color":"#53a9ff"}," (+",{"score":{"objective":"temp","name":"#SCROLL_PASSED"}},")"]'
-					execute if score #SCROLL_QUALITY temp matches 22..39 run data modify block 250 0 0 front_text.messages[0] set value '[{"nbt":"Items[0].components.\\"minecraft:custom_data\\".original_name","block":"250 1 0","interpret":true,"color":"#cc66ff"}," (+",{"score":{"objective":"temp","name":"#SCROLL_PASSED"}},")"]'
-					execute if score #SCROLL_QUALITY temp matches 40.. run data modify block 250 0 0 front_text.messages[0] set value '[{"nbt":"Items[0].components.\\"minecraft:custom_data\\".original_name","block":"250 1 0","interpret":true,"color":"#ffff11"}," (+",{"score":{"objective":"temp","name":"#SCROLL_PASSED"}},")"]'
+					execute if score #SCROLL_QUALITY temp matches ..-1 run data modify block 250 0 0 front_text.messages[0] set value '[{"nbt":"Items[0].components.minecraft:custom_data.original_name","block":"250 1 0","interpret":true,"color":"#9c9c9c"}," (+",{"score":{"objective":"temp","name":"#SCROLL_PASSED"}},")"]'
+					execute if score #SCROLL_QUALITY temp matches 0..4 run data modify block 250 0 0 front_text.messages[0] set value '[{"nbt":"Items[0].components.minecraft:custom_data.original_name","block":"250 1 0","interpret":true,"color":"#ffbc2b"}," (+",{"score":{"objective":"temp","name":"#SCROLL_PASSED"}},")"]'
+					execute if score #SCROLL_QUALITY temp matches 5..21 run data modify block 250 0 0 front_text.messages[0] set value '[{"nbt":"Items[0].components.minecraft:custom_data.original_name","block":"250 1 0","interpret":true,"color":"#53a9ff"}," (+",{"score":{"objective":"temp","name":"#SCROLL_PASSED"}},")"]'
+					execute if score #SCROLL_QUALITY temp matches 22..39 run data modify block 250 0 0 front_text.messages[0] set value '[{"nbt":"Items[0].components.minecraft:custom_data.original_name","block":"250 1 0","interpret":true,"color":"#cc66ff"}," (+",{"score":{"objective":"temp","name":"#SCROLL_PASSED"}},")"]'
+					execute if score #SCROLL_QUALITY temp matches 40.. run data modify block 250 0 0 front_text.messages[0] set value '[{"nbt":"Items[0].components.minecraft:custom_data.original_name","block":"250 1 0","interpret":true,"color":"#ffff11"}," (+",{"score":{"objective":"temp","name":"#SCROLL_PASSED"}},")"]'
 					data modify block 250 1 0 Items[0].components.minecraft:custom_name set from block 250 0 0 front_text.messages[0]
 					
 					execute if score #EQUIP_TYPE temp matches ..24 run function ARG(_PATH)set_display/clear/weapon
@@ -989,7 +989,7 @@ namespace item()
 					```
 					execute store result block 250 1 0 Items[0].components.minecraft:custom_data.scroll_left int 1 run scoreboard players remove #SCROLL_LEFT temp 1
 					data modify block 250 0 0 front_text.messages[0] set value '{"translate":"item.notice.scroll","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#SCROLL_LEFT"}}]}'
-					data modify block 250 1 0 Items[0].components."minecraft:lore" append from block 250 0 0 front_text.messages[0]
+					data modify block 250 1 0 Items[0].components.minecraft:lore append from block 250 0 0 front_text.messages[0]
 				}
 				
 				func chaos_scroll()
@@ -997,7 +997,7 @@ namespace item()
 					scoreboard players set #RANGE_MAX temp 10
 					```
 					for attr in ["str", "dex", "int", "luk", "hp", "mp", "weapon_attack", "magic_attack", "defense", "magic_defense", "accuracy", "avoidability", "speed"]:
-						print(f"execute store result score #{attr.upper()} temp run data get block 250 1 0 Items[0].components.\"minecraft:custom_data\".{attr}")
+						print(f"execute store result score #{attr.upper()} temp run data get block 250 1 0 Items[0].components.minecraft:custom_data.{attr}")
 						print(f"execute if score #{attr.upper()} temp matches 1.. run function ARG(_PATH)rand_numeric/{attr}")
 					```
 				}
@@ -1026,8 +1026,8 @@ namespace item()
 				{
 					```
 					for attr in ["str", "dex", "int", "luk", "hp", "mp", "weapon_attack", "magic_attack", "defense", "magic_defense", "accuracy", "avoidability", "speed"]:
-						print(f"execute store result score #{attr.upper()} temp run data get block 250 1 0 Items[0].components.\"minecraft:custom_data\".{attr}")
-						print(f"execute store result score #RAND_RANGE_RESULT temp run data get entity @s SelectedItem.components.\"minecraft:custom_data\".{attr}")
+						print(f"execute store result score #{attr.upper()} temp run data get block 250 1 0 Items[0].components.minecraft:custom_data.{attr}")
+						print(f"execute store result score #RAND_RANGE_RESULT temp run data get entity @s SelectedItem.components.minecraft:custom_data.{attr}")
 						print(f"execute if score #RAND_RANGE_RESULT temp matches 1.. run function ARG(_PATH)update_numeric/{attr}")
 					```
 				}
@@ -1040,13 +1040,13 @@ namespace item()
 					print("{")
 					print(f"	scoreboard players operation #{attr.upper()} temp += #RAND_RANGE_RESULT temp")
 					print(f"	execute if score #{attr.upper()} temp matches ..-1 run scoreboard players operation #RAND_RANGE_RESULT temp -= #{attr.upper()} temp")
-					print(f"	execute store result block 250 1 0 Items[0].components.\"minecraft:custom_data\".{attr} int 1 run scoreboard players operation #{attr.upper()} temp > #0 const")
+					print(f"	execute store result block 250 1 0 Items[0].components.minecraft:custom_data.{attr} int 1 run scoreboard players operation #{attr.upper()} temp > #0 const")
 					if attr in ["hp", "mp"]:
-						print(f"execute store result score #EQUIP_{attr.upper()} temp run data get block 250 1 0 Items[0].components.\"minecraft:custom_data\".scroll.{attr}")
+						print(f"execute store result score #EQUIP_{attr.upper()} temp run data get block 250 1 0 Items[0].components.minecraft:custom_data.scroll.{attr}")
 						print(f"scoreboard players operation #EQUIP_{attr.upper()}_QUALITY temp = #EQUIP_{attr.upper()} temp")
 						print(f"scoreboard players operation #EQUIP_{attr.upper()}_QUALITY temp /= #10 const")
 						print(f"scoreboard players operation #SCROLL_QUALITY temp -= #EQUIP_{attr.upper()}_QUALITY temp")
-						print(f"execute store result block 250 1 0 Items[0].components.\"minecraft:custom_data\".scroll.{attr} int 1 run scoreboard players operation #RAND_RANGE_RESULT temp += #EQUIP_{attr.upper()} temp")
+						print(f"execute store result block 250 1 0 Items[0].components.minecraft:custom_data.scroll.{attr} int 1 run scoreboard players operation #RAND_RANGE_RESULT temp += #EQUIP_{attr.upper()} temp")
 						print("	scoreboard players operation #RAND_RANGE_RESULT temp /= #10 const")
 						
 					print(f"	scoreboard players operation #SCROLL_QUALITY temp += #RAND_RANGE_RESULT temp")
@@ -1063,99 +1063,99 @@ namespace item()
 					{
 						func weapon()
 						{
-							data remove block 250 1 0 Items[0].components."minecraft:lore"[9]
-							execute if data block 250 1 0 Items[0].components."minecraft:lore"[9] run function ARG(_PATH)weapon
+							data remove block 250 1 0 Items[0].components.minecraft:lore[9]
+							execute if data block 250 1 0 Items[0].components.minecraft:lore[9] run function ARG(_PATH)weapon
 						}
 						
 						func equip()
 						{
-							data remove block 250 1 0 Items[0].components."minecraft:lore"[8]
-							execute if data block 250 1 0 Items[0].components."minecraft:lore"[8] run function ARG(_PATH)equip
+							data remove block 250 1 0 Items[0].components.minecraft:lore[8]
+							execute if data block 250 1 0 Items[0].components.minecraft:lore[8] run function ARG(_PATH)equip
 						}
 					}
 					
 					func str()
 					{
 						data modify block 250 0 0 front_text.messages[0] set value '{"translate":"item.notice.str","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#STR"}}]}'
-						data modify block 250 1 0 Items[0].components."minecraft:lore" append from block 250 0 0 front_text.messages[0]
+						data modify block 250 1 0 Items[0].components.minecraft:lore append from block 250 0 0 front_text.messages[0]
 					}
 					
 					func dex()
 					{
 						data modify block 250 0 0 front_text.messages[0] set value '{"translate":"item.notice.dex","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#DEX"}}]}'
-						data modify block 250 1 0 Items[0].components."minecraft:lore" append from block 250 0 0 front_text.messages[0]
+						data modify block 250 1 0 Items[0].components.minecraft:lore append from block 250 0 0 front_text.messages[0]
 					}
 					
 					func int()
 					{
 						data modify block 250 0 0 front_text.messages[0] set value '{"translate":"item.notice.int","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#INT"}}]}'
-						data modify block 250 1 0 Items[0].components."minecraft:lore" append from block 250 0 0 front_text.messages[0]
+						data modify block 250 1 0 Items[0].components.minecraft:lore append from block 250 0 0 front_text.messages[0]
 					}
 					
 					func luk()
 					{
 						data modify block 250 0 0 front_text.messages[0] set value '{"translate":"item.notice.luk","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#LUK"}}]}'
-						data modify block 250 1 0 Items[0].components."minecraft:lore" append from block 250 0 0 front_text.messages[0]
+						data modify block 250 1 0 Items[0].components.minecraft:lore append from block 250 0 0 front_text.messages[0]
 					}
 					
 					func hp()
 					{
 						data modify block 250 0 0 front_text.messages[0] set value '{"translate":"item.notice.hp","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#HP"}}]}'
-						data modify block 250 1 0 Items[0].components."minecraft:lore" append from block 250 0 0 front_text.messages[0]
+						data modify block 250 1 0 Items[0].components.minecraft:lore append from block 250 0 0 front_text.messages[0]
 					}
 					
 					func mp()
 					{
 						data modify block 250 0 0 front_text.messages[0] set value '{"translate":"item.notice.mp","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#MP"}}]}'
-						data modify block 250 1 0 Items[0].components."minecraft:lore" append from block 250 0 0 front_text.messages[0]
+						data modify block 250 1 0 Items[0].components.minecraft:lore append from block 250 0 0 front_text.messages[0]
 					}
 					
 					func weapon_attack()
 					{
 						data modify block 250 0 0 front_text.messages[0] set value '{"translate":"item.notice.weapon_attack","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#WEAPON_ATTACK"}}]}'
-						data modify block 250 1 0 Items[0].components."minecraft:lore" append from block 250 0 0 front_text.messages[0]
+						data modify block 250 1 0 Items[0].components.minecraft:lore append from block 250 0 0 front_text.messages[0]
 					}
 					
 					func magic_attack()
 					{
 						data modify block 250 0 0 front_text.messages[0] set value '{"translate":"item.notice.magic_attack","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#MAGIC_ATTACK"}}]}'
-						data modify block 250 1 0 Items[0].components."minecraft:lore" append from block 250 0 0 front_text.messages[0]
+						data modify block 250 1 0 Items[0].components.minecraft:lore append from block 250 0 0 front_text.messages[0]
 					}
 					
 					func defense()
 					{
 						data modify block 250 0 0 front_text.messages[0] set value '{"translate":"item.notice.weapon_def","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#DEFENSE"}}]}'
-						data modify block 250 1 0 Items[0].components."minecraft:lore" append from block 250 0 0 front_text.messages[0]
+						data modify block 250 1 0 Items[0].components.minecraft:lore append from block 250 0 0 front_text.messages[0]
 					}
 					
 					func magic_defense()
 					{
 						data modify block 250 0 0 front_text.messages[0] set value '{"translate":"item.notice.magic_def","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#MAGIC_DEFENSE"}}]}'
-						data modify block 250 1 0 Items[0].components."minecraft:lore" append from block 250 0 0 front_text.messages[0]
+						data modify block 250 1 0 Items[0].components.minecraft:lore append from block 250 0 0 front_text.messages[0]
 					}
 					
 					func accuracy()
 					{
 						data modify block 250 0 0 front_text.messages[0] set value '{"translate":"item.notice.accuracy","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#ACCURACY"}}]}'
-						data modify block 250 1 0 Items[0].components."minecraft:lore" append from block 250 0 0 front_text.messages[0]
+						data modify block 250 1 0 Items[0].components.minecraft:lore append from block 250 0 0 front_text.messages[0]
 					}
 					
 					func avoidability()
 					{
 						data modify block 250 0 0 front_text.messages[0] set value '{"translate":"item.notice.avoidability","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#AVOIDABILITY"}}]}'
-						data modify block 250 1 0 Items[0].components."minecraft:lore" append from block 250 0 0 front_text.messages[0]
+						data modify block 250 1 0 Items[0].components.minecraft:lore append from block 250 0 0 front_text.messages[0]
 					}
 					
 					func speed()
 					{
 						data modify block 250 0 0 front_text.messages[0] set value '{"translate":"item.notice.speed","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#SPEED"}}]}'
-						data modify block 250 1 0 Items[0].components."minecraft:lore" append from block 250 0 0 front_text.messages[0]
+						data modify block 250 1 0 Items[0].components.minecraft:lore append from block 250 0 0 front_text.messages[0]
 					}
 					
 					func knockback()
 					{
 						data modify block 250 0 0 front_text.messages[0] set value '{"translate":"item.notice.knockback","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#KNOCKBACK"}}]}'
-						data modify block 250 1 0 Items[0].components."minecraft:lore" append from block 250 0 0 front_text.messages[0]
+						data modify block 250 1 0 Items[0].components.minecraft:lore append from block 250 0 0 front_text.messages[0]
 					}
 				}
 				
@@ -1182,7 +1182,7 @@ namespace item()
 					tellraw @s {"translate":"text.scroll.fail","font":"minecraft:uniform","color":"#efb7ab"}
 					execute store result block 250 1 0 Items[0].components.minecraft:custom_data.scroll_left int 1 run scoreboard players remove #SCROLL_LEFT temp 1
 					data modify block 250 0 0 front_text.messages[0] set value '{"translate":"item.notice.scroll","font":"minecraft:uniform","color":"white","italic":false,"with":[{"score":{"objective":"temp","name":"#SCROLL_LEFT"}}]}'
-					data modify block 250 1 0 Items[0].components."minecraft:lore"[-1] set from block 250 0 0 front_text.messages[0]
+					data modify block 250 1 0 Items[0].components.minecraft:lore[-1] set from block 250 0 0 front_text.messages[0]
 				}
 			}
 			
@@ -1470,7 +1470,7 @@ namespace item()
 					{
 						execute store result block 250 1 0 Items[0].components.minecraft:custom_data.amount int 1 run scoreboard players operation #GLOBAL temp = @s bullet_amount
 						data modify block 250 0 0 front_text.messages[0] set value '{"translate":"item.notice.weapon.left","with":[{"score":{"name":"#GLOBAL","objective":"temp"}}],"color":"white","italic":false,"font":"minecraft:uniform"}'
-						data modify block 250 1 0 Items[0].components."minecraft:lore"[-1] set from block 250 0 0 front_text.messages[0]
+						data modify block 250 1 0 Items[0].components.minecraft:lore[-1] set from block 250 0 0 front_text.messages[0]
 						loot give @s mine 250 1 0 minecraft:air[custom_data={modify_player:1b}]
 					}
 					
@@ -1533,9 +1533,9 @@ namespace item()
 			
 			func set_chair()
 			{
-				data merge entity @s {item:{id:"minecraft:diamond_hoe",count:1},Tags:["chair"],transformation:{translation:[0.0f,0.05f,0.0f]}}
+				data merge entity @s {item:{id:"minecraft:diamond_hoe",count:1,components:{custom_model_data:{floats:[0f]}}},Tags:["chair"],transformation:{translation:[0.0f,0.05f,0.0f]}}
 				data modify entity @s shadow_radius set from storage item:main chair.shadow
-				data modify entity @s item.components.minecraft:custom_model_data set from storage item:main chair.id
+				data modify entity @s item.components.minecraft:custom_model_data.floats[0] set from storage item:main chair.id
 				data modify entity @s item.components.minecraft:custom_data.hp set from storage item:main chair.hp
 				
 				data modify entity @s transformation.left_rotation set from storage main:main rotation
@@ -1631,7 +1631,7 @@ namespace item()
 				execute store result block 250 1 0 Items[0].components.minecraft:custom_data.amount int 1 run scoreboard players operation #AMOUNT_MAX temp += #AMOUNT_LEFT temp
 				
 				data modify block 250 0 0 front_text.messages[0] set value '{"translate":"item.notice.weapon.left","with":[{"score":{"name":"#AMOUNT_MAX","objective":"temp"}}],"color":"white","italic":false,"font":"minecraft:uniform"}'
-				data modify block 250 1 0 Items[0].components."minecraft:lore"[-1] set from block 250 0 0 front_text.messages[0]
+				data modify block 250 1 0 Items[0].components.minecraft:lore[-1] set from block 250 0 0 front_text.messages[0]
 				item replace entity @s weapon.mainhand from block 250 1 0 container.0
 				
 				tellraw @s {"translate":"text.meso.after_recharge","font":"minecraft:uniform","with":[{"score":{"objective":"meso","name":"@s"}}]}

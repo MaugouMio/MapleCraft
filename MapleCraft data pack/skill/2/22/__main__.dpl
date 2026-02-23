@@ -119,7 +119,7 @@ namespace 22() as virtual
 			
 			func effect_model_set()
 			{
-				data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",count:1,components: {"minecraft:custom_data": {}, "minecraft:custom_model_data": 220000}},item_display:"head",billboard:"vertical"}
+				data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",count:1,components:{custom_model_data:{floats:[220000f]}}},item_display:"head",billboard:"vertical"}
 				scoreboard players set @s max_life 12
 				scoreboard players set @s base_model 220000
 
@@ -127,7 +127,7 @@ namespace 22() as virtual
 				function skill:get_horizon_offset_color
 				# 往後退 0.2 格，再往上位移
 				scoreboard players remove #MODEL_COLOR temp 512
-				execute store result entity @s item.components."minecraft:potion_contents".custom_color int 1 run scoreboard players operation #MODEL_COLOR temp += #OFFSET_Y temp
+				execute store result entity @s item.components.minecraft:potion_contents.custom_color int 1 run scoreboard players operation #MODEL_COLOR temp += #OFFSET_Y temp
 			}
 			
 			func append_scheduler()

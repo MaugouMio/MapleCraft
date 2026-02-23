@@ -270,8 +270,8 @@ namespace 12() as virtual
 			
 			func bind_threaten()
 			{
-				data merge entity @s {Tags:["threaten"],item:{id:"minecraft:potion",count:1,components: {"minecraft:custom_data": {}, "minecraft:custom_model_data": 104}},billboard:"center"}
-				execute store result entity @s item.components."minecraft:potion_contents".custom_color int 1 run scoreboard players get #MAX_HEIGHT temp
+				data merge entity @s {Tags:["threaten"],item:{id:"minecraft:potion",count:1,components:{custom_model_data:{floats:[104f]}}},billboard:"center"}
+				execute store result entity @s item.components.minecraft:potion_contents.custom_color int 1 run scoreboard players get #MAX_HEIGHT temp
 				function skill:bind_mob
 			}
 			

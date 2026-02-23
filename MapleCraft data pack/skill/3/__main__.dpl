@@ -375,9 +375,9 @@ namespace 3() as virtual
 
 				func set_bullet()
 				{
-					data merge entity @s {Tags:["first_bullet","new_bullet","bullet"],item:{id:"minecraft:potion",count:1,components: {"minecraft:custom_data": {appear_delay:7,max_distance:10,skill_id:6,bullet_model:3000}, "minecraft:custom_model_data": 1}},item_display:"head"}
-					execute if score #USED_WEAPON temp matches 18 run data modify entity @s item.tag.appear_delay set value 8
-					execute store result entity @s item.tag.max_distance int 1 run scoreboard players get #BULLET_DISTANCE temp
+					data merge entity @s {Tags:["first_bullet","new_bullet","bullet"],item:{id:"minecraft:potion",count:1,components:{custom_data:{appear_delay:7,max_distance:10,skill_id:6,bullet_model:3000}, custom_model_data:{floats:[1f]}}},item_display:"head"}
+					execute if score #USED_WEAPON temp matches 18 run data modify entity @s item.components.minecraft:custom_data.appear_delay set value 8
+					execute store result entity @s item.components.minecraft:custom_data.max_distance int 1 run scoreboard players get #BULLET_DISTANCE temp
 				}
 				
 				func set_numeric()
@@ -431,13 +431,13 @@ namespace 3() as virtual
 				
 				func effect_model_set()
 				{
-					data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",count:1,components: {"minecraft:custom_data": {}, "minecraft:custom_model_data": 300000}},item_display:"head",billboard:"center"}
+					data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",count:1,components:{custom_model_data:{floats:[300000f]}}},item_display:"head",billboard:"center"}
 					scoreboard players set @s max_life 4
 					scoreboard players set @s base_model 300000
 
 					tp @s ~ ~ ~ ~ 0
 					function skill:get_horizon_offset_color
-					execute store result entity @s item.components."minecraft:potion_contents".custom_color int 1 run scoreboard players operation #MODEL_COLOR temp += #OFFSET_Y temp
+					execute store result entity @s item.components.minecraft:potion_contents.custom_color int 1 run scoreboard players operation #MODEL_COLOR temp += #OFFSET_Y temp
 				}
 				
 				func append_scheduler()
@@ -580,21 +580,21 @@ namespace 3() as virtual
 				{
 					func first()
 					{
-						data merge entity @s {Tags:["first_bullet","new_bullet","bullet"],item:{id:"minecraft:potion",count:1,components: {"minecraft:custom_data": {appear_delay:7,max_distance:10,skill_id:7,bullet_model:3101}, "minecraft:custom_model_data": 1}},item_display:"head"}
+						data merge entity @s {Tags:["first_bullet","new_bullet","bullet"],item:{id:"minecraft:potion",count:1,components:{custom_data:{appear_delay:7,max_distance:10,skill_id:7,bullet_model:3101}, custom_model_data:{floats:[1f]}}},item_display:"head"}
 						function ARG(_PATH)base
 					}
 
 					func second()
 					{
-						data merge entity @s {Tags:["new_bullet","bullet"],item:{id:"minecraft:potion",count:1,components: {"minecraft:custom_data": {appear_delay:7,max_distance:10,skill_id:7,bullet_model:3101}, "minecraft:custom_model_data": 1}},item_display:"head"}
+						data merge entity @s {Tags:["new_bullet","bullet"],item:{id:"minecraft:potion",count:1,components:{custom_data:{appear_delay:7,max_distance:10,skill_id:7,bullet_model:3101}, custom_model_data:{floats:[1f]}}},item_display:"head"}
 						function ARG(_PATH)base
 					}
 
 					func base()
 					{
 						execute if score #USED_WEAPON temp matches 18 run data modify entity @s item.tag merge value {appear_delay:8,bullet_model:3201}
-						execute store result entity @s item.tag.max_distance int 1 run scoreboard players get #BULLET_DISTANCE temp
-						execute store result entity @s item.tag.bullet_model int 1 run scoreboard players get #GLOBAL bullet_model
+						execute store result entity @s item.components.minecraft:custom_data.max_distance int 1 run scoreboard players get #BULLET_DISTANCE temp
+						execute store result entity @s item.components.minecraft:custom_data.bullet_model int 1 run scoreboard players get #GLOBAL bullet_model
 					}
 				}
 				
@@ -650,13 +650,13 @@ namespace 3() as virtual
 				
 				func effect_model_set()
 				{
-					data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",count:1,components: {"minecraft:custom_data": {}, "minecraft:custom_model_data": 300004}},item_display:"head",billboard:"center"}
+					data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",count:1,components:{custom_model_data:{floats:[300004f]}}},item_display:"head",billboard:"center"}
 					scoreboard players set @s max_life 4
 					scoreboard players set @s base_model 300004
 
 					tp @s ~ ~ ~ ~ 0
 					function skill:get_horizon_offset_color
-					execute store result entity @s item.components."minecraft:potion_contents".custom_color int 1 run scoreboard players operation #MODEL_COLOR temp += #OFFSET_Y temp
+					execute store result entity @s item.components.minecraft:potion_contents.custom_color int 1 run scoreboard players operation #MODEL_COLOR temp += #OFFSET_Y temp
 				}
 				
 				func append_scheduler()
@@ -767,9 +767,9 @@ namespace 3() as virtual
 				
 				func set_bullet()
 				{
-					data merge entity @s {Tags:["first_bullet","new_bullet","bullet"],item:{id:"minecraft:potion",count:1,components: {"minecraft:custom_data": {appear_delay:7,max_distance:10,skill_id:12,bullet_model:3000}, "minecraft:custom_model_data": 1}},item_display:"head"}
-					execute store result entity @s item.tag.max_distance int 1 run scoreboard players get #BULLET_DISTANCE temp
-					execute store result entity @s item.tag.bullet_model int 1 run scoreboard players get #GLOBAL bullet_model
+					data merge entity @s {Tags:["first_bullet","new_bullet","bullet"],item:{id:"minecraft:potion",count:1,components:{custom_data:{appear_delay:7,max_distance:10,skill_id:12,bullet_model:3000}, custom_model_data:{floats:[1f]}}},item_display:"head"}
+					execute store result entity @s item.components.minecraft:custom_data.max_distance int 1 run scoreboard players get #BULLET_DISTANCE temp
+					execute store result entity @s item.components.minecraft:custom_data.bullet_model int 1 run scoreboard players get #GLOBAL bullet_model
 				}
 				
 				func set_numeric()

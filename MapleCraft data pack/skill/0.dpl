@@ -44,9 +44,9 @@ namespace 0() as virtual
 				func summon_bullet()
 				{
 					# max_distance should be set to (#DISTANCE temp - 1)
-					execute if score @s 0001000_level matches 1 rotated ~ 0 run summon minecraft:item_display ^ ^ ^1 {Tags:["first_bullet","new_bullet","bullet"],item:{id:"minecraft:potion",count:1,components: {"minecraft:custom_data": {appear_delay:11,max_distance:8,skill_id:8,bullet_model:6000}, "minecraft:custom_model_data": 1}},item_display:"head"}
-					execute if score @s 0001000_level matches 2 rotated ~ 0 run summon minecraft:item_display ^ ^ ^1 {Tags:["first_bullet","new_bullet","bullet"],item:{id:"minecraft:potion",count:1,components: {"minecraft:custom_data": {appear_delay:11,max_distance:8,skill_id:8,bullet_model:6001}, "minecraft:custom_model_data": 1}},item_display:"head"}
-					execute if score @s 0001000_level matches 3 rotated ~ 0 run summon minecraft:item_display ^ ^ ^1 {Tags:["first_bullet","new_bullet","bullet"],item:{id:"minecraft:potion",count:1,components: {"minecraft:custom_data": {appear_delay:11,max_distance:8,skill_id:8,bullet_model:6002}, "minecraft:custom_model_data": 1}},item_display:"head"}
+					execute if score @s 0001000_level matches 1 rotated ~ 0 run summon minecraft:item_display ^ ^ ^1 {Tags:["first_bullet","new_bullet","bullet"],item:{id:"minecraft:potion",count:1,components:{custom_data:{appear_delay:11,max_distance:8,skill_id:8,bullet_model:6000}, custom_model_data:{floats:[1f]}}},item_display:"head"}
+					execute if score @s 0001000_level matches 2 rotated ~ 0 run summon minecraft:item_display ^ ^ ^1 {Tags:["first_bullet","new_bullet","bullet"],item:{id:"minecraft:potion",count:1,components:{custom_data:{appear_delay:11,max_distance:8,skill_id:8,bullet_model:6001}, custom_model_data:{floats:[1f]}}},item_display:"head"}
+					execute if score @s 0001000_level matches 3 rotated ~ 0 run summon minecraft:item_display ^ ^ ^1 {Tags:["first_bullet","new_bullet","bullet"],item:{id:"minecraft:potion",count:1,components:{custom_data:{appear_delay:11,max_distance:8,skill_id:8,bullet_model:6002}, custom_model_data:{floats:[1f]}}},item_display:"head"}
 				}
 				
 				func set_numeric()
@@ -74,15 +74,15 @@ namespace 0() as virtual
 
 				func effect_model_set()
 				{
-					data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",count:1,components: {"minecraft:custom_data": {}, "minecraft:custom_model_data": 1}},item_display:"head",billboard:"center"}
+					data merge entity @s {Tags:["model_animation"],item:{id:"minecraft:potion",count:1,components:{custom_model_data:{floats:[1f]}}},item_display:"head",billboard:"center"}
 					scoreboard players set @s max_life 11
-					execute if score #SNAIL_DAMAGE temp matches 10 store result entity @s item.components.minecraft:custom_model_data int 1 run scoreboard players set @s base_model 100018
-					execute if score #SNAIL_DAMAGE temp matches 25 store result entity @s item.components.minecraft:custom_model_data int 1 run scoreboard players set @s base_model 100029
-					execute if score #SNAIL_DAMAGE temp matches 40 store result entity @s item.components.minecraft:custom_model_data int 1 run scoreboard players set @s base_model 100040
+					execute if score #SNAIL_DAMAGE temp matches 10 store result entity @s item.components.minecraft:custom_model_data.floats[0] float 1 run scoreboard players set @s base_model 100018
+					execute if score #SNAIL_DAMAGE temp matches 25 store result entity @s item.components.minecraft:custom_model_data.floats[0] float 1 run scoreboard players set @s base_model 100029
+					execute if score #SNAIL_DAMAGE temp matches 40 store result entity @s item.components.minecraft:custom_model_data.floats[0] float 1 run scoreboard players set @s base_model 100040
 
 					tp @s ~ ~ ~ ~ 0
 					function skill:get_horizon_offset_color
-					execute store result entity @s item.components."minecraft:potion_contents".custom_color int 1 run scoreboard players operation #MODEL_COLOR temp += #OFFSET_Y temp
+					execute store result entity @s item.components.minecraft:potion_contents.custom_color int 1 run scoreboard players operation #MODEL_COLOR temp += #OFFSET_Y temp
 				}
 				
 				func append_scheduler()
