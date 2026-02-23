@@ -3,20 +3,17 @@
 #moj_import <minecraft:fog.glsl>
 #moj_import <minecraft:dynamictransforms.glsl>
 #moj_import <minecraft:projection.glsl>
+#moj_import <minecraft:globals.glsl>
+#moj_import <minecraft:light.glsl>
 #moj_import <vsh_util.glsl>
 
 in vec3 Position;
 in vec4 Color;
 in vec2 UV0;
-in vec2 UV2;
+in ivec2 UV2;
 
 uniform sampler2D Sampler0;
 uniform sampler2D Sampler2;
-
-uniform vec3 Light0_Direction;
-uniform vec3 Light1_Direction;
-
-uniform float GameTime;
 
 out float sphericalVertexDistance;
 out float cylindricalVertexDistance;
@@ -43,11 +40,14 @@ void main() {
 	if (vertexTexel.rgb == ivec3(1,3,5)) {
 		mat3 WorldMat = getWorldMat(Light0_Direction, Light1_Direction);
 		// value : height == 1 : 0.1
-		if (vertexTexel.a == 255)  // head hp bar offset
+		if (vertexTexel.a == 255) {  // head hp bar offset
 			offsetPosition += WorldMat * vec3(0.0, Color.b * 25.5, 0.0) - vec3(0.0, 0.25, 0.0);
-		else if (vertexTexel.a == 1)  // text_display offset
+			finalColor = vec4(1.0);
+		}
+		else if (vertexTexel.a == 1) {  // text_display offset
 			offsetPosition += WorldMat * vec3(0.0, Color.a * 25.5, 0.0) - vec3(0.0, 0.25, 0.0);
-		finalColor = vec4(1.0);
+			finalColor = vec4(1.0, 1.0, 1.0, Color.b);
+		}
 	}
 	// damage number float and fade out
 	else if (vertexTexel == ivec4(1,2,3,3)) {

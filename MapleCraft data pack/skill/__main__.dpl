@@ -1469,9 +1469,12 @@ namespace skill()
 			func update()
 			{
 				scoreboard players operation #GLOBAL temp %= #10 const
-				execute if score #GLOBAL temp matches 0 run data remove entity @s Tags[0]
+				execute if score #GLOBAL temp matches 0 run data remove entity @s data.fonts[0]
+
+				data modify entity @s data.fonts[0].color set from entity @s data.alphas[0]
+				data remove entity @s data.alphas[0]
 				
-				data modify entity @s text set value '[{"nbt":"Tags[0]","entity":"@s","interpret":true},{"score":{"name":"#GLOBAL","objective":"temp"}}]'
+				data modify entity @s text set value [{"nbt":"data.fonts[0]","entity":"@s","interpret":true},{"score":{"name":"#GLOBAL","objective":"temp"}}]
 			}
 		}
 		

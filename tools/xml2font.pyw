@@ -18,11 +18,6 @@ def mkdir(path):
 	
 	os.mkdir(path)
 
-def getJavaSetOrder(str_list):
-	p = Popen("PrintSet", stdout=PIPE, stdin=PIPE, stderr=STDOUT)    
-	print_stdout = p.communicate(input = str_list.encode())[0]
-	return print_stdout.decode().split()
-
 #################################################################
 
 def getPageInfo(effect_life, folder):
@@ -34,9 +29,8 @@ def getPageInfo(effect_life, folder):
 	page_file_names = dict()
 	for i in range(page_amount):
 		page_file_names[page_names[i]] = f"{folder}/{i}.json"
-	page_order = getJavaSetOrder(" ".join(page_names))
 	
-	return page_file_names, page_order
+	return page_file_names, page_names
 	
 def insertWordInfo(font_files, frame, page_file_names, page_order, folder, delay_index, ascents, image_heights):
 	sub_num = frame % 10
@@ -55,37 +49,48 @@ def insertWordInfo(font_files, frame, page_file_names, page_order, folder, delay
 	}
 	font_files[page_file_name]["providers"].append(word_info)
 
-def generateThresholdDelay(delays, folder, image_heights, ascents):
+def getFrameAlpha(frame, frame_time_ms):
+	# 避免完全看不到，最低給他 10% 透明度
+	value = max(int((frame[2] - frame[1]) * (frame_time_ms / frame[0]) + frame[1]), 26)
+	return f"#{hex(value)[2:]}"
+
+def generateThresholdDelay(frames, folder, image_heights, ascents):
 	font_files = dict()
-	delays = np.array(delays, dtype=int)
+	delays = np.array([f[0] for f in frames], dtype=int)
 	effect_life = math.ceil(delays.sum() / 50)
 	page_file_names, page_order = getPageInfo(effect_life, folder)
 
 	used_imgs = set()
 	delay_index = 0
+	alphas = []
 	for i in range(effect_life):
 		while i * 50 >= delays[:(delay_index + 1)].sum():
 			delay_index += 1
-			
+		
+		frame_time_ms = i * 50 - delays[:delay_index].sum()
+		alphas.append(getFrameAlpha(frames[delay_index], frame_time_ms))
 		used_imgs.add(delay_index)
 		insertWordInfo(font_files, i, page_file_names, page_order, folder, delay_index, ascents, image_heights)
 	
-	return page_order, effect_life, font_files, used_imgs
+	return page_order, effect_life, font_files, alphas, used_imgs
 
-def generateMinDistDelay(delays, folder, image_heights, ascents):
+def generateMinDistDelay(frames, folder, image_heights, ascents):
 	font_files = dict()
-	frame_amounts = np.array([max(round(delay / 50), 1) for delay in delays], dtype=int)
+	frame_amounts = np.array([max(round(f[0] / 50), 1) for f in frames], dtype=int)
 	effect_life = frame_amounts.sum()
 	page_file_names, page_order = getPageInfo(effect_life, folder)
 	
 	delay_index = 0
+	alphas = []
 	for i in range(effect_life):
 		if i == frame_amounts[:(delay_index + 1)].sum():
 			delay_index += 1
 		
+		frame_time_ms = (i - frame_amounts[:delay_index].sum()) * 50
+		alphas.append(getFrameAlpha(frames[delay_index], frame_time_ms))
 		insertWordInfo(font_files, i, page_file_names, page_order, folder, delay_index, ascents, image_heights)
 	
-	return page_order, effect_life, font_files
+	return page_order, effect_life, font_files, alphas
 
 def generateFont(resourcepack_path, xml_files, anchor, formula):
 	if len(xml_files) == 0:
@@ -109,7 +114,7 @@ def generateFont(resourcepack_path, xml_files, anchor, formula):
 		tree = ET.ElementTree(file = xml_file)
 		root = tree.getroot()[0]
 
-		delays = []
+		frames = []
 		image_heights = []
 		images = []
 		for i in range(len(root)):
@@ -141,11 +146,16 @@ def generateFont(resourcepack_path, xml_files, anchor, formula):
 					break
 					
 			img_delay = 100
+			a0 = 255
+			a1 = 255
 			for c in child_of_root.findall("int"):
 				if c.attrib["name"] == "delay":
 					img_delay = int(c.attrib["value"])
-					break
-			delays.append(img_delay)
+				elif c.attrib["name"] == "a0":
+					a0 = int(c.attrib["value"])
+				elif c.attrib["name"] == "a1":
+					a1 = int(c.attrib["value"])
+			frames.append((img_delay, a0, a1))
 			
 			img = PIL.Image.open(io.BytesIO(base64.b64decode(child_of_root.attrib["basedata"])))
 			new_img = PIL.Image.new(img.mode, new_size)
@@ -193,21 +203,23 @@ def generateFont(resourcepack_path, xml_files, anchor, formula):
 			images[i] = img
 
 		if formula == 0:
-			page_order, effect_life, font_files, used_imgs = generateThresholdDelay(delays, folder, image_heights, ascents)
+			page_order, effect_life, font_files, alphas, used_imgs = generateThresholdDelay(frames, folder, image_heights, ascents)
 			for i in range(len(images)):
 				if i in used_imgs:
 					images[i].save(f"{texture_path}/{i}.png")
 		elif formula == 1:
-			page_order, effect_life, font_files = generateMinDistDelay(delays, folder, image_heights, ascents)
+			page_order, effect_life, font_files, alphas = generateMinDistDelay(frames, folder, image_heights, ascents)
 			for i in range(len(images)):
 				images[i].save(f"{texture_path}/{i}.png")
 
 		with open("../MapleCraft data pack/data/skill/function/summon_font_effect/" + file_name + ".mcfunction", "w") as f:
 			initial_name = page_order[0].replace('"text":""', '"text":"0"')
-			tags = ",".join(page_order)
-			f.write('''data merge entity @s {text:'%s',Tags:%s,billboard:"center",text_opacity:10,background:0}\n''' %(initial_name, tags))
+			fonts = ",".join(page_order)
+			alphas = '","'.join(alphas)
+			f.write('''data merge entity @s {text:%s,data:{fonts:[%s],alphas:["%s"]},billboard:"center",text_opacity:10,background:0}\n''' %(initial_name, fonts, alphas))
 			f.write('''scoreboard players set @s max_life %s\n''' %effect_life)
 			f.write('''scoreboard players set @s type 1\n''')
+			f.write('''function skill:bind_player\n''')
 
 		for font in font_files:
 			with open(f"{resourcepack_path}/assets/skill/font/{font}", "w") as f:
