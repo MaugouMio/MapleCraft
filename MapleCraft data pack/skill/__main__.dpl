@@ -1789,9 +1789,7 @@ namespace skill()
 			func reset()
 			{
 				attribute @s minecraft:movement_speed modifier remove 5b908c48-54cb-4388-aa76-82f61b02032d
-				effect clear @s minecraft:jump_boost
-				execute unless score @s jump_buff_num matches 1 run effect give @s minecraft:jump_boost infinite 0 true
-				execute if score @s jump_buff_num matches 1 run effect give @s minecraft:jump_boost infinite 1 true
+				attribute @s minecraft:jump_strength modifier remove minecraft:action_no_jump
 				scoreboard players reset @s action_time
 			}
 			
@@ -1922,7 +1920,7 @@ namespace skill()
 		scoreboard players operation @s next_hp_recover = @s hp_recover_time
 		execute if block ~ ~ ~ #minecraft:climbable run scoreboard players operation @s next_hp_recover = @s hp_recover_time_l
 		attribute @s minecraft:movement_speed modifier add 5b908c48-54cb-4388-aa76-82f61b02032d -0.95 add_multiplied_total
-		effect give @s minecraft:jump_boost infinite 128 true
+		attribute @s minecraft:jump_strength modifier add action_no_jump -1 add_multiplied_total
 	}
 	
 	func hunt_exp()

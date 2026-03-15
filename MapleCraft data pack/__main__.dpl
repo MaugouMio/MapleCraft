@@ -296,7 +296,7 @@ namespace main()
 		scoreboard players set @s 0001001_level 0
 		scoreboard players set @s 0001002_level 0
 		
-		effect give @s minecraft:jump_boost infinite 0 true
+		attribute @s minecraft:jump_strength modifier add base_jump_fix 0.1 add_value
 		effect give @s minecraft:resistance infinite 255 true
 		effect give @s minecraft:water_breathing infinite 0 true
 		attribute @s minecraft:attack_damage base set -100.0
