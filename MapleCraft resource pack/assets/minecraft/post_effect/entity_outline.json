@@ -1,0 +1,107 @@
+{
+    "targets": {
+        "swap": {},
+		"var": { "persistent": true },
+		"previous": { "persistent": true }
+    },
+    "passes": [
+        {
+			"vertex_shader": "minecraft:core/screenquad",
+            "fragment_shader": "minecraft:post/blit",
+			"inputs": [
+                {
+                    "sampler_name": "In",
+                    "target": "var"
+                }
+            ],
+            "uniforms": {
+                "BlitConfig": [
+                    {
+                        "name": "ColorModulate",
+                        "type": "vec4",
+                        "value": [ 1.0, 1.0, 1.0, 1.0 ]
+                    }
+                ]
+            },
+            "output": "swap"
+        },
+        {
+			"vertex_shader": "minecraft:core/screenquad",
+            "fragment_shader": "minecraft:post/var_update",
+			"inputs": [
+                {
+                    "sampler_name": "In",
+                    "target": "swap"
+                },
+				{
+                    "sampler_name": "Judge",
+                    "target": "minecraft:main"
+                }
+            ],
+            "output": "var"
+        },
+        {
+			"vertex_shader": "minecraft:post/custom",
+            "fragment_shader": "minecraft:post/custom",
+			"inputs": [
+                {
+                    "sampler_name": "In",
+                    "target": "minecraft:main"
+                },
+				{
+                    "sampler_name": "Prev",
+                    "target": "previous"
+                },
+				{
+                    "sampler_name": "Variable",
+                    "target": "var"
+                },
+				{
+                    "sampler_name": "Judge",
+                    "target": "minecraft:entity_outline"
+                }
+            ],
+            "output": "swap"
+        },
+        {
+			"vertex_shader": "minecraft:core/screenquad",
+            "fragment_shader": "minecraft:post/blit",
+			"inputs": [
+                {
+                    "sampler_name": "In",
+                    "target": "swap"
+                }
+            ],
+            "uniforms": {
+                "BlitConfig": [
+                    {
+                        "name": "ColorModulate",
+                        "type": "vec4",
+                        "value": [ 1.0, 1.0, 1.0, 1.0 ]
+                    }
+                ]
+            },
+            "output": "previous"
+        },
+        {
+			"vertex_shader": "minecraft:core/screenquad",
+            "fragment_shader": "minecraft:post/blit",
+			"inputs": [
+                {
+                    "sampler_name": "In",
+                    "target": "swap"
+                }
+            ],
+            "uniforms": {
+                "BlitConfig": [
+                    {
+                        "name": "ColorModulate",
+                        "type": "vec4",
+                        "value": [ 1.0, 1.0, 1.0, 1.0 ]
+                    }
+                ]
+            },
+            "output": "minecraft:entity_outline"
+        }
+    ]
+}

@@ -40,7 +40,8 @@ void main() {
     Pos = Position;
     texCoord = UV0;
     lightColor = vec4(1);
-    overlayColor = texelFetch(Sampler1, UV1, 0);
+    // overlayColor = texelFetch(Sampler1, UV1, 0);
+	overlayColor = vec4(1);
     vertexColor = vec4(1);
 #ifndef EMISSIVE
     lightColor = texelFetch(Sampler2, UV2 / 16, 0);

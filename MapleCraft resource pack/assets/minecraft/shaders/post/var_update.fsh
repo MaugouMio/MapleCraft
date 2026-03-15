@@ -1,13 +1,11 @@
 #version 150
 
-uniform sampler2D DiffuseSampler;
+#moj_import <minecraft:globals.glsl>
+
+uniform sampler2D InSampler;
 uniform sampler2D JudgeSampler;
 
-uniform float Time;
 in vec2 texCoord;
-in vec2 oneTexel;
-
-uniform vec2 InSize;
 
 out vec4 fragColor;
 
@@ -46,16 +44,17 @@ void copyVar(sampler2D sampler, float fromID, float toID) {
 
 
 void update_fps() {
-	if (Time < 0.1)
+	float second = mod(GameTime * 1200, 1);
+	if (second < 0.1)
 		setVar(0, VAR_FPS_TEST);
-	else if (Time < 0.9)
-		setVar(getVar(DiffuseSampler, VAR_FPS_TEST) + 1, VAR_FPS_TEST);
+	else if (second < 0.9)
+		setVar(getVar(InSampler, VAR_FPS_TEST) + 1, VAR_FPS_TEST);
 	else
-		copyVar(DiffuseSampler, VAR_FPS_TEST, VAR_FPS);  // record
+		copyVar(InSampler, VAR_FPS_TEST, VAR_FPS);  // record
 }
 
 void update_shake(float fps) {
-	int nextFrame = getVar(DiffuseSampler, VAR_SHAKE_FRAME) + 1;
+	int nextFrame = getVar(InSampler, VAR_SHAKE_FRAME) + 1;
 	if (nextFrame == 1)
 		return;
 	
@@ -66,10 +65,10 @@ void update_shake(float fps) {
 }
 
 void main() {
-	vec4 PrevTexel = texture2D(DiffuseSampler, texCoord);
+	vec4 PrevTexel = texture2D(InSampler, texCoord);
 	fragColor = PrevTexel;
 	
-	float fps = getVar(DiffuseSampler, VAR_FPS) / 0.8;
+	float fps = getVar(InSampler, VAR_FPS) / 0.8;
 	if (fps < 1.0)
 		fps = 60.0;
 	

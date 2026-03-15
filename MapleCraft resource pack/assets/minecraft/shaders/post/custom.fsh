@@ -1,15 +1,13 @@
 #version 150
 
-uniform sampler2D DiffuseSampler;
+#moj_import <minecraft:globals.glsl>
+
+uniform sampler2D InSampler;
 uniform sampler2D PrevSampler;
 uniform sampler2D VariableSampler;
 uniform sampler2D JudgeSampler;
 
-uniform float Time;
 in vec2 texCoord;
-in vec2 oneTexel;
-
-uniform vec2 InSize;
 
 out vec4 fragColor;
 
@@ -73,7 +71,7 @@ vec4 blendOver(vec4 over, vec4 base) {
 
 void main() {
 	vec4 PrevTexel = texture(PrevSampler, texCoord);
-	vec4 CurrTexel = texture(DiffuseSampler, texCoord);
+	vec4 CurrTexel = texture(InSampler, texCoord);
 	vec4 JudgeTexel = texture(JudgeSampler, texCoord);
 	fragColor = vec4(0.0, 0.0, 0.0, 0.0);
 	
@@ -81,7 +79,7 @@ void main() {
 		fragColor = PrevTexel;
 	else if (JudgeTexel.a > 0.9) {
 		float flash = 0.0;
-		if (mod(Time, 0.1) > 0.05)
+		if (mod(GameTime, 0.0000833) > 0.0000417)
 			flash = 0.5;
 		fragColor = vec4(0.0, 0.0, 0.0, flash);
 	}

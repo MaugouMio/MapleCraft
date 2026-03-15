@@ -198,12 +198,7 @@ namespace main()
 			
 			scoreboard players set @s hurt_time 30
 			effect give @s minecraft:glowing infinite 0 true
-			```
-			print("execute rotated ~ 0 run summon marker ^ ^ ^-1 {UUID:%s}" %UUID_LIST["mob_damage"])
-			```
-			function mob:damage
-			
-			kill 00000000-0000-0006-0000-000000000006
+			damage @s 0.00001 minecraft:mob_attack at ^ ^ ^-1
 		}
 	}
 	
