@@ -1412,7 +1412,7 @@ namespace skill()
 			# func set_icon()
 			# {
 				## TODO: custom_model_data 還沒確定
-				# data merge entity @s {Tags:["curse"],item:{id:"minecraft:potion",count:1,components:{potion_contents:{custom_color:24}},custom_model_data:{floats:[102f]}}},billboard:"center"}
+				# data merge entity @s {Tags:["curse"],item:{id:"minecraft:potion",count:1,components:{potion_contents:{custom_color:24},custom_model_data:{floats:[102f]}}},billboard:"center"}
 				# function skill:bind_player
 			# }
 			

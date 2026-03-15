@@ -111,6 +111,7 @@ namespace main()
 		scoreboard players set #GLOBAL number 0
 		
 		setworldspawn 250 4 0
+		forceload add 250 0
 		fill 249 0 -1 251 2 1 minecraft:bedrock
 		setblock 250 0 0 minecraft:acacia_wall_sign
 		setblock 250 1 0 minecraft:shulker_box
