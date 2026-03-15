@@ -58,7 +58,7 @@ namespace simple_buff_template(name) as virtual
 		print(f'''
 			func add_{icon}()
 			{{
-				data modify storage skill:main buff append value {{id:{buff_id}s,icon:'{{"text":"{icon}","color":"#fffffa"}}',mask:'{{"text":"a","color":"#fffffa"}}'}}
+				data modify storage skill:main buff append value {{id:{buff_id}s,icon:{{"text":"{icon}","color":"#fffffa"}},mask:{{"text":"a","color":"#fffffa"}}}}
 				function skill:buff/end_write_buff
 			}}
 		''')
@@ -96,7 +96,7 @@ namespace simple_buff_template(name) as virtual
 			function skill:buff/start_write_buff
 			```
 			print(f'''
-			data modify block 250 0 0 front_text.messages[0] set value '{{"nbt":"buff[{{id:{buff_id}s}}].icon","storage":"skill:main","interpret":true,"color":"#fffffb"}}'
+			data modify block 250 0 0 front_text.messages[0] set value {{"nbt":"buff[{{id:{buff_id}s}}].icon","storage":"skill:main","interpret":true,"color":"#fffffb"}}
 			data modify storage skill:main buff[{{id:{buff_id}s}}].icon set from block 250 0 0 front_text.messages[0]
 			''')
 			```
@@ -127,8 +127,8 @@ namespace simple_buff_template(name) as virtual
 			func modify()
 			{
 				function skill:buff/start_write_buff
-				execute if score @s ARG(name)_buff_time matches 6.. run data modify block 250 0 0 front_text.messages[0] set value '{"score":{"objective":"temp","name":"#NEW_MASK"},"color":"#fffffa"}'
-				execute if score @s ARG(name)_buff_time matches ..5 run data modify block 250 0 0 front_text.messages[0] set value '{"score":{"objective":"temp","name":"#NEW_MASK"},"color":"#fffffb"}'
+				execute if score @s ARG(name)_buff_time matches 6.. run data modify block 250 0 0 front_text.messages[0] set value {"score":{"objective":"temp","name":"#NEW_MASK"},"color":"#fffffa"}
+				execute if score @s ARG(name)_buff_time matches ..5 run data modify block 250 0 0 front_text.messages[0] set value {"score":{"objective":"temp","name":"#NEW_MASK"},"color":"#fffffb"}
 				```
 				print(f"data modify storage skill:main buff[{{id:{buff_id}s}}].mask set from block 250 0 0 front_text.messages[0]")
 				```
@@ -224,7 +224,7 @@ namespace buff_template(name) as virtual
 		print(f'''
 			func add_{icon}()
 			{{
-				data modify storage skill:main buff append value {{id:{buff_id}s,icon:'{{"text":"{icon}","color":"#fffffa"}}',mask:'{{"text":"a","color":"#fffffa"}}'}}
+				data modify storage skill:main buff append value {{id:{buff_id}s,icon:{{"text":"{icon}","color":"#fffffa"}},mask:{{"text":"a","color":"#fffffa"}}}}
 				function skill:buff/end_write_buff
 			}}
 		''')
@@ -253,7 +253,7 @@ namespace buff_template(name) as virtual
 			function skill:buff/start_write_buff
 			```
 			print(f'''
-			data modify block 250 0 0 front_text.messages[0] set value '{{"nbt":"buff[{{id:{buff_id}s}}].icon","storage":"skill:main","interpret":true,"color":"#fffffb"}}'
+			data modify block 250 0 0 front_text.messages[0] set value {{"nbt":"buff[{{id:{buff_id}s}}].icon","storage":"skill:main","interpret":true,"color":"#fffffb"}}
 			data modify storage skill:main buff[{{id:{buff_id}s}}].icon set from block 250 0 0 front_text.messages[0]
 			''')
 			```
@@ -284,8 +284,8 @@ namespace buff_template(name) as virtual
 			func modify()
 			{
 				function skill:buff/start_write_buff
-				execute if score @s ARG(name)_buff_time matches 6.. run data modify block 250 0 0 front_text.messages[0] set value '{"score":{"objective":"temp","name":"#NEW_MASK"},"color":"#fffffa"}'
-				execute if score @s ARG(name)_buff_time matches ..5 run data modify block 250 0 0 front_text.messages[0] set value '{"score":{"objective":"temp","name":"#NEW_MASK"},"color":"#fffffb"}'
+				execute if score @s ARG(name)_buff_time matches 6.. run data modify block 250 0 0 front_text.messages[0] set value {"score":{"objective":"temp","name":"#NEW_MASK"},"color":"#fffffa"}
+				execute if score @s ARG(name)_buff_time matches ..5 run data modify block 250 0 0 front_text.messages[0] set value {"score":{"objective":"temp","name":"#NEW_MASK"},"color":"#fffffb"}
 				```
 				print(f"data modify storage skill:main buff[{{id:{buff_id}s}}].mask set from block 250 0 0 front_text.messages[0]")
 				```
