@@ -4,7 +4,7 @@
 #moj_import <minecraft:globals.glsl>
 #moj_import <minecraft:chunksection.glsl>
 #moj_import <minecraft:projection.glsl>
-#moj_import <minecraft:smooth_lighting.glsl>
+#moj_import <minecraft:sample_lightmap.glsl>
 
 in vec3 Position;
 in vec4 Color;
@@ -33,7 +33,7 @@ flat out int noshadow;
 void main() {
     Pos = Position + (ChunkPosition - CameraBlockPos) + CameraOffset;
     vertexColor = Color;
-    lightColor = minecraft_sample_lightmap(Sampler2, UV2);
+    lightColor = sample_lightmap(Sampler2, UV2);
     texCoord = UV0;
     
     //objmc
