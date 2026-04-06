@@ -14,12 +14,7 @@
                 {
                   "condition": "minecraft:match_tool",
                   "predicate": {
-                    "item": "minecraft:air",
-                    "components": {
-                      "minecraft:custom_data": {
-                        "modify_player": 1
-                      }
-                    }
+                    "item": "minecraft:air"
                   }
                 }
               ]

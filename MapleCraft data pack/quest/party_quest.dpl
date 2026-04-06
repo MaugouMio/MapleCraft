@@ -844,7 +844,7 @@ namespace party_quest() as virtual
 				func slot_check()
 				{
 					execute store result score #GLOBAL temp run data get entity @s Inventory
-					execute if data entity @s Inventory[{Slot:-106b}] run scoreboard players remove #GLOBAL temp 1
+					execute if data entity @s equipment.offhand run scoreboard players remove #GLOBAL temp 1
 					execute if score #GLOBAL temp matches 37.. run tellraw @s ["\n",{"translate":"text.quest.party_quest.kpq.require_slot","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 					execute if score #GLOBAL temp matches ..36 run function ARG(_PATH)complete
 				}
@@ -1187,7 +1187,7 @@ namespace party_quest() as virtual
 				func slot_check()
 				{
 					execute store result score #GLOBAL temp run data get entity @s Inventory
-					execute if data entity @s Inventory[{Slot:-106b}] run scoreboard players remove #GLOBAL temp 1
+					execute if data entity @s equipment.offhand run scoreboard players remove #GLOBAL temp 1
 					execute if score #GLOBAL temp matches 37.. run tellraw @s ["\n",{"translate":"text.quest.party_quest.ldpq.require_slot","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 					execute if score #GLOBAL temp matches ..36 run function ARG(_PATH)award
 				}

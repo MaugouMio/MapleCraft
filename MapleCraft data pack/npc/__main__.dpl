@@ -31,7 +31,7 @@ namespace npc()
 			{
 				# check slot
 				execute store result score #GLOBAL temp run data get entity @s Inventory
-				execute if data entity @s Inventory[{Slot:-106b}] run scoreboard players remove #GLOBAL temp 1
+				execute if data entity @s equipment.offhand run scoreboard players remove #GLOBAL temp 1
 				execute if score #GLOBAL temp matches 38 run tellraw @s ["\n",{"translate":"text.npc.gachapon.require_slot","font":"minecraft:uniform"},{"text":"\n==================","font":"minecraft:uniform"}]
 				execute if score #GLOBAL temp matches ..37 run function ARG(_PATH)check_ticket
 			}
