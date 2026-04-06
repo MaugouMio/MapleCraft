@@ -262,16 +262,6 @@ else if (metauvoffset.rgb == ivec3(1,2,4) && metauvoffset.a <= 2) {
 	else
 		alpha = (5.0 - tick) / 4.0;
 }
-// custom icon item - model
-// else if (colorByte == ivec3(0,218,255)) {
-	// vertexColor = vec4(1);
-	// iconMode = 1;
-// }
-// custom icon item - icon
-// else if (colorByte == ivec3(0,173,255)) {
-	// vertexColor = vec4(1);
-	// iconMode = 2;
-// }
 #endif
 //debug
 //else {

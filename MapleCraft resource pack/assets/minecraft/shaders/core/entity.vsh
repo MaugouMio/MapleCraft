@@ -4,6 +4,7 @@
 #moj_import <minecraft:fog.glsl>
 #moj_import <minecraft:dynamictransforms.glsl>
 #moj_import <minecraft:projection.glsl>
+#moj_import <minecraft:sample_lightmap.glsl>
 #moj_import <minecraft:globals.glsl>
 #moj_import <minecraft:vsh_util.glsl>
 
@@ -44,7 +45,7 @@ void main() {
 	overlayColor = vec4(1);
     vertexColor = vec4(1);
 #ifndef EMISSIVE
-    lightColor = texelFetch(Sampler2, UV2 / 16, 0);
+    lightColor = sample_lightmap(Sampler2, UV2);
 #endif
 #ifdef APPLY_TEXTURE_MATRIX
     texCoord = (TextureMat * vec4(UV0, 0.0, 1.0)).xy;
