@@ -197,7 +197,7 @@ namespace 31() as virtual
 			func get()
 			{
 				clear @s minecraft:ender_eye[custom_model_data={floats:[102f]}]
-				give @s minecraft:ender_eye[custom_model_data={floats:[102f]},custom_data={skill:1b},custom_name={"translate":"skill.0001000","font":"minecraft:uniform","bold":true,"italic":false}] 2
+				give @s minecraft:ender_eye[custom_model_data={floats:[102f]},custom_data={skill:1b},custom_name={"translate":"skill.3101002","font":"minecraft:uniform","bold":true,"italic":false}] 2
 			}
 		}
 		
@@ -333,7 +333,7 @@ namespace 31() as virtual
 			func get()
 			{
 				clear @s minecraft:ender_eye[custom_model_data={floats:[103f]}]
-				give @s minecraft:ender_eye[custom_model_data={floats:[103f]},custom_data={skill:1b},custom_name={"translate":"skill.0001000","font":"minecraft:uniform","bold":true,"italic":false}] 2
+				give @s minecraft:ender_eye[custom_model_data={floats:[103f]},custom_data={skill:1b},custom_name={"translate":"skill.3101003","font":"minecraft:uniform","bold":true,"italic":false}] 2
 			}
 		}
 		
@@ -446,7 +446,7 @@ namespace 31() as virtual
 			func get()
 			{
 				clear @s minecraft:ender_eye[custom_model_data={floats:[104f]}]
-				give @s minecraft:ender_eye[custom_model_data={floats:[104f]},custom_data={skill:1b},custom_name={"translate":"skill.0001000","font":"minecraft:uniform","bold":true,"italic":false}] 2
+				give @s minecraft:ender_eye[custom_model_data={floats:[104f]},custom_data={skill:1b},custom_name={"translate":"skill.3101004","font":"minecraft:uniform","bold":true,"italic":false}] 2
 			}
 		}
 		
@@ -879,7 +879,7 @@ namespace 31() as virtual
 			func get()
 			{
 				clear @s minecraft:ender_eye[custom_model_data={floats:[105f]}]
-				give @s minecraft:ender_eye[custom_model_data={floats:[105f]},custom_data={skill:1b},custom_name={"translate":"skill.0001000","font":"minecraft:uniform","bold":true,"italic":false}] 2
+				give @s minecraft:ender_eye[custom_model_data={floats:[105f]},custom_data={skill:1b},custom_name={"translate":"skill.3101005","font":"minecraft:uniform","bold":true,"italic":false}] 2
 			}
 		}
 	}

@@ -329,7 +329,7 @@ namespace 13() as virtual
 			func get()
 			{
 				clear @s minecraft:ender_eye[custom_model_data={floats:[40f]}]
-				give @s minecraft:ender_eye[custom_model_data={floats:[40f]},custom_data={skill:1b},custom_name={"translate":"skill.0001000","font":"minecraft:uniform","bold":true,"italic":false}] 2
+				give @s minecraft:ender_eye[custom_model_data={floats:[40f]},custom_data={skill:1b},custom_name={"translate":"skill.1301004","font":"minecraft:uniform","bold":true,"italic":false}] 2
 			}
 		}
 		
@@ -338,7 +338,7 @@ namespace 13() as virtual
 			func get()
 			{
 				clear @s minecraft:ender_eye[custom_model_data={floats:[41f]}]
-				give @s minecraft:ender_eye[custom_model_data={floats:[41f]},custom_data={skill:1b},custom_name={"translate":"skill.0001000","font":"minecraft:uniform","bold":true,"italic":false}] 2
+				give @s minecraft:ender_eye[custom_model_data={floats:[41f]},custom_data={skill:1b},custom_name={"translate":"skill.1301005","font":"minecraft:uniform","bold":true,"italic":false}] 2
 			}
 		}
 		
@@ -460,7 +460,7 @@ namespace 13() as virtual
 			func get()
 			{
 				clear @s minecraft:ender_eye[custom_model_data={floats:[42f]}]
-				give @s minecraft:ender_eye[custom_model_data={floats:[42f]},custom_data={skill:1b},custom_name={"translate":"skill.0001000","font":"minecraft:uniform","bold":true,"italic":false}] 2
+				give @s minecraft:ender_eye[custom_model_data={floats:[42f]},custom_data={skill:1b},custom_name={"translate":"skill.1301006","font":"minecraft:uniform","bold":true,"italic":false}] 2
 			}
 		}
 		
@@ -617,7 +617,7 @@ namespace 13() as virtual
 			func get()
 			{
 				clear @s minecraft:ender_eye[custom_model_data={floats:[43f]}]
-				give @s minecraft:ender_eye[custom_model_data={floats:[43f]},custom_data={skill:1b},custom_name={"translate":"skill.0001000","font":"minecraft:uniform","bold":true,"italic":false}] 2
+				give @s minecraft:ender_eye[custom_model_data={floats:[43f]},custom_data={skill:1b},custom_name={"translate":"skill.1301007","font":"minecraft:uniform","bold":true,"italic":false}] 2
 			}
 		}
 	}

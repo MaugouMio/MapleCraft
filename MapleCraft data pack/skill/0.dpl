@@ -318,7 +318,7 @@ namespace 0() as virtual
 				func get()
 				{
 					clear @s minecraft:ender_eye[custom_model_data={floats:[2f]}]
-					give @s minecraft:ender_eye[custom_model_data={floats:[2f]},custom_data={skill:1b},custom_name={"translate":"skill.0001000","font":"minecraft:uniform","bold":true,"italic":false}] 2
+					give @s minecraft:ender_eye[custom_model_data={floats:[2f]},custom_data={skill:1b},custom_name={"translate":"skill.0001001","font":"minecraft:uniform","bold":true,"italic":false}] 2
 				}
 			}
 			
@@ -445,7 +445,7 @@ namespace 0() as virtual
 				func get()
 				{
 					clear @s minecraft:ender_eye[custom_model_data={floats:[3f]}]
-					give @s minecraft:ender_eye[custom_model_data={floats:[3f]},custom_data={skill:1b},custom_name={"translate":"skill.0001000","font":"minecraft:uniform","bold":true,"italic":false}] 2
+					give @s minecraft:ender_eye[custom_model_data={floats:[3f]},custom_data={skill:1b},custom_name={"translate":"skill.0001002","font":"minecraft:uniform","bold":true,"italic":false}] 2
 				}
 			}
 		}

@@ -328,7 +328,7 @@ namespace 11() as virtual
 			func get()
 			{
 				clear @s minecraft:ender_eye[custom_model_data={floats:[7f]}]
-				give @s minecraft:ender_eye[custom_model_data={floats:[7f]},custom_data={skill:1b},custom_name={"translate":"skill.0001000","font":"minecraft:uniform","bold":true,"italic":false}] 2
+				give @s minecraft:ender_eye[custom_model_data={floats:[7f]},custom_data={skill:1b},custom_name={"translate":"skill.1101004","font":"minecraft:uniform","bold":true,"italic":false}] 2
 			}
 		}
 		
@@ -337,7 +337,7 @@ namespace 11() as virtual
 			func get()
 			{
 				clear @s minecraft:ender_eye[custom_model_data={floats:[8f]}]
-				give @s minecraft:ender_eye[custom_model_data={floats:[8f]},custom_data={skill:1b},custom_name={"translate":"skill.0001000","font":"minecraft:uniform","bold":true,"italic":false}] 2
+				give @s minecraft:ender_eye[custom_model_data={floats:[8f]},custom_data={skill:1b},custom_name={"translate":"skill.1101005","font":"minecraft:uniform","bold":true,"italic":false}] 2
 			}
 		}
 		
@@ -474,7 +474,7 @@ namespace 11() as virtual
 			func get()
 			{
 				clear @s minecraft:ender_eye[custom_model_data={floats:[9f]}]
-				give @s minecraft:ender_eye[custom_model_data={floats:[9f]},custom_data={skill:1b},custom_name={"translate":"skill.0001000","font":"minecraft:uniform","bold":true,"italic":false}] 2
+				give @s minecraft:ender_eye[custom_model_data={floats:[9f]},custom_data={skill:1b},custom_name={"translate":"skill.1101006","font":"minecraft:uniform","bold":true,"italic":false}] 2
 			}
 		}
 		
@@ -632,7 +632,7 @@ namespace 11() as virtual
 			func get()
 			{
 				clear @s minecraft:ender_eye[custom_model_data={floats:[10f]}]
-				give @s minecraft:ender_eye[custom_model_data={floats:[10f]},custom_data={skill:1b},custom_name={"translate":"skill.0001000","font":"minecraft:uniform","bold":true,"italic":false}] 2
+				give @s minecraft:ender_eye[custom_model_data={floats:[10f]},custom_data={skill:1b},custom_name={"translate":"skill.1101007","font":"minecraft:uniform","bold":true,"italic":false}] 2
 			}
 		}
 	}
