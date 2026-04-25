@@ -57,7 +57,7 @@ namespace equip_window() as virtual
 			data modify storage ui:main equip.cap set from entity @s equipment.head.components.minecraft:custom_data.cap
 			data modify block 250 0 0 front_text.messages[0] set value '["",{"nbt":"equip.cap.display.Name","storage":"ui:main","interpret":true}]'
 			function ARG(_PATH)set_display
-			data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 156"},"hoverEvent":{"action":"show_text","contents":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
+			data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 156"},"hover_event":{"action":"show_text","value":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
 			data modify storage ui:main equip.cap.event set from block 250 0 0 front_text.messages[0]
 		}
 		
@@ -98,7 +98,7 @@ namespace equip_window() as virtual
 				data modify storage ui:main equip.forehead set from entity @s equipment.head.components.minecraft:custom_data.forehead
 				data modify block 250 0 0 front_text.messages[0] set value '["",{"nbt":"equip.forehead.display.Name","storage":"ui:main","interpret":true}]'
 				function ARG(_PATH)set_display
-				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 157"},"hoverEvent":{"action":"show_text","contents":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
+				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 157"},"hover_event":{"action":"show_text","value":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
 				data modify storage ui:main equip.forehead.event set from block 250 0 0 front_text.messages[0]
 			}
 			
@@ -130,7 +130,7 @@ namespace equip_window() as virtual
 				data modify storage ui:main equip.ring1 set from entity @s equipment.head.components.minecraft:custom_data.ring1
 				data modify block 250 0 0 front_text.messages[0] set value '["",{"nbt":"equip.ring1.display.Name","storage":"ui:main","interpret":true}]'
 				function ARG(_PATH)set_display
-				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 158"},"hoverEvent":{"action":"show_text","contents":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
+				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 158"},"hover_event":{"action":"show_text","value":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
 				data modify storage ui:main equip.ring1.event set from block 250 0 0 front_text.messages[0]
 			}
 			
@@ -162,7 +162,7 @@ namespace equip_window() as virtual
 				data modify storage ui:main equip.ring2 set from entity @s equipment.head.components.minecraft:custom_data.ring2
 				data modify block 250 0 0 front_text.messages[0] set value '["",{"nbt":"equip.ring2.display.Name","storage":"ui:main","interpret":true}]'
 				function ARG(_PATH)set_display
-				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 159"},"hoverEvent":{"action":"show_text","contents":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
+				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 159"},"hover_event":{"action":"show_text","value":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
 				data modify storage ui:main equip.ring2.event set from block 250 0 0 front_text.messages[0]
 			}
 			
@@ -203,7 +203,7 @@ namespace equip_window() as virtual
 				data modify storage ui:main equip.face set from entity @s equipment.head.components.minecraft:custom_data.face
 				data modify block 250 0 0 front_text.messages[0] set value '["",{"nbt":"equip.face.display.Name","storage":"ui:main","interpret":true}]'
 				function ARG(_PATH)set_display
-				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 160"},"hoverEvent":{"action":"show_text","contents":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
+				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 160"},"hover_event":{"action":"show_text","value":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
 				data modify storage ui:main equip.face.event set from block 250 0 0 front_text.messages[0]
 			}
 			
@@ -235,7 +235,7 @@ namespace equip_window() as virtual
 				data modify storage ui:main equip.ear set from entity @s equipment.head.components.minecraft:custom_data.ear
 				data modify block 250 0 0 front_text.messages[0] set value '["",{"nbt":"equip.ear.display.Name","storage":"ui:main","interpret":true}]'
 				function ARG(_PATH)set_display
-				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 161"},"hoverEvent":{"action":"show_text","contents":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
+				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 161"},"hover_event":{"action":"show_text","value":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
 				data modify storage ui:main equip.ear.event set from block 250 0 0 front_text.messages[0]
 			}
 			
@@ -279,7 +279,7 @@ namespace equip_window() as virtual
 				data modify storage ui:main equip.cape set from entity @s equipment.head.components.minecraft:custom_data.cape
 				data modify block 250 0 0 front_text.messages[0] set value '["",{"nbt":"equip.cape.display.Name","storage":"ui:main","interpret":true}]'
 				function ARG(_PATH)set_display
-				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 162"},"hoverEvent":{"action":"show_text","contents":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
+				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 162"},"hover_event":{"action":"show_text","value":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
 				data modify storage ui:main equip.cape.event set from block 250 0 0 front_text.messages[0]
 			}
 			
@@ -311,7 +311,7 @@ namespace equip_window() as virtual
 				data modify storage ui:main equip.cloth set from entity @s equipment.head.components.minecraft:custom_data.cloth
 				data modify block 250 0 0 front_text.messages[0] set value '["",{"nbt":"equip.cloth.display.Name","storage":"ui:main","interpret":true}]'
 				function ARG(_PATH)set_display
-				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 163"},"hoverEvent":{"action":"show_text","contents":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
+				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 163"},"hover_event":{"action":"show_text","value":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
 				data modify storage ui:main equip.cloth.event set from block 250 0 0 front_text.messages[0]
 			}
 			
@@ -343,7 +343,7 @@ namespace equip_window() as virtual
 				data modify storage ui:main equip.pendant set from entity @s equipment.head.components.minecraft:custom_data.pendant
 				data modify block 250 0 0 front_text.messages[0] set value '["",{"nbt":"equip.pendant.display.Name","storage":"ui:main","interpret":true}]'
 				function ARG(_PATH)set_display
-				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 164"},"hoverEvent":{"action":"show_text","contents":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
+				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 164"},"hover_event":{"action":"show_text","value":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
 				data modify storage ui:main equip.pendant.event set from block 250 0 0 front_text.messages[0]
 			}
 			
@@ -375,7 +375,7 @@ namespace equip_window() as virtual
 				data modify storage ui:main equip.weapon set from entity @s equipment.head.components.minecraft:custom_data.weapon
 				data modify block 250 0 0 front_text.messages[0] set value '["",{"nbt":"equip.weapon.display.Name","storage":"ui:main","interpret":true}]'
 				function ARG(_PATH)set_display
-				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 155"},"hoverEvent":{"action":"show_text","contents":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
+				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 155"},"hover_event":{"action":"show_text","value":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
 				data modify storage ui:main equip.weapon.event set from block 250 0 0 front_text.messages[0]
 			}
 			
@@ -407,7 +407,7 @@ namespace equip_window() as virtual
 				data modify storage ui:main equip.shield set from entity @s equipment.head.components.minecraft:custom_data.shield
 				data modify block 250 0 0 front_text.messages[0] set value '["",{"nbt":"equip.shield.display.Name","storage":"ui:main","interpret":true}]'
 				function ARG(_PATH)set_display
-				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 165"},"hoverEvent":{"action":"show_text","contents":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
+				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 165"},"hover_event":{"action":"show_text","value":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
 				data modify storage ui:main equip.shield.event set from block 250 0 0 front_text.messages[0]
 			}
 			
@@ -451,7 +451,7 @@ namespace equip_window() as virtual
 				data modify storage ui:main equip.gloves set from entity @s equipment.head.components.minecraft:custom_data.gloves
 				data modify block 250 0 0 front_text.messages[0] set value '["",{"nbt":"equip.gloves.display.Name","storage":"ui:main","interpret":true}]'
 				function ARG(_PATH)set_display
-				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 166"},"hoverEvent":{"action":"show_text","contents":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
+				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 166"},"hover_event":{"action":"show_text","value":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
 				data modify storage ui:main equip.gloves.event set from block 250 0 0 front_text.messages[0]
 			}
 			
@@ -483,7 +483,7 @@ namespace equip_window() as virtual
 				data modify storage ui:main equip.pants set from entity @s equipment.head.components.minecraft:custom_data.pants
 				data modify block 250 0 0 front_text.messages[0] set value '["",{"nbt":"equip.pants.display.Name","storage":"ui:main","interpret":true}]'
 				function ARG(_PATH)set_display
-				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 167"},"hoverEvent":{"action":"show_text","contents":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
+				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 167"},"hover_event":{"action":"show_text","value":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
 				data modify storage ui:main equip.pants.event set from block 250 0 0 front_text.messages[0]
 			}
 			
@@ -515,7 +515,7 @@ namespace equip_window() as virtual
 				data modify storage ui:main equip.shoes set from entity @s equipment.head.components.minecraft:custom_data.shoes
 				data modify block 250 0 0 front_text.messages[0] set value '["",{"nbt":"equip.shoes.display.Name","storage":"ui:main","interpret":true}]'
 				function ARG(_PATH)set_display
-				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 168"},"hoverEvent":{"action":"show_text","contents":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
+				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 168"},"hover_event":{"action":"show_text","value":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
 				data modify storage ui:main equip.shoes.event set from block 250 0 0 front_text.messages[0]
 			}
 			
@@ -547,7 +547,7 @@ namespace equip_window() as virtual
 				data modify storage ui:main equip.ring3 set from entity @s equipment.head.components.minecraft:custom_data.ring3
 				data modify block 250 0 0 front_text.messages[0] set value '["",{"nbt":"equip.ring3.display.Name","storage":"ui:main","interpret":true}]'
 				function ARG(_PATH)set_display
-				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 169"},"hoverEvent":{"action":"show_text","contents":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
+				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 169"},"hover_event":{"action":"show_text","value":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
 				data modify storage ui:main equip.ring3.event set from block 250 0 0 front_text.messages[0]
 			}
 			
@@ -579,7 +579,7 @@ namespace equip_window() as virtual
 				data modify storage ui:main equip.ring4 set from entity @s equipment.head.components.minecraft:custom_data.ring4
 				data modify block 250 0 0 front_text.messages[0] set value '["",{"nbt":"equip.ring4.display.Name","storage":"ui:main","interpret":true}]'
 				function ARG(_PATH)set_display
-				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 170"},"hoverEvent":{"action":"show_text","contents":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
+				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 170"},"hover_event":{"action":"show_text","value":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
 				data modify storage ui:main equip.ring4.event set from block 250 0 0 front_text.messages[0]
 			}
 			
@@ -648,31 +648,31 @@ namespace equip_window() as virtual
 		
 		func throwing_star()
 		{
-			execute if score @s bullet_item matches 1 run data modify storage ui:main equip.projectile set value {icon:['"\\uA000"','"\\uA001"'],event:'{"text":"\\uF829\\uF822","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 154"},"hoverEvent":{"action":"show_text","contents":[{"translate":"item.consume.2070000","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["15"]}]}}'}
-			execute if score @s bullet_item matches 2 run data modify storage ui:main equip.projectile set value {icon:['"\\uA002"','"\\uA003"'],event:'{"text":"\\uF829\\uF822","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 154"},"hoverEvent":{"action":"show_text","contents":[{"translate":"item.consume.2070001","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["17"]}]}}'}
-			execute if score @s bullet_item matches 3 run data modify storage ui:main equip.projectile set value {icon:['"\\uA004"','"\\uA005"'],event:'{"text":"\\uF829\\uF822","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 154"},"hoverEvent":{"action":"show_text","contents":[{"translate":"item.consume.2070002","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["19"]}]}}'}
-			execute if score @s bullet_item matches 4 run data modify storage ui:main equip.projectile set value {icon:['"\\uA006"','"\\uA007"'],event:'{"text":"\\uF829\\uF822","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 154"},"hoverEvent":{"action":"show_text","contents":[{"translate":"item.consume.2070003","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["21"]}]}}'}
-			execute if score @s bullet_item matches 5 run data modify storage ui:main equip.projectile set value {icon:['"\\uA008"','"\\uA009"'],event:'{"text":"\\uF829\\uF822","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 154"},"hoverEvent":{"action":"show_text","contents":[{"translate":"item.consume.2070004","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["23"]}]}}'}
-			execute if score @s bullet_item matches 6 run data modify storage ui:main equip.projectile set value {icon:['"\\uA00A"','"\\uA00B"'],event:'{"text":"\\uF829\\uF822","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 154"},"hoverEvent":{"action":"show_text","contents":[{"translate":"item.consume.2070005","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["25"]}]}}'}
-			execute if score @s bullet_item matches 7 run data modify storage ui:main equip.projectile set value {icon:['"\\uA00C"','"\\uA00D"'],event:'{"text":"\\uF829\\uF822","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 154"},"hoverEvent":{"action":"show_text","contents":[{"translate":"item.consume.2070006","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["27"]}]}}'}
+			execute if score @s bullet_item matches 1 run data modify storage ui:main equip.projectile set value {icon:['"\\uA000"','"\\uA001"'],event:'{"text":"\\uF829\\uF822","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 154"},"hover_event":{"action":"show_text","value":[{"translate":"item.consume.2070000","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["15"]}]}}'}
+			execute if score @s bullet_item matches 2 run data modify storage ui:main equip.projectile set value {icon:['"\\uA002"','"\\uA003"'],event:'{"text":"\\uF829\\uF822","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 154"},"hover_event":{"action":"show_text","value":[{"translate":"item.consume.2070001","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["17"]}]}}'}
+			execute if score @s bullet_item matches 3 run data modify storage ui:main equip.projectile set value {icon:['"\\uA004"','"\\uA005"'],event:'{"text":"\\uF829\\uF822","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 154"},"hover_event":{"action":"show_text","value":[{"translate":"item.consume.2070002","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["19"]}]}}'}
+			execute if score @s bullet_item matches 4 run data modify storage ui:main equip.projectile set value {icon:['"\\uA006"','"\\uA007"'],event:'{"text":"\\uF829\\uF822","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 154"},"hover_event":{"action":"show_text","value":[{"translate":"item.consume.2070003","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["21"]}]}}'}
+			execute if score @s bullet_item matches 5 run data modify storage ui:main equip.projectile set value {icon:['"\\uA008"','"\\uA009"'],event:'{"text":"\\uF829\\uF822","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 154"},"hover_event":{"action":"show_text","value":[{"translate":"item.consume.2070004","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["23"]}]}}'}
+			execute if score @s bullet_item matches 6 run data modify storage ui:main equip.projectile set value {icon:['"\\uA00A"','"\\uA00B"'],event:'{"text":"\\uF829\\uF822","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 154"},"hover_event":{"action":"show_text","value":[{"translate":"item.consume.2070005","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["25"]}]}}'}
+			execute if score @s bullet_item matches 7 run data modify storage ui:main equip.projectile set value {icon:['"\\uA00C"','"\\uA00D"'],event:'{"text":"\\uF829\\uF822","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 154"},"hover_event":{"action":"show_text","value":[{"translate":"item.consume.2070006","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["27"]}]}}'}
 		}
 		
 		func arrow_bow()
 		{
-			execute if score @s bullet_item matches 21 run data modify storage ui:main equip.projectile set value {icon:['"\\uA020"','"\\uA021"'],event:'{"text":"\\uF829\\uF822","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 154"},"hoverEvent":{"action":"show_text","contents":{"translate":"item.consume.2060000","font":"minecraft:uniform","bold":true}}}'}
-			execute if score @s bullet_item matches 22 run data modify storage ui:main equip.projectile set value {icon:['"\\uA022"','"\\uA023"'],event:'{"text":"\\uF829\\uF822","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 154"},"hoverEvent":{"action":"show_text","contents":[{"translate":"item.consume.2060001","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["1"]}]}}'}
-			execute if score @s bullet_item matches 23 run data modify storage ui:main equip.projectile set value {icon:['"\\uA024"','"\\uA025"'],event:'{"text":"\\uF829\\uF822","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 154"},"hoverEvent":{"action":"show_text","contents":[{"translate":"item.consume.2060002","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["2"]}]}}'}
-			execute if score @s bullet_item matches 24 run data modify storage ui:main equip.projectile set value {icon:['"\\uA026"','"\\uA027"'],event:'{"text":"\\uF829\\uF822","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 154"},"hoverEvent":{"action":"show_text","contents":[{"translate":"item.consume.2060003","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["4"]}]}}'}
-			execute if score @s bullet_item matches 25 run data modify storage ui:main equip.projectile set value {icon:['"\\uA028"','"\\uA029"'],event:'{"text":"\\uF829\\uF822","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 154"},"hoverEvent":{"action":"show_text","contents":[{"translate":"item.consume.2060004","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["4"]}]}}'}
+			execute if score @s bullet_item matches 21 run data modify storage ui:main equip.projectile set value {icon:['"\\uA020"','"\\uA021"'],event:'{"text":"\\uF829\\uF822","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 154"},"hover_event":{"action":"show_text","value":{"translate":"item.consume.2060000","font":"minecraft:uniform","bold":true}}}'}
+			execute if score @s bullet_item matches 22 run data modify storage ui:main equip.projectile set value {icon:['"\\uA022"','"\\uA023"'],event:'{"text":"\\uF829\\uF822","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 154"},"hover_event":{"action":"show_text","value":[{"translate":"item.consume.2060001","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["1"]}]}}'}
+			execute if score @s bullet_item matches 23 run data modify storage ui:main equip.projectile set value {icon:['"\\uA024"','"\\uA025"'],event:'{"text":"\\uF829\\uF822","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 154"},"hover_event":{"action":"show_text","value":[{"translate":"item.consume.2060002","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["2"]}]}}'}
+			execute if score @s bullet_item matches 24 run data modify storage ui:main equip.projectile set value {icon:['"\\uA026"','"\\uA027"'],event:'{"text":"\\uF829\\uF822","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 154"},"hover_event":{"action":"show_text","value":[{"translate":"item.consume.2060003","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["4"]}]}}'}
+			execute if score @s bullet_item matches 25 run data modify storage ui:main equip.projectile set value {icon:['"\\uA028"','"\\uA029"'],event:'{"text":"\\uF829\\uF822","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 154"},"hover_event":{"action":"show_text","value":[{"translate":"item.consume.2060004","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["4"]}]}}'}
 		}
 		
 		func arrow_crossbow()
 		{
-			execute if score @s bullet_item matches 26 run data modify storage ui:main equip.projectile set value {icon:['"\\uA02A"','"\\uA02B"'],event:'{"text":"\\uF829\\uF822","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 154"},"hoverEvent":{"action":"show_text","contents":{"translate":"item.consume.2061000","font":"minecraft:uniform","bold":true}}}'}
-			execute if score @s bullet_item matches 27 run data modify storage ui:main equip.projectile set value {icon:['"\\uA02C"','"\\uA02D"'],event:'{"text":"\\uF829\\uF822","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 154"},"hoverEvent":{"action":"show_text","contents":[{"translate":"item.consume.2061001","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["1"]}]}}'}
-			execute if score @s bullet_item matches 28 run data modify storage ui:main equip.projectile set value {icon:['"\\uA02E"','"\\uA02F"'],event:'{"text":"\\uF829\\uF822","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 154"},"hoverEvent":{"action":"show_text","contents":[{"translate":"item.consume.2061002","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["2"]}]}}'}
-			execute if score @s bullet_item matches 29 run data modify storage ui:main equip.projectile set value {icon:['"\\uA030"','"\\uA031"'],event:'{"text":"\\uF829\\uF822","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 154"},"hoverEvent":{"action":"show_text","contents":[{"translate":"item.consume.2061003","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["4"]}]}}'}
-			execute if score @s bullet_item matches 30 run data modify storage ui:main equip.projectile set value {icon:['"\\uA032"','"\\uA033"'],event:'{"text":"\\uF829\\uF822","font":"space:default","clickEvent":{"action":"run_command","value":"/trigger command set 154"},"hoverEvent":{"action":"show_text","contents":[{"translate":"item.consume.2061004","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["4"]}]}}'}
+			execute if score @s bullet_item matches 26 run data modify storage ui:main equip.projectile set value {icon:['"\\uA02A"','"\\uA02B"'],event:'{"text":"\\uF829\\uF822","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 154"},"hover_event":{"action":"show_text","value":{"translate":"item.consume.2061000","font":"minecraft:uniform","bold":true}}}'}
+			execute if score @s bullet_item matches 27 run data modify storage ui:main equip.projectile set value {icon:['"\\uA02C"','"\\uA02D"'],event:'{"text":"\\uF829\\uF822","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 154"},"hover_event":{"action":"show_text","value":[{"translate":"item.consume.2061001","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["1"]}]}}'}
+			execute if score @s bullet_item matches 28 run data modify storage ui:main equip.projectile set value {icon:['"\\uA02E"','"\\uA02F"'],event:'{"text":"\\uF829\\uF822","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 154"},"hover_event":{"action":"show_text","value":[{"translate":"item.consume.2061002","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["2"]}]}}'}
+			execute if score @s bullet_item matches 29 run data modify storage ui:main equip.projectile set value {icon:['"\\uA030"','"\\uA031"'],event:'{"text":"\\uF829\\uF822","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 154"},"hover_event":{"action":"show_text","value":[{"translate":"item.consume.2061003","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["4"]}]}}'}
+			execute if score @s bullet_item matches 30 run data modify storage ui:main equip.projectile set value {icon:['"\\uA032"','"\\uA033"'],event:'{"text":"\\uF829\\uF822","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 154"},"hover_event":{"action":"show_text","value":[{"translate":"item.consume.2061004","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["4"]}]}}'}
 		}
 	}
 }

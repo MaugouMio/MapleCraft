@@ -409,7 +409,7 @@ namespace bar_display()
 			
 			scoreboard players add #TOMB_AMOUNT temp 1
 			forceload add ~ ~
-			tellraw @s [{"text":"0_1\n2_3\n4_5\n6_7\n8_9\na_b\nc_d\n","font":"ui:window/death"},{"text":"\uF82A\uF829\uF828\uF823","font":"space:default"},{"text":"2","font":"ui:main","clickEvent":{"action":"run_command","value":"/trigger command set 7"},"hoverEvent":{"action":"show_text","contents":{"text":"3","font":"ui:main"}}},{"text":"B94","font":"space:default"},{"text":"e_f\ng_h","font":"ui:window/death"}]
+			tellraw @s [{"text":"0_1\n2_3\n4_5\n6_7\n8_9\na_b\nc_d\n","font":"ui:window/death"},{"text":"\uF82A\uF829\uF828\uF823","font":"space:default"},{"text":"2","font":"ui:main","click_event":{"action":"run_command","command":"/trigger command set 7"},"hover_event":{"action":"show_text","value":{"text":"3","font":"ui:main"}}},{"text":"B94","font":"space:default"},{"text":"e_f\ng_h","font":"ui:window/death"}]
 		}
 		
 		func drop_exp()
