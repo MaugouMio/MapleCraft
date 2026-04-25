@@ -86,13 +86,13 @@ namespace 2() as virtual
 					
 					func set_description()
 					{
-						data modify block 250 0 0 front_text.messages[0] set value '""'
+						data modify block 250 0 0 front_text.messages[0] set value ""
 						data modify storage ui:main temp set value [0, 0]
 						execute store result storage ui:main temp[0] int 1 run scoreboard players get @s 2000000_level
 						
 						execute if score @s 2000000_level matches ..15 run function ARG(_PATH)get_next_level
 						scoreboard players operation #GLOBAL temp = @s 2000000_level
-						execute if score @s 2000000_level matches 1.. run data modify block 250 0 0 front_text.messages[0] set value '[{"translate":"skill.description.level.current","with":[{"score":{"objective":"temp","name":"#GLOBAL"}}]},{"translate":"skill.description.level.2000000"},{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}]'
+						execute if score @s 2000000_level matches 1.. run data modify block 250 0 0 front_text.messages[0] set value [{"translate":"skill.description.level.current","with":[{"score":{"objective":"temp","name":"#GLOBAL"}}]},{"translate":"skill.description.level.2000000"},{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}]
 						data modify storage ui:main skill_level_info append from block 250 0 0 front_text.messages[0]
 					}
 					
@@ -100,10 +100,10 @@ namespace 2() as virtual
 					{
 						scoreboard players add @s 2000000_level 1
 						scoreboard players operation #GLOBAL temp = @s 2000000_level
-						data modify block 250 0 0 front_text.messages[0] set value '[{"translate":"skill.description.level.next","with":[{"score":{"objective":"temp","name":"#GLOBAL"}}]},{"translate":"skill.description.level.2000000"}]'
+						data modify block 250 0 0 front_text.messages[0] set value [{"translate":"skill.description.level.next","with":[{"score":{"objective":"temp","name":"#GLOBAL"}}]},{"translate":"skill.description.level.2000000"}]
 						
 						scoreboard players remove @s 2000000_level 1
-						execute if score @s 2000000_level matches 1.. run data modify block 250 0 0 front_text.messages[0] set value '["\\n",{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}]'
+						execute if score @s 2000000_level matches 1.. run data modify block 250 0 0 front_text.messages[0] set value ["\n",{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}]
 					}
 				}
 			}
@@ -127,14 +127,14 @@ namespace 2() as virtual
 					
 					func set_description()
 					{
-						data modify block 250 0 0 front_text.messages[0] set value '""'
+						data modify block 250 0 0 front_text.messages[0] set value ""
 						data modify storage ui:main temp set value [0, 0, 0, 0, 0, 0]
 						execute store result storage ui:main temp[0] int 1 run scoreboard players get @s 2000001_level
 						execute store result storage ui:main temp[1] int 1 run scoreboard players get @s addi_mp_level
 						execute store result storage ui:main temp[2] int 1 run scoreboard players get @s addi_mp_point
 						
 						execute if score @s 2000001_level matches ..9 run function ARG(_PATH)get_next_level
-						execute if score @s 2000001_level matches 1.. run data modify block 250 0 0 front_text.messages[0] set value '[{"translate":"skill.description.level.current","with":[{"nbt":"temp[0]","storage":"ui:main"}]},{"translate":"skill.description.level.2000001","with":[{"nbt":"temp[1]","storage":"ui:main"},{"nbt":"temp[2]","storage":"ui:main"}]},{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}]'
+						execute if score @s 2000001_level matches 1.. run data modify block 250 0 0 front_text.messages[0] set value [{"translate":"skill.description.level.current","with":[{"nbt":"temp[0]","storage":"ui:main","plain":true}]},{"translate":"skill.description.level.2000001","with":[{"nbt":"temp[1]","storage":"ui:main","plain":true},{"nbt":"temp[2]","storage":"ui:main","plain":true}]},{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}]
 						data modify storage ui:main skill_level_info append from block 250 0 0 front_text.messages[0]
 					}
 					
@@ -146,12 +146,12 @@ namespace 2() as virtual
 						execute store result storage ui:main temp[3] int 1 run scoreboard players get @s 2000001_level
 						execute store result storage ui:main temp[4] int 1 run scoreboard players get @s addi_mp_level
 						execute store result storage ui:main temp[5] int 1 run scoreboard players get @s addi_mp_point
-						data modify block 250 0 0 front_text.messages[0] set value '[{"translate":"skill.description.level.next","with":[{"nbt":"temp[3]","storage":"ui:main"}]},{"translate":"skill.description.level.2000001","with":[{"nbt":"temp[4]","storage":"ui:main"},{"nbt":"temp[5]","storage":"ui:main"}]}]'
+						data modify block 250 0 0 front_text.messages[0] set value [{"translate":"skill.description.level.next","with":[{"nbt":"temp[3]","storage":"ui:main","plain":true}]},{"translate":"skill.description.level.2000001","with":[{"nbt":"temp[4]","storage":"ui:main","plain":true},{"nbt":"temp[5]","storage":"ui:main","plain":true}]}]
 						
 						scoreboard players remove @s 2000001_level 1
 						execute store result score @s addi_mp_level run data get storage ui:main temp[1]
 						execute store result score @s addi_mp_point run data get storage ui:main temp[2]
-						execute if score @s 2000001_level matches 1.. run data modify block 250 0 0 front_text.messages[0] set value '["\\n",{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}]'
+						execute if score @s 2000001_level matches 1.. run data modify block 250 0 0 front_text.messages[0] set value ["\n",{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}]
 					}
 				}
 			}
@@ -181,7 +181,7 @@ namespace 2() as virtual
 					scoreboard players operation @s mguar_buff_num = @s 2001002_rate
 					function ARG(_PATH)mguar/add_h
 					```
-					# print(f"attribute @s minecraft:luck modifier add {simple_buff_info_dict['mguar']['uuid']} h 0 add")
+					# print(f"attribute @s minecraft:luck modifier add {simple_buff_info_dict[mguar][uuid]} h 0 add")
 					```
 					# VVV since we got mp change below, no need to update the bar display VVV
 					# tag @s add hp_mp_varying
@@ -229,7 +229,7 @@ namespace 2() as virtual
 					
 					func set_description()
 					{
-						data modify block 250 0 0 front_text.messages[0] set value '""'
+						data modify block 250 0 0 front_text.messages[0] set value ""
 						data modify storage ui:main temp set value [0, 0, 0, 0, 0, 0, 0, 0]
 						execute store result storage ui:main temp[0] int 1 run scoreboard players get @s 2001002_level
 						execute store result storage ui:main temp[1] int 1 run scoreboard players get @s 2001002_mp
@@ -237,7 +237,7 @@ namespace 2() as virtual
 						execute store result storage ui:main temp[3] int 1 run scoreboard players get @s 2001002_time
 						
 						execute if score @s 2001002_level matches ..19 run function ARG(_PATH)get_next_level
-						execute if score @s 2001002_level matches 1.. run data modify block 250 0 0 front_text.messages[0] set value '[{"translate":"skill.description.level.current","with":[{"nbt":"temp[0]","storage":"ui:main"}]},{"translate":"skill.description.level.2001002","with":[{"nbt":"temp[1]","storage":"ui:main"},{"nbt":"temp[2]","storage":"ui:main"},{"nbt":"temp[3]","storage":"ui:main"}]},{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}]'
+						execute if score @s 2001002_level matches 1.. run data modify block 250 0 0 front_text.messages[0] set value [{"translate":"skill.description.level.current","with":[{"nbt":"temp[0]","storage":"ui:main","plain":true}]},{"translate":"skill.description.level.2001002","with":[{"nbt":"temp[1]","storage":"ui:main","plain":true},{"nbt":"temp[2]","storage":"ui:main","plain":true},{"nbt":"temp[3]","storage":"ui:main","plain":true}]},{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}]
 						data modify storage ui:main skill_level_info append from block 250 0 0 front_text.messages[0]
 					}
 					
@@ -250,24 +250,24 @@ namespace 2() as virtual
 						execute store result storage ui:main temp[5] int 1 run scoreboard players get @s 2001002_mp
 						execute store result storage ui:main temp[6] int 1 run scoreboard players get @s 2001002_rate
 						execute store result storage ui:main temp[7] int 1 run scoreboard players get @s 2001002_time
-						data modify block 250 0 0 front_text.messages[0] set value '[{"translate":"skill.description.level.next","with":[{"nbt":"temp[4]","storage":"ui:main"}]},{"translate":"skill.description.level.2001002","with":[{"nbt":"temp[5]","storage":"ui:main"},{"nbt":"temp[6]","storage":"ui:main"},{"nbt":"temp[7]","storage":"ui:main"}]}]'
+						data modify block 250 0 0 front_text.messages[0] set value [{"translate":"skill.description.level.next","with":[{"nbt":"temp[4]","storage":"ui:main","plain":true}]},{"translate":"skill.description.level.2001002","with":[{"nbt":"temp[5]","storage":"ui:main","plain":true},{"nbt":"temp[6]","storage":"ui:main","plain":true},{"nbt":"temp[7]","storage":"ui:main","plain":true}]}]
 						
 						scoreboard players remove @s 2001002_level 1
 						execute store result score @s 2001002_mp run data get storage ui:main temp[1]
 						execute store result score @s 2001002_rate run data get storage ui:main temp[2]
 						execute store result score @s 2001002_time run data get storage ui:main temp[3]
-						execute if score @s 2001002_level matches 1.. run data modify block 250 0 0 front_text.messages[0] set value '["\\n",{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}]'
+						execute if score @s 2001002_level matches 1.. run data modify block 250 0 0 front_text.messages[0] set value ["\n",{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}]
 					}
 				```
 				for i in range(20):
-					print(f'''
+					print(f"""
 					func {i+1}()
 					{{
 						scoreboard players set @s 2001002_mp {i//5*2+6}
 						scoreboard players set @s 2001002_rate {i*3+i//5*4+11}
 						scoreboard players set @s 2001002_time {i*21+i//5*30+111}
 					}}
-					''')
+					""")
 				```
 				}
 				
@@ -306,7 +306,7 @@ namespace 2() as virtual
 					scoreboard players operation @s wdef_buff_time = @s wdef_buff_tmax
 					function skill:buff/wdef/add_1
 					```
-					# print(f"attribute @s minecraft:luck modifier add {buff_info_dict['wdef']['uuid']} 1 0 add")
+					# print(f"attribute @s minecraft:luck modifier add {buff_info_dict[wdef][uuid]} 1 0 add")
 					```
 					# VVV since we got mp change below, no need to update the bar display VVV
 					# tag @s add hp_mp_varying
@@ -339,7 +339,7 @@ namespace 2() as virtual
 					
 					func set_description()
 					{
-						data modify block 250 0 0 front_text.messages[0] set value '""'
+						data modify block 250 0 0 front_text.messages[0] set value ""
 						data modify storage ui:main temp set value [0, 0, 0, 0, 0, 0, 0, 0]
 						execute store result storage ui:main temp[0] int 1 run scoreboard players get @s 2001003_level
 						execute store result storage ui:main temp[1] int 1 run scoreboard players get @s 2001003_mp
@@ -347,7 +347,7 @@ namespace 2() as virtual
 						execute store result storage ui:main temp[3] int 1 run scoreboard players get @s 2001003_time
 						
 						execute if score @s 2001003_level matches ..19 run function ARG(_PATH)get_next_level
-						execute if score @s 2001003_level matches 1.. run data modify block 250 0 0 front_text.messages[0] set value '[{"translate":"skill.description.level.current","with":[{"nbt":"temp[0]","storage":"ui:main"}]},{"translate":"skill.description.level.2001003","with":[{"nbt":"temp[1]","storage":"ui:main"},{"nbt":"temp[2]","storage":"ui:main"},{"nbt":"temp[3]","storage":"ui:main"}]},{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}]'
+						execute if score @s 2001003_level matches 1.. run data modify block 250 0 0 front_text.messages[0] set value [{"translate":"skill.description.level.current","with":[{"nbt":"temp[0]","storage":"ui:main","plain":true}]},{"translate":"skill.description.level.2001003","with":[{"nbt":"temp[1]","storage":"ui:main","plain":true},{"nbt":"temp[2]","storage":"ui:main","plain":true},{"nbt":"temp[3]","storage":"ui:main","plain":true}]},{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}]
 						data modify storage ui:main skill_level_info append from block 250 0 0 front_text.messages[0]
 					}
 					
@@ -360,22 +360,22 @@ namespace 2() as virtual
 						execute store result storage ui:main temp[5] int 1 run scoreboard players get @s 2001003_mp
 						execute store result storage ui:main temp[6] int 2 run scoreboard players get @s 2001003_level
 						execute store result storage ui:main temp[7] int 1 run scoreboard players get @s 2001003_time
-						data modify block 250 0 0 front_text.messages[0] set value '[{"translate":"skill.description.level.next","with":[{"nbt":"temp[4]","storage":"ui:main"}]},{"translate":"skill.description.level.2001003","with":[{"nbt":"temp[5]","storage":"ui:main"},{"nbt":"temp[6]","storage":"ui:main"},{"nbt":"temp[7]","storage":"ui:main"}]}]'
+						data modify block 250 0 0 front_text.messages[0] set value [{"translate":"skill.description.level.next","with":[{"nbt":"temp[4]","storage":"ui:main","plain":true}]},{"translate":"skill.description.level.2001003","with":[{"nbt":"temp[5]","storage":"ui:main","plain":true},{"nbt":"temp[6]","storage":"ui:main","plain":true},{"nbt":"temp[7]","storage":"ui:main","plain":true}]}]
 						
 						scoreboard players remove @s 2001003_level 1
 						execute store result score @s 2001003_mp run data get storage ui:main temp[1]
 						execute store result score @s 2001003_time run data get storage ui:main temp[3]
-						execute if score @s 2001003_level matches 1.. run data modify block 250 0 0 front_text.messages[0] set value '["\\n",{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}]'
+						execute if score @s 2001003_level matches 1.. run data modify block 250 0 0 front_text.messages[0] set value ["\n",{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}]
 					}
 				```
 				for i in range(20):
-					print(f'''
+					print(f"""
 					func {i+1}()
 					{{
 						scoreboard players set @s 2001003_mp {i//5*2+8+i//10+i//15}
 						scoreboard players set @s 2001003_time {i*14+i//5*20+i//10*10+i//15*10+54}
 					}}
-					''')
+					""")
 				```
 				}
 				
@@ -481,7 +481,7 @@ namespace 2() as virtual
 					
 					func set_description()
 					{
-						data modify block 250 0 0 front_text.messages[0] set value '""'
+						data modify block 250 0 0 front_text.messages[0] set value ""
 						data modify storage ui:main temp set value [0, 0, 0, 0, 0, 0, 0, 0]
 						execute store result storage ui:main temp[0] int 1 run scoreboard players get @s 2001004_level
 						execute store result storage ui:main temp[1] int 1 run scoreboard players get @s 2001004_mp
@@ -489,7 +489,7 @@ namespace 2() as virtual
 						execute store result storage ui:main temp[3] int 1 run scoreboard players get @s 2001004_mastery
 						
 						execute if score @s 2001004_level matches ..19 run function ARG(_PATH)get_next_level
-						execute if score @s 2001004_level matches 1.. run data modify block 250 0 0 front_text.messages[0] set value '[{"translate":"skill.description.level.current","with":[{"nbt":"temp[0]","storage":"ui:main"}]},{"translate":"skill.description.level.2001004","with":[{"nbt":"temp[1]","storage":"ui:main"},{"nbt":"temp[2]","storage":"ui:main"},{"nbt":"temp[3]","storage":"ui:main"}]},{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}]'
+						execute if score @s 2001004_level matches 1.. run data modify block 250 0 0 front_text.messages[0] set value [{"translate":"skill.description.level.current","with":[{"nbt":"temp[0]","storage":"ui:main","plain":true}]},{"translate":"skill.description.level.2001004","with":[{"nbt":"temp[1]","storage":"ui:main","plain":true},{"nbt":"temp[2]","storage":"ui:main","plain":true},{"nbt":"temp[3]","storage":"ui:main","plain":true}]},{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}]
 						data modify storage ui:main skill_level_info append from block 250 0 0 front_text.messages[0]
 					}
 					
@@ -502,26 +502,26 @@ namespace 2() as virtual
 						execute store result storage ui:main temp[5] int 1 run scoreboard players get @s 2001004_mp
 						execute store result storage ui:main temp[6] int 1 run scoreboard players get @s 2001004_attack
 						execute store result storage ui:main temp[7] int 1 run scoreboard players get @s 2001004_mastery
-						data modify block 250 0 0 front_text.messages[0] set value '[{"translate":"skill.description.level.next","with":[{"nbt":"temp[4]","storage":"ui:main"}]},{"translate":"skill.description.level.2001004","with":[{"nbt":"temp[5]","storage":"ui:main"},{"nbt":"temp[6]","storage":"ui:main"},{"nbt":"temp[7]","storage":"ui:main"}]}]'
+						data modify block 250 0 0 front_text.messages[0] set value [{"translate":"skill.description.level.next","with":[{"nbt":"temp[4]","storage":"ui:main","plain":true}]},{"translate":"skill.description.level.2001004","with":[{"nbt":"temp[5]","storage":"ui:main","plain":true},{"nbt":"temp[6]","storage":"ui:main","plain":true},{"nbt":"temp[7]","storage":"ui:main","plain":true}]}]
 						
 						scoreboard players remove @s 2001004_level 1
 						execute store result score @s 2001004_mp run data get storage ui:main temp[1]
 						execute store result score @s 2001004_attack run data get storage ui:main temp[2]
 						execute store result score @s 2001004_mastery run data get storage ui:main temp[3]
-						execute if score @s 2001004_level matches 1.. run data modify block 250 0 0 front_text.messages[0] set value '["\\n",{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}]'
+						execute if score @s 2001004_level matches 1.. run data modify block 250 0 0 front_text.messages[0] set value ["\n",{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}]
 					}
 				```
 				mp_list = [6,6,6,6,7,7,7,8,8,9,9,10,10,11,11,12,12,13,13,14]
 				atk_list = [20,21,22,23,26,27,28,31,32,35,36,39,40,43,44,47,48,51,52,55]
 				for i in range(20):
-					print(f'''
+					print(f"""
 					func {i+1}()
 					{{
 						scoreboard players set @s 2001004_mp {mp_list[i]}
 						scoreboard players set @s 2001004_attack {atk_list[i]}
 						scoreboard players set @s 2001004_mastery {i//2*5+15}
 					}}
-					''')
+					""")
 				```
 				}
 				
@@ -627,7 +627,7 @@ namespace 2() as virtual
 					
 					func set_description()
 					{
-						data modify block 250 0 0 front_text.messages[0] set value '""'
+						data modify block 250 0 0 front_text.messages[0] set value ""
 						data modify storage ui:main temp set value [0, 0, 0, 0, 0, 0, 0, 0]
 						execute store result storage ui:main temp[0] int 1 run scoreboard players get @s 2001005_level
 						execute store result storage ui:main temp[1] int 1 run scoreboard players get @s 2001005_mp
@@ -635,7 +635,7 @@ namespace 2() as virtual
 						execute store result storage ui:main temp[3] int 1 run scoreboard players get @s 2001005_mastery
 						
 						execute if score @s 2001005_level matches ..19 run function ARG(_PATH)get_next_level
-						execute if score @s 2001005_level matches 1.. run data modify block 250 0 0 front_text.messages[0] set value '[{"translate":"skill.description.level.current","with":[{"nbt":"temp[0]","storage":"ui:main"}]},{"translate":"skill.description.level.2001005","with":[{"nbt":"temp[1]","storage":"ui:main"},{"nbt":"temp[2]","storage":"ui:main"},{"nbt":"temp[3]","storage":"ui:main"}]},{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}]'
+						execute if score @s 2001005_level matches 1.. run data modify block 250 0 0 front_text.messages[0] set value [{"translate":"skill.description.level.current","with":[{"nbt":"temp[0]","storage":"ui:main","plain":true}]},{"translate":"skill.description.level.2001005","with":[{"nbt":"temp[1]","storage":"ui:main","plain":true},{"nbt":"temp[2]","storage":"ui:main","plain":true},{"nbt":"temp[3]","storage":"ui:main","plain":true}]},{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}]
 						data modify storage ui:main skill_level_info append from block 250 0 0 front_text.messages[0]
 					}
 					
@@ -648,26 +648,26 @@ namespace 2() as virtual
 						execute store result storage ui:main temp[5] int 1 run scoreboard players get @s 2001005_mp
 						execute store result storage ui:main temp[6] int 1 run scoreboard players get @s 2001005_attack
 						execute store result storage ui:main temp[7] int 1 run scoreboard players get @s 2001005_mastery
-						data modify block 250 0 0 front_text.messages[0] set value '[{"translate":"skill.description.level.next","with":[{"nbt":"temp[4]","storage":"ui:main"}]},{"translate":"skill.description.level.2001005","with":[{"nbt":"temp[5]","storage":"ui:main"},{"nbt":"temp[6]","storage":"ui:main"},{"nbt":"temp[7]","storage":"ui:main"}]}]'
+						data modify block 250 0 0 front_text.messages[0] set value [{"translate":"skill.description.level.next","with":[{"nbt":"temp[4]","storage":"ui:main","plain":true}]},{"translate":"skill.description.level.2001005","with":[{"nbt":"temp[5]","storage":"ui:main","plain":true},{"nbt":"temp[6]","storage":"ui:main","plain":true},{"nbt":"temp[7]","storage":"ui:main","plain":true}]}]
 						
 						scoreboard players remove @s 2001005_level 1
 						execute store result score @s 2001005_mp run data get storage ui:main temp[1]
 						execute store result score @s 2001005_attack run data get storage ui:main temp[2]
 						execute store result score @s 2001005_mastery run data get storage ui:main temp[3]
-						execute if score @s 2001005_level matches 1.. run data modify block 250 0 0 front_text.messages[0] set value '["\\n",{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}]'
+						execute if score @s 2001005_level matches 1.. run data modify block 250 0 0 front_text.messages[0] set value ["\n",{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}]
 					}
 				```
 				mp_list = [10,10,10,10,11,11,11,12,12,13,13,14,14,15,15,16,17,18,19,20]
 				atk_list = [11,12,13,14,16,17,18,20,21,23,24,26,27,29,30,32,34,36,38,40]
 				for i in range(20):
-					print(f'''
+					print(f"""
 					func {i+1}()
 					{{
 						scoreboard players set @s 2001005_mp {mp_list[i]}
 						scoreboard players set @s 2001005_attack {atk_list[i]}
 						scoreboard players set @s 2001005_mastery {i//2*5+15}
 					}}
-					''')
+					""")
 				```
 				}
 				
