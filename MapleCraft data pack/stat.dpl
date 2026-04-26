@@ -34,11 +34,7 @@ namespace stat()
 		func set()
 		{
 			scoreboard players operation @s real_speed = #GLOBAL temp
-			
-			item replace block 250 1 0 container.0 with minecraft:carved_pumpkin
-			data modify block 250 1 0 Items[0].components.minecraft:attribute_modifiers set from entity @s equipment.head.components.minecraft:attribute_modifiers
-			execute store result block 250 1 0 Items[0].components.minecraft:attribute_modifiers[0].amount double 0.01 run scoreboard players get @s real_speed
-			item replace entity @s armor.head from block 250 1 0 container.0
+			item modify entity @s armor.head {function:"minecraft:set_attributes",modifiers:[{attribute:"minecraft:movement_speed",id:"player_speed",amount:{type:"minecraft:score",target:"this",score:"real_speed",scale:0.01},operation:"add_multiplied_base",slot:"head"}]}
 		}
 	}
 	
@@ -468,10 +464,6 @@ namespace stat()
 			# int and speed
 			execute unless score @s equip_int matches 1.. run data modify storage ui:main int set value [{"score":{"objective":"INT","name":"@s"},"font":"ui:window/stat","color":"black"},{"score":{"objective":"INT","name":"@s"},"font":"ui:window/stat_back"}]
 			execute if score @s equip_int matches 1.. run function ARG(_PATH)int_add
-			
-			execute store result score #GLOBAL temp run attribute @s minecraft:movement_speed get 10000
-			scoreboard players add #GLOBAL temp 1
-			scoreboard players operation #GLOBAL temp /= #10 const
 			
 			scoreboard players operation #GLOBAL temp = @s real_speed
 			scoreboard players add #GLOBAL temp 100

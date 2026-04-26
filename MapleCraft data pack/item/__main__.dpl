@@ -35,9 +35,8 @@ namespace use_equip_template(equip) as virtual
 		
 		# equip new ARG(equip)
 		item replace block 250 1 0 container.0 with minecraft:carved_pumpkin
-		data modify block 250 1 0 Items[0].components.minecraft:custom_data set from entity @s equipment.head.components.minecraft:custom_data
+		data modify block 250 1 0 Items[0].components set from entity @s equipment.head.components
 		data modify block 250 1 0 Items[0].components.minecraft:custom_data.ARG(equip) set from storage item:main equip
-		
 		function item:use/equip_numeric/apply
 		
 		item replace entity @s armor.head from block 250 1 0 container.0
@@ -430,15 +429,15 @@ namespace item()
 			func apply()
 			{
 				# need to store item info in storage item:main equip
-				execute store result score #GLOBAL temp run data get storage item:main equip.weapon_attack
+				execute store result score #GLOBAL temp run data get storage item:main equip.minecraft:custom_data.weapon_attack
 				scoreboard players operation @s weapon_attack += #GLOBAL temp
-				execute store result score #GLOBAL temp run data get storage item:main equip.magic_attack
+				execute store result score #GLOBAL temp run data get storage item:main equip.minecraft:custom_data.magic_attack
 				scoreboard players operation @s weapon_mattack += #GLOBAL temp
 				
-				execute store result score #GLOBAL temp run data get storage item:main equip.hp
+				execute store result score #GLOBAL temp run data get storage item:main equip.minecraft:custom_data.hp
 				scoreboard players operation @s hp_max_base += #GLOBAL temp
 				scoreboard players operation @s equip_hp += #GLOBAL temp
-				execute store result score #GLOBAL temp run data get storage item:main equip.mp
+				execute store result score #GLOBAL temp run data get storage item:main equip.minecraft:custom_data.mp
 				scoreboard players operation @s mp_max_base += #GLOBAL temp
 				scoreboard players operation @s equip_mp += #GLOBAL temp
 				execute unless score @s hyper_buff_time matches 1.. run function ARG(_PATH)update_hp_mp
@@ -447,31 +446,31 @@ namespace item()
 				function bar_display:change/hp/recovered
 				function bar_display:change/mp/recovered
 				
-				execute store result score #GLOBAL temp run data get storage item:main equip.defense
+				execute store result score #GLOBAL temp run data get storage item:main equip.minecraft:custom_data.defense
 				scoreboard players operation @s weapon_defense += #GLOBAL temp
-				execute store result score #GLOBAL temp run data get storage item:main equip.magic_defense
+				execute store result score #GLOBAL temp run data get storage item:main equip.minecraft:custom_data.magic_defense
 				scoreboard players operation @s magic_defense += #GLOBAL temp
-				execute store result score #GLOBAL temp run data get storage item:main equip.accuracy
+				execute store result score #GLOBAL temp run data get storage item:main equip.minecraft:custom_data.accuracy
 				scoreboard players operation @s equip_accuracy += #GLOBAL temp
-				execute store result score #GLOBAL temp run data get storage item:main equip.avoidability
+				execute store result score #GLOBAL temp run data get storage item:main equip.minecraft:custom_data.avoidability
 				scoreboard players operation @s equip_avoid += #GLOBAL temp
 				execute if score #GLOBAL temp matches 1.. run function stat:calc_avoid/run
 				
-				execute store result score #GLOBAL temp run data get storage item:main equip.speed
+				execute store result score #GLOBAL temp run data get storage item:main equip.minecraft:custom_data.speed
 				execute store result score #GLOBAL temp run scoreboard players operation @s speed += #GLOBAL temp
 				scoreboard players operation #GLOBAL temp < #40 const
 				execute store result block 250 1 0 Items[0].components.minecraft:attribute_modifiers[0].amount double 0.01 run scoreboard players operation @s real_speed = #GLOBAL temp
 				
-				execute store result score #GLOBAL temp run data get storage item:main equip.str
+				execute store result score #GLOBAL temp run data get storage item:main equip.minecraft:custom_data.str
 				scoreboard players operation @s STR += #GLOBAL temp
 				scoreboard players operation @s equip_str += #GLOBAL temp
-				execute store result score #GLOBAL temp run data get storage item:main equip.dex
+				execute store result score #GLOBAL temp run data get storage item:main equip.minecraft:custom_data.dex
 				scoreboard players operation @s DEX += #GLOBAL temp
 				scoreboard players operation @s equip_dex += #GLOBAL temp
-				execute store result score #GLOBAL temp run data get storage item:main equip.int
+				execute store result score #GLOBAL temp run data get storage item:main equip.minecraft:custom_data.int
 				scoreboard players operation @s INT += #GLOBAL temp
 				scoreboard players operation @s equip_int += #GLOBAL temp
-				execute store result score #GLOBAL temp run data get storage item:main equip.luk
+				execute store result score #GLOBAL temp run data get storage item:main equip.minecraft:custom_data.luk
 				scoreboard players operation @s LUK += #GLOBAL temp
 				scoreboard players operation @s equip_luk += #GLOBAL temp
 			}
@@ -533,7 +532,7 @@ namespace item()
 				
 				# reset speed attribute modifier
 				item replace block 250 1 0 container.0 with minecraft:carved_pumpkin
-				data modify block 250 1 0 Items[0].components.minecraft:custom_data set from entity @s equipment.head.components.minecraft:custom_data
+				data modify block 250 1 0 Items[0].components set from entity @s equipment.head.components
 				execute store result score #GLOBAL temp run scoreboard players operation @s speed -= #GLOBAL temp
 				scoreboard players operation #GLOBAL temp < #40 const
 				execute store result block 250 1 0 Items[0].components.minecraft:attribute_modifiers[0].amount double 0.01 run scoreboard players operation @s real_speed = #GLOBAL temp
@@ -647,7 +646,7 @@ namespace item()
 					playsound minecraft:item.equip player @s
 					
 					data modify storage item:main equip set from entity @s SelectedItem.components
-					tellraw @s {"translate":"item.notice.equip_item","font":"minecraft:uniform","with":[{"nbt":"equip.display.Name","storage":"item:main","interpret":true}]}
+					tellraw @s {"translate":"item.notice.equip_item","font":"minecraft:uniform","with":[{"nbt":"equip.minecraft:custom_name","storage":"item:main","interpret":true}]}
 					item replace entity @s weapon.mainhand with minecraft:air
 					
 					# replace original equip
@@ -704,7 +703,7 @@ namespace item()
 					playsound minecraft:item.equip player @s
 					
 					data modify storage item:main equip set from entity @s SelectedItem.components
-					tellraw @s {"translate":"item.notice.equip_item","font":"minecraft:uniform","with":[{"nbt":"equip.display.Name","storage":"item:main","interpret":true}]}
+					tellraw @s {"translate":"item.notice.equip_item","font":"minecraft:uniform","with":[{"nbt":"equip.minecraft:custom_name","storage":"item:main","interpret":true}]}
 					item replace entity @s weapon.mainhand with minecraft:air
 					
 					# replace original equips
