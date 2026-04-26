@@ -3,69 +3,69 @@ namespace equip_window() as virtual
 	func display()
 	{
 		# title
-		tellraw @s {"text":"\n\n\n\uE000\n\uE001","font":"ui:window/equip"}
+		tellraw @s {"text":"\n\n\n\uE000\n\uE001","font":"ui:window/equip","shadow_color":0}
 		
 		# cap
 		function ARG(_PATH)cap/add
-		tellraw @s [{"text":"\uF829\uF823","font":"space:default"},{"nbt":"equip.cap.event","storage":"ui:main","interpret":true},"A3",{"text":"\uE002","font":"ui:window/equip"},"A985",{"nbt":"equip.cap.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.cap.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"}]
-		tellraw @s [{"text":"\uF829\uF823","font":"space:default"},{"nbt":"equip.cap.event","storage":"ui:main","interpret":true},"A3",{"text":"\uE003","font":"ui:window/equip"},"A985",{"nbt":"equip.cap.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.cap.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"}]
+		tellraw @s [{"text":"\uF829\uF823","font":"space:default","shadow_color":0},{"nbt":"equip.cap.event","storage":"ui:main","interpret":true},"A3",{"text":"\uE002","font":"ui:window/equip"},"A985",{"nbt":"equip.cap.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.cap.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"}]
+		tellraw @s [{"text":"\uF829\uF823","font":"space:default","shadow_color":0},{"nbt":"equip.cap.event","storage":"ui:main","interpret":true},"A3",{"text":"\uE003","font":"ui:window/equip"},"A985",{"nbt":"equip.cap.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.cap.minecraft:custom_data.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"}]
 		
 		# forehead and ring1 ring2
 		function ARG(_PATH)second_line/add
-		tellraw @s [{"text":"\uF829\uF823","font":"space:default"},{"nbt":"equip.forehead.event","storage":"ui:main","interpret":true},"\uF829\uF821",{"nbt":"equip.ring1.event","storage":"ui:main","interpret":true},{"nbt":"equip.ring2.event","storage":"ui:main","interpret":true},"B94",{"text":"\uE004","font":"ui:window/equip"},"A985",[{"nbt":"equip.forehead.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.forehead.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.forehead.icon[0]","storage":"ui:main","interpret":true}],"\uF82A\uF821",[{"nbt":"equip.ring1.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.ring1.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.ring1.icon[0]","storage":"ui:main","interpret":true}],"\uF829\uF821",[{"nbt":"equip.ring2.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.ring2.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"}]]
-		tellraw @s [{"text":"\uF829\uF823","font":"space:default"},{"nbt":"equip.forehead.event","storage":"ui:main","interpret":true},"\uF829\uF821",{"nbt":"equip.ring1.event","storage":"ui:main","interpret":true},{"nbt":"equip.ring2.event","storage":"ui:main","interpret":true},"B94",{"text":"\uE005","font":"ui:window/equip"},"A985",[{"nbt":"equip.forehead.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.forehead.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.forehead.icon[0]","storage":"ui:main","interpret":true}],"\uF82A\uF821",[{"nbt":"equip.ring1.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.ring1.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.ring1.icon[0]","storage":"ui:main","interpret":true}],"\uF829\uF821",[{"nbt":"equip.ring2.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.ring2.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"}]]
+		tellraw @s [{"text":"\uF829\uF823","font":"space:default","shadow_color":0},{"nbt":"equip.forehead.event","storage":"ui:main","interpret":true},"\uF829\uF821",{"nbt":"equip.ring1.event","storage":"ui:main","interpret":true},{"nbt":"equip.ring2.event","storage":"ui:main","interpret":true},"B94",{"text":"\uE004","font":"ui:window/equip"},"A985",[{"nbt":"equip.forehead.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.forehead.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.forehead.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true}],"\uF82A\uF821",[{"nbt":"equip.ring1.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.ring1.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.ring1.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true}],"\uF829\uF821",[{"nbt":"equip.ring2.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.ring2.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"}]]
+		tellraw @s [{"text":"\uF829\uF823","font":"space:default","shadow_color":0},{"nbt":"equip.forehead.event","storage":"ui:main","interpret":true},"\uF829\uF821",{"nbt":"equip.ring1.event","storage":"ui:main","interpret":true},{"nbt":"equip.ring2.event","storage":"ui:main","interpret":true},"B94",{"text":"\uE005","font":"ui:window/equip"},"A985",[{"nbt":"equip.forehead.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.forehead.minecraft:custom_data.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.forehead.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true}],"\uF82A\uF821",[{"nbt":"equip.ring1.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.ring1.minecraft:custom_data.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.ring1.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true}],"\uF829\uF821",[{"nbt":"equip.ring2.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.ring2.minecraft:custom_data.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"}]]
 		
 		# face and ear
 		function ARG(_PATH)third_line/add
-		tellraw @s [{"text":"\uF82A\uF823","font":"space:default"},{"nbt":"equip.face.event","storage":"ui:main","interpret":true},"\uF821",{"nbt":"equip.ear.event","storage":"ui:main","interpret":true},"B4",{"text":"\uE006","font":"ui:window/equip"},"A84",[{"nbt":"equip.face.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.face.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.face.icon[0]","storage":"ui:main","interpret":true}],"\uF829",[{"nbt":"equip.ear.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.ear.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"}]]
-		tellraw @s [{"text":"\uF82A\uF823","font":"space:default"},{"nbt":"equip.face.event","storage":"ui:main","interpret":true},"\uF821",{"nbt":"equip.ear.event","storage":"ui:main","interpret":true},"B4",{"text":"\uE007","font":"ui:window/equip"},"A84",[{"nbt":"equip.face.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.face.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.face.icon[0]","storage":"ui:main","interpret":true}],"\uF829",[{"nbt":"equip.ear.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.ear.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"}]]
+		tellraw @s [{"text":"\uF82A\uF823","font":"space:default","shadow_color":0},{"nbt":"equip.face.event","storage":"ui:main","interpret":true},"\uF821",{"nbt":"equip.ear.event","storage":"ui:main","interpret":true},"B4",{"text":"\uE006","font":"ui:window/equip"},"A84",[{"nbt":"equip.face.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.face.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.face.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true}],"\uF829",[{"nbt":"equip.ear.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.ear.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"}]]
+		tellraw @s [{"text":"\uF82A\uF823","font":"space:default","shadow_color":0},{"nbt":"equip.face.event","storage":"ui:main","interpret":true},"\uF821",{"nbt":"equip.ear.event","storage":"ui:main","interpret":true},"B4",{"text":"\uE007","font":"ui:window/equip"},"A84",[{"nbt":"equip.face.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.face.minecraft:custom_data.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.face.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true}],"\uF829",[{"nbt":"equip.ear.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.ear.minecraft:custom_data.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"}]]
 		
 		# cape, cloth, pendant, weapon, shield
 		function ARG(_PATH)fourth_line/add
-		tellraw @s [{"text":"\uF822","font":"space:default"},{"nbt":"equip.cape.event","storage":"ui:main","interpret":true},"\uF821",{"nbt":"equip.cloth.event","storage":"ui:main","interpret":true},{"nbt":"equip.pendant.event","storage":"ui:main","interpret":true},"\uF821",{"nbt":"equip.weapon.event","storage":"ui:main","interpret":true},{"nbt":"equip.shield.event","storage":"ui:main","interpret":true},"B94",{"text":"\uE008","font":"ui:window/equip"},"B86",[{"nbt":"equip.cape.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.cape.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.cape.icon[0]","storage":"ui:main","interpret":true}],"\uF829\uF821",[{"nbt":"equip.cloth.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.cloth.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.cloth.icon[0]","storage":"ui:main","interpret":true}],"\uF829\uF821",[{"nbt":"equip.pendant.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.pendant.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.pendant.icon[0]","storage":"ui:main","interpret":true}],"\uF829",[{"nbt":"equip.weapon.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.weapon.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.weapon.icon[0]","storage":"ui:main","interpret":true}],"\uF829",[{"nbt":"equip.shield.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.shield.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"}]]
-		tellraw @s [{"text":"\uF822","font":"space:default"},{"nbt":"equip.cape.event","storage":"ui:main","interpret":true},"\uF821",{"nbt":"equip.cloth.event","storage":"ui:main","interpret":true},{"nbt":"equip.pendant.event","storage":"ui:main","interpret":true},"\uF821",{"nbt":"equip.weapon.event","storage":"ui:main","interpret":true},{"nbt":"equip.shield.event","storage":"ui:main","interpret":true},"B94",{"text":"\uE009","font":"ui:window/equip"},"B86",[{"nbt":"equip.cape.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.cape.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.cape.icon[0]","storage":"ui:main","interpret":true}],"\uF829\uF821",[{"nbt":"equip.cloth.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.cloth.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.cloth.icon[0]","storage":"ui:main","interpret":true}],"\uF829\uF821",[{"nbt":"equip.pendant.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.pendant.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.pendant.icon[0]","storage":"ui:main","interpret":true}],"\uF829",[{"nbt":"equip.weapon.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.weapon.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.weapon.icon[0]","storage":"ui:main","interpret":true}],"\uF829",[{"nbt":"equip.shield.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.shield.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"}]]
+		tellraw @s [{"text":"\uF822","font":"space:default","shadow_color":0},{"nbt":"equip.cape.event","storage":"ui:main","interpret":true},"\uF821",{"nbt":"equip.cloth.event","storage":"ui:main","interpret":true},{"nbt":"equip.pendant.event","storage":"ui:main","interpret":true},"\uF821",{"nbt":"equip.weapon.event","storage":"ui:main","interpret":true},{"nbt":"equip.shield.event","storage":"ui:main","interpret":true},"B94",{"text":"\uE008","font":"ui:window/equip"},"B86",[{"nbt":"equip.cape.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.cape.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.cape.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true}],"\uF829\uF821",[{"nbt":"equip.cloth.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.cloth.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.cloth.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true}],"\uF829\uF821",[{"nbt":"equip.pendant.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.pendant.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.pendant.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true}],"\uF829",[{"nbt":"equip.weapon.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.weapon.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.weapon.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true}],"\uF829",[{"nbt":"equip.shield.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.shield.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"}]]
+		tellraw @s [{"text":"\uF822","font":"space:default","shadow_color":0},{"nbt":"equip.cape.event","storage":"ui:main","interpret":true},"\uF821",{"nbt":"equip.cloth.event","storage":"ui:main","interpret":true},{"nbt":"equip.pendant.event","storage":"ui:main","interpret":true},"\uF821",{"nbt":"equip.weapon.event","storage":"ui:main","interpret":true},{"nbt":"equip.shield.event","storage":"ui:main","interpret":true},"B94",{"text":"\uE009","font":"ui:window/equip"},"B86",[{"nbt":"equip.cape.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.cape.minecraft:custom_data.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.cape.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true}],"\uF829\uF821",[{"nbt":"equip.cloth.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.cloth.minecraft:custom_data.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.cloth.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true}],"\uF829\uF821",[{"nbt":"equip.pendant.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.pendant.minecraft:custom_data.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.pendant.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true}],"\uF829",[{"nbt":"equip.weapon.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.weapon.minecraft:custom_data.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.weapon.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true}],"\uF829",[{"nbt":"equip.shield.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.shield.minecraft:custom_data.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"}]]
 		
 		# gloves, pants, shoes, ring3, ring4
 		function ARG(_PATH)fifth_line/add
-		tellraw @s [{"text":"\uF822","font":"space:default"},{"nbt":"equip.gloves.event","storage":"ui:main","interpret":true},"\uF821",{"nbt":"equip.pants.event","storage":"ui:main","interpret":true},{"nbt":"equip.shoes.event","storage":"ui:main","interpret":true},"\uF821",{"nbt":"equip.ring3.event","storage":"ui:main","interpret":true},{"nbt":"equip.ring4.event","storage":"ui:main","interpret":true},"B94",{"text":"\uE00A","font":"ui:window/equip"},"B86",[{"nbt":"equip.gloves.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.gloves.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.gloves.icon[0]","storage":"ui:main","interpret":true}],"\uF829\uF821",[{"nbt":"equip.pants.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.pants.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.pants.icon[0]","storage":"ui:main","interpret":true}],"\uF829\uF821",[{"nbt":"equip.shoes.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.shoes.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.shoes.icon[0]","storage":"ui:main","interpret":true}],"\uF829",[{"nbt":"equip.ring3.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.ring3.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.ring3.icon[0]","storage":"ui:main","interpret":true}],"\uF829",[{"nbt":"equip.ring4.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.ring4.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"}]]
-		tellraw @s [{"text":"\uF822","font":"space:default"},{"nbt":"equip.gloves.event","storage":"ui:main","interpret":true},"\uF821",{"nbt":"equip.pants.event","storage":"ui:main","interpret":true},{"nbt":"equip.shoes.event","storage":"ui:main","interpret":true},"\uF821",{"nbt":"equip.ring3.event","storage":"ui:main","interpret":true},{"nbt":"equip.ring4.event","storage":"ui:main","interpret":true},"B94",{"text":"\uE00B","font":"ui:window/equip"},"B86",[{"nbt":"equip.gloves.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.gloves.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.gloves.icon[0]","storage":"ui:main","interpret":true}],"\uF829\uF821",[{"nbt":"equip.pants.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.pants.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.pants.icon[0]","storage":"ui:main","interpret":true}],"\uF829\uF821",[{"nbt":"equip.shoes.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.shoes.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.shoes.icon[0]","storage":"ui:main","interpret":true}],"\uF829",[{"nbt":"equip.ring3.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.ring3.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.ring3.icon[0]","storage":"ui:main","interpret":true}],"\uF829",[{"nbt":"equip.ring4.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.ring4.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"}]]
+		tellraw @s [{"text":"\uF822","font":"space:default","shadow_color":0},{"nbt":"equip.gloves.event","storage":"ui:main","interpret":true},"\uF821",{"nbt":"equip.pants.event","storage":"ui:main","interpret":true},{"nbt":"equip.shoes.event","storage":"ui:main","interpret":true},"\uF821",{"nbt":"equip.ring3.event","storage":"ui:main","interpret":true},{"nbt":"equip.ring4.event","storage":"ui:main","interpret":true},"B94",{"text":"\uE00A","font":"ui:window/equip"},"B86",[{"nbt":"equip.gloves.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.gloves.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.gloves.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true}],"\uF829\uF821",[{"nbt":"equip.pants.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.pants.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.pants.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true}],"\uF829\uF821",[{"nbt":"equip.shoes.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.shoes.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.shoes.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true}],"\uF829",[{"nbt":"equip.ring3.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.ring3.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.ring3.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true}],"\uF829",[{"nbt":"equip.ring4.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.ring4.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip"}]]
+		tellraw @s [{"text":"\uF822","font":"space:default","shadow_color":0},{"nbt":"equip.gloves.event","storage":"ui:main","interpret":true},"\uF821",{"nbt":"equip.pants.event","storage":"ui:main","interpret":true},{"nbt":"equip.shoes.event","storage":"ui:main","interpret":true},"\uF821",{"nbt":"equip.ring3.event","storage":"ui:main","interpret":true},{"nbt":"equip.ring4.event","storage":"ui:main","interpret":true},"B94",{"text":"\uE00B","font":"ui:window/equip"},"B86",[{"nbt":"equip.gloves.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.gloves.minecraft:custom_data.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.gloves.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true}],"\uF829\uF821",[{"nbt":"equip.pants.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.pants.minecraft:custom_data.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.pants.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true}],"\uF829\uF821",[{"nbt":"equip.shoes.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.shoes.minecraft:custom_data.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.shoes.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true}],"\uF829",[{"nbt":"equip.ring3.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.ring3.minecraft:custom_data.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"},{"nbt":"equip.ring3.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true}],"\uF829",[{"nbt":"equip.ring4.minecraft:custom_data.icon[0]","storage":"ui:main","interpret":true,"font":"ui:window/equip_back"},{"nbt":"equip.ring4.minecraft:custom_data.icon[1]","storage":"ui:main","interpret":true,"font":"ui:window/equip"}]]
 		
 		# projectile
 		function ARG(_PATH)projectile/add
-		tellraw @s [{"text":"\uF82A\uF829\uF823","font":"space:default"},{"nbt":"equip.projectile.event","storage":"ui:main","interpret":true},{"text":"B5"},[{"text":"\uE00C","font":"ui:window/equip"},{"text":"A6","font":"space:default"},{"nbt":"equip.projectile.icon[0]","storage":"ui:main","interpret":true}]]
-		tellraw @s [{"text":"\uF82A\uF829\uF823","font":"space:default"},{"nbt":"equip.projectile.event","storage":"ui:main","interpret":true},{"text":"B5"},[{"text":"\uE00D","font":"ui:window/equip"},{"text":"A6","font":"space:default"},{"nbt":"equip.projectile.icon[1]","storage":"ui:main","interpret":true},{"text":"92","font":"space:default"},{"nbt":"equip.projectile.amount[0]","storage":"ui:main"},{"nbt":"equip.projectile.amount[1]","storage":"ui:main","font":"space:default"},{"nbt":"equip.projectile.amount[2]","storage":"ui:main"},{"nbt":"equip.projectile.amount[3]","storage":"ui:main","font":"space:default"},{"nbt":"equip.projectile.amount[4]","storage":"ui:main"},{"nbt":"equip.projectile.amount[5]","storage":"ui:main","font":"space:default"},{"nbt":"equip.projectile.amount[6]","storage":"ui:main"},{"nbt":"equip.projectile.amount[7]","storage":"ui:main","font":"space:default"}]]
+		tellraw @s [{"text":"\uF82A\uF829\uF823","font":"space:default","shadow_color":0},{"nbt":"equip.projectile.event","storage":"ui:main","interpret":true},{"text":"B5"},[{"text":"\uE00C","font":"ui:window/equip"},{"text":"A6","font":"space:default"},{"nbt":"equip.projectile.icon[0]","storage":"ui:main","interpret":true}]]
+		tellraw @s [{"text":"\uF82A\uF829\uF823","font":"space:default","shadow_color":0},{"nbt":"equip.projectile.event","storage":"ui:main","interpret":true},{"text":"B5"},[{"text":"\uE00D","font":"ui:window/equip"},{"text":"A6","font":"space:default"},{"nbt":"equip.projectile.icon[1]","storage":"ui:main","interpret":true},{"text":"92","font":"space:default"},{"nbt":"equip.projectile.amount[0]","storage":"ui:main","plain":true},{"nbt":"equip.projectile.amount[1]","storage":"ui:main","font":"space:default"},{"nbt":"equip.projectile.amount[2]","storage":"ui:main","plain":true},{"nbt":"equip.projectile.amount[3]","storage":"ui:main","font":"space:default"},{"nbt":"equip.projectile.amount[4]","storage":"ui:main","plain":true},{"nbt":"equip.projectile.amount[5]","storage":"ui:main","font":"space:default"},{"nbt":"equip.projectile.amount[6]","storage":"ui:main","plain":true},{"nbt":"equip.projectile.amount[7]","storage":"ui:main","font":"space:default"}]]
 		
 		# taming mob
 		# function ARG(_PATH)taming_mob/add
-		tellraw @s [{"text":"\uE00E","font":"ui:window/equip"}]
-		tellraw @s [{"text":"\uE00F","font":"ui:window/equip"}]
+		tellraw @s [{"text":"\uE00E","font":"ui:window/equip","shadow_color":0}]
+		tellraw @s [{"text":"\uE00F","font":"ui:window/equip","shadow_color":0}]
 		
 		# tail
-		tellraw @s {"text":"\uE010\n\uE011","font":"ui:window/equip"}
+		tellraw @s {"text":"\uE010\n\uE011","font":"ui:window/equip","shadow_color":0}
 	}
 		
 	folder cap()
 	{
 		func add()
 		{
-			execute unless entity @s[tag=cap_equipped] run data modify storage ui:main equip.cap set value {icon:['""','""'],event:'{"text":"\\uF829","font":"space:default"}'}
+			execute unless entity @s[tag=cap_equipped] run data modify storage ui:main equip.cap set value {custom_data:{icon:["",""]},event:{"text":"\uE012","font":"ui:window/equip"}}
 			execute if entity @s[tag=cap_equipped] run function ARG(_PATH)set
 		}
 		
 		func set()
 		{
 			data modify storage ui:main equip.cap set from entity @s equipment.head.components.minecraft:custom_data.cap
-			data modify block 250 0 0 front_text.messages[0] set value '["",{"nbt":"equip.cap.display.Name","storage":"ui:main","interpret":true}]'
+			data modify block 250 0 0 front_text.messages[0] set value ["",{"nbt":"equip.cap.minecraft:custom_name","storage":"ui:main","interpret":true}]
 			function ARG(_PATH)set_display
-			data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 156"},"hover_event":{"action":"show_text","value":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
+			data modify block 250 0 0 front_text.messages[0] set value {"text":"\uE012","font":"ui:window/equip","click_event":{"action":"run_command","command":"/trigger command set 156"},"hover_event":{"action":"show_text","value":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}
 			data modify storage ui:main equip.cap.event set from block 250 0 0 front_text.messages[0]
 		}
 		
 		func set_display()
 		{
-			data modify block 250 0 0 front_text.messages[0] set value '[{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true},"\\n",{"nbt":"equip.cap.display.Lore[0]","storage":"ui:main","interpret":true}]'
-			data remove storage ui:main equip.cap.display.Lore[0]
-			execute if data storage ui:main equip.cap.display.Lore[0] run function ARG(_PATH)set_display
+			data modify block 250 0 0 front_text.messages[0] set value [{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true},"\n",{"nbt":"equip.cap.minecraft:lore[0]","storage":"ui:main","interpret":true}]
+			data remove storage ui:main equip.cap.minecraft:lore[0]
+			execute if data storage ui:main equip.cap.minecraft:lore[0] run function ARG(_PATH)set_display
 		}
 	
 		func take_off()
@@ -89,24 +89,24 @@ namespace equip_window() as virtual
 		{
 			func add()
 			{
-				execute unless entity @s[tag=forehead_equipped] run data modify storage ui:main equip.forehead set value {icon:['""','""'],event:'{"text":"\\uF829","font":"space:default"}'}
+				execute unless entity @s[tag=forehead_equipped] run data modify storage ui:main equip.forehead set value {custom_data:{icon:["",""]},event:{"text":"\uE012","font":"ui:window/equip"}}
 				execute if entity @s[tag=forehead_equipped] run function ARG(_PATH)set
 			}
 			
 			func set()
 			{
 				data modify storage ui:main equip.forehead set from entity @s equipment.head.components.minecraft:custom_data.forehead
-				data modify block 250 0 0 front_text.messages[0] set value '["",{"nbt":"equip.forehead.display.Name","storage":"ui:main","interpret":true}]'
+				data modify block 250 0 0 front_text.messages[0] set value ["",{"nbt":"equip.forehead.minecraft:custom_name","storage":"ui:main","interpret":true}]
 				function ARG(_PATH)set_display
-				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 157"},"hover_event":{"action":"show_text","value":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
+				data modify block 250 0 0 front_text.messages[0] set value {"text":"\uE012","font":"ui:window/equip","click_event":{"action":"run_command","command":"/trigger command set 157"},"hover_event":{"action":"show_text","value":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}
 				data modify storage ui:main equip.forehead.event set from block 250 0 0 front_text.messages[0]
 			}
 			
 			func set_display()
 			{
-				data modify block 250 0 0 front_text.messages[0] set value '[{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true},"\\n",{"nbt":"equip.forehead.display.Lore[0]","storage":"ui:main","interpret":true}]'
-				data remove storage ui:main equip.forehead.display.Lore[0]
-				execute if data storage ui:main equip.forehead.display.Lore[0] run function ARG(_PATH)set_display
+				data modify block 250 0 0 front_text.messages[0] set value [{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true},"\n",{"nbt":"equip.forehead.minecraft:lore[0]","storage":"ui:main","interpret":true}]
+				data remove storage ui:main equip.forehead.minecraft:lore[0]
+				execute if data storage ui:main equip.forehead.minecraft:lore[0] run function ARG(_PATH)set_display
 			}
 		
 			func take_off()
@@ -121,24 +121,24 @@ namespace equip_window() as virtual
 		{
 			func add()
 			{
-				execute unless entity @s[tag=ring1_equipped] run data modify storage ui:main equip.ring1 set value {icon:['""','""'],event:'{"text":"\\uF829","font":"space:default"}'}
+				execute unless entity @s[tag=ring1_equipped] run data modify storage ui:main equip.ring1 set value {custom_data:{icon:["",""]},event:{"text":"\uE012","font":"ui:window/equip"}}
 				execute if entity @s[tag=ring1_equipped] run function ARG(_PATH)set
 			}
 			
 			func set()
 			{
 				data modify storage ui:main equip.ring1 set from entity @s equipment.head.components.minecraft:custom_data.ring1
-				data modify block 250 0 0 front_text.messages[0] set value '["",{"nbt":"equip.ring1.display.Name","storage":"ui:main","interpret":true}]'
+				data modify block 250 0 0 front_text.messages[0] set value ["",{"nbt":"equip.ring1.minecraft:custom_name","storage":"ui:main","interpret":true}]
 				function ARG(_PATH)set_display
-				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 158"},"hover_event":{"action":"show_text","value":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
+				data modify block 250 0 0 front_text.messages[0] set value {"text":"\uE012","font":"ui:window/equip","click_event":{"action":"run_command","command":"/trigger command set 158"},"hover_event":{"action":"show_text","value":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}
 				data modify storage ui:main equip.ring1.event set from block 250 0 0 front_text.messages[0]
 			}
 			
 			func set_display()
 			{
-				data modify block 250 0 0 front_text.messages[0] set value '[{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true},"\\n",{"nbt":"equip.ring1.display.Lore[0]","storage":"ui:main","interpret":true}]'
-				data remove storage ui:main equip.ring1.display.Lore[0]
-				execute if data storage ui:main equip.ring1.display.Lore[0] run function ARG(_PATH)set_display
+				data modify block 250 0 0 front_text.messages[0] set value [{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true},"\n",{"nbt":"equip.ring1.minecraft:lore[0]","storage":"ui:main","interpret":true}]
+				data remove storage ui:main equip.ring1.minecraft:lore[0]
+				execute if data storage ui:main equip.ring1.minecraft:lore[0] run function ARG(_PATH)set_display
 			}
 		
 			func take_off()
@@ -153,24 +153,24 @@ namespace equip_window() as virtual
 		{
 			func add()
 			{
-				execute unless entity @s[tag=ring2_equipped] run data modify storage ui:main equip.ring2 set value {icon:['""','""'],event:'{"text":"\\uF829","font":"space:default"}'}
+				execute unless entity @s[tag=ring2_equipped] run data modify storage ui:main equip.ring2 set value {custom_data:{icon:["",""]},event:{"text":"\uE012","font":"ui:window/equip"}}
 				execute if entity @s[tag=ring2_equipped] run function ARG(_PATH)set
 			}
 			
 			func set()
 			{
 				data modify storage ui:main equip.ring2 set from entity @s equipment.head.components.minecraft:custom_data.ring2
-				data modify block 250 0 0 front_text.messages[0] set value '["",{"nbt":"equip.ring2.display.Name","storage":"ui:main","interpret":true}]'
+				data modify block 250 0 0 front_text.messages[0] set value ["",{"nbt":"equip.ring2.minecraft:custom_name","storage":"ui:main","interpret":true}]
 				function ARG(_PATH)set_display
-				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 159"},"hover_event":{"action":"show_text","value":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
+				data modify block 250 0 0 front_text.messages[0] set value {"text":"\uE012","font":"ui:window/equip","click_event":{"action":"run_command","command":"/trigger command set 159"},"hover_event":{"action":"show_text","value":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}
 				data modify storage ui:main equip.ring2.event set from block 250 0 0 front_text.messages[0]
 			}
 			
 			func set_display()
 			{
-				data modify block 250 0 0 front_text.messages[0] set value '[{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true},"\\n",{"nbt":"equip.ring2.display.Lore[0]","storage":"ui:main","interpret":true}]'
-				data remove storage ui:main equip.ring2.display.Lore[0]
-				execute if data storage ui:main equip.ring2.display.Lore[0] run function ARG(_PATH)set_display
+				data modify block 250 0 0 front_text.messages[0] set value [{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true},"\n",{"nbt":"equip.ring2.minecraft:lore[0]","storage":"ui:main","interpret":true}]
+				data remove storage ui:main equip.ring2.minecraft:lore[0]
+				execute if data storage ui:main equip.ring2.minecraft:lore[0] run function ARG(_PATH)set_display
 			}
 		
 			func take_off()
@@ -194,24 +194,24 @@ namespace equip_window() as virtual
 		{
 			func add()
 			{
-				execute unless entity @s[tag=face_equipped] run data modify storage ui:main equip.face set value {icon:['""','""'],event:'{"text":"\\uF829","font":"space:default"}'}
+				execute unless entity @s[tag=face_equipped] run data modify storage ui:main equip.face set value {custom_data:{icon:["",""]},event:{"text":"\uE012","font":"ui:window/equip"}}
 				execute if entity @s[tag=face_equipped] run function ARG(_PATH)set
 			}
 			
 			func set()
 			{
 				data modify storage ui:main equip.face set from entity @s equipment.head.components.minecraft:custom_data.face
-				data modify block 250 0 0 front_text.messages[0] set value '["",{"nbt":"equip.face.display.Name","storage":"ui:main","interpret":true}]'
+				data modify block 250 0 0 front_text.messages[0] set value ["",{"nbt":"equip.face.minecraft:custom_name","storage":"ui:main","interpret":true}]
 				function ARG(_PATH)set_display
-				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 160"},"hover_event":{"action":"show_text","value":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
+				data modify block 250 0 0 front_text.messages[0] set value {"text":"\uE012","font":"ui:window/equip","click_event":{"action":"run_command","command":"/trigger command set 160"},"hover_event":{"action":"show_text","value":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}
 				data modify storage ui:main equip.face.event set from block 250 0 0 front_text.messages[0]
 			}
 			
 			func set_display()
 			{
-				data modify block 250 0 0 front_text.messages[0] set value '[{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true},"\\n",{"nbt":"equip.face.display.Lore[0]","storage":"ui:main","interpret":true}]'
-				data remove storage ui:main equip.face.display.Lore[0]
-				execute if data storage ui:main equip.face.display.Lore[0] run function ARG(_PATH)set_display
+				data modify block 250 0 0 front_text.messages[0] set value [{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true},"\n",{"nbt":"equip.face.minecraft:lore[0]","storage":"ui:main","interpret":true}]
+				data remove storage ui:main equip.face.minecraft:lore[0]
+				execute if data storage ui:main equip.face.minecraft:lore[0] run function ARG(_PATH)set_display
 			}
 		
 			func take_off()
@@ -226,24 +226,24 @@ namespace equip_window() as virtual
 		{
 			func add()
 			{
-				execute unless entity @s[tag=ear_equipped] run data modify storage ui:main equip.ear set value {icon:['""','""'],event:'{"text":"\\uF829","font":"space:default"}'}
+				execute unless entity @s[tag=ear_equipped] run data modify storage ui:main equip.ear set value {custom_data:{icon:["",""]},event:{"text":"\uE012","font":"ui:window/equip"}}
 				execute if entity @s[tag=ear_equipped] run function ARG(_PATH)set
 			}
 			
 			func set()
 			{
 				data modify storage ui:main equip.ear set from entity @s equipment.head.components.minecraft:custom_data.ear
-				data modify block 250 0 0 front_text.messages[0] set value '["",{"nbt":"equip.ear.display.Name","storage":"ui:main","interpret":true}]'
+				data modify block 250 0 0 front_text.messages[0] set value ["",{"nbt":"equip.ear.minecraft:custom_name","storage":"ui:main","interpret":true}]
 				function ARG(_PATH)set_display
-				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 161"},"hover_event":{"action":"show_text","value":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
+				data modify block 250 0 0 front_text.messages[0] set value {"text":"\uE012","font":"ui:window/equip","click_event":{"action":"run_command","command":"/trigger command set 161"},"hover_event":{"action":"show_text","value":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}
 				data modify storage ui:main equip.ear.event set from block 250 0 0 front_text.messages[0]
 			}
 			
 			func set_display()
 			{
-				data modify block 250 0 0 front_text.messages[0] set value '[{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true},"\\n",{"nbt":"equip.ear.display.Lore[0]","storage":"ui:main","interpret":true}]'
-				data remove storage ui:main equip.ear.display.Lore[0]
-				execute if data storage ui:main equip.ear.display.Lore[0] run function ARG(_PATH)set_display
+				data modify block 250 0 0 front_text.messages[0] set value [{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true},"\n",{"nbt":"equip.ear.minecraft:lore[0]","storage":"ui:main","interpret":true}]
+				data remove storage ui:main equip.ear.minecraft:lore[0]
+				execute if data storage ui:main equip.ear.minecraft:lore[0] run function ARG(_PATH)set_display
 			}
 		
 			func take_off()
@@ -270,24 +270,24 @@ namespace equip_window() as virtual
 		{
 			func add()
 			{
-				execute unless entity @s[tag=cape_equipped] run data modify storage ui:main equip.cape set value {icon:['""','""'],event:'{"text":"\\uF829","font":"space:default"}'}
+				execute unless entity @s[tag=cape_equipped] run data modify storage ui:main equip.cape set value {custom_data:{icon:["",""]},event:{"text":"\uE012","font":"ui:window/equip"}}
 				execute if entity @s[tag=cape_equipped] run function ARG(_PATH)set
 			}
 			
 			func set()
 			{
 				data modify storage ui:main equip.cape set from entity @s equipment.head.components.minecraft:custom_data.cape
-				data modify block 250 0 0 front_text.messages[0] set value '["",{"nbt":"equip.cape.display.Name","storage":"ui:main","interpret":true}]'
+				data modify block 250 0 0 front_text.messages[0] set value ["",{"nbt":"equip.cape.minecraft:custom_name","storage":"ui:main","interpret":true}]
 				function ARG(_PATH)set_display
-				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 162"},"hover_event":{"action":"show_text","value":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
+				data modify block 250 0 0 front_text.messages[0] set value {"text":"\uE012","font":"ui:window/equip","click_event":{"action":"run_command","command":"/trigger command set 162"},"hover_event":{"action":"show_text","value":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}
 				data modify storage ui:main equip.cape.event set from block 250 0 0 front_text.messages[0]
 			}
 			
 			func set_display()
 			{
-				data modify block 250 0 0 front_text.messages[0] set value '[{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true},"\\n",{"nbt":"equip.cape.display.Lore[0]","storage":"ui:main","interpret":true}]'
-				data remove storage ui:main equip.cape.display.Lore[0]
-				execute if data storage ui:main equip.cape.display.Lore[0] run function ARG(_PATH)set_display
+				data modify block 250 0 0 front_text.messages[0] set value [{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true},"\n",{"nbt":"equip.cape.minecraft:lore[0]","storage":"ui:main","interpret":true}]
+				data remove storage ui:main equip.cape.minecraft:lore[0]
+				execute if data storage ui:main equip.cape.minecraft:lore[0] run function ARG(_PATH)set_display
 			}
 		
 			func take_off()
@@ -302,24 +302,24 @@ namespace equip_window() as virtual
 		{
 			func add()
 			{
-				execute unless entity @s[tag=cloth_equipped] run data modify storage ui:main equip.cloth set value {icon:['""','""'],event:'{"text":"\\uF829","font":"space:default"}'}
+				execute unless entity @s[tag=cloth_equipped] run data modify storage ui:main equip.cloth set value {custom_data:{icon:["",""]},event:{"text":"\uE012","font":"ui:window/equip"}}
 				execute if entity @s[tag=cloth_equipped] run function ARG(_PATH)set
 			}
 			
 			func set()
 			{
 				data modify storage ui:main equip.cloth set from entity @s equipment.head.components.minecraft:custom_data.cloth
-				data modify block 250 0 0 front_text.messages[0] set value '["",{"nbt":"equip.cloth.display.Name","storage":"ui:main","interpret":true}]'
+				data modify block 250 0 0 front_text.messages[0] set value ["",{"nbt":"equip.cloth.minecraft:custom_name","storage":"ui:main","interpret":true}]
 				function ARG(_PATH)set_display
-				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 163"},"hover_event":{"action":"show_text","value":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
+				data modify block 250 0 0 front_text.messages[0] set value {"text":"\uE012","font":"ui:window/equip","click_event":{"action":"run_command","command":"/trigger command set 163"},"hover_event":{"action":"show_text","value":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}
 				data modify storage ui:main equip.cloth.event set from block 250 0 0 front_text.messages[0]
 			}
 			
 			func set_display()
 			{
-				data modify block 250 0 0 front_text.messages[0] set value '[{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true},"\\n",{"nbt":"equip.cloth.display.Lore[0]","storage":"ui:main","interpret":true}]'
-				data remove storage ui:main equip.cloth.display.Lore[0]
-				execute if data storage ui:main equip.cloth.display.Lore[0] run function ARG(_PATH)set_display
+				data modify block 250 0 0 front_text.messages[0] set value [{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true},"\n",{"nbt":"equip.cloth.minecraft:lore[0]","storage":"ui:main","interpret":true}]
+				data remove storage ui:main equip.cloth.minecraft:lore[0]
+				execute if data storage ui:main equip.cloth.minecraft:lore[0] run function ARG(_PATH)set_display
 			}
 		
 			func take_off()
@@ -334,24 +334,24 @@ namespace equip_window() as virtual
 		{
 			func add()
 			{
-				execute unless entity @s[tag=pendant_equipped] run data modify storage ui:main equip.pendant set value {icon:['""','""'],event:'{"text":"\\uF829","font":"space:default"}'}
+				execute unless entity @s[tag=pendant_equipped] run data modify storage ui:main equip.pendant set value {custom_data:{icon:["",""]},event:{"text":"\uE012","font":"ui:window/equip"}}
 				execute if entity @s[tag=pendant_equipped] run function ARG(_PATH)set
 			}
 			
 			func set()
 			{
 				data modify storage ui:main equip.pendant set from entity @s equipment.head.components.minecraft:custom_data.pendant
-				data modify block 250 0 0 front_text.messages[0] set value '["",{"nbt":"equip.pendant.display.Name","storage":"ui:main","interpret":true}]'
+				data modify block 250 0 0 front_text.messages[0] set value ["",{"nbt":"equip.pendant.minecraft:custom_name","storage":"ui:main","interpret":true}]
 				function ARG(_PATH)set_display
-				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 164"},"hover_event":{"action":"show_text","value":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
+				data modify block 250 0 0 front_text.messages[0] set value {"text":"\uE012","font":"ui:window/equip","click_event":{"action":"run_command","command":"/trigger command set 164"},"hover_event":{"action":"show_text","value":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}
 				data modify storage ui:main equip.pendant.event set from block 250 0 0 front_text.messages[0]
 			}
 			
 			func set_display()
 			{
-				data modify block 250 0 0 front_text.messages[0] set value '[{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true},"\\n",{"nbt":"equip.pendant.display.Lore[0]","storage":"ui:main","interpret":true}]'
-				data remove storage ui:main equip.pendant.display.Lore[0]
-				execute if data storage ui:main equip.pendant.display.Lore[0] run function ARG(_PATH)set_display
+				data modify block 250 0 0 front_text.messages[0] set value [{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true},"\n",{"nbt":"equip.pendant.minecraft:lore[0]","storage":"ui:main","interpret":true}]
+				data remove storage ui:main equip.pendant.minecraft:lore[0]
+				execute if data storage ui:main equip.pendant.minecraft:lore[0] run function ARG(_PATH)set_display
 			}
 		
 			func take_off()
@@ -366,24 +366,24 @@ namespace equip_window() as virtual
 		{
 			func add()
 			{
-				execute unless score @s weapon_type matches 1.. run data modify storage ui:main equip.weapon set value {icon:['""','""'],event:'{"text":"\\uF829","font":"space:default"}'}
+				execute unless score @s weapon_type matches 1.. run data modify storage ui:main equip.weapon set value {custom_data:{icon:["",""]},event:{"text":"\uE012","font":"ui:window/equip"}}
 				execute if score @s weapon_type matches 1.. run function ARG(_PATH)set
 			}
 			
 			func set()
 			{
 				data modify storage ui:main equip.weapon set from entity @s equipment.head.components.minecraft:custom_data.weapon
-				data modify block 250 0 0 front_text.messages[0] set value '["",{"nbt":"equip.weapon.display.Name","storage":"ui:main","interpret":true}]'
+				data modify block 250 0 0 front_text.messages[0] set value ["",{"nbt":"equip.weapon.minecraft:custom_name","storage":"ui:main","interpret":true}]
 				function ARG(_PATH)set_display
-				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 155"},"hover_event":{"action":"show_text","value":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
+				data modify block 250 0 0 front_text.messages[0] set value {"text":"\uE012","font":"ui:window/equip","click_event":{"action":"run_command","command":"/trigger command set 155"},"hover_event":{"action":"show_text","value":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}
 				data modify storage ui:main equip.weapon.event set from block 250 0 0 front_text.messages[0]
 			}
 			
 			func set_display()
 			{
-				data modify block 250 0 0 front_text.messages[0] set value '[{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true},"\\n",{"nbt":"equip.weapon.display.Lore[0]","storage":"ui:main","interpret":true}]'
-				data remove storage ui:main equip.weapon.display.Lore[0]
-				execute if data storage ui:main equip.weapon.display.Lore[0] run function ARG(_PATH)set_display
+				data modify block 250 0 0 front_text.messages[0] set value [{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true},"\n",{"nbt":"equip.weapon.minecraft:lore[0]","storage":"ui:main","interpret":true}]
+				data remove storage ui:main equip.weapon.minecraft:lore[0]
+				execute if data storage ui:main equip.weapon.minecraft:lore[0] run function ARG(_PATH)set_display
 			}
 		
 			func take_off()
@@ -398,24 +398,24 @@ namespace equip_window() as virtual
 		{
 			func add()
 			{
-				execute unless entity @s[tag=shield_equipped] run data modify storage ui:main equip.shield set value {icon:['""','""'],event:'{"text":"\\uF829","font":"space:default"}'}
+				execute unless entity @s[tag=shield_equipped] run data modify storage ui:main equip.shield set value {custom_data:{icon:["",""]},event:{"text":"\uE012","font":"ui:window/equip"}}
 				execute if entity @s[tag=shield_equipped] run function ARG(_PATH)set
 			}
 			
 			func set()
 			{
 				data modify storage ui:main equip.shield set from entity @s equipment.head.components.minecraft:custom_data.shield
-				data modify block 250 0 0 front_text.messages[0] set value '["",{"nbt":"equip.shield.display.Name","storage":"ui:main","interpret":true}]'
+				data modify block 250 0 0 front_text.messages[0] set value ["",{"nbt":"equip.shield.minecraft:custom_name","storage":"ui:main","interpret":true}]
 				function ARG(_PATH)set_display
-				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 165"},"hover_event":{"action":"show_text","value":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
+				data modify block 250 0 0 front_text.messages[0] set value {"text":"\uE012","font":"ui:window/equip","click_event":{"action":"run_command","command":"/trigger command set 165"},"hover_event":{"action":"show_text","value":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}
 				data modify storage ui:main equip.shield.event set from block 250 0 0 front_text.messages[0]
 			}
 			
 			func set_display()
 			{
-				data modify block 250 0 0 front_text.messages[0] set value '[{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true},"\\n",{"nbt":"equip.shield.display.Lore[0]","storage":"ui:main","interpret":true}]'
-				data remove storage ui:main equip.shield.display.Lore[0]
-				execute if data storage ui:main equip.shield.display.Lore[0] run function ARG(_PATH)set_display
+				data modify block 250 0 0 front_text.messages[0] set value [{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true},"\n",{"nbt":"equip.shield.minecraft:lore[0]","storage":"ui:main","interpret":true}]
+				data remove storage ui:main equip.shield.minecraft:lore[0]
+				execute if data storage ui:main equip.shield.minecraft:lore[0] run function ARG(_PATH)set_display
 			}
 		
 			func take_off()
@@ -442,24 +442,24 @@ namespace equip_window() as virtual
 		{
 			func add()
 			{
-				execute unless entity @s[tag=gloves_equipped] run data modify storage ui:main equip.gloves set value {icon:['""','""'],event:'{"text":"\\uF829","font":"space:default"}'}
+				execute unless entity @s[tag=gloves_equipped] run data modify storage ui:main equip.gloves set value {custom_data:{icon:["",""]},event:{"text":"\uE012","font":"ui:window/equip"}}
 				execute if entity @s[tag=gloves_equipped] run function ARG(_PATH)set
 			}
 			
 			func set()
 			{
 				data modify storage ui:main equip.gloves set from entity @s equipment.head.components.minecraft:custom_data.gloves
-				data modify block 250 0 0 front_text.messages[0] set value '["",{"nbt":"equip.gloves.display.Name","storage":"ui:main","interpret":true}]'
+				data modify block 250 0 0 front_text.messages[0] set value ["",{"nbt":"equip.gloves.minecraft:custom_name","storage":"ui:main","interpret":true}]
 				function ARG(_PATH)set_display
-				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 166"},"hover_event":{"action":"show_text","value":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
+				data modify block 250 0 0 front_text.messages[0] set value {"text":"\uE012","font":"ui:window/equip","click_event":{"action":"run_command","command":"/trigger command set 166"},"hover_event":{"action":"show_text","value":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}
 				data modify storage ui:main equip.gloves.event set from block 250 0 0 front_text.messages[0]
 			}
 			
 			func set_display()
 			{
-				data modify block 250 0 0 front_text.messages[0] set value '[{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true},"\\n",{"nbt":"equip.gloves.display.Lore[0]","storage":"ui:main","interpret":true}]'
-				data remove storage ui:main equip.gloves.display.Lore[0]
-				execute if data storage ui:main equip.gloves.display.Lore[0] run function ARG(_PATH)set_display
+				data modify block 250 0 0 front_text.messages[0] set value [{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true},"\n",{"nbt":"equip.gloves.minecraft:lore[0]","storage":"ui:main","interpret":true}]
+				data remove storage ui:main equip.gloves.minecraft:lore[0]
+				execute if data storage ui:main equip.gloves.minecraft:lore[0] run function ARG(_PATH)set_display
 			}
 		
 			func take_off()
@@ -474,24 +474,24 @@ namespace equip_window() as virtual
 		{
 			func add()
 			{
-				execute unless entity @s[tag=pants_equipped] run data modify storage ui:main equip.pants set value {icon:['""','""'],event:'{"text":"\\uF829","font":"space:default"}'}
+				execute unless entity @s[tag=pants_equipped] run data modify storage ui:main equip.pants set value {custom_data:{icon:["",""]},event:{"text":"\uE012","font":"ui:window/equip"}}
 				execute if entity @s[tag=pants_equipped] run function ARG(_PATH)set
 			}
 			
 			func set()
 			{
 				data modify storage ui:main equip.pants set from entity @s equipment.head.components.minecraft:custom_data.pants
-				data modify block 250 0 0 front_text.messages[0] set value '["",{"nbt":"equip.pants.display.Name","storage":"ui:main","interpret":true}]'
+				data modify block 250 0 0 front_text.messages[0] set value ["",{"nbt":"equip.pants.minecraft:custom_name","storage":"ui:main","interpret":true}]
 				function ARG(_PATH)set_display
-				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 167"},"hover_event":{"action":"show_text","value":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
+				data modify block 250 0 0 front_text.messages[0] set value {"text":"\uE012","font":"ui:window/equip","click_event":{"action":"run_command","command":"/trigger command set 167"},"hover_event":{"action":"show_text","value":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}
 				data modify storage ui:main equip.pants.event set from block 250 0 0 front_text.messages[0]
 			}
 			
 			func set_display()
 			{
-				data modify block 250 0 0 front_text.messages[0] set value '[{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true},"\\n",{"nbt":"equip.pants.display.Lore[0]","storage":"ui:main","interpret":true}]'
-				data remove storage ui:main equip.pants.display.Lore[0]
-				execute if data storage ui:main equip.pants.display.Lore[0] run function ARG(_PATH)set_display
+				data modify block 250 0 0 front_text.messages[0] set value [{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true},"\n",{"nbt":"equip.pants.minecraft:lore[0]","storage":"ui:main","interpret":true}]
+				data remove storage ui:main equip.pants.minecraft:lore[0]
+				execute if data storage ui:main equip.pants.minecraft:lore[0] run function ARG(_PATH)set_display
 			}
 		
 			func take_off()
@@ -506,24 +506,24 @@ namespace equip_window() as virtual
 		{
 			func add()
 			{
-				execute unless entity @s[tag=shoes_equipped] run data modify storage ui:main equip.shoes set value {icon:['""','""'],event:'{"text":"\\uF829","font":"space:default"}'}
+				execute unless entity @s[tag=shoes_equipped] run data modify storage ui:main equip.shoes set value {custom_data:{icon:["",""]},event:{"text":"\uE012","font":"ui:window/equip"}}
 				execute if entity @s[tag=shoes_equipped] run function ARG(_PATH)set
 			}
 			
 			func set()
 			{
 				data modify storage ui:main equip.shoes set from entity @s equipment.head.components.minecraft:custom_data.shoes
-				data modify block 250 0 0 front_text.messages[0] set value '["",{"nbt":"equip.shoes.display.Name","storage":"ui:main","interpret":true}]'
+				data modify block 250 0 0 front_text.messages[0] set value ["",{"nbt":"equip.shoes.minecraft:custom_name","storage":"ui:main","interpret":true}]
 				function ARG(_PATH)set_display
-				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 168"},"hover_event":{"action":"show_text","value":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
+				data modify block 250 0 0 front_text.messages[0] set value {"text":"\uE012","font":"ui:window/equip","click_event":{"action":"run_command","command":"/trigger command set 168"},"hover_event":{"action":"show_text","value":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}
 				data modify storage ui:main equip.shoes.event set from block 250 0 0 front_text.messages[0]
 			}
 			
 			func set_display()
 			{
-				data modify block 250 0 0 front_text.messages[0] set value '[{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true},"\\n",{"nbt":"equip.shoes.display.Lore[0]","storage":"ui:main","interpret":true}]'
-				data remove storage ui:main equip.shoes.display.Lore[0]
-				execute if data storage ui:main equip.shoes.display.Lore[0] run function ARG(_PATH)set_display
+				data modify block 250 0 0 front_text.messages[0] set value [{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true},"\n",{"nbt":"equip.shoes.minecraft:lore[0]","storage":"ui:main","interpret":true}]
+				data remove storage ui:main equip.shoes.minecraft:lore[0]
+				execute if data storage ui:main equip.shoes.minecraft:lore[0] run function ARG(_PATH)set_display
 			}
 		
 			func take_off()
@@ -538,24 +538,24 @@ namespace equip_window() as virtual
 		{
 			func add()
 			{
-				execute unless entity @s[tag=ring3_equipped] run data modify storage ui:main equip.ring3 set value {icon:['""','""'],event:'{"text":"\\uF829","font":"space:default"}'}
+				execute unless entity @s[tag=ring3_equipped] run data modify storage ui:main equip.ring3 set value {custom_data:{icon:["",""]},event:{"text":"\uE012","font":"ui:window/equip"}}
 				execute if entity @s[tag=ring3_equipped] run function ARG(_PATH)set
 			}
 			
 			func set()
 			{
 				data modify storage ui:main equip.ring3 set from entity @s equipment.head.components.minecraft:custom_data.ring3
-				data modify block 250 0 0 front_text.messages[0] set value '["",{"nbt":"equip.ring3.display.Name","storage":"ui:main","interpret":true}]'
+				data modify block 250 0 0 front_text.messages[0] set value ["",{"nbt":"equip.ring3.minecraft:custom_name","storage":"ui:main","interpret":true}]
 				function ARG(_PATH)set_display
-				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 169"},"hover_event":{"action":"show_text","value":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
+				data modify block 250 0 0 front_text.messages[0] set value {"text":"\uE012","font":"ui:window/equip","click_event":{"action":"run_command","command":"/trigger command set 169"},"hover_event":{"action":"show_text","value":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}
 				data modify storage ui:main equip.ring3.event set from block 250 0 0 front_text.messages[0]
 			}
 			
 			func set_display()
 			{
-				data modify block 250 0 0 front_text.messages[0] set value '[{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true},"\\n",{"nbt":"equip.ring3.display.Lore[0]","storage":"ui:main","interpret":true}]'
-				data remove storage ui:main equip.ring3.display.Lore[0]
-				execute if data storage ui:main equip.ring3.display.Lore[0] run function ARG(_PATH)set_display
+				data modify block 250 0 0 front_text.messages[0] set value [{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true},"\n",{"nbt":"equip.ring3.minecraft:lore[0]","storage":"ui:main","interpret":true}]
+				data remove storage ui:main equip.ring3.minecraft:lore[0]
+				execute if data storage ui:main equip.ring3.minecraft:lore[0] run function ARG(_PATH)set_display
 			}
 		
 			func take_off()
@@ -570,24 +570,24 @@ namespace equip_window() as virtual
 		{
 			func add()
 			{
-				execute unless entity @s[tag=ring4_equipped] run data modify storage ui:main equip.ring4 set value {icon:['""','""'],event:'{"text":"\\uF829","font":"space:default"}'}
+				execute unless entity @s[tag=ring4_equipped] run data modify storage ui:main equip.ring4 set value {custom_data:{icon:["",""]},event:{"text":"\uE012","font":"ui:window/equip"}}
 				execute if entity @s[tag=ring4_equipped] run function ARG(_PATH)set
 			}
 			
 			func set()
 			{
 				data modify storage ui:main equip.ring4 set from entity @s equipment.head.components.minecraft:custom_data.ring4
-				data modify block 250 0 0 front_text.messages[0] set value '["",{"nbt":"equip.ring4.display.Name","storage":"ui:main","interpret":true}]'
+				data modify block 250 0 0 front_text.messages[0] set value ["",{"nbt":"equip.ring4.minecraft:custom_name","storage":"ui:main","interpret":true}]
 				function ARG(_PATH)set_display
-				data modify block 250 0 0 front_text.messages[0] set value '{"text":"\\uF829","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 170"},"hover_event":{"action":"show_text","value":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}'
+				data modify block 250 0 0 front_text.messages[0] set value {"text":"\uE012","font":"ui:window/equip","click_event":{"action":"run_command","command":"/trigger command set 170"},"hover_event":{"action":"show_text","value":{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true}}}
 				data modify storage ui:main equip.ring4.event set from block 250 0 0 front_text.messages[0]
 			}
 			
 			func set_display()
 			{
-				data modify block 250 0 0 front_text.messages[0] set value '[{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true},"\\n",{"nbt":"equip.ring4.display.Lore[0]","storage":"ui:main","interpret":true}]'
-				data remove storage ui:main equip.ring4.display.Lore[0]
-				execute if data storage ui:main equip.ring4.display.Lore[0] run function ARG(_PATH)set_display
+				data modify block 250 0 0 front_text.messages[0] set value [{"nbt":"front_text.messages[0]","block":"250 0 0","interpret":true},"\n",{"nbt":"equip.ring4.minecraft:lore[0]","storage":"ui:main","interpret":true}]
+				data remove storage ui:main equip.ring4.minecraft:lore[0]
+				execute if data storage ui:main equip.ring4.minecraft:lore[0] run function ARG(_PATH)set_display
 			}
 		
 			func take_off()
@@ -604,7 +604,7 @@ namespace equip_window() as virtual
 		func add()
 		{
 			execute if score @s bullet_amount matches 0 if score @s bullet_item matches 21.. run scoreboard players reset @s bullet_item
-			execute unless score @s bullet_item matches 1.. run data modify storage ui:main equip.projectile set value {icon:['""','""'],amount:[],event:'{"text":"\\uF829\\uF822","font":"space:default"}'}
+			execute unless score @s bullet_item matches 1.. run data modify storage ui:main equip.projectile set value {icon:["",""],amount:[],event:{"text":"\uE013","font":"ui:window/equip"}}
 			execute if score @s bullet_item matches 1.. run function ARG(_PATH)check
 		}
 		
@@ -648,31 +648,31 @@ namespace equip_window() as virtual
 		
 		func throwing_star()
 		{
-			execute if score @s bullet_item matches 1 run data modify storage ui:main equip.projectile set value {icon:['"\\uA000"','"\\uA001"'],event:'{"text":"\\uF829\\uF822","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 154"},"hover_event":{"action":"show_text","value":[{"translate":"item.consume.2070000","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["15"]}]}}'}
-			execute if score @s bullet_item matches 2 run data modify storage ui:main equip.projectile set value {icon:['"\\uA002"','"\\uA003"'],event:'{"text":"\\uF829\\uF822","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 154"},"hover_event":{"action":"show_text","value":[{"translate":"item.consume.2070001","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["17"]}]}}'}
-			execute if score @s bullet_item matches 3 run data modify storage ui:main equip.projectile set value {icon:['"\\uA004"','"\\uA005"'],event:'{"text":"\\uF829\\uF822","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 154"},"hover_event":{"action":"show_text","value":[{"translate":"item.consume.2070002","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["19"]}]}}'}
-			execute if score @s bullet_item matches 4 run data modify storage ui:main equip.projectile set value {icon:['"\\uA006"','"\\uA007"'],event:'{"text":"\\uF829\\uF822","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 154"},"hover_event":{"action":"show_text","value":[{"translate":"item.consume.2070003","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["21"]}]}}'}
-			execute if score @s bullet_item matches 5 run data modify storage ui:main equip.projectile set value {icon:['"\\uA008"','"\\uA009"'],event:'{"text":"\\uF829\\uF822","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 154"},"hover_event":{"action":"show_text","value":[{"translate":"item.consume.2070004","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["23"]}]}}'}
-			execute if score @s bullet_item matches 6 run data modify storage ui:main equip.projectile set value {icon:['"\\uA00A"','"\\uA00B"'],event:'{"text":"\\uF829\\uF822","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 154"},"hover_event":{"action":"show_text","value":[{"translate":"item.consume.2070005","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["25"]}]}}'}
-			execute if score @s bullet_item matches 7 run data modify storage ui:main equip.projectile set value {icon:['"\\uA00C"','"\\uA00D"'],event:'{"text":"\\uF829\\uF822","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 154"},"hover_event":{"action":"show_text","value":[{"translate":"item.consume.2070006","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["27"]}]}}'}
+			execute if score @s bullet_item matches 1 run data modify storage ui:main equip.projectile set value {icon:["\uA000","\uA001"],event:{"text":"\uE013","font":"ui:window/equip","click_event":{"action":"run_command","command":"/trigger command set 154"},"hover_event":{"action":"show_text","value":[{"translate":"item.consume.2070000","font":"minecraft:uniform","bold":true},"\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["15"]}]}}}
+			execute if score @s bullet_item matches 2 run data modify storage ui:main equip.projectile set value {icon:["\uA002","\uA003"],event:{"text":"\uE013","font":"ui:window/equip","click_event":{"action":"run_command","command":"/trigger command set 154"},"hover_event":{"action":"show_text","value":[{"translate":"item.consume.2070001","font":"minecraft:uniform","bold":true},"\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["17"]}]}}}
+			execute if score @s bullet_item matches 3 run data modify storage ui:main equip.projectile set value {icon:["\uA004","\uA005"],event:{"text":"\uE013","font":"ui:window/equip","click_event":{"action":"run_command","command":"/trigger command set 154"},"hover_event":{"action":"show_text","value":[{"translate":"item.consume.2070002","font":"minecraft:uniform","bold":true},"\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["19"]}]}}}
+			execute if score @s bullet_item matches 4 run data modify storage ui:main equip.projectile set value {icon:["\uA006","\uA007"],event:{"text":"\uE013","font":"ui:window/equip","click_event":{"action":"run_command","command":"/trigger command set 154"},"hover_event":{"action":"show_text","value":[{"translate":"item.consume.2070003","font":"minecraft:uniform","bold":true},"\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["21"]}]}}}
+			execute if score @s bullet_item matches 5 run data modify storage ui:main equip.projectile set value {icon:["\uA008","\uA009"],event:{"text":"\uE013","font":"ui:window/equip","click_event":{"action":"run_command","command":"/trigger command set 154"},"hover_event":{"action":"show_text","value":[{"translate":"item.consume.2070004","font":"minecraft:uniform","bold":true},"\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["23"]}]}}}
+			execute if score @s bullet_item matches 6 run data modify storage ui:main equip.projectile set value {icon:["\uA00A","\uA00B"],event:{"text":"\uE013","font":"ui:window/equip","click_event":{"action":"run_command","command":"/trigger command set 154"},"hover_event":{"action":"show_text","value":[{"translate":"item.consume.2070005","font":"minecraft:uniform","bold":true},"\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["25"]}]}}}
+			execute if score @s bullet_item matches 7 run data modify storage ui:main equip.projectile set value {icon:["\uA00C","\uA00D"],event:{"text":"\uE013","font":"ui:window/equip","click_event":{"action":"run_command","command":"/trigger command set 154"},"hover_event":{"action":"show_text","value":[{"translate":"item.consume.2070006","font":"minecraft:uniform","bold":true},"\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["27"]}]}}}
 		}
 		
 		func arrow_bow()
 		{
-			execute if score @s bullet_item matches 21 run data modify storage ui:main equip.projectile set value {icon:['"\\uA020"','"\\uA021"'],event:'{"text":"\\uF829\\uF822","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 154"},"hover_event":{"action":"show_text","value":{"translate":"item.consume.2060000","font":"minecraft:uniform","bold":true}}}'}
-			execute if score @s bullet_item matches 22 run data modify storage ui:main equip.projectile set value {icon:['"\\uA022"','"\\uA023"'],event:'{"text":"\\uF829\\uF822","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 154"},"hover_event":{"action":"show_text","value":[{"translate":"item.consume.2060001","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["1"]}]}}'}
-			execute if score @s bullet_item matches 23 run data modify storage ui:main equip.projectile set value {icon:['"\\uA024"','"\\uA025"'],event:'{"text":"\\uF829\\uF822","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 154"},"hover_event":{"action":"show_text","value":[{"translate":"item.consume.2060002","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["2"]}]}}'}
-			execute if score @s bullet_item matches 24 run data modify storage ui:main equip.projectile set value {icon:['"\\uA026"','"\\uA027"'],event:'{"text":"\\uF829\\uF822","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 154"},"hover_event":{"action":"show_text","value":[{"translate":"item.consume.2060003","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["4"]}]}}'}
-			execute if score @s bullet_item matches 25 run data modify storage ui:main equip.projectile set value {icon:['"\\uA028"','"\\uA029"'],event:'{"text":"\\uF829\\uF822","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 154"},"hover_event":{"action":"show_text","value":[{"translate":"item.consume.2060004","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["4"]}]}}'}
+			execute if score @s bullet_item matches 21 run data modify storage ui:main equip.projectile set value {icon:["\uA020","\uA021"],event:{"text":"\uE013","font":"ui:window/equip","click_event":{"action":"run_command","command":"/trigger command set 154"},"hover_event":{"action":"show_text","value":{"translate":"item.consume.2060000","font":"minecraft:uniform","bold":true}}}}
+			execute if score @s bullet_item matches 22 run data modify storage ui:main equip.projectile set value {icon:["\uA022","\uA023"],event:{"text":"\uE013","font":"ui:window/equip","click_event":{"action":"run_command","command":"/trigger command set 154"},"hover_event":{"action":"show_text","value":[{"translate":"item.consume.2060001","font":"minecraft:uniform","bold":true},"\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["1"]}]}}}
+			execute if score @s bullet_item matches 23 run data modify storage ui:main equip.projectile set value {icon:["\uA024","\uA025"],event:{"text":"\uE013","font":"ui:window/equip","click_event":{"action":"run_command","command":"/trigger command set 154"},"hover_event":{"action":"show_text","value":[{"translate":"item.consume.2060002","font":"minecraft:uniform","bold":true},"\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["2"]}]}}}
+			execute if score @s bullet_item matches 24 run data modify storage ui:main equip.projectile set value {icon:["\uA026","\uA027"],event:{"text":"\uE013","font":"ui:window/equip","click_event":{"action":"run_command","command":"/trigger command set 154"},"hover_event":{"action":"show_text","value":[{"translate":"item.consume.2060003","font":"minecraft:uniform","bold":true},"\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["4"]}]}}}
+			execute if score @s bullet_item matches 25 run data modify storage ui:main equip.projectile set value {icon:["\uA028","\uA029"],event:{"text":"\uE013","font":"ui:window/equip","click_event":{"action":"run_command","command":"/trigger command set 154"},"hover_event":{"action":"show_text","value":[{"translate":"item.consume.2060004","font":"minecraft:uniform","bold":true},"\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["4"]}]}}}
 		}
 		
 		func arrow_crossbow()
 		{
-			execute if score @s bullet_item matches 26 run data modify storage ui:main equip.projectile set value {icon:['"\\uA02A"','"\\uA02B"'],event:'{"text":"\\uF829\\uF822","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 154"},"hover_event":{"action":"show_text","value":{"translate":"item.consume.2061000","font":"minecraft:uniform","bold":true}}}'}
-			execute if score @s bullet_item matches 27 run data modify storage ui:main equip.projectile set value {icon:['"\\uA02C"','"\\uA02D"'],event:'{"text":"\\uF829\\uF822","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 154"},"hover_event":{"action":"show_text","value":[{"translate":"item.consume.2061001","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["1"]}]}}'}
-			execute if score @s bullet_item matches 28 run data modify storage ui:main equip.projectile set value {icon:['"\\uA02E"','"\\uA02F"'],event:'{"text":"\\uF829\\uF822","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 154"},"hover_event":{"action":"show_text","value":[{"translate":"item.consume.2061002","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["2"]}]}}'}
-			execute if score @s bullet_item matches 29 run data modify storage ui:main equip.projectile set value {icon:['"\\uA030"','"\\uA031"'],event:'{"text":"\\uF829\\uF822","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 154"},"hover_event":{"action":"show_text","value":[{"translate":"item.consume.2061003","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["4"]}]}}'}
-			execute if score @s bullet_item matches 30 run data modify storage ui:main equip.projectile set value {icon:['"\\uA032"','"\\uA033"'],event:'{"text":"\\uF829\\uF822","font":"space:default","click_event":{"action":"run_command","command":"/trigger command set 154"},"hover_event":{"action":"show_text","value":[{"translate":"item.consume.2061004","font":"minecraft:uniform","bold":true},"\\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["4"]}]}}'}
+			execute if score @s bullet_item matches 26 run data modify storage ui:main equip.projectile set value {icon:["\uA02A","\uA02B"],event:{"text":"\uE013","font":"ui:window/equip","click_event":{"action":"run_command","command":"/trigger command set 154"},"hover_event":{"action":"show_text","value":{"translate":"item.consume.2061000","font":"minecraft:uniform","bold":true}}}}
+			execute if score @s bullet_item matches 27 run data modify storage ui:main equip.projectile set value {icon:["\uA02C","\uA02D"],event:{"text":"\uE013","font":"ui:window/equip","click_event":{"action":"run_command","command":"/trigger command set 154"},"hover_event":{"action":"show_text","value":[{"translate":"item.consume.2061001","font":"minecraft:uniform","bold":true},"\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["1"]}]}}}
+			execute if score @s bullet_item matches 28 run data modify storage ui:main equip.projectile set value {icon:["\uA02E","\uA02F"],event:{"text":"\uE013","font":"ui:window/equip","click_event":{"action":"run_command","command":"/trigger command set 154"},"hover_event":{"action":"show_text","value":[{"translate":"item.consume.2061002","font":"minecraft:uniform","bold":true},"\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["2"]}]}}}
+			execute if score @s bullet_item matches 29 run data modify storage ui:main equip.projectile set value {icon:["\uA030","\uA031"],event:{"text":"\uE013","font":"ui:window/equip","click_event":{"action":"run_command","command":"/trigger command set 154"},"hover_event":{"action":"show_text","value":[{"translate":"item.consume.2061003","font":"minecraft:uniform","bold":true},"\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["4"]}]}}}
+			execute if score @s bullet_item matches 30 run data modify storage ui:main equip.projectile set value {icon:["\uA032","\uA033"],event:{"text":"\uE013","font":"ui:window/equip","click_event":{"action":"run_command","command":"/trigger command set 154"},"hover_event":{"action":"show_text","value":[{"translate":"item.consume.2061004","font":"minecraft:uniform","bold":true},"\n",{"translate":"item.notice.weapon_attack","bold":false,"with":["4"]}]}}}
 		}
 	}
 }
