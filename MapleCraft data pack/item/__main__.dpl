@@ -948,7 +948,7 @@ namespace item()
 				func set_chance()
 				{
 					item replace block 250 1 0 container.0 with minecraft:warped_fungus_on_a_stick
-					data modify block 250 1 0 Items[0].components.minecraft:custom_data set from entity @s equipment.offhand.components.minecraft:custom_data
+					data modify block 250 1 0 Items[0].components set from entity @s equipment.offhand.components
 					
 					execute store result score #SCROLL_CHANCE temp run data get entity @s SelectedItem.components.minecraft:custom_data.chance
 					function random:rand_rate
