@@ -1215,6 +1215,7 @@ namespace skill()
 		scoreboard objectives add base_accuracy dummy
 		scoreboard objectives add base_avoid dummy
 		scoreboard objectives add speed dummy
+		scoreboard objectives add jump_strength dummy
 		scoreboard objectives add wdef_drop dummy
 		
 		scoreboard objectives add crit_rate dummy

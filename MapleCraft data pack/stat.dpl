@@ -16,6 +16,7 @@ namespace stat()
 		
 		scoreboard objectives add standard_pdd dummy
 		scoreboard objectives add real_speed dummy
+		scoreboard objectives add real_jump_strength dummy
 		
 		scoreboard objectives add hp_recover_time dummy
 		# recover time on ladder
@@ -34,7 +35,23 @@ namespace stat()
 		func set()
 		{
 			scoreboard players operation @s real_speed = #GLOBAL temp
-			item modify entity @s armor.head {function:"minecraft:set_attributes",modifiers:[{attribute:"minecraft:movement_speed",id:"player_speed",amount:{type:"minecraft:score",target:"this",score:"real_speed",scale:0.01},operation:"add_multiplied_base",slot:"head"}]}
+			item modify entity @s armor.head {function:"minecraft:set_attributes",modifiers:[{attribute:"minecraft:movement_speed",id:"player_speed",amount:{type:"minecraft:score",target:"this",score:"real_speed",scale:0.01},operation:"add_multiplied_base",slot:"head"}],replace:false}
+		}
+	}
+	
+	folder jump_changed()
+	{
+		func check()
+		{
+			scoreboard players operation #GLOBAL temp = @s jump_strength
+			scoreboard players operation #GLOBAL temp < #20 const
+			execute unless score @s real_jump_strength = #GLOBAL temp run function ARG(_PATH)set
+		}
+		
+		func set()
+		{
+			scoreboard players operation @s real_jump_strength = #GLOBAL temp
+			item modify entity @s armor.head {function:"minecraft:set_attributes",modifiers:[{attribute:"minecraft:jump_strength",id:"player_jump",amount:{type:"minecraft:score",target:"this",score:"real_jump_strength",scale:0.01},operation:"add_multiplied_base",slot:"head"}],replace:false}
 		}
 	}
 	
@@ -473,9 +490,7 @@ namespace stat()
 			execute unless score @s equip_luk matches 1.. run data modify storage ui:main luk set value [{"score":{"objective":"LUK","name":"@s"},"font":"ui:window/stat","color":"black"},{"score":{"objective":"LUK","name":"@s"},"font":"ui:window/stat_back"}]
 			execute if score @s equip_luk matches 1.. run function ARG(_PATH)luk_add
 			
-			execute store result score #GLOBAL temp run data get entity @s active_effects[{id:"minecraft:jump_boost"}].amplifier
-			execute if data entity @s active_effects[{id:"minecraft:jump_boost"}] run scoreboard players add #GLOBAL temp 1
-			scoreboard players operation #GLOBAL temp *= #10 const
+			scoreboard players operation #GLOBAL temp = @s real_jump_strength
 			scoreboard players add #GLOBAL temp 100
 			
 			tellraw @s [{"nbt":"add_buttons[5]","storage":"ui:main","interpret":true,"shadow_color":0},{"text":"?","font":"ui:window/stat"},{"nbt":"add_buttons[-1]","storage":"ui:main","interpret":true},{"text":"A94","font":"space:default"},{"nbt":"luk","storage":"ui:main","interpret":true},{"text":"\uF82A\uF829\uF828\uF821","font":"space:default"},{"text":"\uE003","font":"ui:window/stat"},{"text":"A93","font":"space:default"},[{"score":{"objective":"temp","name":"#GLOBAL"},"color":"black","font":"ui:window/stat"},"%"]]

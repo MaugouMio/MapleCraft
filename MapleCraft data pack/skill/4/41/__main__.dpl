@@ -313,10 +313,10 @@ namespace 41() as virtual
 				scoreboard players operation @s speed += @s speed_buff_num
 				function stat:speed_changed/check
 				
-				execute unless score @s action_time matches 1.. run effect clear @s minecraft:jump_boost
-				scoreboard players set @s jump_buff_num 0
-				execute if score #HASTE_LEVEL temp matches 11.. run scoreboard players set @s jump_buff_num 1
-				execute if score @s jump_buff_num matches 1 run effect give @s minecraft:jump_boost infinite 1 true
+				scoreboard players operation @s jump_strength -= @s jump_buff_num
+				scoreboard players operation @s jump_buff_num = #HASTE_LEVEL temp
+				scoreboard players operation @s jump_strength += @s jump_buff_num
+				function stat:jump_changed/check
 				
 				# set this buff values
 				scoreboard players operation @s haste_buff_tmax = #HASTE_TIME temp

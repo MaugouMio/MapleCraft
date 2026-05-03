@@ -179,8 +179,9 @@ namespace simple_buff_template(name) as virtual
 				print(f"scoreboard players reset @s {buff}_buff_num")
 				print("	function stat:speed_changed/check")
 			elif buff == "jump":
-				print("	execute unless score @s action_time matches 1.. run effect clear @s minecraft:jump_boost")
-				print("	effect give @s minecraft:jump_boost infinite 0 true")
+				print(f"scoreboard players operation @s jump_strength -= @s {buff}_buff_num")
+				print(f"scoreboard players reset @s {buff}_buff_num")
+				print("	function stat:jump_changed/check")
 			else:
 				print(f"scoreboard players reset @s {buff}_buff_num")
 				if buff == "avoid":
@@ -335,9 +336,9 @@ namespace buff_template(name) as virtual
 				print(f"scoreboard players reset @s {buff}_buff_num")
 				print("	function stat:speed_changed/check")
 			elif buff == "jump":
-				print("	execute unless score @s action_time matches 1.. run effect clear @s minecraft:jump_boost")
-				print("	effect give @s minecraft:jump_boost infinite 0 true")
-				print(f"scoreboard players reset @s jump_buff_num")
+				print(f"scoreboard players operation @s jump_strength -= @s {buff}_buff_num")
+				print(f"scoreboard players reset @s {buff}_buff_num")
+				print("	function stat:jump_changed/check")
 			else:
 				print(f"scoreboard players reset @s {buff}_buff_num")
 				if buff == "avoid":

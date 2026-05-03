@@ -459,7 +459,12 @@ namespace item()
 				execute store result score #GLOBAL temp run data get storage item:main equip.minecraft:custom_data.speed
 				execute store result score #GLOBAL temp run scoreboard players operation @s speed += #GLOBAL temp
 				scoreboard players operation #GLOBAL temp < #40 const
-				execute store result block 250 1 0 Items[0].components.minecraft:attribute_modifiers[0].amount double 0.01 run scoreboard players operation @s real_speed = #GLOBAL temp
+				execute store result block 250 1 0 Items[0].components.minecraft:attribute_modifiers[{id:"minecraft:player_speed"}].amount double 0.01 run scoreboard players operation @s real_speed = #GLOBAL temp
+				
+				execute store result score #GLOBAL temp run data get storage item:main equip.minecraft:custom_data.jump
+				execute store result score #GLOBAL temp run scoreboard players operation @s jump_strength += #GLOBAL temp
+				scoreboard players operation #GLOBAL temp < #20 const
+				execute store result block 250 1 0 Items[0].components.minecraft:attribute_modifiers[{id:"minecraft:player_jump"}].amount double 0.01 run scoreboard players operation @s real_jump_strength = #GLOBAL temp
 				
 				execute store result score #GLOBAL temp run data get storage item:main equip.minecraft:custom_data.str
 				scoreboard players operation @s STR += #GLOBAL temp
@@ -529,14 +534,13 @@ namespace item()
 				scoreboard players operation @s equip_luk -= #GLOBAL temp
 				
 				execute store result score #GLOBAL temp run data get block 250 1 0 Items[0].components.minecraft:custom_data.speed
-				
-				# reset speed attribute modifier
-				item replace block 250 1 0 container.0 with minecraft:carved_pumpkin
-				data modify block 250 1 0 Items[0].components set from entity @s equipment.head.components
 				execute store result score #GLOBAL temp run scoreboard players operation @s speed -= #GLOBAL temp
-				scoreboard players operation #GLOBAL temp < #40 const
-				execute store result block 250 1 0 Items[0].components.minecraft:attribute_modifiers[0].amount double 0.01 run scoreboard players operation @s real_speed = #GLOBAL temp
-				item replace entity @s armor.head from block 250 1 0 container.0
+				execute store result score #GLOBAL temp run data get block 250 1 0 Items[0].components.minecraft:custom_data.jump
+				execute store result score #GLOBAL temp run scoreboard players operation @s jump_strength -= #GLOBAL temp
+				
+				# reset speed and jump attribute modifier
+				function stat:speed_changed/check
+				function stat:jump_changed/check
 			}
 		}
 		
